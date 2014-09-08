@@ -1,0 +1,335 @@
+<!-- This is a test config file for Cheshire II -->
+<DBCONFIG>
+
+<!-- The first filedef -->
+<FILEDEF TYPE=MARCSGML>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> bibfile </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> /usr/users/ray/Work/cheshire/index/testrecs 
+</FILENAME>
+<!-- Explain data for populating databaseinfo records for explain -->
+<EXPLAIN>
+<TITLESTRING> Mathematics Library BIBFile books database
+</TITLESTRING>
+<DESCRIPTION> Contains a small sample from 
+the UCBerkeley Mathematics library catalog
+</DESCRIPTION>
+<DISCLAIMERS LANGUAGE="chi"> This is bogus, just testing the language attribute
+</DISCLAIMERS>
+<NEWS> No news </NEWS>
+<HOURS> Whenever the system is up </HOURS>
+<BESTTIME> Almost any time is good </BESTTIME>
+<LASTUPDATE> Jan. 1993 </LASTUPDATE>
+<UPDATEINTERVAL><VALUE> 10 </VALUE><UNITS> Years </UNITS></UPDATEINTERVAL>
+<COVERAGE> Doesn't cover much </COVERAGE>
+<PROPRIETARY> NO </PROPRIETARY>
+<COPYRIGHTTEXT> This is not copyrighted </COPYRIGHTTEXT>
+<COPYRIGHTNOTICE> This would be a copyright notice </COPYRIGHTNOTICE>
+<PRODUCERCONTACTINFO>
+<contact_name> Ray R. Larson </contact_name>
+<contact_address>102 South Hall UC Berkeley, CA 94720-4600
+</contact_address>
+<contact_email> ray@sherlock.berkeley.edu </contact_email>
+</PRODUCERCONTACTINFO>
+<SUPPLIERCONTACTINFO>
+<contact_name> Ray R. Larson </contact_name>
+<contact_address>102 South Hall UC Berkeley, CA 94720-4600
+</contact_address>
+<contact_email> ray@sherlock.berkeley.edu </contact_email>
+<contact_phone> 642-6046 </contact_phone>
+</SUPPLIERCONTACTINFO>
+</EXPLAIN>
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /usr/users/ray/Work/old_cheshire2/sgml/USMARC08.DTD </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> /usr/users/ray/Work/cheshire/index/testrecs.assoc
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> /usr/users/ray/Work/cheshire/index/TESTDATA/morerecs.sgml.history 
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr/users/ray/Work/cheshire/index/TESTDATA/dictionary.author
+</INDXNAME>
+<INDXTAG> author </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The stoplist for this file -->
+<STOPLIST> /usr/users/ray/Work/cheshire/index/TESTDATA/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD100 </FTAG>
+<FTAG>FLD110 </FTAG>
+<FTAG>FLD111 </FTAG>
+<FTAG>FLD700 </FTAG>
+<FTAG>FLD710 </FTAG>
+<FTAG>FLD711 </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- The next index entry definition -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /usr/users/ray/Work/cheshire/index/TESTDATA/dictionary.xauthor
+</INDXNAME>
+<INDXTAG> xauthor </INDXTAG>
+
+<INDXMAP> 
+<USE> 1 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 2 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 3 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1002 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1003 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1004 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1005 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1006 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/cheshire/index/TESTDATA/authorstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<!-- Notice the use of pattern matching in the following -->
+<FTAG>FLD[178]00 </FTAG> <S> ^a$ </S>
+<FTAG>FLD[178]10 </FTAG> <S> ^[abdc]$ </S>
+<FTAG>FLD[178]11 </FTAG> <S> ^[abdc]$ </S>
+<FTAG>FLD600 </FTAG> <S> ^a$ </S>
+<FTAG>FLD610 </FTAG> <S> ^[ab]$ </S>
+<FTAG>FLD611 </FTAG> <S> ^[ab]$ </S> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/cheshire/index/TESTDATA/dictionary.title </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/cheshire/index/TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><S>^[ab]$ </S>
+<FTAG>FLD240 </FTAG> <S> ^[atp]$ </S>
+<FTAG>FLD130 </FTAG>
+<FTAG>FLD730 </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /usr/users/ray/Work/cheshire/index/TESTDATA/dictionary.xtitle </INDXNAME>
+<INDXTAG> xtitle </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/cheshire/index/TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><S>[ab] </S>
+<FTAG>FLD240 </FTAG> <S>[abtp] </S>
+<FTAG>FLD130 </FTAG> <s>[ab] </s>
+<FTAG>FLD730 </FTAG> <s>[ab] </s> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/cheshire/index/TESTDATA/dictionary.subject </INDXNAME>
+<INDXTAG> subject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/cheshire/index/TESTDATA/subjstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD_PROXIMITY NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/cheshire/index/TESTDATA/dictionary.topic </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/cheshire/index/TESTDATA/titlestoplist </STOPLIST>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG><S>[abz]</S>
+<FTAG>FLD245 </FTAG><S>[ab] </S>                                           
+<FTAG>FLD240 </FTAG><S>[atp] </S>                                          
+<FTAG>FLD4.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD8.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD130 </FTAG><s>[atp]</s>
+<FTAG>FLD730 </FTAG><s>[atp]</s>
+<FTAG>FLD740 </FTAG><S>[ap]</s>
+<FTAG>FLD1.. </FTAG><S>t </S>
+<FTAG>FLD7.. </FTAG><S>t </S>
+<!-- Note this is the call number but it will not be normalized --> 
+<FTAG>FLD950 </FTAG><S>a </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=CLASSCLUS>
+<INDXNAME> /usr/users/ray/Work/cheshire/index/TESTDATA/dictionary.lcclass </INDXNAME>
+<INDXTAG> lcclass </INDXTAG>
+
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 3 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 3 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD050 </FTAG> <s> ^a </s>
+<FTAG>FLD950 </FTAG> <s> ^a </s>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	<!-- the following is shared with subject -->
+		/usr/users/ray/Work/cheshire/index/TESTDATA/xx.doctype_dict
+		
+</INDXNAME>
+<INDXTAG>	doctype
+		
+</INDXTAG>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 4 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 1 </struct></INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>USMARC</FTAG><ATTR>MATERIAL</ATTR>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE PRIMARYKEY=IGNORE>
+<INDXNAME> 
+/usr/users/ray/Work/cheshire/index/TESTDATA/dictionary.localnum
+</INDXNAME>
+<INDXTAG> localnum </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- No stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD001  </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ************************** DATE *********************************** -->
+<!-- the following index extracts the DATE element from the MARC 260 field -->
+<INDEXDEF ACCESS=BTREE EXTRACT=DATE NORMAL="MONTH DD, YYYY">
+<INDXNAME> /usr/users/ray/Work/cheshire/index/TESTDATA/date1.index
+</INDXNAME>
+<INDXTAG>	date1
+</INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the date tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP>
+<USE> 30 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 31 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>FLD260</FTAG><s>^c$</s>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ************************** DATE *********************************** -->
+<!-- the following index extracts the DATE element from the MARC 260 field -->
+<INDEXDEF ACCESS=BTREE EXTRACT=DATE_RANGE NORMAL="CENTURY-CENTURY">
+<INDXNAME> /usr/users/ray/Work/cheshire/index/TESTDATA/date2.index
+</INDXNAME>
+<INDXTAG>	date2
+</INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the date tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP>
+<USE> 38 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 39 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>FLD260</FTAG><s>^c$</s>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+
+</INDEXES> 
+</FILEDEF> 
+</DBCONFIG>
+
+

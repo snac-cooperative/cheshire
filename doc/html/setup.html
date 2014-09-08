@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Cheshire Installation</title>
+  </head>
+
+  <body bgcolor = white>
+    <p> 
+      <center><h3>Cheshire Installation</h3></center>
+    <p>
+      This document aims to step through compiling and installing the Cheshire search engine on a Unix platform (Solaris, Alpha, HPUX and Linux are currently supported).  It assumes some knowledge of unix, including creating new users and basic file functions, as well as a typical development environment (gcc, make etc).
+      <p>
+      <b>1. User Creation</b><br>
+      First, create a user called 'cheshire'. This is the user that will own all the cheshire files, including the data to be indexed.  The web front end to cheshire must be run as the same user that owns the databases, and as such the easiest way to do this is if there is a user specifically for this purpose. The command to do this is either 'useradd' or 'adduser' depending on your system. There are also many graphical tools to do this as well. In this process a home directory should have been created, this is where you'll want to set up the directories as below. 
+    <p>
+      <b>2. Directory Setup</b><br>
+      Remember to do this step <i>as the cheshire user</i> that you just created.  In cheshire's home, create two directories, one called 'cheshire' and one with the appropriate name for your web server's user pages - typically 'public_html'.
+      <br>In the new 'cheshire' directory create a directory called 'default' - this is where the default declarations, dtds, catalogs and so forth will be kept.  In this, create the following directories:  'charsets', 'dtds' and 'stoplists'.
+<br>
+In the 'public_html' directory, make a directory for the cgi scripts. Typically this will be called 'cgi-bin' or 'bin'.
+    <p>
+      <b>3. Web Server Setup</b><br>
+      You'll need to add the cgi directory created in the previous step to your web server's configuration file. In Apache, this will look something like:
+    <p>
+      <code>
+	&lt;Directory /home/cheshire/public_html/cgi-bin&gt;<br>
+	&nbsp;&nbsp;AllowOverride None<br>
+	&nbsp;&nbsp;Options ExecCGI<br>
+	&lt;/Directory&gt;
+      </code>
+    <p>
+      You'll also need to ensure that the webserver will run the scripts in the directory as the cheshire user. In Apache this is typically done via 'suexec'. There is documentation on how to set this up in the Apache docs. Typically you'll simply need to add the 's' flag with chmod to the executable in /usr/sbin/ and restart your web server for this to work. (But read the Apache documentation!)
+      <p>
+      Note also that the cgi scripts need to have the tcl/tk libraries available in the linker path. If libtcl and libtk are not in the default paths, then you'll need to either run all the cheshire cgi scripts through a shell script that sets the environment, or preferably set the environment variable in the web server configuration.
+    <p>
+      <b>5. Get the Source</b><br>
+      The latest version of the source code for cheshire will be available at <a href = "ftp://cheshire.berkeley.edu/pub/cheshire/">ftp://cheshire.berkeley.edu/pub/cheshire/</a>.  Untar this in the (home)/cheshire/ directory. It should create a directory called cheshire2.(version). Create a symlink called 'cheshire' to this. 
+      <br>Cheshire also currently relies on TCL/TK, llgen and flex - if your system doesn't have the versions in the FTP site, then you'll need to install these as well. This bit will need to be done as a superuser, or the environment for your webserver will need to be updated to look for libraries where ever you install them.  Installing these is outside the scope of this document.
+    <p>
+      <b>6. Setup the Makefile and Compile</b><br>
+      First go into the source directory.  Currently there is no autoconf for Cheshire and the Makefile must be setup by hand. Thankfully there are templates for Solaris, Linux and NT already done.  Copy the Makefile.(system) file to Makefile, and then edit it. Make sure that the top section has the correct paths to TCL and TK, and that the X paths are correct as well.
+      <br>
+      To do a full compile, the command is 'make bin'. A basic cleanup is 'make clean', but to get rid of all the built libraries and the BerkeleyDB code, do 'make reallyclean'.  The -j flag for make can be used without any problems, and can reduce the compile time drastically on multi processor machines.
+      <br>
+      Assuming that it compiles okay, the executables should now be in the 'bin' directory. In (home)/cheshire/ create a symlink called 'bin' to 'cheshire/bin'. This way all the scripts can reference this path, which will always point to the most recent version.
+    <p>
+      <b>7. Server Setup</b><br>
+      The Z39.50 server is run via 'inetd' and needs an entry in /etc/services and /etc/inetd.conf.  These lines should look like:
+    <p>
+      /etc/services:
+    <pre>
+cheshire        210/tcp         ir              # Cheshire
+    </pre>      
+    <p>
+      /etc/inetd.conf:
+    <pre>
+cheshire stream tcp     nowait cheshire /(home)/cheshire/bin/zserver zserver -c /etc/zserver.conf
+    </pre>
+    Remember to put in the correct home directory above.
+    <p>
+      You also need to setup /etc/zserver.conf. First copy the file 'server.init' from the zserver directory in the source code to /etc/zserver.conf.  Then you'll need to add your own details to the Explain section at the bottom, as well as making sure that the port setting is correct for your server. Typically this will be 210, or 2100.
+    <p>
+
+      <b>8. Create a Database Directory</b><br>
+      In (home)/cheshire/ create a directory with the name of your database. This is where the database specific configuration files and data will be kept.  In here, create two further directories called 'DATA' and 'indexes'. This will be were the data and indexes are kept, not surprisingly.
+    <p>
+      Your directory structure should now look like:
+      <table border = 1>
+	<tr><td rowspan = 9 valign = top>(home directory) -></td><td rowspan = 8 valign = top>cheshire -></td><td colspan =2>bin <i>symlink to cheshire/bin</i></td></tr>
+	<tr><td colspan = 2>cheshire <i>symlink to cheshire2.(version)</i></td></tr>
+	<tr><td>cheshire2.(version) -></td><td><i>Source code</i></td></tr>
+	<tr><td rowspan = 3 valign = top>default -></td><td>charsets</td></tr>
+	<tr><td>dtds</td></tr>
+	<tr><td>stoplists</td></tr>
+	<tr><td rowspan = 2>(database) -></td><td>DATA</td></tr>
+	<tr><td>indexes</td></tr>
+	<tr><td>public_html -></td><td colspan = 2>cgi-bin</td></tr>
+      </table>
+
+    <p>
+      <b>9. Install Default Files</b><br>
+      This is pretty easy, just copy the contents of cheshire/cheshire/doc/charsets into the the charsets directory in default, and cheshire/cheshire/doc/default_sgml_dcl into the 'default' directory. Note that you need to reference this sgml declaration in the catalog file pointed to by the &lt;sgmlcat&gt; tag in the database configuration files.
+
+    <p>
+      Now we're ready to configure the specific database that you want to have searchable. For more information on this process, see the <a href = "config.html">configuration</a> page.
+<p>
+    <hr>
+  </body>
+</html>

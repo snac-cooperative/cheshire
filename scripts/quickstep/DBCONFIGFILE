@@ -1,0 +1,197 @@
+
+<DBCONFIG>
+<DBENV> /home/cheshire/cheshire/default </DBENV>
+<FILEDEF TYPE=SGML>
+<FILETAG> quickstep </FILETAG>
+<FILENAME> /home/cheshire/cheshire/quickstep/quickstep.sgml </FILENAME>
+
+<FILEDTD> /home/cheshire/cheshire/quickstep/dtd.wrapper </FILEDTD>
+<SGMLCAT> /home/cheshire/cheshire/quickstep/catalog </SGMLCAT>
+<ASSOCFIL> /home/cheshire/cheshire/quickstep/quickstep.assoc
+</ASSOCFIL>
+<HISTORY> /home/cheshire/cheshire/quickstep/quickstep.history
+</HISTORY>
+
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /home/cheshire/cheshire/quickstep/indexes/anywhere.index </INDXNAME>
+<INDXTAG> anywhere </INDXTAG>
+<INDXMAP>
+<USE> 1016 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1016 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<STOPLIST> /home/cheshire/cheshire/quickstep/stoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^message$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /home/cheshire/cheshire/quickstep/indexes/author.index </INDXNAME>
+<INDXTAG> author </INDXTAG>
+
+<INDXMAP>
+<USE> 1 </USE> <POSIT> 3 </POSIT> <STRUCT> 6 </STRUCT>
+</INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^from$</FTAG>
+<FTAG>^fromaddress$</FTAG>
+<FTAG>^sender$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /home/cheshire/cheshire/quickstep/indexes/xauthor.index </INDXNAME>
+<INDXTAG> xauthor </INDXTAG>
+
+<INDXMAP>
+<USE> 1003</USE> <posit> 3 </posit> <struct> 1</struct>
+</INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^from$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /home/cheshire/cheshire/quickstep/indexes/subject.index </INDXNAME>
+<INDXTAG> subject </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE> <POSIT> 3 </POSIT> <STRUCT> 6 </STRUCT>
+</INDXMAP>
+<STOPLIST> /home/cheshire/cheshire/quickstep/stoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^subject$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /home/cheshire/cheshire/quickstep/indexes/xsubject.index </INDXNAME>
+<INDXTAG> xsubject </INDXTAG>
+
+<INDXMAP>
+<USE>21</USE> <posit>3</posit> <struct> 1 </struct>
+</INDXMAP>
+<STOPLIST> /home/cheshire/cheshire/quickstep/subjectstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^subject$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /home/cheshire/cheshire/quickstep/indexes/text.index </INDXNAME>
+<INDXTAG> text </INDXTAG>
+
+<INDXMAP>
+<USE> 1010 </USE> <POSIT> 3 </POSIT> <STRUCT> 6 </STRUCT>
+</INDXMAP>
+<STOPLIST> /home/cheshire/cheshire/quickstep/stoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^body$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<INDEXDEF ACCESS=BTREE EXTRACT=DATE NORMAL=UNIX_TIME>
+<INDXNAME> /home/cheshire/cheshire/quickstep/indexes/date.index </INDXNAME>
+<INDXTAG> date </INDXTAG>
+
+<INDXMAP>
+<USE> 30 </USE> <POSIT> 3 </POSIT> <STRUCT> 6 </STRUCT>
+</INDXMAP>
+<STOPLIST> /home/cheshire/cheshire/quickstep/stoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^fromdate$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /home/cheshire/cheshire/quickstep/indexes/xdate.index </INDXNAME>
+<INDXTAG> xdate </INDXTAG>
+
+<INDXMAP>
+<USE> 1102 </USE> <POSIT> 3 </POSIT> <STRUCT> 6 </STRUCT>
+</INDXMAP>
+<STOPLIST> /home/cheshire/cheshire/quickstep/stoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^fromdate$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+
+</INDEXES>
+
+<DISPLAYS>
+<DISPLAYDEF name="tpgrs" OID="1.2.840.10003.5.105">
+  <convert function="TAGSET-G"> 
+   <clusmap>
+        <from>
+                <tagspec>
+                <ftag>#DOCID#</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>5</ftag>
+                </tagspec></to> 
+        <from>
+               <tagspec>
+	<ftag>subject</ftag>
+	</tagspec></from>
+         <to>
+	<tagspec>
+	<ftag>1</ftag>
+	</tagspec></to>
+         <from>
+               <tagspec>
+               <ftag>from</ftag>
+               </tagspec></from>
+          <to> 	
+	<tagspec>
+	<ftag>2</ftag>
+	</tagspec></to>
+          <from>
+ 	<tagspec>
+	<ftag>fromdate</ftag>
+	</tagspec></from>
+          <to>
+	<tagspec>
+	<ftag>8</ftag>
+	</tagspec></to>
+	
+</clusmap>
+</convert>
+
+</DISPLAYDEF>
+</DISPLAYS>
+
+</FILEDEF> 
+</DBCONFIG>
+
+
+
+

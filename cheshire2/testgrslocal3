@@ -1,0 +1,18 @@
+puts "Connecting to durham db"
+zselect sherlock
+zset database durham
+zset recsyntax GRS1
+set results [zfind docid 79]
+puts "Search results: $results"
+set disp [zdisplay]
+
+puts "Display results: "
+
+foreach rec [lrange $disp 1 end] {
+    puts "++++++++++++++++++++++++++++++++++++++++++++++++++"
+    foreach tag $rec {
+	    set tg [lindex [lindex $tag 0] 1]
+	    puts "TAG: $tg"
+
+    }
+}

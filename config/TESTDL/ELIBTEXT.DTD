@@ -1,0 +1,116 @@
+<!SGML  "ISO 8879:1986"
+--
+--
+
+CHARSET
+         BASESET  "ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0"
+         DESCSET  0   9   UNUSED
+                  9   2   9
+                  11  2   UNUSED
+                  13  1   13
+                  14  18  UNUSED
+                  32  95  32
+                  127 1   UNUSED
+     BASESET   "ISO Registration Number 100//CHARSET
+                ECMA-94 Right Part of Latin Alphabet Nr. 1//ESC 2/13 4/1"
+     DESCSET   128 32 UNUSED
+               160 95 32
+               255  1 UNUSED
+
+
+CAPACITY        SGMLREF
+                TOTALCAP        150000
+                GRPCAP          150000
+  
+SCOPE    DOCUMENT
+SYNTAX   
+         SHUNCHAR CONTROLS 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+                           19 20 21 22 23 24 25 26 27 28 29 30 31 127 255
+         BASESET  "ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0"
+         DESCSET  0 128 0
+         FUNCTION RE          13
+                  RS          10
+                  SPACE       32
+                  TAB SEPCHAR  9
+         NAMING   LCNMSTRT ""
+                  UCNMSTRT ""
+                  LCNMCHAR ".-"
+                  UCNMCHAR ".-"
+                  NAMECASE GENERAL YES
+                           ENTITY  NO
+         DELIM    GENERAL  SGMLREF
+                  SHORTREF SGMLREF
+         NAMES    SGMLREF
+         QUANTITY SGMLREF
+                  NAMELEN  40
+                  TAGLVL   100
+                  LITLEN   1024
+                  GRPGTCNT 150
+                  GRPCNT   64                   
+
+FEATURES
+  MINIMIZE
+    DATATAG  NO
+    OMITTAG  YES
+    RANK     NO
+    SHORTTAG YES
+  LINK
+    SIMPLE   NO
+    IMPLICIT NO
+    EXPLICIT NO
+  OTHER
+    CONCUR   NO
+    SUBDOC   NO
+    FORMAL   YES
+  APPINFO    NONE
+>
+<!doctype ELIB-TEXTS [
+
+<!-- This is a DTD for bibliographic records extracted from the 
+     elib/rfc1357 simple bibliographic format. The tagging is simple
+     with nothing particular about it. The structure has been kept
+     flat within the individual records. The only somewhat interesting
+     thing is the TEXT-REF tag which is used to contain a reference to
+     the full text of entry stored in the "hyper_ocr" format. We use
+     the hyper_ocr format because it should contain the ocr for the
+     entire document and not just a particular page. -->
+
+<!ELEMENT ELIB-TEXTS o o (ELIB-BIB*)>
+
+<!-- We allow most elements to occur any number of times in any order -->
+<!-- this is because there is little consistency in the actual usage. -->
+<!ELEMENT ELIB-BIB - - (BIB-VERSION, ID, ENTRY?, DATE?, TITLE*, ORGANIZATION*,
+(SERIES | TYPE | REVISION |
+AUTHOR-PERSONAL | AUTHOR-INSTITUTIONAL | AUTHOR-CONTRIBUTING-PERSONAL |
+AUTHOR-CONTRIBUTING-INSTITUTIONAL | AUTHOR | PROJECT | PAGES | 
+ULTIMATE-CLIENT | KEYWORDS | NOTES | ABSTRACT)*, (TEXT-REF | PAGED-REF)* )>
+
+<!-- We won't make any assumptions about content... all PCDATA -->
+
+<!ELEMENT ID  - o (#PCDATA)>
+<!ELEMENT ABSTRACT  - o (#PCDATA)>
+<!ELEMENT AUTHOR-CONTRIBUTING-INSTITUTIONAL  - o (#PCDATA)>
+<!ELEMENT AUTHOR-CONTRIBUTING-PERSONAL  - o (#PCDATA)>
+<!ELEMENT AUTHOR-INSTITUTIONAL  - o (#PCDATA)>
+<!ELEMENT AUTHOR-PERSONAL  - o (#PCDATA)>
+<!ELEMENT AUTHOR  - o (#PCDATA)>
+<!ELEMENT BIB-VERSION  - o (#PCDATA)>
+<!ELEMENT DATE  - o (#PCDATA)>
+<!ELEMENT ENTRY  - o (#PCDATA)>
+<!ELEMENT KEYWORDS  - o (#PCDATA)>
+<!ELEMENT NOTES  - o (#PCDATA)>
+<!ELEMENT ORGANIZATION  - o (#PCDATA)>
+<!ELEMENT PAGES  - o (#PCDATA)>
+<!ELEMENT PROJECT  - o (#PCDATA)>
+<!ELEMENT REVISION  - o (#PCDATA)>
+<!ELEMENT SERIES  - o (#PCDATA)>
+<!ELEMENT TITLE  - o (#PCDATA)>
+<!ELEMENT TYPE  - o (#PCDATA)>
+<!ELEMENT ULTIMATE-CLIENT  - o (#PCDATA)>
+<!ELEMENT TEXT-REF  - o (#PCDATA)>
+<!ELEMENT PAGED-REF  - o (#PCDATA)>
+
+]>
+

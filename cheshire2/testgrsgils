@@ -1,0 +1,22 @@
+puts "Connecting to ATT Factbook"
+zselect gils
+zset recsyntax GRS1
+set results [zfind title california]
+puts "Search results: $results"
+set disp [zdisplay]
+
+
+
+puts "Display results: "
+
+foreach rec [lrange $disp 1 end] {
+    puts "++++++++++++++++++++++++++++++++++++++++++++++++++"
+    foreach tag $rec {
+	    set tg [lindex [lindex $tag 0] 1]
+	    set tt [lindex [lindex $tag 0] 0]
+	    set cont [lindex [lindex $tag 1] 1]
+	    puts "TAG: $tt $tg"
+	    puts "CONT: $cont"
+
+    }
+}

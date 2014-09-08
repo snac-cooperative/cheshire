@@ -1,0 +1,1328 @@
+<!-- This is a test config file for Cheshire II -->
+<DBCONFIG>
+<DBENV> /home/ray/Work/DBENV </DBENV>
+
+<!-- The first filedef is a virtual file which is actually just a way -->
+<!-- to search and retrieve from all of added filedefs  below         -->
+<!-- this file is an example for virtual files used with webcheshire  -->
+<FILEDEF TYPE=VIRTUAL>
+
+<DEFAULTPATH> /home/ray/Work/cheshire/index </DEFAULTPATH>
+
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> vdb </FILETAG>
+
+<!-- filenames for virtual dbs are just the filetag names of OTHER    -->
+<!-- files in this or other configfiles on the same server. The names -->
+<!-- are used to look those files and process them for retrieval      -->
+<!-- Virtual db configfiles are NOT used for indexing, only retrieval -->
+<FILENAME> vdb </FILENAME>   <!-- should be the same as the filetag   -->
+<FILENAME> scilib</FILENAME> <!-- this is an actual database see server.init -->
+<FILETAG> bibfile </FILETAG> <!-- this is an actual database -->
+
+<!-- The virtual DB needs no index definitions (indexes of the actual  -->
+<!-- files are used for searching and retrieval                        -->
+<!-- You can have explain stuff for virtual dbs                        -->
+<EXPLAIN>
+<TITLESTRING> Sample virtual database (uses bibfile and scilib)
+</TITLESTRING>
+<DESCRIPTION> Combined searching of multiple databases using a single
+database name (vdb)
+</DESCRIPTION>
+<DISCLAIMERS> The scilib database is only on Ray's system.
+</DISCLAIMERS>
+<NEWS> No news </NEWS>
+<HOURS> Whenever the system is up </HOURS>
+<BESTTIME> Almost any time is good </BESTTIME>
+<LASTUPDATE> Feb. 2002 </LASTUPDATE>
+<UPDATEINTERVAL><VALUE> 1 </VALUE><UNIT> Years </UNIT></UPDATEINTERVAL>
+<COVERAGE> Bunch of stuff </COVERAGE>
+<PROPRIETARY> NO </PROPRIETARY>
+<COPYRIGHTTEXT> This is not copyrighted </COPYRIGHTTEXT>
+<COPYRIGHTNOTICE> This would be a copyright notice if it was</COPYRIGHTNOTICE>
+<PRODUCERCONTACTINFO>
+<contact_name> Ray R. Larson </contact_name>
+<contact_address>102 South Hall UC Berkeley, CA 94720-4600
+</contact_address>
+<contact_email> ray@sherlock.berkeley.edu </contact_email>
+</PRODUCERCONTACTINFO>
+<SUPPLIERCONTACTINFO>
+<contact_name> Ray R. Larson </contact_name>
+<contact_address>102 South Hall UC Berkeley, CA 94720-4600
+</contact_address>
+<contact_email> ray@sherlock.berkeley.edu </contact_email>
+<contact_phone> 642-6046 </contact_phone>
+</SUPPLIERCONTACTINFO>
+</EXPLAIN>
+</FILEDEF> 
+
+<!-- The first (real) filedef -->
+<FILEDEF TYPE=MARCSGML>
+
+<DEFAULTPATH> /home/ray/Work/cheshire/index </DEFAULTPATH>
+
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> bibfile </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> testrecs 
+</FILENAME>
+<FILENAME> blotz </FILENAME> <!-- this is an alias -->
+<FILENAME> mathfile </FILENAME> <!-- this is an alias -->
+<FILENAME> math </FILENAME> <!-- this is an alias -->
+<!-- Explain data for populating databaseinfo records for explain -->
+<EXPLAIN>
+<TITLESTRING> Mathematics Library BIBFile books database
+</TITLESTRING>
+<DESCRIPTION> Contains a small sample from 
+the UCBerkeley Mathematics library catalog
+</DESCRIPTION>
+<DISCLAIMERS LANGUAGE="chi"> This is bogus, just testing the language attribute
+</DISCLAIMERS>
+<NEWS> No news </NEWS>
+<HOURS> Whenever the system is up </HOURS>
+<BESTTIME> Almost any time is good </BESTTIME>
+<LASTUPDATE> Jan. 1993 </LASTUPDATE>
+<UPDATEINTERVAL><VALUE> 10 </VALUE><UNIT> Years </UNIT></UPDATEINTERVAL>
+<COVERAGE> Doesn't cover much </COVERAGE>
+<PROPRIETARY> NO </PROPRIETARY>
+<COPYRIGHTTEXT> This is not copyrighted </COPYRIGHTTEXT>
+<COPYRIGHTNOTICE> This would be a copyright notice </COPYRIGHTNOTICE>
+<PRODUCERCONTACTINFO>
+<contact_name> Ray R. Larson </contact_name>
+<contact_address>102 South Hall UC Berkeley, CA 94720-4600
+</contact_address>
+<contact_email> ray@sherlock.berkeley.edu </contact_email>
+</PRODUCERCONTACTINFO>
+<SUPPLIERCONTACTINFO>
+<contact_name> Ray R. Larson </contact_name>
+<contact_address>102 South Hall UC Berkeley, CA 94720-4600
+</contact_address>
+<contact_email> ray@sherlock.berkeley.edu </contact_email>
+<contact_phone> 642-6046 </contact_phone>
+</SUPPLIERCONTACTINFO>
+</EXPLAIN>
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /home/ray/Work/cheshire/doc/USMARC08.DTD </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> testrecs.assoc
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> TESTDATA/morerecs.sgml.history 
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> TESTDATA/dictionary.author </INDXNAME>
+<INDXTAG> author </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The stoplist for this file -->
+<STOPLIST> TESTDATA/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD100 </FTAG>
+<FTAG>FLD110 </FTAG>
+<FTAG>FLD111 </FTAG>
+<FTAG>FLD700 </FTAG>
+<FTAG>FLD710 </FTAG>
+<FTAG>FLD711 </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- The next index entry definition -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> TESTDATA/dictionary.xauthor
+</INDXNAME>
+<INDXTAG> xauthor </INDXTAG>
+
+<INDXMAP> 
+<USE> 1 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 2 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 3 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1002 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1003 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1004 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1005 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1006 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> TESTDATA/authorstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<!-- Notice the use of pattern matching in the following -->
+<FTAG>FLD[178]00 </FTAG> <S> ^a$ </S>
+<FTAG>FLD[178]10 </FTAG> <S> ^[abdc]$ </S>
+<FTAG>FLD[178]11 </FTAG> <S> ^[abdc]$ </S>
+<FTAG>FLD600 </FTAG> <S> ^a$ </S>
+<FTAG>FLD610 </FTAG> <S> ^[ab]$ </S>
+<FTAG>FLD611 </FTAG> <S> ^[ab]$ </S> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> TESTDATA/dictionary.title </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><S>^[ab]$ </S>
+<FTAG>FLD240 </FTAG> <S> ^[atp]$ </S>
+<FTAG>FLD130 </FTAG>
+<FTAG>FLD730 </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=DO_NOT_NORMALIZE>
+<INDXNAME> TESTDATA/dictionary.untitle </INDXNAME>
+<INDXTAG> untitle </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><S>a </S>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> TESTDATA/dictionary.xtitle </INDXNAME>
+<INDXTAG> xtitle </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><S>[ab] </S>
+<FTAG>FLD240 </FTAG> <S>[abtp] </S>
+<FTAG>FLD130 </FTAG> <s>[ab] </s>
+<FTAG>FLD730 </FTAG> <s>[ab] </s> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=DO_NOT_NORMALIZE>
+<INDXNAME> TESTDATA/dictionary.xxtitle </INDXNAME>
+<INDXTAG> xxtitle </INDXTAG>
+
+<INDXMAP>
+<USE> 7 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><s>a</s>
+</TAGSPEC> 
+</INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> TESTDATA/dictionary.subject </INDXNAME>
+<INDXTAG> subject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> TESTDATA/subjstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> TESTDATA/dictionary.xsubject </INDXNAME>
+<INDXTAG> xsubject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD_PROXIMITY NORMAL=STEM>
+<INDXNAME> TESTDATA/dictionary.topic </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 29 </USE>
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT>
+</INDXMAP>
+
+<STOPLIST> TESTDATA/titlestoplist </STOPLIST>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG><S>[abz]</S>
+<FTAG>FLD245 </FTAG><S>[ab] </S>                                           
+<FTAG>FLD240 </FTAG><S>[atp] </S>                                          
+<FTAG>FLD4.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD8.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD130 </FTAG><s>[atp]</s>
+<FTAG>FLD730 </FTAG><s>[atp]</s>
+<FTAG>FLD740 </FTAG><S>[ap]</s>
+<FTAG>FLD1.. </FTAG><S>t </S>
+<FTAG>FLD7.. </FTAG><S>t </S>
+<!-- Note this is the call number but it will not be normalized --> 
+<FTAG>FLD950 </FTAG><S>a </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=CLASSCLUS>
+<INDXNAME> TESTDATA/dictionary.lcclass </INDXNAME>
+<INDXTAG> lcclass </INDXTAG>
+
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 3 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 3 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD050 </FTAG> <s> ^a </s>
+<FTAG>FLD950 </FTAG> <s> ^a </s>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	<!-- the following is shared with subject -->
+		TESTDATA/xx.doctype_dict
+		
+</INDXNAME>
+<INDXTAG>	doctype
+		
+</INDXTAG>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 4 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 1 </struct></INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>USMARC</FTAG><ATTR>MATERIAL</ATTR>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE PRIMARYKEY=IGNORE>
+<INDXNAME> 
+TESTDATA/dictionary.localnum
+</INDXNAME>
+<INDXTAG> localnum </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- No stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD001  </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+</INDEXES>
+
+<COMPONENTS>
+<COMPONENTDEF>
+<COMPONENTNAME> TESTDATA/COMPONENT_DB1 </COMPONENTNAME>
+<COMPONENTNORM>NONE</COMPONENTNORM>
+<COMPSTARTTAG>
+<TAGSPEC>
+<FTAG>mainenty </FTAG>
+<FTAG>titles </FTAG>
+</TAGSPEC>
+</COMPSTARTTAG>
+<COMPENDTAG>
+<TAGSPEC><FTAG>Fld300 </FTAG></TAGSPEC>
+</COMPENDTAG>
+<COMPONENTINDEXES>
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+TESTDATA/comp1index1.author
+</INDXNAME>
+<INDXTAG> comp1_author </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1000 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+
+<!-- The stoplist for this file -->
+<STOPLIST> TESTDATA/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> .* </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+</COMPONENTINDEXES>
+</COMPONENTDEF>
+
+<COMPONENTDEF>
+<COMPONENTNAME> TESTDATA/COMPONENT_DB2 </COMPONENTNAME>
+<COMPONENTNORM>NONE</COMPONENTNORM>
+<COMPSTARTTAG>
+<TAGSPEC>
+<FTAG>titles </FTAG><S> FLD245 </S><ATTR> Addenty <VALUE> NO </value></attr>
+</TAGSPEC>
+</COMPSTARTTAG>
+<!-- /* no end tag */ -->
+<COMPONENTINDEXES>
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+TESTDATA/comp2index1.xxx
+</INDXNAME>
+<INDXTAG> stuff </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1010 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+</COMPONENTINDEXES>
+</COMPONENTDEF>
+
+</COMPONENTS>
+
+ 
+<DISPOPTIONS>
+KEEP_ALL
+</DISPOPTIONS>
+
+<DISPLAY>
+ <FORMAT NAME="B" OID="1.2.840.10003.5.109.9">
+  <exclude COMPRESS>
+        <tagspec>
+                <ftag>Leader</ftag>
+                <ftag>Directry</ftag>
+                <ftag>VarCFlds</ftag>
+                <ftag>Numbcode</ftag>
+                <ftag>EdImprnt</ftag>
+                <ftag>PhysDesc</ftag>
+                <ftag>Series</ftag>
+                <ftag>Notes</ftag>
+                <ftag>SubjAccs</ftag>
+                <ftag>AddEnty</ftag>
+                <ftag>Fld9XX</ftag>
+        </tagspec>
+  </exclude>
+</format>
+
+
+<FORMAT NAME="TESTATTR" OID="1.2.840.10003.5.105">
+  <convert function="TAGSET-G"> 
+   <clusmap>
+        <from>
+                <tagspec>
+                <ftag>#DOCID#</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>5</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>FLD245</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>1</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>USMARC</ftag><ATTR>ID</ATTR>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>17</ftag>
+                </tagspec></to>
+   </clusmap>
+ </convert>
+</FORMAT>
+
+<FORMAT NAME="HTML" OID="1.2.840.10003.5.109.3" >
+  <convert function="/home/ray/Work/cheshire/index/tohtml.tcl"> 
+ </convert>
+</FORMAT>
+<FORMAT NAME="CONVF" OID="1.2.840.10003.5.101" >
+  <convert function="/home/ray/Work/cheshire/index/tohtml.tcl"> 
+ </convert>
+</FORMAT>
+</DISPLAY>
+</FILEDEF> 
+
+<!-- ******************************************************************* -->
+<!-- ************************* SCILIB  ********************************* -->
+<!-- *********************** DEFINITIONS ******************************* -->
+<!-- ******************************************************************* -->
+<!-- The config file for the Cheshire II - Science Libraries Database    -->
+
+<!-- The Main bibliographic file -->
+<FILEDEF TYPE=MARCSGML>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> scilib </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> /projects/cheshire/DATA/SCILIB_NEW/SCILIB.SGML
+</FILENAME>
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /projects/cheshire/DATA/SCILIB_NEW/USMARC10.DTD </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> /projects/cheshire/DATA/SCILIB_NEW/SCILIB.SGML.assoc
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> /projects/cheshire/DATA/SCILIB_NEW/SCILIB.SGML.history
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- ******************************************************************* -->
+<!-- ************************* NAMES *********************************** -->
+<!-- ******************************************************************* -->
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>
+/projects/cheshire/DATA/SCILIB_NEW/names.index
+</INDXNAME>
+<INDXTAG> names </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers                        -->
+<!-- Note that this will match all requests for "author"                  -->
+<!-- and the personal author index won't be used                          -->
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The stoplist for this file -->
+<STOPLIST> /projects/cheshire/DATA/SCILIB_NEW/authorstoplist
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD[1678]00  </FTAG><s>^[aqbc]</s>
+<FTAG>FLD[1678]10 </FTAG><s>^[ab]</s>
+<FTAG>FLD[1678]11 </FTAG><s>^[andce]</s>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ********************** PERSONAL AUTHOR **************************** -->
+<!-- ******************************************************************* -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>
+/projects/cheshire/DATA/SCILIB_NEW/pauthor.index
+</INDXNAME>
+<INDXTAG> pauthor </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The stoplist for this file -->
+<STOPLIST> /projects/cheshire/DATA/SCILIB_NEW/authorstoplist
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD[178]00  </FTAG><s>^[aqbc]</s>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+
+<!-- ******************************************************************* -->
+<!-- ************************* EXACT NAMES ***************************** -->
+<!-- ******************************************************************* -->
+<!-- The following is for searching exact names of all types             -->
+<!-- all the "name" indexes are mapped to here for exact name            -->
+<!-- searches.                                                           -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /projects/cheshire/DATA/SCILIB_NEW/xnames.index
+</INDXNAME>
+<INDXTAG> xnames </INDXTAG>
+
+<INDXMAP>
+	<USE> 1 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP>
+	<USE> 2 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP>
+	<USE> 3 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP>
+	<USE> 1002 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP>
+	<USE> 1003 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP>
+	<USE> 1004 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP>
+	<USE> 1005 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP>
+	<USE> 1006 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc>
+	</INDXMAP>
+
+<STOPLIST> /projects/cheshire/DATA/SCILIB_NEW/authorstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<!-- Notice the use of pattern matching in the following -->
+<FTAG>FLD[1678]00  </FTAG><s>^[aqbc]</s>
+<FTAG>FLD[1678]10 </FTAG><s>^[ab]</s>
+<FTAG>FLD[1678]11 </FTAG><s>^[andce]</s>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* TITLE *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following provides keyword title access                         -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /projects/cheshire/DATA/SCILIB_NEW/title.index </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+	<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+	<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+	<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /projects/cheshire/DATA/SCILIB_NEW/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD130 </FTAG><S> ^[apnfl] </S>
+<FTAG>FLD21. </FTAG><S> ^[a] </S>
+<FTAG>FLD222 </FTAG><S> ^[a] </S>
+<FTAG>FLD24. </FTAG><S> ^[abpn] </S>
+<FTAG>FLD730 </FTAG><S> ^[apnfl] </S>
+<FTAG>FLD740 </FTAG><S> ^[apn] </S>
+<FTAG>FLD440 </FTAG>
+<FTAG>FLD490 </FTAG>
+<FTAG>FLD830 </FTAG> <S> ^[apnfl] </S>
+
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* EXACT TITLE ***************************** -->
+<!-- ******************************************************************* -->
+<!-- The following provides exact and truncated titles access -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /projects/cheshire/DATA/SCILIB_NEW/xtitle.index </INDXNAME>
+<INDXTAG> xtitle </INDXTAG>
+
+<INDXMAP>
+	<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc> </INDXMAP>
+<INDXMAP>
+	<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc> </INDXMAP>
+<INDXMAP>
+	<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct>
+	<trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> /projects/cheshire/DATA/SCILIB_NEW/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD130 </FTAG><S> ^[apnfl] </S>
+<FTAG>FLD211 </FTAG><S> ^[a] </S>
+<FTAG>FLD222 </FTAG><S> ^[a] </S>
+<FTAG>FLD24. </FTAG><S> ^[ab] </S>
+<FTAG>FLD730 </FTAG><S> ^[apnfl] </S>
+<FTAG>FLD740 </FTAG><S> ^[apn] </S>
+<FTAG>FLD440 </FTAG>
+<FTAG>FLD490 </FTAG>
+<FTAG>FLD830 </FTAG> <S> ^[apnfl] </S>
+<FTAG>FLD840 </FTAG> <S> ^[a] </S>
+
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* SUBJECT ********************************* -->
+<!-- ******************************************************************* -->
+<!-- The following provides access by LC subject headings -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /projects/cheshire/DATA/SCILIB_NEW/subject.index </INDXNAME>
+<INDXTAG> subject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /projects/cheshire/DATA/SCILIB_NEW/subjstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* EXACT SUBJECT *************************** -->
+<!-- ******************************************************************* -->
+<!-- The following provides access by exact LC subject headings          -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /projects/cheshire/DATA/SCILIB_NEW/xsubject.index </INDXNAME>
+<INDXTAG> xsubject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+
+<STOPLIST> /projects/cheshire/DATA/SCILIB_NEW/subjstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG><s>.*</s> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<!-- ******************************************************************* -->
+<!-- ************************* TOPIC *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following is the primary index for probabilistic searches       -->
+<!-- It includes subjects, titles, notes and class numbers               -->
+<!-- It is also used for relevance feedback (indicated by RELAT 102      -->
+<!-- This version has removed series (4xx 8xx) for feedback              -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /projects/cheshire/DATA/SCILIB_NEW/topic.index </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+<INDXMAP>
+<USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 1014 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 1014 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 1015 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 1015 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 1016 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 1016 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 1017 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 1017 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<STOPLIST> /projects/cheshire/DATA/SCILIB_NEW/topicstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG><S>^[abzy]</S>
+<FTAG>FLD222 </FTAG><S>^[a] </S>
+<FTAG>FLD24. </FTAG><S>^[ab] </S>
+<!-- commented out <FTAG>FLD4.. </FTAG><s>^[ab]</s>   -->
+<!-- commented out <FTAG>FLD8.. </FTAG><s>^[ab]</s>   -->
+<FTAG>FLD130 </FTAG><s>^[atp]</s>
+<FTAG>FLD730 </FTAG><s>^[atp]</s>
+<FTAG>FLD740 </FTAG><S>^[ap]</s>
+<!-- Just for fun, we include various notes -->
+<FTAG>FLD501 </FTAG>
+<FTAG>FLD503 </FTAG>
+<FTAG>FLD505 </FTAG>
+<FTAG>FLD520 </FTAG>
+<FTAG>FLD522 </FTAG>
+<FTAG>FLD545 </FTAG>
+<!-- Note this is the call number but it will not be normalized -->
+<FTAG>FLD950 </FTAG><S>a </S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- *********************** LC CLASS NUMBER *************************** -->
+<!-- ******************************************************************* -->
+<!-- The following is a normalized version of the LC Class number        -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=CLASSCLUS>
+<INDXNAME> /projects/cheshire/DATA/SCILIB_NEW/lcclass.index </INDXNAME>
+<INDXTAG> lcclass </INDXTAG>
+
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 3 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 3 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD050 </FTAG> <s> ^a </s>
+<FTAG>FLD950 </FTAG> <s> ^a </s>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* DOC TYPE ******************************** -->
+<!-- ******************************************************************* -->
+<!-- the following extracts and indexes the document type code -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> /projects/cheshire/DATA/SCILIB_NEW/doctype.index		
+</INDXNAME>
+<INDXTAG>	doctype
+		
+</INDXTAG>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 4 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 1 </struct></INDXMAP>
+<INDXMAP><USE> 1031 </USE><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1031 </USE><POSIT> 3 </posit> <struct> 4 </struct></INDXMAP>
+<INDXMAP><USE> 1031 </USE><POSIT> 3 </posit> <struct> 1 </struct></INDXMAP>
+
+<INDXKEY>
+<!-- Note that the following extracts the SGML attribute from the tag -->
+<TAGSPEC>
+<FTAG> USMARC </FTAG><ATTR> MATERIAL </ATTR>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- *********************** LOCAL NUMBER ****************************** -->
+<!-- ******************************************************************* -->
+<!-- The following gets the GLADIS number from the records for this DB -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>
+/projects/cheshire/DATA/SCILIB_NEW/localnum.index
+</INDXNAME>
+<INDXTAG> localnum </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD001  </FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************** ISBN *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following gets the ISBN number from the records for this DB -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>
+/projects/cheshire/DATA/SCILIB_NEW/isbn.index
+</INDXNAME>
+<INDXTAG> isbn </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 7 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 7 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 7 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<!-- no stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD020 </FTAG><S> ^a </S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************** ISSN *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following gets the ISSN number from the records for this DB -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>
+/projects/cheshire/DATA/SCILIB_NEW/issn.index
+</INDXNAME>
+<INDXTAG> issn </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 8 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 8 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 8 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- no stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD022 </FTAG><S> ^a </S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* PUBLISHER ******************************* -->
+<!-- ******************************************************************* -->
+<!-- The following gets the publisher from the records for this DB -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>
+/projects/cheshire/DATA/SCILIB_NEW/publisher.index
+</INDXNAME>
+<INDXTAG> publisher </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1018 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1018 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1018 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- no stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD260 </FTAG><S> ^b </S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+
+<!-- ******************************************************************* -->
+<!-- ************************** DATE *********************************** -->
+<!-- ******************************************************************* -->
+<!-- the following index extracts the DATE1 element from the MARC 008 field -->
+<INDEXDEF ACCESS=BTREE EXTRACT=FLD008_KEY NORMAL=NONE>
+<INDXNAME> /projects/cheshire/DATA/SCILIB_NEW/date.index	
+</INDXNAME>
+<INDXTAG>	date
+</INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP>
+<USE> 30 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 31 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>FLD008</FTAG><ATTR>008_date1</ATTR>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* LANGUAGE ******************************** -->
+<!-- ******************************************************************* -->
+<!-- The following index extracts the language element from the 008 field -->
+<INDEXDEF ACCESS=BTREE EXTRACT=FLD008_KEY NORMAL=NONE>
+<INDXNAME> /projects/cheshire/DATA/SCILIB_NEW/language.index
+</INDXNAME>
+<INDXTAG>	language	
+</INDXTAG>
+
+
+<INDXMAP>
+<USE> 54 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>FLD008</FTAG><ATTR>008_language_code</ATTR>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- *********************** Geographic Area Code ********************** -->
+<!-- ******************************************************************* -->
+<!-- The following gets any Geographic area code from the records        -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>
+/projects/cheshire/DATA/SCILIB_NEW/geocode.index
+</INDXNAME>
+<INDXTAG> geocode </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the geocode tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 55 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 55 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 55 </USE><STRUCT> 3 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 55 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- no stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD043  </FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+
+
+<!-- ******************************************************************* -->
+<!-- *********************** Geographic Area Code ********************** -->
+<!-- ******************************************************************* -->
+<!-- The following gets any Geographic area code from the records        -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>
+/projects/cheshire/DATA/SCILIB_NEW/geoclass.index
+</INDXNAME>
+<INDXTAG> geoclass </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the geocode tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1022 </USE><POSIT> 3 </POSIT><STRUCT> 3 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1022 </USE><POSIT> 3 </POSIT><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 58 </USE><POSIT> 3 </POSIT><STRUCT> 3 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 58 </USE><POSIT> 3 </POSIT><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- no stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index.            -->
+<!-- Note that for geoclass we combine all of the common geographic  -->
+<!-- information, including geographic names from the subjects       -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD043  </FTAG>
+</TAGSPEC>
+<TAGSPEC>
+	<FTAG> FLD052  </FTAG>
+</TAGSPEC>
+<TAGSPEC>
+	<FTAG> FLD342  </FTAG><s> ^[a] </s>
+</TAGSPEC>
+<TAGSPEC>
+	<FTAG> FLD651  </FTAG><s> ^[ab] </s>
+</TAGSPEC>
+<TAGSPEC>
+	<FTAG> FLD652  </FTAG><s> ^a </s>
+</TAGSPEC>
+<TAGSPEC>
+	<FTAG> FLD650  </FTAG><s> ^z </s>
+</TAGSPEC>
+<TAGSPEC>
+	<FTAG> FLD522  </FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+
+<!-- ******************************************************************* -->
+<!-- *********************** Time Period of Content ******************** -->
+<!-- ******************************************************************* -->
+<!-- The following gets any time period code from the records            -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>
+/projects/cheshire/DATA/SCILIB_NEW/timecode.index
+</INDXNAME>
+<INDXTAG> timecode </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the geocode tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 47 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 47 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 47 </USE><STRUCT> 3 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 47 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- no stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD045  </FTAG>
+</TAGSPEC>
+<TAGSPEC>
+	<FTAG> FLD522  </FTAG>
+</TAGSPEC>
+<TAGSPEC>
+	<FTAG> FLD6..  </FTAG><s> ^y </s>
+</TAGSPEC>
+
+</INDXKEY>
+</INDEXDEF>
+
+</INDEXES>
+
+<!-- ******************************************************************* -->
+<!-- ************************* CLUSTER ********************************* -->
+<!-- *********************** DEFINITIONS ******************************* -->
+<!-- ******************************************************************* -->
+<!--   End of the index definitions, the following define clusters to be -->
+<!--   extracted from the main file records                              -->
+<!-- ******************************************************************* -->
+
+<CLUSTER>
+<clusname> SCI_classcluster </clusname>
+<cluskey normal=CLASSCLUS>
+	<tagspec>
+		<FTAG>FLD950 </FTAG> <s> ^a </s>
+	</tagspec>
+</cluskey>
+<stoplist> /projects/cheshire/DATA/SCILIB_NEW/clasclusstoplist </stoplist>
+<clusmap>
+	<from>
+		<tagspec>
+		<ftag>FLD245</ftag><s>^[ab]</s>
+		<ftag>FLD440</ftag><s>^a</s>
+		<ftag>FLD490</ftag><s>^a</s>
+		<ftag>FLD830</ftag><s>^a</s>
+		<ftag>FLD740</ftag><s>^a</s>
+		</tagspec></from>
+	<to>
+		<tagspec>
+		<ftag>titles</ftag>
+		</tagspec></to>
+	<from>
+		<tagspec>
+		<ftag>FLD6..</ftag><s>^[abcdxyz]</s>
+		</tagspec></from>
+	<to>	<tagspec>
+		<ftag>subjects</ftag>
+		</tagspec></to>
+	<summarize>
+		<maxnum> 5 </maxnum>
+		<tagspec>
+		<ftag>subjsum</ftag>
+		</tagspec></summarize>
+</clusmap>
+</CLUSTER>
+
+</FILEDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* CLUSTER FILE **************************** -->
+<!-- ************************** DEFINITIONS **************************** -->
+<!-- ******************************************************************* -->
+<!-- The next filedef is for a cluster file implementing class clusters  -->
+<FILEDEF TYPE=CLUSTER>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG>  SCI_classcluster
+</FILETAG>
+<!-- filename is the full path name of the file -->
+<FILENAME>  	/projects/cheshire/DATA/SCILIB_NEW/classcluster.data
+</FILENAME>
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD>	/projects/cheshire/DATA/SCILIB_NEW/classcluster.dtd
+</FILEDTD>
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL>	/projects/cheshire/DATA/SCILIB_NEW/classcluster.assoc
+</ASSOCFIL>
+<!-- history is the full path name of the file's history file -->
+<HISTORY>	/projects/cheshire/DATA/SCILIB_NEW/classcluster.history
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+<!-- The following defines the cluster key index for the cluster -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=CLASSCLUS>
+<INDXNAME>	
+		/projects/cheshire/DATA/SCILIB_NEW/clasclus.lcckey.index
+		
+</INDXNAME>
+<INDXTAG>  lcckey
+		
+</INDXTAG>
+
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 3 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 3 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> CLUSKEY </FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- the following provides general term access to the cluster file -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME>
+		/projects/cheshire/DATA/SCILIB_NEW/clasclus.terms.index
+		
+</INDXNAME>
+<INDXTAG>	terms
+</INDXTAG>
+
+<!-- this maps from z39.50 "local subject index" to this index -->
+<INDXMAP>
+<USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<STOPLIST> /projects/cheshire/DATA/SCILIB_NEW/titlestoplist
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>titles</FTAG>
+	<FTAG>subjects</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+</INDEXES>
+<CLUSTER>
+	<CLUSBASE>scilib</CLUSBASE>
+</CLUSTER>
+<DISPOPTIONS> KEEP_ALL </DISPOPTIONS>
+<DISPLAY>
+	<FORMAT NAME="B" DEFAULT>
+		<exclude>
+			<TAGSPEC>
+				<FTAG>subjects</FTAG>
+				<FTAG>titles</FTAG>
+				<FTAG>n</FTAG>
+			</TAGSPEC>			
+		</exclude>
+	</FORMAT>
+</DISPLAY>
+</FILEDEF>
+
+</DBCONFIG>
+
+

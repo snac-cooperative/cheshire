@@ -1,0 +1,1297 @@
+<!DOCTYPE Explain-Record [
+<!-- This DTD is for Cheshire II explain database files 
+      note that not all of the items in the DTD will be supplied by 
+      the user, but some will be filled in automatically by the system
+      from information in the configuration files.                     -->
+
+<!ELEMENT Explain-Record - - (TargetInfo | DatabaseInfo | SchemaInfo |
+		 TagSetInfo | RecordSyntaxInfo | AttributeSetInfo |
+		 TermListInfo | ExtendedServicesInfo | AttributeDetails |
+		 TermListDetails | ElementSetDetails | RetrievalRecordDetails |
+		 SortDetails | ProcessingInformation | VariantSetInfo |
+		 UnitInfo | CategoryList) >
+<!-- Each of these may be used as search term  when Use attribute is 'explain-category'. -->
+
+<!-- Element set name 'B' (brief)  retrieves:
+  -  'commonInfo' (except for otherInfo within commonInfo) 
+  -  key elements
+  -  other elements designated as 'non-key brief elements' 
+  Esn 'description' retrieves brief elements as well as 'description', 
+  and specific additional descriptive elements if designated.
+  Element set name 'F' (full) retrieves all of the above, as well as 
+  those designated as "non-brief elements". Some elements designated as 
+  OPTIONAL may be mandatory in full records, and are so identified. (Note 
+  that all elements that are not part of the brief element set must be 
+  designated as OPTIONAL in the ASN.1, otherwise it would be illegal to 
+  omit them. Other esns are defined (below) as needed. -->
+
+<!-- - - - - - - - - - - - -   Info Records -->
+  <!-- Info records are mainly for software consumption -->
+  <!-- They describe individual entities within the target system: -->
+  <!--   The target itself -->
+  <!--   Individual databases -->
+  <!--   Schemas -->
+  <!--   Tag sets -->
+  <!--   Record syntaxes -->
+  <!--   Attribute sets -->
+  <!--   Term lists -->
+  <!--   Extended services -->
+ <!--     The information about each Schema, Tag Set, Record Syntax and 
+          Attribute Set should match the universal definitions of these items.
+          The only exception is that a target may omit any items it doesn't 
+	  support, for example the description of the bib-1 attribute set 
+          may omit attributes that the target does not support under any 
+          circumstances. -->
+  <!--    Databases that may be searched together can be listed in the 
+          dbCominations element of the TargetInfo record.   -->
+
+<!ELEMENT TargetInfo - -  (CommonInfo?,name,recent-news?,icon?, 
+		namedResultSets?, multipleDBsearch?, maxResultSets?,
+		maxResultSize?, maxTerms?, timeoutInterval?, welcomeMessage?,
+		contactInfo?, description?, nicknames*, usage-restrictions?,
+		paymentAddr?, hours?, dbCombinations?, addresses?, languages?,
+		commonAccessInfo?) >
+
+
+<!-- A target may provide "virtual databases" that are combinations of 
+     individual database. These databases are indicated by the presence of 
+     subDbs in the combination database's DatabaseDescription. -->
+<!ELEMENT DatabaseInfo - - (CommonInfo?, name,  explainDatabase?,  nicknames?,
+			  icon?,  user-fee?,  available?,  titleString?,
+			  keywords*,  description?,  associatedDbs?,  subDbs?,
+			  disclaimers?,  news?,  recordCount?,  defaultOrder?,
+			  avRecordSize?,  maxRecordSize?,  hours?,  bestTime?,
+			  lastUpdate?,  updateInterval?,  coverage?,  
+			  proprietary?,  copyrightText?,  copyrightNotice?,
+			  producerContactInfo?,  supplierContactInfo?,
+			  submissionContactInfo?,  accessInfo?) >
+
+
+<!ELEMENT SchemaInfo - -  (
+  CommonInfo?,
+  schema,
+  name,
+  description?,
+  tagTypeMapping*,
+  recordStructure*) >
+
+<!ELEMENT recordStructure - - (ElementInfo*)>
+
+<!--  ElementInfo referenced in SchemaInfo and RecordSyntaxInfo -->
+<!ELEMENT ElementInfo - -  ( elementName, Path, ElementDataType?,
+			     required, repeatable, description?) >
+
+
+<!-- Path is referenced by ElementInfo as well as PerElementDetails -->
+<!ELEMENT Path - -  (tagType, tagValue)* >
+
+<!ELEMENT ElementDataType - -  (PrimitiveDataType | structured) >
+
+<!ELEMENT structured - - (ElementInfo)* > <!-- this is recursive-->
+
+<!ELEMENT PrimitiveDataType - - (octetString | numeric | date | external
+                                | string | trueOrFalse | oid | intUnit 
+                                | empty | noneOfTheAbove) >
+
+
+<!ELEMENT TagSetInfo - - (CommonInfo?, tagSet, name, description?,
+                           elements?) >
+
+<!ELEMENT elements - - ( elementname, nicknames*, elementTag, description?,
+                        PrimitiveDataType?, otherTagInfo?)* >
+
+
+<!ELEMENT RecordSyntaxInfo - - (commonInfo?, recordSyntax, name,
+                                 transferSyntaxes*, description?, asn1Module?,
+                                 abstractStructure?) >
+ <!-- Omitting abstractStructure only means target isn't using -->
+ <!-- Explain to describe the structure, not that there is no structure. -->
+              }
+
+<!ELEMENT AttributeSetInfo - - (CommonInfo?, attributeSet?, name, 
+                                AttributeType*, description?) >
+<!-- AttributeType referenced in AttributeSetInfo -->
+<!ELEMENT AttributeType - - (name?, description?, attributeType,
+		             AttributeDescription*) >
+
+<!ELEMENT AttributeDescription - -  (name?, description?, attributeValue,
+        equivalentAttributes*
+ <!-- each equivalentAttribute is an occurrence of 'attributeValue' from 
+      AttributeDescription 
+      for a different attribute. Equivalences listed here should be derived 
+      from the attribute set definition, not from a particular server's 
+      behavior.   -->
+
+<!ELEMENT equivalentAttributes - - (attributeValue)>
+
+
+<!ELEMENT TermListInfo - -  SEQUENCE{
+  commonInfo    [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  databaseName  [1]  IMPLICIT DatabaseName,
+    <!-- Non-key brief elements follow: -->
+  termLists      [2] IMPLICIT SEQUENCE OF SEQUENCE{
+            name    [1] IMPLICIT InternationalString,
+            title    [2] IMPLICIT HumanString OPTIONAL,
+                                            <!-- Title is for users to see and can differ by language. Name, on the -->
+                      <!-- other hand is typically a short string not necessarily meant to be -->
+                       <!-- human-readable, and not variable by language. -->
+            searchCost   [3]   IMPLICIT INTEGER {
+                  optimized  (0),    <!-- The attribute (or combination) associated -->
+                            <!-- with this   list will do fast searches.  -->
+                      normal      (1),    <!-- The attribute (combination) will work as -->
+                            <!-- expected. So there's probably an index for the -->
+                            <!-- attribute (combination) or some similar -->
+                             <!-- mechanism. -->
+                      expensive   (2),    <!-- Can use the attribute (combination), but it -->
+                            <!-- might not provide satisfactory results. -->
+                            <!-- Probably there is no index, or post- -->
+                            <!-- processing of records is required. -->
+                      filter      (3)    <!-- can't search with this attribute (combination) alone. -->
+                         } OPTIONAL,
+              scanable  [4]  IMPLICIT BOOLEAN, <!-- 'true' means this list can be scanned. -->
+               broader    [5] IMPLICIT SEQUENCE OF InternationalString OPTIONAL,
+               narrower  [6] IMPLICIT SEQUENCE OF InternationalString OPTIONAL
+                       <!-- broader and narrower list alternative term lists related to this one. -->
+                       <!-- The term lists so listed should also be in this termLists structure. -->
+                          }
+  <!-- no non-brief elements -->
+            }
+
+
+<!ELEMENT ExtendedServicesInfo - -  SEQUENCE {
+  commonInfo          [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  type          [1]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- Non-key brief elements follow: -->
+  name                [2]  IMPLICIT InternationalString OPTIONAL,
+                <!-- should be supplied if privateType is 'true' -->
+  privateType      [3]  IMPLICIT BOOLEAN,
+  restrictionsApply    [5]  IMPLICIT BOOLEAN,  <!-- if 'true' see 'description' -->
+  feeApply              [6]  IMPLICIT BOOLEAN,  <!-- if 'true' see 'description' -->
+  available             [7]  IMPLICIT BOOLEAN,
+  retentionSupported    [8]  IMPLICIT BOOLEAN,
+  waitAction      [9]  IMPLICIT INTEGER{
+                waitSupported    (1),
+                waitAlways      (2),
+                waitNotSupported  (3),
+                depends      (4),
+                notSaying      (5)},
+  <!-- non-brief elements follow: -->
+    <!-- To get brief plus 'description' use esn 'description' -->
+  description           [10]  IMPLICIT HumanString OPTIONAL,
+      <!-- to get above elements and 'specificExplain' use esn 'specificExplain' -->
+  specificExplain    [11]  IMPLICIT EXTERNAL OPTIONAL,
+                  <!-- Use oid of specific ES, and select choice [3] 'explain'. Format -->
+                  <!-- to be developed in conjunction with the specific ES definition. -->
+    <!-- to get all elements except 'specificExplain', use esn 'asn' -->
+  esASN          [12]  IMPLICIT InternationalString OPTIONAL <!-- the ASN.1 for this ES -->
+                }
+
+<!-- - - - - - - - - - - - - Detail records -->
+ <!-- The detail records describe relationships among entities supported by the target. RetrievalRecordDetails describes -->
+ <!-- the way that schema elements are mapped into record elements. This mapping may be different for each -->
+ <!-- combination of database, schema, record syntax. The per-element details describe the default mapping. -->
+ <!-- Origin-request re-tagging can change that mapping. When multiple databases are listed in a databaseNames -->
+ <!-- element, the record applies equally to all of the listed databases.  This is unrelated to searching the databases -->
+ <!-- together. AttributeDetails describes how databases can be searched. Each supported attribute is listed, and the -->
+ <!-- allowable combinations can be described. -->
+
+
+<!ELEMENT AttributeDetails - -  SEQUENCE {
+  commonInfo        [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  databaseName        [1]  IMPLICIT DatabaseName,
+    <!-- Non-brief elements follow: -->
+  attributesBySet        [2]  IMPLICIT SEQUENCE OF AttributeSetDetails OPTIONAL, 
+                  <!-- mandatory in full record -->
+  attributeCombinations    [3]  IMPLICIT AttributeCombinations OPTIONAL}
+
+
+
+
+<!-- AttributeSetDetails referenced by AttributeDetails -->
+  <!ELEMENT AttributeSetDetails - -  SEQUENCE {
+        attributeSet      [0] IMPLICIT AttributeSetId,
+          attributesByType  [1] IMPLICIT SEQUENCE OF AttributeTypeDetails }
+    <!ELEMENT AttributeTypeDetails - -  SEQUENCE {
+         attributeType     [0] IMPLICIT INTEGER,
+          defaultIfOmitted    [1] IMPLICIT OmittedAttributeInterpretation OPTIONAL,
+          attributeValues    [2] IMPLICIT SEQUENCE OF AttributeValue OPTIONAL }
+                          <!-- If no attributeValues are supplied, all values of this type are fully -->
+                    <!-- supported, and the descriptions in AttributeSetInfo are adequate. -->
+
+    <!ELEMENT OmittedAttributeInterpretation - -  SEQUENCE {
+        defaultValue           [0] StringOrNumeric OPTIONAL,
+                                <!-- A default value is listed if that's how the server works -->
+        defaultDescription  [1] IMPLICIT HumanString OPTIONAL }
+                          <!-- The human-readable description should generally be provided. -->
+                    <!-- It is legal for both default elements to be missing, which -->
+                    <!-- means that the target will allow the attribute type to be -->
+                    <!-- omitted, but isn't saying what it will do. -->
+
+    <!ELEMENT AttributeValue - -  SEQUENCE {
+        value              [0]  StringOrNumeric,
+        description        [1]  IMPLICIT HumanString OPTIONAL,
+        subAttributes     [2]  IMPLICIT SEQUENCE OF StringOrNumeric OPTIONAL,
+        superAttributes    [3]  IMPLICIT SEQUENCE OF StringOrNumeric OPTIONAL,
+        partialSupport    [4]  IMPLICIT NULL OPTIONAL }
+        <!-- partialSupport indicates that an attributeValue is accepted, but may not be processed in the -->
+        <!-- "expected" way. One important reason for this is composite databases: in this case partialSupport -->
+        <!-- may indicate that only some of the subDbs support the attribute, and others ignore it. -->
+
+
+
+<!ELEMENT TermListDetails - -  SEQUENCE{  <!-- one for each termList in TermListInfo -->
+  commonInfo    [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  termListName    [1]  IMPLICIT InternationalString,
+    <!-- Non-key elements (all non-brief) follow: -->
+  description    [2]  IMPLICIT HumanString OPTIONAL,
+  attributes      [3]  IMPLICIT AttributeCombinations OPTIONAL,
+                          <!-- Pattern for attributes that hit this list. Mandatory in full record -->
+  scanInfo      [4]  IMPLICIT SEQUENCE {
+                maxStepSize         [0] IMPLICIT INTEGER OPTIONAL,
+                collatingSequence  [1] IMPLICIT HumanString OPTIONAL,
+                increasing            [2] IMPLICIT BOOLEAN OPTIONAL} OPTIONAL,
+            <!-- Occurs only if list is scanable. If list is scanable and if scanInfo is omitted,  -->
+            <!-- target doesn't consider these important. -->
+  estNumberTerms  [5]  IMPLICIT INTEGER OPTIONAL,
+  sampleTerms    [6]  IMPLICIT SEQUENCE OF Term OPTIONAL}
+
+
+
+<!ELEMENT ElementSetDetails - -  SEQUENCE {
+  <!-- ElementSetDetails describes the way that database records are mapped to record elements. This -->
+  <!-- mapping may be different for each combination of database name and element set. The database record -->
+   <!-- description is a schema, which may be private to the target. The schema's abstract record structure -->
+  <!-- and tag sets provide the vocabulary for discussing record content; their presence in the Explain -->
+  <!-- database does not imply support for complex retrieval specification. -->
+  commonInfo      [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  databaseName      [1]  IMPLICIT DatabaseName,
+  elementSetName    [2]  IMPLICIT ElementSetName,
+  recordSyntax      [3]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- Non-key Brief elements follow: -->
+  schema        [4]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- Non-brief elements follow: -->
+  description      [5]  IMPLICIT HumanString OPTIONAL,
+  detailsPerElement    [6]  IMPLICIT SEQUENCE OF PerElementDetails OPTIONAL <!-- mandatory in full record -->
+              }
+
+
+<!ELEMENT RetrievalRecordDetails - -  SEQUENCE {
+  commonInfo      [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  databaseName      [1]  IMPLICIT DatabaseName,
+  schema        [2]  IMPLICIT OBJECT IDENTIFIER,
+  recordSyntax      [3]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- Non-brief elements follow: -->
+  description      [4]  IMPLICIT HumanString OPTIONAL,
+  detailsPerElement    [5]  IMPLICIT SEQUENCE OF PerElementDetails OPTIONAL
+                <!-- mandatory in full record -->
+            }
+
+<!-- PerElementDetails is referenced in RetrievalRecordDetails and ElementSetDetails. -->
+  <!ELEMENT PerElementDetails - -  SEQUENCE {
+      name      [0]    IMPLICIT InternationalString OPTIONAL,
+                   <!-- If the name is omitted, the record syntax's name for this element -->
+                  <!-- is appropriate. -->
+      recordTag    [1]    IMPLICIT RecordTag OPTIONAL,
+                   <!-- The record tag may be omitted if tags are inappropriate for the record -->
+                  <!-- syntax, or if the origin can be expected to know it for some other reason. -->
+      schemaTags    [2]    IMPLICIT SEQUENCE OF Path OPTIONAL,
+                      <!-- The information from the listed schema elements is combined -->
+                  <!-- in some way to produce the data sent in the listed record tag. The -->
+                  <!-- 'contents' element below may describe the logic used. -->
+      maxSize    [3]    IMPLICIT INTEGER OPTIONAL,
+      minSize    [4]    IMPLICIT INTEGER OPTIONAL,
+      avgSize      [5]    IMPLICIT INTEGER OPTIONAL,
+      fixedSize    [6]    IMPLICIT INTEGER OPTIONAL,
+      repeatable    [8]    IMPLICIT BOOLEAN,
+      required    [9]    IMPLICIT BOOLEAN, 
+                  <!-- 'required' really means that target will always supply the element. -->
+      description    [12]  IMPLICIT HumanString OPTIONAL,
+      contents    [13]  IMPLICIT HumanString OPTIONAL,
+      billingInfo    [14]  IMPLICIT HumanString OPTIONAL,
+      restrictions    [15]  IMPLICIT HumanString OPTIONAL,
+      alternateNames  [16]  IMPLICIT SEQUENCE OF InternationalString OPTIONAL,
+      genericNames  [17]  IMPLICIT SEQUENCE OF InternationalString OPTIONAL,
+      searchAccess  [18]  IMPLICIT AttributeCombinations OPTIONAL }
+      <!-- RecordTag referenced in PerElementDetails above -->
+        <!ELEMENT RecordTag - -  SEQUENCE {
+              qualifier  [0] StringOrNumeric OPTIONAL,
+                    <!-- E.g. tag set for GRS-1 -->
+              tagValue  [1] StringOrNumeric}
+
+<!ELEMENT SortDetails - -  SEQUENCE {
+  commonInfo    [0]  IMPLICIT CommonInfo OPTIONAL,
+  <!-- Key elements follow: -->
+  databaseName    [1]  IMPLICIT DatabaseName,
+    <!-- No non-key brief elements -->
+    <!-- Non-brief elements follow: -->
+  sortKeys      [2]  IMPLICIT SEQUENCE OF SortKeyDetails OPTIONAL
+              <!-- mandatory in full record -->
+          }
+  <!ELEMENT SortKeyDetails - -  SEQUENCE {
+      description        [0]  IMPLICIT HumanString OPTIONAL,
+      elementSpecifications  [1]  IMPLICIT SEQUENCE OF Specification OPTIONAL,
+                      <!-- each specification is a way of specifying this same sort key -->
+      attributeSpecifications  [2]  IMPLICIT AttributeCombinations OPTIONAL,
+                      <!-- each combination is a way of specifying this same sort key -->
+      sortType                   [3]  CHOICE {
+                    character    [0]  IMPLICIT NULL,
+                    numeric    [1]  IMPLICIT NULL,
+                    structured    [2]  IMPLICIT HumanString} OPTIONAL,
+      caseSensitivity      [4]  IMPLICIT INTEGER {
+                      always    (0),  <!-- always case-sensitive -->
+                    never    (1),            <!-- never case-sensitive -->
+                    default-yes  (2),               <!-- case-sensitivity is as specified on request, and if not -->
+                            <!-- specified, case-sensitive. -->
+                    default-no  (3)} <!-- case-sensitivity is as specified on request, and if not -->
+                            <!-- specified, not case-sensitive. -->
+                          OPTIONAL}
+
+<!ELEMENT ProcessingInformation - -  SEQUENCE{
+  commonInfo      [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  databaseName      [1]  IMPLICIT DatabaseName,
+  processingContext    [2]  IMPLICIT INTEGER {
+                  access        (0),   <!-- e.g. choosing databases -->
+                  search        (1),   <!-- e.g. "search strategies" or search forms  -->
+                  retrieval      (2),   <!-- e.g. recommended element combinations  -->
+                  record-presentation  (3),    <!-- display of retrieved records -->
+                  record-handling    (4)    <!-- handling (e.g. saving) of retrieved records -->
+        },
+  name          [3]  IMPLICIT InternationalString,
+  oid          [4]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- No non-key brief elements -->
+    <!-- Non-brief elements follow: -->
+  description      [5]  IMPLICIT HumanString OPTIONAL,
+                <!-- use element set name 'description' to retrieve all except instructions. -->
+  instructions      [6]  IMPLICIT EXTERNAL OPTIONAL <!-- mandatory in full record -->
+              }
+
+
+<!ELEMENT VariantSetInfo - -  SEQUENCE {
+    <!-- A record in this category describes a variant set definition, i.e., classes, types, and values, for a specific -->
+    <!-- variant set definition supported by the target. Support by the target of a particular variant set definition -->
+    <!-- does not imply that the definition is supported for any specific database or element.  -->
+  commonInfo    [0] IMPLICIT CommonInfo OPTIONAL,
+  <!-- Key elements follow: -->
+  variantSet    [1] IMPLICIT OBJECT IDENTIFIER,
+  <!-- Non-key brief elements follow: -->
+  name      [2] IMPLICIT InternationalString,
+  <!-- Non-brief elements follow: -->
+  variants    [3] IMPLICIT SEQUENCE OF VariantClass OPTIONAL
+                   <!-- mandatory in full record -->
+           }
+
+  <!-- Subsidiary structures for VariantSetInfo -->
+    <!ELEMENT VariantClass - -  SEQUENCE {
+          name        [0] IMPLICIT InternationalString OPTIONAL,
+          description    [1] IMPLICIT HumanString OPTIONAL,
+          variantClass    [2] IMPLICIT INTEGER,
+          variantTypes  [3] IMPLICIT SEQUENCE OF VariantType}
+    <!ELEMENT VariantType - -  SEQUENCE {
+          name            [0] IMPLICIT InternationalString OPTIONAL,
+          description     [1] IMPLICIT HumanString OPTIONAL,
+          variantType    [2] IMPLICIT INTEGER,
+          variantValue  [3] IMPLICIT VariantValue OPTIONAL}
+    <!ELEMENT VariantValue - -  SEQUENCE {
+          dataType     [0] PrimitiveDataType,
+          values        [1] ValueSet OPTIONAL }
+    <!ELEMENT ValueSet - -  CHOICE {
+          range       [0] IMPLICIT ValueRange,
+          enumerated  [1] IMPLICIT SEQUENCE OF ValueDescription }
+    <!ELEMENT ValueRange - -  SEQUENCE {
+            <!-- At last one the following must be supplied, both may be supplied. -->
+          lower      [0] ValueDescription OPTIONAL,
+          upper     [1] ValueDescription OPTIONAL }
+    <!ELEMENT ValueDescription - -  CHOICE{
+      integer             INTEGER,
+          string              InternationalString,
+          octets              OCTET STRING,
+          oid                 OBJECT IDENTIFIER,
+          unit               [1]  IMPLICIT Unit,
+          valueAndUnit   [2]  IMPLICIT IntUnit 
+            <!-- oid and unit can't be used in a ValueRange -->
+            }
+
+
+
+<!ELEMENT UnitInfo - -  SEQUENCE {
+  commonInfo  [0] IMPLICIT CommonInfo OPTIONAL,
+  <!-- Key elements follow: -->
+  unitSystem   [1] IMPLICIT InternationalString,
+   <!-- No non-key brief elements -->
+   <!-- Non-brief elements follow: -->
+  description   [2] IMPLICIT HumanString OPTIONAL,
+  units      [3] IMPLICIT SEQUENCE OF UnitType OPTIONAL
+                         <!-- mandatory in full record -->
+           }
+
+  <!-- Subsidiary structures for UnitInfo -->
+    <!ELEMENT UnitType - -  SEQUENCE {
+      name    [0] IMPLICIT InternationalString OPTIONAL,
+      description  [1] IMPLICIT HumanString OPTIONAL,
+      unitType  [2] StringOrNumeric,
+      units     [3] IMPLICIT SEQUENCE OF Units}
+
+    <!ELEMENT Units - -  SEQUENCE {
+      name     [0] IMPLICIT InternationalString OPTIONAL,
+      description  [1] IMPLICIT HumanString OPTIONAL,
+      unit      [2] StringOrNumeric}
+
+<!ELEMENT CategoryList - -  SEQUENCE {
+  commonInfo      [0] IMPLICIT CommonInfo OPTIONAL,
+    <!-- Only one record expected per Explain database. All elements appear in brief presentation. -->
+  categories      [1] IMPLICIT SEQUENCE OF CategoryInfo }
+    <!ELEMENT CategoryInfo - -  SEQUENCE {
+           category          [1] IMPLICIT InternationalString,
+            originalCategory    [2] IMPLICIT InternationalString OPTIONAL,
+          description         [3] IMPLICIT HumanString OPTIONAL,
+         asn1Module      [4] IMPLICIT InternationalString OPTIONAL}
+
+
+<!-- - - - - - - - - - - - - - Subsidiary definitions -->
+
+<!ELEMENT CommonInfo - -  SEQUENCE {
+  dateAdded         [0] IMPLICIT GeneralizedTime OPTIONAL,
+  dateChanged       [1] IMPLICIT GeneralizedTime OPTIONAL,
+  expiry                [2] IMPLICIT GeneralizedTime OPTIONAL,
+  humanString-Language  [3] IMPLICIT LanguageCode OPTIONAL,
+  <!-- following not to occur for brief: -->
+  otherInfo          OtherInformation OPTIONAL}
+
+
+<!ELEMENT HumanString - -  SEQUENCE OF SEQUENCE {
+          language  [0] IMPLICIT LanguageCode OPTIONAL,
+        text        [1] IMPLICIT InternationalString}
+
+<!ELEMENT IconObject - -  SEQUENCE OF SEQUENCE{
+      <!-- Note that the "SEQUENCE OF" is to allow alternative representations of the same Icon; it is not -->
+      <!-- intended to allow multiple icons. -->
+  bodyType [1] CHOICE{
+           ianaType  [1] IMPLICIT InternationalString,
+          z3950type  [2] IMPLICIT InternationalString,
+           otherType  [3] IMPLICIT InternationalString},
+  content  [2] IMPLICIT OCTET STRING}
+
+
+<!ELEMENT LanguageCode - -  InternationalString  <!-- from ANSI/NISO Z39.53-1994  -->
+
+<!ELEMENT ContactInfo - -  SEQUENCE {
+  name           [0] IMPLICIT InternationalString OPTIONAL,
+  description  [1] IMPLICIT HumanString OPTIONAL,
+  address        [2] IMPLICIT HumanString OPTIONAL,
+  email         [3] IMPLICIT InternationalString OPTIONAL,
+  phone         [4] IMPLICIT InternationalString OPTIONAL}
+
+<!ELEMENT NetworkAddress - -  CHOICE {
+  internetAddress      [0] IMPLICIT SEQUENCE {
+                  hostAddress    [0]  IMPLICIT InternationalString,
+                  port       [1]  IMPLICIT INTEGER},
+  osiPresentationAddress    [1] IMPLICIT SEQUENCE { 
+                    pSel         [0] IMPLICIT InternationalString,  
+                    sSel         [1] IMPLICIT InternationalString OPTIONAL,  
+                    tSel        [2] IMPLICIT InternationalString OPTIONAL,  
+                    nSap      [3] IMPLICIT InternationalString},
+  other            [2] IMPLICIT SEQUENCE {  
+                      type        [0] IMPLICIT InternationalString,
+                address    [1] IMPLICIT InternationalString}}
+
+<!ELEMENT AccessInfo - -  SEQUENCE {
+    <!-- AccessInfo contains the fundamental information about what facilities are required to use this target -->
+    <!-- or server. For example, if an origin can handle none of the record syntaxes a database can provide,  -->
+    <!-- it might choose not to access the database. -->
+  queryTypesSupported  [0]    IMPLICIT SEQUENCE OF QueryTypeDetails OPTIONAL,
+  diagnosticsSets        [1]    IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  attributeSetIds          [2]    IMPLICIT SEQUENCE OF AttributeSetId OPTIONAL,
+  schemas                [3]    IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  recordSyntaxes         [4]    IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  resourceChallenges    [5]    IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  restrictedAccess       [6]    IMPLICIT AccessRestrictions OPTIONAL,
+  costInfo                 [8]    IMPLICIT Costs OPTIONAL,
+  variantSets       [9]    IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  elementSetNames    [10]  IMPLICIT SEQUENCE OF ElementSetName OPTIONAL,
+  unitSystems      [11]  IMPLICIT SEQUENCE OF InternationalString}
+
+<!-- begin auxiliary definitions for AccessInfo -->
+<!-- Begin Query Details -->
+<!ELEMENT QueryTypeDetails - -  CHOICE {
+  private       [0]    IMPLICIT PrivateCapabilities,
+  rpn            [1]    IMPLICIT RpnCapabilities,
+  iso8777          [2]    IMPLICIT Iso8777Capabilities,
+  z39-58      [100]  IMPLICIT HumanString,
+  erpn        [101]  IMPLICIT RpnCapabilities,
+  rankedList      [102]  IMPLICIT HumanString}
+
+<!ELEMENT PrivateCapabilities - -  SEQUENCE {
+  operators       [0]  IMPLICIT SEQUENCE OF SEQUENCE {
+              operator  [0] IMPLICIT InternationalString,
+              description  [1] IMPLICIT HumanString OPTIONAL } OPTIONAL,
+  searchKeys    [1]  IMPLICIT SEQUENCE OF SearchKey OPTIONAL,  <!-- field names that can be searched -->
+  description    [2]  IMPLICIT SEQUENCE OF HumanString OPTIONAL }
+
+<!ELEMENT RpnCapabilities - -  SEQUENCE {
+  operators                    [0] IMPLICIT SEQUENCE OF INTEGER OPTIONAL,
+                                        <!-- Omitted means all operators are supported. -->
+  resultSetAsOperandSupported  [1] IMPLICIT BOOLEAN,
+  restrictionOperandSupported    [2] IMPLICIT BOOLEAN,
+  proximity                    [3] IMPLICIT ProximitySupport OPTIONAL}
+
+Iso8777<!ELEMENT Capabilities - -  SEQUENCE {
+  searchKeys  [0]  IMPLICIT SEQUENCE OF SearchKey,  <!-- field names that may be searched -->
+  restrictions   [1]  IMPLICIT HumanString OPTIONAL 
+            <!-- Omitted means supported, not specifying units. -->
+              }
+
+<!ELEMENT ProximitySupport - -  SEQUENCE {
+  anySupport      [0]   IMPLICIT BOOLEAN,
+          <!-- 'false' means no proximity support, in which case unitsSupported not supplied. -->
+  unitsSupported  [1]   IMPLICIT SEQUENCE OF CHOICE{  
+             known  [1] IMPLICIT INTEGER, <!-- values from KnownProximityUnit -->
+          private  [2] IMPLICIT SEQUENCE{  
+                      unit    [0] IMPLICIT INTEGER,  
+                description  [1] HumanString OPTIONAL}} OPTIONAL}
+
+<!ELEMENT SearchKey - -  SEQUENCE {
+  searchKey     [0]  IMPLICIT InternationalString,
+  description     [1]  IMPLICIT HumanString OPTIONAL }
+<!-- End Query details -->
+<!ELEMENT AccessRestrictions - -  SEQUENCE OF SEQUENCE {
+  accessType      [0] INTEGER {
+                  any         (0),
+                  search         (1),
+                  present         (2),
+                  specific-elements  (3),
+                  extended-services  (4),
+            by-database      (5)},
+  accessText         [1]  IMPLICIT HumanString OPTIONAL,
+  accessChallenges  [2]  IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL}
+
+<!ELEMENT Costs - -  SEQUENCE {
+  connectCharge    [0] IMPLICIT Charge OPTIONAL,    <!-- Per-connection charge -->
+  connectTime    [1] IMPLICIT Charge OPTIONAL,    <!-- Time-based charge -->
+  displayCharge     [2] IMPLICIT Charge OPTIONAL,    <!-- Per-record charge -->
+  searchCharge     [3] IMPLICIT Charge OPTIONAL,    <!-- Per-search charge -->
+  subscriptCharge  [4]  IMPLICIT Charge OPTIONAL,  <!-- Subscription charges -->
+  otherCharges    [5] IMPLICIT SEQUENCE OF SEQUENCE{   <!-- Other charges -->
+            forWhat  [1]  IMPLICIT HumanString,
+            charge    [2]  IMPLICIT Charge} OPTIONAL} 
+    <!ELEMENT Charge - -  SEQUENCE{
+        cost          [1] IMPLICIT IntUnit,
+        perWhat  [2] IMPLICIT Unit OPTIONAL,
+                      <!-- e.g. "second," "minute," "line," "record"... -->
+        text          [3] IMPLICIT HumanString OPTIONAL} 
+<!-- End Auxiliary definitions for AccessInfo -->
+
+<!ELEMENT DatabaseList - -  SEQUENCE OF DatabaseName
+
+<!ELEMENT AttributeCombinations - -  SEQUENCE {
+  defaultAttributeSet  [0] IMPLICIT AttributeSetId,
+                 <!-- Default for the combinations. Also probably a good choice for the default -->
+              <!-- in searches, but that isn't required. -->
+  legalCombinations  [1] IMPLICIT SEQUENCE OF AttributeCombination }
+
+
+<!ELEMENT AttributeCombination - -  SEQUENCE OF AttributeOccurrence
+            <!-- An AttributeCombination is a pattern for legal combination of attributes -->
+
+
+<!ELEMENT AttributeOccurrence - -  SEQUENCE {   
+      <!-- An AttributeOccurrence lists the legal values for a specific attribute type in a combination. -->
+       attributeSet       [0]  IMPLICIT AttributeSetId OPTIONAL,
+       attributeType      [1]  IMPLICIT INTEGER,
+       mustBeSupplied  [2]  IMPLICIT NULL OPTIONAL,
+       attributeValues    CHOICE {
+                      any-or-none  [3] IMPLICIT NULL, <!-- All supported values are OK  -->
+                      specific    [4] IMPLICIT SEQUENCE OF StringOrNumeric}}
+                                                  <!-- Only these values allowed -->
+
+]>
+
+
+
+
+<!ELEMENT TargetInfo - -  {
+CommonInfo?,
+name          [1]    IMPLICIT InternationalString,
+    <!-- Non-key brief elements follow: -->
+  recent-news      [2]    IMPLICIT HumanString OPTIONAL,
+  icon          [3]    IMPLICIT IconObject OPTIONAL,
+  namedResultSets    [4]    IMPLICIT BOOLEAN,
+  multipleDBsearch    [5]    IMPLICIT BOOLEAN,
+  maxResultSets      [6]    IMPLICIT INTEGER OPTIONAL,
+  maxResultSize      [7]    IMPLICIT INTEGER OPTIONAL,
+  maxTerms        [8]    IMPLICIT INTEGER OPTIONAL,
+  timeoutInterval      [9]    IMPLICIT IntUnit OPTIONAL,
+  welcomeMessage    [10]  IMPLICIT HumanString OPTIONAL,
+    <!-- non-brief elements follow: -->
+  <!-- 'description' esn retrieves the following two (as well as brief): -->
+  contactInfo      [11]  IMPLICIT ContactInfo OPTIONAL,
+  description      [12]  IMPLICIT HumanString OPTIONAL,
+  nicknames        [13]  IMPLICIT SEQUENCE OF InternationalString OPTIONAL,
+  usage-restrictions    [14]  IMPLICIT HumanString OPTIONAL,
+  paymentAddr      [15]  IMPLICIT HumanString OPTIONAL,
+  hours          [16]  IMPLICIT HumanString OPTIONAL,
+  dbCombinations    [17]  IMPLICIT SEQUENCE OF DatabaseList OPTIONAL,
+  addresses        [18]  IMPLICIT SEQUENCE OF NetworkAddress OPTIONAL,
+  languages        [101]  IMPLICIT SEQUENCE OF InternationalString OPTIONAL,
+                  <!-- Languages supported for message strings.  Each is a three-character -->
+                  <!-- language code from Z39.53-1994. -->
+<!-- characterSets      [102]  this tag reserved for "character sets supported for name and message strings". -->
+  <!-- commonAccessInfo elements list objects the target supports. All objects listed in -->
+  <!-- AccessInfo for any individual database should also be listed here. -->
+  commonAccessInfo  [19]  IMPLICIT AccessInfo OPTIONAL}
+
+
+<!ELEMENT DatabaseInfo - -  SEQUENCE {
+      <!-- A target may provide "virtual databases" that are combinations of individual database. These -->
+      <!-- databases are indicated by the presence of subDbs in the combination database's DatabaseDescription. -->
+  commonInfo        [0]    IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  name            [1]    IMPLICIT DatabaseName,
+    <!-- Non-key brief elements follow: -->
+  explainDatabase      [2]             IMPLICIT NULL OPTIONAL,
+                       <!-- If present, this database is the Explain database, or an Explain database -->
+                    <!-- for a different server, possibly on a different host. The means by which -->
+                    <!-- that server may be accessed is not addressed by this standard. One -->
+                    <!-- suggested possibility is an implementor agreement whereby the -->
+                    <!-- database name is a url which may be used to connect to the server. -->
+  nicknames          [3]    IMPLICIT SEQUENCE OF DatabaseName OPTIONAL,
+  icon            [4]    IMPLICIT IconObject OPTIONAL,
+  user-fee          [5]    IMPLICIT BOOLEAN,
+  available          [6]    IMPLICIT BOOLEAN,
+  titleString          [7]    IMPLICIT HumanString OPTIONAL,
+    <!-- Non-brief elements follow: -->
+  keywords          [8]    IMPLICIT SEQUENCE OF HumanString OPTIONAL,
+  description        [9]    IMPLICIT HumanString OPTIONAL,
+  associatedDbs        [10]  IMPLICIT DatabaseList OPTIONAL,
+                    <!-- databases that may be searched in combination with this one  -->
+
+  subDbs          [11]  IMPLICIT DatabaseList OPTIONAL,
+                        <!-- When present, this database is a composite representing the combined -->
+                     <!-- databases 'subDbs'. The individual subDbs are also available. -->
+  disclaimers        [12]  IMPLICIT HumanString OPTIONAL,
+  news            [13]  IMPLICIT HumanString OPTIONAL,
+  recordCount           [14]    CHOICE {
+                                   actualNumber  [0] IMPLICIT INTEGER,
+                                    approxNumber  [1] IMPLICIT INTEGER} OPTIONAL,
+  defaultOrder        [15]  IMPLICIT HumanString OPTIONAL,
+  avRecordSize        [16]  IMPLICIT INTEGER OPTIONAL,
+  maxRecordSize      [17]  IMPLICIT INTEGER OPTIONAL,
+  hours            [18]  IMPLICIT HumanString OPTIONAL,
+  bestTime          [19]  IMPLICIT HumanString OPTIONAL,
+  lastUpdate          [20]  IMPLICIT GeneralizedTime OPTIONAL,
+  updateInterval        [21]  IMPLICIT IntUnit OPTIONAL,
+  coverage          [22]  IMPLICIT HumanString OPTIONAL,
+  proprietary        [23]  IMPLICIT BOOLEAN OPTIONAL, <!-- mandatory in full record -->
+  copyrightText        [24]  IMPLICIT HumanString OPTIONAL,
+  copyrightNotice      [25]  IMPLICIT HumanString OPTIONAL,
+  producerContactInfo    [26]  IMPLICIT ContactInfo OPTIONAL,
+  supplierContactInfo      [27]  IMPLICIT ContactInfo OPTIONAL,
+  submissionContactInfo    [28]  IMPLICIT ContactInfo OPTIONAL,
+    <!-- accessInfo lists items connected with the database. All listed items should be in the target's AccessInfo. -->
+  accessInfo                [29]  IMPLICIT AccessInfo OPTIONAL}
+
+
+<!ELEMENT SchemaInfo - -  SEQUENCE {
+  commonInfo    [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  schema      [1]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- Non-key brief elements follow: -->
+  name        [2]  IMPLICIT InternationalString,
+    <!-- Non-brief elements follow: -->
+  description    [3]  IMPLICIT HumanString OPTIONAL,
+  tagTypeMapping  [4]  IMPLICIT SEQUENCE OF SEQUENCE {
+              tagType    [0] IMPLICIT INTEGER,
+              tagSet       [1] IMPLICIT OBJECT IDENTIFIER OPTIONAL,
+                <!-- If tagSet is omitted, then this tagType is for a tagSet locally defined -->
+                <!-- within the schema that cannot be referenced by another schema. -->
+              defaultTagType  [2] IMPLICIT NULL OPTIONAL
+                        } OPTIONAL,
+  recordStructure  [5]  IMPLICIT SEQUENCE OF ElementInfo OPTIONAL}
+
+
+  <!--  ElementInfo referenced in SchemaInfo and RecordSyntaxInfo -->
+    <!ELEMENT ElementInfo - -  SEQUENCE {
+      elementName  [1] IMPLICIT InternationalString,
+      elementTagPath  [2] IMPLICIT Path,
+      dataType      [3] ElementDataType OPTIONAL, <!-- If omitted, not specified.  -->
+       required         [4] IMPLICIT BOOLEAN,
+      repeatable     [5] IMPLICIT BOOLEAN,
+       description    [6] IMPLICIT HumanString OPTIONAL}
+
+
+  <!-- Path is referenced by ElementInfo as well as PerElementDetails -->
+             <!ELEMENT Path - -  SEQUENCE OF SEQUENCE{
+              tagType  [1] IMPLICIT INTEGER,
+              tagValue     [2] StringOrNumeric}
+      <!ELEMENT ElementDataType - -  CHOICE{
+            primitive  [0] IMPLICIT PrimitiveDataType,
+           structured  [1] IMPLICIT SEQUENCE OF ElementInfo}
+      <!ELEMENT PrimitiveDataType - -  INTEGER{
+            octetString        (0),
+            numeric           (1),
+            date            (2),
+            external        (3),
+            string          (4),
+            trueOrFalse       (5),
+            oid         (6),
+            intUnit        (7),
+        empty        (8),
+            noneOfTheAbove  (100) <!-- see 'description' -->
+            }
+
+
+<!ELEMENT TagSetInfo - -  SEQUENCE {
+  commonInfo  [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  tagSet      [1]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- non-key brief elements follow: -->
+  name      [2]  IMPLICIT InternationalString,
+    <!-- non-brief elements follow: -->
+  description  [3]  IMPLICIT HumanString OPTIONAL,
+  elements    [4]  IMPLICIT SEQUENCE OF SEQUENCE {
+              elementname  [1]  IMPLICIT InternationalString,
+               nicknames    [2]  IMPLICIT SEQUENCE OF InternationalString OPTIONAL,
+              elementTag     [3]  StringOrNumeric, 
+              description    [4]  IMPLICIT HumanString OPTIONAL, 
+            dataType       [5]  PrimitiveDataType OPTIONAL,
+              <!-- If the data type is expected to be structured, that is described in the schema info, -->
+              <!-- and datatype is omitted here. -->
+             otherTagInfo       OtherInformation OPTIONAL} OPTIONAL}
+
+<!ELEMENT RecordSyntaxInfo - -  SEQUENCE {
+  commonInfo    [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  recordSyntax    [1]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- Non-key brief elements follow: -->
+  name        [2]  IMPLICIT InternationalString,
+    <!-- non-brief elements follow: -->
+  transferSyntaxes  [3]  IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  description    [4]  IMPLICIT HumanString OPTIONAL,
+  asn1Module    [5]  IMPLICIT InternationalString OPTIONAL,
+  abstractStructure  [6]  IMPLICIT SEQUENCE OF ElementInfo OPTIONAL
+               <!-- Omitting abstractStructure only means target isn't using -->
+                 <!-- Explain to describe the structure, not that there is no structure. -->
+              }
+
+<!ELEMENT AttributeSetInfo - -  SEQUENCE {
+  commonInfo  [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  attributeSet  [1]  IMPLICIT AttributeSetId,
+    <!-- non-key brief elements follow: -->
+  name      [2]  IMPLICIT InternationalString,
+    <!-- non-brief elements follow: -->
+  attributes    [3]  IMPLICIT SEQUENCE OF AttributeType OPTIONAL,
+            <!-- mandatory in full record -->
+  description   [4] IMPLICIT HumanString OPTIONAL}
+<!-- AttributeType referenced in AttributeSetInfo -->
+  <!ELEMENT AttributeType - -  SEQUENCE {
+      name             [0] IMPLICIT InternationalString OPTIONAL,
+      description      [1] IMPLICIT HumanString OPTIONAL,
+       attributeType    [2] IMPLICIT INTEGER,
+      attributeValues  [3] IMPLICIT SEQUENCE OF AttributeDescription}
+    <!ELEMENT AttributeDescription - -  SEQUENCE {
+        name                 [0] IMPLICIT InternationalString OPTIONAL,
+        description          [1] IMPLICIT HumanString OPTIONAL,
+        attributeValue       [2] StringOrNumeric,
+        equivalentAttributes  [3]  IMPLICIT SEQUENCE OF StringOrNumeric OPTIONAL
+                  <!-- each is an occurrence of 'attributeValue' from AttributeDescription for a -->
+                  <!-- different attribute. Equivalences listed here should be derived from the  -->
+                  <!-- attribute set definition, not from a particular server's behavior.   -->
+                    }
+
+
+<!ELEMENT TermListInfo - -  SEQUENCE{
+  commonInfo    [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  databaseName  [1]  IMPLICIT DatabaseName,
+    <!-- Non-key brief elements follow: -->
+  termLists      [2] IMPLICIT SEQUENCE OF SEQUENCE{
+            name    [1] IMPLICIT InternationalString,
+            title    [2] IMPLICIT HumanString OPTIONAL,
+                                            <!-- Title is for users to see and can differ by language. Name, on the -->
+                      <!-- other hand is typically a short string not necessarily meant to be -->
+                       <!-- human-readable, and not variable by language. -->
+            searchCost   [3]   IMPLICIT INTEGER {
+                  optimized  (0),    <!-- The attribute (or combination) associated -->
+                            <!-- with this   list will do fast searches.  -->
+                      normal      (1),    <!-- The attribute (combination) will work as -->
+                            <!-- expected. So there's probably an index for the -->
+                            <!-- attribute (combination) or some similar -->
+                             <!-- mechanism. -->
+                      expensive   (2),    <!-- Can use the attribute (combination), but it -->
+                            <!-- might not provide satisfactory results. -->
+                            <!-- Probably there is no index, or post- -->
+                            <!-- processing of records is required. -->
+                      filter      (3)    <!-- can't search with this attribute (combination) alone. -->
+                         } OPTIONAL,
+              scanable  [4]  IMPLICIT BOOLEAN, <!-- 'true' means this list can be scanned. -->
+               broader    [5] IMPLICIT SEQUENCE OF InternationalString OPTIONAL,
+               narrower  [6] IMPLICIT SEQUENCE OF InternationalString OPTIONAL
+                       <!-- broader and narrower list alternative term lists related to this one. -->
+                       <!-- The term lists so listed should also be in this termLists structure. -->
+                          }
+  <!-- no non-brief elements -->
+            }
+
+
+<!ELEMENT ExtendedServicesInfo - -  SEQUENCE {
+  commonInfo          [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  type          [1]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- Non-key brief elements follow: -->
+  name                [2]  IMPLICIT InternationalString OPTIONAL,
+                <!-- should be supplied if privateType is 'true' -->
+  privateType      [3]  IMPLICIT BOOLEAN,
+  restrictionsApply    [5]  IMPLICIT BOOLEAN,  <!-- if 'true' see 'description' -->
+  feeApply              [6]  IMPLICIT BOOLEAN,  <!-- if 'true' see 'description' -->
+  available             [7]  IMPLICIT BOOLEAN,
+  retentionSupported    [8]  IMPLICIT BOOLEAN,
+  waitAction      [9]  IMPLICIT INTEGER{
+                waitSupported    (1),
+                waitAlways      (2),
+                waitNotSupported  (3),
+                depends      (4),
+                notSaying      (5)},
+  <!-- non-brief elements follow: -->
+    <!-- To get brief plus 'description' use esn 'description' -->
+  description           [10]  IMPLICIT HumanString OPTIONAL,
+      <!-- to get above elements and 'specificExplain' use esn 'specificExplain' -->
+  specificExplain    [11]  IMPLICIT EXTERNAL OPTIONAL,
+                  <!-- Use oid of specific ES, and select choice [3] 'explain'. Format -->
+                  <!-- to be developed in conjunction with the specific ES definition. -->
+    <!-- to get all elements except 'specificExplain', use esn 'asn' -->
+  esASN          [12]  IMPLICIT InternationalString OPTIONAL <!-- the ASN.1 for this ES -->
+                }
+
+<!-- - - - - - - - - - - - - Detail records -->
+ <!-- The detail records describe relationships among entities supported by the target. RetrievalRecordDetails describes -->
+ <!-- the way that schema elements are mapped into record elements. This mapping may be different for each -->
+ <!-- combination of database, schema, record syntax. The per-element details describe the default mapping. -->
+ <!-- Origin-request re-tagging can change that mapping. When multiple databases are listed in a databaseNames -->
+ <!-- element, the record applies equally to all of the listed databases.  This is unrelated to searching the databases -->
+ <!-- together. AttributeDetails describes how databases can be searched. Each supported attribute is listed, and the -->
+ <!-- allowable combinations can be described. -->
+
+
+<!ELEMENT AttributeDetails - -  SEQUENCE {
+  commonInfo        [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  databaseName        [1]  IMPLICIT DatabaseName,
+    <!-- Non-brief elements follow: -->
+  attributesBySet        [2]  IMPLICIT SEQUENCE OF AttributeSetDetails OPTIONAL, 
+                  <!-- mandatory in full record -->
+  attributeCombinations    [3]  IMPLICIT AttributeCombinations OPTIONAL}
+
+
+
+
+<!-- AttributeSetDetails referenced by AttributeDetails -->
+  <!ELEMENT AttributeSetDetails - -  SEQUENCE {
+        attributeSet      [0] IMPLICIT AttributeSetId,
+          attributesByType  [1] IMPLICIT SEQUENCE OF AttributeTypeDetails }
+    <!ELEMENT AttributeTypeDetails - -  SEQUENCE {
+         attributeType     [0] IMPLICIT INTEGER,
+          defaultIfOmitted    [1] IMPLICIT OmittedAttributeInterpretation OPTIONAL,
+          attributeValues    [2] IMPLICIT SEQUENCE OF AttributeValue OPTIONAL }
+                          <!-- If no attributeValues are supplied, all values of this type are fully -->
+                    <!-- supported, and the descriptions in AttributeSetInfo are adequate. -->
+
+    <!ELEMENT OmittedAttributeInterpretation - -  SEQUENCE {
+        defaultValue           [0] StringOrNumeric OPTIONAL,
+                                <!-- A default value is listed if that's how the server works -->
+        defaultDescription  [1] IMPLICIT HumanString OPTIONAL }
+                          <!-- The human-readable description should generally be provided. -->
+                    <!-- It is legal for both default elements to be missing, which -->
+                    <!-- means that the target will allow the attribute type to be -->
+                    <!-- omitted, but isn't saying what it will do. -->
+
+    <!ELEMENT AttributeValue - -  SEQUENCE {
+        value              [0]  StringOrNumeric,
+        description        [1]  IMPLICIT HumanString OPTIONAL,
+        subAttributes     [2]  IMPLICIT SEQUENCE OF StringOrNumeric OPTIONAL,
+        superAttributes    [3]  IMPLICIT SEQUENCE OF StringOrNumeric OPTIONAL,
+        partialSupport    [4]  IMPLICIT NULL OPTIONAL }
+        <!-- partialSupport indicates that an attributeValue is accepted, but may not be processed in the -->
+        <!-- "expected" way. One important reason for this is composite databases: in this case partialSupport -->
+        <!-- may indicate that only some of the subDbs support the attribute, and others ignore it. -->
+
+
+
+<!ELEMENT TermListDetails - -  SEQUENCE{  <!-- one for each termList in TermListInfo -->
+  commonInfo    [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  termListName    [1]  IMPLICIT InternationalString,
+    <!-- Non-key elements (all non-brief) follow: -->
+  description    [2]  IMPLICIT HumanString OPTIONAL,
+  attributes      [3]  IMPLICIT AttributeCombinations OPTIONAL,
+                          <!-- Pattern for attributes that hit this list. Mandatory in full record -->
+  scanInfo      [4]  IMPLICIT SEQUENCE {
+                maxStepSize         [0] IMPLICIT INTEGER OPTIONAL,
+                collatingSequence  [1] IMPLICIT HumanString OPTIONAL,
+                increasing            [2] IMPLICIT BOOLEAN OPTIONAL} OPTIONAL,
+            <!-- Occurs only if list is scanable. If list is scanable and if scanInfo is omitted,  -->
+            <!-- target doesn't consider these important. -->
+  estNumberTerms  [5]  IMPLICIT INTEGER OPTIONAL,
+  sampleTerms    [6]  IMPLICIT SEQUENCE OF Term OPTIONAL}
+
+
+
+<!ELEMENT ElementSetDetails - -  SEQUENCE {
+  <!-- ElementSetDetails describes the way that database records are mapped to record elements. This -->
+  <!-- mapping may be different for each combination of database name and element set. The database record -->
+   <!-- description is a schema, which may be private to the target. The schema's abstract record structure -->
+  <!-- and tag sets provide the vocabulary for discussing record content; their presence in the Explain -->
+  <!-- database does not imply support for complex retrieval specification. -->
+  commonInfo      [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  databaseName      [1]  IMPLICIT DatabaseName,
+  elementSetName    [2]  IMPLICIT ElementSetName,
+  recordSyntax      [3]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- Non-key Brief elements follow: -->
+  schema        [4]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- Non-brief elements follow: -->
+  description      [5]  IMPLICIT HumanString OPTIONAL,
+  detailsPerElement    [6]  IMPLICIT SEQUENCE OF PerElementDetails OPTIONAL <!-- mandatory in full record -->
+              }
+
+
+<!ELEMENT RetrievalRecordDetails - -  SEQUENCE {
+  commonInfo      [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  databaseName      [1]  IMPLICIT DatabaseName,
+  schema        [2]  IMPLICIT OBJECT IDENTIFIER,
+  recordSyntax      [3]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- Non-brief elements follow: -->
+  description      [4]  IMPLICIT HumanString OPTIONAL,
+  detailsPerElement    [5]  IMPLICIT SEQUENCE OF PerElementDetails OPTIONAL
+                <!-- mandatory in full record -->
+            }
+
+<!-- PerElementDetails is referenced in RetrievalRecordDetails and ElementSetDetails. -->
+  <!ELEMENT PerElementDetails - -  SEQUENCE {
+      name      [0]    IMPLICIT InternationalString OPTIONAL,
+                   <!-- If the name is omitted, the record syntax's name for this element -->
+                  <!-- is appropriate. -->
+      recordTag    [1]    IMPLICIT RecordTag OPTIONAL,
+                   <!-- The record tag may be omitted if tags are inappropriate for the record -->
+                  <!-- syntax, or if the origin can be expected to know it for some other reason. -->
+      schemaTags    [2]    IMPLICIT SEQUENCE OF Path OPTIONAL,
+                      <!-- The information from the listed schema elements is combined -->
+                  <!-- in some way to produce the data sent in the listed record tag. The -->
+                  <!-- 'contents' element below may describe the logic used. -->
+      maxSize    [3]    IMPLICIT INTEGER OPTIONAL,
+      minSize    [4]    IMPLICIT INTEGER OPTIONAL,
+      avgSize      [5]    IMPLICIT INTEGER OPTIONAL,
+      fixedSize    [6]    IMPLICIT INTEGER OPTIONAL,
+      repeatable    [8]    IMPLICIT BOOLEAN,
+      required    [9]    IMPLICIT BOOLEAN, 
+                  <!-- 'required' really means that target will always supply the element. -->
+      description    [12]  IMPLICIT HumanString OPTIONAL,
+      contents    [13]  IMPLICIT HumanString OPTIONAL,
+      billingInfo    [14]  IMPLICIT HumanString OPTIONAL,
+      restrictions    [15]  IMPLICIT HumanString OPTIONAL,
+      alternateNames  [16]  IMPLICIT SEQUENCE OF InternationalString OPTIONAL,
+      genericNames  [17]  IMPLICIT SEQUENCE OF InternationalString OPTIONAL,
+      searchAccess  [18]  IMPLICIT AttributeCombinations OPTIONAL }
+      <!-- RecordTag referenced in PerElementDetails above -->
+        <!ELEMENT RecordTag - -  SEQUENCE {
+              qualifier  [0] StringOrNumeric OPTIONAL,
+                    <!-- E.g. tag set for GRS-1 -->
+              tagValue  [1] StringOrNumeric}
+
+<!ELEMENT SortDetails - -  SEQUENCE {
+  commonInfo    [0]  IMPLICIT CommonInfo OPTIONAL,
+  <!-- Key elements follow: -->
+  databaseName    [1]  IMPLICIT DatabaseName,
+    <!-- No non-key brief elements -->
+    <!-- Non-brief elements follow: -->
+  sortKeys      [2]  IMPLICIT SEQUENCE OF SortKeyDetails OPTIONAL
+              <!-- mandatory in full record -->
+          }
+  <!ELEMENT SortKeyDetails - -  SEQUENCE {
+      description        [0]  IMPLICIT HumanString OPTIONAL,
+      elementSpecifications  [1]  IMPLICIT SEQUENCE OF Specification OPTIONAL,
+                      <!-- each specification is a way of specifying this same sort key -->
+      attributeSpecifications  [2]  IMPLICIT AttributeCombinations OPTIONAL,
+                      <!-- each combination is a way of specifying this same sort key -->
+      sortType                   [3]  CHOICE {
+                    character    [0]  IMPLICIT NULL,
+                    numeric    [1]  IMPLICIT NULL,
+                    structured    [2]  IMPLICIT HumanString} OPTIONAL,
+      caseSensitivity      [4]  IMPLICIT INTEGER {
+                      always    (0),  <!-- always case-sensitive -->
+                    never    (1),            <!-- never case-sensitive -->
+                    default-yes  (2),               <!-- case-sensitivity is as specified on request, and if not -->
+                            <!-- specified, case-sensitive. -->
+                    default-no  (3)} <!-- case-sensitivity is as specified on request, and if not -->
+                            <!-- specified, not case-sensitive. -->
+                          OPTIONAL}
+
+<!ELEMENT ProcessingInformation - -  SEQUENCE{
+  commonInfo      [0]  IMPLICIT CommonInfo OPTIONAL,
+    <!-- Key elements follow: -->
+  databaseName      [1]  IMPLICIT DatabaseName,
+  processingContext    [2]  IMPLICIT INTEGER {
+                  access        (0),   <!-- e.g. choosing databases -->
+                  search        (1),   <!-- e.g. "search strategies" or search forms  -->
+                  retrieval      (2),   <!-- e.g. recommended element combinations  -->
+                  record-presentation  (3),    <!-- display of retrieved records -->
+                  record-handling    (4)    <!-- handling (e.g. saving) of retrieved records -->
+        },
+  name          [3]  IMPLICIT InternationalString,
+  oid          [4]  IMPLICIT OBJECT IDENTIFIER,
+    <!-- No non-key brief elements -->
+    <!-- Non-brief elements follow: -->
+  description      [5]  IMPLICIT HumanString OPTIONAL,
+                <!-- use element set name 'description' to retrieve all except instructions. -->
+  instructions      [6]  IMPLICIT EXTERNAL OPTIONAL <!-- mandatory in full record -->
+              }
+
+
+<!ELEMENT VariantSetInfo - -  SEQUENCE {
+    <!-- A record in this category describes a variant set definition, i.e., classes, types, and values, for a specific -->
+    <!-- variant set definition supported by the target. Support by the target of a particular variant set definition -->
+    <!-- does not imply that the definition is supported for any specific database or element.  -->
+  commonInfo    [0] IMPLICIT CommonInfo OPTIONAL,
+  <!-- Key elements follow: -->
+  variantSet    [1] IMPLICIT OBJECT IDENTIFIER,
+  <!-- Non-key brief elements follow: -->
+  name      [2] IMPLICIT InternationalString,
+  <!-- Non-brief elements follow: -->
+  variants    [3] IMPLICIT SEQUENCE OF VariantClass OPTIONAL
+                   <!-- mandatory in full record -->
+           }
+
+  <!-- Subsidiary structures for VariantSetInfo -->
+    <!ELEMENT VariantClass - -  SEQUENCE {
+          name        [0] IMPLICIT InternationalString OPTIONAL,
+          description    [1] IMPLICIT HumanString OPTIONAL,
+          variantClass    [2] IMPLICIT INTEGER,
+          variantTypes  [3] IMPLICIT SEQUENCE OF VariantType}
+    <!ELEMENT VariantType - -  SEQUENCE {
+          name            [0] IMPLICIT InternationalString OPTIONAL,
+          description     [1] IMPLICIT HumanString OPTIONAL,
+          variantType    [2] IMPLICIT INTEGER,
+          variantValue  [3] IMPLICIT VariantValue OPTIONAL}
+    <!ELEMENT VariantValue - -  SEQUENCE {
+          dataType     [0] PrimitiveDataType,
+          values        [1] ValueSet OPTIONAL }
+    <!ELEMENT ValueSet - -  CHOICE {
+          range       [0] IMPLICIT ValueRange,
+          enumerated  [1] IMPLICIT SEQUENCE OF ValueDescription }
+    <!ELEMENT ValueRange - -  SEQUENCE {
+            <!-- At last one the following must be supplied, both may be supplied. -->
+          lower      [0] ValueDescription OPTIONAL,
+          upper     [1] ValueDescription OPTIONAL }
+    <!ELEMENT ValueDescription - -  CHOICE{
+      integer             INTEGER,
+          string              InternationalString,
+          octets              OCTET STRING,
+          oid                 OBJECT IDENTIFIER,
+          unit               [1]  IMPLICIT Unit,
+          valueAndUnit   [2]  IMPLICIT IntUnit 
+            <!-- oid and unit can't be used in a ValueRange -->
+            }
+
+
+
+<!ELEMENT UnitInfo - -  SEQUENCE {
+  commonInfo  [0] IMPLICIT CommonInfo OPTIONAL,
+  <!-- Key elements follow: -->
+  unitSystem   [1] IMPLICIT InternationalString,
+   <!-- No non-key brief elements -->
+   <!-- Non-brief elements follow: -->
+  description   [2] IMPLICIT HumanString OPTIONAL,
+  units      [3] IMPLICIT SEQUENCE OF UnitType OPTIONAL
+                         <!-- mandatory in full record -->
+           }
+
+  <!-- Subsidiary structures for UnitInfo -->
+    <!ELEMENT UnitType - -  SEQUENCE {
+      name    [0] IMPLICIT InternationalString OPTIONAL,
+      description  [1] IMPLICIT HumanString OPTIONAL,
+      unitType  [2] StringOrNumeric,
+      units     [3] IMPLICIT SEQUENCE OF Units}
+
+    <!ELEMENT Units - -  SEQUENCE {
+      name     [0] IMPLICIT InternationalString OPTIONAL,
+      description  [1] IMPLICIT HumanString OPTIONAL,
+      unit      [2] StringOrNumeric}
+
+<!ELEMENT CategoryList - -  SEQUENCE {
+  commonInfo      [0] IMPLICIT CommonInfo OPTIONAL,
+    <!-- Only one record expected per Explain database. All elements appear in brief presentation. -->
+  categories      [1] IMPLICIT SEQUENCE OF CategoryInfo }
+    <!ELEMENT CategoryInfo - -  SEQUENCE {
+           category          [1] IMPLICIT InternationalString,
+            originalCategory    [2] IMPLICIT InternationalString OPTIONAL,
+          description         [3] IMPLICIT HumanString OPTIONAL,
+         asn1Module      [4] IMPLICIT InternationalString OPTIONAL}
+
+
+<!-- - - - - - - - - - - - - - Subsidiary definitions -->
+
+<!ELEMENT CommonInfo - -  SEQUENCE {
+  dateAdded         [0] IMPLICIT GeneralizedTime OPTIONAL,
+  dateChanged       [1] IMPLICIT GeneralizedTime OPTIONAL,
+  expiry                [2] IMPLICIT GeneralizedTime OPTIONAL,
+  humanString-Language  [3] IMPLICIT LanguageCode OPTIONAL,
+  <!-- following not to occur for brief: -->
+  otherInfo          OtherInformation OPTIONAL}
+
+
+<!ELEMENT HumanString - -  SEQUENCE OF SEQUENCE {
+          language  [0] IMPLICIT LanguageCode OPTIONAL,
+        text        [1] IMPLICIT InternationalString}
+
+<!ELEMENT IconObject - -  SEQUENCE OF SEQUENCE{
+      <!-- Note that the "SEQUENCE OF" is to allow alternative representations of the same Icon; it is not -->
+      <!-- intended to allow multiple icons. -->
+  bodyType [1] CHOICE{
+           ianaType  [1] IMPLICIT InternationalString,
+          z3950type  [2] IMPLICIT InternationalString,
+           otherType  [3] IMPLICIT InternationalString},
+  content  [2] IMPLICIT OCTET STRING}
+
+
+<!ELEMENT LanguageCode - -  InternationalString  <!-- from ANSI/NISO Z39.53-1994  -->
+
+<!ELEMENT ContactInfo - -  SEQUENCE {
+  name           [0] IMPLICIT InternationalString OPTIONAL,
+  description  [1] IMPLICIT HumanString OPTIONAL,
+  address        [2] IMPLICIT HumanString OPTIONAL,
+  email         [3] IMPLICIT InternationalString OPTIONAL,
+  phone         [4] IMPLICIT InternationalString OPTIONAL}
+
+<!ELEMENT NetworkAddress - -  CHOICE {
+  internetAddress      [0] IMPLICIT SEQUENCE {
+                  hostAddress    [0]  IMPLICIT InternationalString,
+                  port       [1]  IMPLICIT INTEGER},
+  osiPresentationAddress    [1] IMPLICIT SEQUENCE { 
+                    pSel         [0] IMPLICIT InternationalString,  
+                    sSel         [1] IMPLICIT InternationalString OPTIONAL,  
+                    tSel        [2] IMPLICIT InternationalString OPTIONAL,  
+                    nSap      [3] IMPLICIT InternationalString},
+  other            [2] IMPLICIT SEQUENCE {  
+                      type        [0] IMPLICIT InternationalString,
+                address    [1] IMPLICIT InternationalString}}
+
+<!ELEMENT AccessInfo - -  SEQUENCE {
+    <!-- AccessInfo contains the fundamental information about what facilities are required to use this target -->
+    <!-- or server. For example, if an origin can handle none of the record syntaxes a database can provide,  -->
+    <!-- it might choose not to access the database. -->
+  queryTypesSupported  [0]    IMPLICIT SEQUENCE OF QueryTypeDetails OPTIONAL,
+  diagnosticsSets        [1]    IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  attributeSetIds          [2]    IMPLICIT SEQUENCE OF AttributeSetId OPTIONAL,
+  schemas                [3]    IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  recordSyntaxes         [4]    IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  resourceChallenges    [5]    IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  restrictedAccess       [6]    IMPLICIT AccessRestrictions OPTIONAL,
+  costInfo                 [8]    IMPLICIT Costs OPTIONAL,
+  variantSets       [9]    IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL,
+  elementSetNames    [10]  IMPLICIT SEQUENCE OF ElementSetName OPTIONAL,
+  unitSystems      [11]  IMPLICIT SEQUENCE OF InternationalString}
+
+<!-- begin auxiliary definitions for AccessInfo -->
+<!-- Begin Query Details -->
+<!ELEMENT QueryTypeDetails - -  CHOICE {
+  private       [0]    IMPLICIT PrivateCapabilities,
+  rpn            [1]    IMPLICIT RpnCapabilities,
+  iso8777          [2]    IMPLICIT Iso8777Capabilities,
+  z39-58      [100]  IMPLICIT HumanString,
+  erpn        [101]  IMPLICIT RpnCapabilities,
+  rankedList      [102]  IMPLICIT HumanString}
+
+<!ELEMENT PrivateCapabilities - -  SEQUENCE {
+  operators       [0]  IMPLICIT SEQUENCE OF SEQUENCE {
+              operator  [0] IMPLICIT InternationalString,
+              description  [1] IMPLICIT HumanString OPTIONAL } OPTIONAL,
+  searchKeys    [1]  IMPLICIT SEQUENCE OF SearchKey OPTIONAL,  <!-- field names that can be searched -->
+  description    [2]  IMPLICIT SEQUENCE OF HumanString OPTIONAL }
+
+<!ELEMENT RpnCapabilities - -  SEQUENCE {
+  operators                    [0] IMPLICIT SEQUENCE OF INTEGER OPTIONAL,
+                                        <!-- Omitted means all operators are supported. -->
+  resultSetAsOperandSupported  [1] IMPLICIT BOOLEAN,
+  restrictionOperandSupported    [2] IMPLICIT BOOLEAN,
+  proximity                    [3] IMPLICIT ProximitySupport OPTIONAL}
+
+Iso8777<!ELEMENT Capabilities - -  SEQUENCE {
+  searchKeys  [0]  IMPLICIT SEQUENCE OF SearchKey,  <!-- field names that may be searched -->
+  restrictions   [1]  IMPLICIT HumanString OPTIONAL 
+            <!-- Omitted means supported, not specifying units. -->
+              }
+
+<!ELEMENT ProximitySupport - -  SEQUENCE {
+  anySupport      [0]   IMPLICIT BOOLEAN,
+          <!-- 'false' means no proximity support, in which case unitsSupported not supplied. -->
+  unitsSupported  [1]   IMPLICIT SEQUENCE OF CHOICE{  
+             known  [1] IMPLICIT INTEGER, <!-- values from KnownProximityUnit -->
+          private  [2] IMPLICIT SEQUENCE{  
+                      unit    [0] IMPLICIT INTEGER,  
+                description  [1] HumanString OPTIONAL}} OPTIONAL}
+
+<!ELEMENT SearchKey - -  SEQUENCE {
+  searchKey     [0]  IMPLICIT InternationalString,
+  description     [1]  IMPLICIT HumanString OPTIONAL }
+<!-- End Query details -->
+<!ELEMENT AccessRestrictions - -  SEQUENCE OF SEQUENCE {
+  accessType      [0] INTEGER {
+                  any         (0),
+                  search         (1),
+                  present         (2),
+                  specific-elements  (3),
+                  extended-services  (4),
+            by-database      (5)},
+  accessText         [1]  IMPLICIT HumanString OPTIONAL,
+  accessChallenges  [2]  IMPLICIT SEQUENCE OF OBJECT IDENTIFIER OPTIONAL}
+
+<!ELEMENT Costs - -  SEQUENCE {
+  connectCharge    [0] IMPLICIT Charge OPTIONAL,    <!-- Per-connection charge -->
+  connectTime    [1] IMPLICIT Charge OPTIONAL,    <!-- Time-based charge -->
+  displayCharge     [2] IMPLICIT Charge OPTIONAL,    <!-- Per-record charge -->
+  searchCharge     [3] IMPLICIT Charge OPTIONAL,    <!-- Per-search charge -->
+  subscriptCharge  [4]  IMPLICIT Charge OPTIONAL,  <!-- Subscription charges -->
+  otherCharges    [5] IMPLICIT SEQUENCE OF SEQUENCE{   <!-- Other charges -->
+            forWhat  [1]  IMPLICIT HumanString,
+            charge    [2]  IMPLICIT Charge} OPTIONAL} 
+    <!ELEMENT Charge - -  SEQUENCE{
+        cost          [1] IMPLICIT IntUnit,
+        perWhat  [2] IMPLICIT Unit OPTIONAL,
+                      <!-- e.g. "second," "minute," "line," "record"... -->
+        text          [3] IMPLICIT HumanString OPTIONAL} 
+<!-- End Auxiliary definitions for AccessInfo -->
+
+<!ELEMENT DatabaseList - -  SEQUENCE OF DatabaseName
+
+<!ELEMENT AttributeCombinations - -  SEQUENCE {
+  defaultAttributeSet  [0] IMPLICIT AttributeSetId,
+                 <!-- Default for the combinations. Also probably a good choice for the default -->
+              <!-- in searches, but that isn't required. -->
+  legalCombinations  [1] IMPLICIT SEQUENCE OF AttributeCombination }
+
+
+<!ELEMENT AttributeCombination - -  SEQUENCE OF AttributeOccurrence
+            <!-- An AttributeCombination is a pattern for legal combination of attributes -->
+
+
+<!ELEMENT AttributeOccurrence - -  SEQUENCE {   
+      <!-- An AttributeOccurrence lists the legal values for a specific attribute type in a combination. -->
+       attributeSet       [0]  IMPLICIT AttributeSetId OPTIONAL,
+       attributeType      [1]  IMPLICIT INTEGER,
+       mustBeSupplied  [2]  IMPLICIT NULL OPTIONAL,
+       attributeValues    CHOICE {
+                      any-or-none  [3] IMPLICIT NULL, <!-- All supported values are OK  -->
+                      specific    [4] IMPLICIT SEQUENCE OF StringOrNumeric}}
+                                                  <!-- Only these values allowed -->
+
+]>
+
+
+

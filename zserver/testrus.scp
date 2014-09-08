@@ -1,0 +1,6 @@
+zselect xxx sherlock RUS_classcluster 2222
+puts [zfind topic logika]
+zset recsyntax sgml
+zdisplay 1 2
+zclose
+

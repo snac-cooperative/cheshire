@@ -1,0 +1,15 @@
+# Test script for ztcl for GRS-1 conversion
+zselect testsherlock sherlock HDS_Catalogue 2222
+set RESULTS [zfind title kentish]
+puts "$RESULTS"
+zset recsyntax SGML
+set disp [zdisplay]
+
+puts "$disp"
+
+#foreach rec [lrange $disp 1 end] {
+#    puts "++++++++++++++++++++++++++++++++++++++++++++++++++"
+#    foreach tag $rec {
+#	puts "$tag"
+#    }
+#}

@@ -1,0 +1,18 @@
+set CHESHIRE_DATABASE bibfile
+set CHESHIRE_NUMREQUESTED 2
+set CHESHIRE_ATTRIBUTESET "junk"
+set CHESHIRE_CONFIGFILE "/usr3/ray/Work/z3950_3/index/testconfig.new"
+set RESULTS [search {topic @ {statistics}}]
+#puts $RESULTS
+set hdr [lindex $RESULTS 0]
+set recs [lrange $RESULTS 1 end]
+puts "Search result info: $hdr"
+puts "formatting sgml records"
+set num 0
+foreach y $recs {
+	incr num	
+	puts  "<p><H3>Record #$num</H3>"
+	puts [zformat HTMLlong $y 2 1 80 /usr/users/ray/Work/cheshire2//sgml/USMARC08.DTD]
+	puts "<hr>"
+
+}

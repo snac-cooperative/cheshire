@@ -1,0 +1,157 @@
+Note -- this data is included in the cheshire2/MAPDATA directory as map.data
+
+WDB-II DATA DOCUMENTATION
+
+Contents:
+
+     Overview
+     Micro WDB-II File and Record Structures
+     Field Definitions
+
+
+
+
+Overview
+========
+
+     This file documents the data structure used in WDB-II.  It
+     is from the original MS-DOS version by Fred Pospeschil and
+     Antonio Riveria.  Note that in this distribution for the
+     Amiga, the data appears in a different form than the original
+     in several respects:
+
+     First, the original data was in Intel low order - high order
+     format.  For this release the data has been converted for use
+     with the Motorola chip set (high order - low order).
+
+     Second, individual groupings of data for coastlines, islands,
+     rivers, lakes, and political boundaries as they appeared in
+     the original, have been consolidated into WDB.?.ALL files
+     consisting of data from all 6 groups.
+
+     And lastly, the largest of the original data files did not
+     contain any data points from the lesser files; the complete
+     data set was only available by summing the data from each of
+     five detail levels.  This release differs in that the largest
+     file now contains all data, including that from each of the
+     lower four detail levels.  Each of the lower level files is a
+     subset of The Big File and, indeed, each lower level data
+     file is a subset of all higher level files.
+
+_____________________________________________________________________
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Micro WDB-II File and Record Structures
+=======================================
+
+All Micro WDB-II files are sequential files composed of fixed length
+six byte records which can be accessed randomly.  Each record is
+composed of three 16-bit signed integer fields which can be read by
+all microcomputer languages.  There are no record seperators used in
+these files.  The record layout is :
+
+   | Code | Latitude | Longitude |
+
+In Pascal, the record definition is :
+
+POINT = RECORD
+CODE      : INTEGER;
+LATITUDE  : INTEGER;
+LONGITUDE : INTEGER;
+   END;
+
+Within the MWDBII files the records are stored as shown below.
+In some cases there may be hundreds of points in a single line
+segment.  In other cases there may be consecutive header records
+which locate individual points to be plotted.
+
+|Header|Point1|Point2|PointN|Header|Point1|Point2|PointN|Header
+|Point1|Point2|Header|Header|Header|Point1|Point2|PointN|
+
+
+The same format is used for both the line header records and
+point records.  The usage of each field is as follows :
+
+
+Field Definitions
+=================
+
+CODE - Line Header Records.
+
+The CODE field is used to :
+
+   1.  Identify the type of line segment which is described by
+       the point records which follow it,
+
+   2.  Identify the line or point within the line type, and
+
+   3.  Provide the coordinates if the record describes a point.
+
+In header records the CODE field is always a positive four digit
+number in the form of : ABBB where
+
+A =                         BBB =           CODE =
+  1 = Coast lines         001 -> 208     1001 -> 1208
+  2 = Country boundries   001 -> 301     2001 -> 2301
+  4 = State boundries     001 -> 111     4001 -> 4111
+  5 = Islands             001 -> 344     5001 -> 5344
+  6 = Lakes               001 -> 103     6001 -> 6103
+  7 = Rivers              001 -> 196     7001 -> 7196
+
+
+CODE - Point records.
+
+In point records the CODE field contains the detail level.  The
+detail level is a value in the range of 1 through 5.  To properly
+retrieve points at any detail level use the following comparison :
+
+   IF CODE >= DESIRED_DETAIL_LEVEL THEN ...
+
+
+LATITUDE and LONGITUDE - In both header and point records.
+
+The latitude and longitude fields contain the coordinate values
+expressed in signed minutes.  The values in these fields are computed
+with the formula COORD_VALUE := (Degrees * 60) + Minutes.  Thus, the
+ranges of coordinate values in MWDBII are :
+
+ 90 00N =    5400
+ 90 00S =   -5400
+180 00E =   10800
+180 00W =  -10800
+
+MWDBII uses the standard four quadrant cartesian coordinate
+system in which north, south, east, and west are referenced to the
+equator and the Greenwich meridian.
+
+When a header record is followed by point records the coordinates in
+the header record are the beginning of the line.  When a header record
+is followed by another header record then the coordinates in the
+header record should be plotted as a single point. When working at low
+levels of detail it is common to find multiple consecutive header
+records which locate isolated points.  There may also be gaps between
+some of the lines.
+
+This documentation and the associated files are placed in the public
+domain and may incorporated into other products without fee so long as
+appropriate credits are included.  An appropriate credit line would be
+- "This product contains/uses data and/or code placed in the public
+domain by Fred Pospeschil and Antonio Riveria.  Original coordinate
+data was created by the Central Intelligence Agency."
+
+All programs were compiled with MS Pascal Version 3.20.
+Graphics support was from Flexi-Graph, New Orleans General Data
+Services, 7230 Chadbourne Drive, New Orleans, LA 70126 and Micro Doc,
+3108 Jackson St., Bellevue, NE 68005.
+
+ALL USERS OF THESE MATERIALS ARE TOTALLY RESPONSIBLE FOR THEIR USE AS
+THESE MATERIALS ARE PROVIDED WITHOUT EITHER EXPRESS OR IMPLIED
+WARRANTIES OF ANY KIND.
+
+
+
+Fred Pospeschil
+3108 Jackson St.
+Bellevue, NE 68005
+402-291-0795  (6-9 PM Central)
+

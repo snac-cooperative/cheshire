@@ -1,0 +1,10 @@
+# Test explain access and display
+puts "Contacting SilverPlatter..."
+zselect silver z3950.silverplatter.com IR-Explain-1 210
+puts "Setting Attributes"
+zset attributes explain
+zset recsyntax explain
+puts "trying to get targetinfo"
+set results [zfind cat TargetInfo]
+puts "Results are $results"
+

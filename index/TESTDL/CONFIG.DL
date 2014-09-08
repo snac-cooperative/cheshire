@@ -1,0 +1,277 @@
+<!-- This is a config file for Cheshire II indexing/retrieval of DL data -->
+<DBCONFIG>
+<DBENV> /home/ray/Work/DBENV </DBENV>
+<!-- The first filedef -->
+<FILEDEF TYPE=SGML>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> diglib </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> /home/ray/Work/cheshire/index/TESTDL/dlbibs.sgml.small
+</FILENAME>
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /home/ray/Work/cheshire/index/TESTDL/ELIBTEXT.DTD </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> /home/ray/Work/cheshire/index/TESTDL/dlbibs.sgml.small.assoc
+</ASSOCFIL>
+<!-- history is the full path name of the file's history file -->
+<HISTORY> /home/ray/Work/cheshire/index/TESTDL/dlbibs.history 
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/home/ray/Work/cheshire/index/TESTDL/DL.author.indx
+</INDXNAME>
+<INDXTAG> author </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The stoplist for this file -->
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDL/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>AUTHOR-PERSONAL</FTAG>
+<FTAG>AUTHOR-CONTRIBUTING-PERSONAL</FTAG>
+<FTAG>AUTHOR-CONTRIBUTING-INSTITUTIONAL</FTAG>
+<FTAG>AUTHOR-INSTITUTIONAL</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD_PROXIMITY NORMAL=STEM>
+<INDXNAME> /home/ray/Work/cheshire/index/TESTDL/DL.title.indx </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDL/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> TITLE </FTAG> 
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /home/ray/Work/cheshire/index/TESTDL/DL.xtitle.indx </INDXNAME>
+<INDXTAG> xtitle </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDL/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> TITLE </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	<!-- the following is shared with subject -->
+		/home/ray/Work/cheshire/index/TESTDL/DL.doctype.indx
+		
+</INDXNAME>
+<INDXTAG>	doctype
+		
+</INDXTAG>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 4 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 1 </struct></INDXMAP>
+<INDXMAP><USE> 1034 </USE><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1034 </USE><POSIT> 3 </posit> <struct> 4 </struct></INDXMAP>
+<INDXMAP><USE> 1034 </USE><POSIT> 3 </posit> <struct> 1 </struct></INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG> TYPE </FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE PRIMARYKEY=REPLACE>
+<INDXNAME> 
+/home/ray/Work/cheshire/index/TESTDL/DL.localnum.indx
+</INDXNAME>
+<INDXTAG> localnum </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1032 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1032 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1032 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1027 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1027 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1027 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> ID </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/home/ray/Work/cheshire/index/TESTDL/DL.series.indx
+</INDXNAME>
+<INDXTAG> series </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 5 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 5 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 5 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 50 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 50 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 50 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> SERIES </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/home/ray/Work/cheshire/index/TESTDL/DL.date.indx
+</INDXNAME>
+<INDXTAG> date </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the DATE tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 30 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+
+<!-- No stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> ^DATE </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- The Main general-topic/full-text document index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD_EXTERNAL_PROXIMITY NORMAL=STEM>
+<INDXNAME> /home/ray/Work/cheshire/index/TESTDL/DL.topic.indx </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1010 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1035 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 62 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 63 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDL/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> TITLE </FTAG>
+<FTAG> KEYWORDS </FTAG>
+<FTAG> ABSTRACT </FTAG>
+<FTAG> PROJECT </FTAG>
+<FTAG> NOTES </FTAG>
+<FTAG> TEXT-REF </FTAG><ATTR>TEXT_FILE_REF</ATTR>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<!-- The page-level access file with all full text data -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD_EXTERNAL NORMAL=STEM>
+<INDXNAME> /home/ray/Work/cheshire/index/TESTDL/DL.paged.indx </INDXNAME>
+<INDXTAG> pages </INDXTAG>
+
+<!-- We'll use attribute 1016 "Any" to indicate the paged files -->
+<INDXMAP>
+<USE> 1016 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDL/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> PAGED-REF </FTAG><ATTR>PAGED_DIRECTORY_REF</ATTR>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+</INDEXES> 
+<!-- Display mapping information for page reference access -->
+<DISPLAY>
+  <FORMAT NAME="PAGED_DEFAULT">
+	<convert FUNCTION="PAGE_PATH">
+		<CLUSMAP>
+			<FROM>
+			   <TAGSPEC>
+			       <FTAG>ELIB-BIB</FTAG><s> ^[^IPip].* </s>
+			       <FTAG>ELIB-BIB</FTAG><s> ^PAGES </s>
+			    </TAGSPEC>
+			</FROM>
+			<TO>
+			    <TAGSPEC>
+			       <FTAG>DUMMY</FTAG>
+			    </TAGSPEC>
+			</TO>
+		</CLUSMAP>
+	</convert>
+  </FORMAT>
+</DISPLAY>
+</FILEDEF> 
+</DBCONFIG>
+

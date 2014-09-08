@@ -1,0 +1,448 @@
+<!-- ******************************************************************* -->
+<!-- ************************* DATABASE ******************************** -->
+<!-- *********************** DEFINITIONS ******************************* -->
+<!-- ******************************************************************* -->
+<!-- This is the config file for the Cheshire II EAD combined -->
+<DBCONFIG>
+
+<!-- The Main bibliographic file -->
+<FILEDEF TYPE=SGML>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> durham </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> /usr6/ray/DURHAM/DATA
+</FILENAME>
+
+<FILECONT ID=1 MIN=1 MAX=1> /usr6/ray/DURHAM/DATA/aasdn.sgm </FILECONT>
+<FILECONT ID=2 MIN=2 MAX=2> /usr6/ray/DURHAM/DATA/addmss1.sgm </FILECONT>
+<FILECONT ID=3 MIN=3 MAX=3> /usr6/ray/DURHAM/DATA/allisono.sgm </FILECONT>
+<FILECONT ID=4 MIN=4 MAX=4> /usr6/ray/DURHAM/DATA/arberhb.sgm </FILECONT>
+<FILECONT ID=5 MIN=5 MAX=5> /usr6/ray/DURHAM/DATA/arbuthed.sgm </FILECONT>
+<FILECONT ID=6 MIN=6 MAX=6> /usr6/ray/DURHAM/DATA/ashfdhn.sgm </FILECONT>
+<FILECONT ID=7 MIN=7 MAX=7> /usr6/ray/DURHAM/DATA/atterfj.sgm </FILECONT>
+<FILECONT ID=8 MIN=8 MAX=8> /usr6/ray/DURHAM/DATA/austinst.sgm </FILECONT>
+<FILECONT ID=9 MIN=9 MAX=9> /usr6/ray/DURHAM/DATA/ayreshf.sgm </FILECONT>
+<FILECONT ID=10 MIN=10 MAX=10> /usr6/ray/DURHAM/DATA/bailyreh.sgm </FILECONT>
+<FILECONT ID=11 MIN=11 MAX=11> /usr6/ray/DURHAM/DATA/bakereg.sgm </FILECONT>
+<FILECONT ID=12 MIN=12 MAX=12> /usr6/ray/DURHAM/DATA/balfoura.sgm </FILECONT>
+<FILECONT ID=13 MIN=13 MAX=13> /usr6/ray/DURHAM/DATA/balfrfcc.sgm </FILECONT>
+<FILECONT ID=14 MIN=14 MAX=14> /usr6/ray/DURHAM/DATA/bbc.sgm </FILECONT>
+<FILECONT ID=15 MIN=15 MAX=15> /usr6/ray/DURHAM/DATA/beasleyi.sgm </FILECONT>
+<FILECONT ID=16 MIN=16 MAX=16> /usr6/ray/DURHAM/DATA/beckinft.sgm </FILECONT>
+<FILECONT ID=17 MIN=17 MAX=17> /usr6/ray/DURHAM/DATA/beercw.sgm </FILECONT>
+<FILECONT ID=18 MIN=18 MAX=18> /usr6/ray/DURHAM/DATA/bellgw.sgm </FILECONT>
+<FILECONT ID=19 MIN=19 MAX=19> /usr6/ray/DURHAM/DATA/bickerej.sgm </FILECONT>
+<FILECONT ID=20 MIN=20 MAX=20> /usr6/ray/DURHAM/DATA/bkhouse.sgm </FILECONT>
+<FILECONT ID=21 MIN=21 MAX=21> /usr6/ray/DURHAM/DATA/blaikjaa.sgm </FILECONT>
+<FILECONT ID=22 MIN=22 MAX=22> /usr6/ray/DURHAM/DATA/blossjfe.sgm </FILECONT>
+<FILECONT ID=23 MIN=23 MAX=23> /usr6/ray/DURHAM/DATA/bowcockp.sgm </FILECONT>
+<FILECONT ID=24 MIN=24 MAX=24> /usr6/ray/DURHAM/DATA/bra.sgm </FILECONT>
+<FILECONT ID=25 MIN=25 MAX=25> /usr6/ray/DURHAM/DATA/bra0715.sgm </FILECONT>
+<FILECONT ID=26 MIN=26 MAX=26> /usr6/ray/DURHAM/DATA/bra1118.sgm </FILECONT>
+<FILECONT ID=27 MIN=27 MAX=27> /usr6/ray/DURHAM/DATA/bra1260.sgm </FILECONT>
+<FILECONT ID=28 MIN=28 MAX=28> /usr6/ray/DURHAM/DATA/bra1272.sgm </FILECONT>
+<FILECONT ID=29 MIN=29 MAX=29> /usr6/ray/DURHAM/DATA/bra1297.sgm </FILECONT>
+<FILECONT ID=30 MIN=30 MAX=30> /usr6/ray/DURHAM/DATA/bredingr.sgm </FILECONT>
+<FILECONT ID=31 MIN=31 MAX=31> /usr6/ray/DURHAM/DATA/buchnnlm.sgm </FILECONT>
+<FILECONT ID=32 MIN=32 MAX=32> /usr6/ray/DURHAM/DATA/bullenhb.sgm </FILECONT>
+<FILECONT ID=33 MIN=33 MAX=33> /usr6/ray/DURHAM/DATA/ccenrol.sgm </FILECONT>
+<FILECONT ID=34 MIN=34 MAX=34> /usr6/ray/DURHAM/DATA/ccfina1.sgm </FILECONT>
+<FILECONT ID=35 MIN=35 MAX=35> /usr6/ray/DURHAM/DATA/ccfina2.sgm </FILECONT>
+<FILECONT ID=36 MIN=36 MAX=36> /usr6/ray/DURHAM/DATA/ccmisc.sgm </FILECONT>
+<FILECONT ID=37 MIN=37 MAX=37> /usr6/ray/DURHAM/DATA/ccprocs.sgm </FILECONT>
+<FILECONT ID=38 MIN=38 MAX=38> /usr6/ray/DURHAM/DATA/ccrental.sgm </FILECONT>
+<FILECONT ID=39 MIN=39 MAX=39> /usr6/ray/DURHAM/DATA/citydeed.sgm </FILECONT>
+<FILECONT ID=40 MIN=40 MAX=40> /usr6/ray/DURHAM/DATA/claygib.sgm </FILECONT>
+<FILECONT ID=41 MIN=41 MAX=41> /usr6/ray/DURHAM/DATA/cookson.sgm </FILECONT>
+<FILECONT ID=42 MIN=42 MAX=42> /usr6/ray/DURHAM/DATA/cooperrm.sgm </FILECONT>
+<FILECONT ID=43 MIN=43 MAX=43> /usr6/ray/DURHAM/DATA/copley.sgm </FILECONT>
+<FILECONT ID=44 MIN=44 MAX=44> /usr6/ray/DURHAM/DATA/crayke.sgm </FILECONT>
+<FILECONT ID=45 MIN=45 MAX=45> /usr6/ray/DURHAM/DATA/cruicksa.sgm </FILECONT>
+<FILECONT ID=46 MIN=46 MAX=46> /usr6/ray/DURHAM/DATA/cthorp.sgm </FILECONT>
+<FILECONT ID=47 MIN=47 MAX=47> /usr6/ray/DURHAM/DATA/dcdaddun.sgm </FILECONT>
+<FILECONT ID=48 MIN=48 MAX=48> /usr6/ray/DURHAM/DATA/dcdadnmb.sgm </FILECONT>
+<FILECONT ID=49 MIN=49 MAX=49> /usr6/ray/DURHAM/DATA/dcdarcip.sgm </FILECONT>
+<FILECONT ID=50 MIN=50 MAX=50> /usr6/ray/DURHAM/DATA/dcdcart1.sgm </FILECONT>
+<FILECONT ID=51 MIN=51 MAX=51> /usr6/ray/DURHAM/DATA/dcdcart2.sgm </FILECONT>
+<FILECONT ID=52 MIN=52 MAX=52> /usr6/ray/DURHAM/DATA/dcdcvet.sgm </FILECONT>
+<FILECONT ID=53 MIN=53 MAX=53> /usr6/ray/DURHAM/DATA/dcdebor.sgm </FILECONT>
+<FILECONT ID=54 MIN=54 MAX=54> /usr6/ray/DURHAM/DATA/dcdelems.sgm </FILECONT>
+<FILECONT ID=55 MIN=55 MAX=55> /usr6/ray/DURHAM/DATA/dcdlocel.sgm </FILECONT>
+<FILECONT ID=56 MIN=56 MAX=56> /usr6/ray/DURHAM/DATA/dcdpap.sgm </FILECONT>
+<FILECONT ID=57 MIN=57 MAX=57> /usr6/ray/DURHAM/DATA/dcdpdrgr.sgm </FILECONT>
+<FILECONT ID=58 MIN=58 MAX=58> /usr6/ray/DURHAM/DATA/dcdreg.sgm </FILECONT>
+<FILECONT ID=59 MIN=59 MAX=59> /usr6/ray/DURHAM/DATA/dcdsacr.sgm </FILECONT>
+<FILECONT ID=60 MIN=60 MAX=60> /usr6/ray/DURHAM/DATA/dcdsherb.sgm </FILECONT>
+<FILECONT ID=61 MIN=61 MAX=61> /usr6/ray/DURHAM/DATA/dcstall.sgm </FILECONT>
+<FILECONT ID=62 MIN=62 MAX=62> /usr6/ray/DURHAM/DATA/drewcb.sgm </FILECONT>
+<FILECONT ID=63 MIN=63 MAX=63> /usr6/ray/DURHAM/DATA/dumusic.sgm </FILECONT>
+<FILECONT ID=64 MIN=64 MAX=64> /usr6/ray/DURHAM/DATA/eden.sgm </FILECONT>
+<FILECONT ID=65 MIN=65 MAX=65> /usr6/ray/DURHAM/DATA/edisneg.sgm </FILECONT>
+<FILECONT ID=66 MIN=66 MAX=66> /usr6/ray/DURHAM/DATA/esmyth.sgm </FILECONT>
+<FILECONT ID=67 MIN=67 MAX=67> /usr6/ray/DURHAM/DATA/evansmg.sgm </FILECONT>
+<FILECONT ID=68 MIN=68 MAX=68> /usr6/ray/DURHAM/DATA/fenwick.sgm </FILECONT>
+<FILECONT ID=69 MIN=69 MAX=69> /usr6/ray/DURHAM/DATA/foleygh.sgm </FILECONT>
+<FILECONT ID=70 MIN=70 MAX=70> /usr6/ray/DURHAM/DATA/ord.sgm </FILECONT>
+<FILECONT ID=71 MIN=71 MAX=71> /usr6/ray/DURHAM/DATA/forbeswa.sgm </FILECONT>
+<FILECONT ID=72 MIN=72 MAX=72> /usr6/ray/DURHAM/DATA/fouracce.sgm </FILECONT>
+<FILECONT ID=73 MIN=73 MAX=73> /usr6/ray/DURHAM/DATA/frostrly.sgm </FILECONT>
+<FILECONT ID=74 MIN=74 MAX=74> /usr6/ray/DURHAM/DATA/gibson.sgm </FILECONT>
+<FILECONT ID=75 MIN=75 MAX=75> /usr6/ray/DURHAM/DATA/glanvwh.sgm </FILECONT>
+<FILECONT ID=76 MIN=76 MAX=76> /usr6/ray/DURHAM/DATA/grayrwoa.sgm </FILECONT>
+<FILECONT ID=77 MIN=77 MAX=77> /usr6/ray/DURHAM/DATA/grey1st.sgm </FILECONT>
+<FILECONT ID=78 MIN=78 MAX=78> /usr6/ray/DURHAM/DATA/grey3rd.sgm </FILECONT>
+<FILECONT ID=79 MIN=79 MAX=79> /usr6/ray/DURHAM/DATA/greychas.sgm </FILECONT>
+<FILECONT ID=80 MIN=80 MAX=80> /usr6/ray/DURHAM/DATA/grnslade.sgm </FILECONT>
+<FILECONT ID=81 MIN=81 MAX=81> /usr6/ray/DURHAM/DATA/hedley.sgm </FILECONT>
+<FILECONT ID=82 MIN=82 MAX=82> /usr6/ray/DURHAM/DATA/herberte.sgm </FILECONT>
+<FILECONT ID=83 MIN=83 MAX=83> /usr6/ray/DURHAM/DATA/hoggp.sgm </FILECONT>
+<FILECONT ID=84 MIN=84 MAX=84> /usr6/ray/DURHAM/DATA/houseah.sgm </FILECONT>
+<FILECONT ID=85 MIN=85 MAX=85> /usr6/ray/DURHAM/DATA/huntlsj.sgm </FILECONT>
+<FILECONT ID=86 MIN=86 MAX=86> /usr6/ray/DURHAM/DATA/hwdnbd.sgm </FILECONT>
+<FILECONT ID=87 MIN=87 MAX=87> /usr6/ray/DURHAM/DATA/janson.sgm </FILECONT>
+<FILECONT ID=88 MIN=88 MAX=88> /usr6/ray/DURHAM/DATA/jubauni.sgm </FILECONT>
+<FILECONT ID=89 MIN=89 MAX=89> /usr6/ray/DURHAM/DATA/kendallc.sgm </FILECONT>
+<FILECONT ID=90 MIN=90 MAX=90> /usr6/ray/DURHAM/DATA/kenrickj.sgm </FILECONT>
+<FILECONT ID=91 MIN=91 MAX=91> /usr6/ray/DURHAM/DATA/kharcath.sgm </FILECONT>
+<FILECONT ID=92 MIN=92 MAX=92> /usr6/ray/DURHAM/DATA/landtax.sgm </FILECONT>
+<FILECONT ID=93 MIN=93 MAX=93> /usr6/ray/DURHAM/DATA/lauriewg.sgm </FILECONT>
+<FILECONT ID=94 MIN=94 MAX=94> /usr6/ray/DURHAM/DATA/lawwnp.sgm </FILECONT>
+<FILECONT ID=95 MIN=95 MAX=95> /usr6/ray/DURHAM/DATA/macdon.sgm </FILECONT>
+<FILECONT ID=96 MIN=96 MAX=96> /usr6/ray/DURHAM/DATA/macgillr.sgm </FILECONT>
+<FILECONT ID=97 MIN=97 MAX=97> /usr6/ray/DURHAM/DATA/maddenjf.sgm </FILECONT>
+<FILECONT ID=98 MIN=98 MAX=98> /usr6/ray/DURHAM/DATA/mawson.sgm </FILECONT>
+<FILECONT ID=99 MIN=99 MAX=99> /usr6/ray/DURHAM/DATA/mayallrc.sgm </FILECONT>
+<FILECONT ID=100 MIN=100 MAX=100> /usr6/ray/DURHAM/DATA/maynefs.sgm </FILECONT>
+<FILECONT ID=101 MIN=101 MAX=101> /usr6/ray/DURHAM/DATA/mccomasr.sgm </FILECONT>
+<FILECONT ID=102 MIN=102 MAX=102> /usr6/ray/DURHAM/DATA/mcdowall.sgm </FILECONT>
+<FILECONT ID=103 MIN=103 MAX=103> /usr6/ray/DURHAM/DATA/mellorje.sgm </FILECONT>
+<FILECONT ID=104 MIN=104 MAX=104> /usr6/ray/DURHAM/DATA/milligsl.sgm </FILECONT>
+<FILECONT ID=105 MIN=105 MAX=105> /usr6/ray/DURHAM/DATA/northcw.sgm </FILECONT>
+<FILECONT ID=106 MIN=106 MAX=106> /usr6/ray/DURHAM/DATA/nradeeds.sgm </FILECONT>
+<FILECONT ID=107 MIN=107 MAX=107> /usr6/ray/DURHAM/DATA/obsrvtry.sgm </FILECONT>
+<FILECONT ID=108 MIN=108 MAX=108> /usr6/ray/DURHAM/DATA/parrmw.sgm </FILECONT>
+<FILECONT ID=109 MIN=109 MAX=109> /usr6/ray/DURHAM/DATA/parryji.sgm </FILECONT>
+<FILECONT ID=110 MIN=110 MAX=110> /usr6/ray/DURHAM/DATA/penesie.sgm </FILECONT>
+<FILECONT ID=111 MIN=111 MAX=111> /usr6/ray/DURHAM/DATA/piperwg.sgm </FILECONT>
+<FILECONT ID=112 MIN=112 MAX=112> /usr6/ray/DURHAM/DATA/ponsonby.sgm </FILECONT>
+<FILECONT ID=113 MIN=113 MAX=113> /usr6/ray/DURHAM/DATA/porter.sgm </FILECONT>
+<FILECONT ID=114 MIN=114 MAX=114> /usr6/ray/DURHAM/DATA/prattgrn.sgm </FILECONT>
+<FILECONT ID=115 MIN=115 MAX=115> /usr6/ray/DURHAM/DATA/redferna.sgm </FILECONT>
+<FILECONT ID=116 MIN=116 MAX=116> /usr6/ray/DURHAM/DATA/rivingtn.sgm </FILECONT>
+<FILECONT ID=117 MIN=117 MAX=117> /usr6/ray/DURHAM/DATA/robbiej.sgm </FILECONT>
+<FILECONT ID=118 MIN=118 MAX=118> /usr6/ray/DURHAM/DATA/salvin.sgm </FILECONT>
+<FILECONT ID=119 MIN=119 MAX=119> /usr6/ray/DURHAM/DATA/sandarsg.sgm </FILECONT>
+<FILECONT ID=120 MIN=120 MAX=120> /usr6/ray/DURHAM/DATA/sandergn.sgm </FILECONT>
+<FILECONT ID=121 MIN=121 MAX=121> /usr6/ray/DURHAM/DATA/scottgc.sgm </FILECONT>
+<FILECONT ID=122 MIN=122 MAX=122> /usr6/ray/DURHAM/DATA/sdd.sgm </FILECONT>
+<FILECONT ID=123 MIN=123 MAX=123> /usr6/ray/DURHAM/DATA/semevskj.sgm </FILECONT>
+<FILECONT ID=124 MIN=124 MAX=124> /usr6/ray/DURHAM/DATA/sgd.sgm </FILECONT>
+<FILECONT ID=125 MIN=125 MAX=125> /usr6/ray/DURHAM/DATA/sgd40-51.sgm </FILECONT>
+<FILECONT ID=126 MIN=126 MAX=126> /usr6/ray/DURHAM/DATA/sgd54.sgm </FILECONT>
+<FILECONT ID=127 MIN=127 MAX=127> /usr6/ray/DURHAM/DATA/shafto.sgm </FILECONT>
+<FILECONT ID=128 MIN=128 MAX=128> /usr6/ray/DURHAM/DATA/shipprd.sgm </FILECONT>
+<FILECONT ID=129 MIN=129 MAX=129> /usr6/ray/DURHAM/DATA/smithch.sgm </FILECONT>
+<FILECONT ID=130 MIN=130 MAX=130> /usr6/ray/DURHAM/DATA/stevnrc.sgm </FILECONT>
+<FILECONT ID=131 MIN=131 MAX=131> /usr6/ray/DURHAM/DATA/sudan.sgm </FILECONT>
+<FILECONT ID=132 MIN=132 MAX=132> /usr6/ray/DURHAM/DATA/sundfrds.sgm </FILECONT>
+<FILECONT ID=133 MIN=133 MAX=133> /usr6/ray/DURHAM/DATA/towers.sgm </FILECONT>
+<FILECONT ID=134 MIN=134 MAX=134> /usr6/ray/DURHAM/DATA/trimdon.sgm </FILECONT>
+<FILECONT ID=135 MIN=135 MAX=135> /usr6/ray/DURHAM/DATA/turnpike.sgm </FILECONT>
+<FILECONT ID=136 MIN=136 MAX=136> /usr6/ray/DURHAM/DATA/turton.sgm </FILECONT>
+<FILECONT ID=137 MIN=137 MAX=137> /usr6/ray/DURHAM/DATA/weardale.sgm </FILECONT>
+<FILECONT ID=138 MIN=138 MAX=138> /usr6/ray/DURHAM/DATA/wellsptm.sgm </FILECONT>
+<FILECONT ID=139 MIN=139 MAX=139> /usr6/ray/DURHAM/DATA/wharton.sgm </FILECONT>
+<FILECONT ID=140 MIN=140 MAX=140> /usr6/ray/DURHAM/DATA/willmir.sgm </FILECONT>
+<FILECONT ID=141 MIN=141 MAX=141> /usr6/ray/DURHAM/DATA/winderj.sgm </FILECONT>
+<FILECONT ID=142 MIN=142 MAX=142> /usr6/ray/DURHAM/DATA/woodgk.sgm </FILECONT>
+<FILECONT ID=143 MIN=143 MAX=143> /usr6/ray/DURHAM/DATA/wrightan.sgm </FILECONT>
+<FILECONT ID=144 MIN=144 MAX=144> /usr6/ray/DURHAM/DATA/wrightt.sgm </FILECONT>
+
+
+<EXPLAIN>
+<TITLESTRING> The Durham University Archival Collection
+</TITLESTRING>
+<DESCRIPTION> Contains EAD encoded records describing historical documents.
+</DESCRIPTION>
+<DISCLAIMERS> None
+</DISCLAIMERS>
+<NEWS> No news </NEWS>
+<HOURS> Whenever the system is up </HOURS>
+<BESTTIME> Almost any time is good </BESTTIME>
+<LASTUPDATE> June 1999 </LASTUPDATE>
+<UPDATEINTERVAL><VALUE> 1 </VALUE><UNITS> Years </UNITS></UPDATEINTERVAL>
+<COVERAGE> Varies </COVERAGE>
+<PROPRIETARY> NO </PROPRIETARY>
+<COPYRIGHTTEXT> This is not copyrighted </COPYRIGHTTEXT>
+<COPYRIGHTNOTICE> This would be a copyright notice </COPYRIGHTNOTICE>
+<PRODUCERCONTACTINFO>
+<contact_name> Someone </contact_name>
+<contact_address> Durham University
+</contact_address>
+<contact_email> none </contact_email>
+</PRODUCERCONTACTINFO>
+<SUPPLIERCONTACTINFO>
+<contact_name> Someone </contact_name>
+<contact_address> Durham University
+</contact_address>
+<contact_email> none </contact_email>
+</SUPPLIERCONTACTINFO>
+</EXPLAIN>
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /usr6/ray/DURHAM/ead.wrapper </FILEDTD>
+
+<SGMLCat> /usr6/ray/DURHAM/catalog </SGMLCat>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> /usr6/ray/DURHAM/DATA.assoc
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> /usr6/ray/DURHAM/file.history
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- ******************************************************************* -->
+<!-- ************************* ID #  *********************************** -->
+<!-- ******************************************************************* -->
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE PRIMARYKEY=REPLACE>
+<INDXNAME> 
+/usr6/ray/DURHAM/indexes/eadid.index
+</INDXNAME>
+<INDXTAG> eadid </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1032 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1032 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1032 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1104 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1104 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1104 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^eadid$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* NAMES *********************************** -->
+<!-- ******************************************************************* -->
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr6/ray/DURHAM/indexes/names.index
+</INDXNAME>
+<INDXTAG> names </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 58 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<!-- The associator file for the index linking the termid with postings -->
+
+<!-- The stoplist for this file -->
+<STOPLIST> /usr6/ray/DURHAM/indexes/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^persname$</FTAG>
+<FTAG>^name$</FTAG>
+<FTAG>^geogname$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* TITLE *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following provides keyword title access                         -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr6/ray/DURHAM/indexes/title.index </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+	<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+	<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+	<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr6/ray/DURHAM/indexes/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>titlestmt </FTAG><S>titleproper </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* EXACT TITLE ***************************** -->
+<!-- ******************************************************************* -->
+<!-- The following provides exact and truncated titles access -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /usr6/ray/DURHAM/indexes/xtitle.index </INDXNAME>
+<INDXTAG> xtitle </INDXTAG>
+
+<INDXMAP>
+	<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+	<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+	<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> /usr6/ray/DURHAM/indexes/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>titlestmt </FTAG><S> titleproper </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* TOPIC *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following is the primary index for probabilistic searches       -->
+<!-- It includes subjects, titles, notes and class numbers               -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr6/ray/DURHAM/indexes/topic.index </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1014 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1014 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1015 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1015 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1016 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1016 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1017 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1017 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+
+<STOPLIST> /usr6/ray/DURHAM/indexes/topicstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>titleproper </FTAG>
+<FTAG>bioghist </FTAG>
+<FTAG>scopecontent </FTAG>
+<FTAG>^note$ </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<!-- ******************************************************************* -->
+<!-- ************************** DATE *********************************** -->
+<!-- ******************************************************************* -->
+<!-- the following index extracts the DATE1 element from the MARC 008 field -->
+<INDEXDEF ACCESS=BTREE EXTRACT=DATE_RANGE NORMAL="year to year">
+<INDXNAME> /usr6/ray/DURHAM/indexes/date.index	
+</INDXNAME>
+<INDXTAG>	date
+</INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP>
+<USE> 30 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 31 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>^date$</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+</INDEXES>
+
+<DISPLAY>
+ <FORMAT NAME="B">
+  <exclude COMPRESS>
+        <tagspec>
+                <ftag>archdesc</ftag>
+        </tagspec>
+  </exclude>
+</format>
+
+<FORMAT NAME="TPGRS" OID="1.2.840.10003.5.105" DEFAULT>
+  <convert function="TAGSET-G">
+   <clusmap>
+        <from>
+                <tagspec>
+                <ftag>filedesc</ftag><s>titlestmt</s><s>titleproper</s>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>1</ftag>
+                </tagspec></to>
+   </clusmap>
+ </convert>
+</FORMAT>
+<FORMAT NAME="HTML" OID="1.2.840.10003.5.109.3" >
+  <convert function="/usr/users/ray/Work/cheshire/index/tohtml.tcl"> 
+ </convert>
+</FORMAT>
+<FORMAT NAME="T">
+   <EXCLUDE COMPRESS>
+        <TAGSPEC>
+                 <FTAG>eadid</FTAG>
+                 <FTAG>publicationstmt</FTAG>
+                 <FTAG>profiledesc</FTAG>
+                 <FTAG>revisiondesc</FTAG>
+                 <FTAG>runningfoot</FTAG>
+                 <FTAG>add</FTAG>
+                 <FTAG>frontmatter</FTAG>
+                 <FTAG>archdesc</FTAG>
+        </TAGSPEC>
+   </EXCLUDE>
+</FORMAT>
+</DISPLAY>
+</FILEDEF>
+</DBCONFIG>

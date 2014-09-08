@@ -1,0 +1,19 @@
+<!-- Simple metadata DTD for cheshire databases -->
+<!-- To potentially disambiguate tagnames, all start with 'cheshire' -->
+
+<!ELEMENT cheshireRecord - - (cheshireTitle, cheshireId, cheshireLocation?, cheshireAccess, cheshireHistory, cheshireDocument)>
+
+<!ELEMENT cheshireAccess - - (cheshireEditors?, cheshireEditorFlags?)>
+<!ELEMENT cheshireHistory - - (cheshireCreated, cheshireModified*)>
+<!ELEMENT (cheshireCreated|cheshireModified) - - (cheshireUser, cheshireDate)>
+<!ATTLIST cheshireModified type CDATA #required>
+
+<!ELEMENT cheshireEditors - - (cheshireUser+)>
+<!ELEMENT cheshireEditorFlags - - (cheshireFlag+)>
+
+<!ELEMENT (cheshireLocation|cheshireTitle|cheshireId|cheshireEditorFlag|cheshireUser|cheshireDate) - - (#PCDATA)>
+
+<!-- This can be changed to wrap another DTD This way we link via dbname:docid to another record -->
+<!-- DOCID is too changeable. Need a primarykey in the actual data, or at very least the filename -->
+
+<!ELEMENT cheshireDocument - - (#PCDATA)>

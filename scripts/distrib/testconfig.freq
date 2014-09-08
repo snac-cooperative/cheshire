@@ -1,0 +1,207 @@
+<!-- This is an example config file for Cheshire II used with the records -->
+<!-- created by the distrib_build.tcl script. It uses the new _FREQ       -->
+<!-- types for index normalization that take the term collection frequency-->
+<!-- information from the file being indexed e.g. {test 10} {twice 3}...  -->
+<DBCONFIG>
+<DBENV> /home/ray/Work/DBENV </DBENV>
+
+<!-- The first filedef -->
+<FILEDEF TYPE=SGML>
+
+<DEFAULTPATH> /home/ray/Work/DISTRIB </DEFAULTPATH>
+
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> distrib </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> bibfile.xml
+</FILENAME>
+
+<FILEDTD> DISTRIB.DTD </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> bibfile.xml.assoc
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> index/morerecs.sgml.history 
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE_FREQ>
+<INDXNAME> index/author </INDXNAME>
+<INDXTAG> author </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>INDEX </FTAG><ATTR> USE <VALUE>1</VALUE></ATTR>
+
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- The next index entry definition -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE_FREQ>
+<INDXNAME> index/xauthor
+</INDXNAME>
+<INDXTAG> xauthor </INDXTAG>
+
+<INDXMAP> 
+<USE> 1 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 2 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 3 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1002 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1003 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1004 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1005 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1006 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<!-- Notice the use of pattern matching in the following -->
+<FTAG>INDEX </FTAG><ATTR> USE <VALUE>3</VALUE></ATTR>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM_FREQ>
+<INDXNAME> index/title </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>INDEX </FTAG><ATTR> USE <VALUE>4</VALUE></ATTR>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM_FREQ>
+<INDXNAME> index/subject </INDXNAME>
+<INDXTAG> subject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>INDEX </FTAG><ATTR> USE <VALUE>21</VALUE></ATTR>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM_FREQ>
+<INDXNAME> index/topic </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 29 </USE>
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT>
+</INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>INDEXES </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+</INDEXES>
+ 
+<DISPOPTIONS>
+KEEP_ALL
+</DISPOPTIONS>
+
+<DISPLAY>
+ <FORMAT NAME="B" OID="1.2.840.10003.5.109.9">
+  <exclude COMPRESS>
+        <tagspec>
+                <ftag>indexes</ftag>
+                <ftag>aliases</ftag>
+                <ftag>attribcombo</ftag>
+        </tagspec>
+  </exclude>
+</format>
+
+
+<FORMAT NAME="TESTATTR" OID="1.2.840.10003.5.105">
+  <convert function="TAGSET-G"> 
+   <clusmap>
+        <from>
+                <tagspec>
+                <ftag>#DOCID#</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>5</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>DATABASE</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>1</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>HOSTNAME</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>17</ftag>
+                </tagspec></to>
+        <from>
+                <tagspec>
+                <ftag>PORT</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>20</ftag>
+                </tagspec></to>
+   </clusmap>
+ </convert>
+</FORMAT>
+
+</DISPLAY>
+</FILEDEF> 
+</DBCONFIG>
+
+

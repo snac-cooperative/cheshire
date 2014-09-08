@@ -1,0 +1,144 @@
+
+<FILEDTD> dtds/metadata-html.dtd.wrapper </FILEDTD>
+<SGMLCAT> catalog </SGMLCAT>
+<ASSOCFIL> metadata-html.assoc </ASSOCFIL>
+<HISTORY> metadata-html.history </HISTORY>
+
+<INDEXES>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=DO_NOT_NORMALIZE PRIMARYKEY=REPLACE>
+<INDXNAME> indexes/html/Pkey.index </INDXNAME>
+<INDXTAG>cheshireID</INDXTAG>
+
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT><TRUNC>100</TRUNC></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT><TRUNC>100</TRUNC></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT><TRUNC>100</TRUNC></INDXMAP>
+
+
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireId</FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> indexes/html/cheshireTitles.index </INDXNAME>
+<INDXTAG>cTitle</INDXTAG>
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireTitle</FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=DO_NOT_NORMALIZE>
+<INDXNAME> indexes/html/xCheshireTitles.index </INDXNAME>
+<INDXTAG>xCTitle</INDXTAG>
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireTitle</FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM >
+<INDXNAME> indexes/html/cheshireDocument.index </INDXNAME>
+<INDXTAG>cDocument</INDXTAG>
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireDocument</FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=FILENAME NORMAL=NONE>
+<INDXNAME> indexes/html/cheshireLocation.index </INDXNAME>
+<INDXTAG>cLocation</INDXTAG>
+
+<INDXMAP> <USE> 10 </USE><STRUCT> 6 </STRUCT><TRUNC>100</TRUNC></INDXMAP>
+<INDXMAP> <USE> 10 </USE><STRUCT> 2 </STRUCT><TRUNC>100</TRUNC></INDXMAP>
+<INDXMAP> <USE> 10 </USE><STRUCT> 1 </STRUCT><TRUNC>100</TRUNC></INDXMAP>
+
+
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireLocation</FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> indexes/html/cheshireEditors.index </INDXNAME>
+<INDXTAG>cEditor</INDXTAG>
+<INDXTAG>cheshireUser</INDXTAG>
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireEditors</FTAG><S>cheshireUser</S></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> indexes/html/cheshireFlags.index </INDXNAME>
+<INDXTAG>cFlag</INDXTAG>
+<INDXTAG>cheshireFlag</INDXTAG>
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireFlags</FTAG><S>cheshireFlag</S></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+
+</INDEXES>
+
+<DISPLAYS>
+
+<DISPLAYDEF NAME="METAGRS" OID="1.2.840.10003.5.105" DEFAULT>
+  <convert function="MIXED"> 
+   <clusmap>
+        <from>
+	<tagspec><ftag>cheshireTitle</ftag></tagspec></from>
+        <to>
+	<tagspec><ftag>1</ftag></tagspec></to>
+        <from>
+	<tagspec><ftag>cheshireID</ftag></tagspec></from>
+        <to>
+	<tagspec><ftag>5</ftag></tagspec></to>
+        <from>
+	<tagspec><ftag>cheshireLocation</ftag></tagspec></from>
+        <to>
+	<tagspec><ftag>6</ftag></tagspec></to>
+        <from>
+	<tagspec><ftag>cheshireAccess</ftag></tagspec></from>
+        <to>
+	<tagspec><ftag>2</ftag></tagspec></to>
+        <from>
+	<tagspec><ftag>cheshireHistory</ftag></tagspec></from>
+        <to>
+	<tagspec><ftag>4</ftag></tagspec></to>
+      </clusmap>
+    </convert>
+</DISPLAYDEF>
+
+
+<DISPLAYDEF NAME="CIDGRS" OID="1.2.840.10003.5.105">
+  <convert function="MIXED"> 
+   <clusmap>
+        <from>
+	<tagspec><ftag>cheshireID</ftag></tagspec></from>
+        <to>
+	<tagspec><ftag>5</ftag></tagspec></to>
+      </clusmap>
+    </convert>
+</DISPLAYDEF>
+
+
+<!-- Overloaded for relevance display on searches -->
+
+<DISPLAYDEF NAME="DOCIDGRS" OID="1.2.840.10003.5.105">
+  <convert function="MIXED"> 
+   <clusmap>
+        <from>
+	<tagspec><ftag>#DOCID#</ftag></tagspec></from>
+        <to>
+	<tagspec><ftag>5</ftag></tagspec></to>
+        <from>
+	<tagspec><ftag>#RELEVANCE#</ftag></tagspec></from>
+        <to>
+	<tagspec><ftag>9</ftag></tagspec></to>
+      </clusmap>
+    </convert>
+</DISPLAYDEF>
+
+</DISPLAYS>
+
+</FILEDEF>
+</DBCONFIG>

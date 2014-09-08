@@ -1,0 +1,5 @@
+set CHESHIRE_DATABASE bibfile
+set CHESHIRE_NUMREQUESTED 4
+set CHESHIRE_CONFIGFILE /home/ray/Work/cheshire/index/testconfig.new
+set RESULTS [search topic @ {mathematics}]
+puts $RESULTS

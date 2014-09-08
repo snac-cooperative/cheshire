@@ -1,0 +1,87 @@
+<html>
+<head>
+<title>
+Palaeography Search
+</title>
+</head>
+<body bgcolor=#FFFFFF >
+
+
+<H2>Cheshire II WWW Search Interface</H2>
+
+<P>
+
+<table>
+<tr><td valign = top>
+<FORM ACTION="/~cheshire/cgi-bin/paleosearch2.cgi" METHOD=POST>
+
+<p>Combine fields using: 
+<INPUT NAME=bool TYPE=radio VALUE=and CHECKED> Boolean AND 
+<INPUT NAME=bool TYPE=radio VALUE=or> Boolean OR<br>
+
+<SELECT name=fieldidx1>
+<option value=localnum>Local ID number
+<option value=author>Author
+<option value=title>Title
+<option value=publisher>Publisher
+<option value=date>Date
+<option value=subject>Subject
+<option value=topic SELECTED>Topic
+</select>  
+<INPUT NAME="fieldcont1" TYPE=TEXT SIZE=45><br>
+
+<SELECT name=fieldidx2>
+<option value=author SELECTED>Author
+<option value=title>Title
+<option value=publisher>Publisher
+<option value=date>Date
+<option value=subject>Subject
+<option value=topic>Topic (Full Text)
+</select>  
+<INPUT NAME=fieldcont2 TYPE=TEXT SIZE=45><br>
+
+<SELECT name=fieldidx3>
+<option value=author>Author
+<option value=title SELECTED>Title
+<option value=publisher>Publisher
+<option value=date>Date
+<option value=subject>Subject
+<option value=topic>Topic (Full Text)
+</select>  
+<INPUT NAME=fieldcont3 TYPE=TEXT SIZE=45>
+
+<p>
+<A HREF="help.html#IND">Information
+about search fields</A>
+<p>Number of records: 
+<INPUT NAME=numreq TYPE=TEXT SIZE=3 VALUE="10">
+First record:
+<INPUT NAME=firstrec TYPE=text SIZE=3 VALUE="1">
+
+<input type="hidden" name="format" value="full">
+<p>
+<INPUT TYPE=submit VALUE=" Start Search "> 
+<input type=reset VALUE=" Clear Fields ">
+
+</FORM>
+
+</td><td valign = top>
+<FORM ACTION="/~cheshire/cgi-bin/paleosearch2.cgi" METHOD=POST>
+<input type = "hidden" name = "format" value = "scan">
+<input type = "hidden" name = "scanindex" value = "xsubject">		  
+<b>Browse Subjects:</b> <input type = "text" name = "scanterm" value = "" size = 40>
+<p>
+<INPUT TYPE=submit VALUE=" Start Search "> 
+<input type=reset VALUE=" Clear Fields ">
+
+</FORM>
+</td></tr>
+</table>
+
+<HR>
+
+
+
+
+</body>
+</html>

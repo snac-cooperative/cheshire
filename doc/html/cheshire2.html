@@ -1,0 +1,2312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+  <title>Cheshire II Commands</title>
+  <meta name="GENERATOR"
+ content="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</head>
+<body background="chat5.jpg">
+<p><!-- Cheshire II Commands documentation --></p>
+<center>
+<font color="#b22222">
+<h1><img src="smallcat.gif" \="" align="middle">Cheshire II Commands</h1>
+</font></center>
+<h2><font color="#0000ff">COMMANDS</font></h2>
+<p><font size="+1"><a href="#zselect">Zselect</a>, <a href="#zfind">Zfind</a>,
+<a href="#zscan">Zscan</a>,
+<a href="#zdisplay">Zdisplay</a>, <a href="#zshow">Zshow</a>, <a
+ href="#zset">Zset,</a>
+<a href="#zclose">Zclose</a>, <a href="#zql">ZQL</a>, <a
+ href="#zformat">Zformat</a>,
+<a href="#zmakeformat">Zmakeformat</a>, <a href="#zremoveformat">Zremoveformat</a>,
+<a href="#zshowformat">Zshowformat</a>, <a href="#zdelete">Zdelete</a>,
+<a href="#zsort">ZSort</a>,
+<a href="#zhighlight">zhighlight</a>,
+<a href="#ptmpnam">pTmpNam</a>, <a href="#ptranlog">pTranLog</a>, <a
+ href="#sresults">sResults</a>,
+<a href="#cheshire_search">Cheshire_Search</a>, <a
+ href="#cheshire_fetch">Cheshire_Fetch</a>,
+<a href="#tilebar_search">TileBar_Search</a>,
+<a href="#cheshire_close">Cheshire_Close</a>, <a href="#lccbuild">LCCBuild</a>,
+<a href="#lccget">LCCGet</a>, <a href="#lccdestroy">LCCDestroy</a>
+<a href="#statistics">CHESHIRE_SEARCH_STAT_DUMP</a> </font></p>
+<a href="mapwidget.html">(See also the <b>map widget commands</b> for
+cheshire2 and staffcheshire)</a>
+<p>\- Special Tcl/Tk commands for manipulating files and searching in
+CheshireII</p>
+<h2><font color="#0000ff">DESCRIPTION</font> </h2>
+<p>This document describes the CheshireII specific command language
+features
+added to Tcl/Tk for the Cheshire II client programs <i>cheshire2,
+ztcl,
+webcheshire,</i> and <i>staffcheshire</i>. </p>
+<p><i>Cheshire2</i> is the primary client program of a the CheshireII
+information
+retrieval system. The system incorporates a client-server architecture,
+X window interface and WWW support, Boolean and probabilistic retrieval
+methods, and a flexible scripting facility using the Tcl/Tk language.
+The
+<i>ztcl</i> client program is identical to the <i>CheshireII</i>
+program,
+except that it doesn't include the TK toolkit for X windows. The <i>webcheshire</i>
+client program includes all of the features of <i>ztcl</i>, with the
+addition
+of special commands access to server-side search and retrieval from
+Cheshire
+databases without need for establishing a Z39.50 connection. <i>Webcheshire</i>
+is intended for use in creating cgi-bin scripts for WWW applications
+using
+the Cheshire system. The <i>staffcheshire</i> client (under
+development)
+includes all of the features of the <i>webcheshire</i> client with the
+addition of commands to examine and modify system configuration files
+and
+data in the database, and the inclusion of the TK toolkit for building
+X window based interfaces for maintenance of the Cheshire system.. </p>
+<p>The Cheshire client programs are configured and run via Tcl/Tk
+scripts
+and the server is driven by SGML-like configuration files that describe
+the database files and indexes for the system. The rest of this
+document
+describes the specific Tcl/Tk commands that facilitate the use of the
+CheshireII
+database or other Z39.50 compatible databases from within Tcl/Tk. They
+provide an interface to the 'c' routines that make up the bulk of the
+system
+from the Tcl scripting language. </p>
+<p>
+</p>
+<hr>
+<p></p>
+<h2><font color="#0000ff">COMMAND Descriptions</font></h2>
+<p><a name="zselect"></a>
+</p>
+<hr>
+<p></p>
+<p><b>Zselect <i>servername [hostaddress databasename portnumber]
+[idauthentication]</i></b>
+</p>
+<p><b>ZSELECT <i>servername [hostaddress databasename portnumber]
+[idauthentication]</i></b>
+</p>
+<p><b>zselect <i>servername [hostaddress databasename portnumber]
+[idauthentication]</i></b>
+</p>
+<p>The <i>zselect</i> command is used to establish a connection to a
+particular
+Z39.50 server and specify the database you would like to search (when
+there
+is a choice available). There are a number of server/database
+combinations
+included in the Cheshire clients, and for these only the servername is
+needed. (All of these hosts are accessible to the client programs in
+the
+global Tcl array called "Z_HOSTS" and can be displayed using
+the "parray Z_HOSTS" command). To connect to any other server
+the first four parameters must be provided (after the initial
+connection,
+subsequent connections during the same client session may use the
+servername
+alone). </p>
+<p><i>servername</i> (OPTIONAL) </p>
+<p>This specifies a name to use for the server/database combination.
+When
+used as the only parameter the servername indicates which server to
+make
+a connection to. (NOTE: The particular database to be searched on a
+given
+server can be set using the zset database command, without having to
+reconnect
+to the server under another servername) </p>
+<p><i>hostaddress</i> (OPTIONAL) </p>
+<p>This specifies the internet name or address of the Z39.50 server. </p>
+<p><i>databasename</i> (OPTIONAL) </p>
+<p>The name of the database to search. This must be a valid database
+name
+for the server otherwise the search commands will fail. A common
+database
+name used by Z39.50 servers is "cat" to mean the online catalog.
+</p>
+<p><i>portnumber</i> (OPTIONAL) </p>
+<p>This specifies the port on which the Z39.50 client must connect. The
+"well-known port" for Z39.50 is 210, but different servers may
+choose to use different ports. </p>
+<p><i>idauthentication</i> (OPTIONAL) </p>
+<p>This specifies the authentication string that the particular server
+requires for connection. This string is passed to the server in the
+"idAuthentication"
+field of the init PDU when attempting to connect. </p>
+<p><a name="zfind"></a>
+</p>
+<hr>
+<p></p>
+<p><b>Zfind </b><i>indexname1[ATTR] [RELOP] search_string1 [[BOOLOP |
+PROXOP | FUZZYOP | RESTRICTOP | MERGEOP]
+indexname2 [ATTR] [RELOP] search_string2 [BOOLOP2 | PROXOP2 | FUZZYOP2
+| RESTRICTOP2 | MERGEOP2]... [resultsetid
+id_string]</i> </p>
+<p><b>ZFIND </b><i>indexname1[ATTR] [RELOP] search_string1 [[BOOLOP |
+PROXOP | FUZZYOP | RESTRICTOP | MERGEOP]
+indexname2 [ATTR] [RELOP] search_string2 [BOOLOP2 | PROXOP2 | FUZZYOP2
+| RESTRICTOP2 | MERGEOP2]... [resultsetid
+id_string]</i> </p>
+<p><b>zfind </b><i>indexname1[ATTR] [RELOP] search_string1 [[BOOLOP |
+PROXOP | FUZZYOP | RESTRICTOP | MERGEOP]
+indexname2 [ATTR] [RELOP] search_string2 [BOOLOP2 | PROXOP2 | FUZZYOP2
+| RESTRICTOP2 | MERGEOP2]... [resultsetid
+id_string]<br>
+</i></p>
+<p><span style="font-weight: bold;">zfind <span
+ style="font-style: italic;"><span style="font-weight: bold;"></span></span></span><span
+ style="font-style: italic;">id_string<span style="font-weight: bold;">:</span></span>[<span
+ style="font-style: italic;">itemid,itemid,...itemid</span><span
+ style="font-weight: bold;">-</span><span style="font-style: italic;">itemid</span>[find,<span
+ style="font-style: italic;">regular_expression</span>]</p>
+<p>This command will search the current database specified on the
+current
+host/server established by the zselect command. </p>
+<p><i>resultsetid id_string</i> (OPTIONAL) </p>
+<p>This specifies a server-side set name (id_string) which will be used
+for the storing the results of the current search. This will not work
+unless
+the server supports named result sets. </p>
+<p><i>indexname</i> </p>
+<p>This can be any name in the BIB1, GILS, GEO or EXP1 attribute sets.
+In addition
+there are many aliases assigned for various names. The list of
+supported
+index names is stored in the global Tcl array "ALL_INDEXES" and
+can be displayed using the "parray ALL_INDEXES" command (note
+that the attribute set USE value for each of these is the third number
+shown in the list of numbers included in the display, the following
+numbers
+are the other attributes: Relation, Position, Structure, Truncation,
+Completeness,
+in order. The first and second numbers are an internal id for the
+attribute,
+and a code indicating which attribute sets this item is used for). Here
+are some entries from ALL_INDEXES: </p>
+<p><br>
+ALL_INDEXES(ABSTRACT) = ABSTRACT Abstract {116 17 62 0 3 6 0 1} <br>
+ALL_INDEXES(ANY) = ANY Any {148 17 1016 0 3 6 0 1} <br>
+ALL_INDEXES(ANYWHERE) = ANYWHERE Anywhere {176 17 1035 0 3 6 0 1} <br>
+ALL_INDEXES(AUTHOR) = AUTHOR Author_Personal_name {0 17 1 0 3 6 0 1} <br>
+ALL_INDEXES(AUTHOR-NAME_CONFERENCE_KEY) = AUTHOR-NAME_CONFERENCE_KEY
+Author-name_conference
+{130 17 1006 0 3 1 0 1} <br>
+ALL_INDEXES(AUTHOR-NAME_CORPORATION_KEY) = AUTHOR-NAME_CORPORATION_KEY
+Author-name_corporation {127 17 1005 0 3 1 0 1} <br>
+ALL_INDEXES(AUTHOR-NAME_PERSONAL_KEY) = AUTHOR-NAME_PERSONAL_KEY
+Author-name_personal
+{126 17 1004 0 3 1 0 1} </p>
+<p><i>[ATTR]</i> </p>
+<p>A set of attributes and values to be included with the query </p>
+<p>This is a list of Z39.50 attribute number and their values,
+contained in square brackets and (optionally) separated by commas,
+These are the numerical values for the attributes from the Z39.50
+standard (or attribute set definition) and these will <b>override</b>
+existing attributes associated with index names except for the USE
+attribute -- although use attributes may be specified this way, both
+the use attribute from the specified index name and the one specified
+in square brackets will be sent to the server. The attributes are
+expressed in the form "n=m" where "n" is the
+attribute type number and "m" is the value. For example
+"[1=55 2=1 3=1 4=3]" would indicate a USE(1) attribute of
+55(CODE-Geographic area in BIB-1), a RELATION(1) attribute of 1(less
+than), a POSITION(3) attribute of 1(first in field), and a
+STRUCTURE(4) attribute of 3(key). <i>NOTE: In Tcl square brackets
+indicate
+a command to be executed, so to use them in the Tcl clients you will
+need
+use a backslash before the open and close square bracket.</i>
+</p>
+<p>
+To combine multiple attribute set in
+the same query, you may specify the attributeset OID or
+Symolic names for the following Attribute sets: "BIB-1", "EXP-1",
+"EXT-1", "CCL-1", "GILS", "STAS", "COLLECTIONS-1", "CIMI-1", "GEO-1",
+"ZBIG", "UTIL" ;, "XD-1", "ZTHES", "FIN-1", "DAN-1" and "HOLDINGS").
+Either these symbolic names (and many variants) or the OIDs may be
+specified (OIDs of unlisted attribute sets can also be specified).
+These are specified before the attribute type and followed by a space.
+The attributeset will only
+apply to the immediately following attribute specification (by default
+the current ATTRIBUTESETNAME set by the ZSET command is used to
+interpret the attributes). For example...
+<br>
+</p>
+<center><b>zfind title [GILS 1=1174, 1.2.840.10003.3.9 2=3] stuff </b></center>
+<br>
+would search for 'stuff' using GILS USE attribute 1173
+(Supplemental_Information) with GEO (1.2.840.10003.3.9) relational
+attribute 3.
+<p></p>
+<p> Note also that this form of specifying attributes can be used in
+place
+of an explicit index name, for example...
+<br>
+</p>
+<center><b>zfind [GEO 1=55, BIB1 2=3] stuff </b></center>
+<br>
+or
+<br>
+<center><b>zfind [1=5] stuff </b></center>
+<br>
+will send these attributes to the server in without any additional USE
+attributes.
+<p><i>RELOP</i> </p>
+<p>The relational operation to be performed. These are: </p>
+<p><br>
+<table border="1">
+  <tbody>
+    <tr>
+      <td align="center" bgcolor="#c0c0c0" width="15%"><font
+ color="#000000"><strong><big>Value</big></strong></font></td>
+      <td align="center" bgcolor="#c0c0c0" width="25%">
+      <p align="left"><font color="#000000"><strong><big>Name</big></strong></font></p>
+      </td>
+      <td align="center" bgcolor="#c0c0c0" width="60%">
+      <p align="left"><font color="#000000"><strong><big>Semantics</big></strong></font></p>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">blank <br>
+= </td>
+      <td width="25%">Equals</td>
+      <td width="60%">Searches for equal values to the search string.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">&lt;= <br>
+LE <br>
+.LE.</td>
+      <td width="25%">Less than or Equal</td>
+      <td width="60%">Search for values less than or equal to the
+search
+string.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">&lt; <br>
+LT <br>
+.LT.</td>
+      <td width="25%">Less Than</td>
+      <td width="60%">Search for values less than the search string.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">&gt; <br>
+GT <br>
+.GT.</td>
+      <td width="25%">Greater Than</td>
+      <td width="60%">Search for values greater than the search string.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">&gt;= <br>
+GE <br>
+.GE. </td>
+      <td width="25%">Greater Than or Equal</td>
+      <td width="60%">Search for values greater than or equal to the
+search
+string. </td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">&lt;&gt; <br>
+!= <br>
+NE <br>
+.NE. </td>
+      <td width="25%">Not Equal</td>
+      <td width="60%">Search for values NOT equal to the search string.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">?? <br>
+PHON <br>
+.PHON. </td>
+      <td width="25%">Phonetic</td>
+      <td width="60%">Search for values phonetically similar to the
+search
+string.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">% <br>
+STEM <br>
+.STEM.</td>
+      <td width="25%">Stem</td>
+      <td width="60%">Search for stemmed values equal to the stemmed
+search
+string.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">@ <br>
+REL <br>
+.REL.</td>
+      <td width="25%">Relevant</td>
+      <td width="60%">Search for items relevant to the search string (Uses the Berkeley TREC-3 Algorithm</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">&lt;=&gt; <br>
+WITHIN <br>
+.WITHIN.</td>
+      <td width="25%">Within</td>
+      <td width="60%">Search for items within a range (e.g.:
+used for dates indicated by year-year) (BIB-1 extension)</td>
+    </tr>
+  </tbody>
+</table>
+</p>
+<p><i>GEO Profile RELOPs</i> </p>
+<br>
+The GEO profile includes additional operators for geographic and
+time period searching. These can be specified (assuming the
+attributeset
+is GEO) as follows. (BIB-1 relops, &lt;=, &lt;, =, &gt;, &gt;=, and
+&lt;&gt;
+are the same as BIB-1)
+<p>
+<table border="1">
+  <tbody>
+    <tr>
+      <td align="center" bgcolor="#c0c0c0" width="15%"><font
+ color="#000000"><strong><big>Value</big></strong></font></td>
+      <td align="center" bgcolor="#c0c0c0" width="25%">
+      <p align="left"><font color="#000000"><strong><big>Name</big></strong></font></p>
+      </td>
+      <td align="center" bgcolor="#c0c0c0" width="60%">
+      <p align="left"><font color="#000000"><strong><big>Semantics</big></strong></font></p>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">&gt;=&lt; <br>
+.OVERLAPS. <br>
+[GEO 2=7]</td>
+      <td width="25%">Overlaps</td>
+      <td width="60%">The access point region has a geometric area in
+common with the search term region. Given a search term region of S and
+access point region of T, the following algebra expresses the
+conditions required: {S(North) &gt;= T(South)} and {S(South) &lt;=
+T(North)} and {S(East) &gt;= T(West)} and {S(West) &lt;= T(East)}.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">@&gt;=&lt; <br>
+.OVERLAPS_RANK. <br>
+[GEO 2=707]</td>
+      <td width="25%">Overlaps (ranked)</td>
+      <td width="60%">The access point region has a geometric area in
+common with the search term region. Given a search term region of S and
+access point region of T, the following algebra expresses the
+conditions required: {S(North) &gt;= T(South)} and {S(South) &lt;=
+T(North)} and {S(East) &gt;= T(West)} and {S(West) &lt;= T(East)}. Rank
+the resulting matches by amount of overlap and relative size of target
+and search areas.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">&gt;#&lt; <br>
+.FULLY_ENCLOSED_WITHIN. <br>
+[GEO 2=8]</td>
+      <td width="25%">Fully Enclosed Within</td>
+      <td width="60%">The access point region is fully enclosed within
+the search term region.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">@&gt;#&lt; <br>
+.FULLY_ENCLOSED_WITHIN_RANK. <br>
+[GEO 2=708]</td>
+      <td width="25%">Fully Enclosed Within (ranked)</td>
+      <td width="60%">The access point region is fully enclosed within
+the search term region. Rank the resulting matches by amount of overlap
+and relative size of target and search areas.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">&lt;#&gt; <br>
+.ENCLOSES. <br>
+[GEO 2=9]</td>
+      <td width="25%">Encloses</td>
+      <td width="60%">The access point region fully encloses the search
+term region.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">@&lt;#&gt; <br>
+.ENCLOSES_RANK. <br>
+[GEO 2=709]</td>
+      <td width="25%">Encloses (ranked)</td>
+      <td width="60%">The access point region fully encloses the search
+term region. Rank the resulting matches by amount of overlap and
+relative size of target and search areas.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">&lt;&gt;# <br>
+.OUTSIDE_OF. <br>
+[GEO 2=10]</td>
+      <td width="25%">Fully Outside Of</td>
+      <td width="60%">The access point region has no geometric area in
+common with the search term region.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">+-+ <br>
+.NEAR. <br>
+[GEO 2=11]</td>
+      <td width="25%">Near</td>
+      <td width="60%">The access point region falls within a default
+distance of the search term region. The default distance is defined by
+the server.</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">.#. <br>
+.MEMBERS_CONTAIN. <br>
+[GEO 2=12]</td>
+      <td width="25%">Members Contain</td>
+      <td width="60%">The access point element or one of its
+subordinate elements is equal to the search term value (subject to
+possible qualification by the <a href="#Truncation%20Attributes">Truncation</a>
+and <a href="#Structure%20Attributes">Structure Attributes</a>). (Not
+currently available on Cheshire servers) </td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">!.#. <br>
+.MEMBERS_NOT_CONTAIN. <br>
+[GEO 2=13]</td>
+      <td width="25%">Members Not Contain</td>
+      <td width="60%">The access point element and all of its
+subordinate elements are not equal to the search term value (subject to
+possible qualification by the <a href="#Truncation%20Attributes">Truncation</a>
+and <a href="#Structure%20Attributes">Structure Attributes</a>). (Not
+currently available on Cheshire servers) </td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">:&lt;: <br>
+.BEFORE. <br>
+[GEO 2=14]</td>
+      <td width="25%">Before</td>
+      <td width="60%">The access point date (or date range) is before
+the search term date (or date range).</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">:&lt;=: <br>
+.BEFORE_OR_DURING. <br>
+[GEO 2=15]</td>
+      <td width="25%">Before or During</td>
+      <td width="60%">The access point date (or date range) is before
+or during the search term date (or date range).</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">:=: <br>
+.DURING. <br>
+[GEO 2=16]</td>
+      <td width="25%">During</td>
+      <td width="60%">The access point date (or date range) is during
+the search term date (or date range). (Same as WITHIN above on Cheshire)</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%">:&gt;=: <br>
+.DURING_OR_AFTER. <br>
+[GEO 2=17]</td>
+      <td width="25%">During or After</td>
+      <td width="60%">The access point date (or date range) is during
+or after the search term date (or date range).</td>
+    </tr>
+    <tr>
+      <td width="15%">
+      <p align="center">:&gt;: <br>
+.AFTER. <br>
+[GEO 2=18]</p>
+      </td>
+      <td width="25%">After</td>
+      <td width="60%">The access point date (or date range) is after
+the search term date (or date range).</td>
+    </tr>
+  </tbody>
+</table>
+</p>
+<p>Note that most systems do not support ??, %, @, or 'within' and
+many support only equal. The Cheshire server (or webcheshire) supports
+@ to indicate a probabilistic ranked search should be performed. The
+Cheshire server (or webcheshire) also supports % to indicate that a
+non-probabilistic ranking of the results should be made. Basically, on
+Cheshire servers, % ranks based on the number of terms in common
+between the query and the document with a minumum (set to half of the
+terms -- or 1 if there is only a single query term). It was originally
+set up for use with image retrieval. In a lot of simple cases it will
+do things in a similar way to probabilistic ranking, in more complex
+cases it is more similar to Boolean, but allows limited partial
+matching. Four additional ranking operators for Cheshire are shown in
+the table below.</p>
+<p>
+<table border="1">
+  <tbody>
+    <tr>
+      <td align="center" bgcolor="#c0c0c0" width="15%"><font
+ color="#000000"><strong><big>Value</big></strong></font></td>
+      <td align="center" bgcolor="#c0c0c0" width="25%">
+      <p align="left"><font color="#000000"><strong><big>Name</big></strong></font></p>
+      </td>
+      <td align="center" bgcolor="#c0c0c0" width="60%">
+      <p align="left"><font color="#000000"><strong><big>Semantics</big></strong></font></p>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="15%"> @@ <br>
+.TREC2. <br>
+[2=510]</td>
+      <td width="25%">Berkeley TREC-2</td>
+      <td width="60%"> (Cheshire Only) Use the Berkeley TREC-2 Algorithm
+for results ranking</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%"> @* <br>
+.TREC2FBK. <br>
+[2=510]</td>
+      <td width="25%">Berkeley TREC-2 with Blind Feedback</td>
+      <td width="60%"> (Cheshire Only) Use the Berkeley TREC-2 Algorithm
+for results ranking with blind relevance feedback (NOTE: works only with VECTOR indexes -- see <a href="index_vectors.html">index_vectors</a>)</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%"> @+ <br>
+.OKAPI. <br>
+[2=500]</td>
+      <td width="25%">Okapi BM-25</td>
+      <td width="60%"> (Cheshire Only) Use the Okapi BM-25 Algorithm
+for results ranking</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%"> @/ <br>
+.TFIDF. <br>
+[2=530]</td>
+      <td width="25%">TFIDF</td>
+      <td width="60%"> (Cheshire Only) Use the Vector Space TFIDF Algorithm
+for results ranking (NOTE: works only with VECTOR indexes)</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%"> @& <br>
+.LUCENE. <br>
+[2=540]</td>
+      <td width="25%">TFIDF_LUCENE</td>
+      <td width="60%"> (Cheshire Only) Use the Lucene version of the Vector Space TFIDF Algorithm
+for results ranking (NOTE: works only with VECTOR indexes)</td>
+    </tr>
+    <tr>
+      <td align="center" width="15%"> @# <br>
+.CORI. <br>
+[2=501]</td>
+      <td width="25%">CORI</td>
+      <td width="60%"> (Cheshire Only) Use the CORI Algorithm for
+results ranking -- primarily intended for distributed search</td>
+    </tr>
+  </tbody>
+</table>
+</p>
+<p><i>BOOLOP</i> </p>
+<p>The Boolean operator to apply between results from different
+indexes.
+these are: </p>
+<p><b>AND | .AND. | &amp;&amp;</b> : Boolean AND</p>
+<p><b>OR | .OR. | || </b>: Boolean OR </p>
+<p><b>NOT | .NOT. | ANDNOT | .ANDNOT. | !! </b>: Boolean NOT </p>
+<p>Note that parentheses may be used to group Boolean sub-expressions,
+for example: </p>
+<p><b>zfind title gone and (title wind or title fishing) </b></p>
+<p><i>search_string</i> </p>
+<p>The term(s) to locate in the index. May include a truncation symbol
+(#). NOTE: that indexes defined a exactkeys will default to implicit
+right-hand truncation for matching - to overide this you will
+need to specify "[5=100]" following the index name, this is the
+Z39.50 DO NOT TRUNCATE attribute setting. 
+If the index being searched supports proximity (defined in
+the database configuration file, then phrases to be searched within
+same index can be indicated by surround the phrase with
+dollar signs, e.g:</p>
+<p><b>zfind title \$gone with the wind\$ </b></p>
+<p><i>PROXOP</i> </p>
+<p>The proximity operators to apply between results from within the
+same
+indexes. these are: </p>
+<p><b>!PROX | !ADJ | !NEAR | !FAR </b>: Proximity operators -- not
+ordered
+</p>
+<p><b>!OPROX | !OADJ | !BEFORE | !ONEAR | !OFAR </b>: Proximity
+operators
+-- ordered </p>
+<p> The "O" versions of the operators require the search items
+to appear in the order specified, while the non-O version do not. In
+the
+!PROX, !ADJ, and !NEAR versions the search items must be within the
+specified
+or default distance. In the !FAR version the search items must be
+farther
+apart than the specified or default distance. The default distance for
+!PROX, !OPROX, !ADJ, !OADJ and !BEFORE is 2, for !NEAR !ONEAR, !FAR and
+!OFAR is 20. </p>
+<p> Each proximity operator may be modified by the type of element to
+be
+used for determining proximity.&nbsp;They must be appended to the
+operator
+(<b>!OPER/ELEMENT).</b>These are: </p>
+<p><b>/C | /CHAR </b>: Characters. </p>
+<p><b>/W | /WORD </b>: Words (the default). </p>
+<p><b>/S | /SENT | /SENTENCE </b>: Sentences. </p>
+<p><b>/P | /PARA | /PARAGRAPH </b>: Paragraphs. </p>
+<p><b>/SECTION </b>: Sections. </p>
+<p><b>/CHAPTER </b>: Chapters. </p>
+<p><b>/DOCUMENT </b>: Documents. </p>
+<p><b>/ELEMENT </b>: Elements. </p>
+<p><b>/SUBELEMENT </b>: Subelements. </p>
+<p><b>/ELEMENTTYPE </b>: Elementtypes </p>
+<p><b>/BYTE </b>: Bytes. </p>
+<p> Each proximity operator can also be modified by a distance to
+override
+the default distances indicated above. The takes the form of a slash
+followed
+by a integer number appended to the operator. </p>
+<p> Examples of queries using these operators are: </p>
+<p><b>ZFIND TI cat !PROX/3 TI hat<br>
+</b>Find the title word "cat" within three words of the word
+"hat". </p>
+<p><b>ZFIND ANYWHERE information !ADJ/WORD/3 ANYWHERE retrieval<br>
+</b>Find the word information within three words of the word retrieval
+(assuming the anywhere index includes all of the document) </p>
+<p><b>zfind anywhere information !NEAR/SUBELEMENT anywhere retrieval<br>
+</b>Find the word retrieval within 20 subelements of the place where
+the
+word information is found. </p>
+<p>As a shorthand for exact phrase matching using a proximity index on
+a Cheshire server, the phrase can be enclosed in dollar signs. For
+example:
+</p>
+<p><b> zfind TI {$Gone with the Wind$}</b>
+</p>
+<p>Assuming TI is proximity index on the Cheshire server, then this
+query
+would find the query phrase with the words in the correct order
+(stopwords
+would be ignored in the matching). Note that this works for cheshire
+servers ONLY and will NOT work on other servers (they will just receive
+the query with dollar signs in it).
+</p>
+<p> Note that not all servers (including Cheshire) support all of the
+elements
+and many (or most) do not include proximity searching at all. If a
+server
+doesn't support proximity searching an error message with be returned
+as
+the result of the search. </p>
+<p><i>ZUZZYOP</i> </p>
+<p>A Fuzzy Boolean operator to apply between results from different
+indexes.
+these are: </p>
+<p><b>!FUZZY_AND</b> : Fuzzy AND</p>
+<p><b>!FUZZY_OR</b> : Fuzzy OR </p>
+<p><b>!FUZZY_NOT</b>: Fuzzy AND NOT </p>
+Fuzzy operators are versions of the Boolean operators that are
+less "strict" than the conventional Boolean operators, applied to
+weighted result lists. In place of Boolean AND, the "!FUZZY_AND"
+operator takes the smallest of the two weights in the result sets for
+the same record. The "!FUZZY_OR" takes the largest of the two weights
+for the same record. "!FUZZY_NOT" currently behaves the same way as
+strict Boolean "NOT". Otherwise these operators are used the same way
+as the strict Boolean operators.
+<p style="font-weight: bold;"><i>RESTRICTOP</i> </p>
+<p>A restriction operation to apply between results these are: </p>
+<p><b>!RESTRICT_FROM</b> : See below</p>
+<p><b>!RESTRICT_TO</b> : See below </p>
+<p>
+The "!RESTRICT_TO" and "!RESTRICT_FROM" operators take either a
+component result and a document result, or two component results (where
+one component contains the other). In the case of component and
+document results the component list is restricted to components that
+are in the document result -- the matching components only are
+returned retaining their weight from the original component
+result. When two nested component results are used with these
+operators the result is larger components that include one or more of
+the smaller components. (Note that with component and document results
+!RESTRICT_TO and !RESTRICT_FROM may be used interchangibly and the type
+of operation to be performed is determined by the nature of the
+resultsets, but with two component results Parent and Child, the
+following
+order should be followed...
+<br>
+Parent !RESTRICT_FROM Child
+<br>
+Child !RESTRICT_TO Parent
+</p>
+<p>Naturally Parent and Child can be any sub-query that result in the
+appropriate
+kind of component.
+</p>
+<p style="font-weight: bold;"><i>MERGEOP</i> </p>
+<p>Ranking score merger operations to apply between results from
+different indexes. These are based on "data fusion" methods, and
+operate on pairs of intermediate results returned from searches (or
+results of other mergers). The merge operators are: </p>
+<p><b>!MERGE_SUM</b> : SUM of Scores</p>
+<p><b>!MERGE_MEAN</b> : Mean Scores </p>
+<p><b>!MERGE_NORM</b> : Normalized Mean Scores<br>
+</p>
+<p><span style="font-weight: bold;">!MERGE_NSUM:&nbsp; </span>SUM of
+Normalized Scores<br>
+</p>
+<p><span style="font-weight: bold;">!MERGE_NPRV: </span>Normalize and
+Sum Scores with enhanced AND matches<br>
+</p>
+<p><span style="font-weight: bold;">!MERGE_CMBZ:&nbsp; </span>Augmented
+Normalized Scores for high-ranked documents and AND matches<br>
+</p>
+<p><span style="font-weight: bold;">!MERGE_PIVOT: </span>Pivoted
+Normalization<br>
+</p>
+<p>
+The !MERGE_SUM operator combines the two resultsets (like a Boolean OR)
+but
+adds the weights (actually the resulting raw ranking adds 1 + a
+probabilistic
+result and 1.5 for boolean results with matching document or component
+ids
+in both lists, and the original value for items found only in a single
+result.)
+</p>
+<p>The !MERGE_MEAN operator combines the two resultsets (like a Boolean
+OR) but
+takes the mean of the weights from items in both lists and half of the
+weight of items in only a single list.
+</p>
+<p>The !MERGE_NORM operator combines the two resultsets (like a Boolean
+OR) but takes the MEAN (or average) of the MIN_MAX normalized weights
+from items in both lists and half of the MIN_MAX normalized weight of
+items in only a single list. MIN_MAX normalization scales all of
+the weights in a resultset based on the maximum and minimum weights
+in the resultset. The resulting weights lie in the range from 0 to 1.
+This
+is particularly useful when one partial resultset uses a different
+ranking
+algorithm from the other (such as merging normal probabilistic and
+Okapi BM-25 results). This is the (currently) recommended
+operator for merging probabilistic resultsets.<br>
+</p>
+<p>The !MERGE_NSUM operator normalizes the scores and takes the SUM of
+the normalized scores.<br>
+</p>
+<p>The !MERGE_CMBZ operator, like the previous one, normalizes the
+scores and takes the sum of normalized scores,<br>
+and doubles the total for items in both of&nbsp; the input resultsets<br>
+</p>
+<p>The !MERGE_NPRV operator normalizes the scores and takes the doubled
+SUM of scores for items in both resultsets it then further
+differentiates the results from only a single list, retaining original
+scores for items that occur<br>
+in the top 100 of a ranked list (or the top half if less than one), and
+halves all remaining scores.<br>
+</p>
+<p>The !MERGE_PIVOT operator returns the adjusted scores for items in
+the left-hand resultset based on the scores for corresponding items
+(based on internal document id) in the right-hand resultset. The
+original purpose was to adjust weights for document components based on
+weights for the entire document. It turns out that this method is also
+beneficial in other situations (such as weighting one index result
+versus another index result). The basic formula<br>
+used is: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+final_score = (pivot_val * right_hand_score) + ((1-pivot_val) *
+left_hand_score);<br>
+</p>
+<p>The default value for the pivot_val is 0.70. This can be changed by
+constructing the operator like...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+index1 XXX&nbsp; !MERGE_PIVOT/90 index2 YYY<br>
+would set the pivot_val to 0.90 (the number following the slash should
+be less than 100, since it is divided by<br>
+100 to set the pivot coefficient.<br>
+</p>
+<p><span style="font-style: italic; font-weight: bold;">RELEVANCE
+FEEDBACK</span><br>
+</p>
+<p>When searching cheshire servers you can perform simple relevance
+feedback based on the first index entry in the cheshire<br>
+configuration file that contain the index mapping for "relevance" (i.e.
+RELAT tag with value 102). If the database you are<br>
+searching is set up this way then you can use a special form of the
+resultsetid to indicate that relevance feedback is to<br>
+be performed using that index. (Yes... the setup is a bit convoluted,
+but it
+also permits relevance feedback commands to be<br>
+transmitted over Z39.50). <br>
+</p>
+<p>For the client side things are fairly simple,&nbsp; just use the
+resultsetid with the item numbers of the seen documents (this is order
+based, so the first item is a resultset is 1, the second 2, etc.).
+Assume that a search like "zfind topic xxx resultsetid newresult"<br>
+has been performed giving a resultset with 20 items. To indicate that
+you would like to do relevance feedback on items number<br>
+1, 2 and 15 in that result set you simply submit the query:<br>
+</p>
+<p>zfind newresultset:1,2,15<br>
+</p>
+<p>and those items will be used as the basis of the relevance feedback
+search. Ranges can be indicated using a hyphen, for example<br>
+to indicate items 3 through 5 and item 10 you would use:<br>
+</p>
+<p>zfind newresult:3-5,10<br>
+</p>
+<p>Any combination of individual items and ranges separated by commas
+may be used. The relevance feedback method used is a fairly simple one
+that takes the terms occurring in particular index elements (with the
+RELAT 102 tag) in the associated configuration file for each of the
+documents selected and <br>
+</p>
+<p><span style="font-style: italic; font-weight: bold;">PATTERN MATCH
+RESTRICTIONS</span><br>
+</p>
+<p>Cheshire servers now also support a method for restricting
+resultsets based on regular expression matching on the entire record.
+In order to use this featurea resultset from a conventional search is
+needed, and the Z39.50 syntax is based on the syntax for relevance
+feedback. (The following discussion addresses the Z39.50 version first,
+and then the similar feature for the webcheshire client.)<br>
+<br>
+If you have done a search and the resultset is named "default", you can
+request a search for the word "stuff" in records 2 and 5 of that
+resultset by doing a search like:<br>
+<br>
+zfind default:2,5,find,stuff<br>
+<br>
+Note that in this simple form, each word to be searched must be
+separated by commas, and the word "find" must appear first after the
+list of numbers representing the records (in resultset sequence) to be
+searched. Matching is NOT case sensitive. Ranges of resultset numbers
+can also be used. For example...<br>
+<br>
+zfind default:2,5,10-30,find,stuff<br>
+<br>
+would do the search for "stuff" in records 2, 5 and 10 through 30. For
+more complex searches full regular expression matching is available,
+but the entire resultset string must be enclosed in double quotes,
+single quotes, or braces ({}), for example to search for cat or dog
+anywhere in record 5 you could use:<br>
+<br>
+zfind {default:5,find,(cat)|(dog)} <br>
+<br>
+to find the exact string "cat and dog" you could use:<br>
+<br>
+zfind {default:5,find,(cat and dog)}<br>
+or simply:<br>
+zfind {default:5,find,cat and dog}<br>
+<br>
+To match any of a set of regular expressions, just separate each by
+commas, for example:<br>
+<br>
+zfind default:2,5,find,stuff,blotz,zap<br>
+</p>
+<p>would search for words "stuff", "blotz", or "zap" in resultset
+records 2 and 5. This could also be expressed as:<br>
+<br>
+zfind {default:2,5,find,(stuff)|(blotz)|(zap)} <br>
+<br>
+Note that these searches are not exactly the same -- the first version
+searches for the three words surrounded by non-alphabetic strings,
+including blank, newlines, punctuation, etc. and the regular expression
+searches for the strings regardless of any surrounding characters.
+Simple words like "stuff" in the first example are treated internally
+as the regular expression:<br>
+<br>
+(^|[^a-zA-Z])(stuff)([^a-zA-Z]|$)<br>
+<br>
+Also note that numbers are considered word separators by this as well.<br>
+<br>
+Remember that using "eval" in client TCL processing may strip a layer
+of quotes or braces from search strings before they actually reach the
+search parser, so if you are getting syntax errors, you might need to
+double the braces or quotes.&nbsp; All of the above searches return a
+reduced resultset with only those records that are both included in the
+list of records, and that match the regular expression(s). Note that
+this form of resultset name can be used anyplace in a query that<br>
+<br>
+a simple resultset name is used, so<br>
+<br>
+zfind title gone with the wind AND {res1:1,(frankly my dear)}<br>
+<br>
+would do a boolean "AND" between the resultsets returned by the title
+search and the resultset returned with regular expression matching on
+record 1 of results "res1". Note that "res1" must exist before the
+query is submitted or else an error will occur. Also note the because
+of the parsing method used, the regular expression may not include
+embedded commas, but only commas to separate the list items.<br>
+<br>
+The webcheshire client has a similar feature, but only a single regular
+expression pattern is matched for ALL of the items resulting<br>
+from a normal search. The regular expression is simply set in a
+variable called "CHESHIRE_REGEX_FILTER" and that regular expression is
+applied to all of the results of subsequent searches until the variable
+is "unset" or set to a different value or the null string (""). The
+following example shows the usual sequence...<br>
+<br>
+set CHESHIRE_DATABASE bibfile<br>
+set CHESHIRE_CONFIGFILE "testconfig.new"<br>
+set CHESHIRE_RECSYNTAX SGML<br>
+set CHESHIRE_NUM_START 1<br>
+set CHESHIRE_NUMREQUESTED 5<br>
+<br>
+set query "search topic geometry"<br>
+set CHESHIRE_REGEX_FILTER {(mathematical statistics)}<br>
+<br>
+set results [eval $query]<br>
+<br>
+The returned "results" are limited to those that match both the main
+query and the regular expression in CHESHIRE_REGEX_FILTER. Note that
+the single term matching mode in the Z39.50 version is NOT used, so if
+you want to match a term like "stuff" surrounded by blanks, etc. you
+should use a regular expression that does that, such as:<br>
+<br>
+set CHESHIRE_REGEX_FILTER {(^|[^a-zA-Z])(stuff)([^a-zA-Z]|$)}<br>
+<br>
+Note also that because these filtering operations take place on the raw
+SGML/XML records, it is possible to include structural elements of the
+records in the regular expressions for either the webcheshire or Z39.50
+forms. For example, the following can match "geometry" in the "Fld650"
+tags in the above tcl script...<br>
+<br>
+set CHESHIRE_REGEX_FILTER
+{(&lt;Fld650)(.*)(geometry)(.*)(&lt;/Fld650&gt;)}<br>
+</p>
+<p>(Note also that if this the sort of search you want to do on a
+regular basis, it would be better and faster to just create an index
+for that tag).<br>
+</p>
+<p><a name="zscan"></a></p>
+<hr>
+<p></p>
+<p><b>Zscan </b><i>indexname[ATTR] search_string stepsize numreq
+position
+</i> </p>
+<p><b>ZSCAN </b><i>indexname[ATTR] search_string stepsize numreq
+position
+</i> </p>
+<p><b>zscan </b><i>indexname[ATTR] search_string stepsize numreq
+position
+</i> </p>
+<p>This command will retrieve a set of index terms for the specified
+index name from the current database and the current
+host/server, as established by the zselect command. For the webcheshire
+client, the command name "lscan" or "cheshire_scan" is used with the
+same arguments.</p>
+<p><i>indexname</i> </p>
+<p>As with ZFIND this can be any name in the BIB1, GILS, GEO or EXP1
+attribute sets. In addition
+there are many aliases assigned for various names. The list of
+supported
+index names is stored in the global Tcl array "ALL_INDEXES" and
+can be displayed using the "parray ALL_INDEXES" command (note
+that the attribute set USE value for each of these is the third number
+shown in the list of numbers included in the display, the following
+numbers
+are the other attributes: Relation, Position, Structure, Truncation,
+Completeness,
+in order. The first and second numbers are an internal id for the
+attribute,
+and a code indicating which attribute sets this item is used for).
+</p>
+<p><i>search_string</i></p>
+<p>This term specifies the place in the index to scan. It should be
+enclosed in quotes or curly braces if there is more than a single word
+in the string</p>
+<p><i>stepsize</i></p>
+<p>This is the number of terms to skip between each of the terms
+returned. This allows refining of scans from a wide scan down to a more
+finely grained one. To return each term in the index, use 0.</p>
+<p><i>Numreq </i></p>
+<p>This is the number of term to be returned from the index.</p>
+<p><i>position</i></p>
+<p>This is position in the list of returned terms where the
+search_string
+will be located (if it exists in the index).</p>
+<p><a name="zdisplay"></a> </p>
+<hr>
+<p></p>
+<p><b>Zdisplay </b><i>[resultsetid] [number_of_records]
+[start_records_num]</i>
+<br>
+<b>ZDISPLAY </b><i>[resultsetid] [number_of_records]
+[start_records_num]</i>
+<br>
+<b>zdisplay </b><i>[resultsetid] [number_of_records]
+[start_records_num]</i>
+</p>
+<p>Display number_of_records records resulting from a search having the
+specified resultsetid, or the last resultsetid used if not specified.
+If
+a start_record_num is supplied then display the records from the
+indicated
+ordinal position in the result, otherwise just continue from last
+record
+displayed. The number_of_records value defaults to the
+NumberOfRecordsRequested
+zset value. When number_of_records is supplied it resets the
+NumberOfRecordsRequested
+value to that number for the current connection. </p>
+<p><i>resultsetid</i> (OPTIONAL) </p>
+<p>This specifies the server result set name to use when displaying a
+record.
+The set name will be used in subsequent display requests until changed
+or until the set is deleted on the server </p>
+<p><i>start_records_num</i> (OPTIONAL) </p>
+<p>The ordinal number of the position in the result. </p>
+<p><i>number_of_records</i> (OPTIONAL) </p>
+<p>The number of records that the client will try to retrieve from the
+result set. </p>
+<p><a name="zshow"></a>
+</p>
+<hr>
+<p></p>
+<p><b>Zshow </b><i>parameter_name | ALL | SEARCH | PRESENT | SERVER |
+CLIENT
+</i> <br>
+<b>ZSHOW </b><i>parameter_name | ALL | SEARCH | PRESENT | SERVER |
+CLIENT
+</i> <br>
+<b>zshow </b><i>parameter_name | ALL | SEARCH | PRESENT | SERVER |
+CLIENT
+</i> </p>
+<p>This command returns a string containing information about the
+current
+session and connection. </p>
+<p><i>ALL</i> (OPTIONAL) </p>
+<p>Show all of the values for all parameters. </p>
+<p><i>SEARCH</i> (OPTIONAL) </p>
+<p>Show all of the values for all search-related parameters currently
+set.
+</p>
+<p><i>PRESENT</i> (OPTIONAL) </p>
+<p>Show all of the values for all present(display)-related parameters.
+</p>
+<p><i>SERVER</i> (OPTIONAL) </p>
+<p>Show all of the values for all server parameters (when connected) </p>
+<p><i>CLIENT</i> (OPTIONAL) </p>
+<p>Show all of the values for all client-related parameters. </p>
+<p><i>parameter name</i> (OPTIONAL) </p>
+<p>Show the value(s) of a particular parameter item. The following
+items
+can be shown: </p>
+<p><i>sDBNames | database</i> : Show current database name. </p>
+<p><i>hits | resultcount | numhits</i> : Show hits from last search. </p>
+<p><i>records | numrecords | numrecords</i> : Show number of records
+retrieved
+in latest search or present. </p>
+<p><i>nextrec | nextResultSetPosition | nextrecordpos</i> : Show
+ordinal
+position of next record to be retrieved by a present. </p>
+<p><i>totalrecs | totalrecords | totalNumberRecordsReturned</i> : Total
+number of record retrieved from the current search. </p>
+<p><i>Hosts | Servers</i> : Show the current connections for the
+seasion
+and whether or not the connection is active </p>
+<p><i>Host | Servername</i> : Show the machine name or IP address of
+the
+currently active server. </p>
+<p><i>Port</i> : Show the currently active port number for the current
+server. </p>
+<p><i>StatsFile | LogFile</i> : Show the name of the current
+transaction
+log file. </p>
+<p><i>QueryFormat | QueryType</i> : show the type code for the current
+query format. </p>
+<p><i>PreferredMessageSize</i> : Show the preferred message size. </p>
+<p><i>iMaxRecSize | exceptionalRecordSize</i> : Show the maximum record
+size permitted. </p>
+<p><i>sSmallSetUpperBound | SmallSetUpperBound</i> : Show the Z39.50
+Search
+SmallSetUpperBound parameter </p>
+<p><i>sLargeSetLowerBound | LargeSetLowerBound</i> : Show the Z39.50
+Search
+LargeSetLowerBound parameter </p>
+<p><i>sMediumSetPresentNum | MediumSetPresentNumber </i> : Show the
+Z39.50
+Search MediumSetPresentNumber parameter </p>
+<p><i>ReplaceIndicator</i> : Show whether or not resultsets can be
+replaced
+on reuse of a resultsetname. </p>
+<p><i>ResultSetName | pResultSetid | sResultSetName</i> : Show the
+current
+resultsetname. </p>
+<p><i>sSmallSetElementSetNames</i> : (this won't work right now) <i>sMediumSetElementSetNames</i>
+: (this won't work right now) </p>
+<p><i>PreferredRecordSyntax</i> : Show the requested record syntax </p>
+<p><i>Query</i> : Show the latest query <i>AttributeSet</i> : Show the
+attribute set used for the latest query. <i>pResultSetStartPoint |
+nextResultSetPosition</i>
+: Show the Z39.50 Search NextResultSetPosition parameter. </p>
+<p><i>pNumRecsReq | numberOfRecordsRequested</i> : Show the Z39.50
+Present
+NumberOfRecordsRequested. </p>
+<p><i>pElementSetNames | ElementSetNames</i> : Show the Z39.50 Present
+Elementsetnames </p>
+<p><a name="zset"></a>
+</p>
+<hr>
+<p></p>
+<p><b>Zset </b><i>ParameterName {value}</i> <br>
+<b>ZSET </b><i>ParameterName {value}</i> <br>
+<b>zset </b><i>ParameterName {value}</i> </p>
+<p>Set parameters that affect the Z39.50 connection, search, and
+present/display.
+The parameters that may be set are described below: </p>
+<p><i>session {connectionIDnumber}</i> : Switch to another connection
+currently
+active. (Multiple zselects can be used to start multiple simultaneous
+Z39.50
+connections and this command can be used to switch between them. </p>
+<p><i>ResultSetName | pResultSetid | sResultSetName {resultsetname}</i>
+: Sets the </p>
+<p><i>ResultSetName | sResultSetName | pResultSetid {resultsetname}</i>
+: Set the resultset name to be used in search (zfind) and present
+(zdisplay)
+commands. </p>
+<p><i>Database | Databasenames | Databasename {databasename} </i> :
+Sets
+the name of the database to be searched in subsequent zfind commands. </p>
+<p><i>ElementSet | ElementSetNames {name}</i> : Set the elementsetname
+to be used in
+records in zdisplay commands (default is F for Full records). <br>
+For
+Cheshire Servers it is possible to set two special elementset name
+values
+"XML_ELEMENT_..." and "STRING_SEGMENT_...". <br>
+The first form includes an XPATH (subset) specification of the XML/SGML
+tags to extract from a record -- this may include limited regular
+expressions.
+see the section below on <a href="#xpath">XML_ELEMENT specifications</a>.
+<br>
+The second form includes a specification of a substring or a single
+SGML/XML tag and only that segment of the record will be returned, see
+the section below on <a href="#segment">STRING_SEGMENT specifications</a>
+</p>
+<p><i>PreferredRecordSyntax | pPreferredRecordSyntax |
+sPreferredRecordSyntax
+| RecordSyntax | pRecordSyntax | RecordSyntax | RecordFormat |
+RecFormat
+sRecordSyntax | RecSyntax {syntaxname}</i> : Set the (suggested) record
+syntax for the items to be returned from the server. Acceptable
+recsyntaxes
+are MARC, SUTRS, SGML, XML, OPAC, EXPLAIN, SUMMARY, GSR0, GENERIC, or
+ES. </p>
+<p><i>AttributeSet | Attributes {name or OID}</i> : Set the attribute
+set
+to be used in searching. Acceptable attribute set names (mnemonics) are
+BIB1, EXPLAIN, EXT (extended services), CCL (common command Language,
+GILS
+(goverment information Locator Service), or STAS (Scientific and
+Technical
+attribute Set). Can use attribute set OIDs in place of names. <i>Host
+{servername}</i>
+: Can be used the same way as zselect to create a new connection to a
+host/
+</p>
+<p><i>QueryFormat {format}</i> : Can be used to set the query type to
+be
+processed. The format can be "RPN" or "1", "CCL"
+or "100", "ISO8777" or "2", "ERPN"
+or "101", "RANKED" or "102", "SQL"
+or "0", the default is RPN. </p>
+<p><i>PreferredMessageSize | ipreferredMsgSize | ipreferredMessageSize
+| preferredMsgSize {size}</i> : Set the preferred message size
+parameter
+for an INIT. </p>
+<p><i>exceptionalRecordSize | imaxRecSize | maxRecSize | maxRecordSize
+{size}</i> : Sets the maximum record size parameter for the INIT. </p>
+<p><i>sSmallSetUpperBound | SmallSetUpperBound {number}</i> : Sets the
+Z39.50 Search SmallSetUpperBound parameter </p>
+<p><i>sLargeSetLowerBound | LargeSetLowerBound {number}</i> : Sets the
+Z39.50 Search LargeSetLowerBound parameter </p>
+<p><i>sMediumSetPresentNum | MediumSetPresentNumber {number}</i> : Sets
+the Z39.50 Search MediumSetPresentNumber parameter </p>
+<p><i>ReplaceIndicator | sReplaceIndicator {0 or 1}</i> : Sets whether
+or not resultsets can be replaced on reuse of a resultsetname. </p>
+<p><i>ResultSetStartPoint | StartPosition {number}</i> : Sets position
+for the next item to be retrieved by a zdisplay (it is overridden by
+any
+parameters supplied to zdisplay) </p>
+<p><i>NumrecsRequested | NumRequested | NumRecs |
+NumberOfRecordsRequested
+{number}</i> : Sets the number of records to be retrieved by the next
+zdisplay
+(overridden by parameters to the zdisplay command) </p>
+<p><i>pElementSetNames | ElementSetNames {elementsetname}</i> : Sets
+elementset
+name to be used in the next present. </p>
+<p><i>logging | log | logs {(on | 1) | (off | 0)}</i> : Turns logging
+of
+transactions on or off. </p>
+<p><a name="zclose"></a>
+</p>
+<hr>
+<p></p>
+<p><b>Zclose</b> <br>
+<b>ZCLOSE</b> <br>
+<b>zclose</b> </p>
+<p>Close the currently active connection to a Z39.50 server. </p>
+<p><a name="zql"></a>
+</p>
+<hr>
+<p></p>
+<p><b>Zql </b><i>sql_select_statement</i> <br>
+<b>ZQL </b><i>sql_select_statement</i> <br>
+<b>zql </b><i>sql_select_statement</i> </p>
+<p>This command submits the SQL statement provided as the argument(s)
+to
+the current server as a Z39.50 Type 0 query. This assumes that the
+server
+accepts type 0 queries and processes them against the currently
+connected
+database with server-side SQL parsing. The Cheshire server can handle
+such
+queries for a RDBMS type configuration file entry (by passing things
+through
+to the RDBMS itself). For the webcheshire client the "SQL" or "LSQL"
+verb followed by an SQL statement will function in the same way for
+searching local DBMS databases. Note also that in the local webcheshire
+"SQL" version ANY SQL statement may follow the command verb. This
+means that the underlying relational databases may be created, and
+modified
+as well as queried using this commands (assuming permissions on the
+DBMS itself
+permit these operations). The ZQL command proper, however is only
+set up to permit SELECT operations and not database modification. </p>
+<p><a name="zformat"></a>
+</p>
+<hr>
+<p></p>
+<p><b>Zformat </b><i>formatname record rectype [recnumber]
+[max_line_length]
+[DTD_filename]</i> <br>
+<b>ZFORMAT </b><i>formatname record rectype [recnumber]
+[max_line_length]
+[DTD_filename]</i> <br>
+<b>zformat </b><i>formatname record rectype [recnumber]
+[max_line_length]
+[DTD_filename]</i> </p>
+<p>This command is used to provide special formatting on the client
+side
+for MARC and some SGML records. </p>
+<p><i>formatname:</i> </p>
+<p>The format names for MARC are: <br>
+"FULL" or "LONG" or"TAGGED" for a full records
+with tagged fields, <br>
+"BRIEF" or "SHORT" for an abbreviated record with tagged
+fields, <br>
+"MARC" or "FULLMARC" for a full MARC records tagged
+using MARC field numbers, <br>
+"REVIEW" or "EVAL" for very short records, <br>
+"LIST" or "TCLLIST" for records structured as a TCL
+list., <br>
+"HTML" for full records tagged as HTML, <br>
+"SHORTHTML" abbreviated records tagged as HTML, <br>
+"REVIEWHTML" for very short records tagged as HTML. </p>
+<p>The format names for SGML are: <br>
+For items using the USMARC DTD <br>
+"REVIEW" for very short records, <br>
+"SHORT" for an abbreviated record with tagged fields, <br>
+"LONG" for full records with tagged fields, <br>
+"MARC" for a full MARC records tagged using MARC field numbers,
+<br>
+"HTMLREVIEW" for very short records tagged as HTML, <br>
+"HTMLSHORT" abbreviated records tagged as HTML, <br>
+"HTMLLONG" for full records tagged as HTML <br>
+"CSMP_HTMLREVIEW" for very short records tagged as HTML, with
+860 URL fields set up as hyperlinks. <br>
+"CSMP_HTMLSHORT" abbreviated records tagged as HTML, with 860
+URL fields set up as hyperlinks. <br>
+"CSMP_HTMLLONG" for full records tagged as HTML with 860 URL
+fields set up as hyperlinks. <br>
+"GLAS_HTMLREVIEW" for very short records tagged as HTML (with
+special tags), <br>
+"GLAS_HTMLSHORT" abbreviated records tagged as HTML (with special
+tags), <br>
+"GLAS_HTMLLONG" for full records tagged as HTML. </p>
+<p>For items using the standard "classcluster" DTD (lccclust)
+there is the "LCCSHORT" format. </p>
+<p>For items using the TREC FT DTD there are three formats, "REVIEW",
+"SHORT", and "LONG". </p>
+<p><i>record:</i> The full record to be formatted </p>
+<p><i>rectype:</i> This is the type of record it can be expressed as a
+name or a type number. These are: "marc" or "usmarc"
+or 1,"sgmlmarc" or 2,"sgml" or 5,"opac" or
+3,"text" or "sutrs" or 4,"generic" or 6,"explain"
+or 7. </p>
+<p><i>recnumber:</i> This is the sequence or id number to use for the
+formatted
+record. </p>
+<p><i>max_line_length:</i> This is maximum number of characters to
+permit
+on a line. </p>
+<p><i>DTD_filename:</i> For SGML (rectype 5) this is the name of the
+file
+containing the DTD for this record type. </p>
+<p><a name="zmakeformat"></a>
+</p>
+<hr>
+<p></p>
+<p><b>ZMakeFormat </b><i>formatname [DTDNAME]
+{{list_of_format_elements}}</i>
+<br>
+<b>ZMAKEFORMAT </b><i>formatname [DTDNAME] {{list_of_format_elements}}</i>
+<br>
+<b>zmakeformat </b><i>formatname [DTDNAME] {{list_of_format_elements}}</i>
+</p>
+<p>This command adds a new format type to the builtin set of formats
+(see
+ZFORMAT above). The DTDNAME parameter is required for SGML formats. The
+list of format elements is a list of tcl lists that has the following
+structure:
+</p>
+<p>{<b>{label[500]} {tags[200]} {subfields[200]} {beginpunct[200]}
+{subfsep[200]}
+{endpunct[200]} {newfield [TRUE|FALSE|-1]} {print_all [TRUE|FALSE]}
+{print_indicators
+[TRUE|FALSE]} {print_delimiters[TRUE|FALSE]} {repeatlabel[TRUE|FALSE]}
+{multisubstitute[TRUE|FALSE]} {indent[NUMBER]}} </b></p>
+<p>The number in square brackets is the maximum size for the element,
+or
+the permitted values for the element. These elements are: </p>
+<p><i>label</i>: The label to place before the field in the formatted
+record.
+</p>
+<p><i>tags</i>: Which MARC or SGML tags this format element applies to
+(may use ?as a a single character wildcard for MARC). If "#"
+is used instead of a tag, then the record number supplied as a
+parameter
+to zformat will be used as the item to be formatted. </p>
+<p><i>subfields</i>: Which subfields of the tags the element applies to
+( For MARC, empty means all subfields, otherwise only the listed
+subfields
+are formatted) (For SGML, all subfields is indicated by "*" ,
+and subfield names must be separated by spaces) </p>
+<p><i>beginpunct</i>: String to place before the field in the formatted
+record. </p>
+<p><i>subfsep</i>: String to place between subfields in the formatted
+record.
+</p>
+<p><i>endpunct</i>: String to place after the field in the formatted
+record.
+</p>
+<p><i>newfield</i>: Is this a new field (should always be true except
+for
+end of format records where it should be -1). (Ignored in SGML) </p>
+<p><i>print_all</i>: Print the entire field? (minimal
+formatting).(Ignored
+in SGML) </p>
+<p><i>print_indicators</i>: Print the MARC indicators before the field?
+(Ignored in SGML) </p>
+<p><i>print_delimiters</i>: Print the MARC delimiters? (Usually FALSE).
+(Ignored in SGML) </p>
+<p><i>repeatlabel</i>: Repeat the label string for each line or
+matching
+field? (Ignored in SGML) </p>
+<p><i>multisubstitute</i>: Substitute the field for '%' in the
+beginpunct
+string? (Ignored in SGML) </p>
+<p><i>indent</i>: Number of spaces to indent wrapped fields. (Ignored
+in
+SGML) </p>
+<p>Here is an example for a MARC format: </p>
+<pre>zmakeformat SHORT {{{Record #} {#} {} {} { } {<br>} TRUE FALSE FALSE FALSE FALSE FALSE 0} {{Author:} {1??} {} {} { } {.<br>} TRUE FALSE FALSE FALSE FALSE FALSE 15} {{Title:} {245} {} {} { } {.<br>} TRUE FALSE FALSE FALSE FALSE FALSE 15} {{Publisher:} {260} {ab} {} { } {.<br>} TRUE FALSE FALSE FALSE FALSE FALSE 15} {{Date:} {260} {c} {} { } {.<br>} TRUE FALSE FALSE FALSE FALSE FALSE 15} {{Periodical:} {773} {} {} {} {.<br>} TRUE FALSE FALSE FALSE FALSE FALSE 15} {{Subjects:} {6[59]0} {} {} { -- } {.<br>} TRUE FALSE FALSE FALSE FALSE FALSE 15} {{LC Call No.:} {050} {} {} { } { <br>} TRUE FALSE FALSE FALSE FALSE FALSE 15}}<br><br></pre>
+<p>Which would produce a formatted MARC record that looks like this: </p>
+<pre>Record #1 <br>Author:      Hatcher, William S. <br>Title:       The logical foundations of mathematics / by William S. Hatcher. <br>Publisher:   Oxford ; New York : Pergamon Press. <br>Date:        1968. <br>Subjects:    Mathematics -- Philosophy. <br><br></pre>
+<p><a name="zremoveformat"></a>
+</p>
+<hr>
+<p></p>
+<p><b>ZRemoveFormat </b><i>formatname</i> <br>
+<b>ZREMOVEFORMAT </b><i>formatname</i> <br>
+<b>zremoveformat </b><i>formatname</i> </p>
+<p>This command removes a format created with the zmakeformat command
+described
+above. </p>
+<p><a name="zshowformat"></a>
+</p>
+<hr>
+<p></p>
+<p><b>ZShowFormat </b><i>formatname</i> <br>
+<b>ZSHOWFORMAT </b><i>formatname</i> <br>
+<b>zshowformat </b><i>formatname</i> </p>
+<p>This command returns a format element list for builtin formats or
+formats
+created with the zmakeformat command described above. </p>
+<p><a name="zdelete"></a>
+</p>
+<hr>
+<p></p>
+<p><b>Zdelete </b><i>ALL | ResultSetName1 [ResultSetName2 ...]</i> <br>
+<b>ZDELETE </b><i>ALL | ResultSetName1 [ResultSetName2 ...]</i> <br>
+<b>zdelete </b><i>ALL | ResultSetName1 [ResultSetName2 ...]</i>
+Deletes
+named result set(s) stored on the Z39.50 server. The keyword "ALL"
+deletes all stored result sets. </p>
+<p><a name="ptmpnam"></a>
+</p>
+<hr>
+<p></p>
+<p><b>pTmpNam </b><i>directoryname</i> </p>
+<p>Creates a unique random file name for temporary file usage. </p>
+<p><a name="zsort"></a>
+</p>
+<hr>
+<p></p>
+<p><b>ZSort</b> <br>
+<b>ZSORT</b> <br>
+<b>zsort</b> <br>
+<b>local_sort</b><br>
+<b>LS</b> <br>
+<b>cheshire_sort</b></p>
+<p>
+<i>Sort result sets</i>. This command will sort results, the "Z" forms
+of
+the command create a Z39.50 Sort request and send it to the target, the
+other forms are used in webcheshire for local sorting of resultsets.
+The
+parameters and flags discussed below apply to both versions. </p>
+<p>
+The additional arguments to the ZSort command are:
+</p>
+<dl>
+  <dt><b>-IN_RESULTS {</b> <i>list_of_input_resultsetnames</i><b>}</b></dt>
+  <dd>These are the result sets (or a single set) to be merged
+and sorted -- Note that merging will only work for resultsets from
+the same database. The braces are required if there are more than one
+input resultsets, they should be structured as a Tcl list. Duplicate
+entries are removed when multiple resultsets are merged. If this
+flag is NOT specified then the current resultset from the most recent
+search is
+used. </dd>
+  <dt><b>-OUT_RESULTS</b> <i>Output_resultsetname</i></dt>
+  <dd>This is the name to be used for the output resultset. If this
+flag is NOT specified then the current resultset for the session is
+used (the sorted version will replace the current resultset).</dd>
+  <dt><b>-TAG</b> <i>//sgml/xml_tagpath </i></dt>
+  <dd>This specifies a tag (or attribute) in the SGML/XML documents as
+a sort key. The tags are specified using a path notation (based on
+XPath abbreviated version, with some modifications. Basically a
+tag can be a single tag name, a regular expression (as in Cheshire
+configfile FTAG specifications), or a sequence of tag names separated
+by slashes. Attributes may be specified by preceding the attribute name
+with an at-sign '@'. For example, <br>
+chapter/para/sentence <br>
+asks for all sentence tags that are descendents of para element which
+are
+descendents of chapter elements. There is no need to specify the FULL
+path
+as long the nesting is sufficient to select the correct elements. A
+single
+tag name alone will find that tag anywhere in the document. Regular
+expressions can be used in tag names to specify combinations of tags
+for example "^fld1[1234].*" would select any tag that began with
+"fld1" followed by a 1, 2, 3, or 4, followed by any number of
+characters.
+Attributes may be specified in two ways. A path like:
+    <p>/para/sentence{@runon}</p>
+    <p>would select as a sort key the runon attributes of the sentence
+tags that are descendents of para elements. The following:</p>
+    <p>/para/sentence/@runon </p>
+    <p>would do exactly the same selection. The values of attributes
+may be used
+as a criteria for key selection as well. For example:</p>
+    <p>/para/sentence{@runon="not"} </p>
+    <p>would select all sentence elements where the attribute runon had
+the value
+"not" -- in this case the element contents instead of the attribute
+values
+are used for the sort keys. </p>
+  </dd>
+  <dt><b>-ATTRIBUTE</b> <i>attribute </i></dt>
+  <dd> An alternative way to specify sorting elements is to use the
+attributes of the database. These can be specified in the same way as
+the index elements of searches (see above). The parts of the database
+records that where used to create the indexes corresponding to the
+attribute will be used to extract the sort key. For example "-attribute
+title" would use the same rules used in creating the
+title index of the database for extracting the sort key. </dd>
+  <dt><b>-ELEMENTSETNAME</b> <i>setname </i></dt>
+  <dd> There are currently only two elementsetnames defined for
+sorting,
+"RANK" and "SCORE" and they are synonyms. When they are specified the
+sort key will be based on the ranking values of the resultset for
+each document. For resultsets from probabilistic searches this is
+the probability of relevance.</dd>
+  <dt><b>-IGNORE_CASE</b> </dt>
+  <dd> Case is ignored in sorting for this part of the sort key. This
+must follow a -TAG, -ATTRIBUTE or -ELEMENT specification and applies
+to the keys defined by that specification. This is a default, and
+will be used if NOT specified </dd>
+  <dt><b>-CASE_SENSITIVE</b> </dt>
+  <dd>Case matters in sorting for this part of the sort key. This
+must follow a -TAG, -ATTRIBUTE or -ELEMENT specification and applies
+to the keys defined by that specification. </dd>
+  <dt><b>-ASCENDING</b> </dt>
+  <dd>This flag indicates that this part of the sort key should be
+sorted in
+ascending order (low to high). It
+must follow a -TAG, -ATTRIBUTE or -ELEMENT specification and applies
+to the keys defined by that specification. This is a default, and
+will be used if NOT specified </dd>
+  <dt><b>-DESCENDING</b> </dt>
+  <dd>This flag indicates that this part of the sort key should be
+sorted in
+descending order (high to low) </dd>
+  <dt><b>-ASCENDING_FREQ </b></dt>
+  <dd>This flag indicates that this part of the sort key should be
+sorted in
+ascending order (low to high) by the frequency of the key value (I
+think).
+This is transmitted in Z39.50, but not supported on cheshire servers. </dd>
+  <dt><b>-DESCENDING_FREQ</b> </dt>
+  <dd>This flag indicates that this part of the sort key should be
+sorted in
+descending order (high to low) by the frequency of the key value (I
+think).
+This is transmitted in Z39.50, but not supported on cheshire servers. </dd>
+  <dt><b>-MISSING_NULL</b></dt>
+  <dd>This flag indicates that missing values for this part of the sort
+key
+should be treated a NULL values. It must follow a -TAG, -ATTRIBUTE or
+-ELEMENT specification and applies
+to the keys defined by that specification. This is a default, and
+will be used if NOT specified </dd>
+  <dt><b>-MISSING_QUIT</b></dt>
+  <dd>This flag indicates that missing values for this part of the sort
+key
+should cancel the sort, with no results returned. It must follow a
+-TAG, -ATTRIBUTE or -ELEMENT specification and applies
+to the keys defined by that specification.</dd>
+  <dt><b>-MISSING_VALUE</b><i> "value" </i></dt>
+  <dd>This flag indicates that missing values for this part of the sort
+key
+should be replaced in the sorting by the supplied value. It must follow
+a -TAG, -ATTRIBUTE or -ELEMENT specification and applies
+to the keys defined by that specification. </dd>
+</dl>
+Defaults are, again, -IGNORE_CASE -ASCENDING -MISSING_NULL. Note that
+any of the flags may be abbreviated (as long as they are unique
+abbreviations).
+A sort specification can have up to 100 sort keys specified. For
+example:
+<p>zsort -attr title -attr author -missing_value ZZZZZZ </p>
+<p>Would sort the current resultset by title and author (with missing
+authors
+treated as "ZZZZZZ"). </p>
+<p>zsort -in old -out new -tag section/subject-heading -attr title </p>
+<p>would sort contents of resultset "old" by the contents of the
+subject-heading
+tags within section elements, and the title attribute contents, with
+the
+result put into a new resultset "new".
+</p>
+<p>zsort -attr date -desc -attr title -asc -case </p>
+<p>would sort (the current resultset) from newest to oldest dates, and
+by title within each date with
+case sensitive sorting.
+</p>
+<p>Note that sorting is highly dependent on the server and not all
+servers will
+support all features (or even support sort at all). The cheshire server
+supports all of the types of sorts listed above, with the exception of
+frequency ordering. In the cheshire server if a record has multiple
+elements
+that match the criteria (e.g., many subject headings in many section in
+the example above, then only the first occurrence in the document is
+used
+for the sort).
+</p>
+<p><a name="zhighlight"></a></p>
+<hr>
+<p></p>
+<p><b>zhighlight</b> <br>
+<b>highlight</b> <br>
+<b>cheshirehighlight</b></p>
+<p>
+<i>Highlight Search Terms in data</i>. The basic Tcl command syntax is:
+<br>
+<b>highlight</b><i> &lt;-stem&gt; "search word string" "data string"
+"pre-string" "post-string"</i>
+</p>
+<p>The "data string" is searched for each occurrence of words (or
+stems)
+in the "search word string" (the search string is assumed to follow
+the syntax of a cheshire search command, but may also just be a string
+of words, in which case the first word is ignored). For each word (or
+stem)
+found, the "pre-string" is inserted before it, and the "post-string" is
+inserted after it (or after the stem if the "-stem" options is
+specified.
+Matching for either words or stems is not case-sensitive.
+Aliases for "highlight" are "zhighlight" and "cheshirehighlight". For
+example, suppose a search has been done for "zfind su mathematics" in
+a cheshire database, if the formatted record (rec) looks like:
+</p>
+<p>Title:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Essays&nbsp;in&nbsp;statistical&nbsp;science&nbsp;:&nbsp;papers&nbsp;in&nbsp;honor&nbsp;of
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P.A.P.&nbsp;Moran&nbsp;/&nbsp;edited&nbsp;by&nbsp;J.&nbsp;Gani&nbsp;and&nbsp;E.J.&nbsp;Hannan.
+<br>
+Publisher:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sheffield,&nbsp;Eng.&nbsp;:&nbsp;Applied&nbsp;Probability&nbsp;Trust.
+<br>
+Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1982.
+<br>
+Pages:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;434&nbsp;p.&nbsp;:&nbsp;ill..
+<br>
+Notes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Journal&nbsp;of&nbsp;applied&nbsp;probability&nbsp;special&nbsp;volume&nbsp;;
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v.19A"
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Includes&nbsp;bibliographies&nbsp;and&nbsp;index
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Publications&nbsp;of&nbsp;P.A.P.&nbsp;Moran:&nbsp;p.&nbsp;1-6
+<br>
+Subjects:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mathematical&nbsp;statistics.
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statistics.
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stochastic&nbsp;processes.
+<br>
+Other&nbsp;Authors:&nbsp;Moran,&nbsp;P.&nbsp;A.&nbsp;P.&nbsp;(Patrick&nbsp;Alfred&nbsp;Pierce),&nbsp;1917.
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hannan,&nbsp;E.&nbsp;J.&nbsp;(Edward&nbsp;James),&nbsp;1921.
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gani,&nbsp;J.&nbsp;M.&nbsp;(Joseph&nbsp;Mark).
+</p>
+<p>Then the Tcl statement:
+</p>
+<p>set result [highlight -stem "zfind su mathematics" $rec
+"&lt;START&gt;" "&lt;END&gt;"]
+</p>
+<p>would set result to:
+</p>
+<p>Title:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Essays&nbsp;in&nbsp;statistical&nbsp;science&nbsp;:&nbsp;papers&nbsp;in&nbsp;honor&nbsp;of
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P.A.P.&nbsp;Moran&nbsp;/&nbsp;edited&nbsp;by&nbsp;J.&nbsp;Gani&nbsp;and&nbsp;E.J.&nbsp;Hannan.
+<br>
+Publisher:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sheffield,&nbsp;Eng.&nbsp;:&nbsp;Applied&nbsp;Probability&nbsp;Trust.
+<br>
+Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1982.
+<br>
+Pages:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;434&nbsp;p.&nbsp;:&nbsp;ill..
+<br>
+Notes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Journal&nbsp;of&nbsp;applied&nbsp;probability&nbsp;special&nbsp;volume&nbsp;;
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;v.19A"
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Includes&nbsp;bibliographies&nbsp;and&nbsp;index
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Publications&nbsp;of&nbsp;P.A.P.&nbsp;Moran:&nbsp;p.&nbsp;1-6
+<br>
+Subjects:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;START&gt;Mathemat&lt;END&gt;ical&nbsp;statistics.
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Statistics.
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Stochastic&nbsp;processes.
+<br>
+Other&nbsp;Authors:&nbsp;Moran,&nbsp;P.&nbsp;A.&nbsp;P.&nbsp;(Patrick&nbsp;Alfred&nbsp;Pierce),&nbsp;1917.
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hannan,&nbsp;E.&nbsp;J.&nbsp;(Edward&nbsp;James),&nbsp;1921.
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gani,&nbsp;J.&nbsp;M.&nbsp;(Joseph&nbsp;Mark).
+</p>
+<p>Note that this is a Client-side operation and the highlighted items
+will NOT
+be restricted to the occurrences items actually indexed by the index
+used in searching, but it will highlight any occurrence in the string.
+If the "-stem" option is not used, then the highlighted occurrences
+must
+match the entire word as specified in the search string. Note however
+that
+this will work with ANY search string and ANY data string, so it can be
+used anywhere. For example...
+</p>
+<p>% set query "zfind su THIS IS A TEST"
+<br>
+zfind su THIS IS A TEST
+<br>
+% set data "This is the data that we are testing on."
+<br>
+This is the data that we are testing on.
+<br>
+% set result [highlight $query $data "&lt;B&gt;" "&lt;/B&gt;"]
+<br>
+&lt;B&gt;This&lt;/B&gt; &lt;B&gt;is&lt;/B&gt; the data that we are
+testing on.
+<br>
+% set result [highlight -stem $query $data "&lt;B&gt;" "&lt;/B&gt;"]
+<br>
+&lt;B&gt;Thi&lt;/B&gt;s &lt;B&gt;is&lt;/B&gt; the data that we are
+&lt;B&gt;test&lt;/B&gt;ing on.
+</p>
+<p>Remember that syntactical parts of a query (like zfind, index names,
+and
+Boolean operators) are ignored in highlight processing, so that a query
+like:
+<br>
+% set query "search title data and author test"
+<br>
+search title data and author test
+</p>
+<p>would give the following when applied to the same data as above:
+<br>
+% set result [highlight $query $data "&lt;B&gt;" "&lt;/B&gt;"]
+<br>
+This is the &lt;B&gt;data&lt;/B&gt; that we are testing on.
+<br>
+% set result [highlight -stem $query $data "&lt;B&gt;" "&lt;/B&gt;"]
+<br>
+This is the &lt;B&gt;data&lt;/B&gt; that we are
+&lt;B&gt;test&lt;/B&gt;ing on.
+</p>
+<p><a name="ptranlog"></a></p>
+<hr>
+<p></p>
+<p><b>pTranLog </b><i>transaction_code</i> </p>
+<p>Outputs a transaction log record (see cheshire2/pTranLog.c for
+details).
+Intended for use with the Tcl/Tk X window client and the opac script. </p>
+<p><a name="sresults"></a>
+</p>
+<hr width="100%"><br>
+<b>sResults </b>
+<p></p>
+<p>Collects and outputs results from a questionaire (see
+cheshire2/sResults.c
+for details. Intended for use with the Tcl/Tk X window client and the
+questionnaire
+script. </p>
+<p><a name="cheshire_search"></a>
+</p>
+<hr>
+<p></p>
+<p><b>cheshire_search </b><i>indexname1 [RELOP] search_string1
+[[BOOLOP]
+indexname2 [RELOP] search_string2 [BOOLOP2]... [resultsetid id_string]</i>
+</p>
+<p><b>search </b><i>indexname1 [RELOP] search_string1 [[BOOLOP]
+indexname2
+[RELOP] search_string2 [BOOLOP2]... [resultsetid id_string]</i></p>
+<p><b>LFIND </b><i>indexname1 [RELOP] search_string1 [[BOOLOP]
+indexname2
+[RELOP] search_string2 [BOOLOP2]... [resultsetid id_string]</i> </p>
+<p><b>lfind </b><i>indexname1 [RELOP] search_string1 [[BOOLOP]
+indexname2
+[RELOP] search_string2 [BOOLOP2]... [resultsetid id_string]</i> </p>
+<p>This command functions the same way as ZFIND above, however it is
+used
+only in the webcheshire or staffcheshire client programs to search the
+local database instead of using z39.50 to search remote databases. Some
+Tcl variables must be set to enable use of this command. The variables
+are: </p>
+<p><b>CHESHIRE_CONFIGFILE</b>: This should be set to the full pathname
+of the configuration file for the database. </p>
+<p><b>CHESHIRE_DATABASE</b>: This should be set to the name of the
+database
+(file) to be searched. </p>
+<p><b>CHESHIRE_NUMREQUESTED</b>: This should be set to the maximum
+number
+of records to be returned by the search. </p>
+<p><b>CHESHIRE_NUM_START</b>: This should be set to the number of the
+record
+in the search resultset that should be the first record returned. </p>
+<p><b>CHESHIRE_ELEMENTSET</b>: This should be set to the elementset
+name
+(or OID) that should be used in constructing the results of this
+search.
+</p>
+<p><b>CHESHIRE_RECSYNTAX</b>: This should be set to the record syntax
+name
+(or OID) that should be used in constructing the results of this
+search.
+(e.g.; GRS1, SUTRS, XML, SGML).
+</p>
+<p><b>CHESHIRE_ATTRIBUTESET</b>: This should set to the attributeset to
+be used in parsing the query. </p>
+<p><b>CHESHIRE_LOGFILE</b>: This should set to the pathname of a file
+to
+used in logging any errors in query processing -- defaults to STDERR. </p>
+<p><b>CHESHIRE_RETURN_PAGEDOCS</b>: When searching a
+"PAGED_DIRECTORY_REF"
+type of index, this forces the search to return a constructed document
+record with the page references attached instead of page records. (See
+configuration file documentation for more information on
+PAGE_DIRECTORY_REF
+indexes). </p>
+<p><a name="cheshire_fetch"></a>
+</p>
+<hr>
+<p></p>
+<p><b>Cheshire_Fetch </b><i>resultset_name number_to_fetch
+start_position</i><br>
+</p>
+<p><b>cheshire_fetch </b><i>resultset_name number_to_fetch
+start_position</i><br>
+</p>
+<p><b>FETCH </b><i>resultset_name number_to_fetch start_position</i><br>
+</p>
+<p><b>fetch </b><i>resultset_name number_to_fetch start_position</i><br>
+</p>
+<p><b>fetch_result </b><i>resultset_name number_to_fetch start_position</i><br>
+</p>
+<p><b>fetch_results </b><i>resultset_name number_to_fetch
+start_position</i><br>
+</p>
+<p>The Cheshire_Fetch command is used to retrieve and format records
+from
+stored resultsets. It is only available in webcheshire, and is the
+analog
+of zdisplay for retrieving from local resultsets. Since resultsets are
+not stored by default in webcheshire, they must be explicitly created
+using the RESULTSETID option in search commands. The optional
+number_to_fetch
+and start_position (both required if used) should be numbers (again
+same
+as in zdisplay). If these two are not specified the currently set
+values
+for CHESHIRE_NUMREQUESTED and CHESHIRE_NUM_START will be used. If these
+are not set and the number_to_fetch and start_position values are not
+specified, then an error will result. All of the other global variables
+discussed above in Cheshire_Search have the same effects in
+Cheshire_Fetch.
+</p>
+<p><a name="tilebar_search"></a>
+</p>
+<hr>
+<p></p>
+<p><b>TileBar_Search </b><i>index_name {concept1 terms} {concept2
+terms}
+[elib_id]</i> </p>
+<p><b>tilebar_search </b><i>index_name {concept1 terms} {concept2
+terms}
+[elib_id]</i> </p>
+<p><b>bfind </b><i>index_name {concept1 terms} {concept2 terms}
+[elib_id]</i></p>
+<p><b>tbsearch </b><i>index_name {concept1 terms} {concept2 terms}
+[elib_id]</i></p>
+<p><b>tb_search </b><i>index_name {concept1 terms} {concept2 terms}
+[elib_id]</i>
+</p>
+<p>TileBar_Search implements a search for two sets of concepts/terms
+from
+a "PAGED_DIRECTORY_REF" type of index. These are then returned
+as a Tcl list in a format for presentation via the DLIB tilebars java
+client.
+This command requires the use of the same Tcl variables as the
+cheshire_search
+command above. </p>
+<p><a name="cheshire_close"></a>
+</p>
+<hr>
+<p></p>
+<p><b>cheshire_close</b> <br>
+<b>cheshire_exit</b> <br>
+<b>close_cheshire</b> <br>
+<b>exit_cheshire</b> </p>
+<p>This command properly closes all open files named in the
+configuration
+files. To ensure that all updates to files and indexes are properly
+made
+this command must be executed before exiting from the client program.
+(needed
+for StaffCheshire and WebCheshire only) </p>
+<p><a name="lccbuild"></a>
+</p>
+<hr>
+<p></p>
+<p><b>LCCBuild </b><i>LCC_data_file_name</i> <br>
+<b>LCCBUILD </b><i>LCC_data_file_name</i> <br>
+<b>lccbuild </b><i>LCC_data_file_name</i> </p>
+<p>This routine takes a file of information about the Library of
+Congress
+Classification Scheme and builds an internal table to provide a
+hierarchical
+"description" of any LCC class number. The data file should contain
+lines that provide a heading for each level in the LCC hierarchy. The
+lines
+should contain either a single class or a range of LCC class values,
+followed
+by a colon, followed by the description of the class or range of
+classes.
+Each line should be indented using tab characters, with each tab
+representing
+a level in the LCC hierarchy. The following shows an example drawn from
+the lc_outline.text data file included in the "doc" directory
+of the cheshire distribution. </p>
+<pre>A-ZZZ: Library of Congress Classification Topic: <br>\\t A-AZ: General works. <br>\\t\\t AC: Collections. Series. Collected Works. <br>\\t\\t AE: Encyclopaedias (General). <br>\\t\\t AG: Dictionaries and other general reference books. <br>\\t\\t AI: Indexes (General). <br><br>or<br> <br>\\t E-FZ: History: America. <br>\\t\\t E: <br>\\t\\t\\t 11-29: (General) <br>\\t\\t\\t 31-46: North America. <br>\\t\\t\\t 51-99: Indians. Indians of North America. <br>\\t\\t\\t 101-135: Discovery of America and early explorations <br>\\t\\t\\t 151-9999: United States (General). <br>\\t\\t\\t\\t 184-185.98: Elements in the population. <br>\\t\\t\\t\\t\\t 184.5-185.98: Afro-Americans.<br><br></pre>
+<p><a name="lccget"></a>
+</p>
+<hr>
+<p></p>
+<p><b>LCCGet </b><i>"alphapart numericpart"</i> <br>
+<b>LCCGET </b><i>"alphapart numericpart"</i> <br>
+<b>lccget </b><i>"alphapart numericpart"</i> </p>
+<p>This routine uses an internal table of information about the Library
+of Congress Classification Scheme (loaded using the LCCBuild command)
+to
+provide a hierarchical "description" of any class number indicated
+by the alphabetic main class,<i>alphapart</i>, and numeric subclass, <i>numericpart</i>.
+Each element of the returned string is separated by an asterisk and
+represents
+a lower level of the hierarchy. These strings can be turned into Tcl
+lists
+using the Tcl "split" command on the asterisks. The first element
+of all the strings are the same, representing the root of the
+hierarchy.
+For example: </p>
+<p>% lccget QA 76 </p>
+<p>*Library of Congress Classification
+Topic:*Science.*Mathematics*Computer
+Science. Electronic data processing. </p>
+<p>% lccget z 699 </p>
+<p>*Library of Congress Classification
+Topic:*Bibliography*Libraries.*Library
+science. Information science.*The collections. The books.*Machine
+methods
+of information storage and retrieval. Mechanized bibliographic control.
+</p>
+<p><a name="lccdestroy"></a>
+</p>
+<hr>
+<p></p>
+<p><b>LCCDestroy </b> <br>
+<b>LCCDESTROY </b> <br>
+<b>lccdestroy </b> </p>
+<p>This routine removes the internal table of information about the
+Library
+of Congress Classification Scheme loaded using the LCCBuild command. </p>
+<p>
+</p>
+<hr width="100%">
+<p><a name="xpath"></a></p>
+<hr>
+<p></p>
+<p><b>XML_ELEMENT elementset specifications</b>
+</p>
+<p>XML or SGML elements may be extracted dynamically from the records
+in a database using the following format specification in the
+config file (assuming XML output is wanted):
+</p>
+<pre>&lt;displaydef name="XML_ELEMENT_" OID="1.2.840.10003.5.109.10"&gt;<br>&lt;convert function="XML_ELEMENT"&gt;<br>  &lt;clusmap&gt;<br>    &lt;from&gt;<br>      &lt;tagspec&gt;<br>        &lt;ftag&gt; SUBST_ELEMENT &lt;/ftag&gt;<br>      &lt;/tagspec&gt;<br>    &lt;/from&gt;<br>    &lt;to&gt;<br>      &lt;tagspec&gt;<br>        &lt;ftag&gt; SUBST_ELEMENT &lt;/ftag&gt; <br>      &lt;/tagspec&gt;<br>    &lt;/to&gt;<br>  &lt;/clusmap&gt;<br>&lt;/convert&gt;<br>&lt;/displaydef&gt;<br></pre>
+<p>
+This format is used in querying by setting the elementsetname to
+"XML_ELEMENT_xxx" where the "xxx" is the XPATH name of element in
+the records which can be specified by a simplified XPATH string (only
+direct paths ( /a/b/c/ etc.) are supported and not the xpath keyword
+specifications for relative paths. For example, using the displaydef
+above, and if a single tag is wanted, then just the tag name is needed.
+</p>
+<p>For example, assuming the above displaydef is defined for the
+example
+bibfile database (see index/testconfig.new), then sending the following
+commands to the client:
+</p>
+<p></p>
+<pre>% zset recsyntax xml<br>% zset elementset "XML_ELEMENT_Fld245"<br>% zfind su mathematics<br>{OK {Status 1} {Hits 17} {Received 0} {Set Default} {RecordSyntax UNKNOWN}}<br>% zdisplay<br></pre>
+<p>
+Will result in...
+</p>
+<pre>{OK {Status 0} {Received 10} {Position 1} {Set Default} {NextPosition 11} {RecordSyntax XML 1.2.840.10003.5.109.10}} {&lt;RESULT_DATA DOCID="1"&gt;<br>&lt;Fld245 AddEnty="No" NFChars="0"&gt;&lt;a&gt;Singularit&acirc;es &aacute;a Carg&aacute;ese&lt;/a&gt;&lt;/Fld245&gt;<br>&lt;/RESULT_DATA&gt;<br>} {&lt;RESULT_DATA DOCID="2"&gt;<br>&lt;Fld245 AddEnty="Yes" NFChars="0"&gt;&lt;a&gt;Mod&aacute;eles locaux de champs et de formes /&lt;/a&gt;&lt;c&gt;Robert Roussarie&lt;/c&gt;&lt;/Fld245&gt;<br>&lt;/RESULT_DATA&gt;<br>} {&lt;RESULT_DATA DOCID="5"&gt;<br>&lt;Fld245 AddEnty="No" NFChars="0"&gt;&lt;a&gt;Metody modelirovani&euml;i&igrave;a i obrabotka informa&euml;t&igrave;sii /&lt;/a&gt;&lt;c&gt;otv. redaktory K.A. Bagrinovski&aelig;i, E.L. Berl&euml;i&igrave;and&lt;/c&gt;&lt;/Fld245&gt;<br>&lt;/RESULT_DATA&gt;<br></pre>
+<p>
+Notice that the extra tag &lt;RESULT_DATA&gt; has been added to each
+record (the DOCID attribute is the internal document ID for the source
+record).
+</p>
+<p>Thus, any XML/SGML element can be requested from the database
+records of
+a database with this display format defined.
+</p>
+<p>For more complete paths, e.g.:
+</p>
+<p>% zset elementset "XML_ELEMENT_/USMARC/VarFlds/Titles/Fld245"
+</p>
+<p>note that the path need not be a complete path, as long as the
+subordinate
+path elements are descendents of the superordinate ones, the path can
+be matched.
+Also, if a set of elements is wanted from a record, these may be
+specified using the XPATH "|" notation, for example
+</p>
+<p>% zset elementset "XML_ELEMENT_Fld245|Fld650|Fld651
+</p>
+<p>would retrieve all Fld245, Fld650 and Fld651 tags from the record
+(so
+it isn't -really- single element extraction at all).
+</p>
+<p>Note ALSO that because the XPATH notation is converted into TAGSPECs
+internally, all of the wildcard and pattern matching available in
+configfile TAGSPECs is available in the XPATH specifications (this is
+NOT, however, guaranteed to be a real XPATH wildcards implementation).
+</p>
+<p>For example, in place of the above example
+</p>
+<p>% zset elementset "XML_ELEMENT_Fld245|^Fld65."
+</p>
+<p>could be used to match Fld245 along with any tag starting with
+"Fld65"
+followed by any other character. </p>
+<p>There is also now support for attribute (and attribute+value)
+specifications
+using XPATH. For example:
+</p>
+<p>% zset elementset XML_ELEMENT_Fld245/@AddEnty </p>
+<p>would retrieve just the AddEnty attribute values for the Fld245 tag,
+and
+</p>
+<p>% zset elementset XML_ELEMENT_Fld245/@AddEnty=No
+</p>
+<p>would return just Fld245's that had the attribute AddEnty with the
+value "No".
+</p>
+<p>However, the combination of full/partial paths with regular
+expressions
+will usually fail to work (due to the way the paths are turned into
+TAGSPECs), so the following will NOT work correctly...
+</p>
+<p>% zset elementset "XML_ELEMENT_TITLES/Fld245|SUBJECTS/^Fld65."
+</p>
+<p>This would be interpreted as the FTAG path...
+</p>
+<p>&lt;FTAG&gt;TITLES&lt;/FTAG&gt;&lt;s&gt;Fld245|SUBJECTS&lt;/s&gt;&lt;s&gt;^Fld65.&lt;/s&gt;
+</p>
+<p>Which would not match any tags in a correctly constructed USMARC
+record.
+</p>
+<p>Please also note that this is just a display format for records
+retrieved
+by searches and is not an additional search -- If no element specified
+in the XPATH specification is found in a retrieved record an empty
+record
+will be returned. These empty records look like:
+</p>
+<p>&lt;RESULT_DATA DOCID="74"&gt;&lt;/RESULT_DATA&gt;
+</p>
+<p>which implies that the record with DOCID 74 matched the query, but
+did not
+have any fields matching the XPATH specification.
+</p>
+<p>The records created using this method now include the full XPATH for
+each item extracted. The new results (for a XML_ELEMENT_Fld650
+elementset
+specification from a USMARC DTD database) look like:
+</p>
+<p>...
+</p>
+<pre>&lt;RESULT_DATA DOCID="2"&gt;<br>&lt;ITEM XPATH="/USMARC[1]/VarFlds[1]/VarDFlds[1]/SubjAccs[1]/Fld650[1]"&gt;<br>&lt;Fld650 SubjLvl="NoInfo" SubjSys="LCSH"&gt;&lt;a&gt;Vector algebra.&lt;/a&gt;&lt;/Fld650&gt;<br>&lt;/ITEM&gt;<br>&lt;ITEM XPATH="/USMARC[1]/VarFlds[1]/VarDFlds[1]/SubjAccs[1]/Fld650[2]"&gt;<br>&lt;Fld650 SubjLvl="NoInfo" SubjSys="LCSH"&gt;&lt;a&gt;Differential forms.&lt;/a&gt;&lt;/Fld650&gt;<br>&lt;/ITEM&gt;<br>&lt;ITEM XPATH="/USMARC[1]/VarFlds[1]/VarDFlds[1]/SubjAccs[1]/Fld650[3]"&gt;<br>&lt;Fld650 SubjLvl="NoInfo" SubjSys="LCSH"&gt;&lt;a&gt;Singularities (Mathematics)&lt;/a&gt;&lt;/Fld650&gt;<br>&lt;/ITEM&gt;<br>&lt;ITEM XPATH="/USMARC[1]/VarFlds[1]/VarDFlds[1]/SubjAccs[1]/Fld650[4]"&gt;<br>&lt;Fld650 SubjLvl="NoInfo" SubjSys="LCSH"&gt;&lt;a&gt;Differential equations.&lt;/a&gt;&lt;/Fld650&gt;<br>&lt;/ITEM&gt;<br>&lt;/RESULT_DATA&gt;<br>...<br></pre>
+<p>
+There is now an ITEM element for each matching document element (which
+is included as a subelement of the ITEM element). The XPATH attribute
+of the element is XPATH for the element, including the sequence number
+of sibling elements when they have the same parent path.
+</p>
+<p>In addition, the XPATH specifications for the element wanted can
+ALSO
+include occurrence numbers, which are used to restrict the fields
+returned
+for example for XML_ELEMENT_Fld650[3] the same record as above would
+only
+return the third occurrence of the subject:
+</p>
+<p></p>
+<pre>&lt;RESULT_DATA DOCID="2"&gt;<br>&lt;ITEM XPATH="/USMARC[1]/VarFlds[1]/VarDFlds[1]/SubjAccs[1]/Fld650[3]"&gt;<br>&lt;Fld650 SubjLvl="NoInfo" SubjSys="LCSH"&gt;&lt;a&gt;Singularities (Mathematics)&lt;/a&gt;&lt;/Fld650&gt;<br>&lt;/ITEM&gt;<br>&lt;/RESULT_DATA&gt;<br></pre>
+<p>
+This capability gives fairly powerful control over the display
+elements extracted.
+</p>
+<p><a name="segment"></a></p>
+<hr>
+<p></p>
+<p><b>STRING_SEGMENT_ elementset specifications</b>
+</p>
+<p>In addition the above, there is another "display format" that does
+not require a
+specification in the config files. It is "STRING_SEGMENT_..." treated
+similarly to the XML_ELEMENT_ elementset specifications as an
+elementsetname.
+The purpose is to exact strings from the underlying SGML/XML data of a
+Cheshire database without having to do parsing of the records. This
+will
+work only when the record syntax requested is XML, SGML or SUTRS.
+The basic forms are:
+</p>
+<p>zset elementsetname STRING_SEGMENT_400 <br>
+(for Z connections) or
+<br>
+set CHESHIRE_ELEMENTSET STRING_SEGMENT_400 <br>
+(for webcheshire local retrieval)
+</p>
+<p>
+zset elementsetname STRING_SEGMENT_200_400
+<br>
+(for Z connections) or
+<br>
+set CHESHIRE_ELEMENTSET STRING_SEGMENT_200_400 <br>
+(for webcheshire local retrieval)
+</p>
+<p>where 400 is the END position of the part of the record that you
+want
+to get and 200 is the START position, the second form assumes that
+start position is the beginning of the record (char position
+0). Unlike the XML_ELEMENT_... definitions above, this does NOT
+require an DISPLAYDEF -- (i.e. it should work for any records). </p>
+<p>Alternatively, the following form can be used to extract the FIRST
+matching SGML/XML tag in a record...
+</p>
+<p>zset elementsetname STRING_SEGMENT_Fld245
+<br>
+(for Z connections) or
+<br>
+set CHESHIRE_ELEMENTSET STRING_SEGMENT_Fld245 <br>
+(for webcheshire local retrieval)
+</p>
+<p>To extract the first occurrence of the tag Fld245 -- note that ONLY
+a
+single tag and NOT an xpath can be used with this, since it is not
+parsing the record, but doing simple string matching for the first
+occurrence of the tag. If a record doesn't have the tag anyplace, it
+returns the string "*** NO MATCHING TAGS IN MATCHING RECORD ***" in
+place
+of the tag. Note also that it is entirely possible to return string
+values that will not be valid XML or SGML, it is up to the
+user/scripter
+to take appropriate action when using this type of retrieval. The
+primary
+advantages are 1) No parsing is done so it is fast to return results
+and
+2) arbitrary pieces of the records can be extracted. Of course, even
+though you can send such an elementset name to any Z server, only
+cheshire servers will be able to process it.
+</p>
+<p>
+To aid in using the results returned by this method for IR evaluations,
+STRING_SEGMENT_ puts the following at the head of every string:<br>
+"docid 9999|rank 9999|relv 9999|rawrel 9999.9999|..."<BR>
+where the "9999" is replaced by the appropriate values from the search.
+This can be easily processed using the Tcl split and list handling commands
+in a script.
+</p>
+
+<p><a name="statistics"></a></p>
+<hr width="100%">
+<p></p>
+<p></p>
+<p><b>set CHESHIRE_SEARCH_STAT_DUMP </b><i>1</i> <br>
+<b>set CHESHIRE_SEARCH_STAT_DUMP </b><i>0</i></p>
+<p>Setting this variable in webcheshire or staffcheshire causes
+statistics about ranking to be collected and output for each ranked
+search query. The output is appended to the results returned as a
+set of lines, one for each matching document in the collection NOTE
+that the stats output includes entries for ALL
+matching records, not just the number requested by the search
+(CHESHIRE_NUMREQUESTED). The variables returned in each line (each
+matching document) are:
+</p>
+<p>
+<table border="1">
+  <tbody>
+    <tr>
+      <td align="center" bgcolor="#c0c0c0" width="25%"><font
+ color="#000000"><strong><big>Variables</big></strong></font></td>
+      <td align="center" bgcolor="#c0c0c0" width="75%">
+      <p align="left"><font color="#000000"><strong><big>Description</big></strong></font></p>
+      </td>
+    </tr>
+    <tr>
+      <td>docid </td>
+      <td>Cheshire internal document ID number</td>
+    </tr>
+    <tr>
+      <td>compid </td>
+      <td>Cheshire internal component ID number</td>
+    </tr>
+    <tr>
+      <td>doclen </td>
+      <td>Document length (in bytes)</td>
+    </tr>
+    <tr>
+      <td>qlen </td>
+      <td>Query length</td>
+    </tr>
+    <tr>
+      <td>nmterms </td>
+      <td>number of matching terms between document and query</td>
+    </tr>
+    <tr>
+      <td>ndocs </td>
+      <td>number of documents</td>
+    </tr>
+    <tr>
+      <td>distndoc </td>
+      <td>number of documents (for distributed apps)</td>
+    </tr>
+    <tr>
+      <td>min_cf </td>
+      <td>mininum collection frequency (over all terms in query)</td>
+    </tr>
+    <tr>
+      <td>max_cf </td>
+      <td>maximum collection frequency (over all terms in query)</td>
+    </tr>
+    <tr>
+      <td>min_tf </td>
+      <td>mininum document term frequency (for this query)</td>
+    </tr>
+    <tr>
+      <td>max_tf </td>
+      <td>maximum document term frequency</td>
+    </tr>
+    <tr>
+      <td>sum_entr </td>
+      <td>total doc/comp matches in index</td>
+    </tr>
+    <tr>
+      <td>min_entr </td>
+      <td>mininum doc/comp matches in index</td>
+    </tr>
+    <tr>
+      <td>max_entr </td>
+      <td>maximun doc/comp matches in index</td>
+    </tr>
+    <tr>
+      <td>X1 </td>
+      <td>PROB: X1 - Okapi: Sum of RSJ values for terms - CORI: Sum of I</td>
+    </tr>
+    <tr>
+      <td>X2 </td>
+      <td>PROB: X2 - Okapi: Sum of document term frequency - CORI: Sum
+of T</td>
+    </tr>
+    <tr>
+      <td>X3 </td>
+      <td>PROB: X3 - Okapi &amp; CORI: average document length</td>
+    </tr>
+    <tr>
+      <td>X4 </td>
+      <td>PROB: X4 - Okapi: Constant k1 - CORI: 0</td>
+    </tr>
+    <tr>
+      <td>X5 </td>
+      <td>PROB: X3 - Okapi: Constant k3 - CORI: 0</td>
+    </tr>
+    <tr>
+      <td>X6 </td>
+      <td>PROB: X3 - Okapi: Constant b - CORI: 0</td>
+    </tr>
+    <tr>
+      <td>logodds </td>
+      <td>PROB: logodds value - Okapi &amp; CORI: 0.0</td>
+    </tr>
+    <tr>
+      <td>docwt </td>
+      <td>RSV/Probability for this document</td>
+    </tr>
+    <tr>
+      <td>$compname</td>
+      <td>Component name (if component)</td>
+    </tr>
+  </tbody>
+</table>
+</p>
+<hr width="100%">
+<p></p>
+<p></p>
+<h2><font color="#0000ff">BUGS </font></h2>
+<p>None known -- but there may be undesireable features :-) </p>
+<h2><font color="#0000ff">SEE ALSO</font> Tcl(1), Tk(1) </h2>
+<h2><font color="#0000ff">AUTHOR </font></h2>
+<p>Ray R. Larson (
+<script src="botkillscript.js" language="JavaScript"
+ type="text/javascript"></script>) </p>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!SGML  "ISO 8879:1986"
+--
+--
+
+CHARSET
+         BASESET  "ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0"
+         DESCSET  0   9   UNUSED
+                  9   2   9
+                  11  2   UNUSED
+                  13  1   13
+                  14  18  UNUSED
+                  32  95  32
+                  127 1   UNUSED
+     BASESET   "ISO Registration Number 100//CHARSET
+                ECMA-94 Right Part of Latin Alphabet Nr. 1//ESC 2/13 4/1"
+     DESCSET   128 32 UNUSED
+               160 95 32
+               255  1 UNUSED
+
+
+CAPACITY        SGMLREF
+                TOTALCAP        150000
+                GRPCAP          150000
+  
+SCOPE    DOCUMENT
+SYNTAX   
+         SHUNCHAR CONTROLS 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+                           19 20 21 22 23 24 25 26 27 28 29 30 31 127 255
+         BASESET  "ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0"
+         DESCSET  0 128 0
+         FUNCTION RE          13
+                  RS          10
+                  SPACE       32
+                  TAB SEPCHAR  9
+         NAMING   LCNMSTRT ""
+                  UCNMSTRT ""
+                  LCNMCHAR ".-_:"
+                  UCNMCHAR ".-_:"
+                  NAMECASE GENERAL YES
+                           ENTITY  NO
+         DELIM    GENERAL  SGMLREF
+                  SHORTREF SGMLREF
+         NAMES    SGMLREF
+         QUANTITY SGMLREF
+                  NAMELEN  34
+                  TAGLVL   100
+                  LITLEN   1024
+                  GRPGTCNT 150
+                  GRPCNT   64                   
+
+FEATURES
+  MINIMIZE
+    DATATAG  NO
+    OMITTAG  YES
+    RANK     NO
+    SHORTTAG YES
+  LINK
+    SIMPLE   NO
+    IMPLICIT NO
+    EXPLICIT NO
+  OTHER
+    CONCUR   NO
+    SUBDOC   NO
+    FORMAL   YES
+  APPINFO    NONE
+>
+<!doctype dbconfig [
+
+<!-- This is the data type definition for the configuration files used
+     in the Cheshire2 system. It spells out the acceptable markup for
+     the configuration files and the standard codes used
+  -->
+
+<!ELEMENT dbconfig - - (DBENV?,(ConfigInclude|filedef)+)>
+
+<!-- DBENV is a directory where the DB stores some working data -->
+<!ELEMENT DBENV - - (#PCDATA)>
+
+<!ELEMENT filedef - - (defaultpath?,(filename | filetag)+,(filecont | continclude)*, (explain | filedtd | sgmlcat | XMLSchema)* , assocfil?, history?, indexes?, clusters?, components?, dispoptions?, displays?)>
+<!-- Note that not all of the types listed below are implemented directly -->
+<!ATTLIST filedef TYPE (SGML | XML | MARC | MARCSGML | AUTH | CLUSTER | LCCTREE | MAPPED | SQL | DBMS | RDBMS | EXPLAIN | VIRTUAL | SGML_DATASTORE | XML_DATASTORE | MARC_DATASTORE | MARCSGML_DATASTORE) "SGML">
+
+<!-- DefaultPath will be pre-pended to any filename that does not begin at root -->
+<!ELEMENT defaultpath - - (#PCDATA)>
+
+<!ELEMENT filename - - (#PCDATA)>
+
+<!ELEMENT filetag   - - (#PCDATA)>
+
+<!ELEMENT sgmlcat   - - (#PCDATA)>
+
+<!-- optional continuation files for very large data files -->
+<!ELEMENT filecont   - - (#PCDATA)>
+<!ATTLIST filecont id NUMBER #REQUIRED
+                   min NUMBER #REQUIRED
+                   max NUMBER #REQUIRED>
+<!ELEMENT continclude   - - (#PCDATA)>
+
+<!ELEMENT explain   - - (TITLESTRING | DESCRIPTION | DISCLAIMERS | NEWS | HOURS |
+			BESTTIME | LASTUPDATE | updateinterval | COVERAGE |
+			PROPRIETARY | COPYRIGHTTEXT | COPYRIGHTNOTICE |
+			producercontactinfo | suppliercontactinfo | submissioncontactinfo)*>
+
+<!ELEMENT titlestring         - - (#PCDATA)>
+<!ELEMENT description         - - (#PCDATA)>
+<!ELEMENT disclaimers         - - (#PCDATA)>
+<!ELEMENT news                - - (#PCDATA)>
+<!ELEMENT hours               - - (#PCDATA)>
+<!ELEMENT besttime            - - (#PCDATA)>
+<!ELEMENT lastupdate          - - (#PCDATA)>
+<!ELEMENT coverage            - - (#PCDATA)>
+<!ELEMENT proprietary         - - (#PCDATA)>
+<!ELEMENT copyrighttext       - - (#PCDATA)>
+<!ELEMENT copyrightnotice     - - (#PCDATA)>
+
+
+<!ELEMENT updateinterval - - (value, units)>
+<!ELEMENT producercontactinfo - - (contact_name?, contact_description?,
+		contact_address?, contact_email?, contact_phone?)>
+<!ELEMENT suppliercontactinfo - - (contact_name?, contact_description?,
+		contact_address?, contact_email?, contact_phone?)>
+<!ELEMENT submissioncontactinfo - - (contact_name?, contact_description?,
+		contact_address?, contact_email?, contact_phone?)>
+
+<!ELEMENT contact_name         - - (#PCDATA)>
+<!ELEMENT contact_description  - - (#PCDATA)>
+<!ELEMENT contact_address      - - (#PCDATA)>
+<!ELEMENT contact_email        - - (#PCDATA)>
+<!ELEMENT contact_phone        - - (#PCDATA)>
+
+
+<!ELEMENT value     - - (#PCDATA)>
+<!ELEMENT units     - - (#PCDATA)>
+
+
+
+<!ATTLIST (titlestring, 
+          description,
+	  disclaimers,
+          news,
+          hours,
+          besttime,
+          coverage,
+          copyrighttext,
+          copyrightnotice)  LANGUAGE CDATA #IMPLIED>
+
+
+<!ELEMENT filedtd   - - (#PCDATA)>
+<!ATTLIST filedtd TYPE (SGML | XML | XMLSCHEMA) "SGML" >
+<!ELEMENT XMLSchema - - (#PCDATA)>
+<!ELEMENT assocfil  - - (#PCDATA)>
+<!ELEMENT history   - - (#PCDATA)>
+
+
+<!-- The following elements provide the definition language for indexes
+     to be generated for the particular file -->
+<!ELEMENT indexes  - - (indexdef+)>
+<!ELEMENT indexdef - - ((indxname | indxtag)+,indxmap*,indxcont*,stoplist?, indxexc? ,indxkey+)>
+
+<!-- Note that the NORMAL Attribute below has the possible values of:
+     "STEM", "WORDNET", "CLASSCLUS", "NONE" "DO_NOT_NORMALIZE", "STEM_NOMAP", 
+     "WORDNET_NOMAP", "XKEY" or "EXACTKEY", "XKEY_NOMAP" or "EXACTKEY_NOMAP", 
+     "CLASSCLUS_NOMAP", "NONE_NOMAP", "STEM_FREQ" "XKEY_FREQ", and "NONE_FREQ"
+     but it is also used for format specifications for Date and LAT_LONG or
+     BOUNDING_BOX formats, so not all are enumerated -->
+<!ATTLIST indexdef ACCESS (BTREE | HASH | RECNO | DBMS | BITMAPPED) "BTREE"
+         EXTRACT (KEYWORD | EXACTKEY | FLD008KEY | 
+		KEYWORD_SUBDOC | EXACTKEY_SUBDOC | URL | FILENAME |
+		DATE | DATE_RANGE | DATE_TIME | DATE_TIME_RANGE |
+		INTEGER_KEY | DECIMAL_KEY | FLOAT_KEY |
+		INTEGER | DECIMAL | FLOAT | LAT_LONG | BOUNDING_BOX |
+		KEYWORD_PROXIMITY | KEYWORD_EXTERNAL_PROXIMITY |
+		KEYWORD_EXTERNAL) "KEYWORD"
+         NORMAL CDATA #IMPLIED
+         PRIMARYKEY (NO | REJECT | IGNORE | REPLACE) "NO" >
+
+<!ELEMENT indxname - - (#PCDATA)>
+<!ELEMENT indxtag  - - (#PCDATA)>
+
+<!-- indxmap is used to indicate which Z39.50 attributes should be mapped
+     to this index. Any attributes NOT specified imply that ANY value 
+     for that element should be mapped to this index. Note that the
+     order in the configfile doesn't matter (any longer) USE or ACCESS_POINT
+     are required to match indexes -->
+<!ELEMENT indxmap  - - ((use | relat | posit | struct | trunc | complet
+			| access_point | semantic_qualifier | language 
+			| content_authority | expansion | normalized_weight
+			| hit_count | comparison | format | occurrence
+			| indirection | functional_qualifier)+>
+
+<!-- possible values for the ATTRIBUTESET attribute include:
+     "BIB-1", "EXP-1", "EXT-1", "CCL-1", "GILS", "STAS", "COLLECTIONS-1", 
+     "CIMI-1", "GEO-1", "ZBIG", "UTIL" ;, "XD-1", "ZTHES", "FIN-1", 
+     "DAN-1" and "HOLDINGS", or any valid Z39.50 ATTRIBUTESET OID -->
+<!ATTLIST indxmap ATTRIBUTESET CDATA #IMPLIED > 
+
+<!-- optional continuation files for large index (NOT CURRENTLY USED) -->
+<!ELEMENT indxcont - - (#PCDATA)>
+<!ATTLIST indxcont id NUMBER #REQUIRED>
+
+<!ELEMENT stoplist  - - (#PCDATA)>
+
+<!-- The extern_app tag specifies the command name and arguments for 
+     external indexing of URLs. The string "%~URL~%" should be used in 
+     the place where the URL in the data should be substituted in order 
+     to fetch the external data so that it can be indexed. A temporary 
+     copy must be made of each item during indexing but NO filename 
+     should be specified for the application (i.e., the output should be 
+     to stdout). The recommended application to use here is curl 
+     (http://curl.haxx.se) which is available on Linux, some other Unixes 
+     and Mac OS X. Using curl the tag might look like: 
+     "<extern_app> curl --silent %~URL~% </extern_app>" -->
+
+<!ELEMENT extern_app - - (#PCDATA)>
+
+<!-- Indxexc(s) contain the field specifications for areas where index
+     keys are NOT to be extracted. This tag effectively masks off parts
+     of the record and prohibits indexing subelements within those parts
+-->
+<!ELEMENT indxexc - - (tagspec+)>
+
+<!-- Indxkey(s) contain the field specifications for index extraction
+-->
+<!ELEMENT indxkey - - (tagspec+)>
+
+<!ELEMENT tagspec - - (ftag,s*,attr?)+>
+
+<!-- ftag is a field tag: either the SGML or MARC tag generally
+-->
+<!ELEMENT ftag - - (#PCDATA)>
+
+<!-- s is subfields or other selection criteria; may want to have a more
+     detailed syntax for a variety of things. But right now just data 
+-->
+<!ELEMENT s - - (s* & #PCDATA)*>
+
+<!-- attr is the name of the ATTRIBUTE associated with the tag that
+     should be indexed (i.e. don't index the field contents, just 
+     the value of that attribute.
+-->
+<!ELEMENT attr - - (#PCDATA | value)*>
+
+<!-- cluster contains name of a "base" file from which a cluster file 
+     was extracted, or a specification of the cluster file to be extracted
+     from the current file -->
+<!ELEMENT clusters - - (cluster | clusterdef)>
+<!ELEMENT cluster - - (clusbase | ((clusname | clustag), cluskey, stoplist?, clusmap+))>
+<!ELEMENT clusterdef - - (clusbase | (clusname, cluskey, stoplist?, clusmap+))>
+
+<!-- clusbase is the name of the file clustered by this file -->
+<!ELEMENT clusbase - - (#PCDATA)>
+
+<!-- clusname is the name of the cluster file to be extracted from
+     this file -->
+<!ELEMENT clusname - - (#PCDATA)>
+<!-- clustag is the name of the cluster file to be extracted from
+     this file: it is an alias for clusname -->
+<!ELEMENT clustag - - (#PCDATA)>
+
+<!-- cluskey is the key on which the clustering is based -->
+<!ELEMENT cluskey  - - (tagspec)>
+<!-- the NORMAL attribute of cluskey indicate the normalization to be done -->
+<!ATTLIST cluskey  NORMAL (STEM | WORDNET | CLASSCLUS | EXACTKEY | NONE) "NONE" >
+
+<!-- clusmap indicates the mapping from base file elements to cluster file
+     elements -->
+<!ELEMENT clusmap  - - ((from,to,summarize?)+)>
+<!ELEMENT from - - (tagspec)>
+<!ELEMENT to   - - (tagspec)>
+<!ELEMENT summarize - - (maxnum, tagspec)>
+<!ELEMENT maxnum - - (#PCDATA)>
+
+<!-- The following elements are used to specify a mapping between
+     z39.50 attributes and a particular index definition
+-->
+<!ELEMENT use - - (#PCDATA)>
+<!ATTLIST use ATTR CDATA #IMPLIED > 
+
+<!ELEMENT relat - - (#PCDATA)>
+<!ATTLIST relat ATTR CDATA #IMPLIED > 
+<!ELEMENT posit - - (#PCDATA)>
+<!ATTLIST posit ATTR CDATA #IMPLIED > 
+<!ELEMENT struct - - (#PCDATA)>
+<!ATTLIST struct ATTR CDATA #IMPLIED > 
+<!ELEMENT trunc - - (#PCDATA)>
+<!ATTLIST trunc ATTR CDATA #IMPLIED > 
+<!ELEMENT complet - - (#PCDATA)>
+<!ATTLIST complet ATTR CDATA #IMPLIED > 
+<!ELEMENT access_point - - (#PCDATA)>
+<!ATTLIST access_point ATTR CDATA #IMPLIED > 
+<!ELEMENT semantic_qualifier - - (#PCDATA)>
+<!ATTLIST semantic_qualifier ATTR CDATA #IMPLIED > 
+<!ELEMENT language - - (#PCDATA)>
+<!ATTLIST language ATTR CDATA #IMPLIED > 
+<!ELEMENT content_authority - - (#PCDATA)>
+<!ATTLIST content_authority ATTR CDATA #IMPLIED > 
+<!ELEMENT expansion - - (#PCDATA)>
+<!ATTLIST expansion ATTR CDATA #IMPLIED > 
+<!ELEMENT normalized_weight - - (#PCDATA)>
+<!ATTLIST normalized_weight ATTR CDATA #IMPLIED > 
+<!ELEMENT hit_count - - (#PCDATA)>
+<!ATTLIST hit_count ATTR CDATA #IMPLIED > 
+<!ELEMENT comparison - - (#PCDATA)>
+<!ATTLIST comparison ATTR CDATA #IMPLIED > 
+<!ELEMENT format - - (#PCDATA)>
+<!ATTLIST format ATTR CDATA #IMPLIED > 
+<!ELEMENT occurrence - - (#PCDATA)>
+<!ATTLIST occurrence ATTR CDATA #IMPLIED > 
+<!ELEMENT indirection - - (#PCDATA)>
+<!ATTLIST indirection ATTR CDATA #IMPLIED > 
+<!ELEMENT functional_qualifier - - (#PCDATA)>
+<!ATTLIST functional_qualifier ATTR CDATA #IMPLIED > 
+
+<!-- display indicates the mapping from base file elements to
+     the elements that should be returned in a given format-->
+<!ELEMENT dispoptions - - (#PCDATA)>
+<!ELEMENT displays  - - (format | displaydef)+>
+
+
+<!-- format and displaydef are actually aliases for each other -->
+<!ELEMENT format - - (include?,exclude?,convert?)>
+<!-- the NAME attribute of format indicates the format name -->
+<!-- the DEFAULT attribute indicates the default format -->
+<!ATTLIST format  NAME NMTOKEN #REQUIRED 
+                  OID  NMTOKEN #IMPLIED
+                  DEFAULT (DEFAULT) #IMPLIED>
+
+
+<!ELEMENT displaydef - - (include?,exclude?,convert?)>
+<!-- the NAME attribute of format indicates the format name -->
+<!-- the DEFAULT attribute indicates the default format -->
+<!ATTLIST displaydef  NAME NMTOKEN #REQUIRED 
+                  OID  NMTOKEN #IMPLIED
+                  DEFAULT (DEFAULT) #IMPLIED>
+
+<!ELEMENT include - - (tagspec)>
+<!ELEMENT exclude - - (tagspec)>
+
+<!ATTLIST exclude COMPRESS (COMPRESS) #IMPLIED>
+
+<!ELEMENT convert - - (clusmap)>
+
+<!ATTLIST convert FUNCTION CDATA #IMPLIED>
+
+<!ELEMENT components - - (componentdef*)>
+
+<!ELEMENT componentdef - - (componentname, componentnorm*, 
+                           (compstarttag | componentstarttag | componentstart),
+                           (compendtag | componentendtag | componentendtag)?, 
+                           componentindexes)>
+
+<!ELEMENT componentname - - (#PCDATA)>
+<!ELEMENT componentnorm  - - (#PCDATA)>
+
+<!-- these are really just aliases for each other -->
+<!ELEMENT compstarttag  - - (tagspec)>
+<!ELEMENT componentstarttag  - - (tagspec)>
+<!ELEMENT componentstart  - - (tagspec)>
+<!-- these are really just aliases for each other -->
+<!ELEMENT compendtag  - - (tagspec)>
+<!ELEMENT componentendtag  - - (tagspec)>
+<!ELEMENT componentend  - - (tagspec)>
+
+<!ELEMENT componentindexes  - - (indexdef+)>
+
+]>
+

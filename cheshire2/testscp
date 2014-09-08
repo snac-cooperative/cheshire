@@ -1,0 +1,47 @@
+set maxnum 20
+puts [zselect cheshire]
+puts "<p>"
+set qresults [zfind title aliens]
+puts "<br> $qresults  <br>"
+set hits [lindex [lindex [lindex $qresults 0] 2] 1]
+zset pElementSetNames F
+puts "Total number of records matching: $hits <p>"
+
+set x [zdisplay]
+set numrecv [lindex [lindex [lindex $x 0] 2] 1]
+set recs [lrange $x 1 end]
+set num 0
+puts "<pre>"
+
+while {$numrecv < $maxnum} {
+
+	foreach record $recs {
+
+		set y "$record"
+		set outrec [zformat html $y 1 [incr num] 80]
+puts $outrec
+puts "substituting..."
+		set servername "cheshire"
+		set LEFTBRACKET "\["
+		set RIGHTBRACKET "\]"
+		set QUOTES "\""
+	
+puts "past setting..."
+puts "$LEFTBRACKET $RIGHTBRACKET $QUOTES"
+                puts "[eval set zzz "\"[eval set outrec]\""]"
+
+
+	}
+	set x [zdisplay]
+	incr numrecv [lindex [lindex [lindex $x 0] 2] 1]
+	set recs [lrange $x 1 end]
+}
+zclose
+puts "</pre>"
+
+puts "</BODY>"
+puts "</HTML>"
+######################
+# end of tcl-cgi.tcl
+######################
+

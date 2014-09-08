@@ -1,0 +1,56 @@
+
+<html>
+  <head>
+    <title>Cheshire Configuration Files</title>
+  </head>
+  
+  <body bgcolor = white>
+    <center><h3>Cheshire Configuration - Components</h3></center>
+<p>
+    [<a href = "config-index.html">Back to Indexes</a> ]  [ <a href = "config.html">Up to the contents</a> ] [ <a href = "config-cluster.html">On to Clusters</a> ]
+
+
+
+    <p>
+      <img src = "closed.gif"><b>components</b><br>
+      The components tag starts the section of the configuration file on component indexing. It contains one or more componentdef tags which define a component database, in the same way as clusterdef and indexdef.
+    <p>The component configuration is where sections of the SGML documents are indexed separately and can be retrieved without the rest of the document.  For example, in a catalog where multiple items are recorded within a single document this could be of use in retreiving the information about a single item (for instance, EAD). Equally, in a full text document it could be used for retrieving a page, column or even line at a time.  
+
+    <p>
+      <img src = "closed.gif"><b>componentdef</b><br>
+      Componentdef is used to encapsulate a definition of a component database in the same manner as indexdef.
+
+    <p>
+      <img src = "closed.gif"><b>componentname</b><br>
+      The componentname tag contains the filename of the database where the component information for this definition is to be kept. This is information about where the components are in the documents, not the indexes of the data in them, and as such needs to be unique across component definitions. For example:<br>
+      <code>&lt;componentname&gt; /home/cheshire/cheshire/teidocs/page_components &lt;/componentname&gt;</code>
+    <p>
+      <img src = "closed.gif"><b>componentnorm</b><br>
+      This field is for normalisation to be done on the components while indexing. There are currently two possible values, NONE and COMPRESS.  If COMPRESS is given, then all markup inside the component will be flattened out. NONE will leave the markup intact. If the tag is not supplied, it will default to NONE.<br>
+      <code>&lt;componentnorm&gt; NONE &lt;/componentnorm&gt;</code>
+    <p>
+      <img src = "closed.gif"><b>compstarttag</b><br>
+      This tag is used to indicate the tag to be treated as a component, or if the compendtag is given, the tag to start the component at. It contains a single tag specification (without the tagspec tag).  For example, if we wanted to create a component index of 'stanza' tags for a poetry DTD:
+    <pre>
+&lt;compstarttag&gt;
+  &lt;ftag&gt; stanza &lt;/ftag&gt;
+&lt;/compstarttag&gt;
+    </pre>
+    
+    <p>
+      <img src = "closed.gif"><b>compendtag</b><br>
+      Components may also be defined as everything between two different tags. For example, between two empty &lt;linestart&gt; and &lt;lineend&gt; tags. In this case the first tag is recorded in compstarttag as above, and the second in compendtag. If the component is just the contents of a tag, then don't use the compendtag field. The compendtag field in the above example would be:
+    <pre>
+&lt;compendtag&gt;
+  &lt;ftag&gt; lineend &lt;/ftag&gt;
+&lt;/compendtag&gt;
+    </pre>
+    
+    <p>
+      <img src = "closed.gif"><b>componentindexes</b><br>
+      In exactly the same way as the indexes field in the main file definition, componentindexes contains index definitions to be applied to the component database. 
+<p>
+<hr>      
+
+</body>
+</html>

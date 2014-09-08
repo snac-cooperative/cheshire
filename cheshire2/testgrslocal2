@@ -1,0 +1,20 @@
+puts "Connecting to local db at 2100"
+zselect ztest sherlock bibfile 2100
+zset recsyntax GRS1
+set results [zfind su mathematics]
+puts "Search results: $results"
+set disp [zdisplay 1 1]
+
+
+puts "Display results: "
+
+foreach rec [lrange $disp 1 end] {
+    puts "++++++++++++++++++++++++++++++++++++++++++++++++++"
+    foreach tag $rec {
+	    set tg [lindex [lindex $tag 0] 1]
+	    set cont [lindex [lindex $tag 1] 1]
+	    puts "TAG: $tg"
+	    puts "CONT: $cont"
+
+    }
+}

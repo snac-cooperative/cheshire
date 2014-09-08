@@ -1,0 +1,90 @@
+
+<html>
+  <head>
+    <title>Cheshire Configuration Files</title>
+  </head>
+  
+  <body bgcolor = white>
+    <center><h3>Cheshire Configuration -Clusters</h3></center>
+    [<a href = "config-component.html">Back to Components</a> ]  [ <a href = "config.html">Up to the contents</a> ] [ <a href = "config-display.html">On to Displays</a> ]
+
+    <p>
+      <img src = "closed.gif"><b>clusters</b><br>
+      This introduces the cluster section of the configuration file.  A cluster takes a given 'key' tag specification and extracts the values. However, it also has a second set of tag specifications that it will extract from the document and these are indexed with the key specification. This is only useful if the key appears in multiple files. An example will hopefully make this more clear.
+    <p>
+      In documents that refer to each other, it may be useful to know which documents refer to any other given one. This can be done very quickly with a cluster.  To use HTML as an example, we could create a cluster based on the href attribute of the A tag as the 'key' value. Then we want to know the head/title of this document that refers to the other. However there are several documents that refer to the original, and we want to know them all. By searching for the URL in the key index, we will then be returned the titles of all refering documents without having to retreive and parse each one individually.
+    <br>
+      Another example might be to cluster the subject tags in a controlled vocabulary with the title of the record in which they occur, so as to allow the user to find other related documents quickly.
+    <p>
+      Each cluster also needs its own filedef after the main one. This should have the type of 'CLUSTER'. It then also needs everything associated with a normal filedef, including a DTD and indexes. More on this later.
+
+    <p>
+      <img src = "closed.gif"><b>clusterdef</b><br>
+      This introduces a cluster definition, ala indexdef and filedef. Multiple clusterdefs can be used in sequence to define more than one cluster for the database. The following fields make up a cluster definition.
+    <p>
+      <img src = "closed.gif"><b>clustag</b><br>
+      This is the name of the cluster, in the same way that indxtag is the name of an index. They should obviously be unique as per index names.  This is used in the normal indexdef, not in the CLUSTER indexdef. See also the information on the clusbase tag. For example:<br>
+      <code>&lt;clustag&gt; href_cluster &lt;/clustag&gt;</code>
+    <p>
+      <img src = "closed.gif"><b>cluskey</b><br>
+      This tag contains a 'tagspec' as described above and is the specification of what to create the cluster around. The entire tagspec is used as an exact key, and as such it has the normal attribute set to show this.  Using a paragraph level element for a key would be pointless. In our example this would be:<br>
+      <pre>
+&lt;cluskey normal=EXACTKEY&gt;
+  &lt;tagspec&gt;
+    &lt;ftag&gt; ^a$ &lt;/ftag&gt; &lt;attr&gt; href &lt;/attr&gt;
+  &lt;/tagspec&gt;
+&lt;/cluskey&gt;
+</pre>
+    <p>
+      <img src = "closed.gif"><b>clusmap</b><br>
+      The clusmap tag contains a series of mappings for the cluster. This is where we define which tags in the document are to be extracted and clustered with the cluskey, and what they're to be called in the pseudo document.
+    <p>
+      <img src = "closed.gif"><b>from</b><br>
+      The from tag contains a tagspec, which in turn contains tag specifications as above.  These are the tags in the original document, which should be recorded as data in the cluster. Patterns and multiple tags are allowed. To continue our example:<br>
+      <pre>
+&lt;from&gt;
+  &lt;tagspec&gt;
+    &lt;ftag&gt; head &lt;/ftag&gt; &lt;s&gt; title &lt;/s&gt;
+  &lt;/tagspec&gt;
+&lt;/from&gt;
+    </pre>
+    <p>
+      <img src = "closed.gif"><b>to</b><br>
+      Following the 'from' tag, this is where we record the location in which we want the information stored in the cluster. Obviously, this can only be one tag with no patterns. In this case we'll call the tag 'name' (to demonstrate that we can change the name of the tag):
+      <pre>
+&lt;to&gt;
+  &lt;tagspec&gt;
+    &lt;ftag&gt; name &lt;/ftag&gt;
+  &lt;/tagspec&gt;
+&lt;/to&gt;
+    </pre>
+    <p>
+      <img src = "closed.gif"><b>summarize</b><br>
+      The summarize tag indicates that only summary data should be presented for the entry. It contains the following maxnum field, and a tagspec to define the name of the tag in which the summary information should be recorded. Note that the summary is the only data that will be returned, leave this out if you want to get everything back.
+    <p>
+      <img src = "closed.gif"><b>maxnum</b><br>
+      This should contain a number, which is the maximum number of entries to summarise when returning information from the entry. This amount of the most frequently occuring items in the from tag are reported. For example, this would return the 5 most commonly occuring entries, in an element called summary:<br>
+    <pre>
+&lt;summarize&gt; 
+  &lt;maxnum&gt; 5 &lt;/maxnum&gt;
+  &lt;tagspec&gt;
+    &lt;ftag&gt;summary&lt;/ftag&gt;
+  &lt;/tagspec&gt;
+&lt;/summarize&gt;
+    </pre>
+    <p>
+      <b>cluster filedef</b><br>
+      If there is a cluster database, then a second filedef is required after the first. This second has the type of CLUSTER, and has one additional tag, clusbase, defined below.  The filetag field in this second filedef should be the same as the corresponding clustag in the cluster definition.  As the cluster maps from one tag to another, it also requires a DTD to be written for it, an associator file and everything else that a normal filedef would have.
+    <p>
+      <img src = "closed.gif"><b>clusbase</b><br>
+      This tag should be inside a clusters tag within the cluster filedef. It should contain the name of the filedef which is being clustered. For example, if the filetag of the main file defintion was 'unesco' then the clusbase would be:
+    <pre>
+&lt;clusters&gt;
+  &lt;clusbase&gt; unesco &lt;/clusbase&gt;
+&lt;clusters&gt;
+    </pre>
+    <p>
+    <hr>
+
+</body>
+</html>

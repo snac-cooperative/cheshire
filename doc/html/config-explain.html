@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Explain Documentation</title>
+  </head>
+
+  <body bgcolor = white>
+    <center><h3>Cheshire Configuration - Explain</h3></center>
+
+    [<a href = "config-file.html">Back to the Main File</a> ]  [ <a href = "config.html">Up to the contents</a> ] [ <a href = "config-index.html">On to Indexes</a> ]
+
+
+<p>
+<img src = "closed.gif"> <b>explain</b><br>
+Explain is the tag which wraps around the explain information.  This information is made available via the Z39.50 server on requests for information about the database. Many other Z39.50 servers do not support this Explain syntax, however the Cheshire client (among others) makes good use of it, so including it will be of use.
+
+<p>
+<img src = "closed.gif"> <b>titlestring</b><br>
+This is the title for the database, as opposed to the name by which it is searched. An example might be:<br>
+<code>&lt;titlestring&gt; The Cheshire Mailing List Archives &lt;/titlestring&gt;</code>
+
+<p>
+<img src = "closed.gif"> <b>description</b><br>
+A description of the database. Blank lines and line breaks will typically be kept by the client, and plain text URLs converted into appropriate hyperlinks.<br>
+<code>&lt;description&gt;<br>
+This database contains the archives of the Cheshire Mailing list. The records are emails sent to the list over its existence.<br>
+&lt;/description&gt;
+</code>
+
+<p>
+<img src = "closed.gif"> <b>disclaimers</b><br>
+Disclaimers is similar to description, but holds any disclaimers that might be necessary to display that relate to the database.
+
+<p>
+<img src = "closed.gif"> <b>news</b><br>
+Similarly, the news field holds news about the database.
+
+<p>
+<img src = "closed.gif"> <b>hours</b><br>
+Hours contains a message about when the database is available.
+
+<p>
+<img src = "closed.gif"> <b>besttime</b><br>
+This field contains a message concerning when the best time to access the database is.
+
+<p>
+<img src = "closed.gif"> <b>lastupdate</b><br>
+This field is used for recording when the last update occured to the database.
+
+<p>
+<img src = "closed.gif"> <b>updateinterval</b><br>
+Slightly more complex, the updateinterval field contains information concerning how often the database is updated. However this is stored in two sub fields:<br>
+&nbsp;&nbsp;<b>value</b>: This contains a number<br>
+&nbsp;&nbsp;<b>units</b>: This contains the name of the unit used.
+<p>
+So, for example, to say three months:<br>
+<code>&lt;updateinterval&gt; &lt;value&gt; 3 &lt;/value&gt; &lt;units&gt; months &lt;/units&gt;</code>
+
+<p>
+<img src = "closed.gif"> <b>coverage</b><br>
+This field is to record if the database is complete or not. For example, an archive of an email list would be complete if it contained all the emails ever sent to the list.
+<br>
+<code>&lt;coverage&gt; Complete &lt;/coverage&gt;</code>
+
+<p>
+<img src = "closed.gif"> <b>proprietary</b><br>
+This field should contain either YES or NO, and signifies whether the database records used are proprietary or not. A publically available DTD would not be proprietary, while an in house one would be.<br>
+<code>&lt;proprietary&gt; NO &lt;/proprietary&gt;</code>
+
+<p>
+<img src = "closed.gif"> <b>copyrighttext</b><br>
+This contains text to be displayed concerning the copyright of the database and its records.
+<br>
+<code>&lt;copyrighttext&gt; All records are owned by their respective authors &lt;/copyrighttext&gt;</code>
+
+<p>
+<img src = "closed.gif"> <b>producercontactinfo</b><br>
+This field contains information about how to get in contact with the producer of the database. It contains five possible subtags:
+<br>
+&nbsp;&nbsp;<b>contact_name</b>:The name of the producer<br>
+&nbsp;&nbsp;<b>contact_description</b>:A description of the producer<br>
+&nbsp;&nbsp;<b>contact_address</b>:A physical address to send things to<br>
+&nbsp;&nbsp;<b>contact_phone</b>:The phone number of the producer<br>
+&nbsp;&nbsp;<b>contact_email</b>:An email address to send messages to<p>
+<code>
+&lt;producercontactinfo&gt;<br>
+&lt;contact_name&gt; Robert Sanderson &lt;/contact_name&gt;<br>
+&lt;contact_description&gt; Grad Student Researcher &lt/contact_description&gt;
+&lt;contact_address&gt; Special Collections and Archives, Liverpool University&lt;/contact_address&gt;<br>
+&lt;contact_phone&gt; (+44) (0)151 794 3142 &lt;/contact_phone&gt;<br>
+&lt;contact_email&gt; azaroth@liverpool.ac.uk &lt;/contact_email&gt;<br>
+&lt;/producercontactinfo&gt;<br>
+</code>
+
+<P>
+<img src = "closed.gif"><b>suppliercontactinfo</b><br>
+Similar to the above, this field contains information about the suppliers of the data if different from the producer of the database. The information is contained in the same subfields.
+
+
+<p>
+    <hr>
+  </body>
+</html>

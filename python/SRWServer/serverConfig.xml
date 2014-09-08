@@ -1,0 +1,28 @@
+<config>
+  <logLevel>3</logLevel>
+  <recordSyntax>XML</recordSyntax>
+  <elementSetName>F</elementSetName>
+  <xslURL>/sru.xsl</xslURL>
+
+  <database id="l5r">
+    <zeerex>
+      <file protocol="srw">xml/l5r_srw.xml</file>
+      <file protocol="z39.50">xml/l5r_z.xml</file>
+    </zeerex>
+    <schema>ccg</schema>
+    <convertFromSGML>1</convertFromSGML>
+    <xslUrl>/l5r.xsl</xslUrl> 
+    <schemaHandlers>
+      <handler schema="dc">
+        <elementSetName>dc</elementSetName>
+        <recordSyntax>GRS1</recordSyntax>
+        <function>DCGRS1Handler</function>
+      </handler>
+      <handler schema="ccg">
+        <elementSetName>F</elementSetName>
+        <recordSyntax>XML</recordSyntax>
+      </handler>
+    </schemaHandlers>
+  </database>
+
+</config>

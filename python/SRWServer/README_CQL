@@ -1,0 +1,141 @@
+
+CQLParser -- A Python library for parsing CQL.
+
+Author:  Rob Sanderson (azaroth@liv.ac.uk)
+Licence:  GPL
+
+Quick Usage:
+Running CQLParser.py will read a CQL query from stdin and spit out the
+XCQL equivalent on stdout.
+
+As part of a larger program (for example an SRW server), you should
+import CQLParser and then use:
+  query = CQLParser.parse(CQLQuery)
+
+To print the XCQL:
+  print query.toXCQL()
+Or to convert the query into Cheshire's CCL implementation:
+  print query.toCheshire()
+
+SRWDiagnostics
+This file is included in CQLParser and defines the SRW diagnostics.
+Each diagnostic has its own object. The base class defines everything:
+
+SRWDiagnostic
+  A representation of an SRW Diagnostic record.
+  Properties:
+    .code        [integer]
+    .description [string]
+    .details     [string] 
+    .fatal       [boolean (1/0)]
+    .surrogate   [boolean (1/0)]
+
+Individual diagnostics may be created by DiagnosticNUM() where NUM is
+the code of the diagnostic.  eg diag = Diagnostic10()
+
+Configuration:
+There are three configuration options at the top of CQLParser.py
+
+errorOnEmptyTerm:   If the parser encounters an empty term, raise the
+                    appropriate diagnostic
+errorOnNonPreamblePrefix:  If the parser encounters a prefix not at
+                           the beginning of the query, raise a diagnostic
+errorOnQuotedIdentifier:  If the parser encounters an identifier in
+                          quotes, raise a diagnostic
+
+NOTE WELL:  The second two are NOT valid CQL as of version 1.0!  For
+            parsing CQL strictly by the book, leave these as errors.
+
+
+CQLtester.py, sampleQueries.txt:
+  CQLtester.py is a recursion checker against the sample queries file.
+  This is useful for checking that the parser generates valid XCQL.
+
+shlex.py:
+  Python 1.5 comes with a non compatible version of shlex.  Use the
+  one included if you're stuck in the stone age, otherwise delete it :)
+
+CQLParser API:
+
+There is one main function defined:
+  .parse(CQLstring)  [Parse the string and return a Query object]
+
+There is also a helper function which should be customised:
+  .convertIndex(SearchClause) [Return the name of the index for Cheshire]
+
+
+CQLParser defines the following classes to represent XCQL:
+
+Query:
+  The wrapper class for queries. (<xQuery> in XCQL)
+  Properties:
+    .query    [A Triple of SearchClause object]
+
+Triple:
+  The triple class represents an X Boolean Y triple. (<triple> in XCQL)
+  Properties:
+    .boolean  [A Boolean object]
+    .left     [A Triple or SearchClause object]
+    .right    [A Triple or SearchClause object]
+
+SearchClause:
+  This class represents an index/relation/term. (<searchClause> in XCQL)
+  Properties:
+    .index    [string]
+    .relation [A Relation object]
+    .term     [string]
+
+Relation:
+  This class represents a relation. (<relation> in XCQL)
+  Properties:
+    .relation  [string]  
+    .modifiers [list of strings]
+
+Boolean:
+  This class represents a boolean. (<boolean> in XCQL)
+  Properties:
+    .boolean    [string]
+    .modifiers  [list of strings]
+
+
+Query, Triple and SearchClause also have a 'prefixes' property,
+containing a dictionary of any name/identifier prefixes used for index
+set names.  They also define the addPrefix() function to add a prefix.
+
+All objects have a 'type' property which contains the type of the
+object.   ### There must be a Pythonesque way to get this!
+
+All objects define the toXCQL() and toCheshire() functions to convert
+their subtree into XCQL or Cheshire CCL respectively.
+
+There are also a number of helper objects defined:
+
+CQLParser:
+  A class to hold the parsing rules for CQL
+  Properties:
+    .parser        [A CQLShlex Object]
+    .currentToken  [string]
+    .nextToken     [string]
+  Functions:
+    .fetch_token() [Get the next token from the lexer]
+    .prefixes()    [Return a dictionary of any prefixes at currentToken]
+    .superQuery()  [Return a Query object]
+    .query()       [Handles Booleans and Triples]
+    .subQuery()    [Handles parentheses and clauses]
+    .clause()      [Return a SearchClause]
+    .boolean()     [Return a Boolean]
+    .relation()    [Return a Relation]
+
+
+shlexStream:
+  A class to treat a string as file object for shlex to handle.
+  
+CQLshlex:
+  A class to add in needed base lexing rules to shlex.
+  Functions:
+    read_token()  [Return a properly lexed token ala shlex]
+
+
+
+
+

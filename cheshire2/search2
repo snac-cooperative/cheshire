@@ -1,0 +1,6 @@
+set CHESHIRE_DATABASE bibfile
+set CHESHIRE_NUMREQUESTED 10
+set CHESHIRE_CONFIGFILE "CONFIG.DL"
+set CHESHIRE_ATTRIBUTESET "GILS"
+set RESULTS [search {topic @ {water sacramento}}]
+puts $RESULTS

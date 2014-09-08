@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Wiki Search</title>
+  </head>
+
+  <body bgcolor = white>
+<p>
+<center><b>Wiki Search</b></center>
+<p>
+Here you can search either the users or the records in this wiki.
+
+<p>
+<form action = "/~cheshire/wiki/" method = "GET">
+<input type = hidden name = request value = "search">
+
+<table>
+<tr><td colspan = 2><hr></td></tr>
+
+<tr><td><b>Database to Search:</b></td><td>
+<select name = "searchdb">
+<option value = "data" SELECTED>Record Database
+<option value = "user">User Database
+</select>
+</td></tr>
+<tr><td><b>Search Type:</b></td>
+<td><select name = "format">
+<option value = "titles">Search
+<option value = "scan">Browse
+</select>
+
+<tr><td colspan = 2><hr></td></tr>
+
+<input type ="hidden" name = "fieldidx1" value = "cheshireID">
+<tr><td><b>ID:</b></td><td><input type = text name = "fieldcont1" size = 40 value = ""></td></tr>
+<input type ="hidden" name = "fieldidx2" value = "cTitle">
+<tr><td><b>Title:</b></td><td><input type = text name = "fieldcont2" size = 40 value = ""></td></tr>
+<input type ="hidden" name = "fieldidx3" value = "cheshireUser">
+<tr><td><b>Editor:</b></td><td><input type = text name = "fieldcont3" size = 40 value = ""></td></tr>
+<input type = "hidden" name = "fieldidx4" value = "cheshireFlag">
+<tr><td><b>Group:</b></td><td><input type = text name = "fieldcont4" size = 40 value = ""></td></tr>
+
+<input type ="hidden" name = "fieldidx5" value = "cDocument">
+<tr><td><b>In Document:</b></td><td><input type = text name = "fieldcont5" size = 40 value = ""></td></tr>
+
+<input type ="hidden" name = "fieldidx6" value = "cheshireRealName">
+<tr><td><b>Editor's Name:</b></td><td><input type = text name = "fieldcont6" size = 40 value = ""></td></tr>
+<input type ="hidden" name = "fieldidx7" value = "cheshireInfo">
+<tr><td><b>Editor Information:</b></td><td><input type = text name = "fieldcont7" size = 40 value = ""></td></tr>
+
+<tr><td colspan = 2><hr></td></tr>
+
+<tr><td colspan =2><b>Browse:</b></td></tr>
+<tr><td><b>Scan Index:</b></td><td>
+<select name = "scanindex">
+<option value = "cheshireID">Record ID
+<option value = "xCTitle">Record Titles
+<option value = "cheshireUser">Users
+<option value = "cheshireFlag">Groups
+<option value = "cheshireRealName">Real Name
+</select>
+</td></tr>
+<tr><td><b>Scan Term:</b></td>
+<td><input type = text size = 40 name = "scanterm"></td></tr>
+
+<tr><td colspan = 2><hr></td></tr>
+
+<tr><td><b>Number of Records Per Page:</b></td><td><input type = text size = 10 value = 25 name = "numreq"></td></tr>
+<tr><td><b>First Record:</b></td><td><input type = text size = 10 value = 1 name = "firstrec"></td></tr>
+<tr><td><b>Boolean:</b></td><td>
+<select name = "bool">
+<option value = "AND">And
+<option value = "OR">Or
+</select>
+</td></tr>
+<tr><td><input type = "submit" value = "Search"></td><td></td></tr>
+<tr><td colspan = 2><hr></td></tr>
+
+</table>
+</form>
+<p>
+<hr>
+  </body>
+</html>

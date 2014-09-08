@@ -1,0 +1,16 @@
+<config type="user" id="admin">
+  <objectType>user.SimpleUser</objectType>
+  <username>admin</username>
+  <!-- Note that this isn't a free text pw -->
+  <password>impossible to type</password>
+  <email>azaroth@liv.ac.uk</email>
+  <description>Server admin user</description>
+  <realName>Master</realName>
+</config>
+<config type="user" id="nobody">
+  <objectType>user.SimpleUser</objectType>
+  <username>nobody</username>
+  <password>impossible to type</password>
+  <description>Unauthenticated user</description>
+  <realName>Guest</realName>
+</config>

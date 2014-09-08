@@ -1,0 +1,31 @@
+The gazetteer information in the cities1 file, which was used to build
+the testxml.data file is VERY inaccurate and includes only a few
+cities for each country. The coordinates are often completely wrong
+(placing some cities in the middle of the ocean, for example). Some of
+them, however have been hand corrected from the Alexandria Gazetteer,
+so that they are as accurate as possible.
+
+The bounding boxes in the testxml.data file are also very inaccurate,
+because they were automatically generated from information in the
+cities1 file by taking the Northernmost, Southernmost, Westernmost and
+Easternmost points from any CITY coordinate to form the bounding box.
+
+Also note that the WDB data used to draw the map is also old
+(pre-1988) and includes a divided Germany as well as a single
+Yugoslavia and "USSR" instead of the new balkan countries and
+independent Russian republics.
+
+In addition please note that the map data is dependent on machine architecture. If
+you get garbage or error messages about the data, there is a simple program 
+(wdb.convert.c) that can be built to convert to the opposite 'endian' structure.
+
+Build the program using...
+
+gcc -o wdbconvert wdbconvert.c
+
+then run it as...
+
+wdbconvert map.data newmap.data
+
+
+Ray Larson

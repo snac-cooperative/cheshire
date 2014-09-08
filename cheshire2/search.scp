@@ -1,0 +1,5 @@
+set CHESHIRE_DATABASE diglib
+set CHESHIRE_NUMREQUESTED 10
+set CHESHIRE_CONFIGFILE "/usr/users/ray/Work/cheshire/index/CONFIG.DL"
+set RESULTS [search title water]
+puts $RESULTS

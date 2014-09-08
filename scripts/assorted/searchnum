@@ -1,0 +1,10 @@
+#!/usr/users/ray/Work/z3950_3/cheshire2/webcheshire
+set CHESHIRE_DATABASE bibfile
+set CHESHIRE_NUMREQUESTED 10
+set CHESHIRE_CONFIGFILE "/usr/users/ray/Work/z3950_3/index/CONFIG.DL"
+if {$argc == 1} {
+set RESULTS [search localnum $argv]
+puts $RESULTS
+} else {
+   puts "usage: searchnum localnumber"
+}

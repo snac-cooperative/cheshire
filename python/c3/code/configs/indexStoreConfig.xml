@@ -1,0 +1,11 @@
+
+<config type="indexStore" id="l5rIndexStore">
+  <objectType>indexStore.BDBIndexStore</objectType>
+  <paths>
+    <path type="defaultPath">indexes</path>
+    <path type="tempPath">temp</path>
+    <path type="sortPath">/bin/sort</path>
+    <path type="recordStoreHash">l5rRecordStore</path>  
+  </paths> 
+
+</config>

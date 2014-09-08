@@ -1,0 +1,191 @@
+From dpitti@library.Berkeley.EDU Wed Apr  7 06:41:32 1993
+Received: by library.Berkeley.EDU (4.1/1.31)
+	id AA13823; Thu, 7 Apr 94 06:46:36 PDT
+Date: Thu, 7 Apr 1994 06:46:22 -0700 (PDT)
+From: Daniel Pitti <dpitti@library.Berkeley.EDU>
+Subject: element list
+To: Jerry McDonough <jmcd@lucien.berkeley.edu>
+In-Reply-To: <9304062027.AA00842@lucien.Berkeley.EDU>
+Message-Id: <Pine.3.05.9404070621.E13704-e100000@library.Berkeley.EDU>
+Mime-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Status: RO
+
+     6:44 a March 23, 1994
+
+<abb>          abbreviation                                      
+<abbexp>       abbreviation, expansion of                        
+<abbl>         list of abbreviations                             
+<abbli>        list of abbreviations item                        
+<abst>         abstract                                          
+<abstn>        abstract note                                     
+<accno>        accession number                                  
+<acqsrc>       immediate source of acquisition
+<acqsrcn>      immediate source of acquisition note         
+<add>          address                                           
+<adfrm>        additional physical form available                
+<ael>          added entry list                                  
+<auc>          author, corporate
+<aup>          author, personal
+<bcd>          brief collection description                      
+<bcdc>         brief collection description core                 
+<bdate>        date, bulk                                        
+<bibc>         bibliographic citation                            
+<bioc>         biography, chronology                             
+<bion>         biographical note                                 
+<biop>         biography, prose                                  
+<bq>           quote, block                                      
+<c1>           component 1                                       
+<c2>           component 2                                       
+<c3>           component 3                                       
+<cin>          cumulative index note                             
+<city>         city                                              
+<clem>         collection area emphasis                          
+<clno>         collection number                                 
+<clud>         collection unit description                       
+<clue>         collection unit entry                        
+<clup>         collection unit part                              
+<clupe>        collection unit part entry                        
+<cnm>          corporate name                                    
+<cnmcef>       corporate name, catalog entry form                
+<cntl>         container list                                    
+<cntno>        container number                                  
+<cntnoch>      container number column header                    
+<cnty>         county                                            
+<cont1>        contents 1
+<cont2>        contents 2                                        
+<contch1>      contents column header 1
+<contch2>      contents column header 2
+<csd>          chronological subdivision, subject
+<ctrysd>       country subdivision                               
+<date>         date                                              
+<donp>         donation procedure                                
+<ds>           description of series
+<dss1>         description of subseries 1
+<dss2>         description of subseries 2
+<dti>          title, descriptive                                
+<eadd>         electronic address                                
+<eg>           example                                           
+<ege>          example expansion                                 
+<egi>          example item                                      
+<egl>          example list
+<em1>          emphasis 1                                        
+<em2>          emphasis 2                                        
+<em3>          emphasis 3                                        
+<em4>          emphasis 4                                        
+<em5>          emphasis 5                                        
+<embq>         quotation embedded within quotation               
+<ext>          statement of extent
+<extn>         statement of extent note
+<fan>          finding aids note                                 
+<fat>          finding aid type
+<fax>          fax                                
+<fnm>          family name                                       
+<fnmcef>       family name, catalog entry form                   
+<fnt>          footnote                                          
+<form>         form                                              
+<frnm>         forename                                          
+<front>        front matter
+<fund>         funding information                               
+<gencef>       genre/physical characteristics, catalog entry form
+<gfti>         title, genre/form                                 
+<gl1>          generic list, simple                              
+<gl2>          generic list, 2 component                         
+<gl3>          generic list, 3 component                         
+<gnm>          geographic name                                   
+<gnmcef>       geographic name, catalog entry form               
+<gpno>         group number   
+<graphic>                               
+<gsd>          general subdivision, subject
+<hc>           history, chronology                               
+<hdg>          heading                                           
+<hn>           historical note                                   
+<hp>           history, prose                                    
+<idate>        date, inclusive                                   
+<idno>         identifying number                                
+<ilgraph>      inline graphic
+<inlq>         quotation inline
+<lfd>          long folder description                           
+<lh>           list header                                       
+<lh2c>         list header 2 components                          
+<lh3c>         list header 3 components                          
+<li>           list item                                         
+<li2c>         list item, 2 component                            
+<li3c>         list item, 3 component                            
+<lp1h>         pattern 1 heading                                 
+<lp1i>         pattern 1 item                               
+<lp2h>         pattern 2 heading
+<lp2i>         pattern 2 item
+<lp3h>         pattern 3 heading
+<lp3i>         pattern 3 item
+<lp4h>         pattern 4 heading
+<lp4i>         pattern 4 item
+<lp5h>         pattern 5 heading
+<lp5i>         pattern 5 item
+<msn>          monographic series number
+<nm>           name                                              
+<no>           number                                            
+<oan>          organization and arrangement note                 
+<obi>          other bibliographic information
+<oti>          other title information                           
+<p>            paragraph
+<pb>           parent body                                       
+<pcd>          postal code                                       
+<pcdm>         preferred citation of described materials         
+<pdate>        date of processing
+<ph>           phone                              
+<plno>         physical location number                          
+<pnm>          personal name                                     
+<pnmcef>       personal name, catalog entry form                 
+<pnr>          page number of reference                          
+<prcpl>        place of processing                               
+<prov>         provenance                                        
+<provn>        provenance note                                   
+<pubdate>      date, publication
+<pubnm>        name of publisher
+<pubpl>        place of publication
+<r>            repository                    
+<radd>         repository address
+<rmc>          related materials and collections
+<rnm>          repository name
+<rstr>         restrictions on use                               
+<rstrn>        restrictions on use note                          
+<san>          standard address number                           
+<sb>           subordinate body                                  
+<sc>           scope and contents                                
+<scn>          scope and contents note                           
+<ser>          series                                            
+<serd>         series description                                
+<sere>         series entry                                      
+<sertoc>       series table of contents
+<sl>           separation list                                   
+<slls>         list of separated items                           
+<sls>          separation list section                           
+<slse>         separation list section entry                     
+<slsnm>        separation list section name                 
+<sltoc>        separation list table of contents                 
+<sor>          statement of responsibility                       
+<sorfa>        statement of responsibility for finding aid       
+<srnm>         surname                                           
+<ss1>          subseries 1                                       
+<ss1e>         subseries 1 entry                                 
+<ss2>          subseries 2                                       
+<ss2e>         subseries 2 entry                                 
+<sssnc>        series/subseries name column                      
+<sssnm>        series/subseries name                             
+<st>           street                                            
+<subj>         subject                                           
+<subjcef>      subject, catalog entry form
+<tart>         title, article
+<term>         term           
+<ti>           title                                             
+<tistmt>       title statement                                   
+<tms>          title, monographic series
+<toc>          table of contents                                 
+<tp>           title page                                        
+<tpt>          title page title
+<tsec>         title, (named) section (of a serial)              
+          
+
+
+

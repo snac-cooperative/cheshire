@@ -1,0 +1,18 @@
+# Test script for ztcl for GRS-1 conversion
+zselect essex1 dasun1.essex.ac.uk HDS_Catalogue 210
+set RESULTS [zfind title history]
+puts "$RESULTS"
+zset recsyntax GRS1
+zset elementsetnames B
+set disp [zdisplay]
+
+foreach rec [lrange $disp 1 end] {
+    puts "++++++++++++++++++++++++++++++++++++++++++++++++++"
+    foreach tag $rec {
+	    set tg [lindex [lindex $tag 0] 1]
+	    set cont [lindex [lindex $tag 1] 1]
+	    puts "TAG: $tg"
+	    puts "CONT: $cont"
+
+    }
+}

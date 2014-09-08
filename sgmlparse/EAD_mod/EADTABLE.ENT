@@ -1,0 +1,226 @@
+<!-- Formal Public Identifier:
+"-//Society of American Archivists//DTD eadtable.ent (EAD Table Elements)//EN"
+-->
+
+<!-- ********************************************************** -->
+<!--  NAME:      EAD TABLE ELEMENTS (from CALS MIL-M-28001)     -->
+<!--                                    (Vers Date 96/09/16)    -->
+<!--                                    (Version = 2.0)         -->
+<!--                                    (File: eadtable.ent)    -->
+<!--                                                            -->
+<!--  PURPOSE:   To encode general tabular information that     -->
+<!--             is not otherwise logically contained in the    -->
+<!--             in the Descriptions of Suborndinate Components -->
+<!--             (<dsc>), declared in eadbase.ent.              -->
+<!--                                                            -->
+<!--                                                            -->
+<!--  CONTACT:   EAD listserv of the Library of Congress Network-->
+<!--             Development and MARC Standards Office.         -->
+<!--             To subscribe to this listserv, send a one-line -->
+<!--             message to LISTSERV@LOC.GOV containing the     -->
+<!--             text:  SUBSCRIBE EAD YourName. Once subscribed,-->
+<!--             submit messages to EAD@LOC.GOV.                -->
+<!--                                                            -->
+<!--  SPONSOR:  The EAD is a cooperative effort sponsored by    -->
+<!--      several institutions and professional associations.   -->
+<!--      Its development has been supported through a series of-->
+<!--      fellowships and grants.                               -->
+<!--                                                            -->
+<!--      The Society of American Archivists (SAA) through the  -->
+<!--      EAD Working Group of the Committee on Archival        -->
+<!--      Information Exchange (CAIE) is responsible for        -->
+<!--      the intellectual content of EAD and for monitoring    -->
+<!--      and assisting in its ongoing development. The working -->
+<!--      group includes individuals representing various       -->
+<!--      interests within the SAA as well as representatives   -->
+<!--      from OCLC, Research Libraries Group (RLG), and the    -->
+<!--      Library of Congress.                                  -->
+<!--                                                            -->
+<!--      The Library of Congress Network Development and MARC  -->
+<!--      Standards Office is the international maintenance     -->
+<!--      agency for the standard.                              -->
+<!--                                                            -->
+<!--      Funding agencies who have contributed generously to   -->
+<!--      the development of the standard include:  Department  -->
+<!--      of Education (Title IIA grant) to the University of   -->
+<!--      California, Berkeley, for developing a prototype      -->
+<!--      encoding standard and database for finding aids; The  -->
+<!--      Library, University of California, Berkeley, for      -->
+<!--      supporting ongoing development of a community-based   -->
+<!--      standard; Commission on Preservation and Access for a -->
+<!--      three-day conference (4-6 April 1995) on the Berkeley -->
+<!--      Finding Aid Project (BFAP); Bentley Historical        -->
+<!--      Library, Andrew W. Mellon Foundation, and the National-->
+<!--      Endowment for the Humanities (Division of Preservation-->
+<!--      and Access) for assembling representatives from the   -->
+<!--      archival community for a week-long (22-29 July 1995)  -->
+<!--      Bentley fellowship program to develop design          -->
+<!--      principles and revise the BFAP data model and DTD;    -->
+<!--      Library of Congress National Digital Library Program  -->
+<!--      for sponsoring a three-day meeting (1-3 November 1995)-->
+<!--      of the Bentley team and other experts to review the   -->
+<!--      Bentley model and for providing the technical support -->
+<!--      of an SGML consulting firm to make modifications and  -->
+<!--      supply accompanying documentation for an alpha version-->
+<!--      of the DTD; and the Council on Library Resources for  -->
+<!--      sponsoring the development and publication of         -->
+<!--      application guidelines.                               -->
+<!--                                                            -->
+<!--  NOTE:      This is a modular DTD.  It references other    -->
+<!--             DTD modules through the use of Formal Public   -->
+<!--             Identifiers and/or SYSTEM entity references.   -->
+<!--             TO USE THIS DTD YOU MUST make the proper       -->
+<!--             FORMAL or SYSTEM pathname connection!!!!!!!    -->
+<!--                                                            -->
+<!--  WRITTEN:   Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             DATE: 1995-10                                  -->
+<!--                                                            -->
+<!--  ALPHA MODIFICATIONS:                                      -->
+<!--             Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             and the                                        -->
+<!--             ATLIS Consulting Group (DAL)                   -->
+<!--             Rockville, Maryland  20852                     -->
+<!--             (under contract with the National Digital      -->
+<!--             Library Program, Library of Congress)          -->
+<!--             DATE: 1996-01                                  -->
+<!--                                                            -->
+<!--  BETA MODIFICATIONS:                                       -->
+<!--             Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             DATE: 1996-06                                  -->
+<!-- ********************************************************** -->
+
+<!--             CHANGES FROM STANDARD MIL-M-28001B             -->
+<!--  1.  Short title and parameter entity for %titles; have been
+          reduced to single element <title>, which is optional.
+      2.  Element Paragraph <para> renamed <p>
+      3.  Model for Entry changed to parameter entity
+          %inside.table.cell; which is defined in the module 
+          eadbase.ent
+      4.  %bodyatt; replaced with %a.global;
+      5.  Element Chart (alias for table) removed
+      6.  %secur; attributes have been removed
+      7.  Element Legend removed from all models
+          SGML Open Recommendations
+      8.  <entrytbl> removed
+      9.  <colspec>s removed from <thead>
+-->
+<!-- ********************************************************** -->
+
+<!-- ********************************************************** -->
+<!--              CHANGE HISTORY (ALPHA TO BETA CHANGES)        -->
+<!-- ********************************************************** -->
+<!-- 
+NUM  DESCRIPTION OF CHANGE                               MM/DD/YY
+
+                                                         June 1996
+1.    
+  Digital Object (<do>) renamed Digital Archival Object (<dao>), 
+  and removed from <table> content model in this module, and from
+  %inside.table.cell parameter entity in module eadbase.ent.
+
+-->
+
+
+<!-- ********************************************************** -->
+<!--                   CALS TABLE ELEMENT DECLARATIONS          -->
+<!-- ********************************************************** -->
+
+<!--                          TABLE                             -->
+<!ELEMENT table        - -  (title?,tgroup+)          -(table)    >
+<!ATTLIST table
+          tabstyle     NMTOKEN                          #IMPLIED
+          tocentry     %yesorno;                        "1"
+          shortentry   %yesorno;                        #IMPLIED
+          frame        (top|bottom|topbot|all|sides|none)     
+                                                        #IMPLIED
+          colsep       %yesorno;                        #IMPLIED
+          rowsep       %yesorno;                        #IMPLIED
+          orient       (port|land)                      #IMPLIED
+          pgwide       %yesorno;                        #IMPLIED
+          %a.global;                                              >
+
+<!--                          TABLE GROUP                       -->
+<!ELEMENT tgroup       - o  
+                       (colspec*,spanspec*,thead?,tfoot?,tbody)   >
+<!ATTLIST tgroup
+          cols         NUMBER                           #REQUIRED
+          tgroupstyle  NMTOKEN                          #IMPLIED
+          colsep       %yesorno;                        #IMPLIED
+          rowsep       %yesorno;                        #IMPLIED
+          align        (left|right|center|justify|char) "left"
+          charoff      NUTOKEN                          "50"
+          char         CDATA                            ""        
+          %a.global;                                              >
+
+<!--                          TABLE COLUMN SPECIFICATION        -->
+<!ELEMENT colspec      - o    EMPTY                               >
+<!ATTLIST colspec
+          colnum       NUMBER                           #IMPLIED
+          colname      NMTOKEN                          #IMPLIED
+          align        (left|right|center|justify|char) #IMPLIED
+          charoff      NUTOKEN                          #IMPLIED
+          char         CDATA                            #IMPLIED
+          colwidth     CDATA                            #IMPLIED
+          colsep       %yesorno;                        #IMPLIED
+          rowsep       %yesorno;                        #IMPLIED  >
+
+<!--                         TABLE SPANNING COLUMN SPECIFICATION-->
+<!ELEMENT spanspec     - o          EMPTY                         >
+<!ATTLIST spanspec             
+          namest       NMTOKEN                          #REQUIRED
+          nameend      NMTOKEN                          #REQUIRED
+          spanname     NMTOKEN                          #REQUIRED
+          align        (left|right|center|justify|char) #IMPLIED
+          charoff      NUTOKEN                          #IMPLIED
+          char         CDATA                            #IMPLIED
+          colsep       %yesorno;                        #IMPLIED
+          rowsep       %yesorno;                        #IMPLIED  >
+
+<!--                          TABLE HEAD                        -->
+<!ELEMENT thead        - o    (row+)                              >
+<!ATTLIST thead
+          valign       (top|middle|bottom)              "bottom"
+          %a.global;                                              >
+
+<!--                          TABLE FOOT                        -->
+<!ELEMENT tfoot        - o    (colspec*, row+)                    >
+<!ATTLIST tfoot
+          valign       (top|middle|bottom)              "top"     
+          %a.global;                                              >
+
+<!--                          TABLE BODY                        -->
+<!ELEMENT tbody        - o    (row+)                              >
+<!ATTLIST tbody
+          valign       (top|middle|bottom)              "top"     
+          %a.global;                                              >
+
+<!--                          TABLE ROW                         -->
+<!ELEMENT row          - o    (entry)+                            >
+<!ATTLIST row     
+          valign       (top|middle|bottom)              #IMPLIED
+          rowsep       %yesorno;                        #IMPLIED
+                       %a.global;                                 >
+
+<!--                          TABLE ENTRY (A TABLE CELL)        -->
+<!ELEMENT entry        - o    (%inside.table.cell;)*              >
+<!ATTLIST entry        
+          colname      NMTOKEN                          #IMPLIED
+          namest       NMTOKEN                          #IMPLIED
+          nameend      NMTOKEN                          #IMPLIED
+          spanname     NMTOKEN                          #IMPLIED
+          morerows     NUMBER                           "0"
+          colsep       %yesorno;                        #IMPLIED
+          rowsep       %yesorno;                        #IMPLIED
+          rotate       %yesorno;                        "0"
+          valign       (top|middle|bottom)              #IMPLIED
+          align        (left|right|center|justify|char) #IMPLIED
+          charoff      NUTOKEN                          #IMPLIED
+          char         CDATA                            #IMPLIED
+          %a.global;                                              >
+
+
+<!-- **************  End of EADTABLE DTD Module *************** -->
+

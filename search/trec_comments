@@ -1,0 +1,55 @@
+From smart@frege.berkeley.edu Fri May  5 16:23:10 1995
+Date: Fri, 5 May 95 16:30:33 -0700
+From: smart@frege.berkeley.edu (smart)
+To: ray@sherlock.Berkeley.EDU
+Subject: trec3 coeffs
+
+
+    /* ****************** TREC III AD HOC RETRIEVAL FORMULA ***************
+     *  Y = -3.51 + [ 37.4*X1 + .330*X2 - .1937*X3 ] / (1+N^.5) + .0929 N
+     * From: wcooper (William S. Cooper)
+     *	AD HOC FORMULA FOR TREC-3
+     * Logodds of relevance of doc to query = 
+     *  -3.70 + 1.269 X1 -0.310 X2 + 0.679 X3 -0.0674 X4 + 0.223 X5 + 2.01 X6
+     * where
+     * X1 = mean logged absolute frequency of match stems in query, i.e. the
+     *   sum of log(QAF) over all stems common to both query and doc,
+     *   divided by the number n of such terms.
+     * X2 = square root of query length, i.e. square root of number of
+     *   (nonunique) stems in the query.  (Not meaned, summed or logged.)
+     * X3 = mean logged absolute frequency of match stems in doc, i.e.
+     *   sum of log(DAF) over all stems common to both query and doc,
+     *   all divided by n.
+     * X4 = square root of doc length, i.e. square root of number of
+     *   (nonunique) stems in the doc.  (Not meaned, summed or logged.)
+     * X5 = mean logged IDF of match stems, i.e. sum of 
+     *   log(749000/ # of docs with term), all divided by n
+     * X6 = log(n)
+     * Explanation: X1, X3, and X5 each tells something about the average
+     * `quality' of the match terms; X6 reflects the `quantity' of the match
+     * terms.
+     * To implement this equation I suggest you store with each query stem 
+     * the query stem weight
+     *   1.269 x1 -0.310 x2 + 0.223 x5
+     * where x1 is that individual stem's logged QAF, x2 is the square root
+     * of the query length, and x5 is the stem's logged IDF.  With each doc
+     * stem, store the weight
+     *   0.679 x3 - 0.0674 x4
+     * where x3 is the stem's logged DAF and x4 is the square root of the doc
+     * length.  Then at run time you can compute the logodds of relevance as
+     * Logodds = -3.70 + [ sum over all match stems of (query stem weight
+     *                 + doc stem weight) ] / n + 2.01 log(n)
+     * and rank the output by the logodds as usual.
+     * To compute the probabilities of relevance for the ranking
+     * coefficient column of the final entry we will submit, you can use the
+     * formula
+     *                            exp( Logodds )
+     * Probability =  0.75 * ---------------------
+     *                          exp( Logodds ) + 1
+     * where the 0.75 is an arbitrary fudge factor to compensate for the
+     * shift from learning data to real data.
+     * ********************************************************************
+     */
+
+
+

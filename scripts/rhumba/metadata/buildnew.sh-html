@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# Set up environment
+cd /home/cheshire/cheshire/metadata
+export PATH=$PATH:/home/cheshire/cheshire/bin
+
+rm DBCONFIGFILE-html DATA.cont metadata-html.assoc
+
+# Trash old index/assoc files for complete rebuild
+if [ "$1" == "" ]; then
+  rm logs/recordINDEX_LOGFILE indexes/html/*.index
+fi
+    
+
+# Rebuild associator.
+buildassoc -r /home/cheshire/cheshire/metadata/DATA metadata-html.assoc cheshireRecord
+
+cp DBCONFIGFILE-html.top DBCONFIGFILE-html
+cat DATA.cont >> DBCONFIGFILE-html
+cat DBCONFIGFILE-html.bottom >> DBCONFIGFILE-html
+
+if [ "$1" == "" ]; then
+  index_cheshire  -L logs/recordINDEX_LOGFILE DBCONFIGFILE-html
+else 
+  index_cheshire -L logs/recordINDEX_LOGFILE DBCONFIGFILE-html $1
+fi
+
+
+# Don't need to build the workaround configfile any more
+## head -`awk '{ c++ } END { print c-1 }' DBCONFIGFILE-html` DBCONFIGFILE-html > DBCONFIGFILE-workaround
+#tac DBCONFIGFILE-html | tail +2 | tac > DBCONFIGFILE-workaround
+#tail +4 DBCONFIGFILE-editors >> DBCONFIGFILE-workaround
+

@@ -1,0 +1,4 @@
+<!ELEMENT cheshireEditor - - (cheshireUser, cheshirePassword, cheshireFlags, cheshireRealName, cheshireEmail, cheshireHostMask, cheshireInfo)>
+<!ELEMENT cheshireFlags - - (cheshireFlag+)>
+<!ELEMENT (cheshireUser|cheshirePassword|cheshireFlag|cheshireRealName|cheshireEmail|cheshireHostMask|cheshireInfo) - - (#PCDATA)>
+

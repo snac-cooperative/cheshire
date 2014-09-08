@@ -1,0 +1,21 @@
+
+<FILEDTD> dtds/metadata-html.dtd.wrapper </FILEDTD>
+<SGMLCAT> catalog </SGMLCAT>
+<ASSOCFIL> metadata-deletehtml.assoc </ASSOCFIL>
+<HISTORY> metadata-deletehtml.history </HISTORY>
+
+<INDEXES>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE PRIMARYKEY=REPLACE>
+<INDXNAME> indexes/deletehtml/dpkey.index </INDXNAME>
+<INDXTAG>cheshireID</INDXTAG>
+
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireId</FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+</INDEXES>
+
+</FILEDEF>
+</DBCONFIG>

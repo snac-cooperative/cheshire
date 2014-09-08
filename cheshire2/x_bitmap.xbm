@@ -1,0 +1,4 @@
+#define x_bitmap_width 3
+#define x_bitmap_height 3
+static char x_bitmap_bits[] = {
+   0x02, 0x07, 0x02};

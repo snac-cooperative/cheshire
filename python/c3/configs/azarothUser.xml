@@ -1,0 +1,6 @@
+<config type="user" id="azaroth">
+  <objectType>user.SimpleUser</objectType>
+  <username>azaroth</username>
+  <password>yakdna5</password>
+  <email>azaroth@liv.ac.uk</email>
+</config>

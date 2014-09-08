@@ -1,0 +1,79 @@
+puts "selecting cheshire"
+zselect cheshire
+
+puts "getting some metadata..."
+# find the dtd's and such
+zset database metadata
+# note alternate indexname for getting DTD by filename
+zfind DTD classcluster
+set temp_dtd [lindex [zdisplay] 1]
+set clus_fname "/usr2/tmp/classcluster_dtd"
+set clus_dtd_file [open $clus_fname w+ 0666]
+puts $clus_dtd_file $temp_dtd
+close $clus_dtd_file
+
+# The following metadata query gets the name of main file
+# clustered by a cluster file
+zfind CLUSTERS classcluster 
+set real_db_name [lindex [zdisplay] 1]
+# get the mainfile dtd
+puts "getting DTD for $real_db_name now"
+zfind DTD $real_db_name
+set temp_dtd [lindex [zdisplay] 1]
+set main_fname "/usr2/tmp/mainfile_dtd"
+set dtd_file [open $main_fname w+ 0666]
+puts $dtd_file $temp_dtd
+close $dtd_file
+
+
+puts "Now we start searching for clusters..."
+puts "setting database and format/syntax"
+zset database classcluster
+zset recformat sgml
+puts "finding indians"
+# NEW FEATURE -- resultset IDs can be specified in the zfind and zdisplay.
+# Up to this point we have been using "Default" .. the default .. for
+# sResultSetName and pResultSetId.
+# NOTICE that once a resultsetid is used in a query or a display
+# it remains in effect until changed.
+# resultsetid can be abbreviated as resultset or setid
+zfind topic @ indians resultsetid mainresult
+
+puts "present"
+set x [zdisplay mainresult]
+set recs [lrange $x 1 end]
+puts "formatting sgml records"
+foreach y $recs {
+	puts [zformat long $y 2 1 80 $clus_fname]
+	puts ""
+}
+
+puts ""
+puts "doing relevance feedback on item 1"
+zfind mainresult:1 resultsetid feedbackresult
+
+
+puts "present MARC results"
+set x [zdisplay feedbackresult]
+set recs [lrange $x 1 end]
+puts "formatting sgml records"
+# There isn't a format for cluster record yet, but...
+foreach y $recs {
+	puts [zformat long $y 2 1 80 $main_fname]
+	puts ""
+}
+
+puts "Just to show that sets are working, we'll get the first"
+puts "cluster record again..."
+# NOTE that the number of records to retrieve and the 
+# set position must be specified, because TCL doesn't
+# really know this is a different resultset
+set x [zdisplay mainresult 1 1]
+set recs [lrange $x 1 end]
+puts "formatting sgml records"
+foreach y $recs {
+	puts [zformat long $y 2 1 80 $clus_fname]
+	puts ""
+}
+
+exit

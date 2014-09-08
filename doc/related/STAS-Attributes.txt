@@ -1,0 +1,877 @@
+Master List of STAS USE Attributes
+
+Version 2.0 Mon Mar 25 10:58:51 1996
+
+================================================================================
+            SEARCH FIELD NAME         |      SEARCH     | Z39.50   |   Z39.50  |
+                                      |      FIELD      |bib-1 USE |  STAS USE |
+                                      |      CODE       |Attribute | Attribute |
+================================================================================
+Abiotic Degradation                   | ABIO            |          | 3220      |
+Absorption, Distribution and Excreti  | ADE             |          | 3222      |
+  on                                  |                 |          |           |
+Abstract                              | AB              | 62       |           |
+Abstract Publication Date             | ABD             |          | 2564      |
+Abstract Publication Year             | ABY             |          | 2565      |
+Abstract-language                     |                 |          | 2985      |
+Accession Number                      | AN              |          | 2010      |
+Acentric Factor                       | ACEN            |          | 2821      |
+Action Mechanism                      | ACTN            |          | 3221      |
+Agency Status                         | ASTA            |          | 2822      |
+Allowable Tolerance                   | ATOL            |          | 3223      |
+Analytical Laboratory Method          | ALAB            |          | 3224      |
+Antidote and Emergency Treatment      | ANTR            |          | 3225      |
+Application                           | APP             |          | 3180      |
+Application-kind-code                 |                 |          | 2986      |
+Art Unit                              | ART(AU,ATRU)    |          | 2548      |
+Artificial Sources                    | ARTS            |          | 3226      |
+Assignee City                         | ASCI            |          | 2513      |
+Assignee Country Code or ZIP          | ASCO            |          | 2515      |
+Assignee Name                         | AS              |          | 2511      |
+Assignee Name - Parsed                | ASN             |          | 2512      |
+Assignee State                        | ASST            |          | 2514      |
+Assignee Type Code                    | ASTC            |          | 2516      |
+Assistant Examiner                    | XA              |          | 2558      |
+Associated Chemical                   | ASC             |          | 3228      |
+Associated Terms                      |                 |          | 2680      |
+Atmospheric Standard                  | ASTD            |          | 3229      |
+Atom Count                            | ATC             |          | 2049      |
+Attorney Registration Number          | ATTN            |          | 2560      |
+Attorney, Agent, or Firm              | ATT(LREP,AG)    |          | 2559      |
+Author Biography                      | BA              |          | 2482      |
+Author Name                           | AU              | 1003     |           |
+Author Statement                      | AS              |          | 3065      |
+Autoignition Temp.                    | AIT             |          | 2823      |
+Autoignition Temperature Text         | AIT.TX          |          | 3230      |
+Availability                          | AV              |          | 2824      |
+Average Daily Intake                  | AVDI            |          | 3227      |
+Basic Index                           | BI              |          | 2145      |
+Basic Index and Abstract              | IA              |          | 2670      |
+Beilstein Registry Number             | BRN             |          | 3346      |
+Bibliographic Level                   | BL              | 1021     |           |
+Bioconcentration                      | CBIO            |          | 3231      |
+Biodegradation                        | BIOD            |          | 3232      |
+Biological Half-life                  | BHL             |          | 3233      |
+Bionecessity                          | BION            |          | 3234      |
+Biosystematic                         | BC              |          | 2704      |
+Biosystematic Code,                   | BCR             |          | 2706      |
+Boiling Point (Derivative)            | BP.DRV          |          | 3181      |
+Boiling Point - Pressure Derivative   | DTDP            |          | 3126      |
+Boiling Point - Pressure Derivative   | DTDP.P          |          | 3127      |
+  Pressure                            |                 |          |           |
+Boiling Point - Pressure Derivative   | DTDP.T          |          | 3128      |
+  Temperature                         |                 |          |           |
+Boiling Point Pressure                | BP.P            |          | 3032      |
+Boiling Point Pressure (Derivative)   | BP.P.DRV        |          | 3182      |
+Boiling Point Text                    | BP.TX           |          | 3235      |
+Bottom Boundary                       | BB              |          | 2722      |
+Broader Term                          | BT              |          | 3026      |
+California Proposition 65             | PROP65          |          | 2825      |
+Cancer Review                         | CREV            |          | 2826      |
+Caption                               | CP              |          | 2483      |
+CAS Registry Number                   | RN              |          | 2048      |
+Cataloguing Field                     | CF              |          | 3066      |
+Catalyst                              | CAT             |          | 2827      |
+Cell Type                             | CELL            |          | 2828      |
+CERCLA Reportable Quantity            | CERCLA          |          | 3236      |
+Character Count                       | CHC             |          | 2829      |
+Charge                                | CHA             |          | 2830      |
+Chemical - Medium                     | MED             |          | 3354      |
+Chemical - Other                      | OTH             |          | 3355      |
+Chemical - Special Agent              | SAG             |          | 3356      |
+Chemical Exchange Format (CXF)        |                 |          | 2002      |
+Chemical Hazard Info. Profile         | CHP             |          | 2831      |
+Chemical Indexing                     | CHI             |          | 3067      |
+Chemical Name                         | CN              |          | 2052      |
+Chemical Name (Derivative)            | CN.DRV          |          | 3184      |
+Chemical Name Segment                 | CNS             |          | 2053      |
+Citizen's Petition - TSCA Sec. 21     | PET             |          | 2832      |
+Classification                        |                 |          | 2987      |
+Classification-basic                  |                 |          | 2988      |
+Classification-local-record           |                 |          | 2989      |
+Cleanup Method                        | CLUP            |          | 3237      |
+Clinical Laboratory Method            | CLAB            |          | 3238      |
+Code-enzyme                           |                 |          | 2990      |
+Code-possessing-institution           |                 |          | 2991      |
+Code-record-linking                   |                 |          | 2992      |
+Code-record-status                    |                 |          | 2993      |
+Code-treatment                        |                 |          | 2994      |
+Coefficient Table Issue Date          | CTID            |          | 2834      |
+Coefficient Table Revision Date       | CTRD            |          | 2833      |
+Component Compound Number             | ACN             |          | 3357      |
+Component Element Ratio, E1E2         | ELR.E1E2        |          | 2060-2600 |
+Component Registry Number             | CRN             |          | 2055      |
+Concentration in Animals              | CANM            |          | 3239      |
+Concentration in Atmosphere           | CATM            |          | 3240      |
+Concentration in Effluent             | CEFL            |          | 3241      |
+Concentration in Environment          | COEV            |          | 3242      |
+Concentration in Humans               | CHMN            |          | 3243      |
+Concentration in Milk                 | CMLK            |          | 3244      |
+Concentration in Plants               | CPLT            |          | 3245      |
+Concentration in Seafood/Fish         | CSEA            |          | 3246      |
+Concentration in Sediment/Soil        | CSED            |          | 3247      |
+Concentration in Water                | CWAT            |          | 3248      |
+Concept Code - Range Searchable       | CCR             |          | 2707      |
+Confidentiality of Name               | CON             |          | 3358      |
+Confidentiality Status                | CBI             |          | 2837      |
+Connection Table (CAS CCT)            |                 |          | 2000      |
+Connection Table (CXF Format)         |                 |          | 2003      |
+Connection Table (MDL Format)         |                 |          | 2001      |
+Consumption Pattern                   | CPAT            |          | 3249      |
+Control-number-GKD                    |                 |          | 2995      |
+Control-number-linking                |                 |          | 2996      |
+Control-number-PND                    |                 |          | 2997      |
+Control-number-SWD                    |                 |          | 2998      |
+Control-number-ZDB                    |                 |          | 2999      |
+Controlled Term                       | CT              | 29       |           |
+Controlled Term (MeSH)                | CT              | 25       |           |
+Controlled Term - Assigned            | CTA             |          | 2702      |
+Controlled Term in German             | CTDE            |          | 3030      |
+Controlled Word                       | CW              |          | 2671      |
+Corporate Address                     | CA              |          | 2724      |
+Corporate Code                        | COC             |          | 2725      |
+Corporate Name                        | CO              | 2        |           |
+Corporate Source                      | CS              | 1005     |           |
+Correction Date                       | CDAT            |          | 2727      |
+Corrosivity Text                      | CORR.TX         |          | 3251      |
+Country of Author                     | CYA             |          | 2011      |
+Country of Publication                | CY              |          | 2465      |
+Critical Compress.                    | ZC              |          | 2838      |
+Critical Constant                     | CRIT            |          | 3252      |
+Critical Density                      | CRD             |          | 3129      |
+Critical Pressure                     | CRP             |          | 2839      |
+Critical Temp.                        | CRT             |          | 2840      |
+Critical Volume                       | CRV             |          | 2841      |
+Cross-reference                       | CR              |          | 3076      |
+Crossover Key                         | CK              |          | 2473      |
+Cryoscopic Constant                   | CRYC            |          | 3130      |
+Cryoscopic Constant Temperature       | CRYC.T          |          | 3131      |
+Crystal Property Description          | CPD             |          | 3033      |
+Crystal Transition Point              | CTP             |          | 3110      |
+Crystal Transition Point Pressure     | CTP.P           |          | 3132      |
+Current Class.- Original              | COR(OR)         |          | 2544      |
+Current Class.- Range Srch.           | CCLST           |          | 2542      |
+Current Class.- Unofficial X-ref.     | CUX(CUR, UR,UX) |          | 2547      |
+Current Class.- X-ref. Range Srch     | CXRT            |          | 2545      |
+Current Class.- X-reference           | CXR(XR)         |          | 2546      |
+Current Class.-Orig Range Srch        | CORT            |          | 2543      |
+Current Classification                | CCLS(CLS)       |          | 2541      |
+Current Classification Class          | CLAS            |          | 2551      |
+Date                                  | DATE            |          | 2842      |
+Date-record-status                    |                 |          | 3000      |
+Decomposition                         | DCMP            |          | 3253      |
+Definition                            | DEF             |          | 2056      |
+Density                               | DEN             |          | 3034      |
+Density Temperature                   | DEN.T           |          | 3035      |
+Department                            | DPT             |          | 3360      |
+Designated States                     | DS              |          | 2012      |
+Development Status                    | DSTA            |          | 2728      |
+Dipole Moment                         | DM              |          | 2843      |
+Disclaimer Date                       | DD              |          | 2517      |
+Disposal Method                       | DSM             |          | 3254      |
+Dissertation-information              |                 |          | 3001      |
+Dissociation Constant                 | DISK            |          | 3255      |
+Dissociation Constant Text            | DISK.TX         |          | 3256      |
+Document Number                       | DN              |          | 2484      |
+Document Type                         | DT(TC)          |          | 2013      |
+Dose Form                             | DOSFM           |          | 3077      |
+Dose Information                      | DOSE            |          | 2844      |
+Dose Information (Derivative)         | DOSE.DRV        |          | 3186      |
+DOT Emergency Guideline               | DOTG            |          | 3257      |
+Drug Idiosyncrasy                     | IDIO            |          | 3258      |
+Drug Tolerance                        | TOLR            |          | 3259      |
+DUNS Number                           | DUNS            |          | 2708      |
+DuPont Compound Number                | CNUM            |          | 3361      |
+DuPont Name                           | DUP             |          | 3362      |
+Duration                              | DUR             |          | 2845      |
+Duration Begin, Year                  | DBY             |          | 3082      |
+Duration End, Year                    | DEY             |          | 3083      |
+Duration Note                         | DUN             |          | 3084      |
+Dynamic Viscosity                     | DV              |          | 3133      |
+Dynamic Viscosity Temperature         | DV.T            |          | 3134      |
+Dynamic Viscosity Text                | DV.TX           |          | 3260      |
+East Longitude                        | ELON            |          | 2729      |
+Effect                                | EFF             |          | 2847      |
+Element Count                         | ELC             |          | 2057      |
+Element Count (for each element)      |                 |          | 2161-2464 |
+Element Count for Substance           | ELC.SUB         |          | 2058      |
+Element Formula                       | ELF             |          | 2059      |
+Element Symbol                        | ELS             |          | 2072      |
+Element Symbol for Multi-component F  | ELS.MCF         |          | 2073      |
+  ormula                              |                 |          |           |
+Element Terms ET                      |                 |          | 3027      |
+Elemental Analysis for the Ring Syst  | EA              |          | 2074      |
+  em                                  |                 |          |           |
+Elemental Analysis of Smallest Ring   | EAS             |          | 2075      |
+Elemental Sequence of Ring System     | ES              |          | 2077      |
+Elemental Sequence of Smallest Ring   | ESS             |          | 2076      |
+EMAIL Address                         | EML             |          | 3363      |
+Enthalpy                              | HREF            |          | 3111      |
+Enthalpy Function                     | HFNC            |          | 3135      |
+Enthalpy Function Temperature         | HFNC.T          |          | 3136      |
+Enthalpy of Combustion                | HCOM            |          | 2848      |
+Enthalpy of Combustion Pressure       | HCOM.P          |          | 3137      |
+Enthalpy of Combustion Temperature    | HCOM.T          |          | 3138      |
+Enthalpy of Combustion Text           | HCOM.TX         |          | 3264      |
+Enthalpy of Formation                 | HFOR            |          | 2849      |
+Enthalpy of Formation Temperature     | HFOR.T          |          | 3113      |
+Enthalpy of Fusion                    | HFUS            |          | 2850      |
+Enthalpy of Fusion Pressure           | HFUS.P          |          | 3139      |
+Enthalpy of Fusion Temperature        | HFUS.T          |          | 3140      |
+Enthalpy of Fusion-Temperature Deriv  | DHFDT           |          | 3141      |
+  ative                               |                 |          |           |
+Enthalpy of Fusion-Temperature Deriv  | DHFDT.P         |          | 3142      |
+  ative Pressure                      |                 |          |           |
+Enthalpy of Fusion-Temperature Deriv  | DHFDT.T         |          | 3143      |
+  ative Temperature                   |                 |          |           |
+Enthalpy of Phase Transition          | HPT             |          | 3144      |
+Enthalpy of Phase Transition Pressur  | HPT.P           |          | 3145      |
+  e                                   |                 |          |           |
+Enthalpy of Phase Transition Tempera  | HPT.T           |          | 3146      |
+  ture                                |                 |          |           |
+Enthalpy of Phase Transition-Tempera  | DHTDT           |          | 3147      |
+  ture Derivative                     |                 |          |           |
+Enthalpy of Phase Transition-Tempera  | DHTDT.P         |          | 3148      |
+  ture Derivative Pressure            |                 |          |           |
+Enthalpy of Phase Transition-Tempera  | DHTDT.T         |          | 3149      |
+  ture Derivative Temperature         |                 |          |           |
+Enthalpy of Sublimation               | HSUB            |          | 3150      |
+Enthalpy of Sublimation Pressure      | HSUB.P          |          | 3151      |
+Enthalpy of Sublimation Temperature   | HSUB.T          |          | 3152      |
+Enthalpy of Sublimation-Temperature   | DHSDT           |          | 3153      |
+  Derivative                          |                 |          |           |
+Enthalpy of Sublimation-Temperature   | DHSDT.P         |          | 3154      |
+  Derivative Pressure                 |                 |          |           |
+Enthalpy of Sublimation-Temperature   | DHSDT.T         |          | 3155      |
+  Derivative Temperature              |                 |          |           |
+Enthalpy of Vaporization              | HVAP            |          | 2852      |
+Enthalpy of Vaporization Pressure     | HVAP.P          |          | 3156      |
+Enthalpy of Vaporization Temp         | HVAP.T          |          | 2851      |
+Enthalpy of Vaporization-Temperature  | DHVDT           |          | 3158      |
+   Derivative                         |                 |          |           |
+Enthalpy of Vaporization-Temperature  | DHVDT.P         |          | 3159      |
+   Derivative Pressure                |                 |          |           |
+Enthalpy of Vaporization-Temperature  | DHVDT.T         |          | 3160      |
+   Derivative Temperature             |                 |          |           |
+Enthalpy of Vaprization Text          | HCOM.TX         |          | 3265      |
+Enthalpy Temperature                  | HREF.T          |          | 3112      |
+Entropy                               | SREF            |          | 2853      |
+Entropy of Fusion                     | SFUS            |          | 3161      |
+Entropy of Fusion Pressure            | SFUS.P          |          | 3162      |
+Entropy of Fusion Temperature         | SFUS.T          |          | 3163      |
+Entropy of Phase Transition           | SPT             |          | 3164      |
+Entropy of Phase Transition Pressure  | SPT.P           |          | 3165      |
+Entropy of Phase Transition Temperat  | SPT.T           |          | 3166      |
+  ure                                 |                 |          |           |
+Entropy of Sublimation                | SSUB            |          | 3167      |
+Entropy of Sublimation Pressure       | SSUB.P          |          | 3168      |
+Entropy of Sublimation Temperature    | SSUB.T          |          | 3169      |
+Entropy of Vaporization               | SVAP            |          | 3170      |
+Entropy of Vaporization Pressure      | SVAP.P          |          | 3171      |
+Entropy of Vaporization Temperature   | SVAP.T          |          | 3172      |
+Entropy Temperature                   | SREF.T          |          | 3114      |
+Entry Date                            | ED              |          | 2014      |
+Entry Month                           | EM              |          | 2466      |
+Entry Year                            | EY              |          | 2705      |
+Environmental Fate                    | ENVF            |          | 3261      |
+Environmental Fate/Exposure Summary   | ENVS            |          | 3262      |
+EPA Action on Rule Violation          | VIO             |          | 2846      |
+EPA Hazard Waste Number               | HZN             |          | 3263      |
+Examiner Name                         | EXNAM           |          | 2730      |
+Exemplary Claim                       | ECLM            |          | 2731      |
+Exemption from PMN                    | 5H(EXM)         |          | 2854      |
+Expiration Date                       | XPD             |          | 3088      |
+Explosiveness                         | EXPL            |          | 3266      |
+Exports                               | EXPT            |          | 3267      |
+Exports Text                          | EXPT.TX         |          | 3268      |
+Exports Year                          | EXPT.YR         |          | 3269      |
+Extension Date                        | XTD             |          | 3089      |
+Family Member Country                 | FC              |          | 2733      |
+Family Member Date                    | FD              |          | 2734      |
+Family Member Number                  | FN              |          | 2735      |
+Family Member Year                    | FY              |          | 2736      |
+Family Name                           | FN              |          | 2855      |
+FDA Requirements                      | FDA             |          | 3270      |
+Field Availability                    | FA              |          | 2015      |
+Field of Search Classification        | EXF(FS)         |          | 2552      |
+FIFRA Requirement                     | FIFRA           |          | 3271      |
+File                                  | FILE            |          | 3345      |
+File Segment                          | FS              |          | 2078      |
+Fire Fighting Hazard                  | FFH             |          | 3272      |
+Fire Fighting Procedure               | FIRP            |          | 3273      |
+Fire Potential                        | FPOT            |          | 3274      |
+Flammability                          | FLAM            |          | 3275      |
+Flammability Limit, Lower             | FLAM.LL         |          | 2856      |
+Flammability Limit, Upper             | FLAM.UL         |          | 2857      |
+Flash Point                           | FP              |          | 2858      |
+Flash Point Text                      | FP.TX           |          | 3276      |
+Food Survey Value                     | FOOD            |          | 3277      |
+Foreign Patent Reference              | FREF            |          | 2554      |
+Foreign Reference Issue Date          | FRPD            |          | 2555      |
+Formula Weight                        | FW(MW)          |          | 2079      |
+Fragment Code, IFI                    | FG              |          | 2738      |
+Functional Group Formed               | FG.FORM         |          | 2859      |
+Functional Group in Products          | FG.PRO          |          | 2862      |
+Functional Group in Reactant, Produc  | FG              |          | 2863      |
+  t or Catalyst                       |                 |          |           |
+Functional Group in Reactants         | FG.RCT          |          | 2864      |
+Functional Group in Reagents          | FG.RGT          |          | 2865      |
+Functional Group Non-reacting         | FG.NON          |          | 2860      |
+Functional Group Reacting             | FG.RXN          |          | 2861      |
+GenBank Accession Number              | GBN             |          | 3079      |
+Gene Name                             | GEN             |          | 2080      |
+General Polymer Number                | GPN             |          | 3364      |
+Geographic Term                       | GT              | 58       |           |
+Gibbs Energy Function                 | GEF             |          | 3115      |
+Gibbs Energy Function Temperature     | GEF.T           |          | 3116      |
+Gibbs Energy of Formation             | GFOR            |          | 2866      |
+Gibbs Energy of Formation Temperatur  | GFOR.T          |          | 3117      |
+  e                                   |                 |          |           |
+Glass Temperature                     | TG              |          | 3173      |
+Glass Temperature Pressure            | TG.P            |          | 3174      |
+Government Interest                   | GOVI(GI)        |          | 2561      |
+Hazard Summary                        | HAZS            |          | 3278      |
+Heading Parent                        | HP              |          | 2081      |
+Health Advisory                       | HA              |          | 2868      |
+Heat Capacity at Const. Press.        | CP              |          | 2869      |
+Heat Capacity at Const. Press. Temp   | CP.T            |          | 2870      |
+Heat Capacity at Saturation           | CSAT            |          | 3175      |
+Heat Capacity at Saturation Temperat  | CSAT.T          |          | 3176      |
+  ure                                 |                 |          |           |
+Highest Development Phase             | HDP             |          | 2871      |
+Hit Count                             | HIT.CNT         |          | 3349      |
+HODOC Number                          | HN              |          | 3036      |
+HSDB Number                           | HSN             |          | 3281      |
+Human Toxicity                        | HTOX            |          | 3279      |
+Human Toxicity Excerpt                | HTXE            |          | 3280      |
+Imminently Hazard.-TSCA Sec. 7        | IMM             |          | 2872      |
+Import-Export Reg.                    | IER             |          | 2873      |
+Imports                               | IMPT            |          | 3282      |
+Imports Text                          | IMPT.TX         |          | 3283      |
+Imports Year                          | IMPT.YR         |          | 3284      |
+Impurities                            | IMP             |          | 3285      |
+Index Name Segment - Heading Parent   | INS.HP          |          | 2082      |
+Index Name Segment - Non-heading Par  | INS.NHP         |          | 2083      |
+  ent                                 |                 |          |           |
+Index Term                            | IT              |          | 2046      |
+Information Provider                  | IP              |          | 3068      |
+Informational Classification          | I               |          | 2572      |
+Ingestion Level                       | INGL            |          | 3286      |
+Insufficient Data Order               | 5E(INS)         |          | 2874      |
+Int. Patent Classification            | IPC             |          | 2535      |
+Interagency Testing Comm. Candidate   | ICC             |          | 2876      |
+Interagency Testing Committee         | ITC(4E)         |          | 2877      |
+International Research Program        | IRP             |          | 2739      |
+International Standard (Document) Nu  | ISN             |          | 2672      |
+  mber                                |                 |          |           |
+Inventor City                         | IN.CTY (INCI)   |          | 2507      |
+Inventor Country                      | IN.CNY          |          | 2797      |
+Inventor Country Code or ZIP          | INCO            |          | 2509      |
+Inventor Name                         | IN(INV)         |          | 2506      |
+Inventor Name (non-standard format)   | INF             |          | 2740      |
+Inventor State                        | IN.ST(INST)     |          | 2508      |
+Inventor ZIP Code                     | IN.ZIP          |          | 2799      |
+Inventory Status                      | INV             |          | 2878      |
+Inventory Status Text                 | INVT            |          | 2879      |
+IPC                                   | IC              |          | 2016      |
+IPC Main Group                        | MGR             |          | 2021      |
+IPC Subgroup Range-Searchable         | SGR             |          | 2022      |
+IPC, Additional                       | ICA             |          | 2017      |
+IPC, Index                            | ICI             |          | 2018      |
+IPC, Main                             | ICM             |          | 2019      |
+IPC, Secondary                        | ICS             |          | 2020      |
+IR Spectrum Peak Position             | IRS.PP          |          | 3038      |
+Irritation Data                       | IRR             |          | 2880      |
+ISBN                                  | ISBN            | 7        |           |
+Issue                                 | IS(ISSUE)       |          | 2485      |
+Issue Class. - Cross Reference and D  | IXR             |          | 2539      |
+  igest-reference                     |                 |          |           |
+Issue Class. - Original               | IOR             |          | 2538      |
+Issue Class. Range Searchable         | ICLST           |          | 2537      |
+Issue Classification                  | ICLS            |          | 2536      |
+Issue National Pat. Classification    | INCL            |          | 2800      |
+JANAF Number                          | JN              |          | 3118      |
+Journal Title                         | JT              |          | 2467      |
+Journal Title Code                    | JTC             |          | 2471      |
+Keyword                               | KEY             |          | 2563      |
+Language                              | LA              | 54       |           |
+Launch Country                        | LNC             |          | 2883      |
+Launch Date                           | LND             |          | 2884      |
+Launch Package/Price                  | LNP             |          | 3078      |
+Launch Year                           | LNY             |          | 2741      |
+Left Boundary                         | LB              |          | 2742      |
+Lethal Conc. 50 ,Vapor                | LC50V           |          | 2886      |
+Lethal Conc. 50, Aerosol              | LC50A           |          | 2885      |
+Lethal Conc. Low, Aerosol             | LCLOA           |          | 2887      |
+Lethal Conc. Low, Vapor               | LCLOV           |          | 2888      |
+Lethal Dose 50                        | LD50            |          | 2889      |
+Lethal Dose 50 (Derivative)           | LD50.DRV        |          | 3187      |
+Lethal Dose Low                       | LDLO            |          | 2890      |
+Level                                 | LV              |          | 3106      |
+Librarylogogram                       | SG              |          | 3074      |
+Line Count                            | LN.CNT          |          | 2803      |
+Linear Structural Formula             | LSF             |          | 2891      |
+Linear Structural Formula (Derivativ  | LSF.DRV         |          | 3188      |
+  e)                                  |                 |          |           |
+Linked Terms                          | LT              |          | 2703      |
+Liquid Transition Point               | LTP             |          | 3119      |
+Location[Corporate]                   | LO              |          | 2023      |
+Locus                                 | LOC             |          | 3080      |
+Logarithm of the Equilibrium Constan  | LOGK            |          | 3120      |
+  t of Formation                      |                 |          |           |
+Logarithm of the Equilibrium Constan  | LOGK.T          |          | 3121      |
+  t of Formation Temperature          |                 |          |           |
+Major Populations Threatened          | MPT             |          | 3287      |
+Manuscript Date                       | MS              |          | 2486      |
+Mass Spectrum Peak Intensity          | MS.IN           |          | 3040      |
+Mass Spectrum Peak Position           | MS.PP           |          | 3041      |
+Material Composition                  | MAC             |          | 2084      |
+Material Composition (Derivative)     | MAC.DRV         |          | 3189      |
+Maximum Allowable Concentration       | MACC            |          | 3288      |
+Maximum Allowable Concentration, Aer  | MAC30A          |          | 3289      |
+  osol                                |                 |          |           |
+Maximum Allowable Concentration, Vap  | MAV30V          |          | 3290      |
+  or                                  |                 |          |           |
+Maximum Drug Dose                     | MXDD            |          | 3291      |
+Medical Surveillance                  | MEDS            |          | 3292      |
+Meeting Date                          | MD              |          | 2713      |
+Meeting Location                      | ML              |          | 3009      |
+Meeting Number                        | MN              |          | 3069      |
+Meeting Year                          | MY              |          | 2714      |
+Meeting-organizer                     |                 |          | 3002      |
+Melting Point                         | MP              |          | 2893      |
+Melting Point (Derivative)            | MP.DRV          |          | 3190      |
+Melting Point Pressure                | MP.P            |          | 3177      |
+Melting Point Pressure (Derivative)   | MP.P.DRV        |          | 3191      |
+Melting Point Text                    | MP.TX           |          | 3293      |
+Merck Index Name                      | MIN             |          | 3219      |
+Merck Number                          | MNO             |          | 3218      |
+Metabolism-Metabolite                 | METB            |          | 3294      |
+Method of Manufacture                 | MMFG            |          | 3295      |
+Microform Frame Number                | MFN             |          | 3091      |
+Microform Reel Number                 | MRN             |          | 3090      |
+Minimum Fatal Dose                    | MFD             |          | 3296      |
+Miscellaneous Regulation              | MISC            |          | 2894      |
+Molar Density                         | MDEN            |          | 2895      |
+Molar Density Temp.                   | MDEN.T          |          | 2896      |
+Molar Volume                          | MVOL            |          | 2897      |
+Molecular Formula                     | MF              |          | 2085      |
+Molecular Formula (Derivative)        | MF.DRV          |          | 3192      |
+Molecular Formula (no components)     | MFNC.SUB        |          | 2669      |
+Molecular Formula (no components, no  | MF.SUB          |          | 2668      |
+   coefficients)                      |                 |          |           |
+Molecular Weight (Derivative)         | MW.DRV          |          | 3193      |
+Name Identifier Number                | NID             |          | 3368      |
+Named Person                          | NA              | 1002     |           |
+Nat. Occupational Survey (NOHS,NOES)  | SURV            |          | 2901      |
+                                      |                 |          |           |
+National Patent                       | NCLR            |          | 2025      |
+National Patent Classification        | NCL             |          | 2024      |
+National Patent Classification, Main  | NCLM            |          | 2745      |
+                                      |                 |          |           |
+National Patent Classification, Seco  | NCLS            |          | 2746      |
+  ndary                               |                 |          |           |
+Naturally Occurring Source            | NATS            |          | 3297      |
+NFPA Hazard Classification            | NFPA            |          | 3298      |
+NIOSH Recommend.                      | NREC            |          | 2900      |
+NMR Spectrum Nucleus                  | NMRS.NUC        |          | 3043      |
+NMR Spectrum Solvent                  | NMRS.SOL        |          | 3045      |
+NMR Spectrum Spectrum Peak Position   | NMRS.PP         |          | 3044      |
+No. of Occurrences                    | EA.CNT          |          | 2086      |
+No. of Occurrences of EAS in a Ring   | EAS.CNT         |          | 2087      |
+  System                              |                 |          |           |
+No. of Occurrences of ES in a Compon  | ES.CNT          |          | 2088      |
+  ent                                 |                 |          |           |
+No. of Occurrences of ESS in a Ring   | ESS.CNT         |          | 2089      |
+  System                              |                 |          |           |
+No. of Occurrences of REL in a Ring   | REL.CNT         |          | 2090      |
+  System                              |                 |          |           |
+No. of Occurrences of RF in a Compon  | RF.CNT          |          | 2092      |
+  ent                                 |                 |          |           |
+No. of Occurrences of RID in a Compo  | RID.CNT         |          | 2091      |
+  nent                                |                 |          |           |
+No. of Occurrences of SZ in a Compon  | SZ.CNT          |          | 2094      |
+  ent                                 |                 |          |           |
+No. of Occurrences of SZS in a Ring   | SZS.CNT         |          | 2093      |
+  System                              |                 |          |           |
+No. of References in CA File          | REF.CA          |          | 2676      |
+No. of References in CA File for Non  | REF.CAD         |          | 2677      |
+  -specific Derivs.                   |                 |          |           |
+No. of References in CAOld File       | REF.CAO         |          | 2678      |
+No. of References in CAplus File      | REF.CAPLUS      |          | 3031      |
+No. of References inCApreviews File   | REF.CAP         |          | 2679      |
+No. of Ring Systems                   | NRS             |          | 2096      |
+No. of Ring Sytems in a Component     | CNRS            |          | 2095      |
+No. of Rings                          | NR              |          | 2097      |
+No. of Rings in a Component           | CNR             |          | 2099      |
+No. of Rings in a Ring System         | NRRS            |          | 2098      |
+Non-Human Toxicity                    | NTOX            |          | 3299      |
+Non-Human Toxicity Excerpt            | NTXE            |          | 3300      |
+NonProduct                            | NPRO            |          | 2903      |
+North Latitude                        | NLAT            |          | 2747      |
+Note                                  | NTE             | 63       |           |
+Notebook Reference                    | NBR             |          | 3369      |
+Nucleic Acid                          | NA              |          | 2101      |
+Nucleic Acid Count                    | NA.CNT          |          | 2102      |
+Number of Claims                      | CLMN            |          | 2748      |
+Number of Components                  | NC              |          | 2103      |
+Number of Contract                    | NC              |          | 2468      |
+Number of Document                    | ND              |          | 2573      |
+Number of Report                      | NR              | 1027     |           |
+Number of Steps                       | NS              |          | 2905      |
+Number-local-accounting               |                 |          | 3004      |
+Number-local-acquisition              |                 |          | 3005      |
+Number-local-call-copy-specific       |                 |          | 3006      |
+Number-norm                           |                 |          | 3007      |
+Number-volume                         |                 |          | 3008      |
+Octanol-Water Distribution Coefficie  | LKOW            |          | 3301      |
+  nt                                  |                 |          |           |
+Octanol-Water Distribution Coefficie  | LKOW.TX         |          | 3302      |
+  nt Text                             |                 |          |           |
+Odor                                  | ODOR            |          | 3303      |
+Odor Threshold                        | OT              |          | 3304      |
+OG Issue Date for Expiration Announc  | XPG             |          | 3092      |
+  ement                               |                 |          |           |
+OG Issue Date for Extension Announce  | XTG             |          | 3093      |
+  ment                                |                 |          |           |
+OG Issue Date for Reinstatement Anno  | RIG             |          | 3094      |
+  uncement                            |                 |          |           |
+OHMTADS Number                        | OTN             |          | 3305      |
+Optical Rotatory Power                | ORP             |          | 3046      |
+Optical Rotatory Power (Derivative)   | ORP.DRV         |          | 3195      |
+Optical Rotatory Power Solvent        | ORP.SOL         |          | 3047      |
+Optical Rotatory Power Spectral Line  | ORP.SL          |          | 3216      |
+Optical Rotatory Power Spectral Line  | ORP.SL.DRV      |          | 3196      |
+   (Derivative)                       |                 |          |           |
+Optical Rotatory Power Temperature    | ORP.T           |          | 3048      |
+Optical Rotatory Power Temperature (  | ORP.T.DRV       |          | 3197      |
+  Derivative)                         |                 |          |           |
+Optical Rotatory Power Wavelength     | ORP.W           |          | 3049      |
+OR Classifications                    | OR              |          | 2570      |
+Order Number                          | ON,GA           |          | 2787      |
+Organism Name                         | ORGN            |          | 2104      |
+Organism Name (Derivative)            | ORGN.DRV        |          | 3194      |
+OSHA Standards for Highly Hazardous   | OSHA,HHC        |          | 2906      |
+  Chemicals                           |                 |          |           |
+Other Chemical/Physical Properties    | OCPP            |          | 3198      |
+Other Hazards                         | OHAZ            |          | 3306      |
+Other Name Segment                    | ONS             |          | 2106      |
+Other Occupation Permissible Levels   | OPEL            |          | 3307      |
+Other Preventive Measures             | OPRM            |          | 3308      |
+Other Reference                       | REN(OREF)       |          | 2556      |
+Other Source                          | OS              |          | 2026      |
+Overlap Detection Date                | ODD             |          | 3370      |
+Page Number                           | PGNO            |          | 2574      |
+Patent Application Country            | AC              |          | 2027      |
+Patent Application Date               | AD(FD)          |          | 2028      |
+Patent Application Number             | AP              |          | 2029      |
+Patent Application Number, JPO        | APN             |          | 2566      |
+Patent Application Type               | AT              |          | 2504      |
+Patent Application Year               | AY              |          | 2030      |
+Patent Application Year, USPTO        | FY(AY)          |          | 2518      |
+Patent Assignee                       | PA              |          | 2577      |
+Patent Assignee (non-standard format  | PAF             |          | 2750      |
+  )                                   |                 |          |           |
+Patent Assignee City                  | PA.CTY          |          | 2804      |
+Patent Assignee Country               | PA.CNY          |          | 2805      |
+Patent Assignee State                 | PA.ST           |          | 2806      |
+Patent Assignee Type                  | PAT             |          | 2808      |
+Patent Assignee ZIP Code              | PA.ZIP          |          | 2807      |
+Patent Assignee, Original             | PAO             |          | 3095      |
+Patent Country                        | PC              |          | 2031      |
+Patent Kind Code                      | PK              |          | 2032      |
+Patent Number                         | PN              |          | 2033      |
+Patent Number Range                   | PATR            |          | 2505      |
+PCT 102(e) Date                       | 102E            |          | 2521      |
+PCT Filing Date                       | PTFD            |          | 2519      |
+PCT Number                            | PTAN(PCT)       |          | 2520      |
+PCT Publication Date                  | PTPD            |          | 2523      |
+PCT Publication Number                | PTPN            |          | 2522      |
+Percent Relative Error                | ERR             |          | 2907      |
+Performing Organization               | CSP             |          | 3085      |
+Period Covered                        | PER             |          | 3372      |
+Periodic Group                        | PG              |          | 2107      |
+Personal Safety Precautions           | PSP             |          | 3309      |
+pH Value                              | PHV             |          | 3310      |
+pH Value Text                         | PHV.TX          |          | 3311      |
+Pharmacological Activity Code         | PHCD            |          | 2753      |
+Phase Transition                      | PT              |          | 3122      |
+Phase Transition Point                | PTP             |          | 3123      |
+Physical Properties                   | PHP             |          | 3070      |
+Polymer Class Term                    | PCT             |          | 2108      |
+Polymerization                        | POLY            |          | 3312      |
+Preferred Propery Name                | PPN             |          | 3343      |
+Premanufacture Notice                 | PMN(5A1)        |          | 2908      |
+Premanufacture Notice Number          | PMNN(5A1N)      |          | 2909      |
+Primary Examiner                      | XP              |          | 2557      |
+Prior Accident History                | PAH             |          | 3313      |
+Priority Country                      | PRC             |          | 2034      |
+Priority Country Code, USPTO          | PRCO            |          | 2533      |
+Priority Date                         | PRD             |          | 2035      |
+Priority Date, USPTO                  | PRAD            |          | 2532      |
+Priority Number                       | PRN             |          | 2036      |
+Priority Number, USPTO                | PRAN            |          | 2534      |
+Priority Year                         | PRY             |          | 2037      |
+Probable Exposure                     | PBEX            |          | 3314      |
+Probable Route of Human Exposure      | RTEX            |          | 3315      |
+Product                               | PRO             |          | 2910      |
+Project Number                        | PRJ             |          | 3374      |
+Property Hierarchy                    | PH              |          | 3342      |
+Property Table Current Date           | PTCD            |          | 3124      |
+Property Table Issue Date             | PTID            |          | 2911      |
+Property Table Previous Date          | PTPD            |          | 3125      |
+Property Table Revision Date          | PTRD            |          | 2912      |
+Publication/Issue Date                | PD              | 31       |           |
+Publication/Issue Year                | PY              |          | 2038      |
+Publisher                             | PB              | 1018     |           |
+Quality Codes                         | QC              |          | 2913      |
+Radiation Limit                       | RADL            |          | 3316      |
+Radius of Gyration                    | RG              |          | 2915      |
+Raman Spectrum Peak Position          | RAS.PP          |          | 3051      |
+RCRA Requirements                     | RCRA            |          | 3317      |
+Reactant                              | RCT             |          | 2916      |
+Reactant-Reagent                      | RRT             |          | 2917      |
+Reactivity and Incompatibility        | REAC            |          | 3318      |
+Reagent                               | RGT             |          | 2923      |
+Reassignment Address                  | RAA             |          | 3096      |
+Reassignment Company                  | RAC             |          | 3098      |
+Reassignment Date                     | RAD             |          | 3099      |
+Reassignment Kind                     | RAK             |          | 3100      |
+Reexamination Certificate Date        | RXD             |          | 3102      |
+Reexamination Number                  | RXN             |          | 3215      |
+Reexamination Request Date            | RRD             |          | 3101      |
+Reexamination Requestor               | RXR             |          | 3104      |
+Reference Author                      | RAU             |          | 2755      |
+Reference Count                       | REC             |          | 2756      |
+Reference Page Number                 | RPG             |          | 2758      |
+Reference Patent Classification       | RPCL            |          | 2759      |
+Reference Patent Country              | RPC             |          | 2760      |
+Reference Patent Inventor             | RPIN(RIN)       |          | 2775      |
+Reference Patent IPC                  | RPIC            |          | 2809      |
+Reference Patent Number               | RPN             |          | 2763      |
+Reference Patent Pub. Date            | RPD             |          | 2764      |
+Reference Pub. Year                   | RPY             |          | 2765      |
+Reference Volume                      | RVL             |          | 2766      |
+Reference Work                        | RWK             |          | 2767      |
+References and Footnotes              | RE              |          | 2488      |
+Refractive Index                      | RI              |          | 2924      |
+Refractive Index (Derivative)         | RI.DRV          |          | 3201      |
+Refractive Index Spectral Line        | RI.SL           |          | 3053      |
+Refractive Index Spectral Line (Deri  | RI.SL.DRV       |          | 3202      |
+  vative)                             |                 |          |           |
+Refractive Index Temperature          | RI.T            |          | 3054      |
+Refractive Index Temperature (Deriva  | RI.T.DRV        |          | 3203      |
+  tive)                               |                 |          |           |
+Refractive Index Wavelength           | RI.W            |          | 3055      |
+Registry Number Locator               | LC              |          | 2109      |
+Regression Equation Code              | EQN             |          | 2925      |
+Regulatory List No.                   | RLN(EPN)        |          | 2927      |
+Reinstatement Date                    | RID             |          | 3105      |
+Reissue Application Filing Date       | REFD            |          | 2527      |
+Reissue Application Number            | REAN            |          | 2526      |
+Reissue Issue Date                    | REPD            |          | 2525      |
+Reissue Patent Number                 | REPN            |          | 2524      |
+Related App. Patent Issue Date        | RLPD            |          | 2531      |
+Related App. Patent Issue Year        | RLPY            |          | 2819      |
+Related Application Country           | RLC             |          | 2769      |
+Related Application Filing Date       | RLFD(RLD)       |          | 2529      |
+Related Application Filing Year       | RLY             |          | 2772      |
+Related Application Patent Number     | RLPN            |          | 2530      |
+Related Application Type              | RLT             |          | 2771      |
+Related ApplicationNumber             | RLAN(RLN)       |          | 2528      |
+Related CAS Reg. No                   | XRN             |          | 2928      |
+Related Publication Indicator         | RLP             |          | 2773      |
+Relative Composition                  | RC              |          | 2110      |
+Relative Vaporization Rate            | RVAP            |          | 3319      |
+Relative Vaporization Rate Text       | RVAP.TX         |          | 3320      |
+Report of Volume, Exposure, etc.      | 8A(REP)         |          | 2929      |
+Reproductive Data                     | REP             |          | 2930      |
+Research Front                        | RF              |          | 2777      |
+Research Front Weight                 | RFWT            |          | 2778      |
+Research Front Word                   | RFW             |          | 2779      |
+Reviewer                              | RV              |          | 3071      |
+Revision Date                         | RDAT            |          | 2780      |
+Revision Note                         | RNTE            |          | 2781      |
+Right Boundary                        | RB              |          | 2782      |
+Ring Atom Count                       | RATC            |          | 2111      |
+Ring Element                          | REL             |          | 2112      |
+Ring Element Count                    | RELC            |          | 2113      |
+Ring Element Formula                  | RELF            |          | 2114      |
+Ring Element Formula Count            | RELF.CNT        |          | 2115      |
+Ring Identifier                       | RID             |          | 2116      |
+Ring Size of Smallest Ring            | SZS             |          | 2117      |
+Ring System Formula                   | RF              |          | 2119      |
+Risk May Be Unreasonable              | 4F(RIS)         |          | 2931      |
+Role                                  | RL              |          | 2783      |
+Route                                 | RTE             |          | 2932      |
+Route (Derivative)                    | RTE.DRV         |          | 3204      |
+RTECS Number                          | RTN             |          | 2933      |
+Rule 47 Indicator                     | R47             |          | 2510      |
+Sampling Procedure                    | SAMP            |          | 3321      |
+Scale                                 |                 |          | 3010      |
+Second Virial Coeff                   | SVC             |          | 2935      |
+Second Virial Coeff Temp.             | SVC.T           |          | 2934      |
+Section Cross-Reference               | SX              |          | 2039      |
+Section Title                         | SCT,SC          |          | 2501      |
+Section Update Date                   | SUP             |          | 2936      |
+Section-code                          |                 |          | 3011      |
+Section-heading                       |                 |          | 3012      |
+Sequence Exact Family Nucleic Acid    | SQEFN           |          | 2120      |
+Sequence Exact Family Protein         | SQEFP           |          | 2121      |
+Sequence Exact Nucleic Acid           | SQEN            |          | 2122      |
+Sequence Exact Protein                | SQEP            |          | 2123      |
+Sequence Length                       | SQL             |          | 2126      |
+Shipping                              | SHIP            |          | 3322      |
+Significant New Use Rule              | SNU,5A2,RSNU    |          | 2937      |
+Size for the Ring System              | SZ              |          | 2128      |
+Soil Adsorption/Mobility              | KOC             |          | 3323      |
+Soil Standard                         | SSTD            |          | 3324      |
+Solubility                            | SLB             |          | 3056      |
+Solubility Paramet.                   | SOLP            |          | 2938      |
+Solubility Solvent                    | SLB.SOL         |          | 3057      |
+Solubility Text                       | SLB.TX          |          | 3058      |
+Solvent                               | SOL             |          | 2939      |
+Source                                | SO              |          | 2040      |
+Source Code for Notebook Reference    | SRC             |          | 3376      |
+South Latitude                        | SLAT            |          | 2784      |
+Special Feature                       | FEAT            |          | 2940      |
+Special Report                        | RPTS            |          | 3325      |
+Specific Gravity                      | SPGR            |          | 3059      |
+Specific Gravity (Derivative)         | SPGR.DRV        |          | 3205      |
+Specific Gravity Reference Temperatu  | SPGR.RT         |          | 3217      |
+  re                                  |                 |          |           |
+Specific Gravity Reference Temperatu  | SPGR.RT.DRV     |          | 3206      |
+  re (Derivative)                     |                 |          |           |
+Specific Gravity Temperature          | SPGR.T          |          | 3060      |
+Specific Gravity Temperature (Deriva  | SPGR.T.DRV      |          | 3207      |
+  tive)                               |                 |          |           |
+Specific Gravity Text                 | SPGR.TX         |          | 3326      |
+Specific Polymer Number               | SPN             |          | 3377      |
+Spectral Properties                   | SPECT           |          | 3327      |
+Staff                                 | SF              |          | 3086      |
+Stage                                 | STG             |          | 2941      |
+Standards and Regulations             | SREG            |          | 2926      |
+State of N.J. Right to Know           | SNJ             |          | 2942      |
+State of Penn.                        | SPA             |          | 2943      |
+Status                                | STA             |          | 2785      |
+Status Date                           | STAD            |          | 3072      |
+Storage                               | STRG            |          | 3328      |
+Structure Update                      | UPST            |          | 2129      |
+Studies on Toxicity /Exposure         | STY             |          | 2944      |
+Subject                               | SUBJ            |          | 2500      |
+Subject-GOO                           |                 |          | 3013      |
+Subject-name-conference               |                 |          | 3014      |
+Subject-name-corporate                |                 |          | 3015      |
+Subject-name-form                     |                 |          | 3016      |
+Subject-name-geographical)            |                 |          | 3017      |
+Subject-name-periodical               |                 |          | 3018      |
+Subject-name-title                    |                 |          | 3019      |
+Subject-name-topical                  |                 |          | 3020      |
+Subject-uncontrolled                  | UT              |          | 3021      |
+Sublimation Point                     | SP              |          | 3178      |
+Sublimation Point Pressure            | SP.P            |          | 3179      |
+Subsequence Family Nucleic Acid       | SQSFN           |          | 2130      |
+Subsequence Family Protein            | SQSFP           |          | 2131      |
+Subsequence Nucleic Acid              | SQSN            |          | 2132      |
+Subsequence Protein                   | SQSP            |          | 2133      |
+Substance Class Identifier            | CI              |          | 2134      |
+Substance Element Ratio, E1E2         | SUB ELR.E1E2.   |          | 2028-2667 |
+Substance Interaction                 | INTC            |          | 3329      |
+Substance State                       | SSTA            |          | 2945      |
+Substantial Risk Report               | 8E(SRR)         |          | 2946      |
+Summary Language                      | SL              |          | 2716      |
+Superfund Amendment Reauthorization   | S110            |          | 2947      |
+  Act -Section 110                    |                 |          |           |
+Superfund Amendment Reauthorization   | S313            |          | 2948      |
+  Section 313                         |                 |          |           |
+Supplementary Material                | SM              |          | 2489      |
+Supplementary Term                    | ST              |          | 2047      |
+Supplementary Term Plus               | STP             |          | 2786      |
+Supplementary Terms in German         | STDE            |          | 3073      |
+Surface Tension                       | ST              |          | 2949      |
+Surface Tension Temperature           | ST.T            |          | 2950      |
+Surface Tension Text                  | ST.TX           |          | 3330      |
+Synonym                               | SYN             |          | 3378      |
+System Number                         | SN              |          | 2951      |
+Table Title                           | TT              |          | 2490      |
+Taste                                 | TASTE           |          | 3331      |
+Term of Patent                        | PTERM (TERM)    |          | 2593      |
+Test Rule - TSCA Section 4A           | 4A(TES)         |          | 2952      |
+Test Status                           | TSTA            |          | 3332      |
+Test System                           | SYS             |          | 2953      |
+Therapeutic Use                       | THER            |          | 3208      |
+Therapeutic Use - Veterinary          | VTHER           |          | 3209      |
+Thermal Conduct.                      | TCND            |          | 2954      |
+Thermal Conduct. Temperature          | TCND.T          |          | 2955      |
+Thesaurus Index                       | THE,THI         |          | 3379      |
+Thresh. Limit Value                   | TLV             |          | 2956      |
+Ticker Symbol                         | TICK            |          | 2710      |
+Title                                 | TI              | 4        |           |
+Title-translated                      |                 |          | 3023      |
+Top Boundary                          | TB              |          | 2788      |
+Toxic Combustion Product              | TCP             |          | 3333      |
+Toxic Conc. Low, Aerosol              | TCLOA           |          | 2957      |
+Toxic Conc. Low, Vapor                | TCLOV           |          | 2958      |
+Toxic Dose Low                        | TDLO            |          | 2959      |
+Toxic Hazard Rating                   | TXHR            |          | 3334      |
+Toxicity Data                         | TOX             |          | 2960      |
+Toxicity Data (Derivative)            | TOX.DRV         |          | 3210      |
+Toxicology Review                     | TREV            |          | 2961      |
+Trade Name                            | TN              |          | 2962      |
+Trade Name Classification             | TNC             |          | 2789      |
+Transfer of Juris.- TSCA Section 9    | TRA             |          | 2963      |
+Triple Point                          | TP              |          | 2964      |
+Triple Point Press.                   | TPP             |          | 2965      |
+TSCA Requirements                     | TSCA            |          | 3335      |
+Tumorigenic Data                      | TUM             |          | 2967      |
+Type of Derivative                    | TYP.DRV         |          | 3211      |
+Type of Study                         | STY             |          | 2968      |
+U.S. Manufacture                      | USPR            |          | 3336      |
+U.S. Manufacture Text                 | USPR.TX         |          | 3337      |
+U.S. Manufacture Year                 | USPR.YR         |          | 3338      |
+U.S. Patent Reference                 | UREF            |          | 2553      |
+Uniterm                               | UN              |          | 2790      |
+Uniterm Registry Number               | URN             |          | 2791      |
+Unpublished Report of Health/Safety   | 8D(UNP)         |          | 2970      |
+  Studies                             |                 |          |           |
+Unreasonable Risk- TSCA Section 6     | UNR             |          | 2971      |
+Update Date                           | UP              |          | 2041      |
+Used For Term                         | UF              |          | 3109      |
+UV and Visible Spectrum Absorption C  | UVS.AC          |          | 3062      |
+  oefficient                          |                 |          |           |
+UV and Visible Spectrum Peak Positio  | UVS.PP          |          | 3063      |
+  n                                   |                 |          |           |
+UV and Visible Spectrum Solvent       | UVS.SOL         |          | 3064      |
+UVCB Chemical Category                | UVC,UVCB        |          | 2969      |
+UVS Spectrum Peak Position (Derivati  | UVS.PP.DRV      |          | 3213      |
+  ve)                                 |                 |          |           |
+van der Waals Area                    | VWA             |          | 2981      |
+van der Waals Volume                  | VWV             |          | 2982      |
+Vapor Pressure                        | VP              |          | 2972      |
+Vapor Pressure Temp                   | VP.T            |          | 2973      |
+Vapor Pressure Text                   | VP.TX           |          | 3339      |
+Viscosity                             | VS              |          | 2974      |
+Viscosity Temp.                       | VS.T            |          | 2975      |
+Volatization from Water/Soil          | VWS             |          | 3340      |
+Volume                                | VL              |          | 2491      |
+Volume and Issue                      | VI              |          | 2042      |
+Warnings                              | WARN            |          | 3214      |
+West Longitude                        | WLON            |          | 2792      |
+Wildlife Toxicity                     | WLTX            |          | 3341      |
+Wiswesser Line Not.                   | WLN             |          | 2976      |
+Word Count                            | WC              |          | 2711      |
+XR Classifications                    | XR              |          | 2571      |
+Year and Issue                        | YI              |          | 2793      |
+Year-of-beginning                     |                 |          | 3024      |
+Year-of-ending                        |                 |          | 3025      |
+Yield                                 | YD              |          | 2977      |
+Yield Text                            | YDT             |          | 2978      |
+Yield Text with Product Func. Group   | FG.YDT          |          | 2979      |
+Yield with Product Functional Group   | FG.YD           |          | 2980      |
+Zip Code                              | ZP              |          | 2794      |
+
+bib-1 is the currently defined Bibliographic Attribute Set.
+
+STAS is the new CAS-defined Scientific and Technical Attribute Set.
+
+Last Attribute Used: 3379

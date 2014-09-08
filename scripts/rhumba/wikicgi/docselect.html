@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Document Editing</title>
+  </head>
+
+  <body bgcolor = white>
+    <center><b>Command Selection for %TITLE%</b></center>
+<p>
+Welcome %USER%.
+<p>
+Available functions:
+<p>
+<form action = "%CGI%" method = "POST">
+<input type = "hidden" name = "cheshireID" value = "%KEY%">
+<table border = 1>
+<tr><td><b>Function</b></td><td><b>Explanation</b></td></tr>
+<tr><td><input type = "radio" name = "request" value = "edit" CHECKED>Edit</td><td>Edit the record's text</td></tr>
+<tr><td><input type = "radio" name = "request" value = "move">Move</td><td>Move the record's location. (Requires 'structure' flag)</td></tr>
+<tr><td><input type = "radio" name = "request" value = "copy">Copy</td><td>Copy the record to another location (Requires 'structure' flag)</td></tr>
+<tr><td><input type = "radio" name = "request" value = "delete">Delete</td><td>Delete the record (Requires 'delete' flag)</td></tr>
+<tr><td><input type = "radio" name = "request" value = "rename">Rename</td><td>Change the name of the record</td></tr>
+<tr><td><input type = "radio" name = "request" value = "addeditor">Add Editor</td><td>Add an editor for the record</td></tr>
+<tr><td><input type = "radio" name = "request" value = "addflag">Add Flag</td><td>Add an editor flag to the record</td></tr>
+<tr><td><input type = "radio" name = "request" value = "deleditor">Delete Editor</td><td>Delete an editor from the record (Requires 'delete' flag)</td></tr>
+<tr><td><input type = "radio" name = "request" value = "delflag">Delete Flag</td><td>Delete an editor flag from the record (Requires 'delete' flag)</td></tr>
+<tr><td><input type = "radio" name = "request" value = "static">Make Record Static</td><td>Remove the record from the database and save permanently to its current location (Requires 'admin' flag)</td></tr>
+<tr><td><input type = "radio" name = "request" value = "metadata">Show Metadata</td><td>Display the metadata associated with this record</td></tr>
+
+
+</table>
+<p>
+<input type = submit value = "Submit">
+</form>
+
+    <hr>
+<p>
+  </body>
+</html>

@@ -1,0 +1,537 @@
+All files created
+getting dtd
+databasename: bibfile
+NOT dumping dtd
+DUMPING Completion pattern file to 'xx.completeout'
+
+
+Starting document parsing
+Doing all via a buffer...
+Start Tag: <USMARC MATERIAL = "BK"  ID = "00000001" > matched
+tag end 36
+Start Tag: <LEADERelement is child of USMARC
+> matched
+tag end 44
+Start Tag: <LRLelement is child of LEADER
+> matched
+tag end 49
+mixed content PCDATA = '00617' buffer chars 54
+end tag start 56
+</LRL> matched
+AT END        LRL  nest 2
+Start Tag: <RECSTATelement is sibling of LRL
+> matched
+tag end 69
+mixed content PCDATA = 'n' buffer chars 70
+end tag start 72
+</RECSTAT> matched
+AT END    RECSTAT  nest 2
+Start Tag: <RECTYPEelement is sibling of RECSTAT
+> matched
+tag end 89
+mixed content PCDATA = 'a' buffer chars 90
+end tag start 92
+</RECTYPE> matched
+AT END    RECTYPE  nest 2
+Start Tag: <BIBLEVELelement is sibling of RECTYPE
+> matched
+tag end 110
+mixed content PCDATA = 'm' buffer chars 111
+end tag start 113
+</BIBLEVEL> matched
+AT END   BIBLEVEL  nest 2
+Start Tag: <UCPelement is sibling of BIBLEVEL
+> matched
+tag end 127
+end tag start 129
+</UCP> matched
+AT END        UCP  nest 2
+Start Tag: <INDCOUNTelement is sibling of UCP
+> matched
+tag end 143
+mixed content PCDATA = '2' buffer chars 144
+end tag start 146
+</INDCOUNT> matched
+AT END   INDCOUNT  nest 2
+Start Tag: <SFCOUNTelement is sibling of INDCOUNT
+> matched
+tag end 164
+mixed content PCDATA = '2' buffer chars 165
+end tag start 167
+</SFCOUNT> matched
+AT END    SFCOUNT  nest 2
+Start Tag: <BASEADDRelement is sibling of SFCOUNT
+> matched
+tag end 185
+mixed content PCDATA = '00217' buffer chars 190
+end tag start 192
+</BASEADDR> matched
+AT END   BASEADDR  nest 2
+Start Tag: <ENCLEVELelement is sibling of BASEADDR
+> matched
+tag end 211
+mixed content PCDATA = ' ' buffer chars 212
+end tag start 214
+</ENCLEVEL> matched
+AT END   ENCLEVEL  nest 2
+Start Tag: <DSCCATFMelement is sibling of ENCLEVEL
+> matched
+tag end 233
+mixed content PCDATA = ' ' buffer chars 234
+end tag start 236
+</DSCCATFM> matched
+AT END   DSCCATFM  nest 2
+Start Tag: <LINKRECelement is sibling of DSCCATFM
+> matched
+tag end 254
+mixed content PCDATA = ' ' buffer chars 255
+end tag start 257
+</LINKREC> matched
+AT END    LINKREC  nest 2
+Start Tag: <ENTRYMAPelement is sibling of LINKREC
+> matched
+tag end 275
+Start Tag: <FLENGTHelement is child of ENTRYMAP
+> matched
+tag end 284
+mixed content PCDATA = '4' buffer chars 285
+end tag start 287
+</FLENGTH> matched
+AT END    FLENGTH  nest 3
+Start Tag: <SCHARPOSelement is sibling of FLENGTH
+> matched
+tag end 305
+mixed content PCDATA = '5' buffer chars 306
+end tag start 308
+</SCHARPOS> matched
+AT END   SCHARPOS  nest 3
+Start Tag: <IDLENGTHelement is sibling of SCHARPOS
+> matched
+tag end 327
+mixed content PCDATA = '0' buffer chars 328
+end tag start 330
+</IDLENGTH> matched
+AT END   IDLENGTH  nest 3
+Start Tag: <EMUCPelement is sibling of IDLENGTH
+> matched
+tag end 346
+end tag start 348
+</EMUCP> matched
+AT END      EMUCP  nest 3
+end tag start 356
+</ENTRYMAP
+current_sgml_data = 1075619200
+current_sgml_data = 1075618432> matched
+AT END   ENTRYMAP  nest 2
+end tag start 367
+</LEADER
+current_sgml_data = 1075618432
+current_sgml_data = 1076191616> matched
+AT END     LEADER  nest 1
+Start Tag: <DIRECTRYelement is sibling of LEADER
+> matched
+tag end 384
+mixed content PCDATA = '001001300000005001700013008004100030010001400071035002000085035001600105245003000121260006600151300002000217490002300237500002200260504002800282650003200310830002300342950002700365998000700392' buffer chars 576
+end tag start 578
+</DIRECTRY> matched
+AT END   DIRECTRY  nest 1
+Start Tag: <VARFLDSelement is sibling of DIRECTRY
+> matched
+tag end 596
+Start Tag: <VARCFLDSelement is child of VARFLDS
+> matched
+tag end 606
+Start Tag: <FLD001element is child of VARCFLDS
+> matched
+tag end 614
+mixed content PCDATA = 'CUBGGLAD456B' buffer chars 626
+end tag start 628
+</FLD001> matched
+AT END     FLD001  nest 3
+Start Tag: <FLD005element is sibling of FLD001
+> matched
+tag end 643
+mixed content PCDATA = '19940818092701.0' buffer chars 659
+end tag start 661
+</FLD005> matched
+AT END     FLD005  nest 3
+Start Tag: <FLD008element is sibling of FLD005
+> matched
+tag end 676
+mixed content PCDATA = '830810 1974    fr                  fre u' buffer chars 716
+end tag start 718
+</FLD008> matched
+AT END     FLD008  nest 3
+end tag start 727
+</VARCFLDS
+current_sgml_data = 1075620352
+current_sgml_data = 1075619968> matched
+AT END   VARCFLDS  nest 2
+Start Tag: <VARDFLDSelement is sibling of VARCFLDS
+> matched
+tag end 746
+Start Tag: <NUMBCODEelement is child of VARDFLDS
+> matched
+tag end 756
+Start Tag: <FLD010element is child of NUMBCODE
+ I1 = "Blank"  I2 = "Blnk" > matched
+tag end 785
+Start Tag: <Aelement is child of FLD010
+> matched
+tag end 788
+mixed content PCDATA = '75519811 ' buffer chars 797
+end tag start 799
+</A> matched
+AT END          A  nest 5
+end tag start 803
+</FLD010
+current_sgml_data = 1075621120
+current_sgml_data = 1075620864> matched
+AT END     FLD010  nest 4
+Start Tag: <FLD035element is sibling of FLD010
+ I1 = "Blank"  I2 = "Blnk" > matched
+tag end 839
+Start Tag: <Aelement is child of FLD035
+> matched
+tag end 842
+mixed content PCDATA = '(CU)ocm01006124' buffer chars 857
+end tag start 859
+</A> matched
+AT END          A  nest 5
+end tag start 863
+</FLD035
+current_sgml_data = 1075621632
+current_sgml_data = 1075621376> matched
+AT END     FLD035  nest 4
+Start Tag: <FLD035element is sibling of FLD035
+ I1 = "Blank"  I2 = "Blnk" > matched
+tag end 899
+Start Tag: <Aelement is child of FLD035
+> matched
+tag end 902
+mixed content PCDATA = '(CU)GLAD456' buffer chars 913
+end tag start 915
+</A> matched
+AT END          A  nest 5
+end tag start 919
+</FLD035
+current_sgml_data = 1075622144
+current_sgml_data = 1075621888> matched
+AT END     FLD035  nest 4
+end tag start 928
+</NUMBCODE
+current_sgml_data = 1075621888
+current_sgml_data = 1075620736> matched
+AT END   NUMBCODE  nest 3
+Start Tag: <MAINENTYelement is sibling of NUMBCODE
+> matched
+tag end 947
+end tag start 949
+</MAINENTY> matched
+AT END   MAINENTY  nest 3
+Start Tag: <TITLESelement is sibling of MAINENTY
+> matched
+tag end 966
+Start Tag: <FLD245element is child of TITLES
+ ADDENTY = "No"  NFCHARS = "0" > matched
+tag end 999
+Start Tag: <Aelement is child of FLD245
+> matched
+tag end 1002
+mixed content PCDATA = 'Singularitâes áa Cargáese' buffer chars 1027
+end tag start 1029
+</A> matched
+AT END          A  nest 5
+end tag start 1033
+</FLD245
+current_sgml_data = 1075623040
+current_sgml_data = 1075622784> matched
+AT END     FLD245  nest 4
+end tag start 1042
+</TITLES
+current_sgml_data = 1075622784
+current_sgml_data = 1075622656> matched
+AT END     TITLES  nest 3
+Start Tag: <EDIMPRNTelement is sibling of TITLES
+> matched
+tag end 1059
+Start Tag: <FLD260element is child of EDIMPRNT
+ I1 = ""  I2 = "Blnk" > matched
+tag end 1083
+Start Tag: <Aelement is child of FLD260
+> matched
+tag end 1086
+mixed content PCDATA = 'Paris :' buffer chars 1093
+end tag start 1095
+</A> matched
+AT END          A  nest 5
+Start Tag: <Belement is sibling of A
+> matched
+tag end 1100
+mixed content PCDATA = 'Sociâetâe mathâematique de France,' buffer chars 1134
+end tag start 1136
+</B> matched
+AT END          B  nest 5
+Start Tag: <Celement is sibling of B
+> matched
+tag end 1141
+mixed content PCDATA = '1973 [i.e. 1974]' buffer chars 1157
+end tag start 1159
+</C> matched
+AT END          C  nest 5
+end tag start 1163
+</FLD260
+current_sgml_data = 1075630208
+current_sgml_data = 1075623424> matched
+AT END     FLD260  nest 4
+end tag start 1172
+</EDIMPRNT
+current_sgml_data = 1075623424
+current_sgml_data = 1075623296> matched
+AT END   EDIMPRNT  nest 3
+Start Tag: <PHYSDESCelement is sibling of EDIMPRNT
+> matched
+tag end 1191
+Start Tag: <FLD300element is child of PHYSDESC
+ I1 = "Blank"  I2 = "Blnk" > matched
+tag end 1220
+Start Tag: <Aelement is child of FLD300
+> matched
+tag end 1223
+mixed content PCDATA = '467 p. ;' buffer chars 1231
+end tag start 1233
+</A> matched
+AT END          A  nest 5
+Start Tag: <Celement is sibling of A
+> matched
+tag end 1238
+mixed content PCDATA = '24 cm' buffer chars 1243
+end tag start 1245
+</C> matched
+AT END          C  nest 5
+end tag start 1249
+</FLD300
+current_sgml_data = 1075631232
+current_sgml_data = 1075630720> matched
+AT END     FLD300  nest 4
+end tag start 1258
+</PHYSDESC
+current_sgml_data = 1075630720
+current_sgml_data = 1075630592> matched
+AT END   PHYSDESC  nest 3
+Start Tag: <SERIESelement is sibling of PHYSDESC
+> matched
+tag end 1275
+Start Tag: <FLD490element is child of SERIES
+ TRACED = "Differnt"  I2 = "Blnk" > matched
+tag end 1311
+Start Tag: <Aelement is child of FLD490
+> matched
+tag end 1314
+mixed content PCDATA = 'Astâerisque ;' buffer chars 1327
+end tag start 1329
+</A> matched
+AT END          A  nest 5
+Start Tag: <Velement is sibling of A
+> matched
+tag end 1334
+mixed content PCDATA = '7-8' buffer chars 1337
+end tag start 1339
+</V> matched
+AT END          V  nest 5
+end tag start 1343
+</FLD490
+current_sgml_data = 1075632128
+current_sgml_data = 1075631616> matched
+AT END     FLD490  nest 4
+end tag start 1352
+</SERIES
+current_sgml_data = 1075631616
+current_sgml_data = 1075631488> matched
+AT END     SERIES  nest 3
+Start Tag: <NOTESelement is sibling of SERIES
+> matched
+tag end 1366
+Start Tag: <FLD500element is child of NOTES
+ I1 = "Blank"  I2 = "Blnk" > matched
+tag end 1395
+Start Tag: <Aelement is child of FLD500
+> matched
+tag end 1398
+mixed content PCDATA = 'French or English' buffer chars 1415
+end tag start 1417
+</A> matched
+AT END          A  nest 5
+end tag start 1421
+</FLD500
+current_sgml_data = 1075632768
+current_sgml_data = 1075632512> matched
+AT END     FLD500  nest 4
+Start Tag: <FLD504element is sibling of FLD500
+ I1 = "Blank"  I2 = "Blnk" > matched
+tag end 1457
+Start Tag: <Aelement is child of FLD504
+> matched
+tag end 1460
+mixed content PCDATA = 'Includes bibliographies' buffer chars 1483
+end tag start 1485
+</A> matched
+AT END          A  nest 5
+end tag start 1489
+</FLD504
+current_sgml_data = 1075633280
+current_sgml_data = 1075633024> matched
+AT END     FLD504  nest 4
+end tag start 1498
+</NOTES
+current_sgml_data = 1075633024
+current_sgml_data = 1075632384> matched
+AT END      NOTES  nest 3
+Start Tag: <SUBJACCSelement is sibling of NOTES
+> matched
+tag end 1514
+Start Tag: <FLD650element is child of SUBJACCS
+ SUBJLVL = "NoInfo"  SUBJSYS = "LCSH" > matched
+tag end 1554
+Start Tag: <Aelement is child of FLD650
+> matched
+tag end 1557
+mixed content PCDATA = 'Singularities (Mathematics)' buffer chars 1584
+end tag start 1586
+</A> matched
+AT END          A  nest 5
+end tag start 1590
+</FLD650
+current_sgml_data = 1075634048
+current_sgml_data = 1075633664> matched
+AT END     FLD650  nest 4
+end tag start 1599
+</SUBJACCS
+current_sgml_data = 1075633664
+current_sgml_data = 1075633536> matched
+AT END   SUBJACCS  nest 3
+Start Tag: <ADDENTYelement is sibling of SUBJACCS
+> matched
+tag end 1617
+end tag start 1619
+</ADDENTY> matched
+AT END    ADDENTY  nest 3
+Start Tag: <LINKENTYelement is sibling of ADDENTY
+> matched
+tag end 1637
+end tag start 1639
+</LINKENTY> matched
+AT END   LINKENTY  nest 3
+Start Tag: <SADDENTYelement is sibling of LINKENTY
+> matched
+tag end 1658
+Start Tag: <FLD830element is child of SADDENTY
+ I1 = "Blank"  NFCHARS = "0" > matched
+tag end 1689
+Start Tag: <Aelement is child of FLD830
+> matched
+tag end 1692
+mixed content PCDATA = 'Astâerisque ;' buffer chars 1705
+end tag start 1707
+</A> matched
+AT END          A  nest 5
+Start Tag: <Velement is sibling of A
+> matched
+tag end 1712
+mixed content PCDATA = '7-8' buffer chars 1715
+end tag start 1717
+</V> matched
+AT END          V  nest 5
+end tag start 1721
+</FLD830
+current_sgml_data = 1076194432
+current_sgml_data = 1076193920> matched
+AT END     FLD830  nest 4
+end tag start 1730
+</SADDENTY
+current_sgml_data = 1076193920
+current_sgml_data = 1076193664> matched
+AT END   SADDENTY  nest 3
+Start Tag: <HOLDALTGelement is sibling of SADDENTY
+> matched
+tag end 1749
+end tag start 1751
+</HOLDALTG> matched
+AT END   HOLDALTG  nest 3
+Start Tag: <FLD9XXelement is sibling of HOLDALTG
+> matched
+tag end 1768
+Start Tag: <FLD950element is child of FLD9XX
+ I1 = "Blank"  I2 = "Blnk" > matched
+tag end 1797
+Start Tag: <Lelement is child of FLD950
+> matched
+tag end 1800
+mixed content PCDATA = 'MATH' buffer chars 1804
+end tag start 1806
+</L> matched
+AT END          L  nest 5
+Start Tag: <Xelement is sibling of L
+> matched
+tag end 1811
+mixed content PCDATA = '380' buffer chars 1814
+end tag start 1816
+</X> matched
+AT END          X  nest 5
+Start Tag: <Aelement is sibling of X
+> matched
+tag end 1821
+mixed content PCDATA = 'QA564' buffer chars 1826
+end tag start 1828
+</A> matched
+AT END          A  nest 5
+Start Tag: <Belement is sibling of A
+> matched
+tag end 1833
+mixed content PCDATA = '.S49' buffer chars 1837
+end tag start 1839
+</B> matched
+AT END          B  nest 5
+end tag start 1843
+</FLD950
+current_sgml_data = 1076195840
+current_sgml_data = 1076194944> matched
+AT END     FLD950  nest 4
+Start Tag: <FLD998element is sibling of FLD950
+ I1 = "Blank"  I2 = "Blnk" > matched
+tag end 1879
+Start Tag: <Nelement is child of FLD998
+> matched
+tag end 1882
+mixed content PCDATA = 'CU' buffer chars 1884
+end tag start 1886
+</N> matched
+AT END          N  nest 5
+end tag start 1890
+</FLD998
+current_sgml_data = 1076196352
+current_sgml_data = 1076196096> matched
+AT END     FLD998  nest 4
+end tag start 1899
+</FLD9XX
+current_sgml_data = 1076196096
+current_sgml_data = 1076194816> matched
+AT END     FLD9XX  nest 3
+end tag start 1908
+</VARDFLDS
+current_sgml_data = 1076194816
+current_sgml_data = 1075620608> matched
+AT END   VARDFLDS  nest 2
+end tag start 1919
+</VARFLDS
+current_sgml_data = 1075620608
+current_sgml_data = 1075619840> matched
+AT END    VARFLDS  nest 1
+end tag start 1929
+</USMARC
+current_sgml_data = 1075619840
+current_sgml_data = 1076191360> matched
+AT END     USMARC  nest 0
+Forcing doc end
+
+

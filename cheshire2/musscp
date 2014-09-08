@@ -1,0 +1,14 @@
+set CHESHIRE_DATABASE bibfile
+set CHESHIRE_NUMREQUESTED 10
+set CHESHIRE_NUM_START 1
+set CHESHIRE_CONFIGFILE "/usr6/ray/MUSICMARC/CONFIG.CSMP"
+
+
+set x [search topic @ {alabama}]
+set recs [lrange $x 1 end]
+puts "formatting sgml records"
+
+foreach y $recs {
+	puts [zformat csmp_htmllong $y sgml 1 80 /usr6/ray/MUSICMARC/USMARC08.DTD]
+	puts ""
+}

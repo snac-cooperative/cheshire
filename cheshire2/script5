@@ -1,0 +1,36 @@
+puts "***** Selecting test *****"
+zselect test
+puts "***** searching larson *****"
+set res1 [zfind author buckland, michael k]
+puts $res1
+puts "***** displaying *****"
+set res2  [zdisplay 1 1]
+zclose
+set x [lindex $res2 1]
+puts ""
+# puts $x
+
+set form1 {{{AU: } {1??} {} {} {} {.
+} TRUE FALSE FALSE FALSE FALSE 5}}
+lappend form1 {{TI: } {245} {ab} {} {} {.
+} TRUE FALSE FALSE FALSE FALSE 5}
+lappend form1 {{XX: } {300} {} {} {} {.
+} TRUE FALSE FALSE FALSE FALSE 5}
+lappend form1 {{008: } {008} {} {} {} {.
+} TRUE FALSE FALSE FALSE FALSE 5}
+
+zmakeformat test $form1
+
+puts "******** test format *******"
+puts [zformat test $x -1 70]
+
+puts "******** short format *******"
+puts [zformat short $x -1 70]
+puts "******** short format with number *******"
+puts [zformat short $x 999 70]
+
+
+
+
+
+

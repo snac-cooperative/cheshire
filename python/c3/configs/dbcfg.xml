@@ -1,0 +1,385 @@
+
+<config type="database" id="db_l5r">
+  <objectType>database.SimpleDatabase</objectType>
+
+  <paths>
+    <path type="defaultPath">/home/cheshire/c3/new/l5r</path>
+    <path type="metadataPath">metadata.bdb</path>
+    <object type="recordStore" ref="l5rRecordStore"/>
+    <object type="onIndexRecord" ref="clusterExtractTxr"/>
+ </paths>
+
+  <subConfigs>
+
+    <subConfig type="transformer" id="clusterExtractTxr">
+      <objectType>transformer.ClusterExtractionTransformer</objectType>
+      <paths>
+        <path type="tempPath">tempCluster.data</path>
+        <object type="database" ref="db_l5r_cluster"/>
+      </paths>
+      <cluster>
+        <map type="key">
+          <xpath>set</xpath>
+          <xpath>key</xpath>
+          <process>
+            <object type="extracter" ref="KeywordExtracter"/>
+            <object type="normaliser" ref="CaseNormaliser"/>
+          </process>
+        </map>
+        <map>
+          <xpath>/card/name</xpath>
+          <xpath>title</xpath>
+          <process>
+            <object type="extracter" ref="ExactExtracter"/>
+            <object type="normaliser" ref="CaseNormaliser"/>
+          </process>
+        </map>
+        <map>
+          <xpath>/card/text[@type='main']</xpath>
+          <xpath>description</xpath>
+          <process>
+            <object type="extracter" ref="ExactExtracter"/>
+            <object type="normaliser" ref="CaseNormaliser"/>
+          </process>
+        </map>
+      </cluster>
+    </subConfig>
+
+    <subConfig type="transformer" id="l5rDublinCoreTxr">
+      <objectType>transformer.XsltTransformer</objectType>
+      <paths>
+         <path type="xsltPath">dc.xsl</path>
+      </paths>
+    </subConfig>
+    <subConfig type="transformer" id="l5rHtmlTxr">
+      <objectType>transformer.XsltTransformer</objectType>
+      <paths>
+         <path type="xsltPath">html.xsl</path>
+      </paths>
+    </subConfig>
+
+    <subConfig type="transformer" id="l5rSingleTxr">
+      <objectType>transformer.XsltTransformer</objectType>
+      <paths>
+         <path type="xsltPath">single.xsl</path>
+      </paths>
+    </subConfig>
+
+    <subConfig type="recordStore" id="l5rRecordStore">
+      <objectType>recordStore.BdbRecordStore</objectType>
+      <paths>
+        <path type="databasePath">recordStore.bdb</path>
+        <object type="inTransformer" ref="defaultRecordStoreTransformer"/>
+        <object type="outParser" ref="defaultRecordStoreParser"/>
+        <object type="idNormaliser" ref="StringIntNormaliser"/>
+      </paths>
+      <options>
+        <setting type="digest">sha</setting>
+      </options>
+    </subConfig>
+
+    <subConfig type="indexStore" id="l5rIndexStore">
+      <objectType>indexStore.BDBIndexStore</objectType>
+      <paths>
+         <path type="defaultPath">indexes</path>
+         <path type="tempPath">temp</path>
+        <path type="sortPath">/usr/local/bin/sort</path>
+        <path type="recordStoreHash">l5rRecordStore</path>  
+      </paths> 
+    </subConfig>
+
+    <subConfig type="protocolMap" id="CQLProtocolMap">
+      <objectType>protocolMap.CQLProtocolMap</objectType>
+      <paths>
+        <path type="zeerexPath">zeerex_srw.xml</path>
+      </paths>
+    </subConfig>
+
+
+    <subConfig id = "l5r-idx-1">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+      <!--
+        <preprocess>
+            <object type="transformer" ref="fooTransformer"/>
+            <object type="parser" ref="defaultParser"/>
+        </preprocess>        
+      -->
+        <xpath>/card/name</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+          <object type="normaliser" ref="CaseNormaliser"/>
+        </process>
+      </source>
+      <options>
+        <setting type="sortStore">true</setting>
+        <setting type="lr_constant0">-3.7</setting>
+      </options>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-15">
+      <objectType>index.ProximityIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>name</xpath>
+        <process>
+          <object type="extracter" ref="ProximityExtracter"/>
+          <object type="normaliser" ref="CaseNormaliser"/>
+          <object type="normaliser" ref="PossessiveNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-16">
+      <objectType>index.ProximityIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>name</xpath>
+        <process>
+          <object type="extracter" ref="ProximityExtracter"/>
+          <object type="normaliser" ref="CaseNormaliser"/>
+          <object type="normaliser" ref="PossessiveNormaliser"/>
+          <object type="normaliser" ref="EnglishStemNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-2">
+      <objectType>index.ProximityIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>text[@type='main']</xpath>
+        <process>
+          <object type="extracter" ref="ProximityExtracter"/>
+          <object type="normaliser" ref="CaseNormaliser"/>
+          <object type="normaliser" ref="PossessiveNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-17">
+      <objectType>index.ProximityIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>text[@type='main']</xpath>
+        <process>
+          <object type="extracter" ref="ProximityExtracter"/>
+          <object type="normaliser" ref="CaseNormaliser"/>
+          <object type="normaliser" ref="PossessiveNormaliser"/>
+          <object type="normaliser" ref="EnglishStemNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-3">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>stat[@type='force']</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+          <object type="normaliser" ref="StringIntNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-4">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>stat[@type='chi']</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+          <object type="normaliser" ref="StringIntNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-5">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>stat[@type='focus']</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+          <object type="normaliser" ref="StringIntNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-6">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>stat[@type='honor']</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+          <object type="normaliser" ref="StringIntNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-7">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>stat[@type='personal honour']</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+          <object type="normaliser" ref="StringIntNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-8">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>cost[@type='gold']</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+          <object type="normaliser" ref="StringIntNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-9">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>/card/type</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-10">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>/card/artist</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-11">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>set</xpath>
+        <process>
+          <object type="extracter" ref="KeywordExtracter"/>
+          <object type="normaliser" ref="CaseNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-12">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>legal</xpath>
+        <process>
+          <object type="extracter" ref="KeywordExtracter"/>
+          <object type="normaliser" ref="CaseNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+
+    <subConfig id = "l5r-idx-14">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>stat[@type='experience']</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+          <object type="normaliser" ref="StringIntNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5r-idx-18">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rIndexStore"/>
+      </paths> 
+      <source>
+	<xpath>rarity</xpath>
+        <process>
+          <object type="extracter" ref="KeywordExtracter"/>
+          <object type="normaliser" ref="CaseNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+
+  </subConfigs>
+  
+  <objects>
+    <path ref="l5rHtmlTxr"/>
+    <path ref="l5rSingleTxr"/>
+    <path ref="l5rDublinCoreTxr"/>
+    <path ref="clusterExtractTxr"/>
+
+    <!-- IndexStore must come before any indexes -->
+    <path ref="l5rIndexStore"/>
+    <path ref="l5r-idx-15"/>
+    <path ref="l5r-idx-16"/>
+    <path ref="l5r-idx-17"/>
+    <path ref="l5r-idx-18"/>
+    <path ref="l5r-idx-1"/>
+    <path ref="l5r-idx-2"/>
+    <path ref="l5r-idx-3"/>
+    <path ref="l5r-idx-4"/>
+    <path ref="l5r-idx-5"/>
+    <path ref="l5r-idx-6"/>
+    <path ref="l5r-idx-7"/>
+    <path ref="l5r-idx-8"/>
+    <path ref="l5r-idx-9"/>
+    <path ref="l5r-idx-10"/>
+    <path ref="l5r-idx-11"/>
+    <path ref="l5r-idx-12"/>
+    <path ref="l5r-idx-14"/>
+    <path ref="l5rRecordStore"/>
+    <path ref="CQLProtocolMap"/>
+  </objects>    
+
+</config>
+

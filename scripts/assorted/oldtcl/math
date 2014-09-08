@@ -1,0 +1,74 @@
+#!/usr3/ray/Work/z3950_3/bin/cheshire2 -f
+# ************************************************************************
+#
+#	Program Name:   math		
+#
+#	Programmer:     Sandia Hsu, Sui-hwai Hwang	
+#
+#	Purpose:	creating main window for staff to login
+#			the MARC record processing system
+#	
+#
+#	Date:	        11/13/1993	
+#	Revised:
+#	Version:	
+#	Copyright (c) 1992.  The Regents of the University of California
+#		All Rights Reserved
+#
+# ***********************************************************************/
+set auto_path [linsert $auto_path 0 /usr3/ray/Work/z3950_3/scripts/oldtcl]
+
+global name pwd
+
+wm title . "Math Library"
+
+wm geometry . +200+50
+
+option add *Button.activeBackground LightSkyBlue1
+option add *Menubutton.activeBackground LightSkyBlue1
+option add *Menu.activeBackground LightSkyBlue1
+option add *ListBox.activeBackground LightSkyBlue1
+
+pack append . [frame .msg -width 1000]  {top pady 2c} \
+	[frame .lqhelp -width 100] {bottom pady 0.5c}
+
+pack append .msg \
+	[message .msg.welcome  -font -Adobe-times-medium-r-normal--*180* \
+        -text "Welcome to" -width 1000] {top expand} \
+	[message .msg.system  -font -Adobe-times-medium-r-normal--*180* \
+	-relief raised -width 1000 \
+        -borderwidth 10 -text "  MARC   RECORD   PROCESSING \
+        SYSTEM  "] {top pady 2c padx 7c} \
+	[message .msg.detail  -font -Adobe-times-medium-r-normal--*180* \
+        -relief raised -width 1000 -borderwidth 0 -text \
+        "To start the MARC record processing system, type in your  \n  \
+	\"Login Name\" and \"Password\" below......"] {top pady 1c} \
+	[label .bitmap -bitmap \
+	@/usr3/ray/Work/z3950_3/scripts/oldtcl/catwithquote2.xbm -anchor \
+		ne] top
+.bitmap configure -bg
+
+pack [frame .name -width 50] [frame .pwd -width 50] [frame .qhelp \
+	-width 50] -in .lqhelp -side top
+
+pack [entry .nameentry -width 35 -textvariable name -relief sunken \
+	-bd 1] [label .namelabel -width 15 -text "Login Name:"] \
+	-in .name -side right
+
+pack [entry .pwdentry -width 35 \
+	-textvariable pwd -relief sunken \
+	-bd 1] [label .pwdlabel -width 15 -text "Password:"] \
+	-in .pwd -side right
+
+pack [button .quit -text "Quit" -command "destroy ." -relief raised -bd 2] \
+	-in .qhelp -anchor c -pady 1c
+focus .nameentry	
+set checkstring ""
+set pwd ""
+
+bind .nameentry <Return> {set checkstring $name;
+			  focus .pwdentry}
+
+bind .pwdentry <Return> {focus .nameentry;
+			 set checkstring $checkstring$pwd;
+			 mkSecurityCheck $checkstring}

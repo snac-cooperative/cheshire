@@ -1,0 +1,330 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en]C-CCK-MCD {Sony}  (Win98; U) [Netscape]">
+   <title>Cheshire II Commands</title>
+</head>
+<body background="chat5.jpg">
+<!-- Cheshire II Commands documentation -->
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Indexes</H1> </FONT>
+</center>
+
+<h2> <font color="#0000FF">Bitmapped Indexes</font></h2> <p>\- Use and
+operation of Bitmapped Indexes <h2> <font
+color="#0000FF">DESCRIPTION</font></h2> 
+This document describes
+CheshireII Bitmapped Indexes, used to index data that has very large
+numbers of records with a small number of unique values. Bitmapped
+indexes use only a single bit to represent the occurrence of a value
+in a record. They are primarily intended to be used to limit results
+to those with one of the values. They do not require instantiation of
+entire resultsets, and actual record mapping data is only accessed as
+needed.  
+<p> 
+<hr> 
+<h2> <font color="#0000FF">Bitmapped Indexes</font></h2> 
+
+<p> The most obvious difference between normal CheshireII indexes and
+a bitmapped indexes is that bitmapped indexes store no frequency data
+about the items that they index and thus can only provide boolean
+results. Since the primary intent to to provide fast access to items
+with very large numbers (i.e. millions) of records but only a very few
+values shared by most of the records (for example in a database of
+millions of records of personal information "gender" might have 
+million of occurrences of "M" and of "F"). In conventional indexes 
+list of each record number containing each value have to be maintained
+meaning that the index must typically chain together hundreds of thousands
+of data blocks to contain these lists. In a BITMAPPED index
+only a single bit is stored for (potentially) each record in the
+database, instead of the 64 bits per entry stored in conventional
+indexes.
+<P>
+Bitmapped indexes are optimal for very common elements with a few
+values, and will typically have an order of magnitude reduction in the
+size of the stored index and an order of magnitude increase in the
+speed of retrieval (either when retrieving all items with one of the
+values, or for using Boolean AND or Boolean NOT to restrict a result
+set to only items with one of the values. Boolean OR, however will
+have no particular speed advantage over a conventional
+index. Bitmapped indexes should not be used for keywords extracted
+from text fields, in fact it is recommended that the EXTRACT=EXACTKEY
+be used, if possible, for the most efficient indexing and retrieval.
+The EXTRACT=KEYWORD attribute may be used, but if a search key translates
+to multiple values in the index, there is some loss of efficiency (but
+it may still be faster than a conventional index).
+<P>
+Bitmapped indexes and indexing are specified in the configuration file
+by setting the ACCESS attribute to "BITMAPPED" in the INDEXDEF tag for
+the index you wish to make a bitmap. Bitmap indexes can ONLY be used
+for Boolean retrieval, and they are specifically designed to speed up
+access time on indexes that have only a few values (such as an
+attribute that appears in every record of the database and has only 3
+or possible values), and a very large number of records (i.e.,
+hundreds of thousands or millions of records). 
+<P>
+Included in the index directory is a utility to convert from a conventional
+index to a bitmapped index. This utility is called convert2bitmap and it
+will be automatically built and put into the bin directory in the normal
+building process for the distribution. The program is used by the command:
+<P>
+convert2bitmap configfile in_mainfile_name in_index_name out_index_pathname
+<P>
+That is, the arguments are the configfile of the database containing
+the conventional index to be converted, the name (FILETAG) of the main
+file in that configfile, and the name (INDXTAG) of that index. The
+last argument is a full pathname of the new bitmap index to be created
+(it doesn't need an entry in the specified configfile). Once the new
+bitmapped index is created this pathname is used as the INDXNAME for
+the new index (which should have EXTRACT and NORMAL attributes and
+other INDEXDEF components the same as the conventional index, but with
+the ACCESS type of BITMAPPED (you will need a different name and tag
+for the new index if you are keeping the conventional index in place).
+<p>
+<hr> 
+<h2> <font color="#0000FF">Implementation Details Bitmapped Indexes</font></h2>
+
+Much of the work with bitmapped indexes is done using a set of bit
+manipulation macros in header/bitmap.h. In a bitmap index the data is
+divided into blocks of 8192 bytes (8K), thus each block has storage
+for 65536 records, The position of a bit in a block represents a
+record ID. Thus, in the first data block of a bitmapped index records
+1-65536 are represented in the second data block records 65537-131072
+are represented, etc. 8k blocks are used because that is internal
+blocksize for BerkeleyDB files, and therefore is handled most
+efficiently.
+
+<P>
+Here are the bitmap macros defined in bitmap.h:
+
+<PRE>
+/*
+ *  Copyright (c) 1990-2003 [see Other Notes, below]. The Regents of the
+ *  University of California (Regents). All Rights Reserved.
+ *  
+ *  Permission to use, copy, modify, and distribute this software and its
+ *  documentation for educational, research, and not-for-profit purposes,
+ *  without fee and without a signed licensing agreement, is hereby
+ *  granted, provided that the above copyright notice, this paragraph and
+ *  the following two paragraphs appear in all copies, modifications, and
+ *  distributions. Contact The Office of Technology Licensing, UC
+ *  Berkeley, 2150 Shattuck Avenue, Suite 510, Berkeley, CA 94720-1620,
+ *  (510) 643-7201, for commercial licensing opportunities. 
+ *  
+ *  Created by Ray R. Larson, Aitao Chen, and Jerome McDonough, 
+ *             School of Information Management and Systems, 
+ *             University of California, Berkeley.
+ *  
+ *    
+ *       IN NO EVENT SHALL REGENTS BE LIABLE TO ANY PARTY FOR DIRECT,
+ *       INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+ *       INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE
+ *       AND ITS DOCUMENTATION, EVEN IF REGENTS HAS BEEN ADVISED OF THE
+ *       POSSIBILITY OF SUCH DAMAGE. 
+ *    
+ *       REGENTS SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT
+ *       NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ *       FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE AND
+ *       ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS
+ *       PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
+ *       MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS. 
+ */
+/************************************************************************
+*
+*	Header Name:	bitmaps.h
+*
+*	Programmer:	Ray R. Larson
+*
+*	Purpose:	Header for bitmapped index handling
+*                       symbolic definitions based on the BSD bitstring.h
+*	Usage:		#include bitmaps.h
+*
+*	Variables:	
+*
+*	Return Conditions and Return Codes:	
+*
+*	Date:		03/27/2003
+*	Revised:	
+*	Version:	1.0
+*	Copyright (c) 2003.  The Regents of the University of California
+*		All Rights Reserved
+*
+************************************************************************/
+
+#ifndef _BITMAPS_H
+#define _BITMAPS_H
+
+#define bitmap_blocksize_bytes 8192
+#define bitmap_blocksize_bits 65536
+
+typedef	unsigned char bitmap_t;
+
+typedef struct bitblock_key {
+    short blockid;
+    int termid;
+  } bitblock_key;
+
+
+/* internal macros */
+				/* byte of the bitmaping bit is in */
+#define	_bitmap_byte(bit) \
+	((bit) >> 3)
+
+				/* mask for the bit within its byte */
+#define	_bitmap_mask(bit) \
+	(1 << ((bit)&0x7))
+
+
+
+/* external macros */
+
+#define bitblock_id(recno) \
+  (recno >> 16)
+
+#define bitblock_bit(recno) \
+  ((recno-1) & 0xffff)
+				/* bytes in a bitmaping of nbits bits */
+#define	bitmap_size(nbits) \
+	((((nbits) - 1) >> 3) + 1)
+
+				/* allocate a bitmaping */
+#define	bitmap_block_alloc() \
+	(bitmap_t *)calloc(1, bitmap_blocksize_bytes)
+
+				/* is bit N of bitmaping name set? */
+#define	bitmap_test(name, bit) \
+	((name)[_bitmap_byte(bit)] & _bitmap_mask(bit))
+
+				/* set bit N of bitmaping name */
+#define	bit_set(name, bit) \
+	(name)[_bitmap_byte(bit)] |= _bitmap_mask(bit)
+
+				/* clear bit N of bitmaping name */
+#define	bit_clear(name, bit) \
+	(name)[_bitmap_byte(bit)] &= ~_bitmap_mask(bit)
+
+				/* clear bits start ... stop in bitmaping */
+#define	bitblock_set(name, recno) \
+  (name)[_bitmap_byte(bitblock_bit(recno))] |= _bitmap_mask(bitblock_bit(recno))
+
+#define	bitblock_test(name, recno) \
+  (name)[_bitmap_byte(bitblock_bit(recno))] & _bitmap_mask(bitblock_bit(recno))
+
+				/* clear bit N of bitmaping name */
+#define	bitblock_clear(name, recno) \
+  (name)[_bitmap_byte(bitblock_bit(recno))] &= ~_bitmap_mask(bitblock_bit(recno))
+
+				/* clear bits start ... stop in bitmaping */
+#define	bit_nclear(name, start, stop) { \
+	register bitmap_t *_name = name; \
+	register int _start = start, _stop = stop; \
+	register int _startbyte = _bitmap_byte(_start); \
+	register int _stopbyte = _bitmap_byte(_stop); \
+	if (_startbyte == _stopbyte) { \
+		_name[_startbyte] &= ((0xff >> (8 - (_start&0x7))) | \
+				      (0xff << ((_stop&0x7) + 1))); \
+	} else { \
+		_name[_startbyte] &= 0xff >> (8 - (_start&0x7)); \
+		while (++_startbyte < _stopbyte) \
+			_name[_startbyte] = 0; \
+		_name[_stopbyte] &= 0xff << ((_stop&0x7) + 1); \
+	} \
+}
+
+				/* set bits start ... stop in bitmaping */
+#define	bit_nset(name, start, stop) { \
+	register bitmap_t *_name = name; \
+	register int _start = start, _stop = stop; \
+	register int _startbyte = _bitmap_byte(_start); \
+	register int _stopbyte = _bitmap_byte(_stop); \
+	if (_startbyte == _stopbyte) { \
+		_name[_startbyte] |= ((0xff << (_start&0x7)) & \
+				    (0xff >> (7 - (_stop&0x7)))); \
+	} else { \
+		_name[_startbyte] |= 0xff << ((_start)&0x7); \
+		while (++_startbyte < _stopbyte) \
+	    		_name[_startbyte] = 0xff; \
+		_name[_stopbyte] |= 0xff >> (7 - (_stop&0x7)); \
+	} \
+}
+
+				/* find first bit clear in name */
+#define	bit_ffc(name, nbits, value) { \
+	register bitmap_t *_name = name; \
+	register int _byte, _nbits = nbits; \
+	register int _stopbyte = _bitmap_byte(_nbits), _value = -1; \
+	for (_byte = 0; _byte < _stopbyte; ++_byte) \
+		if (_name[_byte] != 0xff) { \
+			_value = _byte << 3; \
+			for (_stopbyte = _name[_byte]; (_stopbyte&0x1); \
+			    ++_value, _stopbyte >>= 1); \
+			break; \
+		} \
+	*(value) = _value; \
+}
+
+				/* find first bit set in name */
+#define	bit_ffs(name, nbits, value) { \
+	register bitmap_t *_name = name; \
+	register int _byte, _nbits = nbits; \
+	register int _stopbyte = _bitmap_byte(_nbits), _value = -1; \
+	for (_byte = 0; _byte < _stopbyte; ++_byte) \
+		if (_name[_byte]) { \
+			_value = _byte << 3; \
+			for (_stopbyte = _name[_byte]; !(_stopbyte&0x1); \
+			    ++_value, _stopbyte >>= 1); \
+			break; \
+		} \
+	*(value) = _value; \
+}
+
+#endif
+
+</PRE>
+<P>
+
+
+The above macros are used to manipulate the bitmap blocks and set and
+clear bits representing the occurrence of a particular value in a
+particular record. In the index itself two kinds of items are stored.
+The first is a conventional entry for each unique value of the items
+being indexed this uses the value itself as the index key and contains
+the term id number and the total number of records containing the
+value. The second kind of item in the index has a single data block
+representing 65536 record ids. These are stored separately using a
+bitblock key (defined as short integer blockid, and an integer
+termid).  The blockid represents the first record number of the block
+(minus 1) shifted right 16 bits. The macro bitblock_id() above is used
+to determine which bitblock contains a given record id. The
+combination of the blockid and termid is used as the key for a data
+block.  <P> In searching a bitblock index, the search key is used to
+locate the matching record (first kind as above) which provides the
+termid to use in locating and retrieving the second kind of record as
+needed for the operations being performed. Additional shortcuts are
+taken in using bitmaps within a boolean AND or NOT with a conventional
+resultset, and only those data blocks containing record numbers that
+occur in the conventional resultset are actually fetched and tested
+(using the bitmap_test macro above). When a search is performed on a
+bitmap index alone, the full resultset is not instantiated, and blocks
+representing particular records are only retrieved as they are needed
+by present or search display operations.
+
+
+<p>
+<hr WIDTH="100%">
+<h2>
+<font color="#0000FF">BUGS</font></h2>
+None known.
+<h2>
+<font color="#0000FF">SEE ALSO</font> <a href=index_cheshire.html>index_cheshire</a>, <a href=configfiles.html>configfiles</a> </h2>
+
+<h2>
+<font color="#0000FF">AUTHOR</font></h2>
+Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>)
+</body>
+</html>
+
+
+

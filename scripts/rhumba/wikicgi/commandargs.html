@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Command Arguments</title>
+  </head>
+
+  <body bgcolor = white>
+<center><b>'%REQUEST%' request for %TITLE%</b></center>
+<p>
+%ERR%
+<p>
+Please give more information in order to complete your '%REQUEST%' request. 
+<p>
+<form method = POST action = "%CGI%">
+<input type = hidden name = cheshireID value = "%KEY%">
+<input type = hidden name = request value = "%REQUEST%">
+<table>
+<tr><td>%ARGTXT%:</td><td> <input type = text size = 40 name = "arg1" value = ""></td></tr>
+<tr><td>%ARG2TXT%:</td><td> <input type = text size = 40 name = "arg2" value = ""></td></tr>
+</table>
+<br>
+<input type = "submit" value = "Submit">
+</form>
+
+    <hr>
+  </body>
+</html>

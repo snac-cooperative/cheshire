@@ -1,0 +1,3985 @@
+%!PS-Adobe-3.0
+%%BoundingBox: (atend)
+%%Pages: (atend)
+%%PageOrder: (atend)
+%%DocumentFonts: (atend)
+%%Creator: Frame 4.0
+%%DocumentData: Clean7Bit
+%%EndComments
+%%BeginProlog
+%
+% Frame ps_prolog 4.0, for use with Frame 4.0 products
+% This ps_prolog file is Copyright (c) 1986-1993 Frame Technology
+% Corporation.  All rights reserved.  This ps_prolog file may be
+% freely copied and distributed in conjunction with documents created
+% using FrameMaker, FrameBuilder and FrameViewer as long as this 
+% copyright notice is preserved.
+%
+% Frame products normally print colors as their true color on a color printer
+% or as shades of gray, based on luminance, on a black-and white printer. The
+% following flag, if set to True, forces all non-white colors to print as pure
+% black. This has no effect on bitmap images.
+/FMPrintAllColorsAsBlack             false def
+%
+% Frame products can either set their own line screens or use a printer's 
+% default settings. Three flags below control this separately for no 
+% separations, spot separations and process separations. If a flag
+% is true, then the default printer settings will not be changed. If it is
+% false, Frame products will use their own settings from a table based on
+% the printer's resolution.
+/FMUseDefaultNoSeparationScreen      true  def
+/FMUseDefaultSpotSeparationScreen    true  def
+/FMUseDefaultProcessSeparationScreen false def
+%
+% For any given PostScript printer resolution, Frame products have two sets of 
+% screen angles and frequencies for printing process separations, which are 
+% recomended by Adobe. The following variable chooses the higher frequencies
+% when set to true or the lower frequencies when set to false. This is only
+% effective if the appropriate FMUseDefault...SeparationScreen flag is false.
+/FMUseHighFrequencyScreens true def
+%
+% PostScript Level 2 printers contain an "Accurate Screens" feature which can
+% improve process separation rendering at the expense of compute time. This 
+% flag is ignored by PostScript Level 1 printers.
+/FMUseAcccurateScreens true def
+%
+% The following PostScript procedure defines the spot function that Frame
+% products will use for process separations. You may un-comment-out one of
+% the alternative functions below, or use your own.
+%
+% Dot function
+/FMSpotFunction {abs exch abs 2 copy add 1 gt 
+		{1 sub dup mul exch 1 sub dup mul add 1 sub }
+		{dup mul exch dup mul add 1 exch sub }ifelse } def
+%
+% Line function
+% /FMSpotFunction { pop } def
+%
+% Elipse function
+% /FMSpotFunction { dup 5 mul 8 div mul exch dup mul exch add 
+%		sqrt 1 exch sub } def
+%
+%
+/FMversion (4.0) def 
+/FMLevel1 /languagelevel where {pop languagelevel} {1} ifelse 2 lt def
+/FMPColor
+	FMLevel1 {
+		false
+		/colorimage where {pop pop true} if
+	} {
+		true
+	} ifelse
+def
+/FrameDict 400 dict def 
+systemdict /errordict known not {/errordict 10 dict def
+		errordict /rangecheck {stop} put} if
+% The readline in PS 23.0 doesn't recognize cr's as nl's on AppleTalk
+FrameDict /tmprangecheck errordict /rangecheck get put 
+errordict /rangecheck {FrameDict /bug true put} put 
+FrameDict /bug false put 
+mark 
+% Some PS machines read past the CR, so keep the following 3 lines together!
+currentfile 5 string readline
+00
+0000000000
+cleartomark 
+errordict /rangecheck FrameDict /tmprangecheck get put 
+FrameDict /bug get { 
+	/readline {
+		/gstring exch def
+		/gfile exch def
+		/gindex 0 def
+		{
+			gfile read pop 
+			dup 10 eq {exit} if 
+			dup 13 eq {exit} if 
+			gstring exch gindex exch put 
+			/gindex gindex 1 add def 
+		} loop
+		pop 
+		gstring 0 gindex getinterval true 
+		} bind def
+	} if
+/FMshowpage /showpage load def
+/FMquit /quit load def
+/FMFAILURE { 
+	dup = flush 
+	FMshowpage 
+	/Helvetica findfont 12 scalefont setfont
+	72 200 moveto
+	show FMshowpage 
+	FMquit 
+	} def 
+/FMVERSION {
+	FMversion ne {
+		(Frame product version does not match ps_prolog!) FMFAILURE
+		} if
+	} def 
+/FMBADEPSF { 
+	(PostScript Lang. Ref. Man., 2nd Ed., H.2.4 says EPS must not call X              )
+	dup dup (X) search pop exch pop exch pop length 
+	4 -1 roll 
+	putinterval 
+	FMFAILURE
+	} def
+/FMLOCAL {
+	FrameDict begin
+	0 def 
+	end 
+	} def 
+/concatprocs
+	{
+	/proc2 exch cvlit def/proc1 exch cvlit def/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval newproc proc1 length proc2 putinterval newproc cvx
+}def
+FrameDict begin 
+/FMnone 0 def
+/FMcyan 1 def
+/FMmagenta 2 def
+/FMyellow 3 def
+/FMblack 4 def
+/FMcustom 5 def
+/FrameNegative false def 
+/FrameSepIs FMnone def 
+/FrameSepBlack 0 def
+/FrameSepYellow 0 def
+/FrameSepMagenta 0 def
+/FrameSepCyan 0 def
+/FrameSepRed 1 def
+/FrameSepGreen 1 def
+/FrameSepBlue 1 def
+/FrameCurGray 1 def
+/FrameCurPat null def
+/FrameCurColors [ 0 0 0 1 0 0 0 ] def 
+/FrameColorEpsilon .001 def	
+/eqepsilon {		
+	sub dup 0 lt {neg} if
+	FrameColorEpsilon le
+} bind def
+/FrameCmpColorsCMYK { 
+	2 copy 0 get exch 0 get eqepsilon {
+		2 copy 1 get exch 1 get eqepsilon {
+			2 copy 2 get exch 2 get eqepsilon {
+				3 get exch 3 get eqepsilon
+			} {pop pop false} ifelse
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/FrameCmpColorsRGB { 
+	2 copy 4 get exch 0 get eqepsilon {
+		2 copy 5 get exch 1 get eqepsilon {
+			6 get exch 2 get eqepsilon
+		}{pop pop false} ifelse
+	} {pop pop false} ifelse
+} bind def
+/RGBtoCMYK { 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	1 exch sub 
+	3 1 roll 
+	3 copy 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	2 copy 
+	le { pop } { exch pop } ifelse 
+	dup dup dup 
+	6 1 roll 
+	4 1 roll 
+	7 1 roll 
+	sub 
+	6 1 roll 
+	sub 
+	5 1 roll 
+	sub 
+	4 1 roll 
+} bind def
+/CMYKtoRGB { 
+	dup dup 4 -1 roll add 						  
+	5 1 roll 3 -1 roll add 						  
+	4 1 roll add 								  
+	1 exch sub dup 0 lt {pop 0} if 3 1 roll 	  
+	1 exch sub dup 0 lt {pop 0} if exch 	      
+	1 exch sub dup 0 lt {pop 0} if exch	  		  
+} bind def
+/FrameSepInit {
+	1.0 RealSetgray
+} bind def
+/FrameSetSepColor { 
+	/FrameSepBlue exch def
+	/FrameSepGreen exch def
+	/FrameSepRed exch def
+	/FrameSepBlack exch def
+	/FrameSepYellow exch def
+	/FrameSepMagenta exch def
+	/FrameSepCyan exch def
+	/FrameSepIs FMcustom def
+	setCurrentScreen	
+} bind def
+/FrameSetCyan {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 1.0 def
+	/FrameSepIs FMcyan def
+	setCurrentScreen	
+} bind def
+ 
+/FrameSetMagenta {
+	/FrameSepBlue 1.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 1.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMmagenta def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetYellow {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 1.0 def
+	/FrameSepRed 1.0 def
+	/FrameSepBlack 0.0 def
+	/FrameSepYellow 1.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMyellow def
+	setCurrentScreen
+} bind def
+ 
+/FrameSetBlack {
+	/FrameSepBlue 0.0 def
+	/FrameSepGreen 0.0 def
+	/FrameSepRed 0.0 def
+	/FrameSepBlack 1.0 def
+	/FrameSepYellow 0.0 def
+	/FrameSepMagenta 0.0 def
+	/FrameSepCyan 0.0 def
+	/FrameSepIs FMblack def
+	setCurrentScreen
+} bind def
+ 
+/FrameNoSep { 
+	/FrameSepIs FMnone def
+	setCurrentScreen
+} bind def
+/FrameSetSepColors { 
+	FrameDict begin
+	[ exch 1 add 1 roll ]
+	/FrameSepColors  
+	exch def end
+	} bind def
+/FrameColorInSepListCMYK { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsCMYK 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/FrameColorInSepListRGB { 
+	FrameSepColors {  
+       		exch dup 3 -1 roll 
+       		FrameCmpColorsRGB 
+       		{ pop true exit } if
+    	} forall 
+	dup true ne {pop false} if
+	} bind def
+/RealSetgray /setgray load def
+/RealSetrgbcolor /setrgbcolor load def
+/RealSethsbcolor /sethsbcolor load def
+end 
+/setgray { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+		{ RealSetgray } 
+		{ 
+		FrameSepIs FMblack eq 
+			{ RealSetgray } 
+			{ FrameSepIs FMcustom eq 
+			  FrameSepRed 0 eq and
+			  FrameSepGreen 0 eq and
+			  FrameSepBlue 0 eq and {
+			  	RealSetgray
+			  } {
+				1 RealSetgray pop 
+			  } ifelse
+			} ifelse
+		} ifelse
+	end
+} bind def
+/setrgbcolor { 
+	FrameDict begin
+	FrameSepIs FMnone eq
+	{  RealSetrgbcolor }
+	{
+		3 copy [ 4 1 roll ] 
+		FrameColorInSepListRGB
+		{
+				FrameSepBlue eq exch 
+			 	FrameSepGreen eq and exch 
+			 	FrameSepRed eq and
+			 	{ 0 } { 1 } ifelse
+		}
+		{
+			FMPColor {
+				RealSetrgbcolor
+				currentcmykcolor
+			} {
+				RGBtoCMYK
+			} ifelse
+			FrameSepIs FMblack eq
+			{1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		RealSetgray
+	} 
+	ifelse
+	end
+} bind def
+/sethsbcolor {
+	FrameDict begin
+	FrameSepIs FMnone eq 
+	{ RealSethsbcolor } 
+	{
+		RealSethsbcolor 
+		currentrgbcolor  
+		setrgbcolor 
+	} 
+	ifelse
+	end
+} bind def
+FrameDict begin
+/setcmykcolor where {
+	pop /RealSetcmykcolor /setcmykcolor load def
+} {
+	/RealSetcmykcolor {
+		4 1 roll
+		3 { 3 index add 0 max 1 min 1 exch sub 3 1 roll} repeat 
+		setrgbcolor pop
+	} bind def
+} ifelse
+userdict /setcmykcolor { 
+		FrameDict begin
+		FrameSepIs FMnone eq
+		{ RealSetcmykcolor } 
+		{
+			4 copy [ 5 1 roll ]
+			FrameColorInSepListCMYK
+			{
+				FrameSepBlack eq exch 
+				FrameSepYellow eq and exch 
+				FrameSepMagenta eq and exch 
+				FrameSepCyan eq and 
+				{ 0 } { 1 } ifelse
+			}
+			{
+				FrameSepIs FMblack eq
+				{1.0 exch sub 4 1 roll pop pop pop} {
+				FrameSepIs FMyellow eq
+				{pop 1.0 exch sub 3 1 roll pop pop} {
+				FrameSepIs FMmagenta eq
+				{pop pop 1.0 exch sub exch pop } {
+				FrameSepIs FMcyan eq
+				{pop pop pop 1.0 exch sub } 
+				{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+			} ifelse
+			RealSetgray
+		}
+		ifelse
+		end
+	} bind put
+FMLevel1 not { 
+	
+	/patProcDict 5 dict dup begin
+		<0f1e3c78f0e1c387> { 3 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<0f87c3e1f0783c1e> { 3 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+		<8142241818244281> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke
+											-1 -1 moveto 9 9 lineto stroke } bind def
+		<03060c183060c081> { 1 setlinewidth -1 -1 moveto 9 9 lineto stroke 
+											4 -4 moveto 12 4 lineto stroke
+											-4 4 moveto 4 12 lineto stroke} bind def
+		<8040201008040201> { 1 setlinewidth -1 9 moveto 9 -1 lineto stroke 
+											-4 4 moveto 4 -4 lineto stroke
+											4 12 moveto 12 4 lineto stroke} bind def
+	end def
+	/patDict 15 dict dup begin
+		/PatternType 1 def		
+		/PaintType 2 def		
+		/TilingType 3 def		
+		/BBox [ 0 0 8 8 ] def 	
+		/XStep 8 def			
+		/YStep 8 def			
+		/PaintProc {
+			begin
+			patProcDict bstring known {
+				patProcDict bstring get exec
+			} {
+				8 8 true [1 0 0 -1 0 8] bstring imagemask
+			} ifelse
+			end
+		} bind def
+	end def
+} if
+/combineColor {
+    FrameSepIs FMnone eq
+	{
+		graymode FMLevel1 or not {
+			
+			[/Pattern [/DeviceCMYK]] setcolorspace
+			FrameCurColors 0 4 getinterval aload pop FrameCurPat setcolor
+		} {
+			FrameCurColors 3 get 1.0 ge {
+				FrameCurGray RealSetgray
+			} {
+				FMPColor graymode and {
+					0 1 3 { 
+						FrameCurColors exch get
+						1 FrameCurGray sub mul
+					} for
+					RealSetcmykcolor
+				} {
+					4 1 6 {
+						FrameCurColors exch get
+						graymode {
+							1 exch sub 1 FrameCurGray sub mul 1 exch sub
+						} {
+							1.0 lt {FrameCurGray} {1} ifelse
+						} ifelse
+					} for
+					RealSetrgbcolor
+				} ifelse
+			} ifelse
+		} ifelse
+	} { 
+		FrameCurColors 0 4 getinterval aload
+		FrameColorInSepListCMYK {
+			FrameSepBlack eq exch 
+			FrameSepYellow eq and exch 
+			FrameSepMagenta eq and exch 
+			FrameSepCyan eq and
+			FrameSepIs FMcustom eq and
+			{ FrameCurGray } { 1 } ifelse
+		} {
+			FrameSepIs FMblack eq
+			{FrameCurGray 1.0 exch sub mul 1.0 exch sub 4 1 roll pop pop pop} {
+			FrameSepIs FMyellow eq
+			{pop FrameCurGray 1.0 exch sub mul 1.0 exch sub 3 1 roll pop pop} {
+			FrameSepIs FMmagenta eq
+			{pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub exch pop } {
+			FrameSepIs FMcyan eq
+			{pop pop pop FrameCurGray 1.0 exch sub mul 1.0 exch sub } 
+			{pop pop pop pop 1} ifelse } ifelse } ifelse } ifelse 
+		} ifelse
+		graymode FMLevel1 or not {
+			
+			[/Pattern [/DeviceGray]] setcolorspace
+			FrameCurPat setcolor
+		} { 
+			graymode not FMLevel1 and {
+				
+				dup 1 lt {pop FrameCurGray} if
+			} if
+			RealSetgray
+		} ifelse
+	} ifelse
+} bind def
+/savematrix {
+	orgmatrix currentmatrix pop
+	} bind def
+/restorematrix {
+	orgmatrix setmatrix
+	} bind def
+/dmatrix matrix def
+/dpi    72 0 dmatrix defaultmatrix dtransform
+    dup mul exch   dup mul add   sqrt def
+	
+/freq dpi dup 72 div round dup 0 eq {pop 1} if 8 mul div def
+/sangle 1 0 dmatrix defaultmatrix dtransform exch atan def
+/dpiranges   [  2540    2400    1693     1270    1200     635      600      0      ] def
+/CMLowFreqs  [ 100.402  94.8683 89.2289 100.402  94.8683  66.9349  63.2456 47.4342 ] def
+/YLowFreqs   [  95.25   90.0    84.65    95.25   90.0     70.5556  66.6667 50.0    ] def
+/KLowFreqs   [  89.8026 84.8528 79.8088  89.8026 84.8528  74.8355  70.7107 53.033  ] def
+/CLowAngles  [  71.5651 71.5651 71.5651 71.5651  71.5651  71.5651  71.5651 71.5651 ] def
+/MLowAngles  [  18.4349 18.4349 18.4349 18.4349  18.4349  18.4349  18.4349 18.4349 ] def
+/YLowTDot    [  true    true    false    true    true     false    false   false   ] def
+/CMHighFreqs [ 133.87  126.491 133.843  108.503 102.523  100.402   94.8683 63.2456 ] def
+/YHighFreqs  [ 127.0   120.0   126.975  115.455 109.091   95.25    90.0    60.0    ] def
+/KHighFreqs  [ 119.737 113.137 119.713  128.289 121.218   89.8026  84.8528 63.6395 ] def
+/CHighAngles [  71.5651 71.5651 71.5651  70.0169 70.0169  71.5651  71.5651 71.5651 ] def
+/MHighAngles [  18.4349 18.4349 18.4349  19.9831 19.9831  18.4349  18.4349 18.4349 ] def
+/YHighTDot   [  false   false   true     false   false    true     true    false   ] def
+/PatFreq     [	10.5833 10.0     9.4055  10.5833 10.0	  10.5833  10.0	   9.375   ] def
+/screenIndex {
+	0 1 dpiranges length 1 sub { dup dpiranges exch get 1 sub dpi le {exit} {pop} ifelse } for
+} bind def
+/getCyanScreen {
+	FMUseHighFrequencyScreens { CHighAngles CMHighFreqs} {CLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getMagentaScreen {
+	FMUseHighFrequencyScreens { MHighAngles CMHighFreqs } {MLowAngles CMLowFreqs} ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get /FMSpotFunction load
+} bind def
+/getYellowScreen {
+	FMUseHighFrequencyScreens { YHighTDot YHighFreqs} { YLowTDot YLowFreqs } ifelse
+		screenIndex dup 3 1 roll get 3 1 roll get { 3 div
+			{2 { 1 add 2 div 3 mul dup floor sub 2 mul 1 sub exch} repeat
+			FMSpotFunction } } {/FMSpotFunction load } ifelse
+			0.0 exch
+} bind def
+/getBlackScreen  {
+	FMUseHighFrequencyScreens { KHighFreqs } { KLowFreqs } ifelse
+		screenIndex get 45.0 /FMSpotFunction load 
+} bind def
+/getSpotScreen {
+	getBlackScreen
+} bind def
+/getCompositeScreen {
+	getBlackScreen
+} bind def
+/FMSetScreen 
+	FMLevel1 { /setscreen load 
+	}{ {
+		8 dict begin
+		/HalftoneType 1 def
+		/SpotFunction exch def
+		/Angle exch def
+		/Frequency exch def
+		/AccurateScreens FMUseAcccurateScreens def
+		currentdict end sethalftone
+	} bind } ifelse
+def
+/setDefaultScreen {
+	FMPColor {
+		orgrxfer cvx orggxfer cvx orgbxfer cvx orgxfer cvx setcolortransfer
+	}
+	{
+		orgxfer cvx settransfer
+	} ifelse
+	orgfreq organgle orgproc cvx setscreen
+} bind def
+/setCurrentScreen {
+	FrameSepIs FMnone eq {
+		FMUseDefaultNoSeparationScreen {
+			setDefaultScreen
+		} {
+			getCompositeScreen FMSetScreen
+		} ifelse
+	} {
+		FrameSepIs FMcustom eq {
+			FMUseDefaultSpotSeparationScreen {
+				setDefaultScreen
+			} {
+				getSpotScreen FMSetScreen
+			} ifelse
+		} {
+			FMUseDefaultProcessSeparationScreen {
+				setDefaultScreen
+			} {
+				FrameSepIs FMcyan eq {
+					getCyanScreen FMSetScreen
+				} {
+					FrameSepIs FMmagenta eq {
+						getMagentaScreen FMSetScreen
+					} {
+						FrameSepIs FMyellow eq {
+							getYellowScreen FMSetScreen
+						} {
+							getBlackScreen FMSetScreen
+						} ifelse
+					} ifelse
+				} ifelse
+			} ifelse
+		} ifelse
+	} ifelse 
+} bind def
+end
+	/gstring FMLOCAL
+	/gfile FMLOCAL
+	/gindex FMLOCAL
+	/orgrxfer FMLOCAL
+	/orggxfer FMLOCAL
+	/orgbxfer FMLOCAL
+	/orgxfer FMLOCAL
+	/orgproc FMLOCAL
+	/orgrproc FMLOCAL
+	/orggproc FMLOCAL
+	/orgbproc FMLOCAL
+	/organgle FMLOCAL
+	/orgrangle FMLOCAL
+	/orggangle FMLOCAL
+	/orgbangle FMLOCAL
+	/orgfreq FMLOCAL
+	/orgrfreq FMLOCAL
+	/orggfreq FMLOCAL
+	/orgbfreq FMLOCAL
+	/yscale FMLOCAL
+	/xscale FMLOCAL
+	/edown FMLOCAL
+	/manualfeed FMLOCAL
+	/paperheight FMLOCAL
+	/paperwidth FMLOCAL
+/FMDOCUMENT { 
+	array /FMfonts exch def 
+	/#copies exch def
+	FrameDict begin
+	0 ne /manualfeed exch def
+	/paperheight exch def
+	/paperwidth exch def
+	0 ne /FrameNegative exch def 
+	0 ne /edown exch def 
+	/yscale exch def
+	/xscale exch def
+	FMLevel1 {
+		manualfeed {setmanualfeed} if
+		/FMdicttop countdictstack 1 add def 
+		/FMoptop count def 
+		setpapername 
+		manualfeed {true} {papersize} ifelse 
+		{manualpapersize} {false} ifelse 
+		{desperatepapersize} {false} ifelse 
+		{ (Can't select requested paper size for Frame print job!) FMFAILURE } if
+		count -1 FMoptop {pop pop} for
+		countdictstack -1 FMdicttop {pop end} for 
+		}
+		{{1 dict dup /PageSize [paperwidth paperheight]put setpagedevice}stopped
+		{ (Can't select requested paper size for Frame print job!) FMFAILURE } if
+		 {1 dict dup /ManualFeed manualfeed put setpagedevice } stopped pop }
+	ifelse 
+	
+	FMPColor {
+		currentcolorscreen
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+			cvlit /orgbproc exch def
+				  /orgbangle exch def 
+				  /orgbfreq exch def
+			cvlit /orggproc exch def
+				  /orggangle exch def 
+				  /orggfreq exch def
+			cvlit /orgrproc exch def
+				  /orgrangle exch def 
+				  /orgrfreq exch def
+			currentcolortransfer 
+			FrameNegative {
+				1 1 4 { 
+					pop { 1 exch sub } concatprocs 4 1 roll
+				} for
+				4 copy
+				setcolortransfer
+			} if
+			cvlit /orgxfer exch def
+			cvlit /orgbxfer exch def
+			cvlit /orggxfer exch def
+			cvlit /orgrxfer exch def
+	} {
+		currentscreen 
+			cvlit /orgproc exch def
+				  /organgle exch def 
+				  /orgfreq exch def
+				  
+		currenttransfer 
+		FrameNegative {
+			{ 1 exch sub } concatprocs
+			dup settransfer
+		} if 
+		cvlit /orgxfer exch def
+	} ifelse
+	end 
+} def 
+/pagesave FMLOCAL
+/orgmatrix FMLOCAL
+/landscape FMLOCAL
+/pwid FMLOCAL
+/FMBEGINPAGE { 
+	FrameDict begin 
+	/pagesave save def
+	3.86 setmiterlimit
+	/landscape exch 0 ne def
+	landscape { 
+		90 rotate 0 exch dup /pwid exch def neg translate pop 
+	}{
+		pop /pwid exch def
+	} ifelse
+	edown { [-1 0 0 1 pwid 0] concat } if
+	0 0 moveto paperwidth 0 lineto paperwidth paperheight lineto 
+	0 paperheight lineto 0 0 lineto 1 setgray fill
+	xscale yscale scale
+	/orgmatrix matrix def
+	gsave 
+} def 
+/FMENDPAGE {
+	grestore 
+	pagesave restore
+	end 
+	showpage
+	} def 
+/FMFONTDEFINE { 
+	FrameDict begin
+	findfont 
+	ReEncode 
+	1 index exch 
+	definefont 
+	FMfonts 3 1 roll 
+	put
+	end 
+	} def 
+/FMFILLS {
+	FrameDict begin dup
+	array /fillvals exch def
+	dict /patCache exch def
+	end 
+	} def 
+/FMFILL {
+	FrameDict begin
+	 fillvals 3 1 roll put
+	end 
+	} def 
+/FMNORMALIZEGRAPHICS { 
+	newpath
+	0.0 0.0 moveto
+	1 setlinewidth
+	0 setlinecap
+	0 0 0 sethsbcolor
+	0 setgray 
+	} bind def
+	/fx FMLOCAL
+	/fy FMLOCAL
+	/fh FMLOCAL
+	/fw FMLOCAL
+	/llx FMLOCAL
+	/lly FMLOCAL
+	/urx FMLOCAL
+	/ury FMLOCAL
+/FMBEGINEPSF { 
+	end 
+	/FMEPSF save def 
+	/showpage {} def 
+% See Adobe's "PostScript Language Reference Manual, 2nd Edition", page 714.
+% "...the following operators MUST NOT be used in an EPS file:" (emphasis ours)
+	/banddevice {(banddevice) FMBADEPSF} def
+	/clear {(clear) FMBADEPSF} def
+	/cleardictstack {(cleardictstack) FMBADEPSF} def 
+	/copypage {(copypage) FMBADEPSF} def
+	/erasepage {(erasepage) FMBADEPSF} def
+	/exitserver {(exitserver) FMBADEPSF} def
+	/framedevice {(framedevice) FMBADEPSF} def
+	/grestoreall {(grestoreall) FMBADEPSF} def
+	/initclip {(initclip) FMBADEPSF} def
+	/initgraphics {(initgraphics) FMBADEPSF} def
+	/initmatrix {(initmatrix) FMBADEPSF} def
+	/quit {(quit) FMBADEPSF} def
+	/renderbands {(renderbands) FMBADEPSF} def
+	/setglobal {(setglobal) FMBADEPSF} def
+	/setpagedevice {(setpagedevice) FMBADEPSF} def
+	/setshared {(setshared) FMBADEPSF} def
+	/startjob {(startjob) FMBADEPSF} def
+	/lettertray {(lettertray) FMBADEPSF} def
+	/letter {(letter) FMBADEPSF} def
+	/lettersmall {(lettersmall) FMBADEPSF} def
+	/11x17tray {(11x17tray) FMBADEPSF} def
+	/11x17 {(11x17) FMBADEPSF} def
+	/ledgertray {(ledgertray) FMBADEPSF} def
+	/ledger {(ledger) FMBADEPSF} def
+	/legaltray {(legaltray) FMBADEPSF} def
+	/legal {(legal) FMBADEPSF} def
+	/statementtray {(statementtray) FMBADEPSF} def
+	/statement {(statement) FMBADEPSF} def
+	/executivetray {(executivetray) FMBADEPSF} def
+	/executive {(executive) FMBADEPSF} def
+	/a3tray {(a3tray) FMBADEPSF} def
+	/a3 {(a3) FMBADEPSF} def
+	/a4tray {(a4tray) FMBADEPSF} def
+	/a4 {(a4) FMBADEPSF} def
+	/a4small {(a4small) FMBADEPSF} def
+	/b4tray {(b4tray) FMBADEPSF} def
+	/b4 {(b4) FMBADEPSF} def
+	/b5tray {(b5tray) FMBADEPSF} def
+	/b5 {(b5) FMBADEPSF} def
+	FMNORMALIZEGRAPHICS 
+	[/fy /fx /fh /fw /ury /urx /lly /llx] {exch def} forall 
+	fx fw 2 div add fy fh 2 div add  translate
+	rotate
+	fw 2 div neg fh 2 div neg translate
+	fw urx llx sub div fh ury lly sub div scale 
+	llx neg lly neg translate 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count def 
+	} bind def
+/FMENDEPSF {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMEPSF restore
+	FrameDict begin 
+	} bind def
+FrameDict begin 
+/setmanualfeed {
+%%BeginFeature *ManualFeed True
+	 statusdict /manualfeed true put
+%%EndFeature
+	} bind def
+/max {2 copy lt {exch} if pop} bind def
+/min {2 copy gt {exch} if pop} bind def
+/inch {72 mul} def
+/pagedimen { 
+	paperheight sub abs 16 lt exch 
+	paperwidth sub abs 16 lt and
+	{/papername exch def} {pop} ifelse
+	} bind def
+	/papersizedict FMLOCAL
+/setpapername { 
+	/papersizedict 14 dict def 
+	papersizedict begin
+	/papername /unknown def 
+		/Letter 8.5 inch 11.0 inch pagedimen
+		/LetterSmall 7.68 inch 10.16 inch pagedimen
+		/Tabloid 11.0 inch 17.0 inch pagedimen
+		/Ledger 17.0 inch 11.0 inch pagedimen
+		/Legal 8.5 inch 14.0 inch pagedimen
+		/Statement 5.5 inch 8.5 inch pagedimen
+		/Executive 7.5 inch 10.0 inch pagedimen
+		/A3 11.69 inch 16.5 inch pagedimen
+		/A4 8.26 inch 11.69 inch pagedimen
+		/A4Small 7.47 inch 10.85 inch pagedimen
+		/B4 10.125 inch 14.33 inch pagedimen
+		/B5 7.16 inch 10.125 inch pagedimen
+	end
+	} bind def
+/papersize {
+	papersizedict begin
+		/Letter {lettertray letter} def
+		/LetterSmall {lettertray lettersmall} def
+		/Tabloid {11x17tray 11x17} def
+		/Ledger {ledgertray ledger} def
+		/Legal {legaltray legal} def
+		/Statement {statementtray statement} def
+		/Executive {executivetray executive} def
+		/A3 {a3tray a3} def
+		/A4 {a4tray a4} def
+		/A4Small {a4tray a4small} def
+		/B4 {b4tray b4} def
+		/B5 {b5tray b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	statusdict begin stopped end 
+	} bind def
+/manualpapersize {
+	papersizedict begin
+		/Letter {letter} def
+		/LetterSmall {lettersmall} def
+		/Tabloid {11x17} def
+		/Ledger {ledger} def
+		/Legal {legal} def
+		/Statement {statement} def
+		/Executive {executive} def
+		/A3 {a3} def
+		/A4 {a4} def
+		/A4Small {a4small} def
+		/B4 {b4} def
+		/B5 {b5} def
+		/unknown {unknown} def
+	papersizedict dup papername known {papername} {/unknown} ifelse get
+	end
+	stopped 
+	} bind def
+/desperatepapersize {
+	statusdict /setpageparams known
+		{
+		paperwidth paperheight 0 1 
+		statusdict begin
+		{setpageparams} stopped 
+		end
+		} {true} ifelse 
+	} bind def
+/DiacriticEncoding [
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /space /exclam /quotedbl
+/numbersign /dollar /percent /ampersand /quotesingle /parenleft
+/parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E /F /G /H /I /J /K
+/L /M /N /O /P /Q /R /S /T /U /V /W /X /Y /Z /bracketleft /backslash
+/bracketright /asciicircum /underscore /grave /a /b /c /d /e /f /g /h
+/i /j /k /l /m /n /o /p /q /r /s /t /u /v /w /x /y /z /braceleft /bar
+/braceright /asciitilde /.notdef /Adieresis /Aring /Ccedilla /Eacute
+/Ntilde /Odieresis /Udieresis /aacute /agrave /acircumflex /adieresis
+/atilde /aring /ccedilla /eacute /egrave /ecircumflex /edieresis
+/iacute /igrave /icircumflex /idieresis /ntilde /oacute /ograve
+/ocircumflex /odieresis /otilde /uacute /ugrave /ucircumflex
+/udieresis /dagger /.notdef /cent /sterling /section /bullet
+/paragraph /germandbls /registered /copyright /trademark /acute
+/dieresis /.notdef /AE /Oslash /.notdef /.notdef /.notdef /.notdef
+/yen /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/ordfeminine /ordmasculine /.notdef /ae /oslash /questiondown
+/exclamdown /logicalnot /.notdef /florin /.notdef /.notdef
+/guillemotleft /guillemotright /ellipsis /.notdef /Agrave /Atilde
+/Otilde /OE /oe /endash /emdash /quotedblleft /quotedblright
+/quoteleft /quoteright /.notdef /.notdef /ydieresis /Ydieresis
+/fraction /currency /guilsinglleft /guilsinglright /fi /fl /daggerdbl
+/periodcentered /quotesinglbase /quotedblbase /perthousand
+/Acircumflex /Ecircumflex /Aacute /Edieresis /Egrave /Iacute
+/Icircumflex /Idieresis /Igrave /Oacute /Ocircumflex /.notdef /Ograve
+/Uacute /Ucircumflex /Ugrave /dotlessi /circumflex /tilde /macron
+/breve /dotaccent /ring /cedilla /hungarumlaut /ogonek /caron
+] def
+/ReEncode { 
+	dup 
+	length 
+	dict begin 
+	{
+	1 index /FID ne 
+		{def} 
+		{pop pop} ifelse 
+	} forall 
+	0 eq {/Encoding DiacriticEncoding def} if 
+	currentdict 
+	end 
+	} bind def
+FMPColor 
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPCOLOR} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPCOLORc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUECOLOR } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUECOLORc } def
+	}
+	
+	{
+	/BEGINBITMAPCOLOR { 
+		BITMAPGRAY} def
+	/BEGINBITMAPCOLORc { 
+		BITMAPGRAYc} def
+	/BEGINBITMAPTRUECOLOR { 
+		BITMAPTRUEGRAY } def
+	/BEGINBITMAPTRUECOLORc { 
+		BITMAPTRUEGRAYc } def
+	}
+ifelse
+/K { 
+	FMPrintAllColorsAsBlack {
+		dup 1 eq 2 index 1 eq and 3 index 1 eq and not
+			{7 {pop} repeat 0 0 0 1 0 0 0} if
+	} if 
+	FrameCurColors astore 
+	pop combineColor
+} bind def
+/graymode true def
+	/bwidth FMLOCAL
+	/bpside FMLOCAL
+	/bstring FMLOCAL
+	/onbits FMLOCAL
+	/offbits FMLOCAL
+	/xindex FMLOCAL
+	/yindex FMLOCAL
+	/x FMLOCAL
+	/y FMLOCAL
+/setPatternMode {
+	FMLevel1 {
+		/bwidth  exch def
+		/bpside  exch def
+		/bstring exch def
+		/onbits 0 def  /offbits 0 def
+		freq sangle landscape {90 add} if 
+			{/y exch def
+			 /x exch def
+			 /xindex x 1 add 2 div bpside mul cvi def
+			 /yindex y 1 add 2 div bpside mul cvi def
+			 bstring yindex bwidth mul xindex 8 idiv add get
+			 1 7 xindex 8 mod sub bitshift and 0 ne FrameNegative {not} if
+			 {/onbits  onbits  1 add def 1}
+			 {/offbits offbits 1 add def 0}
+			 ifelse
+			}
+			setscreen
+		offbits offbits onbits add div FrameNegative {1.0 exch sub} if
+		/FrameCurGray exch def
+	} { 
+		pop pop
+		dup patCache exch known {
+			patCache exch get
+		} { 
+			dup
+			patDict /bstring 3 -1 roll put
+			patDict 
+			9 PatFreq screenIndex get div dup matrix scale
+			makepattern
+			dup 
+			patCache 4 -1 roll 3 -1 roll put
+		} ifelse
+		/FrameCurGray 0 def
+		/FrameCurPat exch def
+	} ifelse
+	/graymode false def
+	combineColor
+} bind def
+/setGrayScaleMode {
+	graymode not {
+		/graymode true def
+		FMLevel1 {
+			setCurrentScreen
+		} if
+	} if
+	/FrameCurGray exch def
+	combineColor
+} bind def
+/normalize {
+	transform round exch round exch itransform
+	} bind def
+/dnormalize {
+	dtransform round exch round exch idtransform
+	} bind def
+/lnormalize { 
+	0 dtransform exch cvi 2 idiv 2 mul 1 add exch idtransform pop
+	} bind def
+/H { 
+	lnormalize setlinewidth
+	} bind def
+/Z {
+	setlinecap
+	} bind def
+	
+/PFill {
+	graymode FMLevel1 or not {
+		gsave 1 setgray eofill grestore
+	} if
+} bind def
+/PStroke {
+	graymode FMLevel1 or not {
+		gsave 1 setgray stroke grestore
+	} if
+	stroke
+} bind def
+	/fillvals FMLOCAL
+/X { 
+	fillvals exch get
+	dup type /stringtype eq
+	{8 1 setPatternMode} 
+	{setGrayScaleMode}
+	ifelse
+	} bind def
+/V { 
+	PFill gsave eofill grestore
+	} bind def
+/Vclip {
+	clip
+	} bind def
+/Vstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/N { 
+	PStroke
+	} bind def
+/Nclip {
+	strokepath clip newpath
+	} bind def
+/Nstrk {
+	currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/M {newpath moveto} bind def
+/E {lineto} bind def
+/D {curveto} bind def
+/O {closepath} bind def
+	/n FMLOCAL
+/L { 
+ 	/n exch def
+	newpath
+	normalize
+	moveto 
+	2 1 n {pop normalize lineto} for
+	} bind def
+/Y { 
+	L 
+	closepath
+	} bind def
+	/x1 FMLOCAL
+	/x2 FMLOCAL
+	/y1 FMLOCAL
+	/y2 FMLOCAL
+/R { 
+	/y2 exch def
+	/x2 exch def
+	/y1 exch def
+	/x1 exch def
+	x1 y1
+	x2 y1
+	x2 y2
+	x1 y2
+	4 Y 
+	} bind def
+	/rad FMLOCAL
+/rarc 
+	{rad 
+	 arcto
+	} bind def
+/RR { 
+	/rad exch def
+	normalize
+	/y2 exch def
+	/x2 exch def
+	normalize
+	/y1 exch def
+	/x1 exch def
+	mark
+	newpath
+	{
+	x1 y1 rad add moveto
+	x1 y2 x2 y2 rarc
+	x2 y2 x2 y1 rarc
+	x2 y1 x1 y1 rarc
+	x1 y1 x1 y2 rarc
+	closepath
+	} stopped {x1 y1 x2 y2 R} if 
+	cleartomark
+	} bind def
+/RRR { 
+	/rad exch def
+	normalize /y4 exch def /x4 exch def
+	normalize /y3 exch def /x3 exch def
+	normalize /y2 exch def /x2 exch def
+	normalize /y1 exch def /x1 exch def
+	newpath
+	normalize moveto 
+	mark
+	{
+	x2 y2 x3 y3 rarc
+	x3 y3 x4 y4 rarc
+	x4 y4 x1 y1 rarc
+	x1 y1 x2 y2 rarc
+	closepath
+	} stopped
+	 {x1 y1 x2 y2 x3 y3 x4 y4 newpath moveto lineto lineto lineto closepath} if
+	cleartomark
+	} bind def
+/C { 
+	grestore
+	gsave
+	R 
+	clip
+	setCurrentScreen
+} bind def
+/CP { 
+	grestore
+	gsave
+	Y 
+	clip
+	setCurrentScreen
+} bind def
+	/FMpointsize FMLOCAL
+/F { 
+	FMfonts exch get
+	FMpointsize scalefont
+	setfont
+	} bind def
+/Q { 
+	/FMpointsize exch def
+	F 
+	} bind def
+/T { 
+	moveto show
+	} bind def
+/RF { 
+	rotate
+	0 ne {-1 1 scale} if
+	} bind def
+/TF { 
+	gsave
+	moveto 
+	RF
+	show
+	grestore
+	} bind def
+/P { 
+	moveto
+	0 32 3 2 roll widthshow
+	} bind def
+/PF { 
+	gsave
+	moveto 
+	RF
+	0 32 3 2 roll widthshow
+	grestore
+	} bind def
+/S { 
+	moveto
+	0 exch ashow
+	} bind def
+/SF { 
+	gsave
+	moveto
+	RF
+	0 exch ashow
+	grestore
+	} bind def
+/B { 
+	moveto
+	0 32 4 2 roll 0 exch awidthshow
+	} bind def
+/BF { 
+	gsave
+	moveto
+	RF
+	0 32 4 2 roll 0 exch awidthshow
+	grestore
+	} bind def
+/G { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	PFill fill
+	grestore
+	} bind def
+/Gstrk {
+	savematrix
+    newpath
+    2 index 2 div add exch 3 index 2 div sub exch 
+    normalize 2 index 2 div sub exch 3 index 2 div add exch 
+    translate
+    scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+    } bind def
+/Gclip { 
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	clip newpath
+	restorematrix
+	} bind def
+/GG { 
+	gsave
+	newpath
+	normalize translate 0.0 0.0 moveto 
+	rotate 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath
+	PFill
+	fill
+	grestore
+	} bind def
+/GGclip { 
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	clip newpath
+	restorematrix
+	} bind def
+/GGstrk { 
+	savematrix
+    newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath 
+	restorematrix
+    currentlinewidth exch setlinewidth PStroke setlinewidth
+	} bind def
+/A { 
+	gsave
+	savematrix
+	newpath
+	2 index 2 div add exch 3 index 2 div sub exch 
+	normalize 2 index 2 div sub exch 3 index 2 div add exch 
+	translate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/Aclip {
+	newpath
+	savematrix
+	normalize translate 0.0 0.0 moveto 
+	dnormalize scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	closepath 
+	strokepath clip newpath
+	restorematrix
+} bind def
+/Astrk {
+	Gstrk
+} bind def
+/AA { 
+	gsave
+	savematrix
+	newpath
+	
+	3 index 2 div add exch 4 index 2 div sub exch 
+	
+	normalize 3 index 2 div sub exch 4 index 2 div add exch
+	translate 
+	rotate 
+	scale 
+	0.0 0.0 1.0 5 3 roll arc 
+	restorematrix
+	PStroke
+	grestore
+	} bind def
+/AAclip {
+	savematrix
+	newpath
+    normalize translate 0.0 0.0 moveto 
+    rotate 
+    dnormalize scale 
+    0.0 0.0 1.0 5 3 roll arc 
+    closepath
+	strokepath clip newpath
+	restorematrix
+} bind def
+/AAstrk {
+	GGstrk
+} bind def
+	/x FMLOCAL
+	/y FMLOCAL
+	/w FMLOCAL
+	/h FMLOCAL
+	/xx FMLOCAL
+	/yy FMLOCAL
+	/ww FMLOCAL
+	/hh FMLOCAL
+	/FMsaveobject FMLOCAL
+	/FMoptop FMLOCAL
+	/FMdicttop FMLOCAL
+/BEGINPRINTCODE { 
+	/FMdicttop countdictstack 1 add def 
+	/FMoptop count 7 sub def 
+	/FMsaveobject save def
+	userdict begin 
+	/showpage {} def 
+	FMNORMALIZEGRAPHICS 
+	3 index neg 3 index neg translate
+	} bind def
+/ENDPRINTCODE {
+	count -1 FMoptop {pop pop} for 
+	countdictstack -1 FMdicttop {pop end} for 
+	FMsaveobject restore 
+	} bind def
+/gn { 
+	0 
+	{	46 mul 
+		cf read pop 
+		32 sub 
+		dup 46 lt {exit} if 
+		46 sub add 
+		} loop
+	add 
+	} bind def
+	/str FMLOCAL
+/cfs { 
+	/str sl string def 
+	0 1 sl 1 sub {str exch val put} for 
+	str def 
+	} bind def
+/ic [ 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0223
+	0
+	{0 hx} {1 hx} {2 hx} {3 hx} {4 hx} {5 hx} {6 hx} {7 hx} {8 hx} {9 hx}
+	{10 hx} {11 hx} {12 hx} {13 hx} {14 hx} {15 hx} {16 hx} {17 hx} {18 hx}
+	{19 hx} {gn hx} {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}
+	{13} {14} {15} {16} {17} {18} {19} {gn} {0 wh} {1 wh} {2 wh} {3 wh}
+	{4 wh} {5 wh} {6 wh} {7 wh} {8 wh} {9 wh} {10 wh} {11 wh} {12 wh}
+	{13 wh} {14 wh} {gn wh} {0 bl} {1 bl} {2 bl} {3 bl} {4 bl} {5 bl} {6 bl}
+	{7 bl} {8 bl} {9 bl} {10 bl} {11 bl} {12 bl} {13 bl} {14 bl} {gn bl}
+	{0 fl} {1 fl} {2 fl} {3 fl} {4 fl} {5 fl} {6 fl} {7 fl} {8 fl} {9 fl}
+	{10 fl} {11 fl} {12 fl} {13 fl} {14 fl} {gn fl}
+	] def
+	/sl FMLOCAL
+	/val FMLOCAL
+	/ws FMLOCAL
+	/im FMLOCAL
+	/bs FMLOCAL
+	/cs FMLOCAL
+	/len FMLOCAL
+	/pos FMLOCAL
+/ms { 
+	/sl exch def 
+	/val 255 def 
+	/ws cfs 
+	/im cfs 
+	/val 0 def 
+	/bs cfs 
+	/cs cfs 
+	} bind def
+400 ms 
+/ip { 
+	is 
+	0 
+	cf cs readline pop 
+	{	ic exch get exec 
+		add 
+		} forall 
+	pop 
+	
+	} bind def
+/rip { 
+	   
+	  
+	  bis ris copy pop 
+      is
+      0
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop 
+	  ris gis copy pop 
+	  dup is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+	  pop pop
+	  gis bis copy pop 
+	  dup add is exch 
+	  
+      cf cs readline pop 
+      {       ic exch get exec 
+              add 
+              } forall 
+      pop 
+      
+      } bind def
+/wh { 
+	/len exch def 
+	/pos exch def 
+	ws 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/bl { 
+	/len exch def 
+	/pos exch def 
+	bs 0 len getinterval im pos len getinterval copy pop
+	pos len 
+	} bind def
+/s1 1 string def
+/fl { 
+	/len exch def 
+	/pos exch def 
+	/val cf s1 readhexstring pop 0 get def
+	pos 1 pos len add 1 sub {im exch val put} for
+	pos len 
+	} bind def
+/hx { 
+	3 copy getinterval 
+	cf exch readhexstring pop pop 
+	} bind def
+	/h FMLOCAL
+	/w FMLOCAL
+	/d FMLOCAL
+	/lb FMLOCAL
+	/bitmapsave FMLOCAL
+	/is FMLOCAL
+	/cf FMLOCAL
+/wbytes { 
+      dup dup
+      24 eq { pop pop 3 mul }
+      { 8 eq {pop} {1 eq {7 add 8 idiv} {3 add 4 idiv} ifelse} ifelse } ifelse
+	} bind def
+/BEGINBITMAPBWc { 
+	1 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAPGRAYc { 
+	8 {} COMMONBITMAPc
+	} bind def
+/BEGINBITMAP2BITc { 
+	2 {} COMMONBITMAPc
+	} bind def
+/COMMONBITMAPc { 
+		 
+	/r exch def
+	/d exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/lb w d wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	r                    
+	/is im 0 lb getinterval def 
+	ws 0 lb getinterval is copy pop 
+	/cf currentfile def 
+	w h d [w 0 0 h neg 0 h] 
+	{ip} image 
+	bitmapsave restore 
+	grestore
+	} bind def
+/BEGINBITMAPBW { 
+	1 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAPGRAY { 
+	8 {} COMMONBITMAP
+	} bind def
+/BEGINBITMAP2BIT { 
+	2 {} COMMONBITMAP
+	} bind def
+/COMMONBITMAP { 
+	/r exch def
+	/d exch def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/bitmapsave save def 
+	r                    
+	/is w d wbytes string def
+	/cf currentfile def 
+	w h d [w 0 0 h neg 0 h] 
+	{cf is readhexstring pop} image
+	bitmapsave restore 
+	grestore
+	} bind def
+/ngrayt 256 array def
+/nredt 256 array def
+/nbluet 256 array def
+/ngreent 256 array def
+	/gryt FMLOCAL
+	/blut FMLOCAL
+	/grnt FMLOCAL
+	/redt FMLOCAL
+	/indx FMLOCAL
+	/cynu FMLOCAL
+	/magu FMLOCAL
+	/yelu FMLOCAL
+	/k FMLOCAL
+	/u FMLOCAL
+FMLevel1 {
+/colorsetup {
+	currentcolortransfer
+	/gryt exch def
+	/blut exch def
+	/grnt exch def
+	/redt exch def
+	0 1 255 {
+		/indx exch def
+		/cynu 1 red indx get 255 div sub def
+		/magu 1 green indx get 255 div sub def
+		/yelu 1 blue indx get 255 div sub def
+		/k cynu magu min yelu min def
+		/u k currentundercolorremoval exec def
+%		/u 0 def
+		nredt indx 1 0 cynu u sub max sub redt exec put
+		ngreent indx 1 0 magu u sub max sub grnt exec put
+		nbluet indx 1 0 yelu u sub max sub blut exec put
+		ngrayt indx 1 k currentblackgeneration exec sub gryt exec put
+	} for
+	{255 mul cvi nredt exch get}
+	{255 mul cvi ngreent exch get}
+	{255 mul cvi nbluet exch get}
+	{255 mul cvi ngrayt exch get}
+	setcolortransfer
+	{pop 0} setundercolorremoval
+	{} setblackgeneration
+	} bind def
+}
+{
+/colorSetup2 {
+	[ /Indexed /DeviceRGB 255 
+		{dup red exch get 255 div 
+		 exch dup green exch get 255 div 
+		 exch blue exch get 255 div}
+	] setcolorspace
+} bind def
+} ifelse
+	/tran FMLOCAL
+/fakecolorsetup {
+	/tran 256 string def
+	0 1 255 {/indx exch def 
+		tran indx
+		red indx get 77 mul
+		green indx get 151 mul
+		blue indx get 28 mul
+		add add 256 idiv put} for
+	currenttransfer
+	{255 mul cvi tran exch get 255.0 div}
+	exch concatprocs settransfer
+} bind def
+/BITMAPCOLOR { 
+	/d 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/bitmapsave save def
+	FMLevel1 {	
+		colorsetup
+		/is w d wbytes string def
+		/cf currentfile def 
+		w h d [w 0 0 h neg 0 h] 
+		{cf is readhexstring pop} {is} {is} true 3 colorimage 
+	} {
+		colorSetup2
+		/is w d wbytes string def
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width w def
+			/Height h def
+			/ImageMatrix [w 0 0 h neg 0 h] def
+			/DataSource {cf is readhexstring pop} bind def
+			/BitsPerComponent d def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPCOLORc { 
+	/d 8 def
+	gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/lb w d wbytes def 
+	sl lb lt {lb ms} if 
+	/bitmapsave save def 
+	FMLevel1 {	
+		colorsetup
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		w h d [w 0 0 h neg 0 h] 
+		{ip} {is} {is} true 3 colorimage
+	} {
+		colorSetup2
+		/is im 0 lb getinterval def 
+		ws 0 lb getinterval is copy pop 
+		/cf currentfile def 
+		7 dict dup begin
+			/ImageType 1 def
+			/Width w def
+			/Height h def
+			/ImageMatrix [w 0 0 h neg 0 h] def
+			/DataSource {ip} bind def
+			/BitsPerComponent d def
+			/Decode [0 255] def
+		end image	
+	} ifelse
+	bitmapsave restore 
+	grestore
+	} bind def
+/BITMAPTRUECOLORc { 
+	/d 24 def
+        gsave
+ 	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/lb w d wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 w getinterval def	
+	/gis im w w getinterval def	
+	/bis im w 2 mul w getinterval def 
+        
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        {w rip pop ris} {gis} {bis} true 3 colorimage
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUECOLOR { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/h exch def /w exch def
+        /bitmapsave save def 
+        /is w string def
+        /gis w string def
+        /bis w string def
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        { cf is readhexstring pop } 
+        { cf gis readhexstring pop } 
+        { cf bis readhexstring pop } 
+        true 3 colorimage 
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPTRUEGRAYc { 
+	/d 24 def
+        gsave
+	
+	3 index 2 div add exch	
+	4 index 2 div add exch	
+	translate		
+	rotate			
+	1 index 2 div neg	
+	1 index 2 div neg	
+	translate		
+	scale			
+	/h exch def /w exch def
+	/lb w d wbytes def 
+	sl lb lt {lb ms} if 
+        /bitmapsave save def 
+        
+	/is im 0 lb getinterval def	
+	/ris im 0 w getinterval def	
+	/gis im w w getinterval def	
+	/bis im w 2 mul w getinterval def 
+        ws 0 lb getinterval is copy pop 
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        {w rip pop ris gis bis w gray} image
+        bitmapsave restore 
+        grestore
+        } bind def
+/ww FMLOCAL
+/r FMLOCAL
+/g FMLOCAL
+/b FMLOCAL
+/i FMLOCAL
+/gray { 
+        /ww exch def
+        /b exch def
+        /g exch def
+        /r exch def
+        0 1 ww 1 sub { /i exch def r i get .299 mul g i get .587 mul
+			b i get .114 mul add add r i 3 -1 roll floor cvi put } for
+        r
+        } bind def
+/BITMAPTRUEGRAY { 
+        gsave
+		
+		3 index 2 div add exch	
+		4 index 2 div add exch	
+		translate		
+		rotate			
+		1 index 2 div neg	
+		1 index 2 div neg	
+		translate		
+		scale			
+		/h exch def /w exch def
+        /bitmapsave save def 
+        /is w string def
+        /gis w string def
+        /bis w string def
+        /cf currentfile def 
+        w h 8 [w 0 0 h neg 0 h] 
+        { cf is readhexstring pop 
+          cf gis readhexstring pop 
+          cf bis readhexstring pop w gray}  image
+        bitmapsave restore 
+        grestore
+        } bind def
+/BITMAPGRAY { 
+	8 {fakecolorsetup} COMMONBITMAP
+	} bind def
+/BITMAPGRAYc { 
+	8 {fakecolorsetup} COMMONBITMAPc
+	} bind def
+/ENDBITMAP {
+	} bind def
+end 
+	/ALDsave FMLOCAL
+	/ALDmatrix matrix def ALDmatrix currentmatrix pop
+/StartALD {
+	/ALDsave save def
+	 savematrix
+	 ALDmatrix setmatrix
+	} bind def
+/InALD {
+	 restorematrix
+	} bind def
+/DoneALD {
+	 ALDsave restore
+	} bind def
+/I { setdash } bind def
+/J { [] 0 setdash } bind def
+%%EndProlog
+%%BeginSetup
+(4.0) FMVERSION
+1 1 0 0 612 792 0 1 10 FMDOCUMENT
+0 0 /Times-Bold FMFONTDEFINE
+1 0 /Times-Roman FMFONTDEFINE
+2 0 /Helvetica-Bold FMFONTDEFINE
+3 0 /Helvetica-BoldOblique FMFONTDEFINE
+4 0 /Helvetica FMFONTDEFINE
+32 FMFILLS
+0 0 FMFILL
+1 0.1 FMFILL
+2 0.3 FMFILL
+3 0.5 FMFILL
+4 0.7 FMFILL
+5 0.9 FMFILL
+6 0.97 FMFILL
+7 1 FMFILL
+8 <0f1e3c78f0e1c387> FMFILL
+9 <0f87c3e1f0783c1e> FMFILL
+10 <cccccccccccccccc> FMFILL
+11 <ffff0000ffff0000> FMFILL
+12 <8142241818244281> FMFILL
+13 <03060c183060c081> FMFILL
+14 <8040201008040201> FMFILL
+16 1 FMFILL
+17 0.9 FMFILL
+18 0.7 FMFILL
+19 0.5 FMFILL
+20 0.3 FMFILL
+21 0.1 FMFILL
+22 0.03 FMFILL
+23 0 FMFILL
+24 <f0e1c3870f1e3c78> FMFILL
+25 <f0783c1e0f87c3e1> FMFILL
+26 <3333333333333333> FMFILL
+27 <0000ffff0000ffff> FMFILL
+28 <7ebddbe7e7dbbd7e> FMFILL
+29 <fcf9f3e7cf9f3f7e> FMFILL
+30 <7fbfdfeff7fbfdfe> FMFILL
+%%EndSetup
+%%Page: "1" 1
+%%BeginPaperSize: Letter
+%%EndPaperSize
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+J
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(1) 543 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+2 14 Q
+0 X
+(Preface: Potential Usage & Users of Ranked List Query) 72 710.67 T
+1 11 Q
+(The Type 102 Ranked List Query \050RLQ\051 was originally intended as a natural language query. Because of the) 72 688.67 T
+-0.14 (vast number of natural language searching methodologies being used today it would be virtually impossible to) 72 675.67 P
+(design a query type that adequately services all of them. Instead, the Type 102 RLQ has been specifically) 72 662.67 T
+(designed to accommodate the ranked searching technologies used by the majority of large-scale commercial) 72 649.67 T
+(information providers and information industry software vendors. This includes 80-90% of the mainstream) 72 636.67 T
+(commercial ranked searching technologies including those used by organizations such as:) 72 623.67 T
+(\245) 72 604.67 T
+(Chemical Abstracts Service) 90 604.67 T
+(\245) 72 585.67 T
+(Clearinghouse for Networked Information Discovery & Retrieval\050CNIDR\051) 90 585.67 T
+(\245) 72 566.67 T
+(Excalibur Technologies Corp.) 90 566.67 T
+(\245) 72 547.67 T
+(Knight-Ridder Information Services) 90 547.67 T
+(\245) 72 528.67 T
+1 8.8 Q
+(LEXIS) 90 528.67 T
+1 11 Q
+(-) 114.93 528.67 T
+1 8.8 Q
+(NEXIS) 118.59 528.67 T
+1 11 Q
+(\245) 72 509.67 T
+(National Institute of Health \050National Library of Medicine\051) 90 509.67 T
+(\245) 72 490.67 T
+(West Publishing Company) 90 490.67 T
+-0.28 (These organizations have actively participated in the Advanced Search sub-group of the Z39.50 Implementor's) 72 471.67 P
+(Group and expressed the usefulness of the Type 102 RLQ to their organizations.) 72 458.67 T
+(All of the ranked searching methodologies used by mainstream relevance ranking search systems share a) 72 439.67 T
+-0.48 (number of common aspects. The following common aspects have been generalized and used as the basis for the) 72 426.67 P
+(Type 102 RLQ definition:) 72 413.67 T
+(1.    Results Ranking: Ranking of search results based on various relevancy criteria and ranking functions is) 72 394.67 T
+-0.29 (fundamental to all relevance ranking search technologies. The Type 102 RLQ supports mechanisms which) 90 381.67 P
+(allow the client/origin to provide a server/target with all of the query information it needs to perform it's) 90 368.67 T
+(particular ranking function.) 90 355.67 T
+-0.58 (2.    User/client hints about the importance of individual query components: The Type 102 RLQ provides a wide) 72 336.67 P
+-0.07 (range of methods for the client to indicate which components of the query are most significant to the user.) 90 323.67 P
+(This includes: the weighting of terms and operators, a variety of ranking operators, query reformulation) 90 310.67 T
+(options, etc.) 90 297.67 T
+-0.45 (3.    Relevance Feedback: The Type 102 RLQ supports this industry standard mechanism which allows the user/) 72 278.67 P
+(client to 'seed' the server's search process by indicating records which are either precisely on-point or are) 90 265.67 T
+(totally off-the-mark depending upon the user's information 'need'.) 90 252.67 T
+(4.    Restriction of the search scope: The Type 102 RLQ definition provides the ability to restrict the set of) 72 233.67 T
+-0.79 (records which are eligible for input to the ranked search process based on various criteria, including Boolean) 90 220.67 P
+-0.36 (search restrictions. This mechanism, which is a particularly useful in the case of large source collections, is) 90 207.67 P
+-0.12 (used in most ranked search environments to provide a concrete, deterministic way of limiting the input set.) 90 194.67 P
+-0.05 (5.    Query Reformulation: The Type 102 RLQ allows the user/client to specify that they would like the server) 72 175.67 P
+(to expand the elements of the query based on their need for additional precision or recall. The client can) 90 162.67 T
+-0.43 (specify a general need for query expansion, or can denote explicit dimensions in which to expand the query) 90 149.67 P
+(\050such as thesaural or morphological expansions\051. The client may then ask the server to return the) 90 136.67 T
+-0.75 (reformulated query so that the user can inspect it and make any necessary modifications before it is executed) 90 123.67 P
+(\050or reformulated again\051. This provides a mechanism by which query generation is an iterative process) 90 110.67 T
+(complete with server recommendations.) 90 97.67 T
+563.98 563 564.48 612 R
+V
+563.98 506 564.48 536 R
+V
+563.98 436 564.48 466 R
+V
+563.98 378 564.48 389 R
+V
+563.98 262 564.48 273 R
+V
+563.98 217 564.48 228 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "1" 1
+%%Page: "2" 2
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 747 540 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(Type 102 Ranked List Query Preliminary Specification) 155.66 766 T
+54.5 738 540.5 738 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(2) 54.67 38.33 T
+54 54 540 54 2 L
+N
+54.5 734.58 540.5 734.58 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 72 540 720 R
+7 X
+V
+1 11 Q
+0 X
+(6.    Precision vs. Recall control: Many ranking mechanisms allow the user to determine whether precision or) 54 712.67 T
+(recall is more important. The Type 102 RLQ includes a mechanism by which the client can instruct the) 72 699.67 T
+(server to perform the search in such a way as to enhance either precision or recall.) 72 686.67 T
+(The combination of these tools and mechanisms is aimed at producing a robust, extensible, and widely useful) 54 667.67 T
+-0.76 (ranked query specification protocol. As stated above, it is applicable to a broad range of commercial information) 54 654.67 P
+(suppliers and vendors which serve customers across a number of different industries.) 54 641.67 T
+2 14 Q
+(1.0) 54 606.67 T
+(Ranked List Query Background & Introduction) 108 606.67 T
+1 11 Q
+-0.14 (In the current universe of information search & retrieval users & service providers, there is a wide) 108 586.67 P
+(diversity of different search techniques & methodologies. These range from simple document) 108 573.67 T
+(scanning tools such as those found in word processors, to Boolean search systems allowing a fine) 108 560.67 T
+-0.67 (grain of user control, to various different forms of relevancy-based systems, to full natural language) 108 547.67 P
+-0.52 (processing, modal logic, LSI, & connectionist search systems. Across this spectrum there are many) 108 534.67 P
+-0.15 (variations in query syntax, & in the degree of control given to the user/client over the exactness of) 108 521.67 P
+-0.32 (the interpretation of search terms, as well as over the precision & comprehensiveness of the results) 108 508.67 P
+(selected from the target collection\050s\051.) 108 495.67 T
+(In the interest of simplicity & clarity, the universe of this paper has been narrowed down to those) 108 476.67 T
+(search methodologies which support relevancy ranking of results. This ranking is based on the) 108 463.67 T
+-0.83 (evaluation of selected records \050restricted by specification of one or more collections and, optionally,) 108 450.67 P
+(an RPN query which resolves to a set of result records\051 & their ability to satisfy criteria specified) 108 437.67 T
+(by the components of a Type 102 Ranked List Query \050RLQ\051. Further, we have restricted the) 108 424.67 T
+(problem space to be addressed by the Ranked List Query to those methodologies which apply the) 108 411.67 T
+(query expressions to each record in a collection, & select relevant records independently of any) 108 398.67 T
+(prior ranking/scoring of those records in the overall collection\050s\051 being searched.) 108 385.67 T
+-0.57 (Once this evaluation has been made, it is further expected that each relevant record will be assigned) 108 366.67 P
+(an absolute \324score\325 \050rank\051, & that these scores will be returned \050or made accessible\051 to the client) 108 353.67 T
+(which initiated the search. For the Type 102 query, the results of record ranking will be) 108 340.67 T
+(communicated by way of an RSV \050Retrieval Status Value\051 for each record in the Result Set \050see) 108 327.67 T
+(discussion of model in Section 3 for further detail\051.) 108 314.67 T
+(The currently defined Type 1 Query is designed to be versatile enough to handle a wide range of) 108 295.67 T
+-0.33 (information searching requirements, including structured pairwise combinations of terms to which) 108 282.67 P
+-0.74 (Boolean operators are applied, & explicit attributes to specify the search indexes to which each term) 108 269.67 P
+(is to apply. The usefulness of Type 1 has also been extended to support free-form text queries by) 108 256.67 T
+(adding a new structure attribute, & to support ranked results using metadata tags associated with) 108 243.67 T
+(the records in the result set.) 108 230.67 T
+-0.73 (Nevertheless, Type 1 has some limitations which would be quite difficult to overcome \050as described) 108 211.67 P
+(in the comparison below\051. The Type 102 Ranked List Query was designed to overcome these) 108 198.67 T
+-0.61 (limitations, while maintaining stability in the Type 1 query, & providing a test bed for experimental) 108 185.67 P
+(applications built using the new query type as a foundation.) 108 172.67 T
+-0.51 (Query Type 102 is designed to be a generalized Ranked List query syntax which will handle a wide) 108 153.67 P
+(range of relevancy-based searching needs.) 108 140.67 T
+47.52 492 48.02 503 R
+V
+47.52 434 48.02 458 R
+V
+47.52 363 48.02 406 R
+V
+47.52 324 48.02 348 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "2" 2
+%%Page: "3" 3
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(3) 543 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+2 14 Q
+0 X
+(2.0) 72 710.67 T
+(Key Differences between Type 1 & Type 102 Queries) 126 710.67 T
+1 11 Q
+(The Type 102 Ranked List Query \050RLQ\051 differs from Query Type 1 in the following key areas:) 126 690.67 T
+(\245) 126 671.67 T
+(Whereas Type 1 supports only pairwise combinations of operands \050specified by Operators\051,) 144 671.67 T
+(Type 102 supports combinations of multiple operands \050greater than 2 & up to some specified) 144 658.67 T
+(limit\051) 144 645.67 T
+(\245) 126 626.67 T
+-0.2 (Results obtained from applying the Type 102 query against one or more record collections are) 144 626.67 P
+(\324ranked\325 according to their ability to satisfy the criteria specified in the RLQ;) 144 613.67 T
+(\245) 126 594.67 T
+(Type 102 supports relevancy-based operators \050such as rqAND, rqOR, rqIndep, and) 144 594.67 T
+(rqHeadRelation\051; Type 1 supports only operators which have explicit \050concrete\051 semantic) 144 581.67 T
+(interpretations \050e.g, \322AND\323, \322OR\323\051) 144 568.67 T
+(\245) 126 549.67 T
+-0.79 (Type 102 conforms to the standard Boolean-based attribute structure defined by Type 1, & even) 144 549.67 P
+-0.1 (re-uses one of the Bib-1 attribute types \050Relation\051. It also defines several new Attribute Types) 144 536.67 P
+(\050Location in Record, Semantic Class, Content Authority, & Content Format\051.) 144 523.67 T
+(\245) 126 504.67 T
+(Type 102 provides the capability to specify relevancy-based limits within the ranked query) 144 504.67 T
+-0.27 (itself, which restrict the query results by a fixed number \050e.g, the top 20 ranked results\051 or by a) 144 491.67 P
+(relevancy score threshold \050an absolute score - RSV - such as in WAIS\051) 144 478.67 T
+(\245) 126 459.67 T
+(Parameters specified in the ClientServerInfo structure of the Type 102 query are used to) 144 459.67 T
+-0.65 (describe the preferences for how the Origin/client would like the RLQ search server to interpret) 144 446.67 P
+(the query.) 144 433.67 T
+2 14 Q
+(3.0) 72 398.67 T
+(Ranked List Query Model & Description) 126 398.67 T
+2 12 Q
+(3.1) 126 364 T
+(High-Level RLQ Model) 180 364 T
+1 11 Q
+(At the highest level, a Type 102 query can be viewed as being a need statement \050or a) 180 344.67 T
+(set of need statements plus a combinator\051 specifying a user information need, with a) 180 331.67 T
+(description of what the desired results are.) 180 318.67 T
+(These need statements are composed of three major parts:) 180 299.67 T
+(1.) 180 280.67 T
+(A restriction set \050component\051, giving a description of which records should be) 198 280.67 T
+(considered.) 198 267.67 T
+(2.) 180 248.67 T
+-0.34 (Information about what records are known to be helpful or not helpful to this need) 198 248.67 P
+(\050relevance feedback\051) 198 235.67 T
+(3.) 180 216.67 T
+-0.27 (A structured Ranked Query \050RQ\051 giving terms and their relationship to each other.) 198 216.67 P
+(Note that all of this is a description of information need; it is not instructions to the) 180 197.67 T
+(server to perform specific search operations.) 180 184.67 T
+563.98 623 564.48 634 R
+V
+563.98 578 564.48 602 R
+V
+563.98 501 564.48 531 R
+V
+563.98 443 564.48 467 R
+V
+563.98 277 564.48 288 R
+V
+563.98 245 564.48 256 R
+V
+563.98 213 564.48 224 R
+V
+563.98 163 564.48 192 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "3" 3
+%%Page: "4" 4
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 747 540 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(Type 102 Ranked List Query Preliminary Specification) 155.66 766 T
+54.5 738 540.5 738 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(4) 54.67 38.33 T
+54 54 540 54 2 L
+N
+54.5 734.58 540.5 734.58 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 72 540 720 R
+7 X
+V
+2 12 Q
+0 X
+(3.2) 108 712 T
+(Query Structure & Processing) 162 712 T
+1 11 Q
+(The Type 102 structured query is a recursively defined structure of operators and) 162 692.67 T
+(weighted operands, with the operators giving the relationship between the operands.) 162 679.67 T
+(The query contains parameters specifying how the restriction and query components) 162 666.67 T
+(are to be interpreted and how the result set is to be organized. These parameters are) 162 653.67 T
+(specified as part of the ASN.1 query definition in Appendix A.) 162 640.67 T
+-0.3 (As a point of terminology, two different terms are used to reference query contructs in) 162 621.67 P
+-0.02 (this document, and it is important to understand the differences between the two. The) 162 608.67 P
+-0.19 (first term, Type 102 \050sometimes referred to as the Ranked List Query or RLQ\051 is used) 162 595.67 P
+(to refer to the top-level query structure, which is the total composite query contained) 162 582.67 T
+(within the query parameter of the Z39.50 Search request. The Type 102 query may) 162 569.67 T
+-0.3 (contain a number of optional parameters, but is required to contain a list \050sequence\051 of) 162 556.67 P
+(Need Statements.) 162 543.67 T
+(Within each Need Statement, there may be Restrictions, Relevance Feedback data, a) 162 524.67 T
+-0.74 (relative weight for the Need Statement, and a Ranked Query \050RQ\051. The RQ is the actual) 162 511.67 P
+(query to be evaluated against the specified collection\050s\051. It contains a \050potentially\051) 162 498.67 T
+-0.81 (recursive series of weighted operands and operators, plus a set of parameters specifying) 162 485.67 P
+(reformulation options and advice.) 162 472.67 T
+-0.5 (Each of the need statements submitted by the client optionally goes through an explicit) 162 453.67 P
+(query reformulation process by the server. The server applies all the information it) 162 440.67 T
+-0.6 (knows about the databases, the query terms, general linguistics, relevance information,) 162 427.67 P
+-0.67 (thesaurii, and so on, to arrive at a reformulated query that, in the server's opinion, better) 162 414.67 P
+(describes the user's information need in the context of each of these databases. If the) 162 401.67 T
+(client has so requested, processing can stop here with the reformulated query being) 162 388.67 T
+(shipped back to the client for further modification by client and user.) 162 375.67 T
+-0.35 (So in general terms, a client submits a query, and the server changes it and returns it to) 162 356.67 P
+-0.05 (the client. The client \050in cooperation with the user\051 modifies it and sends it back to be) 162 343.67 P
+(run exactly \050or submits it for further reformulation\051. The server is free to do what it) 162 330.67 T
+-0.66 (wants in the interpretation process; if either the client or the user disagree with what the) 162 317.67 P
+(end result is, then they can further modify the query.) 162 304.67 T
+-0.38 (In general, the user/client does not have as much control over the processing of a Type) 162 285.67 P
+(102 query as they would using a Type 1 query. One of the chief reasons for using) 162 272.67 T
+-0.57 (Relevancy Ranked searching is to take advantage of advanced query interpretation and) 162 259.67 P
+-0.21 (reformulation processing which can only be performed by the search server, due to its) 162 246.67 P
+(intimate knowledge of the collections it is searching, the vocabularies native to those) 162 233.67 T
+(collections, & the most effective expansions of the query terms as related to the) 162 220.67 T
+(precision & comprehensiveness of the desired search results. Thus, when Type 102) 162 207.67 T
+(queries are reformulated by the server, it is less likely that the user/client will be able) 162 194.67 T
+(to understand the whys & wherefores of the various modifications made to the query.) 162 181.67 T
+47.52 450 48.02 629 R
+V
+47.52 398 48.02 435 R
+V
+47.52 327 48.02 383 R
+V
+47.52 282 48.02 312 R
+V
+47.52 243 48.02 267 R
+V
+47.52 160 48.02 170 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "4" 4
+%%Page: "5" 5
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(5) 543 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+1 11 Q
+0 X
+-0.35 (Conceptually, the \050possibly reformulated\051 query is applied to each record that satisfies) 180 712.67 P
+-0.15 (the restriction expression to produce an indication of how well the record matches the) 180 699.67 P
+(ranked query. For probabilistic models, this indication will generally be a probability) 180 686.67 T
+(or some function based on a probability. For vector space models this indication will) 180 673.67 T
+-0.5 (be some function based on a distance between the record and the query. Other retrieval) 180 660.67 P
+(models may use other measures. This indicator is called a Retrieval Status Value) 180 647.67 T
+-0.64 (\050RSV\051. By convention, the RSV for the Ranked List Query must be a value in the range) 180 634.67 P
+(0..1 \050by using the IntUnit data type, whole integer values are specified along with a) 180 621.67 T
+(scale factor to form the RSV\051.) 180 608.67 T
+-0.14 (The result of evaluating a query against a set of collections is a set of records together) 180 589.67 P
+-0.38 (with Retrieval Status Values. The desired size of the result set is defined by the ranked) 180 576.67 P
+-0.8 (query parameters. The result set will generally be ordered by decreasing RSV, but other) 180 563.67 P
+(orderings \050e.g., date\051 can be requested using the Z39.50 Sort service. A ranked query) 180 550.67 T
+(result set can be manipulated and presented in the same manner as a Boolean Type 1) 180 537.67 T
+(result set.) 180 524.67 T
+(Note: One important subclass of query is the single operand query, where the term) 180 505.67 T
+(consists of a natural language statement.) 180 492.67 T
+2 12 Q
+(3.3) 126 459 T
+(Options to control Processing & Reformulation of RLQ) 180 459 T
+1 11 Q
+-0.25 (A number of options are specified at the top level of the Type 102 query to control the) 180 439.67 P
+(processing & interpretation of the query, as well as the types of information returned) 180 426.67 T
+(in the search response & follow-up Present responses against the generated result set.) 180 413.67 T
+3 F
+(3.3.1    Search Output Request) 180 380.67 T
+1 F
+(This set of options specifies what information is to be accumulated by the) 216 361.67 T
+(server & possibly retrieved via a subsequent Z39.50 Present.) 216 348.67 T
+284.44 328.47 216 328.47 2 L
+V
+0.54 H
+0 Z
+N
+(returnResultSet) 216 329.67 T
+-0.51 (This option instructs the server to perform the search & build a result set \050if set) 216 310.67 P
+(to \324no\325, the search is not executed & only the reformulated query & other) 216 297.67 T
+(metadata is returned\051.) 216 284.67 T
+330.25 264.47 216 264.47 2 L
+V
+N
+(returnReformulatedQuery) 216 265.67 T
+-0.01 (This option indicates that the query that actually operated on the records is to) 216 246.67 P
+(be returned \050following reformulation\051. The reformulated query will include a) 216 233.67 T
+(sequence of [tagType, tagValue] pairs indicating the presence & meaning of) 216 220.67 T
+(partial RSV\325s, query operand descriptions, & the various elements of) 216 207.67 T
+(collection, set, record, & term metadata.) 216 194.67 T
+245.33 174.47 216 174.47 2 L
+V
+N
+(mData) 216 175.67 T
+(This is a sequence of [tagType, tagValue] pairs which specify the types of) 216 156.67 T
+(metadata to be accumulated by the server, & returned, either in the) 216 143.67 T
+(additionalSearchInfo field of the search response, or as metadata records) 216 130.67 T
+(\050using record syntax RQRS\051 in Present responses. The details of this) 216 117.67 T
+(specification have not been worked out as yet, but they will be added to this) 216 104.67 T
+(document when they are finalized.) 216 91.67 T
+563.98 696 564.48 720 R
+V
+563.98 657 564.48 668 R
+V
+563.98 586 564.48 629 R
+V
+563.98 88 564.48 500 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "5" 5
+%%Page: "6" 6
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 747 540 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(Type 102 Ranked List Query Preliminary Specification) 155.66 766 T
+54.5 738 540.5 738 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(6) 54.67 38.33 T
+54 54 540 54 2 L
+N
+54.5 734.58 540.5 734.58 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 72 540 720 R
+7 X
+V
+3 11 Q
+0 X
+(3.3.2    Client->Server Info) 162 712.67 T
+1 F
+(A parameter structure \050ClientServerInfo\051 may be attached at either the query) 198 693.67 T
+(or the operand level. The parameters contained within the ClientServerInfo) 198 680.67 T
+(structure give advice to the server about how a particular query is to be) 198 667.67 T
+(interpreted, evaluated, & optionally, reformulated.) 198 654.67 T
+257.87 634.47 198 634.47 2 L
+V
+0.54 H
+0 Z
+N
+(reformClause) 198 635.67 T
+(When specified at the query level, the reformClause parameter allows the) 198 616.67 T
+(client to specify whether or not the server is allowed to reformulate the) 198 603.67 T
+(submitted query. Reformulation at the query level applies to expansion &) 198 590.67 T
+-0.72 (modification of all terms \050operands\051, operators, relevance feedback, & weights) 198 577.67 P
+(across the entire query.) 198 564.67 T
+-0.26 (When the reformClause parameter is specified at the operand level, of course,) 198 545.67 P
+(its scope is limited to changes to the terms & attributes of the associated) 198 532.67 T
+(operand only.) 198 519.67 T
+(An optional reformMethod EXTERNAL structure provides for a private) 198 500.67 T
+-0.57 (structure to define explicit dimensions in which the operands within the record) 198 487.67 P
+(may be expanded \050e.g, morphological, thesaural, etc.\051.) 198 474.67 T
+272.52 454.47 198 454.47 2 L
+V
+N
+(recallImportance) 198 455.67 T
+(RecallImportance \050also optional\051 specifies a setting between 0 and 1 of how) 198 436.67 T
+-0.49 (important every useful doc is. E.g., if 1, the server may try to add many related) 198 423.67 P
+-0.56 (terms to the query, at a cost of precision. RecallImportance is only useful if the) 198 410.67 P
+(reformClause option is set.) 198 397.67 T
+258.49 377.47 198 377.47 2 L
+V
+N
+(resultSetDesc) 198 378.67 T
+-0.66 (ClientServerInfo may also include a resultSetDesc structure, containing one or) 198 359.67 P
+-0.08 (more criteria to be used in filtering or truncating the Ranked Query result set.) 198 346.67 P
+(The two limiting criteria defined at this time are: numRecordsWanted &) 198 333.67 T
+(rsvThresholdValue.) 198 320.67 T
+(NumRecordsWanted specifies that only the top \324n\325 relevant records are to be) 198 301.67 T
+-0.37 (preserved in the final result set. It is up to the discretion of the search server as) 198 288.67 P
+-0.5 (to whether it will always return this number of results, or whether it will return) 198 275.67 P
+-0.25 (only the number of results which meet certain relevancy criteria, up to but not) 198 262.67 P
+(exceeding \050and potentially less than\051 this limit.) 198 249.67 T
+-0.65 (RsvThresholdValue specifies that only records with an RSV score greater than) 198 230.67 P
+-0.03 (or equal to the specified value are to placed in the result set. The actual result) 198 217.67 P
+(set may contain fewer records than requested \050not all records exceeding) 198 204.67 T
+(rsvThresholdValue - with the actual number indicated by the resultCount) 198 191.67 T
+(parameter in the Search response\051 but may not contain more records.) 198 178.67 T
+47.52 137 48.02 720 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "6" 6
+%%Page: "7" 7
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(7) 543 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+2 12 Q
+0 X
+(3.4) 126 712 T
+(Restriction Component of RLQ) 180 712 T
+1 11 Q
+(As stated in earlier sections, a Type 102 query may comsist of a number of subquery) 180 692.67 T
+(expressions \050called Need Statements\051, each of which may contain:) 180 679.67 T
+(\245) 180 660.67 T
+(a Ranked Query \050RQ\051 expression;) 198 660.67 T
+(\245) 180 641.67 T
+(a Restriction expression;) 198 641.67 T
+(\245) 180 622.67 T
+(other Need Statement evaluation parameters.) 198 622.67 T
+-0.08 (Conceptually, the restriction expression defines the collection over which the Ranked) 180 603.67 P
+(Query is evaluated. No record that does not satisfy the restriction expression may) 180 590.67 T
+(appear in the set of candidate records input to the Ranked Query associated with this) 180 577.67 T
+(Need Statement. This specification says nothing about the order of evaluation) 180 564.67 T
+(supported by any particular implementation.) 180 551.67 T
+(A Restriction expression consists of two components \050both of which are optional\051:) 180 532.67 T
+(1.) 180 513.67 T
+(a list of database names, all of which are to interpreted identically in one of the) 198 513.67 T
+(following ways:) 198 500.67 T
+(a.) 216 481.67 T
+(restrict the results of this Need Statement to exactly the databases listed) 234 481.67 T
+-0.16 (here \050a subset of those specified at the search request level or included by) 234 468.67 P
+(them in the case of group database names\051; or) 234 455.67 T
+(b.) 216 436.67 T
+-0.15 (restrict the results of this Need Statement to the databases specified at the) 234 436.67 P
+(search request level) 234 423.67 T
+0 F
+(minus) 323.5 423.67 T
+1 F
+( those listed here; or) 352.23 423.67 T
+(2.) 180 404.67 T
+(a standard RPN Type 1 query, allowing, among other possibilities, the use of) 198 404.67 T
+-0.16 (existing result sets, docIds, and Boolean operators to effect a further restriction of) 198 391.67 P
+(the set of records specified by this Need Statement as eligible for searching.) 198 378.67 T
+2 12 Q
+(3.5) 126 345 T
+(Structured Operands & Attributes) 180 345 T
+1 11 Q
+(Operands may be structured in the Type 102 query, allowing a number of different) 180 325.67 T
+-0.12 (parameters & attributes to be attached to each operand. One useful parameter that can) 180 312.67 P
+(be attached to an operand is a weight, which specifies the value to be placed on the) 180 299.67 T
+(operand with respect to its importance in selecting records from the designated) 180 286.67 T
+(collection\050s\051. The value of the weight is specified in IntUnit\325s, but for the Type 102) 180 273.67 T
+-0.59 (query the base range has been set between 0..1 \050requiring the use of a scale factor in the) 180 260.67 P
+(IntUnit data type to allow encoding of integer valued weights\051.) 180 247.67 T
+3 F
+(3.5.1    Proximity Qualifier) 180 214.67 T
+1 F
+(An optional Proximity qualifier \050RQProximity\051 may be specified within a) 216 195.67 T
+-0.8 (structured operand. The Proximity qualifier is used to indicate that all operands) 216 182.67 P
+(in this subtree must be satisfied \050i.e, have non-zero partial RSV\051 within the) 216 169.67 T
+-0.41 (same proximity unit. The \324Proximity Operator\325 structure is borrowed from the) 216 156.67 P
+(Type 1 query in order to encode the proximity unit \050either a public or private) 216 143.67 T
+(type\051, the ordering, & the distance \050in proximity units\051. Proximity is not) 216 130.67 T
+(specified as an operator in the Type 102 query because it would require two) 216 117.67 T
+(operators to specify a ranking operator in combination with proximity.) 216 104.67 T
+563.98 341 564.48 700 R
+V
+563.98 283 564.48 320 R
+V
+563.98 179 564.48 268 R
+V
+563.98 153 564.48 164 R
+V
+563.98 82 564.48 138 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "7" 7
+%%Page: "8" 8
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 747 540 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(Type 102 Ranked List Query Preliminary Specification) 155.66 766 T
+54.5 738 540.5 738 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(8) 54.67 38.33 T
+54 54 540 54 2 L
+N
+54.5 734.58 540.5 734.58 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 72 540 720 R
+7 X
+V
+1 11 Q
+0 X
+-0.46 (In Type 102, Proximity Unit specifies the scope of the Proximity definition, &) 198 712.67 P
+(Distance indicates how far away from each other the satisfaction of the) 198 699.67 T
+-0.01 (operands can be: 0 indicates within the same unit, 1 indicates within adjacent) 198 686.67 P
+(units, etc. Note that RQProximity is a binding operator, with some of the) 198 673.67 T
+-0.58 (properties of a Boolean AND. For instance, a Proximity Unit of the same word) 198 660.67 P
+(requires that that same word must match each of the operands of the subtree.) 198 647.67 T
+(The value of the Proximity qualifier \050RQProximity\051 itself is specified in a) 198 628.67 T
+(range between 0..1 \050as an IntUnit scaled by some factor, such as 100\051. An) 198 615.67 T
+-0.7 (RQProximity value of \3240\325 indicates that the Proximity qualifier is to be ignored) 198 602.67 P
+(in this expression, whereas a value of \3241\325 indicates that Proximity is very) 198 589.67 T
+(important & should be honored by the search engine to the greatest extent) 198 576.67 T
+(possible \050i.e, a \3241\325 is not required to be treated as mandatory, and may not be) 198 563.67 T
+(treated as such by some search systems\051.) 198 550.67 T
+3 F
+(3.5.2    Client->Server Information) 162 517.67 T
+1 F
+-0.16 (ClientServerInfo \050at the operand level\051 contains the same set of parameters as) 198 498.67 P
+(clientServerInfo at the Type 102 query level. In the same way as the query-) 198 485.67 T
+-0.35 (level structure, these parameters give reformulation advice \050or suggestions\051 to) 198 472.67 P
+(the server; however, they apply only to reformulation of the associated) 198 459.67 T
+(operand, not to the entire query.) 198 446.67 T
+(As a general rule, most RLQ-capable servers will attempt to perform) 198 427.67 T
+(expansion \050reformulation\051 of the operands in the query \050i.e, will attempt to) 198 414.67 T
+(enhance each term with lexical, morphological, phonetic, semantic, & other) 198 401.67 T
+(equivalents\051. In some cases, however, the client may want to specify that) 198 388.67 T
+(certain operands are either to be reformulated in a specific way, or are not to) 198 375.67 T
+(be reformulated at all.) 198 362.67 T
+-0.43 (The reformClause parameter is a simple boolean choice specifying whether or) 198 343.67 P
+(not reformulation is \324allowed\325. The recallImportance parameter allows for) 198 330.67 T
+(specification of a value \050on a 0..1 scale\051, which indicates the relative) 198 317.67 T
+-0.13 (importance of the recall of results \050a higher value would encourage the server) 198 304.67 P
+-0.76 (to expand the operand to a higher degree to obtain a greater recall\051 versus result) 198 291.67 P
+(precision \050highest relevancy is based on the most literal match with the) 198 278.67 T
+(specified operand\051. An optional reformMethod EXTERNAL provides for) 198 265.67 T
+(specification of a reformulation method, used to indicate explicit dimensions) 198 252.67 T
+-0.55 (in which this operand may be expanded \050e.g, morphological, thesaural, etc.\051 or) 198 239.67 P
+-0.26 (a well-known \050and well-understood\051 industry methodology for expansion and) 198 226.67 P
+(reformulation of the query \050e.g, ??\051.) 198 213.67 T
+-0.66 (ClientServerInfo may also include a resultSetDesc structure, containing one or) 198 194.67 P
+-0.08 (more criteria to be used in filtering or truncating the Ranked Query result set.) 198 181.67 P
+(The two limiting criteria defined at this time are: numRecordsWanted &) 198 168.67 T
+(rsvThresholdValue. NumRecordsWanted specifies that only the top \324n\325) 198 155.67 T
+-0.04 (relevant records \050based on satisfying clauses\051 are to be included in the results) 198 142.67 P
+(when this clause is evaluated. RsvThresholdValue specifies that only records) 198 129.67 T
+-0.24 (with an RSV score greater than or equal to the specified value are to placed in) 198 116.67 P
+(the results obtained from evaluation of the clause.) 198 103.67 T
+47.52 709 48.02 720 R
+V
+47.52 657 48.02 694 R
+V
+47.52 625 48.02 636 R
+V
+47.52 547 48.02 610 R
+V
+47.52 482 48.02 493 R
+V
+47.52 327 48.02 351 R
+V
+47.52 210 48.02 286 R
+V
+47.52 100 48.02 150 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "8" 8
+%%Page: "9" 9
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(9) 543 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+3 11 Q
+0 X
+(3.5.3    Type 102 Attributes) 180 712.67 T
+1 F
+(Similarly to a Type 1 query, the operands in a Type 102 query may have) 216 693.67 T
+(attributes associated with them. Type 102 has defined a new attribute set) 216 680.67 T
+(\050RLQ-1\051, which currently specifies four new attribute types, & re-uses one) 216 667.67 T
+(attribute type \050Relation\051 from the Bib-1 attribute set.) 216 654.67 T
+448.48 634.47 216 634.47 2 L
+V
+0.54 H
+0 Z
+N
+(The following attribute types are defined for RLQ-1:) 216 635.67 T
+(1.) 216 616.67 T
+(Location in record \050locationInRecord\051. This attribute type is used to) 234 616.67 T
+(convey information about the portion of the record within which the) 234 603.67 T
+(operand is to be evaluated. This attribute can be used to specify fields) 234 590.67 T
+-0.01 (within records \050e.g., evaluate operand in the Title field\051 or generic record) 234 577.67 P
+(components.) 234 564.67 T
+(2.) 216 545.67 T
+(Semantic class of operand \050semanticClass\051. This attribute type is used to) 234 545.67 T
+-0.49 (convey information about the intended semantics of the operand \050e.g., this) 234 532.67 P
+(operand represents a corporate, geographic, or personal name, a date, a) 234 519.67 T
+(monetary figure, etc.\051. The target may be able to use semantic class to) 234 506.67 T
+-0.42 (improve query reformulation or alter the ranking function to be used \050e.g.,) 234 493.67 P
+(don't apply verb or adjective expansion to a name\051.) 234 480.67 T
+(3.) 216 461.67 T
+(Content authority for operand \050contentAuthority\051. This attribute type is) 234 461.67 T
+(used to specify the range of legal values that an operand may take \050when) 234 448.67 T
+(the range of values is known\051. The range of values is specified through) 234 435.67 T
+(reference to a standard authority \050e.g., \322NISO Z39.53-1994 -- Codes for) 234 422.67 T
+(Representation of Languages\323\051, a private but widely known authority) 234 409.67 T
+(\050e.g., \322Dow Jones Industry Codes\323\051, or a list of values that is subject to) 234 396.67 T
+(private agreement.) 234 383.67 T
+(4.) 216 364.67 T
+(Encoding used for operand \050contentFormat\051. This attribute type specifies) 234 364.67 T
+-0.16 (the syntax used to encode the operand \050e.g., operand encoded using name) 234 351.67 P
+(normalization rule set X or chemical structure format Y, or operand is a) 234 338.67 T
+-0.32 (regular expression type Z\051. This attribute is used when the structure of the) 234 325.67 P
+-0.52 (operand is known but the range of values is not fixed. This attribute can be) 234 312.67 P
+(used in combination with contentAuthority \050e.g, contentAuthority =) 234 299.67 T
+(Z39.53, contentFormat = fre - content language is modern French\051.) 234 286.67 T
+(5.) 216 267.67 T
+(Relation. This attribute type is equivalent to the Bib-1 relation attribute,) 234 267.67 T
+(but the range of legal values is restricted to values 1 through 6 \050less than,) 234 254.67 T
+(less than or equal, equal, greater than or equal, greater than, & not equal\051.) 234 241.67 T
+(As stated above, the Type 102 query explicitly defines a small set of integer) 216 222.67 T
+(values for each of the valid RLQ-1 attribute types, & also defines how those) 216 209.67 T
+(attribute values are to be used in combination, & what behavior is expected) 216 196.67 T
+(when each combination is used.) 216 183.67 T
+-0.46 (By using a combination of several attributes from the RLQ-1 attribute set \050e.g,) 216 164.67 P
+(Location, Semantic Class, Authority, Format\051, multiple dimensions can be) 216 151.67 T
+(communicated with more precision & less ambiguity. By combining sets of) 216 138.67 T
+(these attributes with the use of the ASN.1-encoded data type of the term, the) 216 125.67 T
+-0.4 (client & server can more easily agree on the meaning & interpretation of these) 216 112.67 P
+-0.52 (attributes, while requiring the use of a smaller quantity of total attribute values.) 216 99.67 P
+563.98 651 564.48 662 R
+V
+563.98 600 564.48 624 R
+V
+563.98 561 564.48 585 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "9" 9
+%%Page: "10" 10
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 747 540 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(Type 102 Ranked List Query Preliminary Specification) 155.66 766 T
+54.5 738 540.5 738 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(10) 54.67 38.33 T
+54 54 540 54 2 L
+N
+54.5 734.58 540.5 734.58 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 72 540 720 R
+7 X
+V
+1 11 Q
+0 X
+(The use of any one of the attribute types is optional for any specific operand,) 198 712.67 T
+(so that, for instance, LocationInRecord could be used in combination with) 198 699.67 T
+-0.54 (Semantic Class, or one or the other could be used alone or in combination with) 198 686.67 P
+(attributes in the other three type categories.) 198 673.67 T
+(Since only a small set of \050integer coded\051 values will be defined for RLQ-1) 198 654.67 T
+-0.63 (attributes, an extensibility mechanism is needed to add new values, which may) 198 641.67 P
+(only be supported by a subset of clients & servers. The Attribute Element) 198 628.67 T
+-0.12 (structure of Z39.50 V3 allows a client to specify Type 102 attributes as either) 198 615.67 P
+-0.83 (numeric \050pre-defined\051, or string \050dynamic\051 values. The string value can be used) 198 602.67 P
+(by Type 102 to provide the needed attribute extensibility.) 198 589.67 T
+2 12 Q
+(3.6) 108 556 T
+(Structured Operators) 162 556 T
+1 11 Q
+-0.49 (A number of new operators are defined for use with the Type 102 RL Query, including) 162 536.67 P
+(various ranking operators and an \324operand relationship\325 operator. The ranking) 162 523.67 T
+-0.81 (operators are to be used across two or more operands to specify that the particular group) 162 510.67 P
+(of operands are to be relevancy ranked \050using a particular methodology\051 in order to) 162 497.67 T
+(formulate this branch of the result set tree. The ranking of these operands is) 162 484.67 T
+(independent of the mechanisms used to formulate the branches underneath each) 162 471.67 T
+(operand.) 162 458.67 T
+(A number of ranking operators can be used to combine operands \050which may in turn) 162 439.67 T
+(be the results of nested operators\051. The currently defined ranking operators \050rqIndep,) 162 426.67 T
+-0.19 (rqAND, rqOR, rqANDNOT, & rqHeadRelation\051 are described in Sections 3.6.1-3.6.5.) 162 413.67 P
+3 F
+(3.6.1    rqIndep Operator) 162 380.67 T
+1 F
+(The rqIndep operator is used to indicate that the target operands are to be) 198 361.67 T
+(treated independently of each other. Increasing a particular operand\325s weight) 198 348.67 T
+(will guarantee that the weight for the entire clause will not decrease.) 198 335.67 T
+3 F
+(3.6.2    rqAND Operator) 162 302.67 T
+1 F
+(The rqAND operator allows a client to specify a ranked AND which can) 198 283.67 T
+-0.42 (recommend varying degrees to which its associated operands are desired to be) 198 270.67 P
+(present. The server may ignore the integer value, but if it does not, then the) 198 257.67 T
+(value of rqAND is a number between \3240\325 and \3241\325 giving the degree to which) 198 244.67 T
+-0.58 (satisfaction of all operands should be emphasized. A value of \3241\325 indicates that) 198 231.67 P
+-0.25 (all operands must be satisfied \050i.e., all operands must have non-zero weight in) 198 218.67 P
+-0.79 (order for the clause weight to be non-zero.\051. NOTE: Depending on the Ranking) 198 205.67 P
+(methodology used by the target server, a value of \3241\325 does not necessarily) 198 192.67 T
+(cause this operator to behave exactly like a Boolean AND.) 198 179.67 T
+47.52 696 48.02 707 R
+V
+47.52 670 48.02 681 R
+V
+47.52 410 48.02 421 R
+V
+47.52 228 48.02 252 R
+V
+47.52 120 48.02 213 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "10" 10
+%%Page: "11" 11
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(11) 538 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+3 11 Q
+0 X
+(3.6.3    rqOR Operator) 180 712.67 T
+1 F
+(This rqOR \050server-dependent\051 operator allows a client to emphasize the) 216 693.67 T
+-0.08 (presence of a single operand to varying degrees. A clause weight will be zero) 216 680.67 P
+-0.43 (iff all operands are zero. The server may ignore the integer value, but if it does) 216 667.67 P
+-0.01 (not, then the value of rqOR is a number between 0 and 1 giving the degree to) 216 654.67 P
+(which satisfaction of an operand is to be considered equivalent to the) 216 641.67 T
+-0.03 (satisfaction of the other operands. A value of 1 indicates that all operands are) 216 628.67 P
+(equivalent.) 216 615.67 T
+3 F
+(3.6.4    rqANDNOT Operator) 180 582.67 T
+1 F
+(The rqANDNOT \050server-dependent\051 operator emphasizes, but does not) 216 563.67 T
+-0.53 (require, the presence of the first operand and the absence of all other operands.) 216 550.67 P
+(The server may ignore the integer value, but if it does not, then the value of) 216 537.67 T
+(rqANDNOT is a number between 0 and 1 giving the degree to which) 216 524.67 T
+(satisfaction and non-satisfaction \050zero-valued\051 of the operands should be) 216 511.67 T
+(emphasized. A value of 1 indicates that the first operand must be satisfied) 216 498.67 T
+-0.08 (\050non-zero weight\051 and the second operand must have zero weight in order for) 216 485.67 P
+(the clause weight to be non-zero.) 216 472.67 T
+3 F
+(3.6.5    rqHeadRelation Operator) 180 439.67 T
+1 F
+-0.73 (The rqHeadRelation operator allows the specification of relationships between) 216 420.67 P
+-0.1 (operands in a Ranked Query. When the rqHeadRelation operator is specified,) 216 407.67 P
+-0.55 (the value of rqHeadRelation designates how the first operand is related to each) 216 394.67 P
+(of the other operands under this operator node. Operand weights \050between 0) 216 381.67 T
+(and 1, scaled\051 are used to describe the strength of the relationship.) 216 368.67 T
+(Values currently envisioned are: synonym, antonym, ISA, homonym,) 216 349.67 T
+(homophone, thesauri classes, etc. By associating a root term with all of its) 216 336.67 T
+(related terms, the server can then take advantage of this knowledge in its) 216 323.67 T
+(ranking algorithms to provide more accurate term weightings and resultant) 216 310.67 T
+(record scorings, if it has the capability to do so.) 216 297.67 T
+(The rqHeadRelation operator requires a value \050or structure\051 to specify the) 216 278.67 T
+(desired relationship. One example of this would be a \324semantic distance\325) 216 265.67 T
+(attribute, which would allow the client to specify degrees of relatedness) 216 252.67 T
+(between/among terms.) 216 239.67 T
+563.98 404 564.48 415 R
+V
+563.98 218 564.48 228 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "11" 11
+%%Page: "12" 12
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 747 540 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(Type 102 Ranked List Query Preliminary Specification) 155.66 766 T
+54.5 738 540.5 738 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(12) 54.67 38.33 T
+54 54 540 54 2 L
+N
+54.5 734.58 540.5 734.58 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 72 540 720 R
+7 X
+V
+2 12 Q
+0 X
+(3.7) 108 712 T
+(Relevance Feedback Information) 162 712 T
+1 11 Q
+(The Type 102 query includes the ability to allow the client/user to specify Relevance) 162 692.67 T
+(Feedback information \050FeedbackInfo\051 within an initial Type 102 query sent to the) 162 679.67 T
+-0.4 (server, or as part of a resubmission of a reformulated Type 102 query. FeedbackInfo is) 162 666.67 P
+-0.13 (a parameter structure attached \050optionally\051 to each Need Statement within a Type 102) 162 653.67 P
+(query.) 162 640.67 T
+-0.39 (It allows the user/client to specify a list of records \050or record extracts or text segments\051) 162 621.67 P
+(to be used by the server in finding records with either similar or dissimilar relevance) 162 608.67 T
+(characteristics. A signed IntUnit value \050\324relevance\325\051 in the range from [-1..0..1]) 162 595.67 T
+(\050combined with a scale factor\051 is specified by the client to indicate the degree of) 162 582.67 T
+(desirability [0...1] or undesirability [-1...0] to assign to each specified Relevance) 162 569.67 T
+(Feedback item in the list.) 162 556.67 T
+(If a Relevance Feedback item references a record, it is specified as an \324opaque\325) 162 537.67 T
+(DocumentID, which was most likely obtained from a record previously received in a) 162 524.67 T
+-0.42 (result set from the target Ranked Query server. The second choice for a Feedback item) 162 511.67 P
+-0.39 (is a block of text, which could be extracted from a previously retrieved record, or from) 162 498.67 P
+-0.32 (any other relevant document. The final choice for a Feedback item is an EXTERNAL,) 162 485.67 P
+(which could be used to carry non-textual relevance info \050e.g, chemical structures,) 162 472.67 T
+-0.75 (image fragments\051, or record fragment identifiers \050such as \324start opaque record fragment) 162 459.67 P
+(ID\325 and \324end opaque record fragment ID\325\051, encoded based on a private scheme.) 162 446.67 T
+(The conceptual model for the Relevance Feedback process is that the target will use) 162 427.67 T
+(this information along with other user/client input, to reformulate the query and) 162 414.67 T
+(retrieve a new set. The target will return the reformulated query \050if requested\051, along) 162 401.67 T
+(with information about what terms were added, what re-weighting was done, etc.) 162 388.67 T
+(If the client then chooses to resubmit the reformulated query \050either with or without) 162 369.67 T
+-0.61 (additional client modifications\051, it sends it to the server as if it were a new query. When) 162 356.67 P
+(it resubmits the query, the client again has the choice of requesting whether or not to) 162 343.67 T
+(reformulate the query, & also whether or not the query is to be submitted for search) 162 330.67 T
+(processing following any further reformulation.) 162 317.67 T
+2 12 Q
+(3.8) 108 284 T
+(Query Type 102 Result Demographic Data) 162 284 T
+1 11 Q
+(As part of a Type 102 RLQ search, the client may want to obtain search result) 162 264.67 T
+-0.12 (demographics data pertaining to the collection, result set, record w/in the result set, &) 162 251.67 P
+(the query terms as they relate to \324hits\325 within the result set. Collection level metadata) 162 238.67 T
+(can be returned in an additionalSearchInfo structure in the search response. All other) 162 225.67 T
+(levels of metadata, however, may only be retrieved using standard Z39.50 Present) 162 212.67 T
+(requests.) 162 199.67 T
+-0.19 (The lists below are intended to capture the possible data elements \050all optional\051 which) 162 180.67 P
+-0.39 (may be returned for subsequent use by a client or a user, or both. The detail definitions) 162 167.67 P
+(of these elements & their respective data types have not yet been finalized.) 162 154.67 T
+(Conceptually, however, the requesting client specifies what metadata elements it) 162 141.67 T
+(desires the server to maintain & return in relation to the search.) 162 128.67 T
+47.52 424 48.02 700 R
+V
+47.52 398 48.02 409 R
+V
+47.52 280 48.02 351 R
+V
+47.52 107 48.02 259 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "12" 12
+%%Page: "13" 13
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(13) 538 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+1 11 Q
+0 X
+(The metadata desired is specified in the SearchOutputRequest structure of the Type) 180 712.67 T
+-0.07 (102 query. The key options which may be specified are: perform the search & build a) 180 699.67 P
+(result set \050if set to \324no\325, the search is not executed & only the reformulated query and/) 180 686.67 T
+-0.15 (or other metadata is returned; return the reformulated query \050yes or no\051; & a sequence) 180 673.67 P
+-0.78 (of [tagType, tagValue] fields indicating the presence and meaning of sub-query RSV\325s,) 180 660.67 P
+(query annotations, & the various elements of collection, set, record, & term metadata.) 180 647.67 T
+-0.56 (The following elements of collection-level metadata are eligible to be returned in a pre-) 180 628.67 P
+(defined structure within the additionalSearchInfo parameter of the search response:) 180 615.67 T
+(\245) 180 596.67 T
+(Number of records in collection \050numRcdsInColl\051) 198 596.67 T
+(\245) 180 577.67 T
+-0.14 (Number of unique terms in collection \050numUniqueTermsInColl\051. NOTE: must be) 198 577.67 P
+(profiled to either include or exclude stop/noise words.) 198 564.67 T
+(\245) 180 545.67 T
+(Total number of term occurrences in the collection \050numTotalTermsInColl\051) 198 545.67 T
+(\245) 180 526.67 T
+(Total number of records in the collection in which each query term appears) 198 526.67 T
+(\050numRcdsByQueryTerm - structure consisting of a list of [term,#] pairs\051) 198 513.67 T
+(\245) 180 494.67 T
+(Total number of occurrences of each query term in the collection) 198 494.67 T
+(\050numTotalOccByQueryTerm - structure consisting of a list of [term,#] pairs\051) 198 481.67 T
+(The following result set level elements can be retrieved by the Origin by issuing a) 180 462.67 T
+(special Present request against the RLQ result set:) 180 449.67 T
+(\245) 180 430.67 T
+-0.63 (Number of records in set \050numRcdsInSet - based on RSV, size, & count thresholds\051) 198 430.67 P
+(\245) 180 411.67 T
+(Total number of query term occurrences in result set \050numQueryTermsInSet\051) 198 411.67 T
+(\245) 180 392.67 T
+-0.34 (Number of times each query term occurs in result set \050numSetOccByQueryTerm -) 198 392.67 P
+(structure consisting of a list of [terms,#] pairs\051) 198 379.67 T
+-0.45 (NOTE: As a temporary provision for experimental development & testing, this special) 180 360.67 P
+(Present request will be issued against \324Record 0\325 of the result set, which will be) 180 347.67 T
+-0.14 (modeled as containing result-set level metadata. The requirement to retrieve result set) 180 334.67 P
+-0.3 (level metadata will be brought before the ZIG, & the Advanced Search sub-group will) 180 321.67 P
+(honor the \324official\325 solution as it is recommended & concurred by the ZIG.) 180 308.67 T
+(The following elements are eligible to be returned at the record level \050via a standard) 180 289.67 T
+(record level Present of one or more records\051:) 180 276.67 T
+(\245) 180 257.67 T
+-0.25 (Record length in words \050lengthRcdInWords - must be profiled to either include or) 198 257.67 P
+(exclude stop/noise words\051) 198 244.67 T
+(\245) 180 225.67 T
+(Total number of query term occurrences in record \050numQueryTermsInRcd\051) 198 225.67 T
+(\245) 180 206.67 T
+(Relevance score of record \050score - already in TagSet-M\051) 198 206.67 T
+(\245) 180 187.67 T
+(Relevance rank of record \050rank - already in TagSet-M\051) 198 187.67 T
+(\245) 180 168.67 T
+-0.85 (Number of times each query term occurs in record \050numRcdOccByTerm - structure) 198 168.67 P
+(consisting of [term,#] pairs\051) 198 155.67 T
+(\245) 180 136.67 T
+(Position of each term occurrence in record \050PosOfTermsInRcd - structure) 198 136.67 T
+(consisting of [term,relative word position #] pairs\051) 198 123.67 T
+563.98 83 564.48 694 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "13" 13
+%%Page: "14" 14
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 747 540 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(Type 102 Ranked List Query Preliminary Specification) 155.66 766 T
+54.5 738 540.5 738 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(14) 54.67 38.33 T
+54 54 540 54 2 L
+N
+54.5 734.58 540.5 734.58 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 72 540 720 R
+7 X
+V
+2 14 Q
+0 X
+(Appendix A:   ASN.1 for Ranked List Query) 54 710.67 T
+1 12 Q
+(Q102  DEFINITIONS ::=) 54 692 T
+(BEGIN) 54 678 T
+(--) 54 664 T
+(EXPOR) 54 650 T
+(TS RankedQuery;) 92.62 650 T
+(--) 54 636 T
+(IMPOR) 54 622 T
+(TS AttributeSetId, AttributesPlusT) 91.28 622 T
+(erm, ProximityOperator) 258.12 622 T
+(, IntUnit,) 372.96 622 T
+(StringOrNumeric, OtherInformation, DatabaseName, ResultSetId, RPNQuery) 54 608 T
+(FROM Z39-50-APDU) 54 594 T
+(HumanString) 54 580 T
+(FROM RecordSyntax-explain;) 54 566 T
+(--) 54 552 T
+(RankedQuery ::= SEQUENCE {) 54 538 T
+(  needList             [1]   IMPLICIT SEQUENCE OF NeedStatement,) 54 524 T
+(                                -- The actual content of the query) 54 510 T
+(, stating) 309.84 510 T
+(                                -- the information need\050s\051 of the user) 54 496 T
+(.) 326.63 496 T
+(  combineNeedLists     [2]   SEQUENCE {) 54 482 T
+(                                -- Evaluation of each need statement will) 54 468 T
+(                                -- result in a list of records and RSVs. This) 54 454 T
+(                                -- will take those sets and form the \336nal) 54 440 T
+(                                -- result set. default is server) 54 426 T
+(-choice.) 286.39 426 T
+(combinePreference [1] CHOICE {) 54 412 T
+(     useAlgorithm [1] IMPLICIT NULL,) 54 398 T
+(-- server must use the speci\336ed) 54 384 T
+(-- algorithm or return an error) 54 370 T
+(-- diagnostic and fail the search) 54 356 T
+(     recommended  [2] IMPLICIT NULL,) 54 342 T
+(-- client recommends server use) 54 328 T
+(-- speci\336ed algorithm) 54 314 T
+(     serverChoice [3] IMPLICIT NULL },) 54 300 T
+(-- server is free to use whatever) 54 286 T
+(-- algorithm is most appropriate.) 54 272 T
+(combineAlgorithm  [2] CHOICE {) 57 244 T
+(                                     addW) 54 230 T
+(eight   [1] IMPLICIT NULL,) 192.7 230 T
+(                                                 -- server weighted addition.) 54 216 T
+(                                     ext         [2] IMPLICIT EXTERNAL}}) 54 202 T
+(                                       OPTIONAL,) 54 188 T
+(  attributeSet         [3]   IMPLICIT AttributeSetId,) 54 174 T
+(                                -- default attribute set for terms outside) 54 160 T
+(-- the RestrictSet) 54 146 T
+(  searchOutputRequest  [4]   IMPLICIT SearchOutputRequest OPTIONAL,) 54 132 T
+(                                -- The information to be accumulated and) 54 118 T
+(                                -- possibly returned by the server for this) 54 104 T
+(                                -- seach request.) 54 90 T
+(  clientServerInfo     [5]   IMPLICIT ClientServerInfo OPTIONAL,) 54 76 T
+47.52 72 48.02 720 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "14" 14
+%%Page: "15" 15
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(15) 538 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+1 12 Q
+0 X
+(                                -- Advice/Info from the client about how this) 72 712 T
+(                                -- query should be reformulated and search to) 72 698 T
+(                                -- be done.) 72 684 T
+(  serverClientInfo     [6]   IMPLICIT ServerClientInfo OPTIONAL) 72 670 T
+(                                -- Advice/Info from the server about query) 72 656 T
+(.) 372.49 656 T
+(-- \050Ignored by the server on resubmission of a) 72 642 T
+(-- reformulated query\051.) 72 628 T
+(                     }) 72 614 T
+(NeedStatement ::= SEQUENCE {) 72 572 T
+(  restrictSet  [1]   RestrictSet  OPTIONAL,) 72 558 T
+(  feedbackInfo [2]   FeedbackInfo  OPTIONAL,) 72 544 T
+(  rQuery       [3]   IMPLICIT OperandPlusW) 72 530 T
+(eight OPTIONAL, -- actual ranked query) 283.33 530 T
+(  weight       [4]   IMPLICIT IntUnit OPTIONAL) 72 516 T
+(                        -- relative importance of this need statement as a 0) 72 502 T
+(                        -- to 1 scaled number) 72 488 T
+(                           }) 72 474 T
+(RestrictSet  ::= SEQUENCE {) 72 446 T
+(  databaseNames [1]  CHOICE {) 72 432 T
+(                       dbExclude [1] IMPLICIT SEQUENCE OF DatabaseName,) 72 418 T
+(-- List of database names to be excluded from the) 78 404 T
+(-- list in the search request when evaluating this) 72 390 T
+(-- need statement) 72 376 T
+(                       dbOnly    [2] IMPLICIT SEQUENCE OF DatabaseName) 72 362 T
+(                        -- List of database names \050a subset of the databases) 72 348 T
+(                        -- speci\336ed in the search request\051 - the only) 72 334 T
+(        -- databases to be included in the search collection) 72 320 T
+(-- for this need statement) 72 306 T
+(                            } OPTIONAL,) 72 292 T
+(  query) 72 278 T
+([2]  IMPLICIT RPNQuery) 108.32 278 T
+(-- De\336nition of set of docs on which rQuery for this) 141 264 T
+(-- Need Statement is to be performed \050within the) 72 250 T
+(-- databases speci\336ed in SearchRequest and quali\336ed) 72 236 T
+(                        -- by databaseNames\051.) 72 222 T
+(  }) 138 208 T
+(FeedbackInfo      ::= SEQUENCE OF SEQUENCE {) 72 180 T
+(   documentId) 72 166 T
+( [1]) 138.32 166 T
+(CHOICE {) 155.32 166 T
+( localDocid) 84 152 T
+([1]   IMPLICIT OCTET STRING,) 139.66 152 T
+( -- Opaque document identi\336er local to a server) 93 138 T
+( feedbackT) 72 124 T
+(ext) 124.8 124 T
+([2]   IMPLICIT HumanString,) 139.46 124 T
+( -- Relevance feedback text extracted from a document) 72 110 T
+( -- or fabricated by the user) 72 96 T
+( otherFeedbackInfo [3] EXTERNAL) 72 82 T
+563.98 78 564.48 720 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "15" 15
+%%Page: "16" 16
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 747 540 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(Type 102 Ranked List Query Preliminary Specification) 155.66 766 T
+54.5 738 540.5 738 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(16) 54.67 38.33 T
+54 54 540 54 2 L
+N
+54.5 734.58 540.5 734.58 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 72 540 720 R
+7 X
+V
+1 12 Q
+0 X
+( -- Non-textual feedback info \050e.g,chemical structures\051) 54 712 T
+( -- or record fragment identi\336ers \050e.g, start/end) 54 698 T
+( -- fragment\051, encoded using a private scheme.) 54 684 T
+(},) 54 670 T
+(    relevance) 54 656 T
+( [2]   IntUnit) 111.97 656 T
+(-- Relevance judgement data \050-1..0..1 inclusive\051) 123 642 T
+(                        -- for the document identi\336ed by documentId) 54 628 T
+(-- \050-1 is most undesirable, 1 is most desirable, \051) 54 614 T
+(   }) 63 600 T
+(OperandPlusW) 54 574 T
+(eight ::= SEQUENCE {) 126.36 574 T
+(  operand            [1] CHOICE       {) 54 560 T
+(                          attrT) 54 546 T
+(erm          AttributesPlusT) 154.49 546 T
+(erm, -- base term) 278.32 546 T
+(                          sOperand    [1]   StructuredOperand) 54 532 T
+1 11 Q
+(-- recursive definition.) 162 514.67 T
+(-- NOTE: A Boolean query could be specified here in the future.) 162 499.67 T
+4 F
+( },) 198 484.67 T
+1 12 Q
+(  weight             [2] IMPLICIT IntUnit OPTIONAL,) 54 469 T
+(                          -- Relative importance of term, on 0 to 1 scale.) 54 455 T
+(                          -- Default 1.) 54 441 T
+(  clientServerInfo   [3] IMPLICIT ClientServerInfo OPTIONAL,) 54 427 T
+(                          -- Advice/Info from the client about how this) 54 413 T
+(                          -- particular operand reformulated.  This) 54 399 T
+(                          -- over) 54 385 T
+(-rides the query ClientServerInfo) 164.08 385 T
+(  serverClientInfo   [4] IMPLICIT ServerClientInfo OPTIONAL) 54 371 T
+(                          -- Advice/Info from the server about this) 54 357 T
+(                          -- particular operand. Allows server to annotate) 54 343 T
+(                          -- the 102 Query structure with additional) 54 329 T
+(                          -- information. Examples would include partial) 54 315 T
+(                          -- RSV's being returned after a search, or) 54 301 T
+(                          -- possibly collection information. \050Ignored by the) 54 287 T
+(  -- server on resubmission of a reformulated query\051.) 54 273 T
+(                             }) 54 259 T
+(StructuredOperand ::= SEQUENCE {) 54 231 T
+(  rqOperator      [1] IMPLICIT RQOperator) 54 217 T
+(,) 261.47 217 T
+(                       -- gives relationship between operands and information) 54 203 T
+(                       -- about combining them.) 54 189 T
+(  rqOperandList   [2] IMPLICIT SEQUENCE OF OperandPlusW) 54 175 T
+(eight,) 367.33 175 T
+(                       -- ordered list of operands) 54 161 T
+(  rqProximity         [3] CHOICE {) 54 147 T
+(                       -- All operands in this subtree must be satis\336ed) 54 133 T
+(                        -- \050have non-zero partial RSV\051 in the same context.) 54 119 T
+(                        -- 'unit' gives the scope of the context de\336nition,) 54 105 T
+(                        -- and 'distance' gives how far away from each other) 54 91 T
+(                        -- the satisfaction can be \0500 indicates within the) 54 77 T
+47.52 73 48.02 720 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "16" 16
+%%Page: "17" 17
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(17) 538 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+1 12 Q
+0 X
+(                        -- same unit, 1 indicates in adjacent units, and so) 72 712 T
+(                        -- on\051 Note that rqProximity is a binding operator) 72 698 T
+(,) 380.83 698 T
+(                        -- with some of the properties of a Boolean AND.  A) 72 684 T
+(                        -- context of the same word implies that same word must) 72 670 T
+(                        -- match each of the operands of the subtree.) 72 656 T
+(                             prox  [1] IMPLICIT ProximityOperator) 72 642 T
+(,) 349.16 642 T
+(                                         -- same syntax as in type-101 query) 72 628 T
+(,) 365.52 628 T
+(                                         -- but semantics expanded as above.) 72 614 T
+(                             ext  [2] IMPLICIT EXTERNAL} OPTIONAL}) 72 600 T
+(SearchOutputRequest ::= SEQUENCE {) 72 572 T
+(            -- Describes output of query) 72 558 T
+(.  All except doSearch) 242.52 558 T
+(            -- will be given in AdditionalSearchInfo of SearchResponse.) 72 544 T
+(   doSearch) 72 530 T
+(           [1] IMPLICIT BOOLEAN,) 125.65 530 T
+(                                   -- T) 72 516 T
+(rue means perform the search) 194.9 516 T
+(                                   -- and establish a result set.) 72 502 T
+(   returnReformulatedQuery   [2] IMPLICIT BOOLEAN,) 72 488 T
+(                                   -- T) 72 474 T
+(rue means return the query that) 194.9 474 T
+(                                   -- actually operated on the docs after) 72 460 T
+(                                   -- reform. This will be returned as a) 72 446 T
+(                                   -- RQInfo EXTERNAL within) 72 432 T
+(                                   -- AdditionalSearchInfo,) 72 418 T
+(                                   -- and will have T) 72 404 T
+(agvalue from tagset-RQM) 262.14 404 T
+(   mData                     [3] IMPLICIT SEQUENCE OF SEQUENCE{) 72 390 T
+(                                   tagT) 72 376 T
+(ype  [1]   IMPLICIT INTEGER OPTIONAL,) 198.16 376 T
+(                                                     -- default tagset-RQM) 72 362 T
+(                                   tagV) 72 348 T
+(alue [2]    StringOrNumeric) 199 348 T
+(                                         -- value \050probably from) 72 334 T
+(                                         -- tagset-RQM\051 indicating what sorts) 72 320 T
+(                                         -- of metadata should be returned.) 72 306 T
+(                                         -- Note that depending on tag, some) 72 292 T
+(                                         -- of this metadata may be returned) 72 278 T
+(                                         -- within AdditionalSearchInfo of) 72 264 T
+(                                         -- SearchResponse, and some within) 72 250 T
+(                                         -- a Present of the document using) 72 236 T
+(                                         -- record syntax of RQRS) 72 222 T
+(                                         -- \050RankedRecordSyntax\051.) 72 208 T
+(                                      } OPTIONAL}) 72 194 T
+(ClientServerInfo ::= SEQUENCE {) 72 166 T
+(   reformClause      [1] IMPLICIT BOOLEAN,) 72 152 T
+(                          -- allow reformulation this operand/query) 72 138 T
+(. If false) 348.52 138 T
+(                          -- and the server does not support a term or) 72 124 T
+(                          -- attribute, then this part of the search fails.) 72 110 T
+(   recallImportance  [2] IMPLICIT IntUnit OPTIONAL,) 72 96 T
+(                          -- setting between 0 and 1 of how every useful doc) 72 82 T
+563.98 78 564.48 720 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "17" 17
+%%Page: "18" 18
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 747 540 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(Type 102 Ranked List Query Preliminary Specification) 155.66 766 T
+54.5 738 540.5 738 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(18) 54.67 38.33 T
+54 54 540 54 2 L
+N
+54.5 734.58 540.5 734.58 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 72 540 720 R
+7 X
+V
+1 12 Q
+0 X
+(                          -- is. Eg, 1, the server may try to add many) 54 712 T
+(                          -- related terms to the query) 54 698 T
+(, at a cost of) 264.85 698 T
+(                          -- precision.  Only used if reformClause is true.) 54 684 T
+(   reformMethod      [3] IMPLICIT EXTERNAL OPTIONAL,) 54 670 T
+(                          -- client/server agreed upon speci\336cation of what) 54 656 T
+(                          -- reformulation methods to be done. W) 54 642 T
+(e will de\336ne) 322.01 642 T
+(                          -- a methodology for this later) 54 628 T
+(. Only used if) 275.65 628 T
+(                          -- reformClause is true.) 54 614 T
+(   resultSetDesc     [4] IMPLICIT SEQUENCE {) 54 600 T
+(                          -- describes size and properties of result set) 54 586 T
+(                          numRecordsW) 54 572 T
+(anted  [1] IMPLICIT INTEGER OPTIONAL,) 203.03 572 T
+(                                            -- max records in the result set.) 54 558 T
+(                          rsvThresholdV) 54 544 T
+(alue [2] IMPLICIT IntUnit OPTIONAL) 202.66 544 T
+(                                            -- If included, all docs in) 54 530 T
+(                                            -- result set must have RSV >=) 54 516 T
+(                                            -- rsvThresholdV) 54 502 T
+(alue. This should) 267.65 502 T
+(                                            -- be between 0 and 1.) 54 488 T
+(                                   } OPTIONAL}) 54 474 T
+(ServerClientInfo ::= SEQUENCE {) 54 446 T
+(      -- Not completely worked out; must wait until Advanced Search group) 54 432 T
+(      -- works out speci\336cs of how the reformulated \050marked-up\051 query & its) 54 418 T
+(      -- associated meta-data is to be returned to the client.) 54 404 T
+(   intUnit     [1]   IMPLICIT IntUnit OPTIONAL, -- Scaled integer) 54 390 T
+(   humanString [2]   IMPLICIT HumanString OPTIONAL,) 54 376 T
+(   metaData          OtherInformation OPTIONAL) 54 362 T
+(                       -- Data \050eg collection frequency\051 attached to an) 54 348 T
+(                       -- operand.  W) 54 334 T
+(e may \337esh this out some after) 192.01 334 T
+(                       -- operational experience.) 54 320 T
+( }) 204 306 T
+(RQOperator ::=  SEQUENCE {) 54 278 T
+( operator      [1] CHOICE {) 54 264 T
+(                  rqIndep          [1] IMPLICIT NULL,) 54 250 T
+(                       -- The operands are independent of each other) 54 236 T
+(.) 343.26 236 T
+(                       -- Increasing a particular operand's RSV will) 54 222 T
+(                       -- guarantee the clause RSV will not decrease.) 54 208 T
+(                  rqAND            [2] IMPLICIT IntUnit,) 54 194 T
+(                       -- Ranked AND.  This server) 54 180 T
+(-dependent operator) 262.06 180 T
+(                       -- emphasizes, but does not require, the presence of) 54 166 T
+(                       -- all operands.  The server may ignore the integer) 54 152 T
+(                       -- value, but if it does not, then the value of rqAND) 54 138 T
+(                       -- is a number between 0 and 1 giving the degree to) 54 124 T
+(                       -- which satisfaction of all operands should be) 54 110 T
+(                       -- emphasized.  1 indicates all operands must be) 54 96 T
+(                       -- satis\336ed \050ie, all operands must have non-zero RSV) 54 82 T
+47.52 78 48.02 720 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "18" 18
+%%Page: "19" 19
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(19) 538 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+1 12 Q
+0 X
+(                       -- in order for clause RSV to be non-zero.\051) 72 712 T
+(                  rqOR             [3] IMPLICIT IntUnit,) 72 698 T
+(                       -- Ranked OR. This server) 72 684 T
+(-dependent operator) 267.73 684 T
+(                       -- emphasizes the presence of a single operand.) 72 670 T
+(                       -- A clause RSV will be zero if) 72 656 T
+(f all operands are) 289.75 656 T
+(                       -- zero. The server may ignore the integer) 72 642 T
+(                       -- value, but if it does not, then the value of rqOR) 72 628 T
+(                       -- is a number between 0 and 1 giving the degree to) 72 614 T
+(                       -- which satisfaction of an operand is to be) 72 600 T
+(                       -- considered equivalent to the satisfaction of the) 72 586 T
+(                       -- other operands.  1 indicates all operands are) 72 572 T
+(                       -- equivalent.) 72 558 T
+(                  rqANDNOT         [4] IMPLICIT IntUnit,) 72 544 T
+(                       -- Ranked ANDNOT) 72 530 T
+(. This server) 241.42 530 T
+(-dependent operator) 300.83 530 T
+(                       -- emphasizes, but does not require, the presence of) 72 516 T
+(                       -- the \336rst operand and the absence of all other) 72 502 T
+(                       -- operands.  The server may ignore the integer) 72 488 T
+(                       -- value, but if it does not, then the value of) 72 474 T
+(                       -- rqANDNOT is a number between 0 and 1 giving the) 72 460 T
+(                       -- degree to which satisfaction and non-satisfaction) 72 446 T
+(                       -- \050zero-valued\051 of the operands should be emphasized.) 72 432 T
+(                       -- 1 indicates the \336rst operand must be satis\336ed) 72 418 T
+(                       -- \050non-zero RSV\051 and the second operand must have) 72 404 T
+(                       -- zero RSV in order for clause RSV to be non-zero.) 72 390 T
+(                  rqHeadRelation   [5] IMPLICIT SEQUENCE {) 72 376 T
+(                       -- The \336rst operand is related to each operand) 72 362 T
+(                       -- \050independently\051 in a fashion described by) 72 348 T
+(                       -- RQHeadRelation.  The operand weights \050between 0) 72 334 T
+(                       -- and 1\051 describe the strength of the relationship.) 72 320 T
+(                       -- Examples might be synonyms, antonyms, ISA, thesauri) 72 306 T
+(                       -- classes, etc.) 72 292 T
+(                                   tagT) 72 278 T
+(ype  [1]   IMPLICIT INTEGER OPTIONAL,) 198.16 278 T
+(                                               -- default tagset-RQRelation) 72 264 T
+(                                   tagV) 72 250 T
+(alue [2]     StringOrNumeric) 199 250 T
+(                                   -- value \050probably from tagset-RQRelation\051) 72 236 T
+(                                   -- indicating the relationship between the) 72 222 T
+(                                   -- \336rst operand of the StructuredOperand) 72 208 T
+(                                   -- and the remaining operands.  The server) 72 194 T
+(                                   -- will use this relationship information) 72 180 T
+(                                   -- to determine a RSV for this clause.) 72 166 T
+(                                },) 72 152 T
+(                  other            [6] IMPLICIT EXTERNAL) 72 138 T
+(                       -- Other operators, not guaranteed to be understood) 72 124 T
+(                       -- by client.) 72 110 T
+(                     },) 72 96 T
+( allowedReform [2] IMPLICIT BOOLEAN) 72 82 T
+563.98 78 564.48 720 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "19" 19
+%%Page: "20" 20
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+54 747 540 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(Type 102 Ranked List Query Preliminary Specification) 155.66 766 T
+54.5 738 540.5 738 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(20) 54.67 38.33 T
+54 54 540 54 2 L
+N
+54.5 734.58 540.5 734.58 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+54 72 540 720 R
+7 X
+V
+1 12 Q
+0 X
+(                     -- allowed to replace this operator) 54 712 T
+(. If false, and the) 278.63 712 T
+(                     -- server does not support the operator) 54 698 T
+(, then this part) 299.81 698 T
+(                     -- of the search fails.) 54 684 T
+(         }) 54 670 T
+(END) 54 656 T
+(--  T) 54 628 T
+(agset-RQRelation.  T) 74.48 628 T
+(ag values used within rqHeadRelation to indicate the) 175.97 628 T
+(--                      relationship between the \336rst operand \050the "head"\051,) 54 614 T
+(--                      and the each of the other operands \050"sub-operands"\051.) 54 600 T
+(--                      For the experimental stage, tag values between) 54 586 T
+(--                      0 and 99 are things we expect most systems will) 54 572 T
+(--                      deal with \050ie will be in the \336nal tagset, even if) 54 558 T
+(--                      not required to support\051, 100-999 will be shared by a) 54 544 T
+(--                      class of systems, and 1000+ for a single system.) 54 530 T
+(--                      All de\336nitions may \050and probably will\051 change) 54 516 T
+(--                      as we get operational experience.  V) 54 502 T
+(alues 1,2,3) 300.94 502 T
+(--                      are the only ones currently required to be recognized.) 54 488 T
+(--        0       Reserved) 54 474 T
+(--        1       T) 54 460 T
+(erm variants) 119.48 460 T
+(--         10     Morphological variants \050stemming, truncation, etc\051) 54 446 T
+(--         1) 54 432 T
+(1     Common mispellings) 94.55 432 T
+(--         12     Phonetic variants) 54 418 T
+(--        2       Related words) 54 404 T
+(--         20     Synonyms) 54 390 T
+(--         21     Co-ocurring words) 54 376 T
+(--        3       Class relationships) 54 362 T
+(--         30     ISA relationship \050Sub operand "is a" head operand\051.) 54 348 T
+(--         31     Thesaurus class \050Sub operand is member of a thesaurus) 54 334 T
+(--                class headed by the head operand\051.) 54 320 T
+(--  T) 54 292 T
+(agset-RQM         T) 74.48 292 T
+(ag values used for Metadata within the RankedQuery) 163.97 292 T
+(--                     Framework.) 54 278 T
+(--                      For the experimental stage, tag values between) 54 264 T
+(--                      0 and 99 are things we expect most systems will) 54 250 T
+(--                      deal with \050ie will be in the \336nal tagset, even if) 54 236 T
+(--                      not required to support\051, 100-999 will be shared by a) 54 222 T
+(--                      class of systems, and 1000+ for a single system.) 54 208 T
+(--                      All de\336nitions may \050and probably will\051 change) 54 194 T
+(--                      as we get operational experience.  V) 54 180 T
+(alues 1,2,3) 300.94 180 T
+(--                      are the only ones currently required to be recognized.) 54 166 T
+(--                      After operational experience, things like) 54 152 T
+(--                      collection frequency may be added.) 54 138 T
+(--                      This may eventually be subsumed within T) 54 124 T
+(agset-M,) 334.48 124 T
+(--                      but it's easier to keep disjoint for the initial) 54 110 T
+(--                      implementation phase.) 54 96 T
+(--        0       Reserved) 54 82 T
+47.52 624 48.02 720 R
+V
+47.52 302 48.02 314 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "20" 20
+%%Page: "21" 21
+612 792 0 FMBEGINPAGE
+[0 0 0 1 0 0 0]
+[ 0 1 1 0 1 0 0]
+[ 1 0 1 0 0 1 0]
+[ 1 1 0 0 0 0 1]
+[ 1 0 0 0 0 1 1]
+[ 0 1 0 0 1 0 1]
+[ 0 0 1 0 1 1 0]
+ 7 FrameSetSepColors
+FrameNoSep
+0 0 0 1 0 0 0 K
+72 747 558 774 R
+7 X
+0 0 0 1 0 0 0 K
+V
+0 12 Q
+0 X
+(T) 174.11 766 T
+(ype 102 Ranked List Query) 181.22 766 T
+(Preliminary Specification) 324.9 766 T
+72 54 558 54 2 L
+7 X
+V
+0.5 H
+2 Z
+0 X
+N
+1 10 Q
+(October 27, 1995) 72.65 41.33 T
+(21) 538 41.33 T
+72 738 558 738 2 L
+N
+72 734.62 558 734.62 2 L
+N
+0 0 0 1 0 0 0 K
+0 0 0 1 0 0 0 K
+72 72 558 720 R
+7 X
+V
+1 12 Q
+0 X
+(--        1       RankedQuery) 72 712 T
+(--        2       RankedQuery with ServerClientInfo of each operand being) 72 698 T
+(--                an IntUnit, interpreted as the partial RSV for that operand) 72 684 T
+(--        3       RankedQuery with ServerClientInfo of each operand being) 72 670 T
+(--                a HumanString, interpreted as a server explanation of) 72 656 T
+(--                the operand.) 72 642 T
+(--        4       RankedQuery with ServerClientInfo of each operand being) 72 628 T
+(--                an EXTERNAL Diagnostic Record.) 72 614 T
+(--        5       HighlightingInfo \050not yet developed, included as example\051.) 72 600 T
+563.98 554 564.48 608 R
+V
+0 0 0 1 0 0 0 K
+FMENDPAGE
+%%EndPage: "21" 21
+%%Trailer
+%%BoundingBox: 0 0 612 792
+%%PageOrder: Ascend
+%%Pages: 21
+%%DocumentFonts: Times-Bold
+%%+ Times-Roman
+%%+ Helvetica-Bold
+%%+ Helvetica-BoldOblique
+%%+ Helvetica
+%%EOF

@@ -1,0 +1,396 @@
+<!DOCTYPE findaid [
+ 
+<!--This is the first draft of a prototype DTD for library, museum,
+ and archival finding aids. It has been developed at The Library 
+of the University of California, Berkeley. Development is partially
+ funded by a Department of Education Higher Education Act Title 
+IIA Research and Development Grant. It is being developed in 
+collaboration with representatives of the Society of American
+ Archivists, the National Archives, the Library of Congress, 
+The Getty Center, and several academic respositories.-->
+
+ 
+<!--NOTATION DECLARATIONS -->
+<!NOTATION gif  SYSTEM "gif" >
+<!NOTATION jpeg SYSTEM "jpeg" >
+
+<!--GRAPHIC ENTITY DECLARATIONS. If entity references are used 
+instead of file references for graphics, then each entity must 
+be declared. The following is a typical declaration for a gif 
+image:
+
+<!ENTITY  abelinc SYSTEM "abelinc.gif" NDATA gif >
+
+-->
+
+<!--EXTERNAL SGML ENTITY DECLARATIONS. If external sgml entities 
+are invoked, an entity declaration similar to the following must 
+be declared.
+
+<!ENTITY  adams  SYSTEM "adams.sgm" >
+
+--> 
+<!--***********************************************************-->
+
+<!ENTITY % doctype "findaid" --Document type generic identifier-->
+
+<!--***********************************************************-->
+
+<!-- PARAMETER ENTITIES  -->
+
+<!ENTITY  % emphas "em1 | em2 | em3 | em4 | em5" >
+<!ENTITY  % quote  "embq | inlq " --quotes except block
+                    quote -->
+
+<!ENTITY  % addstf "st | city | ctrysd | cnty | pcd | san | eadd |
+                    ph | fax" --address elements-- >
+<!ENTITY % float "graphic|fnt|link|extl" >
+                
+<!ENTITY  % phrase "#PCDATA | %quote; | %emphas; | %float;" >
+<!ENTITY  % phrplus "add | bq | gl1 | gl2 | gl3" 
+                       --add to phrase for paragraph-- >
+<!ENTITY  % compsol "c1, (c2, c3?)?" --components, 1st req.-->
+<!ENTITY  % compssq "c1?, c2?, c3?" -- components, opt. seq. --> 
+
+<!ENTITY  % mnamlis "gfti | dti | pnm | fnm | cnm | date | subj | 
+                     gnm" --mixed name list-- >
+<!ENTITY  % name "pnm | cnm | fnm" --name, personal, corporate, 
+                       or family-->     
+<!ENTITY  % sssdes "hdg?, cntno?, sssnm, ext?, idate?, 
+                    bdate?, p*" --series/subseries descriptive
+                    elements-- >
+<!ENTITY  % topp   "hdg?, p" --topic paragraph model, single 
+                    paragraph-->
+<!ENTITY  % toppr  "hdg?, p+" >
+
+<!ENTITY  % bcdcl   "idno?, nm?, tistmt"--brief collection 
+                    description list of core elements-- >
+<!ENTITY  % bcdnts  "extn | bion | hn | scn | oan | provn | fan | 
+                     cin | abstn | rstrn |acqsrcn" --brief collection 
+                       description notes-->
+<!ENTITY  % cuss   "biop | hp | pcdm | sc | adfrm | 
+                    rmc | fund | rstr" --collection unit sections, 
+                       with heading followed by one or more 
+                       paragraphs-->
+<!ENTITY  % cusc   "abst | bioc | hc | prov | serd | abbl | 
+                    cntl | sl" --collection unit sections, with 
+                    comlex definitions-->
+<!ENTITY  % clus "%cuss;|%cusc;" >
+
+<!ENTITY  % contli  "lp1i | lp2i | lp3i | lp4i | lp5i" >
+<!ENTITY  % contlh  "lp1h | lp2h | lp3h | lp4h | lp5h" >
+
+<!ENTITY  % contl "%phrase; | add | %mnamlis; | bq | lfd | ti"
+                    --contents stuff-->
+<!ENTITY  % bibl  "no | ti | tart | aup | auc | msn | obi | pnr |
+                       pubdate | pubpl | pubnm | tms | tsec" --
+                       bibliographic elements, no, title, 
+                       article title, pers. author, corp. author
+                       monographic series no., other bib. info.,
+                       page no. of ref., pub. place, pub. date,
+                       pub. name, monographic ser. title, title
+                       named section of serial -->
+
+
+<!--Global attributes used with many higher level attributes-->
+
+<!ENTITY % global   "id                ID      #IMPLIED
+                     type              CDATA   #IMPLIED" >
+
+
+
+<!--Beginning of Finding Aid -->
+<!ELEMENT  %doctype;  - -  (front?, clud) >
+
+
+<!-- Basic Elements declared-->
+
+<!--Floating Elements-footnote, link, external link, graphic-->
+
+<!--Footnote-->
+<!ELEMENT fnt          - - (p|bibc)* -(fnt) >
+
+<!--Graphics-->
+<!ELEMENT graphic      - o EMPTY >
+<!ATTLIST graphic
+                  ilentr     ENTITY             #IMPLIED
+                  ilfiler    CDATA              #IMPLIED 
+                  puentr     ENTITY             #IMPLIED
+                  pufiler    CDATA              #IMPLIED
+                  %global; >
+<!--End of Graphics-->
+
+<!--Linking elements-->
+<!--"link" is for internal links-->
+<!ELEMENT link         - -  (%phrase;)* -(link) >
+<!ATTLIST link
+               linkend       IDREF             #REQUIRED
+               type          CDATA             #IMPLIED >
+
+<!--"extfa" is for external targets-->
+<!ELEMENT extl         - - (%phrase;)* -(extl) >
+<!ATTLIST extl 
+               exfilr        ENTITY            #REQUIRED
+               extlend       CDATA             #IMPLIED
+               book          CDATA             #IMPLIED 
+               type          CDATA             #IMPLIED >
+
+<!--End of Linking elements-->
+
+
+<!-- Address Elements-->
+<!ELEMENT add          - -  (%addstf;)* >
+<!ATTLIST add %global; >
+<!ELEMENT (%addstf;)   - -  (%phrase;)* > 
+<!ELEMENT bq           - -  (%phrase;)* --block quote-->
+<!ELEMENT hdg          - -  (%compsol;) >
+<!ATTLIST hdg %global; >
+<!ELEMENT (c1|c2|c3)      - o  (%phrase;)* >
+
+<!-- Generic lists, 1-3 components per item-->
+<!ELEMENT gl1          - -  (hdg?, li+) >
+<!ATTLIST gl1 %global; >
+<!ELEMENT li           - o  (%phrase;)* >
+<!ELEMENT gl2          - -  (hdg?, (lh | lh2c)?, li2c+) >
+<!ATTLIST gl2 %global; >
+<!ELEMENT lh           - o  (%phrase;)* >     
+<!ELEMENT (lh2c|li2c)  - o  (c1?, c2?) >
+<!ELEMENT gl3          - -  (hdg?, (lh | lh3c)?, li3c+) >
+<!ATTLIST gl3 %global; >
+<!ELEMENT (lh3c|li3c)  - o  (c1?, c2?, c3?) >
+
+
+<!ELEMENT idno         o o  (clno | plno | accno | gpno)*>
+<!ATTLIST idno %global; >
+<!ELEMENT (%mnamlis;)  - - (%phrase; | no)* >
+<!ATTLIST (%mnamlis;) %global; >
+<!ELEMENT no           - - (%phrase;)* >
+<!ELEMENT (%emphas; |
+           %quote;)    - - (%phrase;)* >
+<!ELEMENT (clno|plno |
+          accno|gpno)  - o  (%phrase;)* >
+<!ATTLIST (clno|plno |
+          accno|gpno) %global; >
+
+<!ELEMENT sorfa        o o  (hdg?, (%phrase; | p | sor | prcpl |
+                             pdate)*) >
+<!ATTLIST sorfa %global; >
+<!ELEMENT (sor|prcpl|
+           pdate)      - o  (%phrase;)* >
+
+<!ELEMENT pnr          - -  (%phrase;)* --page number reference-- >
+<!ATTLIST pnr %global;>
+
+<!ELEMENT p            - -  (%phrase; | %phrplus; | %mnamlis; | 
+                               ti | sssnm)* >
+<!ATTLIST p %global; >
+
+<!--Front matter-->
+
+<!ELEMENT  front       o o  (tp?, rstr?, toc?) >
+
+<!--Title page-->
+<!ELEMENT tp           - -  (r | clem | tpt | idno | sorfa | 
+                             fund | extn | acqsrcn | rstrn)* -- title page-- >
+<!ATTLIST tp %global; >
+<!ELEMENT r            - - (rnm+, radd?) +(graphic) >
+<!ATTLIST r  %global; >
+<!ELEMENT rnm          o o (%phrase;)* >
+<!ELEMENT radd         - o (%addstf;)* >
+<!ELEMENT clem         - o  (%phrase;)* >
+<!ATTLIST clem %global; >
+<!ELEMENT tpt          - -  (fat | %name; | dti | gfti | oti | 
+                               idate | bdate)* >
+<!ATTLIST tpt %global; >
+<!ELEMENT  fat         - o  (%phrase;)* >
+<!ELEMENT  (ti | oti)  - o  (%phrase;)* >
+
+<!--Table of Contents-->
+<!ELEMENT toc          - -  (hdg?, ((clue+, clupe*) | 
+                                     clupe+), rstr?) >
+<!ATTLIST toc %global; >
+<!ELEMENT clue         - -  (hdg, pnr?, (sere, (ss1e, ss2e*)*)*) >
+<!ATTLIST clue %global; >
+<!ELEMENT clupe        - -  (hdg, pnr?, clue+) >
+<!ATTLIST clupe %global; >
+<!ELEMENT (sere|ss1e
+               |ss2e)  - -  (sssnm, pnr?) >
+<!ATTLIST (sere|ss1e|ss2e) %global; >
+
+
+<!--COLLECTION UNIT DESCRIPTION-->
+
+<!ELEMENT clud         - - (bcd, (((%clus;)+, clup*) | clup+)) >
+<!ATTLIST clud %global; >
+<!ELEMENT clup         - - (hdg?, p*, (%clus;)+) >
+<!ATTLIST clup %global; >
+
+<!--BRIEF COLLECTION DESCRIPTION-->
+<!ELEMENT bcd          - -  (hdg?, r?, (%bcdcl;), (%bcdnts;)*, ael*) >
+<!ATTLIST bcd %global; >
+<!ELEMENT nm           - -  (hdg?, (%name;)) >
+<!ATTLIST nm %global; >
+<!ELEMENT tistmt       - -  (hdg?, (dti | gfti | oti)+, idate?, 
+                             bdate?) >
+<!ATTLIST tistmt %global; >
+<!ELEMENT ael          - -  (hdg?, (pnmcef | cnmcef | fnmcef | 
+                             subjcef | gnmcef | gencef | r)+) >
+<!ATTLIST ael %global; >
+<!ELEMENT pnmcef       - o  ((srnm | frnm)+, date?) >
+<!ATTLIST pnmcef %global;
+               lcrecno         CDATA   #IMPLIED --lc record no.-- >
+<!ELEMENT (srnm|frnm)  - o  (%phrase;)* >
+<!ELEMENT cnmcef       - o  (pb, sb*) >
+<!ATTLIST cnmcef %global;
+               lcrecno         CDATA   #IMPLIED --lc record no.-->
+<!ELEMENT (pb | sb)    - o  (%phrase;)* >
+<!ELEMENT fnmcef       - o  (srnm, date?) >
+<!ATTLIST fnmcef %global;
+               lcrecno         CDATA   #IMPLIED --lc record no.-->
+<!ELEMENT (subjcef |
+           gnmcef |
+           gencef)     - o  (term, (gsd+ | csd+)*) >
+<!ATTLIST (subjcef|
+           gnmcef|
+           gencef) %global;
+               lcrecno         CDATA   #IMPLIED --lc record no.-->
+
+<!ELEMENT (term | gsd
+           | csd)      - o  (%phrase;)* >
+<!ELEMENT (%bcdnts;)   - -  (%topp;)--bcd notes-->
+<!ATTLIST (%bcdnts;) %global; >
+
+<!--END BRIEF COLLECTION DESCRIPTION-->
+
+<!--ABSTRACT-->
+<!ELEMENT abst         - o (hdg?, (p | acqsrc | idno | sorfa)+) >
+<!ATTLIST abst %global; >
+<!ELEMENT acqsrc       - o (%phrase;)* >
+<!ATTLIST acqsrc %global; >
+
+
+<!--BIOGRAPHY AND HISTORY, CHRONOLOGICAL-->
+<!ELEMENT (bioc | hc)  - o (hdg?, (p | gl1 | gl2 | gl3)*) >
+<!ATTLIST (bioc | hc)  %global; >
+
+
+<!--PROVENANCE-->
+<!ELEMENT prov         - o (hdg?, bcdc?, (p | donp | pcdm | 
+                            rmc)*) >
+<!ATTLIST prov %global; >
+<!ELEMENT bcdc         - o (%bcdcl;) >
+<!ATTLIST bcdc %global; >
+<!ELEMENT donp         - o (%toppr;) >
+<!ATTLIST donp %global; >
+
+<!--SERIES DESCRIPTION-->
+<!ELEMENT serd         - - (hdg?, (ds, (dss1, dss2*)*)*) >
+<!ATTLIST serd %global; >
+<!ELEMENT (ds | 
+           dss1 | 
+           dss2)       - - (%sssdes;) >
+<!ATTLIST (ds| dss1 | dss2) %global; >
+<!ELEMENT sssnm        - - (%phrase; | %mnamlis; | no | ti)* >
+<!ELEMENT (ext |
+           idate |
+           bdate)      - -  (%phrase;)* >
+<!ATTLIST (ext | idate | bdate) %global; >
+
+
+<!--[series/subseries descriptive elements]
+.heading (?) <hdg>
+.container number (?) <cntno>
+.*series/subseries name (?) <sssnm>
+.statement of extent (?) <ext>
+.inclusive date (?) <idate>
+.bulk date (?) <bdate>
+.paragraph (*) <p> -->
+
+<!--LIST OF ABBREVIATIONS-->
+<!ELEMENT abbl         - - (hdg?, abbli+, egl?) >
+<!ATTLIST abbl %global; >
+<!ELEMENT abbli        o o (abb, abbexp) >
+<!ATTLIST abbli %global; >
+<!ELEMENT egl          - - (hdg?, egi+) >
+<!ATTLIST egl %global; >
+<!ELEMENT egi          o o (eg, ege) >
+<!ATTLIST egi %global; >
+<!ELEMENT (abb|abbexp|
+           eg|ege)     - o (%phrase;)* >
+<!ATTLIST (abb|abbexp|eg|ege) %global; >
+
+<!ELEMENT (%cuss;)     - -  (%toppr;) >
+<!ATTLIST (%cuss;) %global; >
+
+<!--CONTAINER LIST-->
+<!ELEMENT cntl         - - (hdg?, ser+) >
+<!ATTLIST cntl %global; >
+
+
+<!ELEMENT ser         - -  (sertoc?, ((%contlh;)?&ds), ((%contli;)+ | ss1+))  >
+<!ELEMENT ss1         - -  (((%contlh;)?&dss1), ((%contli;)+ | ss2+))  >
+<!ELEMENT ss2         - -  (((%contlh;)?&dss2), (%contli;)+)  >
+
+<!ATTLIST (ser|ss1|ss2) %global;>
+
+<!ELEMENT sertoc      - - (hdg?, (sere, (ss1e, ss2e*)*)+)>
+<!ATTLIST sertoc %global; > 
+ 
+<!ELEMENT lp1i      - - (%contl;)* >
+<!ELEMENT lp2i      - - (cntno?, cont1) >
+<!ELEMENT lp3i      - - (cont1, cntno?) >
+<!ELEMENT lp4i      - - (cntno?, cont1, cont2) >
+<!ELEMENT lp5i      - - (cont1, cont2, cntnoch?) >
+
+<!ELEMENT lp1h       - - (%phrase;)* >
+<!ELEMENT lp2h       - - (cntnoch?, contch1?) >
+<!ELEMENT lp3h       - - (contch1?, cntnoch?) >
+<!ELEMENT lp4h       - - (cntnoch?, contch1?, contch2?) >
+<!ELEMENT lp5h       - - (contch1?, contch2?, cntnoch?) >
+
+<!ATTLIST (lp1h|lp2h|lp3h|lp4h|lp5h) %global; >
+<!ATTLIST (lp1i|lp2i|lp3i|lp4i|lp5i) %global; >
+
+<!ELEMENT cntnoch      - - (%compssq;) >
+<!ATTLIST cntnoch %global; >
+<!ELEMENT cntno        - - (%compssq;) >
+<!ATTLIST cntno %global; >
+<!ELEMENT (contch1 |
+           contch2)    - - (%phrase;)* >
+<!ATTLIST (contch1|contch2) %global; >
+<!ELEMENT (cont1 |
+           cont2)      - - (%contl;)* >
+<!ATTLIST (cont1|cont2) %global; >
+<!ELEMENT lfd         - - (%phrase; | %phrplus; | %mnamlis;)* >
+<!ATTLIST lfd %global; >
+
+<!--SEPARATION LIST-->
+<!ELEMENT sl           - - (hdg?, p*, sltoc?, slls) >
+<!ATTLIST sl %global; >
+<!ELEMENT sltoc        - - (hdg?, slse+) >
+<!ATTLIST sltoc %global; >
+<!ELEMENT slse         - - (slsnm, pnr?) >
+<!ATTLIST slse %global; >
+<!ELEMENT slsnm        - o (%phrase; | no)* >
+<!ATTLIST slsnm %global; >
+<!ELEMENT slls         - - (hdg?, (bibc+ | sls+)) >
+<!ATTLIST slls %global; >
+<!ELEMENT sls          - - (slsnm, bibc+) >
+<!ATTLIST sls %global; >
+<!ELEMENT bibc         - - ((%bibl;)*, p*) >
+<!ATTLIST bibc %global; >
+<!ELEMENT (tart | 
+           aup | 
+           auc | 
+           msn | 
+           obi |
+           pubpl | 
+           pubdate | 
+           pubnm | 
+           tms |       
+           tsec)     - - (%phrase;)* >
+
+<!ATTLIST (tart | aup | auc | msn | obi | pubdate | pubnm | tms |       
+           tsec) %global; >
+  
+ ]>

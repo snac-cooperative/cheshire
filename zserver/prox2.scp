@@ -1,0 +1,7 @@
+# Test script for ztcl for GRS-1 conversion
+zselect testsherlock sherlock diglib 2222
+set RESULTS [zfind topic park rangers]
+puts "Boolean AND $RESULTS"
+set RESULTS [zfind topic \$park rangers\$]
+puts "Proximity $RESULTS"
+

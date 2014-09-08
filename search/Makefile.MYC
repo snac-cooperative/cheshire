@@ -1,0 +1,90 @@
+#
+# Generic Makefile for making the object files and linking
+# the application
+#
+# all these things will need to point to the
+# proper places
+TREE= /usr/users/ray/Work/z3950_3
+ID=	$(TREE)/header
+
+TKDIR = /usr/local/src/tk4.0
+TCLDIR = /usr/local/src/tcl7.4
+TKLIBS = /usr/local/lib
+LIBDIR = $(TREE)/lib
+LIBZ=	$(TREE)/lib
+XINC=  /usr/openwin/include 
+
+GCFLAGS=-g
+LDFLAGS=	$(GCFLAGS)
+
+# Swap the following defines for DMALLOC memory checking version
+#DMFLAGS=	-DDMALLOC_INCLUDE -DDMALLOC_FUNC_CHECK -DSOLARIS
+DMFLAGS=	-DDMALLOC_INCLUDE -DDMALLOC_DISABLE -DALPHA
+
+CFLAGS=		$(GCFLAGS) \
+		-I. -I$(SD) -I$(XINC) \
+                -I$(ID) -I$(TCLDIR) -I$(TKDIR) -I$(ZINC) \
+		$(DMFLAGS)
+
+
+# Uncomment the following for DMALLOC memory checking version
+#
+DMALLOCLIB=         -lsgml -ltclhash -lfileio -lindex -lconfig -lcmdparse -lmarc -lsgml2marc -ldiag -L$(TKLIBS) -ltcl7.4 -lz3_asn
+
+
+LIBS=	 -L$(LIBDIR) $(DMALLOCLIB) -lwn -ldb \
+		-ll -lm -lc -lc_r
+
+DEMOCCOPTS=	$(CFLAGS)
+CC=	gcc
+
+.SUFFIXES: .o .c .temp .pq
+#
+# The following target should list the names of your programs
+#
+all: libsearch.a testsrch2
+
+#
+DEFINES=
+
+# the following define should contain a list of all modules
+
+MOREPROGS= se_process_query.o se_process_terms.o se_bool_element.o\
+	se_getterm.o se_gettrunc.o se_prob.o se_rank_docs.o \
+	se_phrase_match.o se_get_result.o se_process_meta.o \
+        se_andmerge.o se_notmerge.o se_ormerge.o se_pagemerge.o \
+        se_sortset.o se_process_feedback.o se_getdoclen.o se_get_page_docs.o
+
+# ----------------
+#  The detailed instructions for building the application
+#  including tcl/tk and Z39.59 and the DBopen library
+# ----------------
+#
+testsrch2: se_driver.o sgml_to_marc.o z_dispmarc.o z_dispsgml.o displayrec.o \
+	libsearch.a 
+	@ echo "making testsrch2"
+	@ $(CC) $(CFLAGS) $(DEFINES) -o testsrch2 \
+	   se_driver.o sgml_to_marc.o z_dispmarc.o z_dispsgml.o displayrec.o \
+	   -L. -lsearch $(LIBS)
+
+libsearch.a: $(MOREPROGS)
+	@ echo "Making Search Library"
+	@ rm -f libsearch.a
+	@ ar cr libsearch.a  $(MOREPROGS)
+
+reallyclean: clean cleandata
+	rm -f *~
+
+clean: 
+	rm -f *.o *.a testsrch2 core
+
+cleandata: 
+	rm -f TESTDATA/dictionary* TESTDATA/mainfile*
+.c.o:
+	$(CC)  $(DEMOCCOPTS) $(DEFINES) -c $(<F)
+
+
+
+#
+# DEPENDENCIES (generated, do not modify by hand)
+# 

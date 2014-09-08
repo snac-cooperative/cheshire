@@ -1,0 +1,130 @@
+
+<table>
+<tr><td colspan = 2><hr></td></tr>
+
+<tr><td valign = top>
+                <b>Personal Name</b>
+	      <table>
+                <tr><td> Surname:</td><td> <input type="text" name="pn_surname" size="40"></td></tr>
+                <tr><td> Forename:</td><td> <input type="text" name="pn_forename" size="40"></td></tr>
+                <tr><td> Dates:</td><td> <input type="text" name="pn_dates" size="40"></td></tr>
+                <tr><td> Title:</td><td> <input type="text" name="pn_title" size="40"></td></tr>
+                <tr><td> Epithet:</td><td> <input type="text" name="pn_epithet" size="40"></td></tr>
+                <tr><td> Other:</td><td> <input type="text" name="pn_other" size="40"></td></tr>
+	      </table>
+
+</td><td valign = top>
+<table>
+<tr><td><input type = "button"  onClick='opensearch(2);' value = "Search NRA">
+</td></tr>
+<tr><td><input type = "button"  onClick='addpersname();' value = "Add Persname">
+</td></tr>
+<tr><td><input type = "button"  onClick='deleteEntry(document.eadform.pn_list);' value = "Delete Persname">
+</td></tr>
+<tr><td><select  name = pn_list size = 10>
+<option name = "pn_deleteme">this is a width making one</option>
+</select></td></tr>
+</table>
+
+</td></tr>
+
+<tr><td colspan = 2><hr></td></tr>
+
+<tr><td valign = top>
+	      <b>Family Name</b>
+	      <table>
+		<tr><td>Surname:</td><td> <input type="text" name="fn_surname" size="40"></td></tr>
+		<tr><td>Other:</td><td> <input type = "text" name = "fn_other" size = "40" value = "family"></td></tr>
+		<tr><td>Dates:</td><td> <input type = "text" name = "fn_dates" size = "40"></td></tr>
+		<tr><td>Title:</td><td> <input type = "text" name = "fn_title" size = "40"></td></tr>
+		<tr><td>Epithet:</td><td> <input type = "text" name = "fn_epithet" size = "40"></td></tr>
+		<tr><td>Location:</td><td><input type = "text" name = "fn_loc" size = "40"></td></tr>
+
+	      </table>
+
+</td><td valign = "top">
+<table>
+<tr><td><input type = "button" onClick ='opensearch(3);' value = "Search NRA"></td></tr>
+<tr><td><input type = "button"  onClick='addfamname();' value = "Add Famname">
+</td></tr>
+<tr><td><input type = "button"  onClick='deleteEntry(document.eadform.fn_list);' value = "Delete Famname">
+</td></tr>
+<tr><td><select  name = fn_list size = 10><option name = "fn_deleteme">this is a width making one</option>
+</select></td></tr>
+</table>
+</td></tr>
+
+<tr><td colspan = 2><hr></td></tr>
+
+<tr><td valign = top>
+                <b>Corporate Name</b>
+	      <table>
+		<tr><td>Organisation: </td><td> <input type="text" name="cn" size="40"></td></tr>
+		<tr><td>Dates:</td><td> <input type="text" name="cn_dates" size="40"></td></tr>
+		<tr><td>Location</td><td> <input type="text" name="cn_loc" size="40"></td></tr>
+		<tr><td>Other:</td><td> <input type="text" name="cn_other" size="40"></td></tr>
+	      </table>
+</td><td valign = top>
+<table>
+<tr><td><input type = "button" onClick='opensearch(4);' value = "Search NRA">
+<tr><td><input type = "button"  onClick='addcorpname();' value = "Add Corpname">
+</td></tr>
+<tr><td><input type = "button"  onClick='deleteEntry(document.eadform.cn_list);' value = "Delete Corpname">
+</td></tr>
+<tr><td><select  name = cn_list size = 8><option name = "cn_deleteme">this is a width making one</option>
+</select></td></tr>
+</table>
+</td></tr>
+
+<tr><td colspan = 2><hr></td></tr>
+
+<tr><td valign = top>
+                <b>Subject</b>
+	      <table>
+		<tr><td>Subject: </td><td> <input type="text" name="su" size="40"></td></tr>
+		<tr><td>Dates:</td><td> <input type="text" name="su_dates" size="40"></td></tr>
+		<tr><td>Location</td><td> <input type="text" name="su_loc" size="40"></td></tr>
+		<tr><td>Other:</td><td> <input type="text" name="su_other" size="40"></td></tr>
+		<tr><td>Other:</td><td><input type = "text" name = "su_other2" size = "40"></td></tr>
+		<tr><td>Thesaurus:</td><td> <input type="text" name="su_source" size="40"></td></tr>
+	      </table>
+</td><td valign = top>
+<table>
+<tr><td><input type = "button"  onClick='opensearch(0);' value = "Search UNESCO">
+</td></tr>
+<tr><td><input type = "button"  onClick='opensearch(1);' value = "Search LCSH">
+</td></tr>
+<tr><td><input type = "button"  onClick='addsubject();' value = "Add Subject">
+</td></tr>
+<tr><td><input type = "button"  onClick='deleteEntry(document.eadform.su_list);' value = "Delete Subject">
+</td></tr>
+<tr><td><select  name = su_list size = 7><option name = "su_deleteme">this is a width making one</option>
+</select></td></tr>
+
+
+</table>
+
+</td></tr>
+
+<tr><td colspan = 2><hr></td></tr>
+<tr><td valign = top>
+	  <b>Place Name</b>
+	      <table>
+		<tr><td>Location: </td><td> <input type="text" name="gn" size="40"></td></tr>
+		<tr><td>Dates:</td><td> <input type="text" name="gn_dates" size="40"></td></tr>
+	      </table>
+</td><td valign = "top">
+<table>
+<tr><td><input type = "button"  onClick='addgeogname();' value = "Add Geogname">
+</td></tr>
+<tr><td><input type = "button"  onClick='deleteEntry(document.eadform.gn_list);' value = "Delete Geogname">
+</td></tr>
+<tr><td><select  name = gn_list size = 6><option name = "gn_deleteme">this is a width making one</option>
+</select></td></tr>
+
+</table>
+</td></tr>
+
+<tr><td colspan = 2><hr></td></tr>
+
+</table>

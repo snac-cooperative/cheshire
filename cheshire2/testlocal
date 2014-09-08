@@ -1,0 +1,7 @@
+puts "Connecting to local db at 2222"
+zselect ztest sherlock bibfile 2222
+set results [zfind su mathematics]
+puts "Search results: $results"
+zclose
+exit
+

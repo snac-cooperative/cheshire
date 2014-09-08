@@ -1,0 +1,10 @@
+./nsgmls:GB-0033-MAW.sgml:1:0:E: character "{" not allowed in prolog
+./nsgmls:GB-0033-MAW.sgml:2:76:W: cannot generate system identifier for public text "-//Durham University DULASC//TEXT PG Contact info//EN"
+./nsgmls:GB-0033-MAW.sgml:4:77:W: cannot generate system identifier for public text "-//Durham University DULASC//ENTITIES Characterset extension 1//EN"
+./nsgmls:GB-0033-MAW.sgml:5:8:E: reference to entity "dulasc1" for which no system identifier could be generated
+./nsgmls:GB-0033-MAW.sgml:3:0: entity was defined here
+./nsgmls:GB-0033-MAW.sgml:12:5:E: reference to entity "adrs" for which no system identifier could be generated
+./nsgmls:GB-0033-MAW.sgml:2:0: entity was defined here
+./nsgmls:GB-0033-MAW.sgml:19:5:E: reference to entity "adrs" for which no system identifier could be generated
+./nsgmls:GB-0033-MAW.sgml:2:0: entity was defined here
+./nsgmls:GB-0033-MAW.sgml:4221:0:E: character data is not allowed here

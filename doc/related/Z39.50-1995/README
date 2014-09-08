@@ -1,0 +1,18 @@
+This directory contains the official standards document for Z39.50 in
+PDF format. 
+Z39.50-1995 is available in pdf, in four parts:
+
+ part 1 -- introductory sections and service definition 
+ part 2 -- ASN.1 (PDUs), protocol procedures, conformance 
+ part 3 -- Appendices 1 through 5 
+ part 4 -- Appendices 6 through 15 
+
+
+A Hypertext version is available from the Library of Congress (the Z39.50
+Maintenance agency) as
+
+http://lcweb.loc.gov/z3950/agency/markup/markup.html
+
+For other Z39.50 related documents (including additions and revisions
+to this standard) visit the LC web site at:
+http://lcweb.loc.gov/z3950/agency/

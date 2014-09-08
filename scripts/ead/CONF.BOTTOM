@@ -1,0 +1,328 @@
+
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /home/cheshire/cheshire/eadhub/ead.wrapper </FILEDTD>
+
+<SGMLCat> /home/cheshire/cheshire/eadhub/catalog </SGMLCat>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> ead_components.assoc
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> ead_components.history
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<indexdef  access = btree extract = keyword normal =stem>
+<indxname>indexes/any.index</indxname>
+<indxtag> any </indxtag>
+<stoplist>stoplist</stoplist>
+
+<indxkey>
+<tagspec>
+<ftag> ^ead$ </ftag>
+</tagspec>
+</indxkey>
+</indexdef>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> indexes/eadid.index </INDXNAME>
+<INDXTAG> eadid </INDXTAG>
+
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1104 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1104 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1104 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+
+<stoplist>stoplist</stoplist>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^eadid$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> indexes/title.index </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+	<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+	<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+	<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+	<USE> 41 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<stoplist>stoplist</stoplist>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>titlestmt </FTAG><S>titleproper </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> indexes/xtitle.index </INDXNAME>
+<INDXTAG> xtitle </INDXTAG>
+
+<INDXMAP>
+	<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+	<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+	<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> </INDXMAP>
+
+<INDXMAP> 
+	<USE> 41 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> </INDXMAP>
+<stoplist>stoplist</stoplist>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>titlestmt </FTAG><S> titleproper </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<indexdef  access = btree extract = keyword normal =stem>
+<indxname>indexes/subject.index</indxname>
+<indxtag> subject</indxtag>
+<stoplist>stoplist</stoplist>
+<indxkey>
+<tagspec>
+<ftag> controlaccess </ftag> <s> subject </s>
+</tagspec>
+</indxkey>
+</indexdef>
+
+<indexdef  access = btree extract = exactkey normal =none>
+<indxname>indexes/xsubject.index</indxname>
+<indxtag> xsubject</indxtag>
+<stoplist>stoplist</stoplist>
+<indxkey>
+<tagspec>
+<ftag> controlaccess </ftag> <s> subject </s>
+</tagspec>
+</indxkey>
+</indexdef>
+
+
+</INDEXES>
+
+
+<COMPONENTS>
+<COMPONENTDEF>
+<COMPONENTNAME> /home/cheshire/cheshire/ead_components/indexes/component1_db
+</COMPONENTNAME>
+<COMPONENTNORM>NONE</COMPONENTNORM>
+<COMPONENTSTARTTAG>
+<TAGSPEC>
+<FTAG> ^c([0-1][0-9])*$ </FTAG><ATTR> level <value> item </value> <value> subfonds</value> </attr>
+</TAGSPEC>
+</COMPONENTSTARTTAG>
+
+
+<COMPONENTINDEXES>
+<!-- First index def -->
+
+<indexdef  access = btree extract = keyword normal =stem>
+<indxname>indexes/comp1.any.index</indxname>
+<indxtag> comp1any</indxtag>
+<stoplist>stoplist</stoplist>
+
+<indxkey>
+<tagspec>
+<ftag> .* </ftag>
+</tagspec>
+</indxkey>
+</indexdef>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> indexes/comp1.id.index </INDXNAME>
+<INDXTAG> comp1id </INDXTAG>
+
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1104 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1104 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1104 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+
+<stoplist>stoplist</stoplist>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>^unitid$</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+
+<indexdef  access = btree extract = keyword normal =stem>
+<indxname>indexes/comp1.subject.index</indxname>
+<indxtag> comp1subject</indxtag>
+<stoplist>stoplist</stoplist>
+<indxkey>
+<tagspec>
+<ftag> controlaccess </ftag> <s> subject </s>
+</tagspec>
+</indxkey>
+</indexdef>
+
+<indexdef  access = btree extract = exactkey normal =none>
+<indxname>indexes/comp1.xsubject.index</indxname>
+<indxtag> comp1xsubject</indxtag>
+<stoplist>stoplist</stoplist>
+<indxkey>
+<tagspec>
+<ftag> controlaccess </ftag> <s> subject </s>
+</tagspec>
+</indxkey>
+</indexdef>
+
+<indexdef  access = btree extract = keyword normal =stem>
+<indxname>indexes/comp1.title.index</indxname>
+<indxtag> comp1title</indxtag>
+<stoplist>stoplist</stoplist>
+
+<indxkey>
+<tagspec>
+<ftag> unittitle </ftag>
+</tagspec>
+</indxkey>
+</indexdef>
+
+<indexdef  access = btree extract = exactkey normal =none>
+<indxname>indexes/comp1.xtitle.index</indxname>
+<indxtag> comp1xtitle</indxtag>
+<stoplist>stoplist</stoplist>
+
+<indxkey>
+<tagspec>
+<ftag> unittitle </ftag>
+</tagspec>
+</indxkey>
+</indexdef>
+
+</COMPONENTINDEXES>
+</COMPONENTDEF>
+</COMPONENTS>
+
+<DISPLAY>
+
+<FORMAT NAME="TPGRS" OID="1.2.840.10003.5.105" DEFAULT>
+  <convert function="TAGSET-G"> 
+   <clusmap>
+        <from>
+	<tagspec>
+	<ftag>#RELEVANCE#</ftag>
+	</tagspec></from>
+        <to>
+	<tagspec>
+	<ftag>10</ftag>
+	</tagspec></to>	
+      <from>
+                <tagspec>
+                <ftag>#DOCID#</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>5</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>titleproper</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>1</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>^dsc$</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>17</ftag>
+                </tagspec></to>
+        <summarize>
+                <maxnum>1</maxnum>
+                <tagspec><ftag>Includes_DSC</ftag></tagspec></summarize>
+   </clusmap>
+ </convert>
+</FORMAT>
+
+<FORMAT NAME="CTPGRS" OID="1.2.840.10003.5.105" DEFAULT>
+  <convert function="TAGSET-G"> 
+   <clusmap>
+       <from>
+	<tagspec>
+	<ftag>#RELEVANCE#</ftag>
+	</tagspec></from>
+        <to>
+	<tagspec>
+	<ftag>10</ftag>
+	</tagspec></to>	
+        <from>
+                <tagspec>
+                <ftag>#DOCID#</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>5</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>unittitle</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>2</ftag>
+                </tagspec></to> 
+        <from> 
+                <tagspec>
+                <ftag>unitid</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>7</ftag>
+                </tagspec></to> 
+       <from>
+  	<tagspec>
+	<ftag>#PARENT#</ftag><s>titlestmt</s><s>titleproper</s>
+	</tagspec></from>
+        <to>
+	<tagspec>
+	<ftag>3</ftag>
+	</tagspec></to>	
+
+   </clusmap>
+ </convert>
+</FORMAT>
+
+
+<FORMAT NAME="HTML" OID="1.2.840.10003.5.109.3" >
+  <convert function=/home/cheshire/cheshire/ead_components/tohtml.tcl> 
+ </convert>
+</FORMAT>
+
+
+</DISPLAY>
+
+</FILEDEF>
+
+</DBCONFIG>

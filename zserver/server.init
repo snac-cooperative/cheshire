@@ -1,0 +1,59 @@
+#
+#   Z3950 Server Initialization File. 
+#   The name and value must be in one line. Double quote should be
+#   placed around a value if the value contains more than one word.
+#	
+#	FIELD_NAME			VALUE
+
+PREFERRED_MESSAGE_SIZE			32768
+MAXIMUM_RECORD_SIZE			3000000
+IMPLEMENTATION_ID			"1997"
+IMPLEMENTATION_NAME			"Sherlock - Cheshire II V3 ZServer"
+IMPLEMENTATION_VERSION			"2.4"
+PROTOCOL_VERSION			"111"
+OPTIONS					"111011111000001"
+PORT					"2222"  # testing port number
+# list of configfiles
+DATABASE_CONFIGFILES			"/home/ray/Work/cheshire/index/TESTDATA/testconfig.new /projects/cheshire/DATA/WATRY_SF/DBCONFIGFILE /projects/cheshire/DATA/MUSICMARC/SNAPSHOT/CONFIG.CSMP /projects/cheshire/DATA/OTA/CONFIG.OTA /projects/cheshire/DATA/Language/CONFIG.RUS /projects/cheshire/DATA/Language/CONFIG.GER /projects/cheshire/DATA/Language/CONFIG.FRE /projects/cheshire/DATA/Language/CONFIG.SPA /home/ray/Work/ESSEX_TEST/CONFIG.CODEBOOK /projects/cheshire/DATA/Language/ICELAND/CONFIG.ICE /home/ray/Work/cheshire/index/TESTDL/CONFIG.DL /projects/cheshire/DATA/SCILIB_NEW/CONFIG.SCILIB /projects/cheshire/DATA/GLASIER/CONFIG.GLASIER /home/ray/Work/cheshire/config/testconfig.dbms_new2 /projects/cheshire/DATA/EADCONF/CONFIG.exp_test /home/ray/Work/DISTRIB/CONFIG.DISTRIB /home/ray/Work/cheshire/index/testconfig.ds /home/ray/Work/Time_Period_Directory/config.TPD /home/ray/Work/Wikipedia_People/config.wikipedia_people /projects/cheshire/DATA/LCAuthorities/DBCONFIGFILE"
+SUPPORT_NAMED_RESULT_SET		1    			# 1 means YES
+SUPPORT_MULTIPLE_DATABASE_SEARCH	1    			# 0 means NO
+MAXIMUM_NUMBER_DATABASES		10
+MAXIMUM_NUMBER_RESULT_SETS		100
+NO_DISK_RESULT_SETS				"TRUE"	#don't save result set on disk
+TIMEOUT					1200  			# in seconds
+LOG_FILE_NAME				"zserver.log"
+#PERMANENT_LOG_FILE_NAME                 "/tmp/cheshire_perm_log"
+RESULT_SET_DIRECTORY			"/usr/tmp"
+ATTRIBUTE_SET_ID			"1.2.840.10003.3.1 1.2.840.10003.3.2 1.2.840.10003.3.5"	# BIB-1, EXP-1, and GILS
+#
+#
+SUPPORT_TYPE_0_QUERY			1
+SUPPORT_TYPE_1_QUERY			1
+SUPPORT_TYPE_2_QUERY			0
+SUPPORT_TYPE_100_QUERY			0
+SUPPORT_TYPE_101_QUERY			1
+SUPPORT_TYPE_102_QUERY			1
+#
+#
+SUPPORT_ELEMENT_SET_NAMES		1
+SUPPORT_SINGLE_ELEMENT_SET_NAME		0
+#
+# Explain strings for creation of explain records...
+#
+TARGETINFO_NAME			"Sherlock's Cheshire Server"
+TARGETINFO_NEWS			"No current news"
+TARGETINFO_WELCOME_MSG		"Welcome to the Cheshire II server on Sherlock"
+TARGETINFO_CONTACT_NAME		"Ray R. Larson"
+TARGETINFO_CONTACT_DESCRIPTION	""
+TARGETINFO_CONTACT_ADDRESS	"School of Information Management and Systems, University of California, Berkeley, 102 South Hall 4600, Berkeley, California 94720-4600, USA"
+TARGETINFO_CONTACT_EMAIL	"ray@sherlock.berkeley.edu"
+TARGETINFO_CONTACT_PHONE	"(510)642-6046"
+TARGETINFO_DESCRIPTION		"This is a development and testing server for the Cheshire II project"
+TARGETINFO_USAGE_RESTRICTION	"No restrictions"
+TARGETINFO_PAYMENT_ADDRESS	"Freely Available"
+TARGETINFO_HOURS		"Should always be available"
+TARGETINFO_LANGUAGES		"eng" # can be a list
+
+#	End of The Server Initialization File.
+#
+

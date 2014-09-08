@@ -1,0 +1,24 @@
+puts "selecting MELVYL"
+zselect melvyl
+puts "setting format/syntax MARC"
+zset recformat OPAC
+zset pElementSetNames F
+puts "find"
+zfind title library and title management
+puts "present"
+zset numberofrecordsrequested 12
+set x [zdisplay 3 9]
+set num 1
+foreach y [lrange $x 1 end] {
+	puts "formatting opac records...."
+	# just testing right now...
+	set outrec0 [zformat dc $y opac $num 80]
+	puts "\nOUTREC #$num is::\n$outrec0"
+
+	#regsub -all {\[|\]|\$[0-9]} $outrec1 {\\&} outrec
+	incr num
+}
+
+#puts $x
+zclose
+

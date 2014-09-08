@@ -1,0 +1,3152 @@
+<!SGML  "ISO 8879:1986"
+--
+--
+
+CHARSET
+         BASESET  "ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0"
+         DESCSET  0   9   UNUSED
+                  9   2   9
+                  11  2   UNUSED
+                  13  1   13
+                  14  18  UNUSED
+                  32  95  32
+                  127 1   UNUSED
+     BASESET   "ISO Registration Number 100//CHARSET
+                ECMA-94 Right Part of Latin Alphabet Nr. 1//ESC 2/13 4/1"
+     DESCSET   128 32 UNUSED
+               160 95 32
+               255  1 UNUSED
+
+
+CAPACITY        SGMLREF
+                TOTALCAP        150000
+                GRPCAP          150000
+  
+SCOPE    DOCUMENT
+SYNTAX   
+         SHUNCHAR CONTROLS 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+                           19 20 21 22 23 24 25 26 27 28 29 30 31 127 255
+         BASESET  "ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0"
+         DESCSET  0 128 0
+         FUNCTION RE          13
+                  RS          10
+                  SPACE       32
+                  TAB SEPCHAR  9
+         NAMING   LCNMSTRT ""
+                  UCNMSTRT ""
+                  LCNMCHAR ".-"
+                  UCNMCHAR ".-"
+                  NAMECASE GENERAL YES
+                           ENTITY  NO
+         DELIM    GENERAL  SGMLREF
+                  SHORTREF SGMLREF
+         NAMES    SGMLREF
+         QUANTITY SGMLREF
+                  NAMELEN  34
+                  TAGLVL   100
+                  LITLEN   1024
+                  GRPGTCNT 150
+                  GRPCNT   200                   
+
+FEATURES
+  MINIMIZE
+    DATATAG  NO
+    OMITTAG  YES
+    RANK     NO
+    SHORTTAG NO
+  LINK
+    SIMPLE   NO
+    IMPLICIT NO
+    EXPLICIT NO
+  OTHER
+    CONCUR   NO
+    SUBDOC   NO
+    FORMAL   YES
+  APPINFO    NONE
+>
+
+<!DOCTYPE USMARC [
+<!-- USMARC DTD.  UCB-SLIS v.0.08 -->
+<!-- By Jerome P. McDonough, April 1, 1994 -->
+<!-- Revised: April 11, 1994 -->
+<!-- Revised: April 13, 1994 Added ISO Greek, Cyrillic, and Publisher
+                             character sets -->
+<!-- Revised: April 17, 1994 Revised element order declarations for
+                             greater flexibility and fixed errors
+                             in character set handling -->
+<!-- Revised: April 19, 1994 Expanded 9XX fields for local processing -->
+<!-- Revised: June 27, 1994 alter Fld243 for full set of indicator
+                            values -->
+<!-- Revised: June 28, 1994 added backwards compatibility for
+                            pre-format integration MARC records -->
+<!-- Revised: July 5, 1994  added ANSEL entity set to allow either
+                            ISO or USMARC charset implementations -->
+<!-- Revised: May 11, 1995  revised to try to fully comply with format
+                            integration proposals -->
+
+<!-- Copyright (c) 1994 The Regents of the University of California.
+     All rights reserved.
+     Permission is hereby granted, without written agreement and without
+     license or royalty fees, to use, copy, modify, and distribute this
+     software and its documentation for any purpose, provided that the
+     above copyright notice and the following paragraph appear in
+     all copies of this software.
+     IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR
+     DIRECT, INDIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT
+     OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE UNIVERSITY
+     OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+     THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES,
+     INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY
+     AND FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+     ON AN "AS IS" BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATION TO
+     PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS. -->
+
+<!-- Author's Note:
+     This DTD was designed for use in an on-line catalog employing SGML
+     as its underlying record format.  Its design was intended to
+     accomplish several objectives: 1. Identify (tag) content-bearing
+     elements down to the subfield level; and 2. allow automatic conversion
+     of USMARC records into this SGML format and back out again with
+     as little loss of the original content as possible.
+     Users should note that this DTD was designed for use with MARC
+     records at the U.C. Berkeley campus, and therefore contains some
+     elements for tagging of local holdings information that should 
+     probably be removed/altered for use at other institutions.  It
+     should also be noted that while I've done my best to ensure
+     that format integration compliant records will work with this
+     DTD, it also contains information for fields/subfields no longer
+     considered valid under format integration in order to provide
+     backwards compatability with pre-format integration MARC records.
+     Use at your own risk. -->
+    
+<!ENTITY % doctype "USMARC" -- Document type generic identifier -->
+<!ENTITY % ISOgrk1 SYSTEM "/usr6/ray/Work/cheshire2/sgml/charsets/ISOgrk1">
+<!ENTITY % ISOgrk2 SYSTEM "/usr6/ray/Work/cheshire2/sgml/charsets/ISOgrk2">
+<!ENTITY % ISOcyr1 SYSTEM "/usr6/ray/Work/cheshire2/sgml/charsets/ISOcyr1">
+<!ENTITY % ISOcyr2 SYSTEM "/usr6/ray/Work/cheshire2/sgml/charsets/ISOcyr2">
+<!ENTITY % ISOpub SYSTEM "/usr6/ray/Work/cheshire2/sgml/charsets/ISOpub">
+<!ENTITY % ISOnum SYSTEM "/usr6/ray/Work/cheshire2/sgml/charsets/ISOnum">
+<!ENTITY % ANSEL SYSTEM "/usr6/ray/Work/cheshire2/sgml/charsets/ANSEL">
+<!-- These are not used, and can cause problems, so they are commented out
+     %ISOgrk1;
+     %ISOgrk2;
+     %ISOcyr1;
+     %ISOcyr2;
+     %ISOpub;
+     %ISOnum;
+     %ANSEL -->
+<!ELEMENT USMARC - - (Leader, Directry, VarFlds)>
+<!ATTLIST USMARC Material (BK|AM|CF|MP|MU|VM|SE|AU) "BK"
+                 id       CDATA    #IMPLIED>
+<!-- Author's Note: the id attribute for the USMARC element is
+                    intended to hold a unique record number for
+                    each MARC record in the local database.  That
+                    is to say, it is intended ONLY as an aid in
+                    maintaining the local database of MARC records -->
+
+<!ELEMENT Leader - O (LRL, RecStat, RecType, BibLevel, UCP, IndCount, SFCount,
+                      BaseAddr, EncLevel, DscCatFm, LinkRec, EntryMap)>
+<!ELEMENT Directry - O (#PCDATA)>
+<!ELEMENT VarFlds - O (VarCFlds, VarDFlds)>
+
+<!-- Component parts of Leader -->
+<!-- Logical Record Length -->
+<!ELEMENT LRL - O (#PCDATA)>
+
+<!-- Record Status -->
+<!ELEMENT RecStat - O (#PCDATA)>
+
+<!-- Type of Record -->
+<!ELEMENT RecType - O (#PCDATA)>
+
+<!-- Bibliographic Level -->
+<!ELEMENT BibLevel - O (#PCDATA)>
+
+<!-- Undefined Character Position -->
+<!ELEMENT UCP - O (#PCDATA)>
+
+<!-- Indicator Count -->
+<!ELEMENT IndCount - O (#PCDATA)>
+
+<!-- Subfield Code Count -->
+<!ELEMENT SFCount - O (#PCDATA)>
+
+<!-- Base address of data -->
+<!ELEMENT BaseAddr - O (#PCDATA)>
+
+<!-- Encoding Level -->
+<!ELEMENT EncLevel - O (#PCDATA)>
+
+<!-- Descriptive Cataloging Form -->
+<!ELEMENT DscCatFm - O (#PCDATA)>
+
+<!-- Linked record requirement -->
+<!ELEMENT LinkRec - O (#PCDATA)>
+
+<!-- Entry Map -->
+<!ELEMENT EntryMap - O (FLength, SCharPos, IDLength, EMUCP)>
+
+<!-- Length of the length-of-field portion -->
+<!ELEMENT FLength - O (#PCDATA)>
+
+<!-- Length of the starting-character-position portion -->
+<!ELEMENT SCharPos - O (#PCDATA)>
+
+<!-- Length of the implementation-defined portion -->
+<!ELEMENT IDLength - O (#PCDATA)>
+
+<!-- Undefined entry map character position -->
+<!ELEMENT EMUCP - O (#PCDATA)>
+
+<!-- Component Parts of Variable Fields -->
+<!-- Variable Control Fields -->
+<!ELEMENT VarCFlds - O (Fld001, Fld002*, Fld003?, Fld005, Fld006*, Fld007*, Fld008,
+	                Fld009?)>
+
+<!-- Variable Data Fields -->
+<!ELEMENT VarDFlds - O (NumbCode, MainEnty?, Titles?, EdImprnt?, PhysDesc?,
+                        Series?, AuthRef?, Notes?, AuthAlsoRef?, SubjAccs?, 
+			AuthNotes?, AddEnty?, LinkEnty?,
+                        SAddEnty?, HoldAltG?, Fld9XX?)>
+
+<!-- Component Parts of Variable Data Fields -->
+<!-- Numbers & Codes -->
+<!ELEMENT NumbCode - O (Fld010?, Fld011?, Fld012?, Fld013*,
+		     Fld014*, Fld015?, Fld016*, 
+		     Fld017*, Fld018?, Fld019*, Fld020*, Fld021*,
+                     Fld022*, Fld023*, Fld024*, Fld025*, Fld026*, Fld027*,
+		     Fld028*, Fld029*, Fld030*, Fld031*,
+                     Fld032*, Fld033*, Fld034*, Fld035*, Fld036?,
+                     Fld037*, Fld038*, Fld039*, Fld040?, Fld041?, Fld042?,
+		     Fld043?, Fld044?,
+                     Fld045?, Fld046?, Fld047?, Fld048*, Fld049*, Fld050*, 
+		     Fld051*, Fld052*, Fld053*, Fld054*, Fld055*, Fld057*,
+		     Fld059*, 
+		     Fld060*, Fld061*, Fld063*, Fld066?, Fld068*, Fld069*, Fld070*,
+                     Fld071*, Fld072*, Fld073*, Fld074*, Fld075*, Fld078*,
+		     Fld080?, Fld081*,
+		     Fld082*, Fld083*, Fld084*, Fld085*,
+		     Fld086*, Fld087*, Fld088*, Fld089*, Fld090*, Fld092*, 
+		     Fld093*, Fld094*, Fld095*, Fld096*, Fld097*, 
+			Fld099*)>
+
+<!-- Main Entries and Authority headings -->
+<!ELEMENT MainEnty - O (Fld100?, Fld104?, Fld105?, Fld106?, Fld108?, Fld109?, Fld110?, Fld111?, 
+		        Fld112?, Fld119?, Fld120?, Fld121*,
+		        Fld112?, Fld119?, Fld120?, Fld121?, Fld123*, Fld124*,
+		        Fld130?, Fld134*, Fld136*, Fld140?, Fld150?, Fld151?, Fld155?,Fld159?,
+			Fld169*, Fld180?, Fld181?, Fld182?, Fld184?, Fld185?, Fld192*, Fld199* )>
+
+<!-- Titles -->
+<!ELEMENT Titles - O (Fld208*, Fld210?, Fld211*, Fld212*, Fld214*, Fld220*, Fld222*, Fld226*, 
+		 Fld200*, Fld206*, Fld230*, Fld231*, Fld240?, Fld241?, Fld242*, Fld243?, Fld244*, Fld245, 
+		 Fld246*, Fld247*, Fld248*, Fld249*)>
+
+<!-- Edition, Imprint, etc. -->
+<!ELEMENT EdImprnt - O (Fld250?, Fld254?, Fld255*, Fld256?, Fld257?,
+	  	        Fld258?, Fld260?,
+                        Fld261?, Fld262?, Fld263?, Fld264*, Fld265?, Fld266*, Fld269?, Fld270?,
+			Fld274?, Fld276*, Fld284*, Fld285*, Fld290*, Fld294*, Fld298*, Fld299*)>
+
+<!-- Physical Description, etc. -->
+<!ELEMENT PhysDesc - O (Fld300*, Fld301*, Fld302*, Fld305*, Fld306?, 
+		        Fld307*, Fld308*, Fld309*, Fld310?,
+		        Fld315?, Fld320*, Fld321*, Fld330*,
+			Fld340*, Fld343*, Fld350?, Fld351*,
+			Fld352*, Fld355*, Fld357*, Fld359*,
+			Fld360*, Fld361*, Fld362*, 
+			Fld363*, Fld380*, Fld390*, Fld396*)>
+
+<!-- Series Statements  or Authority references -->
+<!ELEMENT Series - O (Fld400*, Fld409*, Fld410*, Fld411*, Fld430*, Fld440*, 
+		 Fld444*, Fld446*, Fld447*, Fld449*, Fld450*, Fld456*, Fld460*, Fld475*, Fld484*, Fld489*, 
+		 Fld490*, Fld491*, Fld499*)>
+
+<!ELEMENT AuthRef - O (Fld400*, Fld410*, Fld411*, Fld430*, Fld449*, Fld450*, Fld451*,
+		       Fld455*, Fld456*, Fld460*, Fld475*, Fld480*, Fld481*, 
+		       Fld482*, Fld484*, Fld485*, Fld489*,
+		       Fld663*, Fld664*, Fld665*, Fld666*)>
+
+<!-- Notes and Authority see also references -->
+<!ELEMENT Notes - O (Fld500*, Fld501*, Fld502*, Fld503*, Fld504*,
+	             Fld505?, Fld506*,
+                     Fld507?, Fld508?, Fld509*, Fld510*, Fld511*, Fld512*, 
+		     Fld513*, Fld514*, Fld515*,
+                     Fld516*, Fld517*, Fld518*, Fld519*, Fld520*, Fld521*, Fld522?,
+	             Fld523?, Fld524?,
+                     Fld525*, Fld526*, Fld528*, Fld530*, Fld531*, Fld532*, Fld533*, 
+		     Fld534*, Fld535*,
+	             Fld536*, Fld537?, Fld538*,
+                     Fld539*, Fld540*, Fld541*, Fld542*, Fld544*, Fld545*, Fld546*,
+                     Fld547*, Fld549*, Fld550*, Fld552*, Fld553*, Fld554*,Fld555*, Fld556*, Fld560*,
+		     Fld561*, Fld562*, Fld563*,
+                     Fld565*, Fld567*, Fld569*, Fld570*, Fld574*, Fld575*, Fld576*, Fld579*,
+		     Fld580*, Fld581*, Fld582*,
+                     Fld583*, Fld584*, Fld585*, Fld586*, Fld589*, Fld590*, Fld591*,
+		     Fld592*, Fld593*, Fld594*, Fld595*, Fld596*, Fld597*, 
+		     Fld598*,Fld599*)>
+
+<!ELEMENT AuthAlsoRef - O (Fld500*, Fld510*, Fld511*, Fld530*, 
+	  		   Fld555*, Fld580*, Fld581*, Fld582*, Fld585*,
+			   Fld550*, Fld551*)>
+
+<!-- Subject Access Fields -->
+<!ELEMENT SubjAccs - O (Fld600*, Fld601*, Fld602*, Fld607*, 
+		   Fld608*, Fld610*, Fld611*, 
+		   Fld612*, Fld619*, Fld620*, Fld621*, Fld622*, Fld625*,
+		   Fld630*, Fld631*, Fld632*, Fld639*, Fld640*, 
+		   Fld641*, Fld645*, Fld650*, Fld651*,
+                   Fld652*, Fld653*, Fld654*, Fld655*, Fld656*, Fld657*, 
+		   Fld658*, Fld659*, Fld660*, Fld662*, Fld667*, Fld670*, Fld679*, Fld685*, Fld689*,
+                   Fld690*, Fld691*, Fld692*, Fld693*, Fld694*, Fld695*,
+		   Fld696*, Fld697*, Fld698*, Fld699*)>
+
+<!-- Authority notes fields -->
+<!ELEMENT AuthNotes - O (Fld667*, Fld670*,
+                   Fld675*, Fld678*, Fld679*, Fld680*, Fld681*, Fld682*)>
+
+
+
+<!-- Added Entries -->
+<!ELEMENT AddEnty - O (Fld700*, Fld703*, Fld704*, Fld707*, Fld709*, Fld710*, Fld711*,
+	  	  Fld712*,
+		  Fld719*, Fld720*, Fld721*, Fld728*, Fld730*, Fld740*,
+		  Fld741*, Fld745*, Fld746*, Fld750*, Fld752*,
+                  Fld753*, Fld754*, Fld755*)>
+
+<!-- Linking Entries -->
+<!ELEMENT LinkEnty - O (Fld760*, Fld762*, Fld765*, Fld767*, Fld770*, Fld772*,
+                        Fld773*, Fld774*, Fld775*, Fld776*, Fld777*, Fld778*,
+			Fld780*, Fld781*, Fld783*, Fld785*, Fld786*,
+                        Fld787*, Fld789*, Fld790*, Fld791*, Fld792*, Fld793*,
+			Fld794*, Fld795*, Fld796*, Fld797*, Fld798*, Fld799*)>
+
+<!-- Series Added Entries -->
+<!ELEMENT SAddEnty - O (Fld800*, Fld803*, Fld804*, Fld805*, Fld806*,
+		        Fld807*, Fld808*, Fld809*, Fld810*, Fld811*, 
+			Fld820*, Fld830*, Fld831*,
+		        Fld834*, Fld840*)>
+
+<!-- Holdings, Alternate Graphics, Etc. -->
+<!ELEMENT HoldAltG - O (Fld841*, Fld843*, Fld845*, Fld846*, Fld850*, Fld852*, Fld853*,
+                        Fld854*, Fld855*, Fld856*, Fld859*, Fld863*, Fld864*, Fld865*,
+			Fld866*, Fld867*, Fld868*, Fld876*, Fld877*, Fld878*,
+			Fld880*, Fld881*, Fld882*, Fld883*, Fld884*, Fld885*,
+			Fld886*, Fld890*, Fld891*, Fld896*, Fld898*)>
+
+<!-- Local Holdings Information -->
+<!-- This now includes ALL fields in the range whether or not assigned -->
+<!-- with your records -->
+<!ELEMENT Fld9XX - O (
+Fld900|Fld901|Fld902|Fld903|Fld904|Fld905|Fld906|Fld907|Fld908|Fld909|
+Fld910|Fld911|Fld912|Fld913|Fld914|Fld915|Fld916|Fld917|Fld918|Fld919|
+Fld920|Fld921|Fld922|Fld923|Fld924|Fld925|Fld926|Fld927|Fld928|Fld929|
+Fld930|Fld931|Fld932|Fld933|Fld934|Fld935|Fld936|Fld937|Fld938|Fld939|
+Fld940|Fld941|Fld942|Fld943|Fld944|Fld945|Fld946|Fld947|Fld948|Fld949|
+Fld950|Fld951|Fld952|Fld953|Fld954|Fld955|Fld956|Fld957|Fld958|Fld959|
+Fld960|Fld961|Fld962|Fld963|Fld964|Fld965|Fld966|Fld967|Fld968|Fld969|
+Fld970|Fld971|Fld972|Fld973|Fld974|Fld975|Fld976|Fld977|Fld978|Fld979|
+Fld980|Fld981|Fld982|Fld983|Fld984|Fld985|Fld986|Fld987|Fld988|Fld989|
+Fld990|Fld991|Fld992|Fld993|Fld994|Fld995|Fld996|Fld997|Fld998|Fld999)*>
+
+<!-- Component Parts of Variable Control Fields -->
+<!-- Control Number -->
+<!ELEMENT Fld001 - O (#PCDATA)>
+
+<!-- Unknown field -->
+<!ELEMENT Fld002 - O (#PCDATA)>
+
+<!-- Control Number Identifier -->
+<!ELEMENT Fld003 - O (#PCDATA)>
+
+<!-- Date and Time of Latest Transaction -->
+<!ELEMENT Fld005 - O (#PCDATA)>
+
+<!-- Linking Field -->
+<!ELEMENT Fld006 - O (#PCDATA)>
+
+<!-- Physical Description Fixed Field -->
+<!ELEMENT Fld007 - o (#PCDATA)>
+
+<!-- Fixed Length Data Elements -->
+<!ELEMENT Fld008 - O (#PCDATA)>
+
+<!-- User defined field : no idea what is in it -->
+<!ELEMENT Fld009 - O (#PCDATA)>
+
+<!-- Component Parts of Numbers & Codes -->
+<!-- Library of Congress Control Number -->
+<!ELEMENT Fld010 - O (a|b|z)*>
+<!ATTLIST Fld010 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Linking Library of Congress Control Number -->
+<!ELEMENT Fld011 - O (a+)>
+<!ATTLIST Fld011 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld012 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld012 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld013 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld013 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld014 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld014 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- National Bibliography Number -->
+<!ELEMENT Fld015 - O (Six?, a+)>
+<!ATTLIST Fld015 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld016 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld016 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Copyright Registration Number -->
+<!ELEMENT Fld017 - O (Six?, a+, b)>
+<!ATTLIST Fld017 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Copyright Article-Fee Code -->
+<!ELEMENT Fld018 - O (a)>
+<!ATTLIST Fld018 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field 019 is a local number field employed by U.C. Berkeley -->
+<!-- cataloging records and does not constitute part of the USMARC -->
+<!-- standard -->
+<!ELEMENT Fld019 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld019 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- International Standard Book Number -->
+<!ELEMENT Fld020 - O (Six?, (a|c|z)*)>
+<!ATTLIST Fld020 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld021 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld021 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- International Standard Serial Number -->
+<!ELEMENT Fld022 - O (a|y|z)*>
+<!ATTLIST Fld022 ISDSLvl     (ND|FULL|ABBREV) "ND"
+                 I2          CDATA          #IMPLIED>
+
+<!-- Standard Film Number -->
+<!ELEMENT Fld023 - O (#PCDATA)>
+<!ATTLIST Fld023 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+
+<!-- Standard Recording Number or other standard identifier -->
+<!ELEMENT Fld024 - O (Six?, (a|c|d|z|Two)*)>
+<!ATTLIST Fld024 StdNum      (ISRC|UPC|ISMN|IAN|SICI|Two|Unspec|Blank)     #IMPLIED
+                 DiffInd     (NoDiff|Diff|Blnk)         #IMPLIED>
+
+<!-- Overseas Acquisition Number -->
+<!ELEMENT Fld025 - O (a+)>
+<!ATTLIST Fld025 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld026 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld026 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Standard Technical Report Number -->
+<!ELEMENT Fld027 - O (a, z*)>
+<!ATTLIST Fld027 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Publisher Number -->
+<!ELEMENT Fld028 - O (Six?, a, b)>
+<!ATTLIST Fld028 PubNmTyp    (ISSUE|MATRIX|PLATE|OTHER|VIDEO|Blank) #IMPLIED
+                 NteAdEnty   (NN|YY|YN|NY|Blnk)  #IMPLIED>
+
+<!-- Field 029 is a local numbers field employed by U.C. Berkeley -->
+<!-- cataloging records and does not constitute part of the USMARC -->
+<!-- standard -->
+<!ELEMENT Fld029 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld029 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- CODEN Designation -->
+<!ELEMENT Fld030 - O (Six?, a, z*)>
+<!ATTLIST Fld030 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld031 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld031 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Postal Registration Number -->
+<!ELEMENT Fld032 - O (Six?, a, b)>
+<!ATTLIST Fld032 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Date/Time and Place of an event -->
+<!ELEMENT Fld033 - O (Six?, (Three|a|b|c)*)>
+<!ATTLIST Fld033 DateType    (NoDate|Single|Multiple|Range) #IMPLIED
+                 EventTyp    (ND|Capture|Broadcast|Finding) #IMPLIED>
+
+<!-- Coded Mathematical Data -->
+<!ELEMENT Fld034 - O (Six?, (a|b|c|d|e|f|g|h|j|k|m|n|p)*)>
+<!ATTLIST Fld034 ScaleTyp    (ND|Single|Range|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- System Control Number -->
+<!ELEMENT Fld035 - O (Six?, a, z*)>
+<!ATTLIST Fld035 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Original Study Number -->
+<!ELEMENT Fld036 - O (Six?, a, b?)>
+<!ATTLIST Fld036 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Stock Number -->
+<!ELEMENT Fld037 - O (Six?, a, (b|c|f)*)>
+<!ATTLIST Fld037 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld038 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld038 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field 039 is a local numbers field employed by U.C. Berkeley -->
+<!-- cataloging records and does not constitute part of the USMARC -->
+<!-- standard -->
+<!ELEMENT Fld039 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld039 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Cataloging Source -->
+<!ELEMENT Fld040 - O (Six?, (a|b|c|d|e)*)>
+<!ATTLIST Fld040 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Language Code -->
+<!ELEMENT Fld041 - O (Six?, (a|b|d|e|f|g|h)*)>
+<!ATTLIST Fld041 TransInd    (Yes|No|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Authentication Code -->
+<!ELEMENT Fld042 - O (a+)>
+<!ATTLIST Fld042 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Geographic Area Code -->
+<!ELEMENT Fld043 - O (a+)>
+<!ATTLIST Fld043 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Country of Producer Code -->
+<!ELEMENT Fld044 - O (a+)>
+<!ATTLIST Fld044 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Time Period of Content -->
+<!ELEMENT Fld045 - O (a|b|c)*>
+<!ATTLIST Fld045 TimePrd     (NP|Single|Multiple|Range) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Type of DateCode, Date 1, Date 2 (B.C. Dates) -->
+<!ELEMENT Fld046 - O (Six?, a, (b|c|d|e)*)>
+<!ATTLIST Fld046 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Form of Composition -->
+<!ELEMENT Fld047 - O (a+)>
+<!ATTLIST Fld047 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Number of Instruments or Voices Code -->
+<!ELEMENT Fld048 - O (a | b)+>
+<!ATTLIST Fld048 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld049 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld049 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Library of Congress Call Number -->
+<!ELEMENT Fld050 - O (Three|a|b)+>
+<!ATTLIST Fld050 InLofC      (ND|Yes|No)    #IMPLIED
+                 CNSrc       (LC|Other|Blnk)     #IMPLIED>
+
+<!-- Library of Congress Copy, Issue, Offprint Statement -->
+<!ELEMENT Fld051 - O (a, b?, c)>
+<!ATTLIST Fld051 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Geographic Classification Code -->
+<!ELEMENT Fld052 - O (a, b*)>
+<!ATTLIST Fld052 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld053 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld053 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld054 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld054 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Call Numbers/Class Numbers Assigned in Canada -->
+<!ELEMENT Fld055 - O (a, (b|Two)*)>
+<!ATTLIST Fld055 InNLC       (ND|Yes|No)    #IMPLIED
+                 CNCLSSrc    (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld057 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld057 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld059 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld059 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- National Library of Medicine Call Number -->
+<!ELEMENT Fld060 - O (a|b)+>
+<!ATTLIST Fld060 InNLM       (ND|Yes|No)    #IMPLIED
+                 CNSrc       (NLM|Other|Blnk)    #IMPLIED>
+
+<!-- National Library of Medicine Copy Statement -->
+<!ELEMENT Fld061 - O (a|b|c)+>
+<!ATTLIST Fld061 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld063 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld063 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Character Sets Present -->
+<!ELEMENT Fld066 - O (a|b|c)+>
+<!ATTLIST Fld066 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld068 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld068 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Field 069 is a local field employed by U.C. Berkeley -->
+<!-- cataloging records and does not constitute part of the USMARC -->
+<!-- standard -->
+<!ELEMENT Fld069 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld069 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- National Agricultural Library Call Number -->
+<!ELEMENT Fld070 - O (a|b)+>
+<!ATTLIST Fld070 InNAL       (Yes|No|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- National Agricultural Library Copy Statement -->
+<!ELEMENT Fld071 - O (a|b|c)+>
+<!ATTLIST Fld071 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Subject Category Code -->
+<!ELEMENT Fld072 - O (Six?, a, x*, Two?)>
+<!ATTLIST Fld072 I1          CDATA          #IMPLIED
+                 CodeSrc     (NAL|Two|Blnk)      #IMPLIED>
+
+<!-- Authority Subdivision Usage -->
+<!ELEMENT Fld073 - O (a, z*)>
+<!ATTLIST Fld073 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- GPO Item Number -->
+<!ELEMENT Fld074 - O (a, z*)>
+<!ATTLIST Fld074 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld075 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld075 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld078 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld078 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Universal Decimal Classification Number -->
+<!ELEMENT Fld080 - O (a+)>
+<!ATTLIST Fld080 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown field -->
+<!ELEMENT Fld081 - O (a+)>
+<!ATTLIST Fld081 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Dewey Decimal Call Number -->
+<!ELEMENT Fld082 - O (a|b|Two)+>
+<!ATTLIST Fld082 Edition     (Full|Abridged|Blank) #IMPLIED
+                 CNSrc       (LC|Other|Blnk)      #IMPLIED>
+
+<!-- Unknown field -->
+<!ELEMENT Fld083 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld083 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Other Call Number -->
+<!ELEMENT Fld084 - O (Six?, (a|b|Two)*)>
+<!ATTLIST Fld084 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown field -->
+<!ELEMENT Fld085 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld085 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Government Document Classification Number -->
+<!ELEMENT Fld086 - O (Six?, a, z*, Two?)>
+<!ATTLIST Fld086 NumbrSrc    (Two|SDCS|GCP) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld087 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld087 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Report Number -->
+<!ELEMENT Fld088 - O (Six?, a)>
+<!ATTLIST Fld088 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld089 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld089 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Call Numbers -->
+<!ELEMENT Fld090 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld090 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local field -->
+<!ELEMENT Fld091 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld091 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local field -->
+<!ELEMENT Fld092 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld092 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local field -->
+<!ELEMENT Fld093 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld093 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local field -->
+<!ELEMENT Fld094 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld094 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local field -->
+<!ELEMENT Fld095 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld095 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local field SIC in Melvyl mags -->
+<!ELEMENT Fld096 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld096 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local field -->
+<!ELEMENT Fld097 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld097 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local field -->
+<!ELEMENT Fld098 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld098 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local field -->
+<!ELEMENT Fld099 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld099 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Component Parts of MainEnty -->
+<!-- Main Entry, Personal Name -->
+<!ELEMENT Fld100 - O (Six?, (a|Four|b|c|d|e|f|g|k|l|n|p|q|t|u)+)>
+<!ATTLIST Fld100 NameType    (Forename|Single|Multiple|Family|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld104 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld104 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld105 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld105 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld106 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld106 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld108 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld108 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld109 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld109 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Main Entry, Corporate Name -->
+<!ELEMENT Fld110 - O (Six?, (a|Four|b|c|d|e|f|g|k|l|n|p|t|u)+)>
+<!ATTLIST Fld110 NameType    (Inverted|Jurisdiction|Direct|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Main Entry, Meeting Name -->
+<!ELEMENT Fld111 - O (Six?, (a|Four|c|d|e|f|g|k|l|n|p|q|t|u)+)>
+<!ATTLIST Fld111 NameType    (Inverted|Jurisdiction|Direct|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld112 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld112 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  or UK records -->
+<!ELEMENT Fld119 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld119 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld120 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld120 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld121 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld121 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld123 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld123 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld124 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld124 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Main Entry, Uniform Title (also authority heading UT) -->
+<!ELEMENT Fld130 - O (Six?, (a|d|f|g|h|k|l|m|n|o|p|r|s|t|v|w|x|y|z)+)>
+
+<!-- both indicators can be non-filing depending on whether Authority -->
+<!ATTLIST Fld130 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED
+	         I2     CDATA #IMPLIED>
+                 
+<!-- Unknown MARC field -->
+<!ELEMENT Fld134 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld134 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld136 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld136 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld140 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld140 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Topical Subject Authority Heading -->
+<!ELEMENT Fld150 - O ((a|b|i|w|x|y|z)*)>
+<!ATTLIST Fld150 I1          CDATA          #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blank) #IMPLIED>
+
+
+<!-- Geographic Subject Authority Heading -->
+<!ELEMENT Fld151 - O ((a|i|w|x|y|z)*)>
+<!ATTLIST Fld151 I1          CDATA          #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blank) #IMPLIED>
+
+
+<!-- Genre/Form Authority Heading -->
+<!ELEMENT Fld155 - O ((v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld155 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld159 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld159 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld169 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld169 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- General subdivision Authority Heading -->
+<!ELEMENT Fld180 - O ((v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld180 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Geographic Name subdivision Authority Heading -->
+<!ELEMENT Fld181 - O ((v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld181 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Chronological Subdivision Authority Heading -->
+<!ELEMENT Fld182 - O ((v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld182 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld184 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld184 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Form subdivision Authority Heading -->
+<!ELEMENT Fld185 - O ((v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld185 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld192 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld192 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Unknown field -->
+<!ELEMENT Fld199 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld199 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld200 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld200 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- BL data, unknown field -->
+<!ELEMENT Fld206 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld206 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld208 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld208 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Component Parts of Titles -->
+<!-- Abbreviated Title -->
+<!ELEMENT Fld210 - O (Six?, a, b?)>
+<!ATTLIST Fld210 AddEnty     (No|Yes|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Acronym or Shortened Title -->
+<!ELEMENT Fld211 - O (Six?, a)>
+<!ATTLIST Fld211 AddEnty     (No|Yes|Blank)       #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Variant Access Title -->
+<!ELEMENT Fld212 - O (Six?, a)>
+<!ATTLIST Fld212 AddEnty     (No|Yes|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Augmented Title -->
+<!ELEMENT Fld214 - O (Six?, a)>
+<!ATTLIST Fld214 AddEnty     (No|Yes|Blank)       #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld220 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld220 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Key Title -->
+<!ELEMENT Fld222 - O (Six?, a, b?)>
+<!ATTLIST Fld222 I1          CDATA          #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld226 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld226 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld230 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld230 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld231 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld231 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Uniform Title -->
+<!ELEMENT Fld240 - O (Six?, (a|d|f|g|h|k|l|m|n|o|p|r|s)+)>
+<!ATTLIST Fld240 PrntDisp    (No|Yes|NoTAE|YesTAE|Blank)       #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld241 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld241 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Translation of title by cataloging agency -->
+<!ELEMENT Fld242 - O (Six?, (a|b|c|h|n|p|y)+)>
+<!ATTLIST Fld242 AddEnty     (No|Yes|Blank)       #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- Collective Uniform Title -->
+<!ELEMENT Fld243 - O (Six?, (a|d|f|g|h|k|l|m|n|o|p|r|s)+)>
+<!ATTLIST Fld243 PrntDisp    (No|Yes|NoTAE|YesTAE|Blank)       #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld244 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld244 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Title Statement -->
+<!ELEMENT Fld245 - O (Six?, (a|b|c|f|g|h|k|n|p|s)+)>
+<!ATTLIST Fld245 AddEnty     (No|Yes|Blank)       #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- Varying form of title -->
+<!ELEMENT Fld246 - O (Six?, (a|b|f|g|h|i|n|p|Five)+)>
+<!ATTLIST Fld246 NCAddEty   (YN|YY|NN|NY|Blank)       #IMPLIED
+                 TitleTyp    (Portion|Parallel|Distinct|Other|Cover|
+                              Added|Caption|Running|Spine|NoInfo) #IMPLIED>
+
+<!-- Former Title or Title Variations -->
+<!ELEMENT Fld247 - O (Six?, (a|b|f|g|h|n|p|x)+)>
+<!ATTLIST Fld247 AddEnty     (No|Yes|Blank)       #IMPLIED
+                 NoteCntl    (Display|NoDisp|Blnk) #IMPLIED>
+
+<!ELEMENT Fld248 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld248 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld249 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld249 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Component Parts of EdImprnt -->
+<!-- Edition Statement -->
+<!ELEMENT Fld250 - O (Six?, a, b?)>
+<!ATTLIST Fld250 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Musical Presentation Area -->
+<!ELEMENT Fld254 - O (Six?, a)>
+<!ATTLIST Fld254 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Mathematical Data Area -->
+<!ELEMENT Fld255 - O (Six?, (a|b|c|d|e)+)>
+<!ATTLIST Fld255 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- File Characteristics -->
+<!ELEMENT Fld256 - O (Six?, a)>
+<!ATTLIST Fld256 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Country of Producing Entity -->
+<!ELEMENT Fld257 - O (Six?, a)>
+<!ATTLIST Fld257 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld258 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld258 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Publication, Distribution, etc. -->
+<!ELEMENT Fld260 - O (Six?, (a|b|c|e|f|g)*)>
+<!ATTLIST Fld260 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Imprint Statement for Files, Pre-AACR1 revised -->
+<!ELEMENT Fld261 - O (Six?, (a|b|d|e|f)*)>
+<!ATTLIST Fld261 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Imprint Statement for Sound Recordings, Pre-AACR2 -->
+<!ELEMENT Fld262 - O (Six?, (a|b|c|k|l)*)>
+<!ATTLIST Fld262 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Projected Publication Date -->
+<!ELEMENT Fld263 - O (a)>
+<!ATTLIST Fld263 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld264 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld264 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Source for Acquisition/Subscription Address -->
+<!ELEMENT Fld265 - O (Six?, a+)>
+<!ATTLIST Fld265 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld266 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld266 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld269 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld269 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld270 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Four|Six|Eight)*)>
+<!ATTLIST Fld270 Level          CDATA          #IMPLIED
+                 AddrType          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld274 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld274 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld276 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld276 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld284 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld284 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld285 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld285 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld290 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld290 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld294 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld294 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld298 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld298 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld299 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld299 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Component Parts of PhysDesc -->
+<!-- Physical Description -->
+<!ELEMENT Fld300 - O (Six?, (a|b|c|e|f|g|Three)*)>
+<!ATTLIST Fld300 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld301 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld301 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld302 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld302 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Physical Description for Sound Recordings (Pre-AACR 2) -->
+<!ELEMENT Fld305 - O (Six?, (a|b|c|m|n)*)>
+<!ATTLIST Fld305 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Duration -->
+<!ELEMENT Fld306 - O (a+)>
+<!ATTLIST Fld306 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld307 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld307 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld308 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld308 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld309 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld309 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+
+<!-- Current Frequency -->
+<!ELEMENT Fld310 - O (Six?, a, b?)>
+<!ATTLIST Fld310 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Frequency -->
+<!ELEMENT Fld315 - O (Six?, (a|b)*)>
+<!ATTLIST Fld315 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld320 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld320 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Former Frequency -->
+<!ELEMENT Fld321 - O (Six?, a, b?)>
+<!ATTLIST Fld321 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld330 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld330 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Medium -->
+<!ELEMENT Fld340 - O (Six?, (a|b|c|d|e|f|h|i|Three)*)>
+<!ATTLIST Fld340 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld343 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld343 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Acronym or Shortened Title -->
+<!ELEMENT Fld350 - O (Six?, (a|b)*)>
+<!ATTLIST Fld350 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Organization and Arrangement -->
+<!ELEMENT Fld351 - O (Six?, (a|b|c|Three)*)>
+<!ATTLIST Fld351 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld352 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld352 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Security Classification Control -->
+<!ELEMENT Fld355 - O (Six?, (a|b|c|d|f)*)>
+<!ATTLIST Fld355 CntlElmt (Document|Title|Abstract|CNote|Author|Other|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Originator Dissemination Control -->
+<!ELEMENT Fld357 - O (Six?, (a|b|c|g)*)>
+<!ATTLIST Fld357 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld358 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld358 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld359 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld359 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Obsolete -->
+<!ELEMENT Fld360 - O (Six?, (a|b|c|g)*)>
+<!ATTLIST Fld360 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld361 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld361 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Dates of Publication and/or Volume Designation -->
+<!ELEMENT Fld362 - O (Six?, a, z?)>
+<!ATTLIST Fld362 DTFormat    (No|Yes|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld363 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld363 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld380 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld380 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld390 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld390 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld396 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld396 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Component Parts of Series -->
+<!-- Series Statement, added entry, personal name -->
+<!ELEMENT Fld400 - O (Six?, (a|Four|b|c|d|e|f|g|k|l|n|p|t|u|v|x)+)>
+<!ATTLIST Fld400 NameType    (Forename|Single|Multiple|Family|Blank) #IMPLIED
+                 Pronoun     (No|Yes|Blnk)       #IMPLIED>
+
+<!-- Unknown field -->
+<!ELEMENT Fld409 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld409 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Series Statement, added entry, corporate name -->
+<!ELEMENT Fld410 - O (Six?, (a|Four|b|c|d|e|f|g|k|l|n|p|t|u|v|x)+)>
+<!ATTLIST Fld410 NameType    (Inverted|Jurisdiction|Direct|Blank) #IMPLIED
+                 Pronoun     (No|Yes|Blnk)       #IMPLIED>
+
+<!-- Series Statement, added entry, meeting name -->
+<!ELEMENT Fld411 - O (Six?, (a|Four|c|d|e|f|g|k|l|n|p|q|t|u|v|x)+)>
+<!ATTLIST Fld411 NameType    (Inverted|Jurisdiction|Direct|Blank) #IMPLIED
+                 Pronoun     (No|Yes|Blnk)       #IMPLIED>
+
+<!-- Authority Uniform title see reference -->
+<!ELEMENT Fld430 - O (Six?, (a|d|f|g|h|i|k|l|m|n|o|p|r|s|t|v|w|x|y|z)+)>
+<!ATTLIST Fld430 I1          CDATA          #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- Series Statement, added entry, title -->
+<!ELEMENT Fld440 - O (Six?, (a|n|p|v|x)+)>
+<!ATTLIST Fld440 I1          CDATA          #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld444 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld444 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld446 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld446 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld447 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld447 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld449 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld449 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Topical Subject Authority reference -->
+<!ELEMENT Fld450 - O ((a|b|i|w|x|y|z)*)>
+<!ATTLIST Fld450 I1          CDATA          #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blank) #IMPLIED>
+
+<!-- Geographic Subject Authority reference -->
+<!ELEMENT Fld451 - O ((a|i|w|x|y|z)*)>
+<!ATTLIST Fld451 I1          CDATA          #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blank) #IMPLIED>
+
+
+<!-- Genre/Form Authority reference -->
+<!ELEMENT Fld455 - O ((v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld455 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld456 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld456 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld460 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld460 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- BL data, unknown field -->
+<!ELEMENT Fld475 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld475 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- General subdivision Authority reference -->
+<!ELEMENT Fld480 - O ((v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld480 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Geographic Name subdivision Authority reference -->
+<!ELEMENT Fld481 - O ((v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld481 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Chronological Subdivision Authority reference -->
+<!ELEMENT Fld482 - O ((v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld482 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld484 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld484 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Form subdivision Authority reference -->
+<!ELEMENT Fld485 - O ((v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld485 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld489 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld489 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Series Statement -->
+<!ELEMENT Fld490 - O (Six?, (a|l|v|x)+)>
+<!ATTLIST Fld490 Traced      (No|Differnt|Blank)  #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld491 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld491 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Field found in non-standard USMARC records -->
+<!ELEMENT Fld499 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld499 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Component Parts of Notes -->
+<!-- General Note -->
+<!ELEMENT Fld500 - O (Six?, (a|Three|Five|l|x|z)+)>
+<!ATTLIST Fld500 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- With Note -->
+<!ELEMENT Fld501 - O (Six?, (a|Five)*)>
+<!ATTLIST Fld501 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Dissertation Note -->
+<!ELEMENT Fld502 - O (Six?, a)>
+<!ATTLIST Fld502 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Bibliographic History Note -->
+<!ELEMENT Fld503 - O (Six?, a)>
+<!ATTLIST Fld503 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Bibliography Note -->
+<!ELEMENT Fld504 - O (Six?, a, b?)>
+<!ATTLIST Fld504 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Formatted Contents Note -->
+<!ELEMENT Fld505 - O (Six?, (a|g|r|t)*)>
+<!ATTLIST Fld505 DCC    (Contents|Incomp|Partial|NG|Blank) #IMPLIED
+                 CDLevel (Enhncd|Basic)     #IMPLIED>
+
+<!-- Restrictions on Access Note -->
+<!ELEMENT Fld506 - O (Six?, (Three|Five|a|b|c|d|e)+)>
+<!ATTLIST Fld506 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Scale Note -->
+<!ELEMENT Fld507 - O (Six?, (a|b)*)>
+<!ATTLIST Fld507 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Credits Note -->
+<!ELEMENT Fld508 - O (Six?, a)>
+<!ATTLIST Fld508 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld509 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld509 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Citation/References Note -->
+<!ELEMENT Fld510 - O (Six?, (Three|a|b|c|x)*)>
+<!ATTLIST Fld510 CoverLoc    (Unknown|Complete|Selective|Given|NotGiven|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!--Participant or Performer Note -->
+<!ELEMENT Fld511 - O (Six?, a)>
+<!ATTLIST Fld511 DCC         (None|Cast|Presenter|Narrator|Blank)    #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld512 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld512 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Type of Report and Period Covered Note -->
+<!ELEMENT Fld513 - O (Six?, a, b?)>
+<!ATTLIST Fld513 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld514 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld514 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Numbering Peculiarites Note -->
+<!ELEMENT Fld515 - O (Six?, a, z*)>
+<!ATTLIST Fld515 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Type of File or Data Note -->
+<!ELEMENT Fld516 - O (Six?, a)>
+<!ATTLIST Fld516 DCC         (None|NG)      #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld517 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld517 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Date/Time and Place of an Event Note -->
+<!ELEMENT Fld518 - O (Six?, (Three|a)*)>
+<!ATTLIST Fld518 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld519 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld519 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Summary, etc. Note -->
+<!ELEMENT Fld520 - O (Six?, (Three|a|b|z)+)>
+<!ATTLIST Fld520 DCC         (Subject|Review|NG|NoInfo) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Target Audience Note -->
+<!ELEMENT Fld521 - O (Six?, (Three|a|b)+)>
+<!ATTLIST Fld521 DCC         (RGL|IAL|IGL|SAC|MIL|NG|NoInfo) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Geographic Coverage Note -->
+<!ELEMENT Fld522 - O (Six?, a)>
+<!ATTLIST Fld522 DCC         (NoInfo|None)  #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Acronym or Shortened Title -->
+<!ELEMENT Fld523 - O (Six?, a?, b?)>
+<!ATTLIST Fld523 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Preferred Citation of Described Materials Note -->
+<!ELEMENT Fld524 - O (Six?, a)>
+<!ATTLIST Fld524 DCC         (NoInfo|None)  #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Supplement Note -->
+<!ELEMENT Fld525 - O (Six?, a, z*)>
+<!ATTLIST Fld525 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld526 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld526 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld528 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld528 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Additional Physical Form Available Note -->
+<!-- Authority Uniform title see also reference -->
+<!ELEMENT Fld530 - O (Six?, (a|d|f|g|h|i|k|l|m|n|o|p|r|s|t|v|w|x|y|z)+)>
+<!ATTLIST Fld530 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld531 - O (Six?, (a|d|f|g|h|i|k|l|m|n|o|p|r|s|t|v|w|x|y|z)+)>
+<!ATTLIST Fld531 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld532 - O (Six?, (a|d|f|g|h|i|k|l|m|n|o|p|r|s|t|v|w|x|y|z)+)>
+<!ATTLIST Fld532 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Reproduction Note -->
+<!ELEMENT Fld533 - O (Six?, (Three|a|b|c|d|e|f|m|n|Seven)+)>
+<!ATTLIST Fld533 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Original Version Note -->
+<!ELEMENT Fld534 - O (Six?, (p|a|t|b|m|c|e|f|l|n|z|x|k)+)>
+<!ATTLIST Fld534 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Location of Originals/Duplicates Note -->
+<!ELEMENT Fld535 - O (Six?, (Three|a|b|c|d|g)*)>
+<!ATTLIST Fld535 Holds       (Original|Duplicate|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Funding Information Note -->
+<!ELEMENT Fld536 - O (Six?, (a|b|c|d)*)>
+<!ATTLIST Fld536 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Source of Data Note -->
+<!ELEMENT Fld537 - O (Six?, a)>
+<!ATTLIST Fld537 DCC         (NoInfo|None)       #IMPLIED
+                 I2          CDATA               #IMPLIED>
+
+<!-- Technical Details Note -->
+<!ELEMENT Fld538 - O (Six?, a)>
+<!ATTLIST Fld538 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown or obsolete -->
+<!ELEMENT Fld539 - O (Six?, a)>
+<!ATTLIST Fld539 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Terms Governing Use and Reproduction Note -->
+<!ELEMENT Fld540 - O (Six?, (Three|a|b|c|d|Five)+)>
+<!ATTLIST Fld540 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Immediate Source of Acquisition Note -->
+<!ELEMENT Fld541 - O (Six?, (Three|a|b|c|d|e|f|h|n|o|Five)*)>
+<!ATTLIST Fld541 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld542 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld542 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Location of Associated Materials Note -->
+<!ELEMENT Fld544 - O (Six?, (Three|a|b|c|d|e)+)>
+<!ATTLIST Fld544 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Biographical or historical Note -->
+<!ELEMENT Fld545 - O (Six?, a, b?)>
+<!ATTLIST Fld545 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Language Note -->
+<!ELEMENT Fld546 - O (Six?, (Three|a|b|z)+)>
+<!ATTLIST Fld546 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Former Title Complexity Note -->
+<!ELEMENT Fld547 - O (Six?, a, z*)>
+<!ATTLIST Fld547 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld549 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld549 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Issuing Body Note -->
+<!-- Topical Subject Authority see also ref -->
+<!ELEMENT Fld550 - O (Six?, (a|b|i|w|x|y|z)*)>
+<!ATTLIST Fld550 I1          CDATA          #IMPLIED
+                 I2     (0|1|2|3|4|5|6|7|8|9|Blank) #IMPLIED>
+
+<!-- Geographic Subject Authority see also ref -->
+<!ELEMENT Fld551 - O ((a|i|w|x|y|z)*)>
+<!ATTLIST Fld551 I1          CDATA          #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blank) #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld552 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld552 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld553 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld553 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld554 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld554 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Cumulative Index/Finding Aids Note OR GENRE Heading See Also-->
+<!-- Genre/Form Authority Heading see also-->
+<!ELEMENT Fld555 - O (Six?, (Three|Eight|a|b|c|d|v|x|y|z)+)>
+<!ATTLIST Fld555 DCC         (NoInfo|Finding|None) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Information about Documentation Note -->
+<!ELEMENT Fld556 - O (Six?, a, z*)>
+<!ATTLIST Fld556 DCC         (NoInfo|None)  #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld560 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld560 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Provenance Note -->
+<!ELEMENT Fld561 - O (Six?, (Three|a|b|Five)+)>
+<!ATTLIST Fld561 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Copy and Version Identification Note -->
+<!ELEMENT Fld562 - O (Six?, (Three|a|b|c|d|e|Five)*)>
+<!ATTLIST Fld562 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld563 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld563 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Case File Characteristics Note -->
+<!ELEMENT Fld565 - O (Six?, (Three|a|b|c|d|e)+)>
+<!ATTLIST Fld565 DCC         (NoInfo|CaseFile|None) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Methodology Note -->
+<!ELEMENT Fld567 - O (Six?, a)>
+<!ATTLIST Fld567 DCC         (NoInfo|None)  #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld569 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld569 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field 570 is a local note field employed by U.C. Berkeley -->
+<!-- cataloging records and does not constitute part of the USMARC -->
+<!-- standard -->
+<!ELEMENT Fld570 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld570 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld574 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld574 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld575 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld575 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- BL data, unknown field -->
+<!ELEMENT Fld576 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld576 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld579 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld579 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Linking Entry Complexity Note -->
+<!-- General subdivision Authority Heading -->
+<!ELEMENT Fld580 - O ((a|v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld580 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Publications Note -->
+<!-- Geographic Name subdivision Authority Heading -->
+<!ELEMENT Fld581 - O ((a|v|x|y|z|Six|Eight|Three)*)>
+<!ATTLIST Fld581 DCC         (NoInfo|None)  #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- NEXT FIELD ADDED FOR PRE-FORMAT INTEGRATION COMPATABILITY -->
+<!-- Related Computer Files Note -->
+<!-- Chronological Subdivision Authority Heading -->
+<!ELEMENT Fld582 - O ((a|v|x|y|z|Six|Eight)*)>
+<!ATTLIST Fld582 DCC         (NoInfo|None)         #IMPLIED
+                 I2          CDATA                 #IMPLIED>
+
+<!-- Action Note -->
+<!ELEMENT Fld583 - O (Six?, (Three|a|b|c|d|e|f|h|i|j|k|l|n|o|x|z|Five|Eight)*)>
+<!ATTLIST Fld583 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Accumulation and Frequency of Use Note -->
+<!ELEMENT Fld584 - O (Six?, (Three|a|b|Five)*)>
+<!ATTLIST Fld584 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Exhibitions Note -->
+<!-- Form subdivision Authority Heading -->
+<!ELEMENT Fld585 - O ((a|v|x|y|z|Six|Eight|Three)*)>
+<!ATTLIST Fld585 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Awards Note -->
+<!ELEMENT Fld586 - O (Six?, (Three|a)+)>
+<!ATTLIST Fld586 DCC         (NoInfo|None)  #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld589 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld589 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Holdings Information for 9XX -->
+<!ELEMENT Fld590 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld590 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Holdings Information for 9XX -->
+<!ELEMENT Fld591 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld591 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Holdings Information for 9XX -->
+<!ELEMENT Fld592 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld592 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Holdings Information for 9XX -->
+<!ELEMENT Fld593 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld593 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Holdings Information for 9XX -->
+<!ELEMENT Fld594 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld594 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Holdings Information for 9XX -->
+<!ELEMENT Fld595 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld595 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Notes -->
+<!ELEMENT Fld596 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld596 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld597 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld597 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Holdings Information for 9XX -->
+<!ELEMENT Fld598 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld598 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in MELVYL records -->
+<!ELEMENT Fld599 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld599 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Component Parts of SubjAccs -->
+<!-- Subject Added Entry, Personal Name -->
+<!ELEMENT Fld600 - O (Six?, (Three|a|b|c|d|e|f|g|h|k|l|m|n|o|p|q|r|s|t|u|x|y|z|Two|Four)*)>
+<!ATTLIST Fld600 NameType    (Forename|Single|Multiple|Family|Blank) #IMPLIED
+                 SubjSys     (LCSH|LCChild|MeSH|NAL|NotSpec|NLCSH|NLCRVM|Two|Blnk) #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld601 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld601 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- BL data, unknown field -->
+<!ELEMENT Fld602 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld602 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld607 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld607 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld608 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld608 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Subject Added Entry, Corporate Name -->
+<!ELEMENT Fld610 - O (Six?, (Three|a|b|c|d|e|f|g|h|k|l|m|n|o|p|r|s|t|u|x|y|z|Two|Four)+)>
+<!ATTLIST Fld610 NameType    (Inverted|Jurisdiction|Direct|Blank) #IMPLIED
+                 SubjSys     (LCSH|LCChild|MeSH|NAL|NotSpec|NLCSH|NLCRVM|Two|Blnk) #IMPLIED>
+
+<!-- Subject Added Entry, Meeting Name -->
+<!ELEMENT Fld611 - O (Six?, (Three|a|c|d|e|f|g|h|k|l|n|p|q|s|t|u|x|y|z|Two|Four)+)>
+<!ATTLIST Fld611 NameType    (Inverted|Jurisdiction|Direct|Blank) #IMPLIED
+                 SubjSys     (LCSH|LCChild|MeSH|NAL|NotSpec|NLCSH|NLCRVM|Two|Blnk) #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld612 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld612 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld619 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld619 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!ELEMENT Fld620 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld620 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld621 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld621 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld622 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld622 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld625 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld625 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Subject Added Entry, Uniform Title -->
+<!ELEMENT Fld630 - O (Six?, (Three|a|d|f|g|h|k|l|m|n|o|p|r|s|t|x|y|z|Two)+)>
+<!ATTLIST Fld630 NFChars     (0|1|2|3|4|5|6|7|8|9|Blank) #IMPLIED
+                 SubjSys     (LCSH|LCChild|MeSH|NAL|NotSpec|NLCSH|NLCRVM|Two|Blnk) #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld631 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld631 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- BL data, unknown field -->
+<!ELEMENT Fld632 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld632 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- BL data, unknown field -->
+<!ELEMENT Fld639 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld639 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld640 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld640 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!ELEMENT Fld641 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld641 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!ELEMENT Fld645 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld645 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Subject Added Entry, Topical Term -->
+<!ELEMENT Fld650 - O (Six?, (Three|a|b|c|d|e|x|y|z|Two)+)>
+<!ATTLIST Fld650 SubjLvl     (NoInfo|NoLevel|Primary|Secondary) #IMPLIED
+                 SubjSys     (LCSH|LCChild|MeSH|NAL|NotSpec|NLCSH|NLCRVM|Two|Blnk) #IMPLIED>
+
+<!-- Subject Added Entry, Geographic Name -->
+<!ELEMENT Fld651 - O (Six?, (Three|a|x|y|z|Two)+)>
+<!ATTLIST Fld651 I1          CDATA          #IMPLIED
+                 SubjSys     (LCSH|LCChild|MeSH|NAL|NotSpec|NLCSH|NLCRVM|Two|Blnk) #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld652 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld652 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Index Term, Uncontrolled -->
+<!ELEMENT Fld653 - O (Six?, a+)>
+<!ATTLIST Fld653 IndexLvl    (NoInfo|NoLevel|Primary|Secondary) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Subject Added Entry, Faceted Topical Terms -->
+<!ELEMENT Fld654 - O (Three|a|b|c|y|z|Two)+>
+<!ATTLIST Fld654 SubjLvl    (NoInfo|NoLevel|Primary|Secondary) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Index Term, Genre/Form -->
+<!ELEMENT Fld655 - O (Six?, (Three|a|b|c|x|y|z|Two)+)>
+<!ATTLIST Fld655 Type        (Faceted|Basic)          #IMPLIED
+                 Source      (Two|Blnk)     #IMPLIED>
+
+<!-- Index Term, Occupation -->
+<!ELEMENT Fld656 - O (Six?, (Three|a|k|x|y|z|Two)+)>
+<!ATTLIST Fld656 I1          CDATA          #IMPLIED
+                 Source      (Two|Blnk)     #IMPLIED>
+
+<!-- Index Term, Function -->
+<!ELEMENT Fld657 - O (Six?, (Three|a|x|y|z|Two)+)>
+<!ATTLIST Fld657 I1          CDATA          #IMPLIED
+                 Source      (Two|Blnk)     #IMPLIED>
+
+<!-- Index Term, Curriculum Objective -->
+<!ELEMENT Fld658 - O (Six?, (a|b|c|d|Two)*)>
+<!ATTLIST Fld658 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld659 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld659 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld660 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld660 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld661 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld661 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld662 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld662 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Complex SEE ALSO - Name -->
+<!ELEMENT Fld663 - O ((a|i)*)>
+<!ATTLIST Fld663 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Complex SEE reference - Name -->
+<!ELEMENT Fld664 - O ((a|i)*)>
+<!ATTLIST Fld664 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- History reference -->
+<!ELEMENT Fld665 - O ((a|i)*)>
+<!ATTLIST Fld665 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- General Explanatory reference -->
+<!ELEMENT Fld666 - O ((a|i)*)>
+<!ATTLIST Fld666 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Authority Name usage or scope note -->
+<!ELEMENT Fld667 - O ((a|i)*)>
+<!ATTLIST Fld667 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Authority Source data found -->
+<!ELEMENT Fld670 - O ((a|b)*)>
+<!ATTLIST Fld670 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Authority Source data not found -->
+<!ELEMENT Fld675 - O ((a|i)*)>
+<!ATTLIST Fld675 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Epitome -->
+<!ELEMENT Fld678 - O ((a|i)*)>
+<!ATTLIST Fld678 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld679 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld679 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Subject scope note -->
+<!ELEMENT Fld680 - O ((a|i)*)>
+<!ATTLIST Fld680 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Subject example tracing note -->
+<!ELEMENT Fld681 - O ((a|i)*)>
+<!ATTLIST Fld681 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Deleted Heading information note -->
+<!ELEMENT Fld682 - O ((a|i)*)>
+<!ATTLIST Fld682 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld685 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld685 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Unknown field -->
+<!ELEMENT Fld689 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld689 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Subject Access Fields -->
+<!-- XXX Information for 690 -->
+<!ELEMENT Fld690 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld690 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- XXX Information for 691 -->
+<!ELEMENT Fld691 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld691 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- XXX Information for 692 -->
+<!ELEMENT Fld692 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld692 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- XXX Information for 693 -->
+<!ELEMENT Fld693 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld693 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- XXX Information for 694 -->
+<!ELEMENT Fld694 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld694 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- XXX Information for 695 -->
+<!ELEMENT Fld695 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld695 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- XXX Information for 696 -->
+<!ELEMENT Fld696 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld696 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Information for 697 -->
+<!ELEMENT Fld697 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld697 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- XXX Information for 698 -->
+<!ELEMENT Fld698 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld698 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!-- XXX Information for 699 -->
+<!ELEMENT Fld699 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld699 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Component Parts of AddEnty -->
+<!-- Added Entry, Personal Name -->
+<!ELEMENT Fld700 - O (Six?, (Three|a|Four|b|c|d|e|f|g|h|k|l|m|n|o|p|q|r|s|t|u|x|Five)+)>
+<!ATTLIST Fld700 NameType    (Forename|Single|Multiple|Family|Blank) #IMPLIED
+                 EntryType   (NoInfo|Alternat|Secondry|NotPrint|Analytical) #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld703 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld703 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld704 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld704 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld707 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld707 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!ELEMENT Fld709 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld709 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Added Entry, Corporate Name -->
+<!ELEMENT Fld710 - O (Six?, (Three|a|Four|b|c|d|e|f|g|h|k|l|m|n|o|p|r|s|t|u|x|Five)+)>
+<!ATTLIST Fld710 NameType    (Inverted|Jurisdiction|Direct|Blank) #IMPLIED
+                 EntryType   (NoInfo|Alternat|Secondry|NotPrint|Analytical) #IMPLIED>
+
+<!-- Added Entry, Meeting Name -->
+<!ELEMENT Fld711 - O (Six?, (Three|a|Four|c|d|e|f|g|h|k|l|n|p|q|s|t|u|x|Five)+)>
+<!ATTLIST Fld711 NameType    (Inverted|Jurisdiction|Direct|Blank) #IMPLIED
+                 EntryType   (NoInfo|Alternat|Secondry|NotPrint|Analytical) #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld712 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld712 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld719 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld719 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld720 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld720 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld721 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld721 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld728 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld728 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Added Entry, Uniform Title -->
+<!ELEMENT Fld730 - O (Six?, (Three|a|d|f|g|h|k|l|m|n|o|p|r|s|t|x|Five)+)>
+<!ATTLIST Fld730 NFChars     (0|1|2|3|4|5|6|7|8|9|Blank) #IMPLIED
+                 EntryType   (NoInfo|Alternat|Secondry|NotPrint|Analytical) #IMPLIED>
+
+<!-- Added Entry, Variant Title -->
+<!ELEMENT Fld740 - O (Six?, (a|h|n|p|Five)+)>
+<!ATTLIST Fld740 NFChars     (0|1|2|3|4|5|6|7|8|9|Blank) #IMPLIED
+                 EntryType   (NoInfo|Alternat|Secondry|Analytical|NotPrint) #IMPLIED>
+
+<!-- Added Entry, OBSOLETE -->
+<!ELEMENT Fld741 - O (Six?, (a|b|c|d)+)>
+<!ATTLIST Fld741 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Added Entry, OBSOLETE -->
+<!ELEMENT Fld745 - O (Six?, (a|b|c|d)+)>
+<!ATTLIST Fld745 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld746 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld746 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld750 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld750 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Added Entry, Hierarchical Place Name -->
+<!ELEMENT Fld752 - O (Six?, (a|b|c|d)+)>
+<!ATTLIST Fld752 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Technical Details Access to Computer Files -->
+<!ELEMENT Fld753 - O (Six?, (a|b|c)+)>
+<!ATTLIST Fld753 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Added Entry, Taxonomic Identification -->
+<!ELEMENT Fld754 - O (Six?, (a|Two)+)>
+<!ATTLIST Fld754 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Added Entry, Physical Characteristics -->
+<!ELEMENT Fld755 - O (Six?, (Three|a|x|y|z|Two)+)>
+<!ATTLIST Fld755 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Component Parts of LinkEnty -->
+<!-- Main Series Entry -->
+<!ELEMENT Fld760 - O (Six?, Seven?, (a|b|c|d|g|s|t|w|x|y)*)>
+<!ATTLIST Fld760 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Subseries entry -->
+<!ELEMENT Fld762 - O (Six?, Seven?, (a|b|c|d|g|s|t|w|x|y)*)>
+<!ATTLIST Fld762 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Original Language Entry -->
+<!ELEMENT Fld765 - O (Six?, Seven?, (a|b|c|d|g|k|r|s|t|u|w|x|y|z)*)>
+<!ATTLIST Fld765 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Translation Entry -->
+<!ELEMENT Fld767 - O (Six?, Seven?, (a|b|c|d|g|k|r|s|t|u|w|x|y|z)*)>
+<!ATTLIST Fld767 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Supplement/Special Issue Entry -->
+<!ELEMENT Fld770 - O (Six?, Seven?, (a|b|c|d|g|k|r|s|t|u|w|x|y|z)*)>
+<!ATTLIST Fld770 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Parent Record Entry -->
+<!ELEMENT Fld772 - O (Six?, Seven?, (a|b|c|d|g|k|r|s|t|u|w|x|y|z)*)>
+<!ATTLIST Fld772 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Host Item Entry -->
+<!ELEMENT Fld773 - O (Six?, Three?, Seven?, (a|b|d|g|k|p|r|s|t|u|w|x|y|z)*)>
+<!ATTLIST Fld773 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld774 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld774 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Other Edition Entry -->
+<!ELEMENT Fld775 - O (Six?, Seven?, (a|b|c|d|e|f|g|k|r|s|t|u|w|x|y|z)*)>
+<!ATTLIST Fld775 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Additional Physical Form Entry -->
+<!ELEMENT Fld776 - O (Six?, Seven?, (a|b|c|d|g|k|r|s|t|u|w|x|y|z)*)>
+<!ATTLIST Fld776 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Issued With Entry -->
+<!ELEMENT Fld777 - O (Six?, Seven?, (a|b|c|d|g|k|s|t|w|x|y)*)>
+<!ATTLIST Fld777 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld778 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld778 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Preceding Entry -->
+<!ELEMENT Fld780 - O (Six?, Seven?, (a|b|c|d|g|k|r|s|t|u|w|x|y|z)*)>
+<!ATTLIST Fld780 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 RelType     (Continues|ContInPart|Supersedes|SuperInPart|Union|Absorbed|AbsorbInPart|Separated|Blnk) #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld781 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld781 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld783 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld783 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!--Succeeding Entry -->
+<!ELEMENT Fld785 - O (Six?, Seven?, (a|b|c|d|g|k|r|s|t|u|w|x|y|z)*)>
+<!ATTLIST Fld785 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 RelType     (ContBy|ContByInPart|SuperBy|SuperByInPart|AbsorbBy|AbsorbByInPart|Split|Merged|Changed|Blnk) #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld786 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld786 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Nonspecific Relationship Entry -->
+<!ELEMENT Fld787 - O (Six?, Seven?, (a|b|c|d|g|k|q|r|s|t|u|w|x|y|z)*)>
+<!ATTLIST Fld787 NoteCntl    (Display|NoDisp|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld789 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld789 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!ELEMENT Fld790 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld790 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld791 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld791 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld792 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld792 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld793 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld793 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld794 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld794 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld795 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld795 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld796 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld796 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field 797 is a linking entry field employed in U.C. Berkeley  -->
+<!-- cataloging records and does not constitute part of the USMARC -->
+<!-- standard -->
+<!ELEMENT Fld797 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld797 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld798 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld798 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld799 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld799 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Component Parts of SAddEnty -->
+<!-- Series Added Entry, Personal Name -->
+<!ELEMENT Fld800 - O (Six?, (a|Four|b|c|d|e|f|g|h|k|l|m|n|o|p|q|r|s|t|u|v)+)>
+<!ATTLIST Fld800 NameType    (Forename|Single|Multiple|Family|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld803 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld803 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld804 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld804 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld805 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld805 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld806 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld806 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld807 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld807 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld808 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld808 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld809 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld809 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Series Added Entry, Corporate Name -->
+<!ELEMENT Fld810 - O (Six?, (a|Four|b|c|d|e|f|g|h|k|l|m|n|o|p|r|s|t|u|v)+)>
+<!ATTLIST Fld810 NameType    (Inverted|Jurisdiction|Direct|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Series Added Entry, Meeting Name -->
+<!ELEMENT Fld811 - O (Six?, (a|Four|c|d|e|f|g|h|k|l|n|p|q|s|t|u|v)+)>
+<!ATTLIST Fld811 NameType    (Inverted|Jurisdiction|Direct|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld820 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld820 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Series Added Entry, Uniform Title -->
+<!ELEMENT Fld830 - O (Six?, a, (d|f|g|h|k|l|m|n|o|p|r|s|t|v)*)>
+<!ATTLIST Fld830 I1          CDATA          #IMPLIED
+                 NFChars     (0|1|2|3|4|5|6|7|8|9|Blnk) #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld831 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld831 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld834 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld834 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field 840 is a added entry field employed by U.C. Berkeley -->
+<!-- cataloging records and does not constitute part of the USMARC -->
+<!-- standard -->
+<!ELEMENT Fld840 - O (Six?, (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld840 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Component Parts of HoldAltG -->
+<!-- AUTHOR'S NOTE:  I DID *NOT* HAVE ACCESS TO MOST RECENT COPY OF
+                     USMARC HOLDINGS FORMAT FOR DRAFTING THIS SECTION.
+                     IT IS ALMOST CERTAINLY WRONG IN CERTAIN ASPECTS. -->
+
+<!-- Related Holdings Coded Data Values -->
+<!ELEMENT Fld841 - O (a|b|e)*>
+<!ATTLIST Fld841 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Reproduction Note -->
+<!ELEMENT Fld843 - O (Three|Seven|a|b|c|d|e|f|m)*>
+<!ATTLIST Fld843 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!--Terms Governing Use and Reproduction -->
+<!ELEMENT Fld845 - O (Three|a|b|c|d)*>
+<!ATTLIST Fld845 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- BL data, unknown field -->
+<!ELEMENT Fld846 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld846 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Holding Institution -->
+<!ELEMENT Fld850 - O (a+)>
+<!ATTLIST Fld850 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Location -->
+<!ELEMENT Fld852 - O (Three|a|b|c|e|f|g|h|i|j|k|l|m|n|s|t|p|q|x|z|Two)*>
+<!ATTLIST Fld852 Scheme      (NoInf|LC|Dewey|NLM|SupDoc|ShlvCN|Title|Separate|Other) #IMPLIED
+                 Order       (NoInfo|NotEnum|PriEnum|AltEnum) #IMPLIED>
+
+<!-- Captions and Pattern, Basic Bibliographic Unit -->
+<!ELEMENT Fld853 - O (Eight|Three|a|b|c|d|e|f|g|h|i|j|k|l|m|t|u|v|w|x|y)*>
+<!ATTLIST Fld853 CmprsExpnd  (NN|YN|YY|Unknown|Blank) #IMPLIED
+                 Eval        (CVALL|CVNOTALL|CUALL|CUNOTALL|Blnk) #IMPLIED>
+
+<!-- Captions and Pattern, Supplementary Material -->
+<!ELEMENT Fld854 - O (Eight|Three|a|b|c|d|e|f|g|h|i|j|k|l|m|o|t|u|v|w|x|y)*>
+<!ATTLIST Fld854 CmprsExpnd  (NN|YN|YY|Unknown|Blank) #IMPLIED
+                 Eval        (CVALL|CVNOTALL|CUALL|CUNOTALL|Blnk) #IMPLIED>
+
+<!-- Captions and Pattern, Indexes -->
+<!ELEMENT Fld855 - O (Eight|Three|a|b|c|d|e|f|g|h|i|j|k|l|m|o|t|u|v|w|x|y)*>
+<!ATTLIST Fld855 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Electronic Location and Access -->
+<!ELEMENT Fld856 - O (Three|a|b|c|d|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|z|Two)*>
+<!ATTLIST Fld856 AccsMeth    (Email|FTP|Rlogin|Dialup|Two) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld859 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld859 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Enumeration and Chronology, Basic Bibliographic Unit -->
+<!ELEMENT Fld863 - O (Eight|a|b|c|d|e|f|g|h|i|j|k|l|m|n|p|q|s|t|w|x|z)*>
+<!ATTLIST Fld863 EncLevel    (NoInf|HL3|HL4|HL4PD) #IMPLIED
+                 HoldForm    (NoInfo|Cmprss|Uncmprss|CmprssTD|UncmprssTD|NotPubl) #IMPLIED>
+
+<!-- Enumeration and Chronology, Supplementary Material -->
+<!ELEMENT Fld864 - O (Eight|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|s|t|w|x|z)*>
+<!ATTLIST Fld864 EncLevel    (NoInf|HL3|HL4|HL4PD) #IMPLIED
+                 HoldForm    (NoInfo|Cmprss|Uncmprss|CmprssTD|UncmprssTD|NotPubl) #IMPLIED>
+
+<!-- Enumeration and Chronology, Indexes -->
+<!ELEMENT Fld865 - O (Eight|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|s|t|w|x|z)*>
+<!ATTLIST Fld865 EncLevel    (NoInf|HL4|HL4PD) #IMPLIED
+                 HoldForm    (NoInfo|Uncmprss|UncmprssTD) #IMPLIED>
+
+<!-- Textual Holdings, Basic Bibliographic Unit -->
+<!ELEMENT Fld866 - O (Eight|a|x|z)*>
+<!ATTLIST Fld866 EncLevel    (NoInfo|HL3|HL4|HL4PD) #IMPLIED
+                 Notation    (NonStd|Z39.44-57|Z39.42|Blnk) #IMPLIED>
+
+<!-- Textual Holdings, Supplementary Material -->
+<!ELEMENT Fld867 - O (Eight|a|x|z)*>
+<!ATTLIST Fld867 EncLevel    (NoInfo|HL3|HL4|HL4PD) #IMPLIED
+                 Notation    (NonStd|Z39.44-57|Z39.42|Blnk) #IMPLIED>
+
+<!-- Textual Holdings, Indexes -->
+<!ELEMENT Fld868 - O (Eight|a|x|z)*>
+<!ATTLIST Fld868 EncLevel    (NoInfo|HL3|HL4|HL4PD) #IMPLIED
+                 Notation    (NonStd|Z39.44-57|Z39.42|Blnk) #IMPLIED>
+
+<!-- Item Information, Basic Bibliographic Unit -->
+<!ELEMENT Fld876 - O (a|b|c|d|e|h|j|l|p|q|s|x|z|Three|Eight)*>
+<!ATTLIST Fld876 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Item Information, Supplementary Material -->
+<!ELEMENT Fld877 - O (a|b|c|d|e|h|j|l|p|q|s|x|z|Three|Eight)*>
+<!ATTLIST Fld877 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Item Information, Indexes -->
+<!ELEMENT Fld878 - O (a|b|c|d|e|h|j|l|p|q|s|x|z|Three|Eight)*>
+<!ATTLIST Fld878 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Alternate Graphic Representation -->
+<!ELEMENT Fld880 - O (Six, (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|Zero|One|Two|Three|Four|Five|Seven|Eight|Nine)*)>
+<!ATTLIST Fld880 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld881 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld881 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld882 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld882 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld883 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld883 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld884 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld884 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld885 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld885 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Foreign MARC Information Field -->
+<!ELEMENT Fld886 - O (Two, a?, b)>
+<!ATTLIST Fld886 FldType     (Leader|VarCFlds|VarDFlds|Blank) #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld890 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld890 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!ELEMENT Fld891 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld891 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Unknown MARC field -->
+<!ELEMENT Fld896 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld896 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!ELEMENT Fld898 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld898 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+<!ELEMENT Fld899 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld899 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld900 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld900 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld901 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld901 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld902 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld902 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld903 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld903 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld904 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld904 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld905 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld905 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld906 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld906 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld907 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld907 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld908 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld908 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld909 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld909 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld910 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld910 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld911 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld911 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld912 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld912 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld913 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld913 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld914 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld914 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld915 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld915 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld916 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld916 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld917 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld917 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld918 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld918 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld919 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld919 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld920 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld920 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld921 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld921 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld922 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld922 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld923 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld923 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld924 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld924 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld925 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld925 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld926 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld926 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld927 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld927 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld928 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld928 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld929 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld929 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld930 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld930 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld931 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld931 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld932 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld932 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld933 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld933 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld934 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld934 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld935 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld935 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld936 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld936 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld937 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld937 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld938 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld938 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld939 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld939 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld940 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld940 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld941 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld941 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld942 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld942 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld943 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld943 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld944 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld944 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld945 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld945 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld946 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld946 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld947 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld947 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld948 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld948 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld949 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld949 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Local Holdings Information for 9XX -->
+<!ELEMENT Fld950 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld950 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld951 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld951 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld952 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld952 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld953 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld953 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld954 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld954 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld955 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld955 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld956 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld956 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld957 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld957 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld958 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld958 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld959 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld959 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld960 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld960 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld961 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld961 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld962 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld962 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld963 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld963 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld964 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld964 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld965 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld965 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld966 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld966 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld967 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld967 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld968 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld968 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld969 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld969 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld970 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld970 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld971 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld971 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld972 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld972 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld973 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld973 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld974 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld974 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld975 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld975 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld976 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld976 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld977 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld977 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld978 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld978 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld979 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld979 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld980 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld980 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld981 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld981 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld982 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld982 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld983 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld983 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld984 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld984 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld985 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld985 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld986 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld986 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld987 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld987 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld988 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld988 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld989 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld989 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- Field found in non-standard USMARC  records -->
+<!ELEMENT Fld990 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld990 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld991 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld991 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld992 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld992 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld993 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld993 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld994 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld994 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld995 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld995 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld996 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld996 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld997 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld997 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!ELEMENT Fld998 - O ((a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*)>
+<!ATTLIST Fld998 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+<!-- XXX Local Holdings Information for 9XX -->
+<!ELEMENT Fld999 - O (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)*>
+<!ATTLIST Fld999 I1          CDATA          #IMPLIED
+                 I2          CDATA          #IMPLIED>
+
+
+<!-- Subfield Element Declarations -->
+<!ELEMENT a      - O (#PCDATA)>
+<!ELEMENT b      - O (#PCDATA)>
+<!ELEMENT c      - O (#PCDATA)>
+<!ELEMENT d      - O (#PCDATA)>
+<!ELEMENT e      - O (#PCDATA)>
+<!ELEMENT f      - O (#PCDATA)>
+<!ELEMENT g      - O (#PCDATA)>
+<!ELEMENT h      - O (#PCDATA)>
+<!ELEMENT i      - O (#PCDATA)>
+<!ELEMENT j      - O (#PCDATA)>
+<!ELEMENT k      - O (#PCDATA)>
+<!ELEMENT l      - O (#PCDATA)>
+<!ELEMENT m      - O (#PCDATA)>
+<!ELEMENT n      - O (#PCDATA)>
+<!ELEMENT o      - O (#PCDATA)>
+<!ELEMENT p      - O (#PCDATA)>
+<!ELEMENT q      - O (#PCDATA)>
+<!ELEMENT r      - O (#PCDATA)>
+<!ELEMENT s      - O (#PCDATA)>
+<!ELEMENT t      - O (#PCDATA)>
+<!ELEMENT u      - O (#PCDATA)>
+<!ELEMENT v      - O (#PCDATA)>
+<!ELEMENT w      - O (#PCDATA)>
+<!ELEMENT x      - O (#PCDATA)>
+<!ELEMENT y      - O (#PCDATA)>
+<!ELEMENT z      - O (#PCDATA)>
+<!ELEMENT Zero   - O (#PCDATA)>
+<!ELEMENT One    - O (#PCDATA)>
+<!ELEMENT Two    - O (#PCDATA)>
+<!ELEMENT Three  - O (#PCDATA)>
+<!ELEMENT Four   - O (#PCDATA)>
+<!ELEMENT Five   - O (#PCDATA)>
+<!ELEMENT Six    - O (#PCDATA)>
+<!ELEMENT Seven  - O (#PCDATA)>
+<!ELEMENT Eight  - O (#PCDATA)>
+<!ELEMENT Nine   - O (#PCDATA)>
+]>
+
+
+
+
+

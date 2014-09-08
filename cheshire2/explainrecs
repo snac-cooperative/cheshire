@@ -1,0 +1,19 @@
+# Test explain access and display
+puts "Contacting ATT..."
+zselect help z3950.bell-labs.com IR-Explain-1 210
+puts "Setting Attributes"
+zset attributes explain
+zset recsyntax explain
+puts "trying to get RecordSyntaxInfo"
+set results [zfind cat RecordSyntaxInfo]
+puts "Results are $results"
+set hits [lindex [lindex [lindex $results 0] 2] 1]
+puts "Hits = $hits"
+set results2 [zdisplay $hits 1]
+
+foreach a [lrange $results2 1 end] {
+	puts "RecordSyntaxInfo::"
+	foreach line [lrange $a 1 end] {
+		puts "\t $line"
+	}
+}

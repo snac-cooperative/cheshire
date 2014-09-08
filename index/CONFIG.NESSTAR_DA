@@ -1,0 +1,493 @@
+<!-- This is a test config file for Cheshire II -->
+<DBCONFIG>
+
+<!-- The first filedef -->
+<FILEDEF TYPE=SGML>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> NESSTAR_DACat </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> /usr/users/ray/Work/ESSEX_TEST/DA/nesstar_da.sgm 
+</FILENAME>
+<!-- Explain data for populating databaseinfo records for explain -->
+<EXPLAIN>
+<TITLESTRING> The DA NESSTAR Catalogue Database
+</TITLESTRING>
+<DESCRIPTION> Contains codebook records describing DA NESSTAR data sets.
+</DESCRIPTION>
+<DISCLAIMERS> None
+</DISCLAIMERS>
+<NEWS> No news </NEWS>
+<HOURS> Whenever the system is up </HOURS>
+<BESTTIME> Almost any time is good </BESTTIME>
+<LASTUPDATE> June 1998 </LASTUPDATE>
+<UPDATEINTERVAL><VALUE> 10 </VALUE><UNIT> Years </UNIT></UPDATEINTERVAL>
+<COVERAGE> Varies </COVERAGE>
+<PROPRIETARY> NO </PROPRIETARY>
+<COPYRIGHTTEXT> This is not copyrighted </COPYRIGHTTEXT>
+<COPYRIGHTNOTICE> This would be a copyright notice </COPYRIGHTNOTICE>
+<PRODUCERCONTACTINFO>
+<contact_name> Someone </contact_name>
+<contact_address>The Data Archive, University of Essex, Essex CO4 3SQ, United Kingdom.
+</contact_address>
+<contact_email> none </contact_email>
+</PRODUCERCONTACTINFO>
+<SUPPLIERCONTACTINFO>
+<contact_name> Someone </contact_name>
+<contact_address>The Data Archive, University of Essex, Essex CO4 3SQ, United Kingdom.
+</contact_address>
+<contact_email> none </contact_email>
+</SUPPLIERCONTACTINFO>
+</EXPLAIN>
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /usr/users/ray/Work/ESSEX_TEST/DA/codebook.dtd </FILEDTD>
+<SGMLCat>/usr/users/ray/Work/ESSEX_TEST/DA/catalog</SGMLCAT>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> /usr/users/ray/Work/ESSEX_TEST/DA/nesstar_da.sgm.assoc
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> /usr/users/ray/Work/ESSEX_TEST/DA/nesstar_da.history 
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- First index def -->
+
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE PRIMARYKEY=REPLACE>
+<INDXNAME> 
+/usr/users/ray/Work/ESSEX_TEST/DA/studynumber.indx
+</INDXNAME>
+<INDXTAG> studyno </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> IDNo </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- Author/Creator index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr/users/ray/Work/ESSEX_TEST/DA/author.indx
+</INDXNAME>
+<INDXTAG> author </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1098 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1106 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The stoplist for this file -->
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> depositr </FTAG>
+<FTAG> AuthEnty </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- The next index entry definition -->
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/title.indx </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 1097 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> titlstmt </FTAG>
+<FTAG> sername </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<!-- The following provides exact title access, with no stopwords -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/xtitle.indx </INDXNAME>
+<INDXTAG> xtitle </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1097 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG> titl </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<!-- Subject index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/subject.indx </INDXNAME>
+<INDXTAG> subject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 1099 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>subject </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+
+
+<!-- keyword index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/keyword.indx </INDXNAME>
+<INDXTAG> keyword </INDXTAG>
+
+<INDXMAP>
+<USE> 47 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 1015 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 1023 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> keyword </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+
+
+<!-- source  index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/source.indx </INDXNAME>
+<INDXTAG> source </INDXTAG>
+
+<INDXMAP>
+<USE> 1019 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 1108 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 1155 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> dataSrc </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+
+<!-- method  index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/method.indx </INDXNAME>
+<INDXTAG> method </INDXTAG>
+
+<INDXMAP>
+<USE> 1156 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> dataColl </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+
+<!-- kind of data  index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/datakind.indx </INDXNAME>
+<INDXTAG> datakind </INDXTAG>
+
+<INDXMAP>
+<USE> 1031 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 1103 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> dataKind </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+
+<!-- geogunit index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/geogunit.indx </INDXNAME>
+<INDXTAG> geogunit </INDXTAG>
+
+<INDXMAP>
+<USE> 1116 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> geogUnit </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+
+<!-- any  index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr/users/ray/Work/ESSEX_TEST/DA/any.indx
+</INDXNAME>
+<INDXTAG> any </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1016 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1016 </USE><POSIT> 3 </posit><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1016 </USE><POSIT> 3 </posit><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1017 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1017 </USE><POSIT> 3 </posit><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1017 </USE><POSIT> 3 </posit><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1035 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1035 </USE><POSIT> 3 </posit><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1035 </USE><POSIT> 3 </posit><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!--  stoplist for this file -->
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<!-- In this case everything in the record is used    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> stdyDscr </FTAG>
+<FTAG> fileDscr </FTAG>
+<FTAG> dataDscr </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- new index for geographic names -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr/users/ray/Work/ESSEX_TEST/DA/geonames.indx
+</INDXNAME>
+<INDXTAG> geonames </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1076 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1076 </USE><POSIT> 3 </posit><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1076 </USE><POSIT> 3 </posit><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 58 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 58 </USE><POSIT> 3 </posit><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 58 </USE><POSIT> 3 </posit><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1022 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1022 </USE><POSIT> 3 </posit><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1022 </USE><POSIT> 3 </posit><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!--  stoplist for this file -->
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> nation </FTAG>
+<FTAG> geogCover </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- new index for timeperiod -->
+<INDEXDEF ACCESS=BTREE EXTRACT=DATE NORMAL="YEAR">
+<INDXNAME> 
+/usr/users/ray/Work/ESSEX_TEST/DA/timeperiod.indx
+</INDXNAME>
+<INDXTAG> timeperiod </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1102 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1102 </USE><POSIT> 3 </posit><STRUCT> 4 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1102 </USE><POSIT> 3 </posit><STRUCT> 5 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><POSIT> 3 </posit><STRUCT> 4 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><POSIT> 3 </posit><STRUCT> 5 </STRUCT></INDXMAP>
+
+<!--  stoplist for this file -->
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> timePrd </FTAG><ATTR>event<VALUE>single</VALUE></ATTR>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<!-- new index for dateproduced -->
+<INDEXDEF ACCESS=BTREE EXTRACT=DATE NORMAL="YYYY-MM-DD">
+<INDXNAME> 
+/usr/users/ray/Work/ESSEX_TEST/DA/proddate.indx
+</INDXNAME>
+<INDXTAG> proddate </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 31 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><POSIT> 3 </posit><STRUCT> 4 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><POSIT> 3 </posit><STRUCT> 5 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1011 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1011 </USE><POSIT> 3 </posit><STRUCT> 4 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1011 </USE><POSIT> 3 </posit><STRUCT> 5 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1012 </USE><POSIT> 3 </posit><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1012 </USE><POSIT> 3 </posit><STRUCT> 4 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1012 </USE><POSIT> 3 </posit><STRUCT> 5 </STRUCT></INDXMAP>
+
+<!--  stoplist for this file -->
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> docDscr </FTAG><S>citation</S><S>prodStmt</S><S>prodDate</S><ATTR>date</ATTR>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<!-- Variable index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/variable.indx </INDXNAME>
+<INDXTAG> variable </INDXTAG>
+
+<INDXMAP>
+<USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> ^var$ </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<!-- Question index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/question.indx </INDXNAME>
+<INDXTAG> question </INDXTAG>
+
+<INDXMAP>
+<USE> 45 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> ^qstn$ </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<!-- Abstract index -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr/users/ray/Work/ESSEX_TEST/DA/abstract.indx </INDXNAME>
+<INDXTAG> abstract </INDXTAG>
+
+<INDXMAP>
+<USE> 62 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /usr/users/ray/Work/ESSEX_TEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> abstract </FTAG>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+</INDEXES> 
+
+<DISPOPTIONS>
+KEEP_ALL
+</DISPOPTIONS>
+
+
+
+<DISPLAY>
+        <FORMAT NAME="T">
+                <exclude COMPRESS>
+                        <tagspec>
+                        <ftag>docDscr</ftag>
+                        <ftag>subTitl</ftag>
+                        <ftag>altTitl</ftag>
+                        <ftag>parTitl</ftag>
+                        <ftag>rspStmt</ftag>
+                        <ftag>prodStmt</ftag>
+                        <ftag>distStmt</ftag>
+                        <ftag>serStmt</ftag>
+                        <ftag>verStmt</ftag>
+                        <ftag>biblCit</ftag>
+                        <ftag>notes</ftag>
+                        <ftag>stdyInfo</ftag>
+                        <ftag>method</ftag>
+                        <ftag>dataAccs</ftag>
+                        <ftag>othrStdyMat</ftag>
+                        <ftag>fileDscr</ftag>
+                        <ftag>dataDscr</ftag>
+                        <ftag>otherMat</ftag>
+                        </tagspec>
+                </exclude>
+        </FORMAT>
+        <FORMAT NAME="C">
+                <exclude COMPRESS>
+                        <tagspec>
+                        <ftag>catgryGrp</ftag>
+                        </tagspec>
+                </exclude>
+        </FORMAT>
+
+</DISPLAY>  
+
+</FILEDEF> 
+</DBCONFIG>
+

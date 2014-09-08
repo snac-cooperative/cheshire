@@ -1,0 +1,120 @@
+#!/usr/users/l237/src/cheshire2
+# 
+
+# ************************************************************************
+# 
+#        Header Name:    mainmenu
+# 
+#        Programmers:  	Joachim Martin and Alicia Abrahmson
+# 
+#        Purpose:        tcl/tk script to start up cheshire2 and
+#  			display a main menu
+# 
+#        Usage:          
+# 
+#        Variables:
+# 
+#        Return Conditions and Return Codes:
+# 
+#        Date:           11/20/93
+#        Revised:
+#        Version:        1.0
+#        Copyright (c) 1993.  The Regents of the University of California
+#                All Rights Reserved
+# 
+# ***********************************************************************/
+
+
+# set up global variables 
+global smfont medfont bigfont RES RSTATS SRECS HOST RELSUBS S_NUM DISPLAYCMD \
+   FINDCMD BIBTAGS RELRECS
+
+set smfont "-Adobe-times-medium-r-normal--*-120*"
+set smfontb "-Adobe-times-Bold-r-normal--*-120*"
+set medfont "-Adobe-times-medium-r-normal--*-140*"
+set medfontb "-Adobe-times-Bold-r-normal--*-140*"
+set bigfont -Adobe-times-medium-r-normal--*-180*
+set bigfontb -Adobe-times-Bold-r-normal--*-180*
+set bigfonti -Adobe-times-medium-O-normal--*-180*
+
+set RES {{OK {Status 2} {Hits 15} {Received 1} {Set default}} {1 {0 000 {{00714cam  220229 a 4500}}} {1 001 {{4493985}}} {2 003 {{CU-UC}}} {3 005 {{19931120133455.2}}} {4 008 {{870617s1988    maua          00110 eng  }}} {5 010 {{  }} {{a} {   87017566 }}} {6 020 {{  }} {{a} {020107981X (pbk.) :}} {{c} {\$21.95}}} {7 040 {{  }} {{a} {DLC}} {{c} {DLC}} {{d} {DLC}}} {8 050 {{00}} {{a} {QA76.73.A95}} {{b} {A35 \ 1988}}} {9 082 {{00}} {{a} {005.13/3}} {{2} {19}}} {10 100 {{10}} {{a} {Aho, Alfred V.}}} {11 245 {{14}} {{a} {The AWK programming language /}} {{c} {Alfred V. Aho, Brian W. Kernighan, Peter J. Weinberger.}}} {12 260 {{0 }} {{a} {Reading, Mass. :}} {{b} {Addison-Wesley Pub. Co.,}} {{c} {c1988.}}} {13 300 {{  }} {{a} {x, 210 p. :}} {{b} {ill. ;}} {{c} {24 cm.}}} {14 500 {{  }} {{a} {Includes index.}}} {15 650 {{ 0}} {{a} {AWK (Computer program language)}}} {16 700 {{10}} {{a} {Kernighan, Brian W.}}} {17 700 {{10}} {{a} {Weinberger, Peter J.}}}}}
+
+set RSTATS {OK {Status 2} {Hits 15} {Received 5} {Set default}}
+set HOST ""
+set SRECS {{OK {Status 0} {Hits 0} {Received 0} {Saved Recs}}}
+set S_NUM 0
+set RELSUBS ""
+set RELRECS {{OK {Status 0} {Hits 0} {Received 0} {Saved Recs}}}
+  
+
+set BIBTAGSLIST {{100 AUTHOR:} {110 CORPORATE NAME} {111 CONFERENCE NAME} {130 UNIFORM TITLE} {240 UNIFORM TITLE} {245 TITLE:} {250 EDITION:} {260 PUBLISHER:} {300 DESCRIPTION:} {400 SERIES:} {410 SERIES:} {411 SERIES:} {440 SERIES:} {490 SERIES:} {500 NOTES:} {504 BIB NOTE:} {600 SUBJECT:} {610 SUBJECT:} {611 SUBJECT:} {630 SUBJECT:} {650 SUBJECT:} {651 SUBJECT:} {690 SUBJECT:} {700 PERSONAL NAME} {711 CONFERENCE/MEETING NAME} {730 UNIFORM TITLE} {740 TITLE TRACED DIFFERENTLY} {800 PERSONAL NAME-TITLE} {810 CORPORATE NAME-TITLE} {811 CONFERENCE/MEETING TITLE} {830 PERSONAL NAME-TITLE} {999 SCORE:}}
+
+foreach field $BIBTAGSLIST {
+   set tag [lindex $field 0]
+   set BIBTAGS($tag) "[lrange $field 1 end]"
+}
+
+if {[string compare [tk colormodel .] "monochrome"] != 0} {
+     option add *Button.activeBackground salmon1
+     option add *Menubutton.activeBackground salmon1
+     option add *Menu.activeBackground salmon1
+     option add *ListBox.activeBackground salmon1
+     option add *Scrollbar.activeBackground salmon1
+     option add *Scrollbar.activeForeground salmon1
+}
+
+option add *Button.Font -Adobe-times-medium-r-normal--*-140*
+option add *Menubutton.Font -Adobe-times-medium-r-normal--*-140*
+
+set auto_path " .  $auto_path"
+wm title . "Cheshire 2"
+
+message .msg -font $bigfont -relief flat \
+   -text "            Welcome To Cheshire2 !!!
+To exit, click on the \"Quit\" button below."
+
+frame .cat -borderwidth 40 
+pack append .cat \
+   [label .cat.bitmap -bitmap @/usr/users/l237/src/bitmaps/catwithquote.xbm \
+    -borderwidth 10 ] top \
+   [label .cat.caption -text "The object of our fancy" -font $medfont] bottom
+
+frame .options -borderwidth 10 
+pack append .options \
+   [frame .options.left] {left expand} \
+   [frame .options.middle] {right expand} \
+   [frame .options.right] {right expand} \
+
+pack append .options.left \
+   [button .options.left.quit -text "Quit" -font $medfont \
+    -command { destroy . }] {top pady 4 expand}
+pack append .options.right \
+   [button .options.right.search -text "Search" -font $bigfont \
+    -command " wm iconify .; mkSearch " ] {top pady 4 expand} 
+pack append .options.middle \
+   [button .options.middle.help -text "Help" -font $medfont \
+    -command "wm iconify .; mkHelp .help . " ] {top pady 4 expand} 
+
+bind . <Return> " wm iconify . ; mkSearch"
+
+pack append . .cat {top fillx} .msg {top fill} .options {bottom fill}
+
+
+#-------------------------------------------------------
+# The code below creates all the menus, which invoke procedures
+# to create particular demonstrations of various widgets.
+#-------------------------------------------------------
+
+
+# Set up for keyboard-based menu traversal
+
+#tk_bindForTraversal .msg
+#bind . <Any-Enter> {focus .msg}
+#tk_menuBar .menu .menu.button .menu.listbox .menu.entry .menu.text \
+#	.menu.scroll .menu.scale .menu.canvas .menu.menu .menu.misc
+
+# Position a dialog box at a reasonable place on the screen.
+
+proc dpos w {
+    wm geometry $w +100+50
+}

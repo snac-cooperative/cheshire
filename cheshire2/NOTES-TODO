@@ -1,0 +1,75 @@
+CLIENT TODO LIST "*" = todo "+" = fixed "-" = changed
+
+* Make sure everything works with the tcl client code -- pretty good so far...
+
+* Search/Display/Use Explain records
+
+* Search/Display/Use Generic records
+
+* Add result-set deletion support
+
+* add Browse facility
+
+* add Sort facility & language
+
+* add Access control facility
+
+* Close facility 
+
+* Additional parsing options for full-text (e.g. un-wrap split hyphenated
+words at end of line -- eliminate scanning junk, etc.)
+
++ Multiple simultaneous connections (changed zclose, tk_connect and others)
+
++ Keep result set numbering straight (server doc numbers now included in 
+  DOCUMENT structure, other things fixed too.
+
+- Handle selection of things out of order (eliminated caching on the client
+  side -- it was too wasteful of space, and the server handles things fine
+  for out-of-order present requests. Caching can be handled at higher level 
+  (Tcl) if desired anyhow.)
+
++ Really need more elegant solution for multiple attributes sets in queries.
+  (There is now a single attribute table with a bitwise ORed attribute set
+   ID for all supported attribute sets -- permits clean handling of 
+   "superset" attribute sets like GILS and STAS.)
+
++ Some old code -- loadcheshcmds.c and marc2list.c
+  has been removed because the functionality is provided now by
+  z_format.c
+
++ Result set list position should be reset on each new search
+  re-verify all the position numbers, etc.
+
++ There should be a "default session" structure that can be set and
+  looked at BEFORE a connection is made -- need to be able to control
+  variables for the INIT interaction. -- Fixed by adding a TMP session
+  structure that is used to perform the basic initialization of any
+  session that comes after one of it's values are set.
+
++ parsing error or search failure for call number searching -- turned out
+  to be an odd bug (or offset problems) in the parser -- the attributetype
+  for the structure attribute was being set to 0 -- this was happening
+  on anything without a structure type of 6 so it led to several problems
+  in searching some indexes. Should be OK now...
+
++ character normalization seems to work OK for SGML from cheshire,
+  but NOT for MARC records from MELVYL or elsewhere -- something
+  strange... Turned out to be a parameter int subfcopy that removed
+  all non-ascii characters.
+
+- Make the HOSTs table a loaded table from some (setable) default location
+  via Tcl. --- Hosts CAN be load from TCL and remain in the table for the
+  duration of the session. The "default" hosts are just a useful set.
+
+- Mechanism for adding attributes from Tcl -- given that the attributes
+  are set in stone via the standards process it is probably best to
+  just build them in as needed.
+
+
+
+Ray
+
+
+
+

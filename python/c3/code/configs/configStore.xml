@@ -1,0 +1,3 @@
+<config type="configStore" id="defaultConfigStore">
+  <objectType>recordStore.SimpleRecordStore</objectType>
+</config>

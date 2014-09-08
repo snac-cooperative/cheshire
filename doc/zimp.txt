@@ -1,0 +1,243 @@
+July 1995
+
+	An implementation of ANSI Z39.50 Version 3
+
+		     Aitao Chen
+		     aitao@info.sims.berkeley.edu
+
+
+    This short document describes a sample implementation of ANSI Z39.50 
+version 3. The Z39.50 implementation has the following modules:
+
+	a) BER library,
+	b) Z39.50 library
+	c) A sample implementation of Z39.50 client,
+	d) Four sample implementations of Z39.50 server,
+	e) Common Command Language parser,
+	f) C data structure definition generator,
+	g) Utilities (B+ tree implementation, record management utilities,
+	      marc record indexing library and in-memory hash and list
+	      utility programs. 
+
+
+1. BER Library.
+
+    The BER library consists of a set of programs that encode and decode a 
+subset of the data types defined in the standard ISO 8825. The library is 
+adequate to support all the primitive data types used in the Z39.50
+version 2. The set of routines included in the BER library are:
+
+	encode_integer();		decode_integer();
+	encode_boolean();		decode_boolean();
+	encode_null();			decode_null();
+	encode_oid();			decode_oid();
+	encode_bit_string();		decode_bit_string();
+	encode_octet_string();		decode_octet_string();
+	encode_visible_string();	decode_visible_string();
+	encode_external();		decode_external();
+
+A encoder converts the data value into a byte stream for transmission, and
+a decoder reverses the operation, by converting the byte stream into the 
+data value. The rules govern the encoding and decoding of the primitive 
+data types are specified in the standard ISO 8825. All data types are encoded
+in the following generic format. 
+	+-----+--------+-------+
+	| tag | length | value |
+	+-----+--------+-------+
+Each of the three fields is variable length. And each data type is tagged.
+
+
+2. Z39.50 Library
+
+    The Z39.50 encoder/decoder library has a group of programs that encode and 
+decode the Z39.50 application protocol data units (APDUs). For each APDU, there
+is an encoder and a decoder. An encoder converts the data value of an APDU
+into a bye stream by calling the BER encoders. Conversely, a decoder transforms
+a byte stream into the data value of an APDU. The value of an APDU is stored in
+a constructed data structure before encoding, the structure of the data value 
+is restored after the process of decoding. 
+
+
+3. C Struct Definition Generator.
+
+    The C data structure definition generator is a program that takes the
+Z39.50 APDUs definition, then generates a C structure definition for each
+data type defined in the Z39.50. The encoders and decoders for all the 
+Z39.50 APDUs could also be generated in a similar fashion. An ASN.1 compiler
+is being developed to just do that. The greatest advantage of having a compiler
+to generate all the C struct definitions and all the encoders and decoders for
+the APDUs is the speed of implementing a communication protocol. When an APDU
+is changed, one needs only  to run the modified APDU through the compiler to
+generate a set of new encoder and decoder for that APDU and the new C structure
+definition. Without a compiler, one has to manually modify all three or even
+more parts of an implementation. 
+
+
+4. Sample Client
+
+    A sample implementation of a Z39.50 client is included in this package.
+There are two user interfaces for the client program. One is a Tcl-based
+command line interface, the other is a Tk-based graphical user interface.
+The client supports the init, search, present, delete, resource report, 
+access control and resource control services. It also sends triggered resource 
+control APDUs. The client program uses TCP/IP protocol to transmit and receive
+APDUs. An explicit establishment of an association with a server is required
+before the client can interact with the server. The client can maintain
+connections to multiple Z39.50 servers simultaneously. The client can send a 
+search request to several Z39.50 servers simultaneously, the client then
+waits for the responses from the servers. The search query can be entered in 
+the Common Command Language. An interactive, Tk-based graphical query
+constructor is being implemented.
+
+
+5. Common Command Language Parser
+
+    The Common Command Language Parser takes as input a CCL search query,
+it checks the syntax of the query for CCL conformance. The parser generates a 
+binary tree representation for a CCL-compliant search query. The tree 
+representation of the search query will be transformed eventually into a byte 
+stream by some encoder in the Z39.50 library. With the parser, users can enter 
+complex and compact search query in the Common Command Language. The CCL parser
+is part of the client implementation.
+
+
+6. Sample Server
+
+    In this package, there are four different implementations of a Z39.50 
+server. Two implementations are working, though more tests are needed. The
+other two still need some work. The server supports the init, search, present,
+delete, resource control and access control services. The server accepts
+the triggered resource control request APDU, but ignores it. More work is
+necessary to make the server respond to the triggered resource request 
+appropriately. The server accepts resource report request APDUs and sends
+resource report response APDUs. However it doesn't fill out the report
+properly. The server sends a bogus resource report response back to the
+client. In the future version, this problem will be fixed. 
+  
+    The server supports type-1 query, element set names and client-supplied
+result set names. A result set name can be an operand in a type-1 query. 
+The server also supports multiple database names. In the case of multiple
+database names included in the search query, the server searches each
+database listed in the query, then combines the search results. The server
+can handle multiple connections simultaneously.
+
+    A brief description of four server architecture implementations follows.
+   
+    There is one master server process and zero or more slave processes running
+currently in the first implementation. The master process is responsible for
+accepting new connections and fork new slave processes to serve the clients.
+When a new connection has been accepted, a new slave process will be
+created to server the new association. The new process is created dynamically
+and is dedicated to the new association until the association is terminated. The
+new process will be removed silently when the association is terminated. The
+number of associations the server can maintain simultaneously is limited by 
+factors such as the amount of core memory available, the number of sockets
+a process can open. One problem with this architecture is that the overhead 
+of dynamically creating and removing process can be high. Particularly
+if the server process is large. 
+
+   The second server architecture implementation preallocates a group of
+server processes at the start-up time of the server. All the server processes
+listen to the same port for a new connection request. When a new request
+comes in, one and only one server process will serve the new association until
+the end of the association. Like the first server architecture implementation,
+a server process is dedicated to one association during the lifetime of an
+association. Each process is a complete server process. The main difference
+between this architecture and the previous one is that the server processes
+are created before accepting any new connections. Thus the overhead of forking
+and destroying a process has been removed in this architecture. The group of
+server processes are destroyed only when the server is down.
+
+   The first two server implementations share the problem of one process
+is dedicated to an association during the entire lifetime of the association.
+The degree of concurrency is limited by the number of server processes that
+are running concurrently. It is conceivable that the utilitzation of the
+server processes may not be high. This scenario may occur. While some server 
+processes are idle, waiting for new APDUs from the clients that are connected
+to the server processes, some new connections are waiting for server processes. 
+In a truly sharing server, one server processes can serve several connections 
+simultaneously. In the third server architecture implementation, only one
+server process is running, but the server process handles multiple connections
+simultaneously. The server process is not dedicated to any one association 
+except for the case when an association is the only one. The server handles 
+one APDU from one client, then it process a APDU from the next client.
+
+    The last server architecture is the most complicated among the four
+slightly different architectures. In this implementation, the server program
+has one master process, a group of slave processes, one request queue, and
+one response queue. All the processes are created at the start-up time of
+the server program. Each slave process runs one copy of the search engine.
+The master process monitors the connections. It receives the incoming APDUs,
+puts the request APDUs into the request queue, it takes the outgoing APDUs 
+from the response queue, then sends them to the clients. The request queue
+and response queue are implemented in shared memory. Both queues are shared
+by the master process and all the slave processes. Each slave process takes
+one APDU at a time from the request queue, processes the APDU, generates
+a response APDU, then puts the response APDU into the response queue. The
+slave process continues the cycle. When the request queue is empty, all the
+slave processes are put to sleep, however when a new APDU has been put into the
+request queue, the master process will awake one slave process to take care
+of the new APDU. If the response queue is full, the slave processes will be
+put to sleep until the response queue is not full. The access to the shared 
+memory is synchronized and protected. The architecture is depicted in the 
+following diagram.
+
+       o       o       o       o       o       o       connections (dynamic)
+     \						      	    /		 
+      \-------------------------+ +------------------------/
+                                | |
+                                | |
+                      +---------+-+-----------+
+                      |   monitor connections |
+                      |   receive pdu         |
+                      |   enqueue pdu         |  	master process
+                      |   dequeue pdu         |
+                      |   send pdu            |
+                      +-----------------------+
+                          /               \
+                         /                 \
+              +--------------+         +--------------+
+              |              |         |              |
+              |              |         |              |
+              |  request     |         | response     | shared memory
+              |  queue       |         | queue        |
+              |              |         |              |
+              +--------------+         +--------------+
+                        \                  /     
+                         \                /     
+             -------+--------------+-------------+------
+                    |              |             |
+                +---+-----+   +----+----+   +----+----+
+                |         |   |         |   |         |
+                | search  |   | search  |   | search  |
+                | engine  |   | engine  |   | engine  |  slave processes
+                |         |   |         |   |         |
+                +---------+   +---------+   +---------+
+ 
+    Figure 1. Multitasking, Concurrent Server Architecture.
+
+The implementation of the multitasking, concurrent server architecture has
+not completed yet. There are still some technical problems that remains to 
+be solved before the implementation can be put into practical use. 
+
+
+7. Search Engine
+
+    The search engine takes the binary tree representation of the search
+query received by the server. it returns a list of documents satisfying the 
+search query to the server.
+
+
+8. Utilities
+
+    There are a few auxiliary and utility programs for setting up a 
+bibliographic databases. Included in this package is an implementation
+of B+ tree, record management library, marc record indexing library, 
+and in-memory hash and list routines. 
+
+
+9. Environment
+
+    Both the client and server programs are developed on a SUN SPARC 
+workstation. However it should be relatively easy to port the implementation
+to other platforms. 

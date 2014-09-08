@@ -1,0 +1,21 @@
+#!/bin/sh
+# This is a script to build just the primary key for all the current data.
+# This lets us traverse for all versions of a document.
+# As this isn't the main database, we can still access the real data etcetc.
+# (The delete might take a while however)
+
+# Set up environment
+cd /home/cheshire/cheshire/metadata
+export PATH=$PATH:/home/cheshire/cheshire/bin
+
+# Trash old files.
+rm metadata-deleteusers.assoc logs/deleteuserINDEX_LOGFILE indexes/deleteusers/*.index DBCONFIGFILE-deleteuser users.cont
+
+# Rebuild associator.
+buildassoc -r /home/cheshire/cheshire/metadata/users metadata-deleteusers.assoc cheshireEditor
+
+cp DBCONFIGFILE-deleteuser.top DBCONFIGFILE-deleteuser
+cat users.cont >> DBCONFIGFILE-deleteuser
+cat DBCONFIGFILE-deleteuser.bottom >> DBCONFIGFILE-deleteuser
+
+index_cheshire -L logs/deleteuserINDEX_LOGFILE DBCONFIGFILE-deleteuser

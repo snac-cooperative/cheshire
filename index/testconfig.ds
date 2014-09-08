@@ -1,0 +1,594 @@
+<!-- This is a test config file for Cheshire II -->
+<DBCONFIG>
+<DBENV> /Users/ray/Work/DBENV </DBENV>
+
+<!-- The first filedef -->
+<FILEDEF TYPE=MARCSGML_DATASTORE>
+
+<DEFAULTPATH> /Users/ray/Work/cheshire/index </DEFAULTPATH>
+
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> bibfileds </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> TESTDATADS/TEST_DATASTORE </FILENAME>
+<!-- Explain data for populating databaseinfo records for explain -->
+<EXPLAIN>
+<TITLESTRING> Mathematics Library BIBFile books database
+</TITLESTRING>
+<DESCRIPTION> Contains a small sample from 
+the UCBerkeley Mathematics library catalog
+</DESCRIPTION>
+<DISCLAIMERS LANGUAGE="chi"> This is bogus, just testing the language attribute
+</DISCLAIMERS>
+<NEWS> No news </NEWS>
+<HOURS> Whenever the system is up </HOURS>
+<BESTTIME> Almost any time is good </BESTTIME>
+<!-- this should do real update time <LASTUPDATE> Jan. 1993 </LASTUPDATE> -->
+<UPDATEINTERVAL><VALUE> 10 </VALUE><UNIT> Years </UNIT></UPDATEINTERVAL>
+<COVERAGE> Doesn't cover much </COVERAGE>
+<PROPRIETARY> NO </PROPRIETARY>
+<COPYRIGHTTEXT> This is not copyrighted </COPYRIGHTTEXT>
+<COPYRIGHTNOTICE> This would be a copyright notice </COPYRIGHTNOTICE>
+<PRODUCERCONTACTINFO>
+<contact_name> Ray R. Larson </contact_name>
+<contact_address>102 South Hall UC Berkeley, CA 94720-4600
+</contact_address>
+<contact_email> ray@sherlock.berkeley.edu </contact_email>
+</PRODUCERCONTACTINFO>
+<SUPPLIERCONTACTINFO>
+<contact_name> Ray R. Larson </contact_name>
+<contact_address>102 South Hall UC Berkeley, CA 94720-4600
+</contact_address>
+<contact_email> ray@sherlock.berkeley.edu </contact_email>
+<contact_phone> 642-6046 </contact_phone>
+</SUPPLIERCONTACTINFO>
+</EXPLAIN>
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /Users/ray/Work/cheshire/doc/install/USMARC12.DTD </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> NONE </ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> TESTDATADS/junk.history 
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> TESTDATADS/author.index </INDXNAME>
+<INDXTAG> author </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The stoplist for this file -->
+<STOPLIST> TESTDATADS/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD100 </FTAG>
+<FTAG>FLD110 </FTAG>
+<FTAG>FLD111 </FTAG>
+<FTAG>FLD700 </FTAG>
+<FTAG>FLD710 </FTAG>
+<FTAG>FLD711 </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- The next index entry definition -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> TESTDATADS/xauthor.index
+</INDXNAME>
+<INDXTAG> xauthor </INDXTAG>
+
+<INDXMAP> 
+<USE> 1 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 2 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 3 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1002 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1003 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1004 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1005 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 1006 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> TESTDATADS/authorstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<!-- Notice the use of pattern matching in the following -->
+<FTAG>FLD[178]00 </FTAG> <S> ^a$ </S>
+<FTAG>FLD[178]10 </FTAG> <S> ^[abdc]$ </S>
+<FTAG>FLD[178]11 </FTAG> <S> ^[abdc]$ </S>
+<FTAG>FLD600 </FTAG> <S> ^a$ </S>
+<FTAG>FLD610 </FTAG> <S> ^[ab]$ </S>
+<FTAG>FLD611 </FTAG> <S> ^[ab]$ </S> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> TESTDATADS/title.index </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> TESTDATADS/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><S>^[ab]$ </S>
+<FTAG>FLD240 </FTAG> <S> ^[atp]$ </S>
+<FTAG>FLD130 </FTAG>
+<FTAG>FLD730 </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=DO_NOT_NORMALIZE>
+<INDXNAME> TESTDATADS/untitle.index </INDXNAME>
+<INDXTAG> untitle </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><S>a </S>
+</TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> TESTDATADS/xtitle.index </INDXNAME>
+<INDXTAG> xtitle </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> TESTDATADS/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><S>[ab] </S>
+<FTAG>FLD240 </FTAG> <S>[abtp] </S>
+<FTAG>FLD130 </FTAG> <s>[ab] </s>
+<FTAG>FLD730 </FTAG> <s>[ab] </s> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=DO_NOT_NORMALIZE>
+<INDXNAME> TESTDATADS/xxtitle.index </INDXNAME>
+<INDXTAG> xxtitle </INDXTAG>
+
+<INDXMAP>
+<USE> 7 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><s>a</s>
+</TAGSPEC> 
+</INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> TESTDATADS/subject.index </INDXNAME>
+<INDXTAG> subject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> TESTDATADS/subjstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> TESTDATADS/xsubject.index </INDXNAME>
+<INDXTAG> xsubject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD_PROXIMITY NORMAL=STEM>
+<INDXNAME> TESTDATADS/topic.index </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 29 </USE>
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT>
+</INDXMAP>
+
+<STOPLIST> TESTDATADS/titlestoplist </STOPLIST>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG><S>[abz]</S>
+<FTAG>FLD245 </FTAG><S>[ab] </S>                                           
+<FTAG>FLD240 </FTAG><S>[atp] </S>                                          
+<FTAG>FLD4.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD8.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD130 </FTAG><s>[atp]</s>
+<FTAG>FLD730 </FTAG><s>[atp]</s>
+<FTAG>FLD740 </FTAG><S>[ap]</s>
+<FTAG>FLD1.. </FTAG><S>t </S>
+<FTAG>FLD7.. </FTAG><S>t </S>
+<!-- Note this is the call number but it will not be normalized --> 
+<FTAG>FLD950 </FTAG><S>a </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=CLASSCLUS>
+<INDXNAME> TESTDATADS/lcclass.index </INDXNAME>
+<INDXTAG> lcclass </INDXTAG>
+
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 3 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 3 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD050 </FTAG> <s> ^a </s>
+<FTAG>FLD950 </FTAG> <s> ^a </s>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	<!-- the following is shared with subject -->
+		TESTDATADS/doctype.index
+		
+</INDXNAME>
+<INDXTAG>	doctype
+		
+</INDXTAG>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 4 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 1 </struct></INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>USMARC</FTAG><ATTR>MATERIAL</ATTR>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE PRIMARYKEY=IGNORE>
+<INDXNAME> 
+TESTDATADS/localnum.index
+</INDXNAME>
+<INDXTAG> localnum </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- No stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD001  </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+</INDEXES>
+
+<COMPONENTS>
+<COMPONENTDEF>
+<COMPONENTNAME> TESTDATADS/COMPONENT_DB1 </COMPONENTNAME>
+<COMPONENTNORM>NONE</COMPONENTNORM>
+<COMPSTARTTAG>
+<TAGSPEC>
+<FTAG>mainenty </FTAG>
+<FTAG>titles </FTAG>
+</TAGSPEC>
+</COMPSTARTTAG>
+<COMPENDTAG>
+<TAGSPEC><FTAG>Fld300 </FTAG></TAGSPEC>
+</COMPENDTAG>
+<COMPONENTINDEXES>
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+TESTDATADS/comp_author.index
+</INDXNAME>
+<INDXTAG> comp_author </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1000 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+
+<!-- The stoplist for this file -->
+<STOPLIST> TESTDATADS/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> .* </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+</COMPONENTINDEXES>
+</COMPONENTDEF>
+
+<COMPONENTDEF>
+<COMPONENTNAME> TESTDATADS/COMPONENT_DB2 </COMPONENTNAME>
+<COMPONENTNORM>NONE</COMPONENTNORM>
+<COMPSTARTTAG>
+<TAGSPEC>
+<FTAG>titles </FTAG><S> FLD245 </S><ATTR> Addenty <VALUE> NO </value></attr>
+</TAGSPEC>
+</COMPSTARTTAG>
+<!-- /* no end tag */ -->
+<COMPONENTINDEXES>
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+TESTDATADS/comp_title.index
+</INDXNAME>
+<INDXTAG> stuff </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1010 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+</COMPONENTINDEXES>
+</COMPONENTDEF>
+
+</COMPONENTS>
+
+ 
+<DISPOPTIONS>
+KEEP_ALL
+</DISPOPTIONS>
+
+<DISPLAY>
+ <FORMAT NAME="B" OID="1.2.840.10003.5.109.9">
+  <exclude COMPRESS>
+        <tagspec>
+                <ftag>Leader</ftag>
+                <ftag>Directry</ftag>
+                <ftag>VarCFlds</ftag>
+                <ftag>Numbcode</ftag>
+                <ftag>EdImprnt</ftag>
+                <ftag>PhysDesc</ftag>
+                <ftag>Series</ftag>
+                <ftag>Notes</ftag>
+                <ftag>SubjAccs</ftag>
+                <ftag>AddEnty</ftag>
+                <ftag>Fld9XX</ftag>
+        </tagspec>
+  </exclude>
+</format>
+
+
+<FORMAT NAME="TESTATTR" OID="1.2.840.10003.5.105">
+  <convert function="TAGSET-G"> 
+   <clusmap>
+        <from>
+                <tagspec>
+                <ftag>#DOCID#</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>5</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>FLD245</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>1</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>USMARC</ftag><ATTR>ID</ATTR>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>17</ftag>
+                </tagspec></to>
+   </clusmap>
+ </convert>
+</FORMAT>
+
+<FORMAT NAME="TESTPARENT" OID="1.2.840.10003.5.105">
+  <convert function="TAGSET-G"> 
+   <clusmap>
+        <from>
+                <tagspec>
+                <ftag>#PARENT#</ftag><s>FLD010</s>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>10</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>#DOCID#</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>5</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>FLD245</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>1</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>USMARC</ftag><ATTR>ID</ATTR>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>17</ftag>
+                </tagspec></to>
+   </clusmap>
+ </convert>
+</FORMAT>
+
+
+<FORMAT NAME="HTML" OID="1.2.840.10003.5.109.3" >
+  <convert function="/home/ray/Work/cheshire/index/tohtml.tcl"> 
+ </convert>
+</FORMAT>
+<FORMAT NAME="CONVF" OID="1.2.840.10003.5.101" >
+  <convert function="/home/ray/Work/cheshire/index/tohtml.tcl"> 
+ </convert>
+</FORMAT>
+
+<FORMAT name="XML_ELEMENT_" OID="1.2.840.10003.5.109.10">
+  <convert function="XML_ELEMENT">
+    <clusmap>
+      <from>
+         <tagspec>
+           <ftag>SUBST_ELEMENT</ftag>
+         </tagspec>
+       </from>
+       <to>
+         <tagspec>
+           <ftag>SUBST_ELEMENT</ftag>
+         </tagspec>
+       </to>
+      <from>
+         <tagspec>
+           <ftag>#RAWSCORE#</ftag>
+         </tagspec>
+       </from>
+       <to>
+         <tagspec>
+           <ftag>SCORE</ftag>
+         </tagspec>
+       </to>
+
+      <from>
+         <tagspec>
+           <ftag>#RANK#</ftag>
+         </tagspec>
+       </from>
+       <to>
+         <tagspec>
+           <ftag>RANK</ftag>
+         </tagspec>
+       </to>
+     </clusmap>
+   </convert>
+ </FORMAT>
+
+
+<FORMAT name="XML_ELEMENT_" OID="1.2.840.10003.5.109.10">
+  <convert function="XML_ELEMENT">
+    <clusmap>
+      <from>
+         <tagspec>
+           <ftag>SUBST_ELEMENT</ftag>
+         </tagspec>
+       </from>
+       <to>
+         <tagspec>
+           <ftag>SUBST_ELEMENT</ftag>
+         </tagspec>
+       </to>
+      <from>
+         <tagspec>
+           <ftag>#RAWSCORE#</ftag>
+         </tagspec>
+       </from>
+       <to>
+         <tagspec>
+           <ftag>SCORE</ftag>
+         </tagspec>
+       </to>
+
+      <from>
+         <tagspec>
+           <ftag>#RANK#</ftag>
+         </tagspec>
+       </from>
+       <to>
+         <tagspec>
+           <ftag>RANK</ftag>
+         </tagspec>
+       </to>
+
+     </clusmap>
+   </convert>
+ </FORMAT>
+
+</DISPLAY>
+</FILEDEF> 
+</DBCONFIG>
+
+

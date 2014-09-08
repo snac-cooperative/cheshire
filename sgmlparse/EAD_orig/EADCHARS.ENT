@@ -1,0 +1,163 @@
+<!-- Formal Public Identifier:
+"-//Society of American Archivists//DTD eadchars.ent (EAD Special Characters)//EN"
+-->
+
+<!-- ========================================================== -->
+<!--  NAME:      EAD SPECIAL CHARACTERS                         -->
+<!--                                      (File = eadchars.ent) -->
+<!--                                      (Verson = 2.0)        -->
+<!--                                      (Vers Date 96/09/16)  -->
+<!--                                                            -->
+<!--  PURPOSE:   To call in ISO special character sets for use  -->
+<!--             in EAD archival documents.                     -->
+<!--                                                            -->
+<!--                                                            -->
+<!--  CONTACT:   EAD listserv of the Library of Congress Network-->
+<!--             Development and MARC Standards Office.         -->
+<!--             To subscribe to this listserv, send a one-line -->
+<!--             message to LISTSERV@LOC.GOV containing the     -->
+<!--             text:  SUBSCRIBE EAD YourName. Once subscribed,-->
+<!--             submit messages to EAD@LOC.GOV.                -->
+<!--                                                            -->
+<!--  SPONSOR:  The EAD is a cooperative effort sponsored by    -->
+<!--      several institutions and professional associations.   -->
+<!--      Its development has been supported through a series of-->
+<!--      fellowships and grants.                               -->
+<!--                                                            -->
+<!--      The Society of American Archivists (SAA) through the  -->
+<!--      EAD Working Group of the Committee on Archival        -->
+<!--      Information Exchange (CAIE) is responsible for        -->
+<!--      the intellectual content of EAD and for monitoring    -->
+<!--      and assisting in its ongoing development. The working -->
+<!--      group includes individuals representing various       -->
+<!--      interests within the SAA as well as representatives   -->
+<!--      from OCLC, Research Libraries Group (RLG), and the    -->
+<!--      Library of Congress.                                  -->
+<!--                                                            -->
+<!--      The Library of Congress Network Development and MARC  -->
+<!--      Standards Office is the international maintenance     -->
+<!--      agency for the standard.                              -->
+<!--                                                            -->
+<!--      Funding agencies who have contributed generously to   -->
+<!--      the development of the standard include:  Department  -->
+<!--      of Education (Title IIA grant) to the University of   -->
+<!--      California, Berkeley, for developing a prototype      -->
+<!--      encoding standard and database for finding aids; The  -->
+<!--      Library, University of California, Berkeley, for      -->
+<!--      supporting ongoing development of a community-based   -->
+<!--      standard; Commission on Preservation and Access for a -->
+<!--      three-day conference (4-6 April 1995) on the Berkeley -->
+<!--      Finding Aid Project (BFAP); Bentley Historical        -->
+<!--      Library, Andrew W. Mellon Foundation, and the National-->
+<!--      Endowment for the Humanities (Division of Preservation-->
+<!--      and Access) for assembling representatives from the   -->
+<!--      archival community for a week-long (22-29 July 1995)  -->
+<!--      Bentley fellowship program to develop design          -->
+<!--      principles and revise the BFAP data model and DTD;    -->
+<!--      Library of Congress National Digital Library Program  -->
+<!--      for sponsoring a three-day meeting (1-3 November 1995)-->
+<!--      of the Bentley team and other experts to review the   -->
+<!--      Bentley model and for providing the technical support -->
+<!--      of an SGML consulting firm to make modifications and  -->
+<!--      supply accompanying documentation for an alpha version-->
+<!--      of the DTD; and the Council on Library Resources for  -->
+<!--      sponsoring the development and publication of         -->
+<!--      application guidelines.                               -->
+<!--                                                            -->
+<!--  NOTE:      This is a modular DTD.  It references other    -->
+<!--             DTD modules through the use of Formal Public   -->
+<!--             Identifiers and/or SYSTEM entity references.   -->
+<!--             TO USE THIS DTD YOU MUST make the proper       -->
+<!--             FORMAL or SYSTEM pathname connection!!!!!!!    -->
+<!--                                                            -->
+<!--  WRITTEN:   Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             DATE: 1995-10                                  -->
+<!--                                                            -->
+<!--  ALPHA MODIFICATIONS:                                      -->
+<!--             Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             and the                                        -->
+<!--             ATLIS Consulting Group (DAL)                   -->
+<!--             Rockville, Maryland  20852                     -->
+<!--             (under contract with the National Digital      -->
+<!--             Library Program, Library of Congress)          -->
+<!--             DATE: 1996-01                                  -->
+<!--                                                            -->
+<!--  BETA MODIFICATIONS:                                       -->
+<!--             Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             DATE: 1996-06                                  -->
+<!-- ********************************************************** -->
+
+
+<!-- ********************************************************** -->
+<!--                  SPECIAL CHARACTER ISO ENTITY SETS         -->
+<!-- ********************************************************** -->
+
+<!ENTITY % ISOlat1 PUBLIC
+                       "ISO 8879-1986//ENTITIES Added Latin 1//EN">
+
+<!ENTITY % ISOlat2 PUBLIC
+                       "ISO 8879-1986//ENTITIES Added Latin 2//EN">
+
+<!ENTITY % ISOgrk3 PUBLIC
+                       "ISO 8879-1986//ENTITIES Greek Symbols//EN">
+
+<!-- ******************** NOTE for ISOgrk4  ******************  -->
+<!-- alternate form as distributed in some software, note the
+     double spaces between Alternative and Greek.  If your software
+     cannot find this entity, interchange the two entities below,
+     to put the second one first in the list.  The first entity
+     holds when an entity is redefined.
+-->
+
+<!ENTITY % ISOgrk4 PUBLIC
+           "ISO 8879-1986//ENTITIES Alternative Greek Symbols//EN">
+
+<!ENTITY % ISOgrk4 PUBLIC
+         "ISO 8879-1986//ENTITIES  Alternative  Greek Symbols//EN">
+
+<!ENTITY % ISOgrk1 PUBLIC
+                       "ISO 8879-1986//ENTITIES Greek Letters//EN">
+
+<!-- ******************** NOTE for ISOgrk2  ******************  -->
+<!-- alternate form as distributed in some software, note the
+     double spaces before Monotoniko.  If your software
+     cannot find this entity, interchange the two entities below,
+     to put the second one first in the list.  The first entity
+     holds when an entity is redefined.
+-->
+<!ENTITY % ISOgrk2 PUBLIC
+                    "ISO 8879-1986//ENTITIES Monotoniko Greek//EN">
+
+<!ENTITY  %  ISOgrk2  PUBLIC
+                "ISO   8879-1986//ENTITIES   Monotoniko Greek//EN">
+
+<!ENTITY  % ISOdia  PUBLIC
+                   "ISO 8879-1986//ENTITIES Diacritical Marks//EN">
+
+<!ENTITY % ISOnum  PUBLIC
+         "ISO 8879-1986//ENTITIES Numeric and Special Graphic//EN">
+
+<!ENTITY % ISOpub PUBLIC "ISO 8879-1986//ENTITIES Publishing//EN" >
+
+<!ENTITY % ISOtech PUBLIC
+           "ISO 8879-1986//ENTITIES General Technical//EN"        >
+
+<!ENTITY % ISOcyr1 PUBLIC 
+           "ISO 8879-1986//ENTITIES Russian Cyrillic//EN"         >
+
+<!ENTITY % ISOcyr2 PUBLIC 
+           "ISO 8879-1986//ENTITIES Non-Russian Cyrillic//EN"     >
+
+<!--       BASIC CHARACTER ENTITY SET EVERYONE WILL USE         -->
+%ISOlat1;  %ISOlat2;
+%ISOgrk1;  %ISOgrk2; %ISOgrk3; %ISOgrk4; 
+%ISOdia;   %ISOnum;  %ISOpub;  %ISOtech;
+
+<!--       POTENTIAL CHARACTER (ADD IF NEEDED)                  -->
+
+<!--%ISOcyr1;  %ISOcyr2;-->
+                                                               
+<!-- =============  END OF EADCHARS DTD FRAGMENT ============== -->

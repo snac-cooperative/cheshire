@@ -1,0 +1,159 @@
+#################################################################
+## Master Makefile for Cheshire II            
+##
+## make all -- makes and installs libraries
+## make newbin -- makes and installs binaries in ./bin
+#################################################################
+#################################################################
+## the SYSTEMTYPE variable should be either:
+## ALPHA -- for DEC Alphas running OSF/1 or Digital Unix
+## SOLARIS -- for Sun Sparcs under Solaris
+## HP -- for HP workstations under HPUX
+## LINUX -- for Linux systems
+#################################################################
+SYSTEMTYPE= SOLARIS
+
+#################################################################
+## The following should point to the include directory for 
+## tk (4.0) and tcl (7.4) and the location of the libraries for
+## them.
+#################################################################
+TK_DIR=	/usr/local/include
+TCL_DIR= /usr/local/include
+TK_LIBS= /usr/local/lib
+TK_LIBINC =  "-ltk8.3 -ltkstub8.3"
+TCL_LIBINC = "-ltcl8.3 -ltclstub8.3"
+
+#if ZVERSION is set to Z3950_2001 the compiled version will include some
+# new variables and options -- which may cause problems with older
+# Z39.50 1995 clients or servers.
+# comment out the following line for z39.50 1995 compatibility
+Z_VERSION = "-DZ3950_2001"
+
+# Solaris socket libraries and functions -- comment out if not SOLARIS
+SYS_LIBS= "-lnsl -lsocket -lgen -ldl"
+SYS_OBJ= strtok_r.o
+
+# LINUX library definitions -- piggybacks on SYS_LIBS -- comment out if not
+# Linux
+#SYS_LIBS= "-ldl"
+
+# If NOT solaris and you have reentrant libraries for strtok, etc. in libc_r.a
+# define the following and comment out the SYS_OBJ above
+#RE_ENTRANT= -lc_r
+
+#some solaris system don't have the rusage struct and getrusage
+#defining the following removes it from the code
+#RUSAGE_DEF = "-DNO_RUSAGE"
+
+X11_INCLUDES = -I/usr/openwin/include
+X11_LIBS = "-L/usr/openwin/lib -lX11"
+
+
+#################################################################
+## Relational dbms interface code -- These should be blank if
+## there is not an ILLUSTRA, POSTGRES95, INFORMIX, ORACLE, ETC.
+## database file being accessed via a z39.50 gateway.
+#################################################################
+# DBMSFLAG should be POSTGRESQL or ILLUSTRA, (INFORMIX, or ORACLE not available yet) 
+# DBMS_FLAG= "-DILLUSTRA"
+# DBMS_FLAG="-DPOSTGRESQL"
+DBMS_FLAG="-DMYSQLDBMS"
+# DBMS_FLAG=
+# These should show the location of the include files and libraries
+# for the DBMS.
+#DBMS_INC= "-I/usr/local/illustra/h"
+#DBMS_LIB= "-L/usr/local/illustra/lib -lmi"
+#DBMS_INC="-I/export/home/postgres/include"
+#DBMS_LIB="-L/export/home/postgres/lib -lpq"
+DBMS_INC="-I/opt/mysql/include/mysql"
+DBMS_LIB="-L/opt/mysql/lib/mysql -lmysqlclient -lz -lposix4 -lcrypt -lgen -lsocket -lnsl -lm"
+#DBMS_INC=
+#DBMS_LIB=
+
+
+
+#################################################################
+## What make utility are you using?
+#################################################################
+MAKE = make
+
+all: lib/libdb.a
+	cd ac_list; $(MAKE) SYSTYPE=$(SYSTEMTYPE)  ZVERSION=$(Z_VERSION)
+	cd ac_utils; $(MAKE) SYSTYPE=$(SYSTEMTYPE)  ZVERSION=$(Z_VERSION)
+	cd zpdu; $(MAKE) SYSTYPE=$(SYSTEMTYPE) ZVERSION=$(Z_VERSION)
+	cd socket; $(MAKE) SYSTYPE=$(SYSTEMTYPE)  ZVERSION=$(Z_VERSION)
+	cd client; $(MAKE) SYSTYPE=$(SYSTEMTYPE) ZVERSION=$(Z_VERSION)
+	cd sgmlparse; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) SYSLIBS=$(SYS_LIBS) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) ZVERSION=$(Z_VERSION) libsgml.a ; cp lib*.a ../lib
+	cd config; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) XINC=$(X11_INCLUDES) DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) libconfig.a ; cp lib*.a ../lib
+	cd fileio; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) XINC=$(X11_INCLUDES)  ZVERSION=$(Z_VERSION) libfileio.a ; cp lib*.a ../lib
+	cd tclhash; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS)  ZVERSION=$(Z_VERSION) libtclhash.a ; cp lib*.a ../lib
+	cd marclib; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) ZVERSION=$(Z_VERSION) libmarc.a ; cp lib*.a ../lib
+	cd diagnostic; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS)  ZVERSION=$(Z_VERSION) libdiag.a ; cp lib*.a ../lib
+	cd cmdparse; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) ZVERSION=$(Z_VERSION) libcmdparse.a ; cp lib*.a ../lib
+	cd sgml2marc; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) ZVERSION=$(Z_VERSION) libsgml2marc.a ; cp lib*.a ../lib
+	cd wordnet/lib; $(MAKE) SYSTYPE=$(SYSTEMTYPE) lib ; cp lib*.a ../../lib
+	cd search; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) XINC=$(X11_INCLUDES)  DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) libsearch.a ; cp lib*.a ../lib
+	cd index; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) XINC=$(X11_INCLUDES)  ZVERSION=$(Z_VERSION)  DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) RANLIB=$(RANLIBPROG) libindex.a ; cp lib*.a ../lib
+	cd zserver; $(MAKE) SYSTYPE=$(SYSTEMTYPE)  TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  XINC=$(X11_INCLUDES) XLIBS=$(X11_LIBS) SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) REENT=$(RE_ENTRANT) DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) libzserver.a
+	cd jserver; $(MAKE) SYSTYPE=$(SYSTEMTYPE)  TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  XINC=$(X11_INCLUDES) XLIBS=$(X11_LIBS) SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) REENT=$(RE_ENTRANT) DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB)  ZVERSION=$(Z_VERSION) libjserver.a
+
+bin: all
+	cd utils; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) DBMSLIB=$(DBMS_LIB)  ZVERSION=$(Z_VERSION) all ; cp buildassoc dumprecs getnumrecs cheshire_load read_datastore ../bin
+	cd config; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) test_config ; cp test_config ../bin
+	cd sgmlparse; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) all ; cp dtd_parser schema_parser parser element_count ../bin
+	cd search; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) REENT=$(RE_ENTRANT)  DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) testsrch2 ; cp testsrch2 ../bin
+	cd index; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) RUSAGE=$(RUSAGE_DEF) SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES)   DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) REENT=$(RE_ENTRANT) ZVERSION=$(Z_VERSION) all ; cp index_cheshire index_clusters in_test dumpdb dumpds countdb dumppost highpost dumpcomp dumpprox delete_recs batch_load convert2bitmap ../bin
+	cd marc2sgml; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) REENT=$(RE_ENTRANT)  ZVERSION=$(Z_VERSION) all; cp marc2sgml ../bin
+	cd jmcd_logtool; $(MAKE) SYSTYPE=$(SYSTEMTYPE)  TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) XINC=$(X11_INCLUDES) XLIBS=$(X11_LIBS) SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) REENT=$(RE_ENTRANT) DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB)  ZVERSION=$(Z_VERSION) 
+	cd marclib; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  ZVERSION=$(Z_VERSION) cpmarc ; cp cpmarc ../bin
+	cd cmdparse; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS)  ZVERSION=$(Z_VERSION) testparse ; cp testparse ../bin
+	cd sgml2marc; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) REENT=$(RE_ENTRANT)  ZVERSION=$(Z_VERSION) sgml2marc ; cp sgml2marc ../bin
+	cd cheshire2; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) REENT=$(RE_ENTRANT)  DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) all; cp cheshire2 ztcl webcheshire staffcheshire ../bin
+	cd zserver; $(MAKE) SYSTYPE=$(SYSTEMTYPE)  TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  XINC=$(X11_INCLUDES) XLIBS=$(X11_LIBS) SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) REENT=$(RE_ENTRANT)  DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) zserver; cp zserver ../bin
+	cd jserver; $(MAKE) SYSTYPE=$(SYSTEMTYPE)  TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  XINC=$(X11_INCLUDES) XLIBS=$(X11_LIBS) SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) REENT=$(RE_ENTRANT)  DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) jserver; cp jserver ../bin
+
+
+lib/libdb.a:
+	cd BerkeleyDB/build_unix; CC=gcc; export CC; ../dist/configure ; $(MAKE) ; cp libdb.a ../../lib; cp *.h ../../header; cp db_archive db_checkpoint db_deadlock db_dump db_load  db_recover db_stat ../../bin 
+
+
+clean:
+	cd BerkeleyDB/build_unix; $(MAKE) clean
+	cd ac_list; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+	cd ac_utils; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+	cd zpdu; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+	cd socket; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+	cd client; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+	cd config; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd fileio; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd utils; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+	cd tclhash; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd marclib; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd marc2sgml; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd diagnostic; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd cmdparse; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd sgmlparse; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd sgml2marc; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd wordnet/lib; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+	cd search; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd index; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+	cd jmcd_logtool; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+	cd cheshire2; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd zserver; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+	cd jserver; $(MAKE) SYSTYPE=$(SYSTEMTYPE) clean
+
+reallyclean: clean
+	rm -rf bin/*
+	rm -rf lib/*
+	cd index; $(MAKE) SYSTYPE=$(SYSTEMTYPE) reallyclean
+	cd BerkeleyDB/build_unix; $(MAKE) distclean
+	cd wordnet/lib; rm -f libwn.a
+
+newbin:
+	touch cheshire2/z_init.c
+	touch zserver/zserver.c
+	touch index/idxxkey.c
+	- mkdir lib
+	- mkdir bin
+	$(MAKE) bin

@@ -1,0 +1,12 @@
+# Test explain access and display
+puts "Contacting SilverPlatter..."
+zselect silver z3950.silverplatter.com IR-Explain-1 210
+puts "Setting Attributes"
+zset attributes explain
+zset recsyntax explain
+
+puts "Doing Search..."
+set RESULT [zfind ExplainCategory DatabaseInfo]
+puts "Search results are: "
+puts $RESULT
+

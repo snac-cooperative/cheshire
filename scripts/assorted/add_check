@@ -1,0 +1,51 @@
+#!/usr/sww/bin/tclsh
+# tcl script to add records to the ELIB cheshire database
+
+# set up some variables for particular files, paths, etc.
+set DBHOME "/elib/sys/cheshire/DATA"
+set CONFIGFILE "$DBHOME/CONFIG.DL"
+set DBDATA  "$DBHOME/dlbibs.sgml"
+set DBASSOC "$DBHOME/dlbibs.sgml.assoc"
+set DATABASE "bibfile"
+set NUMBERINDEX "localnum"
+set DOCDIR "/elib/data/docs"
+set BINDIR "/elib/sys/cheshire/bin"
+
+catch {exec $BINDIR/dumpdb $CONFIGFILE $DATABASE $NUMBERINDEX} recnumstuff
+
+set recnumslist [split $recnumstuff \n]
+
+foreach line $recnumslist {
+    if {[regexp {(key: )([0123456789]*)(.*$)} $line all key number stuff] == 1} {
+	set RECNUM($number) 1
+    }
+}
+
+
+set dirlist [glob $DOCDIR/\[0123456789\]*/*]
+
+foreach path $dirlist {
+    set l [split $path /]
+    set num [lindex $l 5]
+    if {[regexp {[0123456789]*} $num num2] == 1} {
+	if {[catch {incr RECNUM($num2)} ] == 1} {
+	    if {$num2 != ""} {
+		set RECNUM($num2) 1
+		lappend newnumbers $num2
+	    }
+	}
+    }
+}
+
+if {[catch {llength $newnumbers} numcount] == 1} {
+    puts "No un-indexed records found -- must be done?"
+    exit
+}
+
+foreach num $newnumbers {
+	puts "ELIB ID $num is still in the indexing queue"
+}
+
+exit
+
+

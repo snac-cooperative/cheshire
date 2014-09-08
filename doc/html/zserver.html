@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">zserver - Run the CheshireII Z39.50 Server</FONT></H2>
+
+<H2>SYNOPSIS </H2>
+<B>zserver</B><I>[-p port] [-c server_init_file]</I>
+.BE 
+
+<P><H2> DESCRIPTION  </H2>
+<P>
+This command runs the Cheshire II Z39.50 Server from the command line.
+Normally the server will be set up to run via INETD and will be run
+when users connect on its defined port. Running the server from the
+command line is useful for testing and "debugging" database and
+server configurations.
+<P>
+Once started the server waits for a Z39.50 connection from a user and
+processes all Z39.50 commands from that user until the connection is
+terminated. The server then cleans up and exits.
+
+<P>
+There are two arguments for this command:
+<P>
+The <I>-p</I> argument provides a port
+number for incoming connections. This is overridden by INETD, but it
+overrides the PORT parameter in the initialization file (see below).
+<P>
+The <I>-c</I> argument provides the name of a server init file. If
+not supplied the server tries to read a file called "server.init"
+in the current directory.
+
+
+<P><H2> INETD SERVER SETUP </H2>
+
+Server setup to run under inetd will 
+require root access to modify some systems file.
+
+A line like the following should be added to the /etc/services file,
+(the 2100 can be any port you want -- the official "well-known port" 
+for z39.50 is 210)
+
+<PRE>
+cheshire        2100/tcp        ir      # Cheshire II server
+</PRE>
+
+
+Then a line like the following should be added to /etc/inetd.conf (note
+that this should be a single line, even though it wraps here):
+
+<PRE>
+#
+# Z39.50 Information Retrieval access...
+#
+cheshire        stream  tcp     nowait  nobody  /usr/local/bin/zserver 
+zserver -c /usr/test/data/server.init
+#
+</PRE>
+
+This means that when the "cheshire service" on port 2100 is connected to,
+it will start up a session as user "nobody" using the program at
+/usr/local/bin/zserver
+
+The arguments passed to the zserver are what remains on the line above:
+zserver -c /usr/test/data/server.init
+
+This is argv[0] -- the program name -- argv[1] -- "-c" a flag indicating 
+that the following argument is the name of the initialization file for
+the server.
+
+<P><H2> ZSERVER INIT FILE CONTENTS </H2>
+<P>
+The server initialization file contains a variety of information on
+the configuration of the server, and the database files associated 
+with the server. Most of the parameters in the server configuration
+file are named to correspond with the matching parameters in the
+Z39.50 Standard. Most of these are used to report back to 
+client programs during the init process
+<P>
+Each configuration parameter name and value must be in one
+line. Double quote should be placed around a value if the value
+contains more than one word. Comments may be included in the file
+by preceding them with '#'.
+<P>
+This file is also used to define the TargetInfo portions of the Explain
+database for the server. The parameters below that begin with "TARGETINFO"
+are optional (but recommended) and are only used to define the 
+explain database.
+<P>
+
+<DL>
+<DT>
+PREFERRED_MESSAGE_SIZE
+<DD>Preferred message size to be negotiated with client.
+<DT>
+MAXIMUM_RECORD_SIZE
+<DD>Maximum record size to be negotiated with client.
+<DT>
+IMPLEMENTATION_ID
+<DD>Implementation ID to be reported to client.
+<DT>
+IMPLEMENTATION_NAME
+<DD>Implementation name to be reported to client (suggest
+"Cheshire II V3 ZServer"). This is also used as the Explain target name
+<DT>
+IMPLEMENTATION_VERSION
+<DD>Implementation version to be reported to client. Current version is
+"2.4"
+<DT>
+PROTOCOL_VERSION
+<DD>Z39.50 protocol version to be reported to client. This should be "111"
+(i.e. version 3 Z39.50-1994).
+<DT>
+OPTIONS	
+<DD>This is the options string for reporting to the client in the INIT response.
+Each position in this numeric string 
+represents a capability and whether it is in effect(1) or not
+(0). The capabilities are: search, present, delete, resource-report,
+scan, sort, extended-services, trigger-resource-control, level 1 segmentation,
+level 2 segmentation, concurrent operations, named result sets, resource-control
+and access control.
+<DT>
+PORT
+<DD>The port to listen for connections on. This is only in effect when zserver
+is run from the command line. INETD will control the port used and override
+this value when the program is run that way.
+<DT>
+DATABASE_NAMES (obsolete)
+<DD>This is a list of the database names that the server will recognize when
+requested by the client. Since multiple databases may be defined in
+particular configuration files, there may not be a one-to-one correspondence
+between database names and the directories and dtds. <i>Note that 
+database names are now extracted directly from the configfiles, using the
+same name in different configfiles will no longer work</i>
+<DT>
+DATABASE_DIRECTORIES
+<DD>This is a list of pathnames for the directories containing databases and
+their configuration files. Each pathname is matched with the corresponding
+configuration file in the DATABASE_CONFIGFILES list.
+<DT>
+DATABASE_CONFIGFILES
+<DD>This is a list of database configuration file names that must correspond (by
+position in the list) with the DATABASE directories containing those
+configuration files.
+<DT>
+SUPPORT_NAMED_RESULT_SET
+<DD>Indicates whether(1) or not(0) the system supports named result sets
+(should be 1). 
+<DT>
+SUPPORT_MULTIPLE_DATABASE_SEARCH
+<DD>Indicates whether(1) or not(0) the system supports multiple database
+searching (should be 1). 
+<DT>
+TIMEOUT
+<DD>Maximum time to wait for a response.
+<DT>
+LOG_FILE_NAME
+<DD>Name of a file into which the transaction and error information for
+a user session is put (this is a temporary file that is deleted at the
+end of each session).
+<DT>
+PERMANENT_LOG_FILE_NAME
+<DD>Name of a file into which the transaction information from the session
+log file (above) is appended at the end of the session. If not included
+no transaction information will be retained.
+<DT>
+RESULT_SET_DIRECTORY
+<DD>Directory into which the log file and the (temporary) result sets will be
+written. Note that this file must be writeable by the user defined in
+the INETD setup or by the person who ran the server from the command line.
+<DT>
+ATTRIBUTE_SET_ID
+<DD>This is a list of OIDs for the attribute sets supported.
+<DT>
+SUPPORT_TYPE_0_QUERY
+<DD>Indicates whether TYPE-0 queries are supported.
+<DT>
+SUPPORT_TYPE_1_QUERY
+<DD>Indicates whether TYPE-1 queries are supported.
+
+<DT>
+SUPPORT_TYPE_2_QUERY
+<DD>Indicates whether TYPE-2 queries are supported.
+<DT>
+SUPPORT_TYPE_100_QUERY
+<DD>Indicates whether TYPE-100 queries are supported.
+<DT>
+SUPPORT_TYPE_101_QUERY
+<DD>Indicates whether TYPE-101 queries are supported.
+<DT>
+SUPPORT_TYPE_102_QUERY
+<DD>Indicates whether TYPE-102 queries are supported.
+<DT>
+SUPPORT_ELEMENT_SET_NAMES
+<DD>Indicates whether multiple element set names are supported in queries.
+<DT>
+SUPPORT_SINGLE_ELEMENT_SET_NAME
+<DD>Indicates whether single element set name is supported in queries.
+<DT>
+TARGETINFO_NEWS
+<DD> Explain information about the server -- News
+<DT>
+TARGETINFO_WELCOME_MSG
+<DD> Explain information about the server -- Welcome message
+<DT>
+TARGETINFO_CONTACT_NAME
+<DD> Explain information about the server -- Person to contact
+<DT>
+TARGETINFO_CONTACT_DESCRIPTION
+<DD> Explain information about the server -- Contact person description/title
+<DT>
+TARGETINFO_CONTACT_ADDRESS
+<DD> Explain information about the server -- Contact person address
+<DT>
+TARGETINFO_CONTACT_EMAIL
+<DD> Explain information about the server -- Contact person email
+<DT>
+TARGETINFO_CONTACT_PHONE
+<DD> Explain information about the server -- Contact person phone
+<DT>
+TARGETINFO_DESCRIPTION
+<DD> Explain information about the server -- Server description
+<DT>
+TARGETINFO_USAGE_RESTRICTION
+<DD> Explain information about the server -- Usage restrictions
+<DT>
+TARGETINFO_PAYMENT_ADDRESS
+<DD> Explain information about the server -- Usage payment address
+<DT>
+TARGETINFO_HOURS
+<DD> Explain information about the server -- Hours server is available
+<DT>
+TARGETINFO_LANGUAGES
+<DD> Explain information about the server -- Languages used in the server
+
+
+</DL>
+
+Here is a sample configuration file:
+<p>
+<PRE>
+
+
+
+The following initialization file contains the following sorts of information:
+(this comes from the zserver/server.init file)
+
+#
+#   Z3950 Server Initialization File. 
+#   The name and value must be in one line. Double quote should be
+#   placed around a value if the value contains more than one word.
+#	
+#	FIELD_NAME			VALUE
+
+PREFERRED_MESSAGE_SIZE			32768
+MAXIMUM_RECORD_SIZE			131072
+IMPLEMENTATION_ID			"1998"
+IMPLEMENTATION_NAME			"Mycroft (Cheshire II V3 ZServer)"
+IMPLEMENTATION_VERSION			"2.4"
+PROTOCOL_VERSION			"111"
+OPTIONS					"111011111000001"
+PORT					"2222"  # testing port number
+DATABASE_NAMES				"bibfile HDS_Catalogue"
+DATABASE_DIRECTORIES			"/usr/users/ray/Work/cheshire/index/TESTDATA /usr/users/ray/Work/ESSEX_TEST/"
+DATABASE_CONFIGFILES			"testconfig.new CONFIG.CODEBOOK" # list of configfiles
+SUPPORT_NAMED_RESULT_SET		1    			# 1 means YES
+SUPPORT_MULTIPLE_DATABASE_SEARCH	1    			# 0 means NO
+TIMEOUT					120  			# in seconds
+LOG_FILE_NAME				"zserver.log"
+RESULT_SET_DIRECTORY			"/usr/tmp"
+ATTRIBUTE_SET_ID			"1.2.840.10003.3.1 1.2.840.10003.3.2 1.2.840.10003.3.5"	# BIB-1, EXP-1, and GILS
+#
+#
+SUPPORT_TYPE_0_QUERY			1
+SUPPORT_TYPE_1_QUERY			1
+SUPPORT_TYPE_2_QUERY			0
+SUPPORT_TYPE_100_QUERY			0
+SUPPORT_TYPE_101_QUERY			1
+SUPPORT_TYPE_102_QUERY			1
+#
+#
+SUPPORT_ELEMENT_SET_NAMES		1
+SUPPORT_SINGLE_ELEMENT_SET_NAME		0
+#
+#
+#   Information for generation of explain database
+#
+TARGETINFO_NEWS			"No news at the present time."
+TARGETINFO_WELCOME_MSG		"Welcome the Mycroft Server powered by Cheshire II"
+TARGETINFO_CONTACT_NAME		"Ray Larson"
+TARGETINFO_CONTACT_DESCRIPTION	"Cheshire II Project Director"
+TARGETINFO_CONTACT_ADDRESS	"School of Information Management and Systems, University of California, Berkeley, 102 South Hall 4600, Berkeley, California 94720-4600 USA"
+TARGETINFO_CONTACT_EMAIL	""
+# TARGETINFO_CONTACT_PHONE
+TARGETINFO_DESCRIPTION		"This server is primarily for testing purposes and hosts a number of sample and test databases."
+TARGETINFO_USAGE_RESTRICTION	"No usage restrictions"
+TARGETINFO_PAYMENT_ADDRESS	"This server is free"
+TARGETINFO_HOURS		"Should never be down, except it may fail while development is ongoing"
+TARGETINFO_LANGUAGES		"eng" #can be a list of all languages avail
+#
+#	End of The Server Initialization File.
+#
+
+
+
+
+
+</PRE>
+<p>
+
+
+<P><H2> OUTPUT FILES </H2>
+<P>
+A transaction log file is generated in the RESULT_SET_DIRECTORY with
+the name defined in LOG_FILE_NAME. This will also contain system
+error messages.
+
+<P><H2> ERROR INFORMATION </H2>
+<P>
+It is not uncommon for server failure or indexing failure to be caused
+by incorrect configuration files or server.init files. The first place to
+look is in any log files (zserver.log) left in the RESULT_SET_DIRECTORY 
+location. All error messages from the server are sent to the log file
+(unless the server is started from the command line). If the server fails
+before the log file is opened, the cause of the failure will be written
+(if possible) to the file /tmp/templog.
+
+
+<P><H2> BUGS </H2>
+None known
+
+<P><H2> SEE ALSO </H2>
+<a href=configfiles.html>Configuration file documentation</a>, 
+<a href=index_cheshire.html>index_cheshire</a>
+
+<P><H2> AUTHOR </H2>
+Ray R. Larson  (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>)
+

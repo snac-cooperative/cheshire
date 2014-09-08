@@ -1,0 +1,2065 @@
+<!SGML  "ISO 8879:1986"
+--
+--
+
+CHARSET
+         BASESET  "ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0"
+         DESCSET  0   9   UNUSED
+                  9   2   9
+                  11  2   UNUSED
+                  13  1   13
+                  14  18  UNUSED
+                  32  95  32
+                  127 1   UNUSED
+     BASESET   "ISO Registration Number 100//CHARSET
+                ECMA-94 Right Part of Latin Alphabet Nr. 1//ESC 2/13 4/1"
+     DESCSET   128 32 UNUSED
+               160 95 32
+               255  1 UNUSED
+
+
+CAPACITY        SGMLREF
+                TOTALCAP        150000
+                GRPCAP          150000
+  
+SCOPE    DOCUMENT
+SYNTAX   
+         SHUNCHAR CONTROLS 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+                           19 20 21 22 23 24 25 26 27 28 29 30 31 127 255
+         BASESET  "ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0"
+         DESCSET  0 128 0
+         FUNCTION RE          13
+                  RS          10
+                  SPACE       32
+                  TAB SEPCHAR  9
+         NAMING   LCNMSTRT ""
+                  UCNMSTRT ""
+                  LCNMCHAR ".-"
+                  UCNMCHAR ".-"
+                  NAMECASE GENERAL YES
+                           ENTITY  NO
+         DELIM    GENERAL  SGMLREF
+                  SHORTREF SGMLREF
+         NAMES    SGMLREF
+         QUANTITY SGMLREF
+                  NAMELEN  34
+                  TAGLVL   100
+                  LITLEN   1024
+                  GRPGTCNT 150
+                  GRPCNT   64                   
+
+FEATURES
+  MINIMIZE
+    DATATAG  NO
+    OMITTAG  YES
+    RANK     NO
+    SHORTTAG NO
+  LINK
+    SIMPLE   NO
+    IMPLICIT NO
+    EXPLICIT NO
+  OTHER
+    CONCUR   NO
+    SUBDOC   NO
+    FORMAL   YES
+  APPINFO    NONE
+>
+
+<!DOCTYPE CodeBook [
+<!-- CodeBook.DTD                                            -->
+<!-- Standalone XML version 1.6X                             -->
+<!-- December 27, 1997                                       -->
+<!-- -----------------------------------------------------   -->
+<!-- Version history:
+
+     1.0             Includes PFS-authored sections only.
+     1.1   19.4.96   Incorporates NANMV-authored sections.
+     1.1a  22.4.96   Addition of ATTLISTs to NANMV sections
+		     and general cleanup, in progress.
+		     Leading to:
+     1.2   23.4.96   First version that pretends to
+		     completeness.
+     1.3   21.5.96   Incorporates 3/96-4/96 changes
+		     in descriptions.
+     1.4   29.5.96   Incorporates 5/96 changes
+		     in descriptions except header.
+     1.4a   7.6.96   Minor repairs.
+     1.5   11.7.96   Further minor repairs occasioned by
+		     conversion to parameter-entity file
+		     (teicb1.dtd, version 1.5).
+     1.6	Modified by Daniel Pitti, UC Berkeley, Library.
+            Provided value "PCDATA" for TEI parameter entities
+	      to make it possible to parse and test the DTD.
+            Parsed with NSGMLS and Near&Far
+     1.6X	Modified by Jan Nielsen (JN), Danish Data Archives.
+            Modifications in several places to produce a
+            version compliant with the W3C XML version 1.0
+            proposal of December 8th 1997. Parsed and tested
+            with Microsofts Java parser MSXML (ver. 1.0.8).
+            The XML 1.0 specification used is available at
+            http://www.w3.org/TR/PR-xml-971208.
+            - and-connectors have been replaced by
+              sequence-connectors. The order of
+              elements is unchanged.
+            - tag-minimisation parameters have been
+              removed.
+            - Parameter entity references without
+              semicolons have been fixed.
+            - Name groups are avoided by expansion
+              of element and attribute declarations.
+            - Element inclusions have been discarded.
+            - Attribute default values have been quoted.
+            - NUMBER data type have been replaced by CDATA
+              in attribute values.
+                                                             -->
+<!-- ==============================================          -->
+<!-- An SGML rendition of the document analyses and element
+     descriptions produced by David Barber, John
+     Brandt (JB), Ann Green (AG), and the ICPSR Committee.
+       SGML translation and attached comments by Paul
+     Schaffner (PFS) and Nancy M. Vlahakis (NANMV).          -->
+<!-- ==============================================          -->
+<!-- This version to be superseded by TEI-compliant base     -->
+<!-- tag set employing only parameter entity stand-ins.      -->
+<!-- ==============================================          -->
+<!-- GENERAL NOTES (PFS)                                     -->
+<!--                                                         -->
+<!-- Working assumption is that cb.dtd will be used in
+     conjunction with the TEI.dtd as a so-called "base tag
+     set." It is not yet decided whether this base tag set
+     should invoke the default text structure, as most but
+     not all such sets do. Codebooks could be tagged using
+     a combination of the (largely informational rather
+     than structural) tags supplied here, plus the low-level
+     structural and presentational elements of the TEI core
+     tag set, plus the additional tags included in the TEI
+     "figures and graphs" additional tag set                 -->
+<!--                                                         -->
+<!-- Actual inclusion as a base tag set requires that the
+     standard element declarations given in this document
+     be converted into parameter entity stand-ins, so that
+     (e.g.) element "stat" is represented by entity "%n.stat;".
+     The product of this conversion will be updated in parallel
+     with this document, and is to be found in the file
+     "teicb1.dtd."                                           -->
+<!--                                                         -->
+<!-- In anticipation of use as a TEI base tag set, most elements
+     declared here have been given the TEI global attributes
+     using the TEI parameter entity %a.global in their
+     ATTLISTs. The global attributes are N (name or number),
+     ID (id), LANG (language), and REND (rendering)          -->
+<!--                                                         -->
+<!-- Provisionally, TEI low-level elements have been added
+     via use of the standard TEI content model parameter
+     entities "%phrase.seq," "%paraContent," and "%specialPara."
+     At a later point it may prove necessary to
+     abandon these in favor of a more customized approach,
+     perhaps via selective "inclusions" or customized parameter
+     entities created from sub-sets of the TEI low-level elements.
+							     -->
+<!-- Initial working policy  has been to include TEI
+     in the contents of only the lowest codebook elements,
+     so that, for example, the data distribution statement
+     may contain *only* codebook elements (such as data
+     distributor or depositor), but those lower-level codebook
+     elements may contain broth, soup, or chunks (to use
+     the TEI metaphors): paragraphs, lists, names, addresses,
+     abbreviations, etc. Since it is to be expected that real
+     distribution statements will contain other matter than
+     that designated by the the available codebook tags, it
+     will have to be decided: do we allow soup at the higher
+     levels? Or do we define the lower-level elements broadly
+     enough that they include all possible contents? Or do
+     we, in encoding an existing codebook, simply delete material
+     that doesn't fit into the codebook tags? A fourth
+     alternative still is to include an "otherMat" tag
+     at every level.                                         -->
+<!--                                                         -->
+<!-- The version of TEI intended to be used with this
+     DTD is further modified by the small alterations
+     to the TEI element content models, especially to
+     those used in the TEI header, so as to produce
+     a distinctively codebook/TEI header. Those changes,
+     implemented via the standard TEI modification
+     mechanisms, are not not documented in this file.
+     See the file "modify.tei."                              -->
+<!-- JN: XML 1.0 specification includes an implicit
+         declaration of xml:lang on all elements.
+         Language codes must comply with ISO639. Optional
+         ISO3166 country codes may be postfixed using a
+         dash as the separator e.g. <STDYDSCR XML:LANG="EN">
+         or <STDYDSCR XML:LANG="EN-gb">.
+         This may imply that the use of the TEI entity
+         a.global is not necessary in the XML version
+         (unless we still want the N and REND attributes).
+         As the language problem is taken care of by XML
+         we might stick with the current local declaration
+         of a.global containing the ID attribute only.       -->
+<!--                                                         -->
+<!--temporary parameter entities -->
+
+<!ENTITY % a.global "ID ID #IMPLIED" >
+<!ENTITY % paraContent "#PCDATA">
+<!ENTITY % phrase.seq "#PCDATA">
+<!ENTITY % specialPara "#PCDATA">
+<!ENTITY % m.phrase "#PCDATA" >
+<!ENTITY % m.biblPart "#PCDATA" >
+
+<!-- CodeBook.DTD                                            -->
+<!-- 0.0 TOP LEVEL                                           -->
+<!-- =============                                           -->
+<!--                                                         -->
+<!ELEMENT codeBook     (stdyDscr+
+		       , fileDscr*
+		       , dataDscr*
+		       , otherMat*)                            >
+<!--                                                         -->
+<!-- NOTE that I have made these repeatable, in agreement with
+     the consensus of the last committee meeting, despite the
+     instruction that they not be (except the last which
+     was allowed to be). I have done this on the assumption
+     that these elements are descriptive of the informational
+     hierarchy of the document, not of the physical arrangement.
+     That is, one has to be prepared for a situation in which
+     (say) pieces of study description are physically followed
+     by the data files description, after which the study
+     description resumes, or in which irrelevant "other"
+     documentation interrupts the data description or
+     methodology (a bibliography placed in the middle of
+     a methodological description, for example). The easiest
+     way to handle these situations would seem to be to allow
+     the elements to be repeatable. (Is there a better way? )
+     I have tried to push all elements dealing with physical
+     arrangement to the lowest level of the structure, but
+     have not yet (as indicated above) squared this with the
+     physically-oriented default text structure (text-front-
+     body-div-back) of TEI. The only potential problem with
+     repeatability involves information that is repeated in
+     different forms (e.g. several items claiming to be the
+     title) with no indication of which is the forma citanda.
+     Most of these problems are irrelevant if a full TEI
+     header is supplied.                                     -->
+<!--                                                         -->
+<!-- Suggestion: if it is thought useful for DDI to
+     propose a model ordering of information, the final version
+     of this dtd may include both a strict option (which will
+     dictate sequence) and a loose option, (which will acommodate
+     various existing orderings, and perhaps a wider variety of
+     hierarchies), on the model of the TEI's "Dictionaries"
+     base tag set.                                           -->
+<!--                                                         -->
+<!ATTLIST codeBook %a.global;                                  >
+<!--                                                         -->
+<!-- 1.0 Study Description  (stdyDscr)                       -->
+<!-- =================================                       -->
+<!--                                                         -->
+<!ELEMENT stdyDscr     (citation+
+		       , stdyInfo+
+		       , method*
+		       , dataAccs*
+		       , otherMat*)                            >
+
+<!-- I have made these repeatable as well, for the same reasons
+     as indicated above.                                     -->
+<!--                                                         -->
+<!ATTLIST stdyDscr %a.global;                                  >
+<!--                                                         -->
+<!-- Sections 1.1 - 1.3 below supplied by NANMV.
+     Revised by PFS with added comments (marked PFS).
+     Content models replaced by TEI parameter entities by
+     PFS. ATTLISTs supplied by PFS.                          -->
+<!--                                                         -->
+<!--                                                         -->
+<!-- 1.1 Bibliographic Information (citation)                -->
+<!-- ========================================                -->
+<!--                                                         -->
+<!-- PFS: We should consider using the TEI element "biblFull"
+     and its contents to supply most of the tags for
+     bibliographic information (as is done in teilite).
+     BiblFull could be a large part of the required content
+     of biblInfo (now 'citation') under the "constrained"
+     or "tight" option, since biblFull requires a set order
+     in its contents.                                        -->
+<!--                                                         -->
+<!-- PFS: For the loose option, presented here, a set
+     order should not be required. As throughout this version,
+     non-TEI tags are here used for informational structure,
+     with TEI tags being reserved for only the lowest-level
+     elements, including low-level presentational elements.
+     Since there is considerable overlap in this section between
+     TEI and the CodeBook requirements, many of the CodeBook-
+     distinctive elements should eventually be replaced by
+     TEI equivalents from the core tag set, even within the
+     "loose" option.                                         -->
+<!--                                                         -->
+<!-- NANMV reports: "I marked up a couple of docs and was
+     able to handle everything with tei tags except for the
+     study no. for producer and archive. Perhaps we could
+     create an entity for study no. that could be "included" -->
+<!--                                                         -->
+<!-- The following tags are original using the vocab from
+     Green's update of 4/12/96. Annotations are taken from
+     Green's update of 4/12/96. NANMV                        -->
+<!-- PFS: Revised on the basis of Ann Green's version
+     of 3 May.                                               -->
+<!--                                                         -->
+<!ELEMENT citation     (titlStmt
+		       , rspStmt
+		       , prodStmt
+		       , distStmt?
+		       , serStmt*
+		       , verStmt?
+		       , biblCit?)                             >
+<!ATTLIST citation %a.global;                                  >
+<!--                                                         -->
+<!-- 1.1.1 TITLE STATEMENT (titlStmt) and its contents       -->
+<!-- =================================================       -->
+<!--                                                         -->
+<!-- Following the document analyses, one arrives at a
+     content model that looks like this: -->
+ <!ELEMENT titlStmt      (titl
+			 , subTitl*
+			 , commTitl*
+			 , parTitl*
+			 , commAbrv?
+			 , stdyNo+)                            >
+ <!ELEMENT titl          (%paraContent;)                       >
+ <!ATTLIST titl
+     %a.global;
+     abbr             CDATA            #IMPLIED                >
+ <!ELEMENT subTitl       (%paraContent;)                       >
+ <!ATTLIST subTitl
+     %a.global;
+     abbr             CDATA            #IMPLIED                >
+ <!ELEMENT parTitl       (%paraContent;)                       >
+ <!ATTLIST parTitl
+     %a.global;
+     abbr             CDATA            #IMPLIED                >
+ <!ELEMENT commTitl      (%paraContent;)                   >
+ <!ATTLIST commTitl
+     %a.global;
+     abbr             CDATA            #IMPLIED                >
+ <!-- 1.1.1.1 Title: "contains the full title of the study." -->
+ <!-- 1.1.1.2 Subtitle: "a secondary title used to amplify
+     or state certain limitations on the main title."        -->
+ <!-- 1.1.1.3 Common Title                                   -->
+ <!-- 1.1.1.4 Parallel Title: "title translated into another
+     language."                                              -->
+ <!-- PFS: "abbr" added against instructions as an attribute in
+      case coder wishes to mention abbreviated title without
+      having it in the text itself to tag. Alternatively,
+      add an abbr attribute to the commAbrv element (next
+      element), which could then be empty (since #PCDATA
+      is an allowable content, and a null string counts as
+      #PCDATA, an empty content is allowed) while still
+      allowing inclusion of abbreviated title. Both options
+      are followed here for the moment.                      -->
+ <!--                                                        -->
+
+ <!ELEMENT commAbrv      (%phrase.seq;)                        >
+
+ <!--                                                        -->
+ <!-- 1.1.1.5 Common Abbreviation.                           -->
+ <!-- PFS: In this hypothetical version, I have kept the
+      original "commAbrv" tag but added
+      attributes for the abbreviation itself (for reasons
+      explained above) and for its expansion, should that be
+      desired.                                                -->
+
+ <!ATTLIST commAbrv
+     %a.global;
+     abbr             CDATA            #IMPLIED
+     expan            CDATA            #IMPLIED                 >
+<!--                                                          -->
+<!-- Annotated "e.g. PSID"                                    -->
+<!--                                                          -->
+<!-- HOWEVER, with regard to title, sub-title, parallel title,
+     and common title and common abbreviation, note:          -->
+<!-- PFS: There seems no obvious reason why these four
+     title elements (titl. subTitl, CommTitl, parTitl)
+     should not be handled by a single repeatable "title"
+     (titl) tag, with a type attribute that could be set
+     to "sub" or "common" or "parallel." (Nor any reason that
+     the TEI title tag itself could not be used,
+     if not already included by invocation of TEI bibliographic
+     tags at a higher level, as it is in the codebook header).
+     "Common abbreviation," i.e., a common abbreviation of the
+     title, deserves to be treated in the same way with the
+     type attribute set = abbr. My preferred rendering  thus
+     looks like this:                                        -->
+
+<!--!ELEMENT titlStmt     (titl+ , stdyNo+)                      -->
+<!--!ATTLIST titlStmt %a.global;                                 -- >
+<!--ELEMENT titl     (%paraContent;)                          -->
+<!-- <!ATTLIST titl
+      %a.global;
+      type           CDATA            "main"
+      abbr           CDATA            #IMPLIED
+      expan          CDATA            #IMPLIED                 > -->
+<!--                                                         -->
+<!-- PFS: In the foregoing, "title" changed to "titl" to
+     avoid conflict with TEI; "respStmt" changed to "rspStmt"
+     for the same reason; "subtitle" has been changed to
+     "subTitl" for consistency's sake. Content model for
+     all four (five) title tags changed from #PCDATA
+     to %paraContent on the pattern of TEI's title tag, so
+     as to facilitate adoption of TEI tags at a later stage,
+     and in keeping with policy of using TEI parameter
+     entities at lowest levels, even at this stage.
+     "seriStmt" changed to "serStmt to match element
+     declaration below.                                      -->
+<!--                                                         -->
+<!ELEMENT stdyNo      (#PCDATA)                                >
+<!ATTLIST stdyNo
+    %a.global;
+    agency           CDATA            #IMPLIED                 >
+<!--                                                         -->
+<!-- 1.1.1.6 Study Number. "unique file no. (producer)"      -->
+<!-- PFS: See comment below under "grant number."            -->
+<!--                                                         -->
+<!-- 1.1.2 RESPONSIBILITY STATEMENT (rspStmt)                -->
+<!-- ========================================                -->
+<!--                                                         -->
+<!ELEMENT rspStmt     (PI+
+		      , PIAffl+
+		      , fundAg*
+		      , grantNo*
+		      , collInst*
+		      , collStaf?
+		      , resInit?
+		      , othId?)                                >
+<!--                                                         -->
+<!ATTLIST rspStmt  %a.global;                                  >
+<!--                                                         -->
+<!ELEMENT PI     (%phrase.seq;)                                >
+<!ATTLIST PI
+    %a.global;
+    aka               CDATA                #IMPLIED            >
+<!--                                                         -->
+<!-- 1.1.2.1 Primary Investigator (PI).                      -->
+<!-- = The person or agency responsible for the file's
+     substantive content. If a contractor produces the file,
+     both the contractor and the contracting agency should be
+     included. (NDACAN)                                      -->
+<!-- = Authorship - Give the full name of author(s)
+     and/or corporate body responsble for the design of
+     the survey instrument or other source of intellectual
+     content of the MRDF. (RR)                               -->
+<!-- = Primary Investigator (DDA)                            -->
+<!--                                                         -->
+<!-- PFS: content changed from "#PCDATA"
+     to %phrase.seq; on pattern of TEI "author,"
+     "distributor," and "authority" elements. Attlist
+     expanded to include an aka attribute to allow name
+     authority control (perhaps extraneously, since header
+     info is controlled. Same on next tags, which also
+     include an abbr attribute so as to allow inclusion of
+     abbreviated agency or institutional names.
+     The reverse situation (abbreviation in text) can be
+     handled by using TEI "abbr" within the codebook tags,
+     and the "expan" attribute of "abbr" if desired.         -->
+<!--                                                         -->
+<!ELEMENT PIAffl     (%paraContent;)                           >
+<!ATTLIST PIAffl
+    %a.global;
+    aka             CDATA              #IMPLIED
+    abbr            CDATA              #IMPLIED                >
+<!--                                                         -->
+<!-- 1.1.2.2 Primary Investigator Affiliation.               -->
+<!-- = Department/agency (ICPSR)                             -->
+<!-- = Author responsibility statement - This statement is
+     used to indicate the relationship of the work to the
+     person(s) named in the author heading that otherwise
+     would be unknown. (RR)                                  -->
+<!-- PFS: content changed from #PCDATA to %paraContent       -->
+<!--                                                         -->
+<!ELEMENT fundAg     (%phrase.seq;)                            >
+<!ATTLIST fundAg
+    %a.global;
+    aka             CDATA               #IMPLIED
+    abbr            CDATA               #IMPLIED               >
+<!--                                                         -->
+<!-- 1.1.2.3 Funding Agency.                                 -->
+<!-- Indicate the source(s) of funds for the conduct of the
+     research...(DDA)                                        -->
+<!-- PFS: content changed from #PCDATA to %phrase.seq on the
+     assumption that element is most likely to be
+     represented by a name or similarly brief text. If a
+     protracted statement of funding is likely to be
+     encountered, then perhaps it should be defined as
+     containing %paraContent; or even %specialPara;          -->
+<!--                                                         -->
+<!ELEMENT grantNo     (#PCDATA)                                >
+<!ATTLIST grantNo
+    %a.global;
+    agency             CDATA           #IMPLIED                >
+<!--                                                         -->
+<!-- 1.1.2.4 Grant Number.                                   -->
+<!-- = Grant/contract number of project (ICPSR)              -->
+<!-- PFS: May want to add "agency" attribute to connect
+     the grant unambiguously to its granting agency.
+     (Same with study number above.) Should the value of
+     the attribute be CDATA (text) or IDREF? One could
+     use the TEI global "resp" attribute for this, though
+     that might better be reserved for other functions.      -->
+<!--                                                         -->
+<!ELEMENT collInst     (%phrase.seq;)                          >
+<!ATTLIST collInst
+    %a.global;
+    abbr                CDATA   #IMPLIED                       >
+<!--                                                         -->
+<!-- 1.1.2.5 Institution (data collection).                  -->
+<!-- Institution responsible for data collection
+     activities if different from department/agency. (ICPSR):
+     institution that drew the sample; institution that
+     administered the questionnaire or interview; institution
+     and location that made the data machine-readable and the
+     year the data were made machine-readable; the institution
+     responsible for the data analysis.                       -->
+<!-- PFS: content changed from #PCDATA to %phrase.seq;
+     to match that of agencies listed above.
+     Attributes likewise conformed to earlier set.            -->
+<!--                                                         -->
+<!-- THREE MORE TYPES OF RESPONSIBILITY:                     -->
+<!--                                                         -->
+<!ELEMENT collStaf     (%phrase.seq;)                          >
+<!ATTLIST collStaf
+    %a.global;
+    aka            CDATA        #IMPLIED                       >
+<!-- 1.1.2.6 Data Collecting staff (DDA): regular staff,
+     special staff, other specify.                           -->
+<!--                                                         -->
+<!ELEMENT resInit      (%phrase.seq;)                          >
+<!ATTLIST resInit
+    %a.global;
+    aka            CDATA        #IMPLIED                       >
+<!--                                                         -->
+<!-- 1.1.2.7 Research Initiator (DDA).                       -->
+<!--                                                         -->
+<!ELEMENT othId     (p* , (othID)*)                            >
+<!ATTLIST othId
+    %a.global;
+    aka            CDATA        #IMPLIED
+    type           CDATA        #IMPLIED                       >
+<!--                                                         -->
+<!-- 1.1.2.8 Other identifications and acknowledgments
+     (DDA).                                                  -->
+<!--                                                         -->
+<!-- PFS: Contents of these three kinds of
+     responsible persons have been defined differently
+     on the assumption that "collStaff" and "resInit"
+     are primarily names or other phrase-level data,
+     whereas "othId" is potentially a statement, or
+     series of statements, perhaps extending for several
+     paragraphs: this requires that higher-level elements
+     (e.g. "list," "paragraph") be available, hence the
+     "p*". "othId" has also been made nestable,
+     so that it can be used both to tag acknowedgment
+     sections and to tag individual statements or parts
+     of such statements, should that be desired.
+     Inclusion of "othId" within a content of "%specialPara;"
+     may be a better way to achieve this nesting, however.   -->
+<!--                                                         -->
+<!-- PFS: If, on the contrary, these elements are intended
+     to tag only names, then there seems little reason
+     why a simple "name" tag would not do, with an attribute
+     set to indicate the appropriate level of responsibility.
+     Even if they are more than names, the intended contents
+     of these elements (as of other elements in this section
+     denoting responsible parties) may be capturable without
+     resort to a unique tag for every kind of responsibility.-->
+<!--                                                         -->
+<!-- 1.1.3 PRODUCTION STATEMENT(prodstmt)                    -->
+<!-- ====================================                    -->
+<!--                                                         -->
+<!ELEMENT prodStmt     (producer*
+		       , prodDate?
+		       , prodPlac?
+		       , software?)                            >
+<!ATTLIST prodStmt     %a.global;                              >
+<!--                                                         -->
+<!ELEMENT producer     (%phrase.seq;)                          >
+<!ATTLIST producer
+    %a.global;
+    aka          CDATA        #IMPLIED
+    abbr         CDATA        #IMPLIED                         >
+<!--                                                         -->
+<!-- 1.1.3.1 Producer.                                       -->
+<!-- The producer of a MRDF is the person or organization
+     with the financial or administrative responsibility
+     for producing the computerized file...(RR)              -->
+<!-- PFS: aka and abbr attributes both added to match
+     those of elements expressing personal or institutional
+     responsibility above.                                   -->
+<!--                                                         -->
+<!ELEMENT prodDate     (%phrase.seq;)                          >
+<!-- Date the study was produced (not collected or
+     archived).                                              -->
+<!ATTLIST prodDate
+    %a.global;                                                 >
+<!--                                                         -->
+<!-- 1.1.3.2 Date of Production                              -->
+<!-- PFS: If it is desired to control the form of the date
+     (so that dates can be uniformly searched in the form
+     (say) DD-MM-YYYY), the coder may use the TEI "date" tag
+     within the prodDate tag, and use the "value" attribute
+     of the date tag to the appropriate controlled form. I.e.,
+     prodDate may be regarded as enclosing statements of date,
+     with the date tag reserved for tagging the date itself.
+     TEI "date" is of course included in %phrase.seq.        -->
+<!--                                                         -->
+<!ELEMENT prodPlac     (%phrase.seq;)                          >
+<!ATTLIST prodPlac  %a.global;                                 >
+<!--                                                         -->
+<!-- 1.1.3.3 Place of Production.                            -->
+<!-- Archive that originally created the file (DDA)          -->
+<!-- The formal mailing address of the organization that
+     produced the file. (NDACAN)                             -->
+<!-- City and state of production (ICPSR)                    -->
+<!-- PFS: Note that %phrase.seq contains the TEI 'address'
+     element, which itself contains elements like 'postcode'
+     and 'country.'                                          -->
+<!--                                                         -->
+<!-- 1.1.3.4 Software. Defined below under 2.5.8.            -->
+<!--                                                         -->
+<!-- 1.1.4 DISTRIBUTOR STATEMENT (distStmt)                  -->
+<!-- ======================================                  -->
+<!--                                                         -->
+<!ELEMENT distStmt     (dataDist*
+		       , contact*
+		       , depositr?
+		       , depDate?
+		       , distDate?)                            >
+<!--                                                         -->
+<!ATTLIST distStmt %a.global;                                  >
+<!--                                                         -->
+<!ELEMENT dataDist      (%phrase.seq;)                         >
+<!ATTLIST dataDist
+    %a.global;
+    abbr              CDATA           #IMPLIED                 >
+<!--                                                         -->
+<!-- 1.1.4.1 Data Distributor.                               -->
+<!-- Archive that will make study available to user.         -->
+<!-- A MRDF distributor is defined as the organization
+     designated by the author or producer to  generate copies
+     of a particular file including any necessary editions or
+     revisions. (RR)                                         -->
+<!-- Names and addresses may be specified.                   -->
+<!-- Other archives may be co-distributors (ICPSR)           -->
+<!-- PFS: TEI "name" and "address" tags are included in
+     entity %phrase.seq;                                     -->
+<!--                                                         -->
+<!ELEMENT contact      (%phrase.seq;)                              >
+<!ATTLIST contact
+    %a.global;
+    aka              CDATA              #IMPLIED
+    for              CDATA              #IMPLIED               >
+<!--                                                         -->
+<!-- 1.1.4.2 Contact Persons                                 -->
+<!-- = Names and addresses of individuals responsible
+     for the survey. May be PIs. Individuals listed as
+     contact personswill be used as resource persons by
+     the archive regarding problems or questions raised
+     by the user community.(ICPSR)                           -->
+<!--                                                         -->
+<!-- An element "contact" is used later in this dtd.
+     It is not clear whether the same content is intended.
+     In its later use in the data access section, it
+     designates the person from whom information about data
+     use should be obtained. There is no reason that the same
+     element cannot be used for both functions, with context
+     determining exact sense, as we have decided to do with
+     "label" and so on. Perhaps an attribute designating
+     the purpose of the contact should be added ("for"), in
+     case several people are mentioned, with differing
+     responsibilities.                                       -->
+<!--                                                         -->
+<!ELEMENT depositr     (%phrase.seq;)                          >
+<!ATTLIST depositr
+    %a.global;
+    aka         CDATA          #IMPLIED
+    abbr        CDATA          #IMPLIED                        >
+<!--                                                         -->
+<!-- 1.1.4.3 Depositor (DDA).                                -->
+<!-- Indicate the name of a person (or institution)
+     who provided this file to the archive originally
+     storing the data.                                       -->
+<!--                                                         -->
+<!ELEMENT depDate     (%phrase.seq;)                           >
+<!ATTLIST depDate    %a.global;                                >
+<!--                                                         -->
+<!-- 1.1.4.4 Date of Deposit                                 -->
+<!-- Date that the file was deposited with the archive
+     that originally received the file.                      -->
+<!--                                                         -->
+<!ELEMENT distDate     (%phrase.seq;)                          >
+<!ATTLIST distDate    %a.global;                               >
+<!--                                                         -->
+<!-- 1.1.4.5 Date of Distribution.                           -->
+<!-- The date the file became operational in a computerized
+     form and available for distribution. (NDACAN)           -->
+<!--                                                         -->
+<!-- 1.1.5 SERIES STATEMENT (serStmt)                        -->
+<!-- ================================                        -->
+<!--                                                         -->
+<!ELEMENT serStmt     (serName*
+		      , serInfo*)                              >
+<!ATTLIST serStmt     %a.global;                               >
+<!--                                                         -->
+<!ELEMENT serName     (%phrase.seq;)                           >
+<!ATTLIST serName
+    %a.global;
+    aka            CDATA          #IMPLIED
+    abbr           CDATA          #IMPLIED                     >
+<!--                                                         -->
+<!-- 1.1.5.1 Series Name.                                    -->
+<!-- The name of the data series to which the study
+     belongs (ICPSR).                                        -->
+<!--                                                         -->
+<!ELEMENT serInfo     (%specialPara;)                          >
+<!ATTLIST serInfo    %a.global;                                >
+<!--                                                         -->
+<!-- 1.1.5.2 Series Information.                             -->
+<!-- Contains a history of the series and a summary of those
+     features that apply to the series as a whole (ICPSR).   -->
+<!--                                                         -->
+<!-- 1.1.6 VERSION STATEMENT (verStmt)                       -->
+<!-- ================================                        -->
+<!ELEMENT verStmt     (version?
+		       , verResp?)                             >
+<!ATTLIST verStmt %a.global;                                   >
+<!--                                                         -->
+<!ELEMENT version     (%phrase.seq;)                           >
+<!ATTLIST version
+    %a.global;
+    type        CDATA           #IMPLIED                       >
+<!--                                                         -->
+<!-- 1.1.6.1 Version.                                        -->
+<!-- aka Edition (RR) (ICPSR)                                -->
+
+<!-- PFS: looks very much like TEI editionStmt and its
+     contents, edition and editionResp. Content model
+     of TEI edition element is %phrase.seq;                  -->
+
+<!--                                                         -->
+<!-- JN: The XML specification does not allow restrictions
+         on number of occurences in mixed content elements.
+         Cf. XML 1.0 specification section 3.2.2.
+         Added the asterisk occurrence indicator.            -->
+
+<!ELEMENT verResp    ( %phrase.seq; | rspStmt )*               >
+<!ATTLIST verResp  %a.global;                                  >
+
+<!-- 1.1.6.2 Version Responsibility Statement -->
+<!-- "Contains text, references and/or links (PCDATA).
+     (Or alternatively, all of the elements available
+     under the general responsibility statement above.) -->
+<!-- PFS: Alternatively, define contents as either
+     respStmt or rspStmt: i.e., either the TEI responsibility
+     statement (which contains only name and resp tags) or
+     the fuller codeBook responsibility statement.            -->
+<!--                                                          -->
+<!-- 1.1.7 BIBLIOGRAPHIC CITATION  (biblCit)                  -->
+<!-- =======================================                  -->
+<!--                                                          -->
+
+<!ELEMENT biblCit     (#PCDATA) >
+<!--ELEMENT biblCit      (#PCDATA | %m.phrase; |
+		       %m.biblPart;)*                          -->
+<!ATTLIST biblCit
+   %a.global;                                                   >
+<!-- Could probably just use (TEI) bibl here instead of
+     creating new tag, but have instead chosen to create
+     biblCit tag using same content model as TEI bibl tag.
+     Intended specifically to encode the citation
+     form of codebook or of the data set to which it is
+     attached.                                                -->
+<!--                                                          -->
+<!-- 1.2 STUDY SCOPE (stdyInfo)                               -->
+<!-- ==========================                               -->
+<!--                                                          -->
+<!-- Annotations for this section are taken from AG's
+     update of 3/29/96. NANMV                                 -->
+<!-- Revisions based on JB's version of 7 May. PFS            -->
+<!--                                                          -->
+<!ELEMENT stdyInfo     (subject?
+		       , abstInfo?
+		       , sumDscr?
+		       , othId*
+		       , docStmt*)                              >
+<!ATTLIST stdyInfo %a.global;                                   >
+<!--                                                          -->
+<!-- 1.2.1 Subject Information (subject)                      -->
+<!-- ===================================                      -->
+<!--                                                          -->
+<!ELEMENT subject     (keyword*
+		      , topcClas*)                              >
+<!ATTLIST subject %a.global;                                    >
+<!--                                                          -->
+<!-- Subject Information.                                     -->
+<!-- Used to indicate the purpose or organization responsible
+     for the MRDF edition, including the purpose or intended
+     application of the new edition (RR)                      -->
+<!--                                                          -->
+<!ELEMENT keyword     (%phrase.seq;)                            >
+<!ATTLIST keyword     %a.global;                                >
+<!--                                                          -->
+<!-- 1.2.1.1 Keywords.                                        -->
+<!--                                                          -->
+<!ELEMENT topcClas     (%phrase.seq;)                           >
+<!ATTLIST topcClas     %a.global;                               >
+<!--                                                          -->
+<!-- 1.2.1.2 Topic Classification.                            -->
+<!--                                                          -->
+<!-- PFS: This element is intended for use in coding
+     sections of codebooks that consist of nothing but
+     predesignated keywords and topic classifications.
+     There does not seem at present a way to group
+     keywords, should that be desirable. Perhaps too
+     the content model should allow
+     for surrounding "soup" (i.e. declare subject info to
+     contain %phrase.seq; (or higher) and/or keyword and
+     topcClas. There is no provision at present for
+     a coder to declare individual words selected by the
+     coder to act as keywords.                                -->
+<!--                                                          -->
+<!-- 1.2.2 Abstract Information (abstInfo)                    -->
+<!-- =====================================                    -->
+<!--                                                          -->
+<!ELEMENT abstInfo     (abstNo*
+		       , abstDate*
+		       , abstract*)                             >
+<!ATTLIST abstInfo     %a.global;                               >
+<!--                                                          -->
+<!ELEMENT abstNo       (%phrase.seq;)                           >
+<!ATTLIST abstNo
+    %a.global;
+    agency             CDATA             #IMPLIED               >
+<!--                                                          -->
+<!-- 1.2.2.1 Abstract Number.                                 -->
+<!-- PFS: "agency" attribute added to conform abstNo to stdyNo
+     and grantNo. May be used to specify agency that assigned
+     number.                                                  -->
+<!--                                                          -->
+<!ELEMENT abstDate     (%phrase.seq;)                           >
+<!ATTLIST abstDate     %a.global;                               >
+<!--                                                          -->
+<!-- 1.2.2.2 Abstract Date.                                   -->
+<!-- PFS: See note under ProdDate above.                      -->
+<!--                                                          -->
+<!ELEMENT abstract     (%specialPara;)                           >
+<!ATTLIST abstract     %a.global;                               >
+<!--                                                          -->
+<!-- 1.2.2.3 Abstract.                                        -->
+<!-- An abbreviated and informative representation of the file
+     being described...not by question level.(RR) -->
+<!-- Purpose or scope of study, special characteristics of the
+     study (RR)                                               -->
+<!-- aka SUBJECT MATTER description (NDACAN): A description
+     of the types of variables included on the file and any
+     other comments about the purpose of the data collection,
+     the scope of the study, or any special characteristics of
+     the study.                                               -->
+<!-- aka SUMMARY (ICPSR): A full description of the study's
+     subject matter or intellectual content. The focus should
+     be on such questions as the purpose of the study, the major
+     topics covered, and what questions the PIs attempted to
+     answer when they conducted the study. A listing of major
+     variables in the study is important here.                -->
+<!-- JB, superseding the above notes:
+     An unformatted summary, abstract, annotation, or
+     phrase describing the purpose, nature, and scope of the
+     data file, special characteristics of its contents, major
+     subject areas covered. The focus should be on such questions
+     as the purpose of the study, the major topics covered, and
+     what questions the PIs attempted to answer when they
+     conducted the study. A listing of major variables in
+     the study is important here. aka Subject Matter or
+     Summary.                                                -->
+<!-- PFS: If the abstract was produced separately, the global
+     attribute resp may be used to designate the source of the
+     abstract or its author.                                  -->
+<!--                                                          -->
+<!-- 1.2.3 Summary Data Description (sumDscr)                 -->
+<!-- ========================================                 -->
+<!--                                                          -->
+<!ELEMENT sumDscr     (timePrd*
+		      , collDate*
+		      , timeDim*
+		      , nation*
+		      , geogUnit*
+		      , anlyUnit*
+		      , universe*
+		      , dataKind* )                             >
+<!--                                                          -->
+<!ATTLIST sumDscr     %a.global;                                >
+<!--                                                          -->
+<!ELEMENT timePrd     (%phrase.seq;)                            >
+<!ATTLIST timePrd     %a.global;                                >
+<!--                                                          -->
+<!-- 1.2.3.1 Time Period Covered.                             -->
+<!-- The time period to which the data in the file
+     refer, including dates of collection. (NDACAN)           -->
+<!-- This item reflects the time period covered by the data,
+     not the dates of coding or making documents machine-
+     readable. (DDA)                                          -->
+<!-- Beginning Date of Collection, first day of the first
+     wave, Ending Date of Collection.                         -->
+<!-- PFS: Note that %phrase.seq; allows use of TEI 'date'
+     and 'dateRange' elements, which bring with them the
+     ability to control the form of dates. The TEI 'date'
+     elements do not, however, possess a 'type' attribute:
+     in order to mark various dates as being "beginning
+     date of collection," etc., some other expedient will
+     have to be employed: most easily, modify the TEI date
+     element to include a "type" or "event" attribute. Or,
+     of course, create separate tags for each possible kind
+     of date. The next element seems to be directed toward
+     that end. Accordingly, I have allowed collDate to
+     appear within timePrd as well as separately.            -->
+<!--                                                         -->
+<!ELEMENT collDate     (%phrase.seq;)                          >
+<!ATTLIST collDate
+    %a.global;
+    event                 CDATA                 #IMPLIED       >
+<!--                                                         -->
+<!-- 1.2.3.2 Date of Collection.                             -->
+<!-- PFS: I have added an "event" attribute in order to allow
+     the element to distinguish between (say) first day of
+     collection, only day of collection, and last day of
+     collection. See note on timePrd, which may reflect my
+     misunderstanding of the intended relationship between
+     these elements.                                         -->
+<!--                                                         -->
+<!ELEMENT timeDim     (%phrase.seq;)                           >
+<!ATTLIST timeDim     %a.global;                               >
+<!--                                                         -->
+<!-- 1.2.3.3 Time Dimensions.                                -->
+<!-- PFS: With little idea of what this refers to, assignment
+     of %phrase.seq; contents may be inappropriate.          -->
+<!--                                                         -->
+<!ELEMENT nation     (%paraContent;)                           >
+<!ATTLIST nation
+    %a.global;
+    abbr             CDATA           #IMPLIED                  >
+<!--                                                         -->
+<!-- 1.2.3.4 Country.                                        -->
+<!-- PFS: Name changed to "nation" to avoid conflict with
+    TEI "country" element. Contents defined as %paraContent
+    to match that of "country." Attribute "abbr" added to
+    match the attributes given to agencies, etc., above, and
+    also to go some way toward providing an equivalent for
+    the TEI %placePart; entity, which adds "type" and "full"
+    attributes. Perhaps we should consider adding the TEI
+    additional tag set for names and dates.                  -->
+<!--                                                         -->
+<!ELEMENT geogUnit     (%specialPara;)                         >
+<!ATTLIST geogUnit     %a.global;                              >
+<!--                                                         -->
+<!-- 1.2.3.5 Geographic Unit.                                -->
+<!-- Geographic Coverage. Information concerning the total
+     geographic scope of the file and additional levels of
+     geographic coding provided within the file. (NDACAN)    -->
+<!--                                                         -->
+<!ELEMENT anlyUnit     (%phrase.seq;)                          >
+<!ATTLIST anlyUnit
+    %a.global;
+    unit               CDATA              #IMPLIED             >
+<!--                                                         -->
+<!-- 1.2.3.6 Unit of Analysis.                               -->
+<!-- E.G.: individual, families/households, groups,
+     institutions/organizations, administrative units,
+     text units (documents, chapters, words), other (DDA).   -->
+<!-- NANMV: needs controlled vocabulary.                     -->
+<!-- PFS: assuming that one cannot control the text, I
+     have added an attribute "unit" which can be controlled. -->
+<!--                                                         -->
+<!ELEMENT universe     (%specialPara;)                         >
+<!ATTLIST universe
+    %a.global;
+    level              CDATA              #IMPLIED
+    clusion            (I|E)              "I"                  >
+<!--                                                         -->
+<!-- 1.2.3.7 Universe.                                       -->
+<!-- Could be specific to country, year, etc.                -->
+<!-- Note: CDDM defines this as Universe_of_interest and
+     Population_of_Interest.                                 -->
+<!-- A description of the population covered by the data
+     in the file, including what, if any, sampling method was
+     used.(NDACAN)                                           -->
+<!-- The group of persons or other elements that are the
+     object of the study and to which the study results refer.
+     Age, nationality, and residence commonly help to
+     delineate a given universe, but any of a number of
+     factors may be involved, such as sex, race, income,
+     veteran status, criminal convictions, etc. The universe
+     may consist of elements other than persons, such as housing
+     units, court cases, deaths, countries, etc. In general,
+     it should be possible to tell from the description of
+     the universe whether a given individual or element
+     (hypothetical or real) is a member of the population
+     under study.                                            -->
+<!-- aka Target Population (DDA): age limits, sex, marital
+     status, race, ethnic group, nationality, etc.; number
+     in original sample (target),losses, replacements, cases
+     obtained, additional info (DDA).                        -->
+<!-- PFS: Use level attribute to distinguish between the
+     universe of the study and the universe of individual
+     variables and variable groups.                          -->
+<!--                                                         -->
+<!ELEMENT dataKind     (%phrase.seq;)                          >
+<!ATTLIST dataKind     %a.global;                              >
+<!--                                                         -->
+<!-- 1.2.3.8 Kind of Data.                                   -->
+<!-- Survey, census, statistics/aggregate, legislative
+     roll calls, psychological test, clinical, textual, coded
+     textual, coded documents, time budget diaries, observation
+     data/ratings, process-produced data, other (DDA).       -->
+<!-- Contains information describing the kind of data
+     included in the file, e.g.: census/enumeration data,
+     aggregate data, clinical data, event/transaction data,
+     survey data, program source code, machine-readable
+     text, administrative records data, experimental data
+     (ICPSR)                                                 -->
+<!-- PFS: Is control of this vocabulary feasible or
+     desirable?                                              -->
+<!--                                                         -->
+<!-- 1.2.4 Acknowledgments                                   -->
+<!-- =====================                                   -->
+<!--                                                         -->
+<!-- PFS: ELEMENT acknowl has been omitted here, and replaced
+     in the hierarchy with the "othId" element used previously
+     in the "citation" section. "Acknowledgments" seems slightly
+     more specific than "other identifications and
+     acknowledgments" but not enough so as to create the need
+     for a separate element. OK?                             -->
+<!--                                                         -->
+<!-- 1.2.5 Documentation Statement (docStmt)                 -->
+<!-- =======================================                 -->
+<!--                                                         -->
+<!ELEMENT docStmt     (documen*
+		      , docLang*
+		      , codebk*
+		      , relMat*
+		      , relStdy*
+		      , othRefs*)                             >
+<!--                                                         -->
+<!ATTLIST docStmt     %a.global;                               >
+<!--                                                         -->
+<!-- PFS: The elements in this section are far from
+     self-explanatory. I have generally assigned them
+     the %paraContent; class of contents, but this more
+     on a hunch than on any more secure basis.               -->
+<!--                                                         -->
+<!ELEMENT documen     (%paraContent;)                          >
+<!ATTLIST documen     %a.global;                               >
+<!--                                                         -->
+<!-- 1.2.5.1 Documentation.                                  -->
+<!--                                                         -->
+<!ELEMENT docLang     (%phrase.seq;)                           >
+<!ATTLIST docLang     %a.global;                               >
+<!--                                                         -->
+<!-- 1.2.5.2 Language(s) of Documentation                    -->
+<!-- PFS: TEI "lang" tags as well as the global attribute
+     "lang" are available for additional language
+     ascription.                                             -->
+<!--                                                         -->
+<!ELEMENT codebk     (%paraContent;)                           >
+<!ATTLIST codebk     %a.global;                                >
+<!--                                                         -->
+<!-- 1.2.5.3 Codebook.                                       -->
+<!--                                                         -->
+<!ELEMENT relMat     (%paraContent;)                           >
+<!ATTLIST relMat     %a.global;                                >
+<!--                                                         -->
+<!-- 1.2.5.4 Related Materials.                              -->
+<!-- Indicate within this item bibliographic and access
+     information about published reports. Contains information
+     about primary or related publications that are based on
+     the data in this data set.                              -->
+<!--                                                         -->
+<!ELEMENT relStdy     (%paraContent;)                          >
+<!ATTLIST relStdy     %a.global;                               >
+<!--                                                         -->
+<!-- 1.2.5.5 Related Studies                                 -->
+<!-- Information on the relationship of the current data
+     file to other data files (e.g., predecessors, successors,
+     sequels, abridgements) or to other editions of the same
+     data file. This would include the names of additional
+     data sets generated from the same data collection
+     vehicle plus other data sets directed at the same
+     general topic.                                          -->
+<!--                                                         -->
+<!ELEMENT othRefs     (%paraContent;)                          >
+<!ATTLIST othRefs     %a.global;                               >
+<!--                                                         -->
+<!-- 1.2.5.6 Other References Note.                          -->
+<!--                                                         -->
+<!-- 1.3 METHODOLOGY AND PROCESSING (method)                 -->
+<!-- =======================================                 -->
+<!--                                                         -->
+<!ELEMENT method     (dataColl? ,
+		     notes? ,
+		     anlyInfo? ,
+		     stdyClas?)                                >
+<!--                                                         -->
+<!ATTLIST method     %a.global;                                >
+<!--                                                         -->
+<!-- 1.3.1 Data Collection Methodology (dataColl)            -->
+<!-- ===========================================             -->
+<!--                                                         -->
+<!ELEMENT dataColl     (timeMeth?
+		       , frequenc?
+		       , sampProc?
+		       , deviat*
+		       , collMode*
+		       , resInstru?
+		       , sources?
+		       , collSitu?
+		       , actMin?
+		       , oiConOps?
+		       , arcConOp?
+		       , weight?
+		       , cleanOps?)                              >
+<!--                                                         -->
+<!ATTLIST dataColl     %a.global;                              >
+<!ELEMENT timeMeth     (%phrase.seq;)                          >
+<!ATTLIST timeMeth
+    %a.global;
+    method             CDATA            #IMPLIED               >
+<!--                                                         -->
+<!-- 1.3.1.1 Time Method.                                    -->
+<!-- E.g. panel, cross-sectional, trend, time-series, etc.   -->
+<!-- aka *Time Dimensions* (DDA): cross-sectional, partial
+     replication, panel, trend, time-series, other.          -->
+<!-- PFS: optional "method" attribute added to
+     allow vocabulary control.                               -->
+<!--                                                         -->
+<!ELEMENT frequenc     (%phrase.seq;)                          >
+<!ATTLIST frequenc
+    %a.global;
+    freq               CDATA            #IMPLIED               >
+<!--                                                         -->
+<!-- 1.3.1.2 Frequency of Data Collection.                   -->
+<!-- E.g., monthly, quarterly, etc.                          -->
+<!-- NANMV: need controlled vocab?                           -->
+<!-- PFS: "Freq" attribute added to allow vocab control.     -->
+<!--                                                         -->
+<!ELEMENT sampProc     (%specialPara;)                         >
+<!ATTLIST sampProc
+    %a.global;                                                 >
+<!--                                                         -->
+<!-- 1.3.1.3 Sampling Procedure.                             -->
+<!-- (could vary by country, year, etc.)                     -->
+<!-- PFS: How would we handle such variance?                 -->
+<!-- Indicate in this item the exact procedure used for
+     sampling from the frame. Describe the specific
+     procedure used for this data file. For purposes of
+     secondary analysis, it is extremely important that
+     the sampling procedure be described in sufficient
+     detail within this item. Sampling problems and
+     sampling inadequacy must be described in detail.        -->
+<!--                                                         -->
+<!ELEMENT deviat     (%paraContent;)                           >
+<!ATTLIST deviat     %a.global;                                >
+<!--                                                         -->
+<!-- 1.3.1.4 Major Deviations from the Sample Design.        -->
+<!-- Show correspondence as well as discrepancies between
+     the sampled units (obtained) and available statistics
+     for the population (age, sex-ratio, marital status,
+     etc.) as a whole.                                       -->
+<!--                                                         -->
+<!ELEMENT collMode     (%paraContent;)                         >
+<!ATTLIST collMode     %a.global;                              >
+<!--                                                         -->
+<!-- 1.3.1.5 Mode of Data Collection.                        -->
+<!-- aka Instrumentation characteristics (e.g., telephone
+     interview, mail questionnaire, etc) (RR).               -->
+<!-- aka Method of data collection (DDA).                    -->
+<!--                                                         -->
+<!ELEMENT resInstru     (%paraContent;)                        >
+<!ATTLIST resInstru
+    %a.global;
+    type                CDATA            #IMPLIED              >
+<!--                                                         -->
+<!-- 1.3.1.6 Type of Research Instrument.                    -->
+<!-- Indicate the type of instrument used: "structured"
+     implies an instrument in which all respondents are
+     submitted to the same questions or tests, possibly
+     with precoded answers (if a small portion of such
+     a questionaire includes open-ended questions, provide
+     appropriate comments. "Semi-structured" means that
+     the research instrument contains mostly open-ended
+     questions. "Ustructured" is in-depth interviews, etc.   -->
+<!-- PFS: type attrib added to allow vocabulary control.     -->
+<!--                                                         -->
+<!-- 1.3.1.7 Sources Statement (sources)                     -->
+<!-- ===================================                     -->
+<!--                                                         -->
+<!ELEMENT sources     ((dataSrc*
+		      , srcOrig*
+		      , srcChar*
+		      , srcDocu*)
+		      | (sources*))                            >
+<!--                                                         -->
+<!ATTLIST sources     %a.global;                               >
+<!--                                                         -->
+<!-- PFS: I have changed this element to make it nestable,
+     so that the sources statement might encompass a series
+     of discrete source statements, each of which could
+     contain the facts about an individual source.           -->
+<!--                                                         -->
+<!ELEMENT dataSrc     (%specialPara;)                          >
+<!ATTLIST dataSrc     %a.global;                               >
+<!--                                                         -->
+<!-- 1.3.1.7.1 Data Sources.                                 -->
+<!-- (DDA) Unpublished historical/contemporary source,
+     published source, published/unpublished census, other
+     written, other.                                         -->
+<!-- Also used to list the book(s), article(s), serial(s),
+     and/or machine-readable data file(s), if any, that
+     served as the source(s) of the data file (ICPSR).       -->
+<!--                                                         -->
+<!ELEMENT srcOrig     (%paraContent;)                          >
+<!ATTLIST srcOrig     %a.global;                               >
+<!--                                                         -->
+<!-- 1.3.1.7.2 Origins of Sources.                           -->
+<!-- (DDA) For historical materials information: laws,
+     admin instruments, organizational charts, etc.          -->
+<!--                                                         -->
+<!ELEMENT srcChar     (%paraContent;)                          >
+<!ATTLIST srcChar     %a.global;                               >
+<!--                                                         -->
+<!-- 1.3.1.7.3 Characteristics of Source Noted.              -->
+<!-- (DDA) To assess quality of source material.             -->
+<!--                                                         -->
+<!ELEMENT srcDocu     (%paraContent;)                          >
+<!ATTLIST srcDocu %a.global;                                   >
+<!--                                                         -->
+<!-- 1.3.1.7.4 Documentation and Access to Sources.          -->
+<!-- Level of documentation of the original sources .        -->
+<!--                                                         -->
+<!ELEMENT collSitu     (%specialPara;)                         >
+<!ATTLIST collSitu     %a.global;                              >
+<!--                                                         -->
+<!-- 1.3.1.8 Characteristics of Data Collection Situation.   -->
+<!-- Cooperativeness of respondents, duration, number of
+     call-backs, etc.                                        -->
+<!--                                                         -->
+<!ELEMENT actMin     (%specialPara;)                           >
+<!ATTLIST actMin     %a.global;                                >
+<!--                                                         -->
+<!-- 1.3.1.9 Actions to Minimize Losses.                     -->
+<!-- In narrative form, summary of action taken: follow-up
+     visits, supervisory checks, historical matching,
+     estimation, etc.                                        -->
+<!--                                                         -->
+<!ELEMENT oiConOps     (%specialPara;)                         >
+<!ATTLIST oiConOps     %a.global;                              >
+<!--                                                         -->
+<!-- 1.3.1.10 Control Operations
+	      performed by Original Operator.                -->
+<!-- Example: "Random sampling of coded data to check for
+     punching accuracy."                                     -->
+<!--                                                         -->
+<!ELEMENT arcConOp     (%specialPara;)                         >
+<!ATTLIST arcConOp     %a.global;                              >
+<!--                                                         -->
+<!-- 1.3.1.11 Control Operations
+	      performed by Archive.                          -->
+<!-- Specify special programs used.                          -->
+<!--                                                         -->
+<!ELEMENT cleanOps     (%specialPara;)                         >
+
+<!ATTLIST cleanOps     %a.global;                              >
+<!--                                                         -->
+<!-- 1.3.1.12 Cleaning Operations.                           -->
+<!-- Methods by which either a single case or the total
+     sum on a single variable is used as a probability check -->
+<!--                                                         -->
+<!ELEMENT weight     (%specialPara;)                           >
+<!ATTLIST weight     %a.global;                                >
+<!--                                                         -->
+<!-- 1.3.1.13 Weighting.                                     -->
+<!-- An important factor in estimating the validity of
+     findings from a secondary analysis of data is sufficient
+     knowledge of the original data weighting. Care should be
+     taken to make this item as unambiguous and complete as
+     possible. Include both criteria and procedures.         -->
+<!--                                                         -->
+<!-- 1.3.2 Study-level Error Note (errNote)                  -->
+<!-- ======================================                  -->
+<!--                                                         -->
+<!-- ELEMENT errNote     (%specialPara;)                     -->
+<!-- ATTLIST errNote
+     %a.global;
+     level             CDATA               #IMPLIED          -->
+<!--                                                         -->
+<!-- PFS: Use generic error note tag and set "level"
+     attribute to indicate study level if desired.           -->
+<!-- 1.3.2 REPLACED IN VERSION 1.4 by generic notes
+     element.                                                -->
+<!--                                                         -->
+<!-- 1.3.3 Analysis Information (anlyInfo)                   -->
+<!-- =====================================                   -->
+<!--                                                         -->
+<!ELEMENT anlyInfo     (dataAppr*
+		       , results*
+		       , addArea*)                             >
+<!ATTLIST anlyInfo     %a.global;                              >
+<!--                                                         -->
+<!ELEMENT dataAppr     (%paraContent;)                         >
+<!ATTLIST dataAppr     %a.global;                              >
+<!--                                                         -->
+<!-- 1.3.3.1 Data Appraisal.                                 -->
+<!-- Conditions that should be made on any: sampling error,
+     response variance, nonresponse rate and testing for bias,
+     interviewer and response bias, confidence levels, question
+     bias (ICPSR).                                           -->
+<!--                                                         -->
+<!ELEMENT results     (%specialPara;)                          >
+<!ATTLIST results
+    %a.global;
+    type              CDATA              #IMPLIED              >
+<!--                                                         -->
+<!-- 1.3.3.2 Analysis Results.                               -->
+<!-- RESULTS of analyses (scales, indexes, etc) (DDA).       -->
+<!--                                                         -->
+<!ELEMENT addArea     (%specialPara;)                          >
+<!ATTLIST addArea     %a.global;                               >
+<!--                                                         -->
+<!-- 1.3.3.3 Potential Research Areas.                       -->
+<!-- Additional areas of research which could be explored
+     with the data (ICPSR).                                  -->
+<!--                                                         -->
+<!-- 1.3.4 Class or Status of the Study (stdyClas)           -->
+<!-- =============================================           -->
+<!--                                                         -->
+<!ELEMENT stdyClas     (%phrase.seq;)                          >
+<!ATTLIST stdyClas
+    %a.global;
+    type               CDATA            #IMPLIED               >
+<!--                                                         -->
+<!-- NANMV: This needs more clarification.                   -->
+<!-- PFS: "Type" attrib added to allow vocabulary control.   -->
+<!--                                                         -->
+<!-- 1.4 Data Access (dataAccs)                              -->
+<!-- ==========================                              -->
+<!--                                                         -->
+<!ELEMENT dataAccs     (setAvail*
+		       , useStmt?)                             >
+<!--                                                         -->
+<!ATTLIST dataAccs  %a.global;                                 >
+<!--                                                         -->
+<!-- 1.4.1 Data Set Availability.                            -->
+<!-- ===========================                             -->
+<!--                                                         -->
+<!ELEMENT setAvail     (accsPlac+
+		       , origArch?
+		       , notes*
+		       , collSize?
+		       , complete?
+		       , fileQnty?)                            >
+<!ATTLIST setAvail
+    %a.global;
+    media          CDATA                #IMPLIED
+    format         CDATA                #IMPLIED               >
+<!--                                                         -->
+<!ELEMENT accsPlac     (%phrase.seq;)                          >
+<!ATTLIST accsPlac     %a.global;                              >
+<!--                                                         -->
+<!-- 1.4.1.1 Location.                                       -->
+<!--                                                         -->
+<!ELEMENT origArch     (%paraContent;)                         >
+<!ATTLIST origArch %a.global;                                  >
+<!--                                                         -->
+<!-- 1.4.1.2 Archive where study originally stored           -->
+<!--                                                         -->
+<!-- 1.4.1.3 Collection notes                                -->
+<!-- Used to describe technical details, peculiarities, or
+     anything else about the data collection that cannot
+     be recorded in the other fields buth will be of interest
+     to the user.                                            -->
+<!-- PFS: Generic notes tag used here.                       -->
+<!-- PFS: I have, against instructions, made this repeatable -->
+<!--                                                         -->
+<!ELEMENT collSize       (%paraContent;)                       >
+<!ATTLIST collSize  %a.global;                                 >
+<!--                                                         -->
+<!-- 1.4.1.4 Extent of Collection.                           -->
+<!-- Summarizes the number of physical files that exist in
+     a collection, recording the number of files that contain
+     data and noting whether the collection contains machine-
+     readable documentation and/or other supplementary files
+     and information such as: machine-readable documentation,
+     dictionaries, data-collection instruments.    -->
+<!-- PFS: fileQnty allowed here to accommodate apparent
+     conflict with fileQnty element at this level.           -->
+<!--                                                         -->
+<!ELEMENT complete     (%paraContent;)                         >
+<!ATTLIST complete %a.global;                                  >
+<!--                                                         -->
+<!-- 1.4.1.5 Completeness of Study Stored.                   -->
+<!-- Indicates the relationship between the data collected
+     to the amount of data coded and stored in the file
+     (DDA).                                                  -->
+<!--                                                         -->
+<!ELEMENT fileQnty       (%paraContent;)                        >
+<!ATTLIST fileQnty  %a.global;                                 >
+<!--                                                         -->
+<!-- 1.4.1.6 Number of Files.                                -->
+<!--                                                         -->
+<!-- 1.4.2 Data Use Statement                                -->
+<!-- ======================== -->
+<!--                                                         -->
+<!ELEMENT useStmt     (restrctn?
+		      , contact?
+		      , citReq?
+		      , anlyCond*
+		      , disclaim*
+		      , notes*)                                >
+<!--                                                         -->
+<!ATTLIST useStmt     %a.global;                               >
+<!--                                                         -->
+<!-- 1.4.2.1 Restrictions                                    -->
+<!-- Any restrictions on access to the file such as privacy
+     certification and a contact person in the producing
+     organization. Details of restrictions applied by the
+     author, producer, or disseminator of the data file.
+     If restricted to only a certain class of user, specify
+     which. aka Accessibility, Terms of Availability.        -->
+<!-- PFS: Should a "contact" element be added to the
+     contents of this element?                               -->
+<!--                                                         -->
+<!-- 1.4.2.2 Access Authority                                -->
+<!-- Contact person or organization (full address and
+     phone number.                                           -->
+<!-- The element "contact" has already been declared, in
+     section 1.1.4.                                          -->
+<!--                                                         -->
+<!-- 1.4.2.3 Citation Requirement                            -->
+<!-- Study must be cited in bibliography of research
+     publications using the study for analysis.              -->
+<!--                                                         -->
+<!-- 1.4.2.4 Analysis Conditions                             -->
+<!-- Indicate in narrative form any additional information
+     that will assist the user in understanding the analysis
+     conditions of the data set.                             -->
+<!--                                                         -->
+<!-- 1.4.2.5 Disclaimer                                      -->
+<!-- Sample: "Neither (the original collector of the data) nor
+     (the relevant funding agency) bear any responsibility
+     for the uses of this collection or for any interpretations
+     or inferences based upon such uses."                    -->
+<!--                                                         -->
+<!-- 1.4.2.6 Other Reanalysis Conditions Note.               -->
+<!-- Indicate within this item any information about the
+     file that does not appear in Analysis Conditions and
+     that will be helpful to potential users.                -->
+<!-- PFS: Generic 'notes' element used for this purpose.     -->
+<!--                                                         -->
+<!-- ELEMENT DECLARATIONS for elements in 1.4.2:             -->
+<!--                                                         -->
+<!ELEMENT restrctn (%paraContent;)                             >
+<!ATTLIST restrctn %a.global;                                  >
+<!ELEMENT citReq   (%paraContent;)                             >
+<!ATTLIST citReq   %a.global;                                  >
+<!ELEMENT anlyCond (%paraContent;)                             >
+<!ATTLIST anlyCond %a.global;                                  >
+<!ELEMENT disclaim (%paraContent;)                             >
+<!ATTLIST disclaim %a.global;                                  >
+<!--                                                        -->
+<!-- 1.5 Other Study Description Materials                  -->
+<!-- =====================================                  -->
+<!-- This is already handled by the general element
+     "otherMat," described below. The specific location
+     in the codebook hierarchy may be identified with
+     the aid of a 'level' attribute, but is obvious
+     in any case from context.                              -->
+
+<!-- 2.0 Data files description (fileDscr)                  -->
+<!-- =====================================                  -->
+<!--                                                        -->
+<!-- The following contents of fileDscr were removed in
+most recent changes, and reduced to the single permissible
+element fileTxt (still numbered as 2.5 to preserve existing
+numbering). Of these, collSize, fileQnty, and complete
+have been moved to the Data Access area:
+							   -->
+ <!--ELEMENT fileDscr       (dataFrmt?
+			 , dimensns?
+			 , collSize?
+			 , fileQnty?
+			 , fileTxt*
+			 , complete?)                        -->
+ <!--                                                        -->
+ <!-- PFS:This tag surrounds any text supplying information
+      about the individual files in which the data is stored
+      or distributed.                                        -->
+ <!--                                                        -->
+ <!--ELEMENT dataFrmt       (%phrase.seq;)                   -->
+ <!--ATTLIST dataFrmt %a.global;                             -->
+ <!--                                                        -->
+ <!-- 2.1 Data Format.                                       -->
+ <!--                                                        -->
+ <!--ELEMENT dimensns       (%paraContent;)                     -->
+ <!--ATTLIST dimensns  %a.global;                              -->
+ <!--                                                        -->
+ <!-- 2.2 Dimensions of Study.                               -->
+ <!-- Number of cases, number of variables, number of cards
+      per case.                                              -->
+ <!--                                                        -->
+
+ <!--ELEMENT collSize       (%paraContent;)                      -->
+ <!--ATTLIST collSize  %a.global;                               -->
+
+ <!--                                                        -->
+ <!-- 2.3 Extent of Collection.                              -->
+ <!--                                                        -->
+ <!--ELEMENT fileQnty       (%paraContent;)                      -->
+ <!--ATTLIST fileQnty  %a.global;                               -->
+
+ <!--
+      2.4 Number of Files.                                   -->
+<!--                                                         -->
+<!-- The new contents of fileDscr look like this:            -->
+<!--                                                         -->
+<!ELEMENT fileDscr     (fileTxt)+                             >
+<!ATTLIST fileDscr %a.global;                                 >
+<!--                                                         -->
+<!-- 2.5 File-by-file description (fileTxt)                  -->
+<!-- ======================================                  -->
+<!--                                                         -->
+<!ELEMENT fileTxt       (fileName?
+			, fileCont?
+			, fileStrc?
+			, fileType?
+			, filePlac?
+			, dataChck?
+			, dataMsng?
+			, software*)                          >
+<!--                                                        -->
+<!ATTLIST fileTxt
+     %a.global;                                               >
+<!--                                                        -->
+<!-- The following attributes have been removed from fileTxt:
+     software      CDATA                    #IMPLIED
+     fileType      CDATA                    #IMPLIED
+     byteSize      NUMBER                   8
+     LRECL         NUMBER                   #IMPLIED
+     wgts          Y|N                      N
+     recFrmt       CDATA                    #IMPLIED        -->
+<!--                                                        -->
+
+<!ELEMENT fileName     (#PCDATA)                              >
+
+<!ATTLIST fileName  %a.global;                                >
+<!--                                                        -->
+<!-- 2.5.1 File Name.                                       -->
+<!--                                                        -->
+<!ELEMENT fileCont     (%specialPara;)                        >
+<!ATTLIST fileCont  %a.global;                                >
+<!--                                                        -->
+<!-- 2.5.2 Contents of Files.                               -->
+<!--                                                        -->
+<!-- 2.5.3 File Structure                                   -->
+<!-- ====================                                   -->
+<!--                                                        -->
+<!-- File Structure:
+     Rectangular, hierarchical, etc.
+     aka Technical Description: a brief description of the
+     file structure (NDACAN).                               -->
+<!--                                                        -->
+<!ELEMENT fileStrc     (strcType*
+		      , keyVars*
+		      , dimensns?)                            >
+<!ATTLIST fileStrc %a.global;                                 >
+<!--                                                        -->
+<!ELEMENT strcType     (%paraContent;)                         >
+<!ATTLIST strcType
+   %a.global;
+   keyVar          IDREF              #IMPLIED                >
+<!--                                                        -->
+<!-- 2.5.3.1 Structural Type.                               -->
+<!-- "keyVar" attribute is "reference to key variable
+     description."                                          -->
+<!--                                                        -->
+<!ELEMENT keyVars     (%paraContent;)                          >
+<!ATTLIST keyVars
+   %a.global;
+   keyVar          IDREF              #IMPLIED                >
+<!--                                                        -->
+<!-- 2.5.3.2 Key Variables                                  -->
+<!-- "keyVar" attribute is again a "reference to key
+     variable description."                                 -->
+<!--                                                        -->
+<!-- 2.5.3.3 File Dimensions                                -->
+<!-- =======================                                -->
+<!--                                                        -->
+<!ELEMENT dimensns     (blocSize*
+		      , caseQnty*
+		      , varQnty*
+		      , recPrCas*
+		      , record*)                              >
+<!ATTLIST dimensns %a.global;                                 >
+<!--                                                        -->
+<!ELEMENT blocSize     (%phrase.seq;)                         >
+<!ATTLIST blocSize
+   %a.global;
+   media           CDATA             #IMPLIED                 >
+<!--                                                        -->
+<!-- 2.5.3.3.1 Block Size                                   -->
+<!--                                                        -->
+<!ELEMENT caseQnty     (%phrase.seq;)                         >
+<!ATTLIST caseQnty  %a.global;                                >
+<!--                                                        -->
+<!-- 2.5.3.3.2 Overall Case Count                           -->
+<!-- Number of cases, here in the entire file.              -->
+<!--                                                        -->
+<!ELEMENT varQnty     (%phrase.seq;)                          >
+<!ATTLIST varQnty %a.global;                                  >
+<!--                                                        -->
+<!-- 2.5.3.3.3 Overall Variable Count                       -->
+<!-- Number of variables, here in the entire file.          -->
+<!--                                                        -->
+<!ELEMENT recPrCas     (%phrase.seq;)                         >
+<!ATTLIST recPrCas %a.global;                                 >
+<!--                                                        -->
+<!-- 2.5.3.3.4 Records per Case                             -->
+<!--                                                        -->
+<!-- 2.5.3.3.5 Record (record)                              -->
+<!-- =========================                              -->
+<!--                                                        -->
+<!ELEMENT record         (labl
+			 , logRecL*
+			 , caseQnty*
+			 , varQnty*)                      >
+<!ATTLIST record
+    %a.global;
+    recType         CDATA          #IMPLIED                   >
+<!--                                                        -->
+<!-- PFS: Note that caseQnty and varQnty have already been defined
+     at the file level. Here they refer to the number of cases
+     or variables of a particular record.                   -->
+<!-- PFS: Assumption is that names (or "labels") may but
+     need not appear first and that names constitute a single
+     element, whether they are record names or variable names
+     or variable group nameswhat not. Required level
+     attribute has been supplied in place of original
+     distinction between different kinds of names. Even the
+     "required" status may be imposing too much restriction.-->
+<!--                                                        -->
+<!ELEMENT logRecL     (%phrase.seq;)                          >
+<!ATTLIST logRecL %a.global;                                  >
+<!--                                                        -->
+<!-- 2.5.3.3.5.1 Logical Record Length                      -->
+<!-- 2.5.3.3.5.2-3 Case Count and Variable Count            -->
+<!-- 2.5.3.3.5.4 Name. Use generic labl tag                 -->
+<!--                                                        -->
+<!-- JN: Eliminated name groups in declaration of
+         fileType, filePlac, dataChck, dataMsng,
+         and software elements and attribute lists.         -->
+
+<!ELEMENT fileType (%paraContent;)                            >
+<!ATTLIST fileType %a.global;                                 >
+<!ELEMENT filePlac (%paraContent;)                            >
+<!ATTLIST filePlac %a.global;                                 >
+<!ELEMENT dataChck (%paraContent;)                            >
+<!ATTLIST dataChck %a.global;                                 >
+<!ELEMENT dataMsng (%paraContent;)                            >
+<!ATTLIST dataMsng %a.global;                                 >
+<!ELEMENT software (%paraContent;)                            >
+<!ATTLIST software %a.global;                                 >
+
+<!-- 2.5.4 Type of File.
+	Type: text, numerical, graphic, program source, etc.
+	Types of files include raw data files, SAS data sets,
+	 SPSSX export files, etc. (NDACAN).
+	SAS Control Cards.
+	SPSS Control Cards.                                 -->
+<!-- 2.5.5 Place of File Production.
+	Received from archive or locally produced computer
+	or software. (?)                                    -->
+<!-- 2.5.6 Extent of Processing Checks
+	Extent of Processing/Data Checks (ICPSR).
+	Control operations performed by original
+	 investigator (DDA) (treated at study level as
+	 element oiConOps).
+	Control operations performed by archive (DDA)
+	 (treated at study level as element arcConOp).
+	Cleaning Operations (DDA) (treated at study
+	 level as element cleanOps).
+	Condition of data (e.g., statements that edit
+	 checks have been made, etc.) (RR).                 -->
+<!-- 2.5.7 Missing Data
+	(ICPSR)                                             -->
+<!-- 2.5.8 Software
+	Software that created the file.                     -->
+<!--                                                        -->
+
+<!-- This section moved to the Data Access area:
+ <!ELEMENT complete     (%paraContent;)                       >
+ <!ATTLIST complete %a.global;                                >
+
+ 2.6 Completeness of Study Stored.
+	Indicates the relationship between the data collected
+	to the amount of data coded and stored in the file
+	(DDA).                                              -->
+
+<!--                                                        -->
+<!-- 3.0 Variable Description (dataDscr)                    -->
+<!-- ===================================                    -->
+<!--                                                        -->
+<!ELEMENT dataDscr       (varGrp* , var+)                     >
+<!ATTLIST dataDscr  %a.global;                                >
+<!--                                                        -->
+<!-- A data dictionary must contain information about
+     variables, and also information about variable groups,
+     if any, such as subject or multiple response groups.                              -->
+<!--                                                        -->
+<!-- 3.1 Variable Group (varGrp)                            -->
+<!-- ===========================                            -->
+<!--                                                        -->
+<!ELEMENT varGrp         (labl
+			, txt+
+			, defntn?
+			, universe?)                          >
+<!ATTLIST varGrp
+    %a.global;
+    type          CDATA                     #IMPLIED
+    var           IDREFS                    #IMPLIED          >
+<!--                                                        -->
+<!-- Variable Group.                                        -->
+<!-- A group of variables which may share a common subject,
+     arise from the interpretation of a single question, or
+     are linked by some other factor.                       -->
+<!--                                                        -->
+<!-- 3.1.1 Variable Group Name                              -->
+<!-- 3.1.2 Variable Group Text                              -->
+<!-- PFS:Same assumption as with Record. I have changed the
+     txt element, like the labl element, to a generic low-level
+     element with a Level attribute. I have also made it
+     optional and non-repeatable. Since it contains only PCDATA,
+     there seemed no basis on which to repeat it. Since the
+     group designation could conceivably consist exclusively
+     of a label, there seemed no reason to make it required.
+     If there are internal divisions within it, these should
+     be handled by some kind of even more generic tags
+     (paragraph or line-break tags, for example).           -->
+<!--                                                        -->
+<!ELEMENT defntn     (%paraContent;)                          >
+<!ATTLIST defntn %a.global;                                   >
+<!--                                                        -->
+<!-- 3.1.3 Variable Group Definition                        -->
+<!--         Mathematical definition of variable group.     -->
+<!--                                                        -->
+<!-- 3.1.4 Universe. Already defined as element "universe"
+     under Study Description. Set level attribute to assign
+     to study level, variable-group level or (below)
+     individual variable level.                             -->
+<!--                                                        -->
+<!-- 3.2 Variable (var)                                     -->
+<!-- ==================                                     -->
+<!--                                                        -->
+<!ELEMENT var        (startPos
+		     , labl
+		     , qstn?
+		     , range*
+		     , universe*
+		     , sumStat*
+		     , txt*
+		     , catgry*
+		     , ivuInstr*
+		     , codInstr*
+		     , notes*)                                >
+<!--                                                        -->
+<!--  The following elements have been removed from the
+      content model of "var" as of version 1.4:
+		     , edInstr*
+		     , errNote*
+		     , userNote*
+      The following elements were added to the content model
+      of "var" as of version 1.4:
+		     , ivuInstr*
+		     , codInstr*
+		     , notes*                               -->
+<!--                                                        -->
+<!ATTLIST var
+    %a.global;
+    name           CDATA                    #REQUIRED
+    wgt            (wgt|not-wgt)            "not-wgt"
+    wgt-var        IDREF                    #IMPLIED
+    varGrp         IDREFS                   #IMPLIED
+    qstn           IDREFS                   #IMPLIED
+    type           (char|int|float)         #REQUIRED
+    dcml           CDATA                    #REQUIRED
+    intrvl         (contin|discrete)        "contin"          >
+<!--                                                        -->
+<!-- JN: enclosed default values in quotes and changed
+         data type of dcml from NUMBER to CDATA in var
+         ATTLIST declaration                                -->
+<!--                                                        -->
+<!-- Elements that comprise variable description            -->
+<!-- ===========================================            -->
+<!--                                                        -->
+<!-- 3.2.0 Variable name                                    -->
+<!-- Use generic "labl" tag with level set to "var."        -->
+<!--                                                        -->
+<!ELEMENT startPos             EMPTY                          >
+<!ATTLIST startPos
+     %a.global;
+     place        CDATA                     #REQUIRED
+     width        CDATA                     #REQUIRED         >
+<!--                                                        -->
+<!-- 3.2.1 Starting Position                                -->
+<!--                                                        -->
+<!-- Note: having these two items as attributes makes it
+     possible to restrict them to numeric values.           -->
+<!--                                                        -->
+<!-- JN: Replaced NUMBER data type with CDATA type in
+         startPos. This implies that the validity of
+         attribute values cannot be verified by the
+         parser. Consequently the reason for declaring
+         the items as attributes disappeared.               -->
+<!--                                                        -->
+<!ELEMENT qstn    (#PCDATA
+		      | ((preQTxt?,
+		      qstnLit,
+		      postQTxt?) | (forward | backward))*)*                 >
+<!--                                                        -->
+<!-- JN: Added 'zero or more' occurence indicator to qstn
+         element to meet the XML mixed content element
+         requirements.                                      -->
+<!--                                                        -->
+<!ATTLIST qstn
+    %a.global;
+    qstn              IDREF          #IMPLIED
+    var               IDREFS         #IMPLIED                 >
+<!--                                                        -->
+<!-- 3.2.2 Question.                                        -->
+<!-- Note: The question element contains the text of the
+     question. It also comes with a unique question ID
+     attribute which can be used to link a variable with
+     other variables arising from the same question. This
+     will allow searching for all variables which share
+     the same question ID.                                  -->
+<!-- PFS: I have departed somewhat from the description
+     here in order to accommodate some situations. If the
+     question is only cited, with or without descriptive
+     text, in the variable description, but is given in
+     full elsewhere, the "ID" element may be ignored,
+     which normally identifies the question, and the
+     "qstn" element used instead, to refer to the uniquely
+     identified question. Accordingly, I have not made
+     "ID" required but left it as #IMPLIED.                 -->
+<!--                                                        -->
+<!ELEMENT qstnLit        (%phrase.seq;)                       >
+<!ATTLIST qstnLit
+    %a.global;                                                >
+<!--                                                        -->
+<!-- 3.2.2.1 Literal Question.                              -->
+<!-- PFS: I have altered the question tag considerably
+     in order to supply a separate tag for the question
+     itself, minus any preceding or following text, viz.
+     "qstnLit" The question element may also be used without
+     content (EMPTY) as a link to a question printed
+     elsewhere.                                             -->
+<!--                                                        -->
+<!ELEMENT preQTxt   (%specialPara;)                           >
+<!ATTLIST preQTxt    %a.global;                               >
+<!ELEMENT postQTxt  (%specialPara;)                           >
+<!ATTLIST postQTxt   %a.global;                               >
+<!--                                                        -->
+<!-- 3.2.2.2-3 PreQuestion Text. PostQuestion Text.         -->
+<!--                                                        -->
+<!ELEMENT backward (%specialPara;)                            >
+<!ATTLIST backward  %a.global;
+                    qstn   IDREFS   #IMPLIED                  >
+<!ELEMENT forward  (%specialPara;)                            >
+<!ATTLIST forward   %a.global;
+                    qstn   IDREFS   #IMPLIED                  >
+<!--                                                        -->
+<!-- 3.2.2.4-5 Backflow, Forward Progression                -->
+<!-- "qstn" attribute links to ID(s) of possible
+     preceding or following questions.                      -->
+<!--                                                        -->
+<!ELEMENT range       EMPTY                                   >
+<!ATTLIST range
+     relation     (EQ|GT|LT|GTE|LTE)         "EQ"
+     %a.global;                                               >
+<!--                                                        -->
+<!-- 3.2.3 Range                                            -->
+<!--                                                        -->
+<!-- 3.2.4 Universe. Already defined as element "universe"
+     under Study Description. Set level attribute to assign
+     to study level or individual variable level.           -->
+<!--                                                        -->
+<!-- 3.2.5 Summary Statistics (sumStat).                    -->
+<!-- ==================================                     -->
+<!-- Generic "stat" element discontinued in version 1.4.
+     Instead use particular sumStat element with valu
+     element(s) nested beneath it.                          -->
+<!--                                                        -->
+<!ELEMENT sumStat     (valu)+                                 >
+<!ATTLIST sumStat
+     %a.global;
+     type         (mean|medn|mode|vald|invd|min|
+		  max|freq|stdev)    #REQUIRED                >
+<!--                                                        -->
+<!ELEMENT valu     (%paraContent;)                            >
+<!ATTLIST valu
+     %a.global;
+     wgtd         (wgtd|not-wgtd)           "not-wgtd"
+     weight       CDATA                     #IMPLIED          >
+<!--                                                        -->
+<!-- 3.2.5.1 Value (valu)                                   -->
+<!--                                                        -->
+<!-- ELEMENT varTxt        (txt* ,
+			   (ivuInstr*
+			   , codInstr*))                    -->
+<!-- ATTLIST varTxt  %a.global;                             -->
+<!-- 3.1.2.6 Variable Text                                  -->
+<!-- REMOVED IN VERSION 1.4 in favor of generic txt tag.
+     ivuInstr and codInstr moved up one level; see below,
+     at 3.2.8-9.                                            -->
+<!--                                                        -->
+<!-- 3.2.7 Category (catgry)                                -->
+<!-- =======================                                -->
+<!--                                                        -->
+<!ELEMENT catgry        (catValu?
+			, labl?
+			, txt*
+			, catStat?
+			, notes*)                             >
+<!ATTLIST catgry
+    missing         (Y|N)       "N"
+    %a.global;                                                >
+<!--                                                        -->
+<!--  PFS:Is category basically the same as value-item? I.e.,
+      a folder in which all the things associated with one
+      value can be nested? Or is it a way to distinguish groups
+      of values?                                            -->
+<!--                                                        -->
+<!ELEMENT catValu     (%phrase.seq;)                          >
+<!ATTLIST catValu %a.global;                                  >
+<!--                                                        -->
+<!-- 3.2.7.1 Category Value.                                -->
+<!--                                                        -->
+<!-- 3.2.7.2 Category Label                                 -->
+<!-- Use generic labl tag.                                  -->
+<!--                                                        -->
+<!-- 3.2.7.3 Category Text                                  -->
+<!-- Use generic txt tag.                                   -->
+<!--                                                        -->
+<!-- 3.2.7.4 Category Statistic (catStat).                  -->
+<!-- ====================================                   -->
+<!-- Generic "stat" element discontinued in version 1.4.
+     Instead use particular catStat element with valu
+     element(s) nested beneath it.                          -->
+<!--                                                        -->
+<!ELEMENT catStat     (valu)+                                 >
+<!ATTLIST catStat
+     %a.global;
+     type         CDATA    "freq"                             >
+<!--                                                        -->
+<!-- 3.2.7.4.1 Value (valu)                                 -->
+<!-- Already declared above.                                -->
+<!--                                                        -->
+<!ELEMENT ivuInstr  (%specialPara;)                           >
+<!ATTLIST ivuInstr  %a.global;                                >
+<!ELEMENT codInstr  (%specialPara;)                           >
+<!ATTLIST codInstr  %a.global;                                >
+<!--                                                        -->
+<!-- 3.2.8 Interviewer Instructions (ivuInstr)              -->
+<!-- 3.2.9 Coder Instructions (codInstr)                    -->
+<!--                                                        -->
+<!-- ELEMENT edInstr      (%specialPara;)                    -->
+<!-- ATTLIST edInst   %a.global;                            -->
+<!-- 3.2.8 Editing and Imputation Instructions.             -->
+<!-- REMOVED IN VERSION 1.4 in favor of generic note
+     element.                                               -->
+<!-- 3.2.9 Error Comments (errNote) already declared
+     at study level. Use generic errNote element defined
+     there with level attribute set appropriately if
+     desired.                                               -->
+<!-- REMOVED IN VERSION 1.4 in favor of generic note
+     element.                                               -->
+<!-- ELEMENT userNote     (%specialPara;)                    -->
+<!-- ATTLIST userNote
+     %a.global;
+     resp   (Analyst|Archivst|Gatherer|Programr) #IMPLIED   -->
+<!-- 3.2.10 User Notes                                      -->
+<!-- REMOVED IN VERSION 1.4 in favor of generic note
+     element.                                               -->
+<!-- PFS: "Resp" attribute should override with its
+     controlled contents the CDATA resp attribute that
+     is part of %a.global.                                  -->
+<!--                                                        -->
+<!-- 3.2.10 Notes                                           -->
+<!-- Use generic "notes" element                            -->
+<!--                                                        -->
+<!-- 4.0 Other Documentation                                -->
+<!-- =======================                                -->
+<!--                                                        -->
+<!-- Like the "other material" element occupying place
+     1.5 in the hierarchy, this one has been replaced with
+     a lower-level element (otherMat) good in either place
+     (or others, if necessary).                             -->
+<!--                                                        -->
+<!-- Appendix A. Generic Lower-level Elements               -->
+<!-- ========================================               -->
+<!-- Note that most lower-level elements of a generic sort
+     are handled by the core TEI elements, especially
+     those grouped together by means of the parameter
+     entities %paraContent; %specialPara; %phrase.seq;
+     and %component.seq;                                    -->
+<!--                                                        -->
+<!ELEMENT otherMat      (otherMat* | (labl , txt?))           >
+<!ATTLIST otherMat
+     %a.global;
+     type           CDATA                 #IMPLIED
+     level (data|datafile|studydsc|study) #REQUIRED           >
+<!--                                                        -->
+<!-- A.a Other Material                                     -->
+<!--                                                        -->
+<!-- Level attribute used in place of separate elements for
+     'other material.' Suggested values for level include
+     specifications of the item-level to which the element
+     applies: e.g., level=record; level=variable;
+     level=study.                                           -->
+<!--                                                        -->
+<!ELEMENT labl           (%phrase.seq;)                        >
+<!ATTLIST labl
+    %a.global;
+    level          CDATA                    #REQUIRED         >
+
+<!--                                                        -->
+<!-- A.b Name (labl)                                        -->
+<!--                                                        -->
+<!ELEMENT txt            (%specialPara;)                       >
+<!ATTLIST txt
+    %a.global;
+    level          CDATA                    #REQUIRED         >
+<!--                                                        -->
+<!-- A.c. Descriptive Text (txt).                           -->
+<!-- Suggested values for Level include specifications of the
+     item-level for which the text supplies a description:
+     e.g., Level=record; Level=variable; level=category     -->
+<!--                                                        -->
+<!ELEMENT notes     (%specialPara;)                           >
+<!ATTLIST notes
+    %a.global;
+    type        CDATA         #IMPLIED
+    subject     CDATA         #IMPLIED
+    level       CDATA         #IMPLIED
+    resp        CDATA         #IMPLIED                        >
+
+<!ELEMENT p        (%specialPara;) >
+<!ATTLIST p %a.global; >
+<!--                                                        -->
+<!-- A.d. Notes and comments (notes)                        -->
+<!-- END                                                    -->
+
+]>

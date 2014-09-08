@@ -1,0 +1,385 @@
+
+This is a VERY minimal description of how to compile and run the
+Cheshire II system. Further, more complete documentation is being
+worked on, (but other things always seem to claim priority).
+
+CONTENTS:
+
+   This archive file contains both the Cheshire II client and server
+source code, some small sample databases and some sample GUI scripts
+for X windows. There are also sample scripts for the "webcheshire"
+combined client and server CGI engine (in the "scripts" directory).
+
+Files and directories in the distribution are:
+
+BerkeleyDB
+	The BerkeleyDB software used in the Cheshire database and search engine.
+Makefile
+	Main makefile 
+Makefile.bak
+	copy of main makefile
+Makefile.solaris
+	copy of makefile with typical Solaris configuration
+MakefileDM
+	copy of makefile with DMalloc error trapping (used only for development)
+ac_list
+        Generic list handling functions.
+ac_utils
+	Generic utility functions.
+bin
+	Location of executable programs
+cheshire2
+	Source code and test scripts for Cheshire clients (cheshire2, ztcl,
+	webcheshire and staffcheshire)
+client
+	Support source code for the clients.
+cmdparse
+	Command parser for the clients.
+config
+	Configuration file parser and configuration management source code.
+diagnostic
+	Z39.50 Diagnostic handling.
+doc
+	Assorted documentation on cheshire and related programs.
+fileio
+	low-level database record storage and retrieval code.
+header
+	Include (.h) files for all source code.
+index
+	Source for index creation programs.
+jmcd_logtool
+	Source for tool to read and analyse client-side transaction logs
+lib
+	Location of library files generated during compilation.
+marc2sgml
+	Conversion routines for converting MARC records to SGML 
+marclib
+	MARC parsing and handling routines.
+scripts
+	Sample Client, CGI, and utility scripts.
+search
+	Cheshire II search engine.
+sgml2marc
+	SGML to MARC conversion.
+sgmlparse
+	SGML Parser.
+socket
+	Low-level Z39.50 connection handling.
+tclhash
+	Generic Hash table handling (used throughout the system)
+utils
+	Utility programs for building, examining and counting databases.
+wordnet
+	Source code for linking WordNet (not currently supported)
+zpdu
+	Z39.50 V.3 Client and Server Libraries.
+zserver
+	Cheshire II server source code.
+
+
+---------------------------------------------------------------------
+
+
+Building Cheshire --
+
+  
+Modify the Makefile to point to Tcl and Tk (version 8.3 preferred, but
+many earlier versions should still work as well), the location of X Windows
+libraries and include files, and set appropriate flags (if using Solaris).
+If you are building a version with support for external relational 
+databases (such as PostgreSQL), you will need to set the appropriate
+definitions (e.g., DBMS_FLAG = "-DPOSTGRESQL") and the location of the
+appropriate include files and libraries. Any external relational 
+database system that you are planning to link in will need to be built first.
+Once the Makefile is set up...
+
+Type:
+    make newbin
+
+If all goes well, the make process should end with building the zserver
+and jserver programs and moving them to the bin directory.
+
+The bin directory should contain the following programs:
+
+buildassoc*      db_recover*      highpost*        sgml2marc*
+cheshire2*       db_stat*         in_test*         staffcheshire*
+countdb*         dtd_parser*      index_cheshire*  test_config*
+db_archive*      dumpcomp*        index_clusters*  testsrch2*
+db_checkpoint*   dumpdb*          jserver*         webcheshire*
+db_deadlock*     dumppost*        marc2sgml*       zserver*
+db_dump*         dumprecs*        opac*            ztcl*
+db_load*         getnumrecs*      parser*
+
+These are:
+
+buildassoc
+        a utility to build an associator file from an SGML file.
+cheshire2
+        Main X windows client program.
+countdb
+        a utility to count the number of items in an index and produce a
+        frequency count.
+
+db_archive
+db_checkpoint
+db_deadlock
+db_dump
+db_load
+db_recover
+db_stat
+	utility programs associated with the BerkeleyDB system used in 
+	Cheshire II indexes. See the manual pages in the doc directory.
+dtd_parser
+	An SGML parsing program for testing database data.
+dumpcomp
+	A program to dump information from component files.
+dumpdb
+	utility program to print the contents of an index file.
+dumppost
+	utility program to print the contents and postings of an index file.
+dumprecs
+	utility program to print the contents of an SGML data file or a single
+	record from the file.
+getnumrecs
+	utility program to report the highest record id number in a data file.
+highpost
+	utility program to print all entries in an index with more than some
+	specified postings.
+
+in_test
+	Test version of the indexing program (with voluminous output, useful
+	for tracking indexing data problems.)
+
+index_cheshire
+	The main index creation program. It is suggested that the batch (-b)
+	flag be used for best performance. (NOTE: use of the batch flag
+	requires sufficient work space on the disks where the index will be
+	located to hold the index contents TWICE- but indexing is MUCH faster
+        than not using the flag)
+
+index_clusters
+        If cluster files are generated during the index_cheshire run, this
+	program is used to finish generation of the cluster files and indexes.
+
+jserver
+        A version of the server designed WITHOUT Z39.50, that will listen on
+        a specified socket and interact with the user/client program using a
+        simple command language
+
+marc2sgml
+	Conversion utility to converting MARC records to SGML (using the
+        Berkeley DTD)
+
+sgml2marc
+	Conversion utility to convert SGML conforming to the Berkeley USMARC
+	DTD to MARC records.
+
+test_config
+        A program to validate (and echo back) configuration files.
+
+testsrch2
+	Simple line-oriented command driven interface to the search engine.
+	useful for testing.
+
+webcheshire
+	Combined elements of the cheshire client and server, used as a
+	scriptable CGI driver (see scripts directory for samples)
+
+zserver
+	The Z39.50 server. The server is configured by a combination of
+	a "server.init" and the database configuration files for each 
+	database being served (see docs/configfiles.ps)
+
+ztcl
+	A version of the client software without X Window support. Can be
+	used for utilities or as a line-by-line interface (for those that
+	know a bit about Tcl/Tk).
+
+
+Typing the name alone of any of the utility programs will show the usage
+and required arguments for the command. 
+
+----------------------------
+SERVER
+----------------------------
+
+Once the system is built you will need to set up the server. This will
+require root access to modify some systems file.
+
+A line like the following should be added to the /etc/services file,
+(the 2100 can be any port you want -- the official "well-known port" 
+for z39.50 is 210)
+
+cheshire        2100/tcp        ir      # Cheshire II server
+
+
+Then a line like the following should be added to /etc/inetd.conf
+
+#
+# Z39.50 Information Retrieval access...
+#
+cheshire        stream  tcp     nowait  nobody  /usr6/ray/Work/cheshire/zserver/zserver zserver -c /usr6/ray/Work/cheshire/zserver/server.init
+#
+
+This means that when the "cheshire service" on port 2100 is connected to,
+it will start up a session as user "nobody" using the program at
+/usr6/ray/Work/cheshire/zserver/zserver
+
+The arguments passed to the zserver are what remains on the line above:
+zserver -c /usr6/ray/Work/cheshire/zserver/server.init
+
+This is argv[0] -- the program name -- argv[1] -- "-c" a flag indicating 
+that the following argument is the name of the initialization file for
+the server. The -p option can also be used to specify a port number.
+
+The following initialization file contains the following sorts of information:
+(this comes from the zserver/server.init file)
+#
+#   Z3950 Server Initialization File. 
+#   The name and value must be in one line. Double quote should be
+#   placed around a value if the value contains more than one word.
+#   anything following a # on a line is a comment
+#	
+#   Most field names are based on Z39.50 parameter values
+#
+#	FIELD_NAME			VALUE
+
+PREFERRED_MESSAGE_SIZE			32768
+MAXIMUM_RECORD_SIZE			131072
+IMPLEMENTATION_ID			"1997"
+IMPLEMENTATION_NAME			"UC Berkeley V3 ZServer"
+IMPLEMENTATION_VERSION			"1.0"
+PROTOCOL_VERSION			"111"
+OPTIONS					"111011111000001"
+PORT					"2222"  # testing port number
+# note that this port is NOT used unless the server is started from the
+# command line.
+# Database names are the databases served by this server
+# NOTE: DATABASE_NAMES is entirely optional -- the actual information used
+# is now SOLELY derived from the configuration files filenames and filetags
+DATABASE_NAMES				"bibfile diglib scimarc"
+# directories where the corresponding names above are located
+DATABASE_DIRECTORIES			"/usr6/ray/Work/cheshire/index/TESTDATA /usr6/ray/Work/cheshire/index/TESTDL /usr6/SCI_MARC"
+# Name of the database configuration files associated with the databases
+# (can use pathnames relative to the corresponding database directories, 
+# or full paths)
+# At least one CONFIGFILE name MUST be supplied
+DATABASE_CONFIGFILES			"testconfig.new CONFIG.DL DBCONFIGFILE DBCONFIGFILE DBCONFIGFILE CONFIG.CSMP testconfig.dbms CONFIG.OTA" # list of configfiles
+SUPPORT_NAMED_RESULT_SET		1    			# 1 means YES
+SUPPORT_MULTIPLE_DATABASE_SEARCH	1    			# 0 means NO
+MAXIMUM_NUMBER_DATABASES		10
+MAXIMUM_NUMBER_RESULT_SETS		100
+TIMEOUT					120  			# in seconds
+LOG_FILE_NAME				"zserver.log"
+# This directory will contain the server session log and resultset files and 
+# must be writeable by user "nobody" (or whatever user the server runs as).
+RESULT_SET_DIRECTORY			"/usr/tmp"
+# supported attribute sets
+ATTRIBUTE_SET_ID			"1.2.840.10003.3.1 1.2.840.10003.3.2 1.2.840.10003.3.5"	# BIB-1, EXP-1, and GILS
+#
+#
+SUPPORT_TYPE_0_QUERY			1
+SUPPORT_TYPE_1_QUERY			1
+SUPPORT_TYPE_2_QUERY			0
+SUPPORT_TYPE_100_QUERY			0
+SUPPORT_TYPE_101_QUERY			1
+SUPPORT_TYPE_102_QUERY			1
+#
+#
+SUPPORT_ELEMENT_SET_NAMES		1
+SUPPORT_SINGLE_ELEMENT_SET_NAME		0
+#
+#	End of The Server Initialization File.
+#
+
+It is not uncommon for server failure or indexing failure to be caused
+by incorrect configuration files or server.init files. The first place to
+look is in any log files (zserver.log) left in the RESULT_SET_DIRECTORY 
+location. All error messages from the server are sent to the log file
+(unless the server is started from the command line).
+
+The database configuration files, as mentioned above, have their own document
+in docs that describe what the database configuration files contain and
+the various options.
+
+If you are linking in an external relational DBMS (such as PostgreSQL),
+and running the server via inetd, then you will need to ensure that any
+dynamically linkable libraries of the external DBMS are accessible. A simple
+way to do this is to create a symbolic link for these libraries in /usr/lib.
+
+Examples of configurations files are available in the index directory.
+
+To index a database you need a valid database configuration file. For
+testing purposes the config/cf_test program (cd to config and do 
+a "make all") can be used to print out what the configuration file parser
+sees as the contents of the configuration file, and report many possible 
+errors).
+
+To index a complete database use the command:
+index_cheshire -b DATABASE_CONFIG_FILE_NAME  
+
+A log file called INDEX_LOGFILE will be created in the current directory
+that will contain error messages or processing information about the
+indexing process.
+
+Note that starting with version 2.20 the system now needs to have a
+DATABASE ENVIRONMENT area set aside for use by BerkeleyDB for handling
+locking and disk-backed buffering of data. The advantage gained by
+these changes is that it should is now safe to run index-building
+updates while the server is actively searching the same database. The
+database environment should be set up as an empty directory accessible
+to the server. The same database environment may be shared among all
+of the databases accessed by a server. You tell the system where the
+database environment area is located in one of two ways:
+
+1) Set the environment variable CHESHIRE_DB_HOME to the full pathname of the
+   database environment directory.
+or
+2) Add a <DBENV> tag immediately after the <DBCONFIG> and before the first
+   <FILEDEF> in the configuration file.
+
+The environment variable has priority and will override the DBENV tag in a
+config file. 
+
+IF neither of these is done, the server or program (such as
+index_cheshire, zserver, webcheshire, etc.) will quit with the message
+"CHESHIRE_DB_HOME must be set OR config file <DBENV> set." sent to the
+console or to the server log file.
+
+When indexing is run (actually when any program that accesses or
+updates the indexes is run) Three files are created in the database
+environment directory, (__db.001, __db.002, and __db.004). Any program
+or user who accesses the database must be able to read and write these
+files. The simplest way to handle this is to make the files world read
+and writable. Alternatively group write could be used, with all users
+allowed to update and access the database -- including the user ids
+associated with the inetd-started servers -- as members. 
+
+Once the indexing is completed, the configuration file, database name,
+and database directory can be added to the server.init file and that
+database will be available for Z39.50 searching via the Cheshire II server.
+
+-----------------------------------
+CLIENT
+-----------------------------------
+Help information on using the X Window-based Z39.50 client program is
+available in docs as search.info, quickstart.help.txt, 
+syntax.error.help.txt and cheshire2.info 
+
+To set up the client, you need to edit two files (from one of the 
+client interface scripts in cheshire2/GUI?). 
+
+The first file, called "opac" needs to have the location of the
+executable cheshire2 program substituted on the first line, and the
+location of the ???/cheshire/GUI?  directory substituted for the
+"defaultPath" variable. The opac file can then be copied or moved to
+any convenient location and marked as an executable file.
+
+The second file, called tkinfo.tcl, needs to have the location of the
+docs directory added to the "defInfoPath" list variable in order to
+find the help files.
+
+------------------------------------
+------------------------------------
+
+Ray Larson

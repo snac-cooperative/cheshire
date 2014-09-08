@@ -1,0 +1,11 @@
+set CHESHIRE_DATABASE bibfile
+set CHESHIRE_NUMREQUESTED 10
+set CHESHIRE_CONFIGFILE "CONFIG.DL"
+set RESULTS [search any @ water policy]
+puts "*************** Probabilistic result (first 10) *****************"
+puts $RESULTS
+set RESULTS [search any water policy]
+puts "*************** Boolean result (first 10) *****************"
+puts $RESULTS
+close_cheshire
+exit

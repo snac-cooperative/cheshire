@@ -1,0 +1,319 @@
+<HTML>
+
+<HEAD>
+<title>Cheshire II Help</title>
+</HEAD>
+
+<body VLINK="990000" 
+ BACKGROUND="paper3.gif">
+<H2><IMG SRC="smallcat.gif"
+ align=middle> Cheshire II Help</h2>
+
+<HR>
+Link to the <A HREF="http://cheshire.lib.berkeley.edu/">Cheshire II Project</a>
+home page.
+<HR>
+
+<B>Contents</B>
+
+<UL>
+<LI><A HREF="#GEN">General</A> 
+<LI><A HREF="#HOS">Hosts</A> 
+<LI><A HREF="#IND">Indexes</A> 
+<LI><A HREF="#ITE">Number of Items to Retrieve</A> 
+<LI><A HREF="#FMT">Display Formats</A> 
+<LI><A HREF="#NUL">Null Retrievals</A> 
+<LI><A HREF="#BUG">Known Bugs</A>
+</UL>
+
+<HR>
+
+<H3><A NAME="GEN">General</H3></A>
+
+Cheshire II provides a uniform interface for accessing a number of
+catalogs and other information sources.  It does this through its
+implementation of the Z39.50 client/server protocol.  One of its
+advantages is that if you don't find what you are looking for at one
+site, you only need to select a different host and press the Start
+Search button again to look for the same item(s) elsewhere.  (On the
+downside, this feature restricts the WWW version of Cheshire II to
+offering only those indices known to be supported on all hosts,
+namely, author, title, and subject/topic.)
+
+<P>Less obvious, but more exciting, is the availability of ranked
+retrieval, which permits one to enter terms that may not exactly match
+those in any particular index and still retrieve highly relevant
+materials.  This is only available at the "UCB Physical Sciences" site
+and the "UC Berkeley Digital Library" site,
+which use the Cheshire II server and search engine.
+
+<P>Even less obvious is the recent addition of various servers
+accessed via the Digital Library InfoBus (a CORBA-based digital
+information sharing architecture) through a Z39.50 proxy. These
+are indicated in the information services menu as "InfoBus access
+to xxx" for a variety of different services. The InfoBus Z39.50
+proxy at Stanford sends back the results of searches in a simplified
+MARC format.
+ 
+<P>Least obvious of all is the fact that the bibliographic records
+housed on the Cheshire II server are in SGML format.  While you will
+see no difference between these and the standard MARC format records
+provided by the other hosts on the menu, Cheshire II's use of SGML
+means that in the future, Cheshire searches will be able locate and
+deliver all sorts of documents, and not just bibliographic records.
+
+<HR>
+
+<CENTER>
+<A HREF="#GEN">General</A> |
+<A HREF="#IND">Indexes</A> |
+<A HREF="#ITE">Number of Items to Retrieve</A> |
+<A HREF="#FMT">Display Formats</A> |
+<A HREF="#NUL">Null Retrievals</A> |
+<A HREF="#BUG">Known Bugs</A>
+</CENTER>
+
+<H3><A NAME="HOS">Hosts</H3></A>
+
+While the number of Z39.50 complient servers is increasing rapidly,
+only about a dozen of these are on the list of catalogs available for
+searching via the Cheshire II interface.  They are sites judged to be
+of potential interest to UC users , which also happen to be regularly
+accessible and well-behaved.
+
+<P>The list currently includes the <A HREF="http://elib.cs.berkeley.edu/">
+UC Berkeley NSF/NASA/ARPA Digital Library </a> 
+of full-text environmental documents. The 
+<A HREF="http://www.lib.berkeley.edu/AMS/">
+UC Berkeley Physical Sciences Libraries, including Astronomy, Mathematics and
+Statistics, Chemistry, Physics, Geology, etc.</A>, three 
+<A HREF="http://www.dla.ucop.edu/">
+Melvyl</A> (UC-wide) catalogs, the libraries at
+<A HREF="http://www.psu.edu/">
+Penn State University</A>, 
+<A HREF="http://www.duke.edu/">
+Duke University</A>,
+<A HREF="http://www.cmu.edu/">Carnegie Mellon University</A>,
+<A HREF="http://www.unc.edu/">UNC Chapel Hill</A>, the
+<A HREF="http://www.ust.hk/">
+Hong Kong University of Science and Technology</A>, and
+<A HREF="http://www.research.att.com/">
+ATT Bell Labs</A>, the CIA World Factbook, the
+<A HREF="http://info.er.usgs.gov/gils/index.html">
+Government Information Locator Service</A>, and four
+periodical indexes -- <A
+HREF="http://www.lib.berkeley.edu/TeachingLib/Guides/MELVYL/AlphaDBs1.html#abi">
+ABI Inform</A>, the IAC <A
+HREF="http://www.lib.berkeley.edu/TeachingLib/Guides/MELVYL/AlphaDBs1.html#comp">
+Computer Database</A>, the <A
+HREF="http://www.lib.berkeley.edu/TeachingLib/Guides/MELVYL/AlphaDBs3.html#mags">
+Expanded Academic Index</A>, <A
+HREF="http://www.lib.berkeley.edu/TeachingLib/Guides/MELVYL/AlphaDBs2.html#ins">
+Inspec</A>, and the <A
+HREF="http://www.lib.berkeley.edu/TeachingLib/Guides/MELVYL/AlphaDBs3.html#news">
+National Newspaper Index</A> -- which can only be accessed from Berkeley
+campus computers. (The preceding periodical index links lead to short
+descriptions of the databases in question and, indirectly, to 
+detailed instructions for accessing them through MELVYL.  These
+contain potentially useful information for the Web Cheshire user, even
+though specific command sequences and the like will not apply.)
+
+<P>When you retrieve records from one of these hosts, you have the
+option of clicking an author name or subject heading to get 10 more
+items by the same person or on the same topic.  When you do, these
+will be retrieved from the same host as the original record set, even
+if you have changed hosts on the main search screen in the meantime.
+(If you want or need more than 10 items, click the button at the
+bottom of the record display to get 10 more; or return to the main
+screen, type in the author or subject, and ask for as many as you
+wish.)
+
+<HR>
+
+<CENTER>
+<A HREF="#GEN">General</A> |
+<A HREF="#HOS">Hosts</A> |
+<A HREF="#ITE">Number of Items to Retrieve</A> |
+<A HREF="#FMT">Display Formats</A> |
+<A HREF="#NUL">Null Retrievals</A> |
+<A HREF="#BUG">Known Bugs</A>
+</CENTER>
+
+<H3><A NAME="IND">Indexes</H3></A>
+
+Using the familiar Web browser to access diverse information resources
+is clearly advantageous, but it imposes limitations as well, one of
+which is that only those indexes supported by all hosts can appear in
+the lists of choices.
+
+<P>Cheshire's non-WWW interface does not have this problem, since it
+adjusts index lists whenever the user chooses a new host; but HTML
+forms do not currently support this sort of interaction.  It is
+possible that incorporating Java into Web Cheshire will eliminate this
+limitation, but it has not yet been tried.  In the meantime, hosts
+accessible through Web Cheshire can only be searched by author, title,
+and subject or topic. (See below for more information on these last
+two.)
+
+<P>While most of the index selections available on the WWW version of
+Cheshire II will be familiar to users of online catalogs, it is worth
+remembering that these are not treated in exactly the same way
+everywhere.  For example, some treat title or subject search terms as
+keywords and will return any item in which those terms occur in the
+appropriate fields.  Duke University's catalog treats them as a
+phrase, however.  That is, a title search for <I>endangered
+wetlands</I> will only return items in which those to words occur
+adjacent to one another in the title.  <I>Wetlands: Endangered
+Habitats</I> won't be found.
+
+<P>As a further example, the CIA World Fact Book will get what you
+want if you submit the "Algeria" as a topic, author, LC subject
+heading, or title; but in all but the last instance you also get data
+on the Cape Verde Islands, the Central African Republic, and other
+countries.
+
+<P><I>Topic</I> will be the one unfamiliar index.  When you submit a
+topic search to the UCB Astr-Math-Stat (that is, the Cheshire server
+itself), the search engine looks in several places for terms similar
+to those entered, computes the degree of match, and returns a
+relevance-ranked list of items.  Where this kind of sophisticated
+searching is not supported (that is, everywhere else), but multi-index
+exact-match searches are, the latter is used.  In the remaining cases
+a standard search is performed against the Library of Congress (LC)
+subject heading index.
+
+<P>Needless to say, Cheshire's judgment of relevance will not always
+coincide with its user's, but you should generally find some useful
+items among the top ranked retrievals; so topic searching "UCB
+Astr-Math-Stat" is a good way to begin looking for materials in an
+unfamiliar field of inquiry.  (To get a sense of this do a topic
+search for "local compactness."  The top ranked retrievals are clearly
+relevant, despite the fact that the terms <I>local</I> and
+<I>compactness</I> don't appear.  Title and subject searches for
+"local compactness" in Melvyl, for example, find nothing.) Avoid topic
+searches that include common terms -- like "astronomy" or "algebra" --
+or terms that have multiple meanings, however, as these frequently
+lead to disappointing results.
+
+<P>Most servers allow one to narrow or broaden your search by choosing
+to "and" or "or" search terms (by means of the buttons directly above
+the search entry windows).  There are exceptions, however.  The Hong
+Kong University of Science and Technology catalog permits only
+single-index searches.
+
+<HR>
+
+<CENTER>
+<A HREF="#GEN">General</A> |
+<A HREF="#HOS">Hosts</A> |
+<A HREF="#IND">Indexes</A> |
+<A HREF="#FMT">Display Formats</A> |
+<A HREF="#NUL">Null Retrievals</A> |
+<A HREF="#BUG">Known Bugs</A>
+</CENTER>
+
+<H3><A NAME="ITE">Number of Items to Retrieve</H3></A>
+
+It is usually a good idea to request a relatively small number of
+items to retrieve when you begin a search.  This will enable you to
+determine if you are on the right track, or if you should change your
+strategy, without waiting for hundreds of records to be transmitted
+from the selected host.  If you ask to retrieve only 10, say, they
+seem to be just what you are looking for, and the search results
+screen says that there are 50 more, you can either get them 10 at a
+time by clicking the "Next" button at the bottom of the record
+display; go back to the main search screen, change the number to
+retrieve to 60, and resubmit the search; set the starting record to
+11, change the number to retrieve to 20, to see records 11 thru 30;
+and so on. On the other hand, if the results screen says that there
+are 500 more, you should probably concoct a new search.
+
+<P>If you just want to know how many items are available at a site,
+you can set the number to retrieve to 0 or, equivalently, put nothing
+in the window at all. (Putting nothing in the starting record window,
+however, is considered to be a request to begin the display with
+record number 1.)
+
+<HR>
+
+<CENTER>
+<A HREF="#GEN">General</A> |
+<A HREF="#HOS">Hosts</A> |
+<A HREF="#IND">Indexes</A> |
+<A HREF="#ITE">Number of Items to Retrieve</A> |
+<A HREF="#NUL">Null Retrievals</A> |
+<A HREF="#BUG">Known Bugs</A>
+</CENTER>
+
+<H3><A NAME="FMT">Display Formats</H3></A>
+
+You may want to select the short, rather than the (default) long,
+display format you can reduce the number of screens you need to page
+through to review your search results.  If you are happy with the
+results, but want to see more information about the items, you must go
+back to the search screen and resubmit your search after selecting the
+long format.  At the moment, the results of searches submitted by
+clicking an author or subject hot-link are available in long format
+only.
+
+<P>If you are searching one of periodical indexes, however, you may
+well want to use the long display format from the start, since it will
+include article abstracts if they are available, while the short
+display format will suppress them.
+<HR>
+
+<CENTER>
+<A HREF="#GEN">General</A> |
+<A HREF="#HOS">Hosts</A> |
+<A HREF="#IND">Indexes</A> |
+<A HREF="#ITE">Number of Items to Retrieve</A> |
+<A HREF="#FMT">Display Formats</A> |
+<A HREF="#BUG">Known Bugs</A>
+</CENTER>
+
+<H3><A NAME="NUL">Null Retrievals</H3></A>
+
+It sometimes happens that you submit a search, but get nothing back.
+Any number of things may be the cause: The source you are checking may
+simply not have anything matching the description you gave.  The
+selected host may be down temporarily and not accepting requests; it
+may be refusing to service your search because it contains very common
+words and would tie up the machinery for an unacceptably long time; or
+something may have gone awry with the Z39.50 exchange between the
+client and server.  There may be a misspelling in your search request.
+Or you may have encountered a Cheshire bug as yet undetected by its
+creators.
+
+<P>Cheshire tries to distinguish among these and displays diagnostic
+messages when it can, some of which may be cryptic.  Efforts are
+underway to clarify the diagnostic messages, to provide diagnostics
+where none exist, and to sort out all the error codes returned by the
+various servers Cheshire communicates with.
+
+<HR>
+
+<CENTER>
+<A HREF="#GEN">General</A> |
+<A HREF="#HOS">Hosts</A> |
+<A HREF="#IND">Indexes</A> |
+<A HREF="#ITE">Number of Items to Retrieve</A> |
+<A HREF="#FMT">Display Formats</A> |
+<A HREF="#NUL">Null Retrievals</A>
+</CENTER>
+
+<H3><A NAME="BUG">Known Bugs</H3></A>
+
+<OL> <LI>Clicking some <b>hot-links that contain numbers or certain
+punctuation</b> marks can produce null retrievals, apparently because
+the host is unable to process them in a search requests.  These
+problems are being addressed as they come to light.<P>
+
+<LI>Subject (and probably other) , <B>searches containing
+punctuation</B> -- e.g. "c*-algebras" -- will not be exactly
+matched in the UCB Physical Sciences database
+Removing the punctuation to get "c algebras" and using the
+"subject" instead of "topic" index will get the desired results<p>
+</OL>
+
+</BODY>
+</HTML>

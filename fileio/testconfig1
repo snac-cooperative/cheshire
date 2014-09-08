@@ -1,0 +1,164 @@
+<DBCONFIG>
+<FILEDEF TYPE=MARC>
+<FILETAG>  bibfile
+</FILETAG>
+<FILENAME>  	/usr4/users/larson/SRC/cheshire2/fileio/xx.MAINFILE
+</FILENAME>
+<FILEDTD>	/usr4/users/larson/SRC/cheshire2/fileio/USMARC05.DTD
+</FILEDTD>
+<ASSOCFIL>	/usr4/users/larson/SRC/cheshire2/fileio/xx.asso
+</ASSOCFIL>
+<HISTORY>	/usr4/users/larson/SRC/cheshire2/fileio/xx.history
+</HISTORY>
+<INDEXES>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	
+		/usr4/users/larson/SRC/cheshire2/fileio/xx.dict
+		
+</INDXNAME>
+<INDXTAG>	author
+		
+</INDXTAG>
+<INDASSOC> 
+		/usr4/users/larson/SRC/cheshire2/fileio/xx.author.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /usr4/users/larson/SRC/cheshire2/fileio/xx.author.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /usr4/users/larson/SRC/cheshire2/fileio/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld100 
+ 			
+</FTAG><FTAG>Fld110 
+			
+</FTAG><FTAG>Fld111 
+			
+</FTAG><FTAG>Fld700
+			
+</FTAG><FTAG>Fld710
+			
+</FTAG><FTAG>Fld711
+		
+</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=WORDNET>
+<INDXNAME>	
+		/usr4/users/larson/SRC/cheshire2/fileio/xx.dict
+		
+</INDXNAME>
+<INDXTAG>	title
+		
+</INDXTAG>
+<INDASSOC> 
+		/usr4/users/larson/SRC/cheshire2/fileio/xx.title.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /usr4/users/larson/SRC/cheshire2/fileio/xx.title.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /usr4/users/larson/SRC/cheshire2/fileio/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld245 
+</FTAG><S>a</S><S>b 
+			
+</S><FTAG>Fld240 
+</FTAG><S>a 
+</S><S>t 
+</S><S>p <S> subsub-p </S>
+			
+</S><FTAG>Fld130 
+			
+</FTAG><FTAG>Fld730 
+			
+</FTAG><FTAG>Fld740 
+			
+</FTAG><FTAG>Fld1xx 
+</FTAG><S>t 
+			
+</S><FTAG>Fld7xx 
+</FTAG><S>t
+		
+</S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=WORDNET>
+<INDXNAME>	
+		/usr4/users/larson/SRC/cheshire2/fileio/xx.dict
+		
+</INDXNAME>
+<INDXTAG>	subject
+		
+</INDXTAG>
+<INDASSOC> 
+		/usr4/users/larson/SRC/cheshire2/fileio/xx.subj.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /usr4/users/larson/SRC/cheshire2/fileio/xx.subj.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /usr4/users/larson/SRC/cheshire2/fileio/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld6xx  
+		
+</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	
+		/usr4/users/larson/SRC/cheshire2/fileio/xx.dict
+		
+</INDXNAME>
+<INDXTAG>	topic
+		
+</INDXTAG>
+<INDASSOC> 
+		/usr4/users/larson/SRC/cheshire2/fileio/xx.topic.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /usr4/users/larson/SRC/cheshire2/fileio/xx.topic.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /usr4/users/larson/SRC/cheshire2/fileio/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld6xx
+			
+</FTAG><FTAG>Fld245 
+</FTAG><S>a<S>b</S>
+			
+</S><FTAG>Fld240 
+</FTAG><S>a<S>t<S>p</S></S> 
+			
+</S><FTAG>Fld4xx 
+			
+</FTAG><FTAG>Fld8xx 
+			
+</FTAG><FTAG>Fld130 
+			
+</FTAG><FTAG>Fld730 
+			
+</FTAG><FTAG>Fld740 
+			
+</FTAG><FTAG>Fld1xx 
+</FTAG><S>t 
+			
+</S><FTAG>Fld790 
+</FTAG><S>nest1  <S>nest2  <S> nest3 </S></S></S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+</INDEXES>
+</FILEDEF>
+</DBCONFIG>

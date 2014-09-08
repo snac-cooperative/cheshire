@@ -1,0 +1,8 @@
+The Cheshire II implementation of the Snowball stemmer is based on 
+the code provided on the main Snowball site: http://snowball.tartarus.org/
+
+The latest version supports both UTF-8 and ISO-8859-1 stemming for most
+European languages and KOI8 for russian as well.
+
+Ray Larson
+

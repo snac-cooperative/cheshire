@@ -1,0 +1,23 @@
+puts "***** Selecting MELVYL *****"
+puts [zselect melvyl]
+puts ""
+for {set i 0} {$i < 500} {incr i} {}
+puts "***** searching larson *****"
+set res1 [zfind author buckland, michael k]
+puts $res1
+for {set i 0} {$i < 500} {incr i} {}
+puts "***** displaying *****"
+set res2  [zdisplay]
+set x [lindex $res2 2]
+puts ""
+puts $x
+puts ""
+set printable [zformat list $x 999]
+puts $printable
+foreach rec $printable {
+	foreach l $rec {
+		puts $l
+	}
+}
+zclose
+

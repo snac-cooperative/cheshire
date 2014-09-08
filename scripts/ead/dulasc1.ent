@@ -1,0 +1,8 @@
+<!-- Entities for characters required but not available in standard sets -->
+<!-- Character entity set. Typical invocation: -//DULASC//ENTITIES Characterset extension 1//EN -->
+
+<!ENTITY ayn SDATA "[ayn]"--=ayn-->
+<!ENTITY Hdbw SDATA "[Hdotbelow]"--=capital H, dot below-->
+<!ENTITY hdbw SDATA "[hdotbelow]"--=small h, dot below-->
+<!ENTITY Sdbw SDATA "[Sdotbelow]"--=capital S, dot below-->
+

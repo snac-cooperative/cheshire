@@ -1,0 +1,58 @@
+<!ELEMENT basicsearch   (select, from, where?, orderby?, limit?) >
+
+<!ELEMENT select        (allprop | prop) >
+
+<!ELEMENT from  (scope) >
+<!ELEMENT scope (href, depth?) >
+
+<!ENTITY %comp_ops      "eq | lt | gt| lte | gte">
+<!ENTITY %log_ops       "and | or | not">
+<!ENTITY %special_ops   "isdefined">
+<!ENTITY %string_ops    "like">
+<!ENTITY %content_ops   "contains">
+
+<!ENTITY %all_ops       "%comp_ops; | %log_ops; | %special_ops; |%string_ops; | %content_ops;">
+
+<!ELEMENT where ( %all_ops; ) >
+
+<!ELEMENT and   ( ( %all_ops; ) +) >
+
+<!ELEMENT or    ( ( %all_ops; ) +) >
+
+<!ELEMENT not   ( %all_ops; ) >
+
+<!ELEMENT lt    ( prop , literal ) >
+<!ATTLIST lt    casesensitive   (1|0) "1" >
+
+<!ELEMENT lte   ( prop , literal ) >
+<!ATTLIST lte   casesensitive   (1|0) "1" >
+
+<!ELEMENT gt    ( prop , literal) >
+<!ATTLIST gt    casesensitive   (1|0) "1" >
+
+<!ELEMENT gte   ( prop , literal ) >
+<!ATTLIST gte   casesensitive   (1|0) "1" >
+
+<!ELEMENT eq    ( prop , literal ) >
+<!ATTLIST eq    casesensitive   (1|0) "1" >
+
+<!ELEMENT literal       (#PCDATA)>
+<!ATTLIST literal       xml:space       (default|preserve) preserve >
+
+<!ELEMENT isdefined     (prop) >
+<!ELEMENT like  (prop, literal) >
+<!ELEMENT contains      (#PCDATA)>
+
+<!ELEMENT orderby       (order+) >
+<!ELEMENT order (prop, (ascending | descending)?)
+
+<!ATTLIST order casesensitive   (1|0) "1" >
+<!ELEMENT ascending     EMPTY>
+
+<!ELEMENT descending    EMPTY>
+
+<!ELEMENT limit (nresults) >
+<!ELEMENT nresults      (#PCDATA) >
+
+
+

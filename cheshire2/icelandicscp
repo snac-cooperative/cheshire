@@ -1,0 +1,17 @@
+puts "selecting cheshire"
+zselect sunsite
+puts "setting format/syntax"
+zset recformat sgml
+puts "find"
+zfind topic surtsey
+puts "present"
+set x [zdisplay]
+set recs [lrange $x 1 end]
+puts "formatting sgml records"
+foreach y $recs {
+	puts [zformat long $y 2 1 80 /tmp/SUNSITE2.dtd]
+	puts ""
+}
+zclose
+exit
+

@@ -1,0 +1,173 @@
+<!-- This is a test config file for Cheshire II -->
+<DBCONFIG>
+<DBENV> /home/ray/Work/DBENV </DBENV>
+
+<!-- The first filedef -->
+<FILEDEF TYPE=MARCSGML>
+
+<DEFAULTPATH> /home/ray/Work/cheshire/config </DEFAULTPATH>
+
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> testattr </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> /home/ray/Work/cheshire/index/testrecs</FILENAME>
+
+<FILEDTD> /home/ray/Work/cheshire/doc/install/USMARC12.DTD </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> /home/ray/Work/cheshire/index/testrecs.assoc</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> TESTDATA/junk.history
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> TESTDATA/dictionary.author </INDXNAME>
+<INDXTAG> author </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+<DESC>this is a description of things</DESC></INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP ATTRIBUTESET="GEO"> <USE> 2038 </USE><RELAT> 8 </RELAT> <struct> 201 </struct> </INDXMAP>
+<INDXMAP ATTRIBUTESET="BIB1"> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP ATTRIBUTESET="GILS"> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP ATTRIBUTESET="1.2.840.10003.3.1000.171.99"> <ACCESS> "TEST" </ACCESS> <SEMANTIC> test </SEMANTIC> <FUNCTION>  "1232TEST" </FUNCTION> </INDXMAP>
+<INDXMAP ATTRIBUTESET="1.2.840.10003.3.100"> <USE ATTR="BIB1"> 1005 </USE><POSIT ATTR="UTIL"> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP ATTRIBUTESET="holdings"> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+<DESC>this is a another description of things</DESC></INDXMAP>
+
+
+<!-- The stoplist for this file -->
+<STOPLIST> TESTDATA/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD100 </FTAG>
+<FTAG>FLD110 </FTAG>
+<FTAG>FLD111 </FTAG>
+<FTAG>FLD700 </FTAG>
+<FTAG>FLD710 </FTAG>
+<FTAG>FLD711 </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> TESTDATA/dictionary.title </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><S>^[ab]$ </S>
+<FTAG>FLD240 </FTAG> <S> ^[atp]$ </S>
+<FTAG>FLD130 </FTAG>
+<FTAG>FLD730 </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD_PROXIMITY NORMAL=STEM>
+<INDXNAME> TESTDATA/dictionary.topic </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 29 </USE>
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT>
+</INDXMAP>
+
+<STOPLIST> TESTDATA/titlestoplist </STOPLIST>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG><S>[abz]</S>
+<FTAG>FLD245 </FTAG><S>[ab] </S>                                           
+<FTAG>FLD240 </FTAG><S>[atp] </S>                                          
+<FTAG>FLD4.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD8.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD130 </FTAG><s>[atp]</s>
+<FTAG>FLD730 </FTAG><s>[atp]</s>
+<FTAG>FLD740 </FTAG><S>[ap]</s>
+<FTAG>FLD1.. </FTAG><S>t </S>
+<FTAG>FLD7.. </FTAG><S>t </S>
+<!-- Note this is the call number but it will not be normalized --> 
+<FTAG>FLD950 </FTAG><S>a </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=CLASSCLUS>
+<INDXNAME> TESTDATA/dictionary.lcclass </INDXNAME>
+<INDXTAG> lcclass </INDXTAG>
+
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 3 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 3 </struct> </INDXMAP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD050 </FTAG> <s> ^a </s>
+<FTAG>FLD950 </FTAG> <s> ^a </s>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+</INDEXES>
+
+<DISPOPTIONS>
+KEEP_ALL
+</DISPOPTIONS>
+
+<DISPLAY>
+ <FORMAT NAME="B" OID="1.2.840.10003.5.109.9">
+  <exclude COMPRESS>
+        <tagspec>
+                <ftag>Leader</ftag>
+                <ftag>Directry</ftag>
+                <ftag>VarCFlds</ftag>
+                <ftag>Numbcode</ftag>
+                <ftag>EdImprnt</ftag>
+                <ftag>PhysDesc</ftag>
+                <ftag>Series</ftag>
+                <ftag>Notes</ftag>
+                <ftag>SubjAccs</ftag>
+                <ftag>AddEnty</ftag>
+                <ftag>Fld9XX</ftag>
+        </tagspec>
+  </exclude>
+</format>
+<FORMAT NAME="HTML" OID="1.2.840.10003.5.109.3" >
+  <convert function="/home/ray/Work/cheshire/index/tohtml.tcl"> 
+ </convert>
+</FORMAT>
+<FORMAT NAME="F" OID="1.2.840.10003.5.101" >
+  <convert function="/home/ray/Work/cheshire/index/tohtml.tcl"> 
+ </convert>
+</FORMAT>
+</DISPLAY>
+</FILEDEF> 
+</DBCONFIG>
+
+

@@ -1,0 +1,4 @@
+
+<!ELEMENT message - - (fromaddress, fromdate, sender, from, date, returnpath, to, subject, body)>
+<!ELEMENT (from|fromaddress|fromdate|sender|date|returnpath|to|subject|body|user|host) - - (#PCDATA)>
+

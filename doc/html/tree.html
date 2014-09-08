@@ -1,0 +1,151 @@
+
+<html>
+  <head>
+    <title>Cheshire Configuration Files</title>
+  </head>
+  
+  <body bgcolor = white>
+    <center><h3>Configuration Tree</h3></center>
+    
+    <p>
+      The configuration for each Cheshire database is in the form of an SGML document. It has the following basic structure:
+    <ul>
+      <li>dbconfig
+	<ul>
+	  <li>dbenv
+	  <li>filedef
+	    <ul>
+	      <li>filetag
+	      <li>filename
+	      <li><i>filecont</i>
+			  <li>explain
+			    <ul>
+			      <li>titlestring</li>
+			      <li>description</li>
+			      <li>disclaimers</li>
+			      <li>news</li>
+			      <li>hours</li>
+			      <li>besttime</li>
+			      <li>lastupdate</li>
+			      <li>updateinterval
+				<ul>
+				  <li>value</li>
+				  <li>units</li>
+				</ul>
+			      </li>
+			      <li>coverage</li>
+			      <li>proprietary</li>
+			      <li>copyrighttext</li>
+			      <li>producercontactinfo
+				<ul>
+				  <li>contact_name</li>
+				  <li>contact_address</li>
+				  <li>contact_email</li>
+				</ul>
+			      </li>
+			      <li>suppliercontactinfo
+				<ul>
+				  <li>contact_name</li>
+				  <li>contact_address</li>
+				  <li>contact_email</li>
+				</ul>
+			      </li>
+			    </ul>
+	      <li>filedtd
+	      <li>sgmlcat
+	      <li>assocfil
+	      <li>history
+	      <li>indexes
+		<ul>
+		  <li>indexdef
+		    <ul>
+		      <li>indxname
+		      <li>indxtag
+		      <li>indxmap
+			<ul>
+			  <li>use
+			  <li>relat
+			  <li>posit
+			  <li>struct
+			  <li>trunc
+			  <li>compet
+			</ul>
+		      <li>stoplist
+		      <li>indxkey
+			<ul>
+			  <li>tagspec
+							  <ul>
+							    <li>ftag
+							      <li><i>s</i>
+								<li><i>attr</i>
+								  <li><i>value</i>
+							  </ul>
+			</ul>
+		    </ul>
+		</ul>
+	      <li>clusters
+		<ul>
+		  <li>clusterdef
+		    <ul>
+		      <li>clusname
+		      <li>cluskey
+			<ul>
+			  <li>tagspec
+			</ul>
+		      <li>stoplist
+		  <li>clusmap
+			<ul>
+			  <li>from
+			    <ul>
+			      <li>tagspec
+			    </ul>
+			  <li>to
+			    <ul>
+			      <li>tagspec
+			    </ul>
+			  <li>summarize
+			    <ul>
+			      <li>maxnum
+			      <li>tagspec
+			    </ul>
+			</ul>
+		    </ul>
+		</ul>
+	      <li>components
+		<ul>
+		  <li>componentdef
+		    <ul>
+		      <li>componentname
+		      <li>componentnorm
+		      <li>compstarttag
+		      <li><i>compendtag</i>
+		      <li>componentindexes
+			<ul>
+			  <li>indexdef
+			</ul>
+		    </ul>
+		</ul>
+	      <li>dispoptions
+	      <li>displays
+		<ul>
+		  <li>displaydef
+		    <ul>
+		      <li>convert
+			<ul>
+			  <li>clusmap
+			</ul>
+		      <li>exclude
+			<ul>
+			  <li>tagspec
+			</ul>
+		    </ul>
+		</ul>
+	    </ul>
+	</ul>
+    </ul>
+<p>
+The clusmap, indexdef and tagspec trees are only shown once on the tree.
+<p>
+<hr>
+</body>
+</html>

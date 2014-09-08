@@ -1,0 +1,21 @@
+PUBLIC "-//Society of American Archivists//DTD ead.dtd (Encoded Archival Description (EAD))//EN" /usr3/ray/Work/z3950_3/sgmlparse/EAD.DTD
+PUBLIC "-//Society of American Archivists//DTD eadnotat.ent (EAD Notation Declarations)//EN" /usr3/ray/Work/z3950_3/sgmlparse/EADNOTAT.ENT
+PUBLIC "-//Society of American Archivists//DTD eadbase.ent (EAD Basic Declarations)//EN" /usr3/ray/Work/z3950_3/sgmlparse/EADBASE.ENT
+PUBLIC "-//Society of American Archivists//DTD eadchars.ent (EAD Special Characters)//EN" /usr3/ray/Work/z3950_3/sgmlparse/EADCHARS.ENT
+PUBLIC "-//Society of American Archivists//DTD eadtable.ent (EAD Table Elements)//EN" /usr3/ray/Work/z3950_3/sgmlparse/EADTABLE.ENT
+PUBLIC "-//Society of American Archivists//DTD eadtable.ent (EAD Table
+ Elements)//EN" /usr3/ray/Work/z3950_3/sgmlparse/EADTABLE.ENT
+PUBLIC  "ISO 8879-1986//ENTITIES Added Latin 1//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOlat1
+PUBLIC  "ISO 8879-1986//ENTITIES Added Latin 2//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOlat2
+PUBLIC   "ISO 8879-1986//ENTITIES Greek Symbols//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOgrk3
+PUBLIC "ISO 8879-1986//ENTITIES Alternative Greek Symbols//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOgrk4
+PUBLIC "ISO 8879-1986//ENTITIES Greek Letters//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOgrk1
+PUBLIC "ISO 8879-1986//ENTITIES Monotoniko Greek//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOgrk2
+PUBLIC  "ISO 8879-1986//ENTITIES Diacritical Marks//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOdia
+PUBLIC "ISO 8879-1986//ENTITIES Numeric and Special Graphic//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOnum
+PUBLIC "ISO 8879-1986//ENTITIES Publishing//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOpub
+PUBLIC "ISO 8879-1986//ENTITIES General Technical//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOtech
+PUBLIC "ISO 8879-1986//ENTITIES Russian Cyrillic//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOcyr1
+PUBLIC "ISO 8879-1986//ENTITIES Non-Russian Cyrillic//EN" /usr3/ray/Work/cheshire2/sgml/charsets/ISOcyr2
+
+

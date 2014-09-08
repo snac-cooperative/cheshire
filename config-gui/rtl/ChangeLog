@@ -1,0 +1,71 @@
+2000-04-06  Arndt Roger Schneider - Patzschke + Rasp Software AG  <roger@prs.de>
+
+	* rtl_tabset.tcl: Added keyboard bindings to navigate through the tabset
+
+2000-04-04  Arndt Roger Schneider - Patzschke + Rasp Software AG  <roger@prs.de>
+
+	* rtl_shell.tcl: Improved scrolling behavior and arguments on the
+	switch command.
+
+	* rtl_preferences.tcl: Tk 8.3 event generate workaround
+
+	* rtl_customize.tcl: Tk 8.3 event generate workaround
+
+	* rtl.tcl: Added workaround for event generate missbehavior in Tk 8.3
+
+2000-04-03  Arndt Roger Schneider - Patzschke + Rasp Software AG  <roger@prs.de>
+
+	* rtl_tabset.tcl: New widget, a rich customizable tabset widget.
+
+	* rtl_decoratedframe.tcl: Removed predefined width argument from
+	definition.
+	
+
+2000-03-27  Arndt Roger Schneider - Patzschke + Rasp Software AG  <roger@prs.de>
+
+	* pkgIndex.tcl: New packages rtl_tabset and rtl_decoratedframe
+
+	* rtl.tcl: Fixed non visual templates close attribute
+
+2000-03-21  Arndt Roger Schneider - Patzschke + Rasp Software AG  <roger@prs.de>
+
+	* rtl_tree.tcl: Security mechanism, added type specifc
+	selection mode (must be deactivatable for backward compabillity  ...)
+	Added new attribute typedSel (default value is 0).
+
+2000-03-20  Arndt Roger Schneider - Patzschke + Rasp Software AG  <roger@prs.de>
+
+	* rtl_makefont.tcl (set): Changed filling the font object combobox
+	during startup to ensure that a proper object list is available
+	from startup.
+
+	* rtl_decoratedframe.tcl: New template decoratedframe
+
+	* rtl_combobox.tcl: Improved performance (4 times).
+	Type of Listbox can be specified as an attribute.
+	MacOS: Images are gif based.
+	
+
+2000-01-24  Arndt Roger Schneider - Patzschke + Rasp Software AG  <roger@prs.de>
+
+	* rtl_tree.tcl: Added security mechanisms for working with invalid
+	                children items.
+
+2000-01-21  Arndt Roger Schneider - Patzschke + Rasp Software AG  <roger@prs.de>
+
+	* rtl_tree.tcl: Fixed BUG rtl_tree::delete invisible nodes. Call 2880
+	                Improved insert action with -after, -before and
+	                -index attriutes to use exact positions below the
+	                parent node. Call 2881
+			Added new callbacks hasChildrenfcn and
+	                requestChildrenfcn, in addition a short
+	                description has been added to the end of that module
+			Added openimage and image alternation on draw/open
+	                and close.
+			Added icon drag --i am unsur to use this or not--
+
+	* rtl.tcl: Added new variable rtl_patchlevel for getting the
+	           current patchlevel 
+
+
+	

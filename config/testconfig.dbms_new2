@@ -1,0 +1,416 @@
+<!-- This is a test config file for Cheshire II -->
+<DBCONFIG>
+<DBENV> /home/ray/Work/DBENV </DBENV>
+
+<!-- The first filedef of type DBMS (an extern dbms database) -->
+<FILEDEF TYPE=DBMS>
+<!-- NOTE if the MySQL or POSTGRESQL database is password protected,
+     you will need to connect to the server using the following form:
+     zselect dbname server_address dbname server_port login_id:password
+     and use the -p passwd argument for database index creation
+ -->
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> ray </FILETAG>
+
+<!-- filename is the actual database name -->
+<FILENAME> ray </FILENAME>
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> NONE </FILEDTD>
+<SGMLCAT> catalog </SGMLCAT>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> NONE </ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> /home/ray/Work/cheshire/config/TESTDATA/dbms.history </HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- First index def -->
+<INDEXDEF ACCESS=DBMS EXTRACT=KEYWORD NORMAL=NONE>
+<!-- The table name is in INDXNAME -->
+<INDXNAME> bib </INDXNAME>
+<!-- The column name is in INDXTAG -->
+<INDXTAG> author </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The stoplist for this file -->
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDATA/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc that -->
+<!-- are to be extracted and indexed for this index: Not used for DBMS    -->
+<INDXKEY>
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- The next index entry definition -->
+<INDEXDEF ACCESS=DBMS EXTRACT=EXACTKEY NORMAL=NONE NOTPRIMARYKEY>
+<INDXNAME> bib </INDXNAME>
+<INDXTAG> author </INDXTAG>
+
+<INDXMAP> 
+<USE> 1 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 2 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 3 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP ATTR=BIB-1> 
+<USE> 1002 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP ATTRIB=BIB_1> 
+<USE> 1003 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP ATTRIBUTESET=BIB1> 
+<USE> 1004 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP ATTR=GILS> 
+<USE> 1005 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP ATTRIBUTE=STAS> 
+<USE> 1006 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDATA/authorstoplist </STOPLIST>
+<INDXKEY>
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS EXTRACT=KEYWORD NORMAL=STEM PRIMARYKEY=no>
+<INDXNAME> bib </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP ATTR=GILS>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP ATTR=GILS> 
+<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP ATTR=GILS> 
+<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+</INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> bib </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+</INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> sub </INDXNAME>
+<INDXTAG> subject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+</INDXKEY> </INDEXDEF>
+
+
+<INDEXDEF ACCESS=DBMS EXTRACT=KEYWORD NORMAL=NONE >
+<INDXNAME> call </INDXNAME>
+<INDXTAG> callno </INDXTAG>
+
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 3 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 3 </struct> </INDXMAP>
+
+<INDXKEY>
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS EXTRACT=KEYWORD NORMAL=NONE >
+<INDXNAME> bib </INDXNAME>
+<INDXTAG> accno </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXKEY>
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS EXTRACT=DATE_KEY NORMAL=MIXED_YEAR >
+<INDXNAME> bib </INDXNAME>
+<INDXTAG> date </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 30 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><STRUCT> 3 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><STRUCT> 4 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><STRUCT> 109 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 3 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 4 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 109 </STRUCT></INDXMAP>
+<INDXKEY>
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS EXTRACT=DECIMAL_KEY NORMAL=NONE >
+<INDXNAME> bib </INDXNAME>
+<INDXTAG> price </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 60 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 109 </STRUCT></INDXMAP>
+<INDXKEY>
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS_BTREE EXTRACT=KEYWORD NORMAL=STEM >
+<INDXNAME> /home/ray/Work/cheshire/config/TESTDATA/all.index </INDXNAME>
+<INDXTAG> allindex </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 60 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 109 </STRUCT></INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<SQL>SELECT * FROM bib;</SQL>
+<FTAG>DBDOC</FTAG>
+</TAGSPEC>
+</INDXKEY> 
+</INDEXDEF>
+
+
+<INDEXDEF ACCESS=DBMS_BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<!-- The table name is in INDXNAME -->
+<INDXNAME> /home/ray/Work/cheshire/config/TESTDATA/authorkw.index </INDXNAME>
+<!-- The column name is in INDXTAG -->
+<INDXTAG> authorkw </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The stoplist for this file -->
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDATA/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc that -->
+<!-- are to be extracted and indexed for this index: Not used for DBMS    -->
+<INDXKEY>
+<TAGSPEC>
+<SQL>SELECT * FROM bib;</SQL>
+<FTAG>author</FTAG>
+</TAGSPEC>
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- The next index entry definition -->
+<INDEXDEF ACCESS=DBMS_BTREE EXTRACT=EXACTKEY NORMAL=NONE NOTPRIMARYKEY>
+<INDXNAME> /home/ray/Work/cheshire/config/TESTDATA/authorxk </INDXNAME>
+<INDXTAG> authorxk </INDXTAG>
+
+<INDXMAP> 
+<USE> 1 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 2 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 3 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP ATTR=BIB-1> 
+<USE> 1002 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP ATTRIB=BIB_1> 
+<USE> 1003 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP ATTRIBUTESET=BIB1> 
+<USE> 1004 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP ATTR=GILS> 
+<USE> 1005 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP ATTRIBUTE=STAS> 
+<USE> 1006 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDATA/authorstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<SQL>SELECT * FROM bib;</SQL>
+<FTAG>author</FTAG>
+</TAGSPEC>
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS_BTREE EXTRACT=KEYWORD NORMAL=STEM PRIMARYKEY=no>
+<INDXNAME> /home/ray/Work/cheshire/config/TESTDATA/titlekw.index </INDXNAME>
+<INDXTAG> titlekw </INDXTAG>
+
+<INDXMAP ATTR=GILS>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP ATTR=GILS> 
+<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP ATTR=GILS> 
+<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<SQL>SELECT * FROM bib;</SQL>
+<FTAG>title</FTAG>
+</TAGSPEC>
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS_BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /home/ray/Work/cheshire/config/TESTDATA/titlexk.index </INDXNAME>
+<INDXTAG> titlexk </INDXTAG>
+
+<INDXMAP>
+<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc> </INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<SQL>SELECT * FROM bib;</SQL>
+<FTAG>title</FTAG>
+</TAGSPEC>
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS_BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /home/ray/Work/cheshire/config/TESTDATA/subjectkw.index </INDXNAME>
+<INDXTAG> subjectkw </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<STOPLIST> /home/ray/Work/cheshire/index/TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<SQL>SELECT * FROM sub, bib, indx where bib.accno = indx.accno and indx.subcode = sub.subcode;</SQL>
+<FTAG>subject</FTAG>
+</TAGSPEC>
+</INDXKEY> </INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS_BTREE EXTRACT=KEYWORD NORMAL=NONE >
+<INDXNAME> /home/ray/Work/cheshire/config/TESTDATA/accnokw.index </INDXNAME>
+<INDXTAG> accnokw </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<SQL>SELECT * FROM bib;</SQL>
+<FTAG>accno</FTAG>
+</TAGSPEC>
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS_BTREE EXTRACT=DATE_KEY NORMAL=MIXED_YEAR >
+<INDXNAME> /home/ray/Work/cheshire/config/TESTDATA/datakey.index </INDXNAME>
+<INDXTAG> datekey </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 30 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><STRUCT> 3 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><STRUCT> 4 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 30 </USE><STRUCT> 109 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 3 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 4 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 31 </USE><STRUCT> 109 </STRUCT></INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<SQL>SELECT * FROM bib;</SQL>
+<FTAG>date</FTAG>
+</TAGSPEC>
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=DBMS_BTREE EXTRACT=DECIMAL_KEY NORMAL=NONE >
+<INDXNAME> /home/ray/Work/cheshire/config/TESTDATA/pricekey.index </INDXNAME>
+<INDXTAG> pricekey </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 60 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 109 </STRUCT></INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<SQL>SELECT * FROM bib;</SQL>
+<FTAG>price</FTAG>
+</TAGSPEC>
+</INDXKEY> 
+</INDEXDEF>
+
+</INDEXES> 
+</FILEDEF> 
+
+</DBCONFIG>
+
+
+
+
+
+
+
+
+

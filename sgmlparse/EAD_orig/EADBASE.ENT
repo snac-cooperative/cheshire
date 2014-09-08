@@ -1,0 +1,2192 @@
+<!--              PUBLIC IDENTIFIER of this DTD Fragment
+"-//Society of American Archivists//DTD eadbase.ent (EAD Basic
+ Declarations)//EN"
+-->
+
+<!-- ********************************************************** -->
+<!--  NAME:      Encoded Archival Description (EAD) Basic       -->
+<!--             Declarations (for elements, attributes, and    -->
+<!--             entities)                                      -->
+<!--                                    (File    = eadbase.ent) -->
+<!--                                    (Version = 2.0)         -->
+<!--                                    (Vers Date 96/09/16)    -->
+<!--                                                            -->
+<!--  PURPOSE:   To encode archival finding aids as they are    -->
+<!--             currently produced by archives, libraries,     -->
+<!--             universities, associations, agencies, and      -->
+<!--             other organizations.                           -->
+<!--                                                            -->
+<!--  CONTACT:   EAD listserv of the Library of Congress Network-->
+<!--             Development and MARC Standards Office.         -->
+<!--             To subscribe to this listserv, send a one-line -->
+<!--             message to LISTSERV@LOC.GOV containing the     -->
+<!--             text:  SUBSCRIBE EAD YourName. Once subscribed,-->
+<!--             submit messages to EAD@LOC.GOV.                -->
+<!--                                                            -->
+<!--  SPONSOR:  The EAD is a cooperative effort sponsored by    -->
+<!--      several institutions and professional associations.   -->
+<!--      Its development has been supported through a series of-->
+<!--      fellowships and grants.                               -->
+<!--                                                            -->
+<!--      The Society of American Archivists (SAA) through the  -->
+<!--      EAD Working Group of the Committee on Archival        -->
+<!--      Information Exchange (CAIE) is responsible for        -->
+<!--      the intellectual content of EAD and for monitoring    -->
+<!--      and assisting in its ongoing development. The working -->
+<!--      group includes individuals representing various       -->
+<!--      interests within the SAA as well as representatives   -->
+<!--      from OCLC, Research Libraries Group (RLG), and the    -->
+<!--      Library of Congress.                                  -->
+<!--                                                            -->
+<!--      The Library of Congress Network Development and MARC  -->
+<!--      Standards Office is the international maintenance     -->
+<!--      agency for the standard.                              -->
+<!--                                                            -->
+<!--      Funding agencies who have contributed generously to   -->
+<!--      the development of the standard include:  Department  -->
+<!--      of Education (Title IIA grant) to the University of   -->
+<!--      California, Berkeley, for developing a prototype      -->
+<!--      encoding standard and database for finding aids; The  -->
+<!--      Library, University of California, Berkeley, for      -->
+<!--      supporting ongoing development of a community-based   -->
+<!--      standard; Commission on Preservation and Access for a -->
+<!--      three-day conference (4-6 April 1995) on the Berkeley -->
+<!--      Finding Aid Project (BFAP); Bentley Historical        -->
+<!--      Library, Andrew W. Mellon Foundation, and the National-->
+<!--      Endowment for the Humanities (Division of Preservation-->
+<!--      and Access) for assembling representatives from the   -->
+<!--      archival community for a week-long (22-29 July 1995)  -->
+<!--      Bentley fellowship program to develop design          -->
+<!--      principles and revise the BFAP data model and DTD;    -->
+<!--      Library of Congress National Digital Library Program  -->
+<!--      for sponsoring a three-day meeting (1-3 November 1995)-->
+<!--      of the Bentley team and other experts to review the   -->
+<!--      Bentley model and for providing the technical support -->
+<!--      of an SGML consulting firm to make modifications and  -->
+<!--      supply accompanying documentation for an alpha version-->
+<!--      of the DTD; and the Council on Library Resources for  -->
+<!--      sponsoring the development and publication of         -->
+<!--      application guidelines.                               -->
+<!--                                                            -->
+<!--  NOTE:      This is a modular DTD.  It references other    -->
+<!--             DTD modules through the use of Formal Public   -->
+<!--             Identifiers and/or SYSTEM entity references.   -->
+<!--             TO USE THIS DTD YOU MUST make the proper       -->
+<!--             FORMAL or SYSTEM pathname connection!!!!!!!    -->
+<!--                                                            -->
+<!--  WRITTEN:   Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             DATE: 1995-10                                  -->
+<!--                                                            -->
+<!--  ALPHA MODIFICATIONS:                                      -->
+<!--             Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             and the                                        -->
+<!--             ATLIS Consulting Group (DAL)                   -->
+<!--             Rockville, Maryland  20852                     -->
+<!--             (under contract with the National Digital      -->
+<!--             Library Program, Library of Congress)          -->
+<!--             DATE: 1996-01                                  -->
+<!--                                                            -->
+<!--  BETA MODIFICATIONS:                                       -->
+<!--             Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             DATE: 1996-06                                  -->
+<!-- ********************************************************** -->
+
+<!--  This is a BETA version DTD. It is intended for broad public 
+      distribution and extended testing. Users can assume that
+      the EAD DTD will undergo systematic and documented revision
+      from BETA to proposed standard. Before implementing, the 
+      SAA CAIE EAD Working Group will evaluate and consider the
+      impact such change will have on BETA users and the 
+      conversion of finding aids encoded with EAD BETA.
+-->
+
+<!-- ********************************************************** -->
+<!--              CHANGE HISTORY (FOR VERSIONS POST BETA)       -->
+<!-- ********************************************************** -->
+<!-- 
+NUM     DESCRIPTION OF CHANGE                              MM/DD/YY
+
+
+-->
+
+<!-- ********************************************************** -->
+<!--              CHANGE HISTORY (ALPHA TO BETA CHANGES)        -->
+<!-- ********************************************************** -->
+<!-- 
+NUM  DESCRIPTION OF CHANGE                               MM/DD/YY
+
+                                                         June 1996
+1.   
+  Made <acqinfo> available within <custodhist>, while
+  retaining its direct availability in <admininfo>. <custodhist>
+  is a broader category than <acqinfo>. <custodhist> is the
+  entire history of custody of an archival entity, while
+  <acqinfo> is the immediate source of acquisition.
+
+2.   
+  Made <organization> and <arrangement> available as
+  <did>-level elements while retaining their availability in
+  <scopecontent>.
+
+3.   
+  Made all of the <did>-level elements following but not
+  including the <did> recursive, that is, available within
+  themselves, for the purpose of dividing a descriptive element
+  into sections. This affected the content model of the
+  following elements: <controlaccess>,  <arrangement>,
+  <organization>, <odd>, and <dsc>.
+ 
+4.   
+  Made <add> and its top-level subelements recursive, that is,
+  available within themselves, for the purpose of enabling each
+  to be divided into sections. Modified all of the <add>
+  subelements. All modifications made the content models
+  more flexible except where noted in other changes listed.
+
+5.   
+  Made <head> available within <did> as the first, optional
+  element.
+
+6.   
+  Made PCDATA available in <emph>.
+
+7.   
+  Created new element <archref>, archival reference, to 
+  identify references to archival entities, such as collections 
+  or record groups other than the entity being described in the
+  current EAD.
+
+8.   
+  Added Access Terms elements (<corpname>, <famname>, 
+  <genreform>, <geogname>, <name>, <occupation>, <persname>, 
+  and <subject>) and <date> and <num> to content model for 
+  <unittitle>.
+
+9.   
+  Changed name of <do>, digital object, to <dao>, digital
+  archival object, in order to distinguish it from other digital
+  objects referenced from <ead>. Also changed <dodesc> to
+  <daodesc> and <dogrp> to <daogrp>. Restricted availability
+  of <dao> and <daogrp> as follows: in <archdesc> and <c>
+  (enumerated and recursive) at same level as <did> elements;
+  in <dentry>; in the following <did>-level elements at the same
+  level as <p> but not in <p>s: <bioghist>, <scopecontent>,
+  and <odd>; and, in <did> at same level as <unittitle>.
+  Involved removing it from some elements, and adding it to
+  others.
+
+10.  
+  Created element <subarea>, subordinate area, and made
+  available in <repository> and directly within <corpname>. 
+  The definition of <subarea> is a name or phrase that 
+  indicates, within a repository or other corporate name, 
+  administrative subordination; an area of subject or other 
+  collection emphasis; or a collection area based on the 
+  physical form of the materials.
+
+11.  
+  Changed <requiredfooter> to <footer>.
+
+12.  
+  Removed <langmaterial> from <langusage> in
+  <profiledesc>, thereby removing it entirely from
+  <ead>.
+
+13.  
+  Removed <directory> from <ead>.
+
+14.  
+  Restricted the availability of the <tspec> to first element
+  following the optional <head> in <dsc>.
+
+15.  
+  Restricted availability of <c>s (both recursive and
+  enumerative) to <dsc>; <c> is recursive; <c02> is available
+  within <c01>, and <c03> within <c02>, and the like,
+  through <c12>.
+
+16.  
+  Made <date> available in <creation>.
+
+17.  
+  Made multiple instances of <drow> available within one <c>.
+
+18.  
+  Subsumed <extent> element within new element,
+  <physdesc>.  <physdesc> also includes the following new
+  elements: <dimensions> and <physfacet>. Definitions of
+  elements:
+
+  o  <physdesc>: Statement of the physical characteristics or
+     object type of the material being described.
+
+  o  <extent>: Statement expressing a count of the materials
+     being described, an expression of the physical space they
+     occupy, or both.
+
+  o  <physfacet>: Statement expressing an aspect of the
+     physical appearance of the materials described such as
+     their color, style, materials, or techniques and methods of
+     creation. Does not include aspects of physical description
+     that are contained in <extent>, <dimensions>, or
+     <genreform>.
+
+  o  <dimensions>: Statement of the size of the materials
+     being described. Measurements may be expressed in any
+     convenient unit and may indicate the aspect being
+     specified, e.g., height, width, depth.  
+
+  o  <genreform>: Term denoting the type of materials being
+     described with respect to their genre (the style or
+     technique of their intellectual content), form (their
+     physical character, subject content, or order of
+     information), or object type (their function). 
+
+19.  
+  Removed <head> element from <note>; and added the
+  following attributes: DISPLAYTYPE, LABEL, and
+  ENCODINGANALOG.
+
+20.    
+  Changed declared value on NORMAL attribute on
+  <unitdate> to CDATA.
+
+21.    
+  Added "tgn" (Thesaurus of Geographic Names) and "ulan"
+  (Union List of  Artists' Names) to declared values for
+  SOURCE attribute on name/term elements.
+
+22.    
+  Modified global attribute parameter entity (a.global) to
+  include ID, ALTRENDER, and AUDIENCE. Global
+  attributes were consistently added to all elements except the
+  following individual or groups of elements: <eadid>, <emph>, 
+  <lb>, HYTIME elements (<ilink>, <nameloc>, and <nmlist>), and
+  <tspec> and subelements.
+
+23.    
+  Added an AUTHFILENUMBER attribute on access
+  elements in <controlaccess>.
+
+24.    
+  Applied consistent naming conventions to all "type"
+  attributes, and verified that all "semi-closed" declared values
+  lists have a parallel  attribute for the "other" value. The 
+  following conventions were followed:
+
+  o  a "type" attribute that is used to qualify the associated
+     element to make it more specific is named TYPE;
+
+  o  the name of an attribute that qualifies another attribute
+     on the same element to make it more specific uses the
+     name of the qualified attribute concatenated to the word
+     "type", e.g., TARGETTYPE;
+
+  o  the name of an attribute used to specify a particular
+     action associated with an element uses a word
+     representing the associated action concatenated to the
+     word "type", e.g., DISPLAYTYPE;
+
+  o  semi-closed lists, e.g., such as those for the SOURCE 
+     and LEVEL attributes. To avoid conflicts between declared
+     values in semi-closed lists, that is, lists that have an
+     "other" value option, the following naming scheme is in
+     place, where "attrX" is here used to represent any
+     attribute name:
+
+       Attribute name "attrX"
+       Declared values: (valueA | valueB | otherattrX)
+       Attribute for "other value": "otherattrx"
+
+  EXCEPTION TO THE RULES
+
+  Because of the complexity of <unitloc> and the likelihood
+  that the two different "type" attributes might easily be
+  confused with one another, both "type" attributes have
+  specific, explicit names: UNITLOCTYPE, and
+  CONTAINERTYPE.
+
+25.    
+  Created a NORMAL attribute (for a normalized form) for
+  the following elements: <name>, <persname>, <corpname>,
+  <famname>, <geogname>, <genreform>, <subject>, and
+  <occupation>.
+
+26.    
+  Added LANGENCODING attribute to <eadheader> to
+  specify the language abbreviation codes used in the
+  LANGMATERIAL attribute on <archdesc> and <c>s
+  (both recursive and enumerative).
+
+27.    
+  Added attribute RELATEDENCODING to <ead>,
+  <eadheader>, and <findaid> to specify parent encoding
+  system for values given in ENCODINGANALOG. 
+
+28.  
+  Changed attribute name MARCANALOG to
+  ENCODINGANALOG.
+
+29.  
+  Changed values in the TYPE attribute in <name> to
+  CDATA, that is, changed from semi-closed list.
+
+30.  
+  Added FINDAIDSTATUS attribute to <eadheader>.
+  Declared values are: 
+     "unverified_partial_draft | 
+      unverified_full_draft |
+      edited_partial_draft |
+     edited_full_draft" 
+
+31.  
+  Added LEGALSTATUS as an attribute on <archdesc> and
+  <c> (both recursive and enumerative). Declared 
+  values are "public | private | other".
+
+32.  
+  Added OTHERLEGALSTATUS as an attribute on
+  <archdesc> and <c>s (both recursive and enumerative).
+
+33.  
+  Unit Location <unitloc>:
+
+  o  Changed TYPE attribute name to LOCTYPE and
+     "other" declared value to "otherloctype";
+
+  o  Changed OTHERTYPE attribute name to
+     OTHERLOCTYPE;
+
+  o  Added CONTAINERTYPE attribute with the following
+     declared values: "carton | box | folder | reel | frame |          
+      oversize-cabinet | map-case |  box-folder |
+     othercontainertype";
+
+  o  Added OTHERCONTAINERTYPE attribute.
+
+34.  
+  Changed SOURCES attribute name on controlled access
+  elements to SOURCE; Added declared value "othersource"
+  to semi-closed list; and added OTHERSOURCE attribute. 
+
+35.  
+  Added element <eadid> with a CDATA content model as
+  the first, required element in <eadheader>. The <eadid> is
+  for a formal, machine-processable name or address for a
+  unique, authoritative <ead> instance. While the <eadid> may
+  only be unique and recognized locally, interchange across
+  repositories and across the Internet of <ead> instances will
+  require interinstitutional or community agreements based on
+  emerging Internet standards for assigning uniform 
+  machine-processable names and addresses. <eadid> has the following
+  attributes: 
+
+  o  SYSTEMID: identifier or address for system or database
+     in which the id is unique, if it is not explicitly in the
+     content of the element in a publicly registered, 
+     machine-processable standard form;
+
+  o  AUTHORITY: authority or agent responsible for
+     assigning the id, if it is not explicitly in the content of 
+     the element in a publicly registered, machine-processable
+     standard form;
+
+  o  TYPE: the type of identifier, if it is not explicitly in the
+     content of the element in a publicly registered, 
+     machine-processable standard form;
+
+  o  ENCODINGANALOG
+
+36.  
+  Added element <listhead> in <list>, <chronlist>, and
+  <index> to  serve as containing element for <head01> and
+  <head02>.
+
+37.  
+  Added element <eventgrp> to <chronitem> to serve as
+  containing element for more than one <event>
+  associated with a <date>.
+
+38.  
+  Element <index>: Changed content model of <indexentry> to
+  permit <ref>; and content model of <namegrp> to permit
+  <note>.
+
+39.
+  Changed declared values of AUDIENCE attribute from 
+  "public | private" to "external | internal".
+
+40.
+  Changed default value of RENDER attribute on <emph>, <title>,
+  and <titleproper> to #IMPLIED.
+
+41.
+  Removed declared value "questionable" from the TYPE attribute
+  under <date> and <unitdate>. Created a CERTAINTY attribute with
+  the declared value #CDATA that can be used to convey information
+  about the certainty of dates.
+ 
+-->
+<!-- ********************************************************** -->
+
+<!-- ********************************************************** -->
+<!--              PARAMETER ENTITY DECLARATIONS                 -->
+<!-- ********************************************************** -->
+
+<!-- ********************************************************** -->
+<!--              PHRASE-LEVEL GROUPS OF ELEMENTS               -->
+<!-- ********************************************************** -->
+
+<!--                             LINKS (Non-text hyperlinks)
+                                 Pointers and links (NOTE: cross-
+                                 references, which may contain             
+                                 text are in phrase.basic below.)              
+                  
+-->
+<!ENTITY % m.phrase.links        'ilink | nameloc | nmlist | 
+                                 ptr | extptr'                    >  
+
+<!--                             BARE PHRASE is used for very low 
+                                 level elements where the content
+                                 needs to be highly constrained.               
+                 
+-->
+<!ENTITY % m.phrase.bare         '%m.phrase.links; | emph | lb'   >
+
+<!--                             REFERENCES (REFS)
+                                 Cross-references, which may or may
+                                 not contain text.  Internal refs
+                                 are inside the EAD.  External refs
+                                 are documents outside the EAD.                
+                
+-->
+<!ENTITY % m.phrase.refs         'bibref | ref | title | extref |
+                                  archref'                        >
+
+<!--                             BASIC PHRASE elements.         -->
+<!ENTITY % m.phrase.basic        '%m.phrase.bare; | 
+                                 %m.phrase.refs; | 
+                                  abbr |  expan'                  >
+
+<!--                             CONTROLLED ACCESS ELEMENTS     -->
+<!ENTITY % m.phrase.access       'corpname | famname | geogname | 
+                                  name | occupation | persname | 
+                                  subject | genreform '           >
+
+<!--                             DATA PHRASE elements are content
+                                 elements available many places
+                                 within text, in all but the most 
+                                 basic elements     
+-->
+<!ENTITY % m.phrase.data         '%m.phrase.access; |  
+                                 date | num |
+                                 origination | repository |  
+                                 unitdate | unittitle'            >
+
+<!--                             PHRASE PLUS ELEMENTS      
+                                 Basic elements plus Data (content) 
+                                 elements plus Digital Archival 
+                                 Objects     
+-->
+<!ENTITY % m.phrase.plus         '%m.phrase.basic; | 
+                                  %m.phrase.data;'                >
+
+     
+<!-- ********************************************************** -->
+<!--              INTERMEDIATE-LEVEL GROUPS OF ELEMENTS         -->
+<!-- ********************************************************** -->
+<!--                             Elements that can occur within or
+                                 among paragraphs.                             
+   
+-->
+<!ENTITY % m.inter               'address | blockquote |  
+                                  chronlist | list | note | table'>
+
+<!ENTITY % m.inter.noquote       'address | chronlist | list | 
+                                  note | table'                   >
+
+     
+<!-- ********************************************************** -->
+<!--              PARAGRAPH-LEVEL GROUPS OF ELEMENTS            -->
+<!-- ********************************************************** -->
+<!--                             Elements that can occur at the
+                                 same level as a paragraph.                    
+            
+-->
+<!ENTITY % m.blocks              '%m.inter | p'                   >
+
+<!ENTITY % m.blocks.noquote      '%m.inter.noquote; | p'          >
+
+     
+<!-- ********************************************************** -->
+<!--              CONTENT-RELATED GROUPS OF LARGER ELEMENTS     -->
+<!-- ********************************************************** -->
+
+<!--                            DESCRIPTIVE IDENTIFICATION Elems-->
+<!ENTITY % m.did                'physdesc | note |
+                                 repository | origination |
+                                 unitdate | unitid | unitloc | 
+                                 unittitle | dao | daogrp'        >
+
+<!--                             DESCRIPTION ELEMENTS(meta-data)
+                                 More extensive information about 
+                                 an <archdesc> or Component <c> 
+                                 (at any level of the hierarchy) 
+                                 than is given in the DID.
+-->
+<!ENTITY % m.desc.elems         'admininfo | bioghist |
+                                 controlaccess | odd | 
+                                 scopecontent | organization | 
+                                 arrangement | dao |daogrp | 
+                                 note'                            >
+
+<!ENTITY % m.desc.elems.minus   'admininfo | bioghist |
+                                 controlaccess | odd | 
+                                 scopecontent | organization | 
+                                 arrangement'                     >
+
+
+<!--                             ADMINISTRATIVE INFORMATION     -->
+<!ENTITY % m.admin.info         'accessrestrict | acqinfo | 
+                                 altformavail | appraisal |
+                                 custodhist |
+                                 prefercite | processinfo |   
+                                 userestrict'                     >
+
+<!--                             DISPLAY ENTRY                  -->
+<!ENTITY % m.dentry            '%m.did; | %m.desc.elems.minus;'   > 
+
+<!--                             DIVISION CONTENT               -->
+<!ENTITY % div.content         '(head?, (%m.blocks;)*, div*)'     >
+           
+  
+
+<!-- ********************************************************** -->
+<!--            PARAMETER ENTITIES for CONTENT MODELS           -->
+<!-- ********************************************************** -->
+
+<!--                             YES OR NO FOR ATTRIBUTES    
+                                 A CALS table model trick to avoid
+                                 multiple duplicate declared
+                                 values
+-->
+<!ENTITY % yesorno               'NUMBER'                         >
+
+<!-- ********************************************************** -->
+<!--            INSIDE PARAGRAPHS AND NOTES                     -->
+<!-- ********************************************************** -->
+
+<!--                             PARAGRAPH CONTENT            
+                                 Elements that can occur inside a
+                                 paragraph
+-->
+<!ENTITY % para.content        '#PCDATA | %m.phrase.plus; | 
+                                  %m.inter;'                      >
+
+<!--                             HEADS AND PARAGRAPHS           -->
+<!ENTITY % head.n.para         '(head?, (%m.blocks;)*)'           >
+
+
+<!-- ********************************************************** -->
+<!--           CONTENTS OF ADJUNCT to DESCRIPTIVE DATA          -->
+<!-- ********************************************************** -->
+
+<!ENTITY % m.add               'bibliography | div | fileplan | 
+                                index | relatedmaterial | 
+                                separatedmaterial | add'          >
+    
+<!-- ********************************************************** -->
+<!--              BIBLIOGRAPHIC REFERENCE ELEMENTS              -->
+<!-- ********************************************************** -->
+
+<!--                             BIBLIOGRAPHIC REFERENCE           
+                                 Contents for the Bibliographic
+                                 Reference, which is a reference
+                                 to another work. (Note: title is
+                                 included in %m.phrase.basic.)
+-->
+<!ENTITY % m.bibref            '%m.phrase.basic; | 
+                                edition | imprint | name | num | 
+                                bibseries'                        >
+
+
+<!-- ********************************************************** -->
+<!--              PARAMETER ENTITIES FOR ATTRIBUTE LISTS        -->
+<!-- ********************************************************** -->
+
+<!-- ********************************************************** -->
+<!--        PARAMETER ENTITIES FOR CLUSTERS OF VALUES           -->
+<!-- ********************************************************** -->
+
+<!ENTITY % level      'series | collection | file | fonds |
+                       item | otherlevel | recordgrp |  subgrp |
+                       subseries'                                 >
+                                
+<!ENTITY % render     'bold | italic | bolditalic |
+                       boldunderline | boldsmcaps | boldquoted |               
+                       nonproport | altrender | quoted | 
+                       smcaps | sub | super | underline'          >
+
+<!--                   SOURCE ATTRIBUTE VALUES:
+
+                       aat    = Art and Architecture Thesaurus
+                       aacr2  = Anglo-American Cataloging rules,
+                                2nd edition, revised
+                       dot    = Dictionary of Occupational Titles
+                       gmgpc  = Thesaurus for Graphic Materials II
+                       lcnaf  = Library of Congress Name Authority
+                                File
+                       lcsh   = Library of Congress Subject Headings
+                       lctgm  = Thesaurus for Graphic Materials I
+                       local  = (heading from a locally maintained
+                                 list of index terms)
+                       mesh   = Medical Subject Headings
+                       mim    = Moving Image Materials
+                       nmc    = Revised Nomenclature for Museum
+                                  Cataloging
+                       rbgenr = genre terms
+                       tgn    = Thesaurus of Geographic Names   
+                       ulan   = Union List of Artist Names
+
+                       -->
+
+<!ENTITY % sources    'aat | aacr2 | dot | gmgpc | lcnaf | lcsh |
+                       lctgm | local | mesh | mim | nmc | rbgenr |
+                       tgn | ulan | othersource'                  >
+
+
+<!-- ********************************************************** -->
+<!--              HIGH-LEVEL ATTRIBUTES                         -->
+<!-- ********************************************************** -->
+<!-- Used in large-scale, headed structural elements such as 
+     Finding Aid and Archival Description 
+
+           language:    Indicates the language of the description
+                        (that is, the Finding Aid);
+                        DO NOT CONFUSE with langmaterial, which is
+                        used to indicate the language of the 
+                        material being described
+
+-->
+
+<!ENTITY % a.high       'language    CDATA              #IMPLIED' >
+
+
+<!-- ********************************************************** -->
+<!--              GLOBAL ATTRIBUTES used in almost all elements.-->
+<!-- ********************************************************** -->
+<!--
+
+           id:          Unique identifier for element.  Used to
+                        link to the element
+
+           altrender:    Enables an alternative rendering for an 
+                         element that would otherwise be rendered 
+                         differently in the same context
+
+           audience:     Enables restricting element that are 
+                         intended for private or staff viewing only
+-->
+<!-- ********************************************************** -->
+<!ENTITY % a.global     'id          ID                 #IMPLIED
+                         altrender   CDATA              #IMPLIED
+                         audience    (external | internal)  
+                                                       "external"'>
+
+<!-- ********************************************************** -->
+<!--              POINTER ATTRIBUTES used with all 
+                  internal reference and pointer elements                      
+                         
+-->            
+<!-- ********************************************************** -->
+
+<!ENTITY % a.int.ptr    
+           '--         What kind of reference is this?          --
+            type       (see | seealso | othertype)
+                                                   #IMPLIED
+            --         A text explanation of the "other" type   --
+            othertype  CDATA                       #IMPLIED 
+            --         Points to ID of the referenced element   --
+            target     IDREF                       #IMPLIED
+            --         What kind of element is pointed to ?     --
+            targettype NAMES                       #IMPLIED
+            --          Tells HyTime the name of the pointer    --
+            Hynames     CDATA       #FIXED      "linkend target"
+            --          Tells HyTime engine type of link        --
+            HyTime      NAME        #FIXED         "clink"'       >
+
+<!-- ********************************************************** -->
+<!--              EXTERNAL POINTER ATTRIBUTES used with all  
+                  external reference and pointers to files
+-->
+<!-- ********************************************************** -->
+
+<!ENTITY % a.ext.ptr  
+           '--         What kind of reference is this?          --
+            type       (see | seealso | othertype)  
+                                                   #IMPLIED
+            --         A text explanation of the "other" type   --
+            othertype  CDATA                       #IMPLIED 
+            --         Does this link print or display?         --
+            displaytype 
+                       (reveal | present)          #IMPLIED
+            --         Pointer to the referenced item           --
+            entityref  ENTITY                      #IMPLIED
+            --         Alternative pointer to referenced item   --
+            ext.ptr    CDATA                       #IMPLIED 
+            --         Tells HyTime how to find end of link     --
+            HyNames    CDATA       #FIXED     "linkend entityref"
+            --         Tells HyTime engine type of link         --
+            HyTime     NAME        #FIXED          "clink"'       >
+
+
+<!-- ********************************************************** -->
+<!-- ACCESS ATTRIBUTES                                          -->
+<!-- ********************************************************** -->
+<!-- Attributes shared by all access elements.                  -->
+
+  <!ENTITY % a.access
+          'source        (%sources;)                  #IMPLIED
+          othersource    CDATA                        #IMPLIED
+          encodinganalog CDATA                        #IMPLIED 
+          authfilenumber CDATA                        #IMPLIED
+          normal         CDATA                        #IMPLIED' >
+                                
+
+<!-- ********************************************************** -->
+<!--              DESCRIPTION ATTRIBUTES                        -->
+<!-- ********************************************************** -->
+<!-- Attributes for all the Component <c> elements:
+           1)  To record the level of the component description;   
+           2)  To name the language in which the material
+               being described is written;
+           3)  To specify legal status of material.
+               
+            NOTE: The same attributes may be used on <archdesc> 
+            with the exception that level is #REQUIRED.                   
+-->
+<!-- ********************************************************** -->
+ 
+<!ENTITY % a.component   
+             'level       (%level;)                   #IMPLIED
+              otherlevel   CDATA                      #IMPLIED
+              langmaterial CDATA                      #IMPLIED   
+              legalstatus    
+                           (public | private | otherlegalstatus) 
+                                                      #IMPLIED
+              otherlegalstatus 
+                           CDATA                      #IMPLIED'   >
+
+<!-- ********************************************************** -->
+<!--        PARAMETER ENTITIES FOR CLUSTERS OF VALUES           -->
+<!-- ********************************************************** -->
+                                
+<!ENTITY % a.emph         
+             'render      (%render)                   #IMPLIED'   >
+
+
+<!-- ********************************************************** -->
+<!--            INSIDE TABLE CELL                               -->
+<!-- ********************************************************** -->
+
+<!ENTITY % inside.table.cell    '#PCDATA | %m.phrase.plus; |
+                                 address | list | note'           >
+
+<!ENTITY % eadtable   PUBLIC
+"-//Society of American Archivists//DTD eadtable.ent (EAD Table
+ Elements)//EN"
+>
+%eadtable;
+
+
+<!-- ********************************************************** -->
+<!--        ENCODED ARCHIVAL DESCRIPTION (EAD) ELEMENTS         -->
+<!-- ********************************************************** -->
+
+<!--                             A basic EAD document consists of 
+                                 *  an EAD Header followed by
+                                 *  Front Matter(optional) 
+                                    followed by
+                                 *  a Finding Aid (Back matter such
+                                    as indices or appendices are
+                                    part of the Finding Aid)
+-->
+<!--                             ENCODED ARCHIVAL DESCRIPTION   -->
+<!ELEMENT ead            - -     (eadheader,frontmatter?,findaid) >
+<!ATTLIST ead            %a.global;
+          relatedencoding CDATA                        #IMPLIED   >
+    
+<!-- ********************************************************** -->
+<!--              EAD HEADER DECLARATION                        -->
+<!-- ********************************************************** -->
+
+<!--                             EAD HEADER (TEI subset)        -->
+<!ELEMENT eadheader      - -     (eadid, filedesc, profiledesc?,
+                                  revisiondesc?, footer?)         >
+<!ATTLIST eadheader      %a.global;
+          langencoding   CDATA                        #IMPLIED    
+          relatedencoding 
+                         CDATA                        #IMPLIED
+          findaidstatus  (unverified-partial-draft |
+                          unverified-full-draft |
+                          edited-partial-draft |
+                          edited-full-draft)          #IMPLIED
+          encodinganalog  CDATA                       #IMPLIED    >
+
+<!--                             EAD ID				-->
+<!--                             A formal, machine-processable 
+                                 name or address for a unique, 
+                                 authoritative ead instance. 
+-->
+<!ELEMENT eadid          - -     CDATA                            >
+<!ATTLIST eadid
+          systemid       CDATA                        #IMPLIED
+       -- identifier for system or database in which the id is 
+          unique                                              --
+          authority      CDATA                        #IMPLIED
+       -- authority or agent responsible for assigning the id --    
+          type           CDATA                        #IMPLIED  
+       -- the type of identifier                              -- 
+          encodinganalog CDATA                        #IMPLIED    >
+
+<!-- ********************************************************** -->
+<!--              FILE DESCRIPTION ELEMENTS (TEI-like)          -->
+<!-- ********************************************************** -->
+
+<!--                             FILE DESCRIPTION (TEI-like)    -->
+<!ELEMENT filedesc       - -     (titlestmt, 
+                                  editionstmt?, 
+                                  publicationstmt?,
+                                  seriesstmt?,
+                                  notestmt?)                      >
+<!ATTLIST filedesc                %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!-- ********************************************************** -->
+<!--              TITLE STATEMENT ELEMENTS (TEI-like)           -->
+<!-- ********************************************************** -->
+
+<!--                             TITLE STATEMENT                -->
+<!ELEMENT titlestmt      - -     (titleproper+, subtitle*, 
+                                  author?, sponsor?)              >
+
+<!ATTLIST titlestmt               %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!--                             TITLE PROPER
+                                 This is the title of the EAD 
+                                 document or document series. 
+-->
+<!ELEMENT titleproper    - -     (#PCDATA | %m.phrase.bare; |
+                                  abbr | date | expan | num)*    >
+<!ATTLIST titleproper    %a.global; 
+          extent         (all | part |unknown-extent) #IMPLIED  
+          pubstatus      (pub | unpub | unknown-pub)  #IMPLIED    
+          render         (%render;)                   #IMPLIED    
+          type           CDATA                        #IMPLIED    
+          encodinganalog CDATA                        #IMPLIED    >
+
+<!--                             SUBTITLE                       -->
+<!ELEMENT subtitle       - -     (#PCDATA | %m.phrase.bare; |
+                                  abbr | date | expan | num)*     >
+<!ATTLIST subtitle       %a.global; 
+          encodinganalog CDATA                        #IMPLIED    >
+
+<!--                             AUTHOR                         -->
+<!ELEMENT author         - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST author         %a.global; 
+          encodinganalog CDATA                        #IMPLIED    >
+
+<!--                             SPONSOR                        -->
+<!ELEMENT sponsor        - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST sponsor        %a.global; 
+          encodinganalog CDATA                        #IMPLIED    >
+
+<!-- ********************************************************** -->
+<!--              EDITION STATEMENT ELEMENTS (TEI-like)         -->
+<!-- ********************************************************** -->
+
+<!--                             EDITION STATEMENT              -->
+<!ELEMENT editionstmt    - -     (edition | p)+                   >
+
+<!ATTLIST editionstmt             %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!-- ********************************************************** -->
+<!--              HEADER STATEMENT ELEMENTS (TEI-like)          -->
+<!-- ********************************************************** -->
+
+<!--                             PUBLICATION STATEMENT          -->
+<!ELEMENT publicationstmt
+                         - -     (publisher | date | address | num
+                                  | p)+                           >
+
+<!ATTLIST publicationstmt         %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!--                             SERIES STATEMENT               -->
+<!ELEMENT seriesstmt     - -     (titleproper | num | p)+         >
+
+<!ATTLIST seriesstmt              %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!--                             NOTE STATEMENT                 -->
+<!ELEMENT notestmt       - -     (note)+                          >
+
+<!ATTLIST notestmt                %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!-- ********************************************************** -->
+<!--              PROFILE DESCRIPTION ELEMENTS (TEI-like)       -->
+<!-- ********************************************************** -->
+
+<!--                             PROFILE DESCRIPTION            -->
+<!ELEMENT profiledesc    - -     (creation?, langusage?)          >
+
+<!ATTLIST profiledesc             %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!--                             CREATION                       -->
+<!ELEMENT creation       - -     (#PCDATA | %m.phrase.basic; | 
+                                  date)*                          >
+
+<!ATTLIST creation                %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!--                             LANGUAGE USAGE                 -->
+<!ELEMENT langusage      - -     (#PCDATA | %m.phrase.basic; | 
+                                  language)*                      >
+
+<!ATTLIST langusage               %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!--                             LANGUAGE (of the EAD itself)   -->
+<!ELEMENT language       - -     (#PCDATA | %m.phrase.bare;)*     >
+
+<!ATTLIST language                %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+
+<!-- ********************************************************** -->
+<!--              REVISION DESCRIPTION ELEMENTS (TEI-like)      -->
+<!-- ********************************************************** -->
+
+<!--                             REVISION DESCRIPTION           -->
+<!--                             (TEI subset)                   -->
+<!ELEMENT revisiondesc   - -     (list | change+)                 >
+
+<!ATTLIST revisiondesc            %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!--                             CHANGE (TEI)                   -->
+<!ELEMENT change         - -     (date, item+)                    >
+
+<!ATTLIST change                  %a.global;                      
+          encodinganalog          CDATA               #IMPLIED    >
+
+<!-- ********************************************************** -->
+<!--                             FOOTER      
+                                 Note, disclaimer, warning, etc.
+                                 that should be printed at the
+                                 bottom of each page, displayed
+                                 with each screen, etc.
+-->
+<!-- ********************************************************** -->
+<!ELEMENT footer         - -     (p+)                             >
+<!ATTLIST footer         %a.global;
+          role           CDATA                        #IMPLIED    >
+    
+<!-- ********************************************************** -->
+<!--              FRONT MATTER ELEMENTS                         -->
+<!-- ********************************************************** -->
+
+<!--                             FRONT MATTER                   
+                                 The Title Page tag is for hand-
+                                 generated layout.  Divisions in
+                                 Front Matter have such names as
+                                 Acknowledgements and Preface
+-->
+<!ELEMENT frontmatter    - -     (titlepage?, div*)               >
+<!ATTLIST frontmatter            %a.global;                       >
+
+<!--                             TITLE PAGE                     -->
+<!ELEMENT titlepage      - -     (%m.blocks; | author |
+                                  date | edition | num | publisher |  
+                                  bibseries | sponsor |   
+                                  titleproper | subtitle )*       >
+<!ATTLIST titlepage              %a.global;                       >
+
+<!--                             DIVISION                       -->
+<!ELEMENT div            - -     (%div.content;)                  >
+<!ATTLIST div                    %a.global;                       >
+    
+<!-- ********************************************************** -->
+<!--              FINDING AID ELEMENTS                          -->
+<!-- ********************************************************** -->
+
+<!--                             FINDING AID                    -->
+<!ELEMENT findaid        - -     (archdesc, add?)                 >
+<!ATTLIST findaid        %a.high;
+                         %a.global;      
+          type          (inventory | register | othertype) 
+                                                        #IMPLIED  
+          othertype       CDATA                         #IMPLIED
+          relatedencoding CDATA                         #IMPLIED  
+          encodinganalog  CDATA                         #IMPLIED  >
+    
+<!-- ********************************************************** -->
+<!--              ARCHIVAL DESCRIPTION ELEMENTS                 
+     NOTE: The EAD creator should use either the recursive <c> or
+     the enumerated <c01>-<c12>, but not mix the two approaches.
+-->
+<!-- ********************************************************** -->
+
+<!--                             ARCHIVAL DESCRIPTION           -->
+<!ELEMENT archdesc         - -     (did, (%m.desc.elems;)*, dsc*) >
+<!ATTLIST archdesc         %a.high;
+                           %a.global;
+          level            (%level;)                    #REQUIRED
+          otherlevel       CDATA                        #IMPLIED
+          langmaterial     CDATA                        #IMPLIED
+          legalstatus      (public | private | otherlegalstatus)  
+                                                        #IMPLIED
+          otherlegalstatus 
+                          CDATA                         #IMPLIED
+          encodinganalog  CDATA                         #IMPLIED  >
+
+<!--elem  head           declared in Basic Structural Elements  -->
+   
+<!-- ********************************************************** -->
+<!--              DID ELEMENTS (DESCRIPTIVE IDENTIFICATION)     -->
+<!-- ********************************************************** -->
+
+<!--                             DESCRIPTIVE IDENTIFICATION (DID)
+                                 A container element that groups
+                                 the descriptive elements that are 
+                                 considered essential for the
+                                 identification of a unit, such as 
+                                 an <archdesc> or <c>. 
+-->
+<!ELEMENT did             - -     (head?, (%m.did;)*)             >
+<!ATTLIST did             %a.global;                               
+          encodinganalog  CDATA                         #IMPLIED  >
+
+<!--elem  note           declared in Basic Structural Elements  -->
+
+<!--                             PHYSICAL DESCRIPTION           
+                                 A statement of the physical 
+                                 characteristics or object type 
+                                 of the material being described.
+-->
+
+<!ELEMENT physdesc        - -     (#PCDATA | %m.phrase.basic; | 
+                                  genreform | dimensions | 
+                                  physfacet | extent)*            >
+<!ATTLIST physdesc        %a.global;
+          source          (%sources;)                   #IMPLIED 
+          othersource     CDATA                         #IMPLIED
+          label           CDATA                         #IMPLIED            
+          encodinganalog  CDATA                         #IMPLIED  >
+
+<!--                             DIMENSIONS
+                                 A statement of the size of the 
+                                 materials being described. 
+                                 Measurements may be expressed in 
+                                 any convenient unit and may 
+                                 indicate the aspect being
+                                 specified, e.g., height, width, 
+                                 depth.
+-->
+  
+<!ELEMENT dimensions      - -     (#PCDATA | %m.phrase.basic;)*   >
+<!ATTLIST dimensions      %a.global;                              
+          encodinganalog  CDATA                         #IMPLIED  >
+
+<!--                             PHYSICAL FACET
+                                 A statement expressing an aspect
+                                 of the physical appearance of 
+                                 the materials described such as
+                                 their color, style, materials, or
+                                 techniques and methods of 
+                                 creation.
+-->
+<!ELEMENT physfacet      - -     (#PCDATA | %m.phrase.basic;)*    >
+<!ATTLIST physfacet       %a.global;
+          source          (%sources;)                   #IMPLIED 
+          othersource     CDATA                         #IMPLIED           
+          encodinganalog  CDATA                         #IMPLIED >
+
+<!--                             EXTENT
+                                 A statement expressing a count 
+                                 of the materials being described,
+                                 an expression of the physical 
+                                 space they occupy, or both.
+-->
+<!ELEMENT extent           - -   (#PCDATA | %m.phrase.basic;)*    >
+<!ATTLIST extent          %a.global; 
+          encodinganalog  CDATA                         #IMPLIED  >
+
+<!-- genreform                   declared in Controlled Access
+                                 Elements below.                -->
+
+
+<!--                             ORIGINATION                
+                                 Of the unit being described.
+-->
+<!ELEMENT origination      - -    (#PCDATA | %m.phrase.basic;|
+                                   corpname | famname | name | 
+                                   persname)+                     >
+<!ATTLIST origination     %a.global;
+          label           CDATA                         #IMPLIED    
+          encodinganalog  CDATA                         #IMPLIED  >
+
+<!--                             REPOSITORY
+                                 The name and/or the address of  
+                                 the repository that is
+                                 responsible for providing
+                                 access.
+-->
+<!ELEMENT repository      - -     (#PCDATA | %m.phrase.basic; | 
+                                  address | corpname | name |
+                                  subarea)+                       >
+<!ATTLIST repository      %a.global;
+          label           CDATA                         #IMPLIED    
+          encodinganalog  CDATA                         #IMPLIED  >
+
+
+<!--                             SUBORDINATE AREA
+                                 A name or phrase that indicates, 
+                                 within a repository or other 
+                                 corporate name, administrative 
+                                 subordination; an area of subject
+                                 or other collection emphasis; 
+                                 or a collection area based on the 
+                                 physical form of the materials.
+-->
+<!ELEMENT subarea         - -     (#PCDATA | %m.phrase.bare;)*    >
+<!ATTLIST subarea         %a.global;                               
+          encodinganalog  CDATA                         #IMPLIED  >
+
+
+<!--                             UNIT DATE                      
+                                 Creation date or dates of the 
+                                 material described.
+-->
+
+<!ELEMENT unitdate        - -     (#PCDATA | %m.phrase.basic;)*   >
+<!ATTLIST unitdate        %a.global;
+          label           CDATA                         #IMPLIED
+
+          type            (bulk | inclusive | single)   #IMPLIED
+          certainty       CDATA                         #IMPLIED
+          --              For recording the YYYYMMDD form of date  
+                          for comparisons, searching, etc.    --          
+          normal          CDATA                         #IMPLIED
+          encodinganalog  CDATA                         #IMPLIED  >
+
+
+<!--                             UNIT IDENTIFICATION (ID)
+                                 An identifying number or phrase 
+                                 that designates the material 
+                                 being described.
+-->
+<!ELEMENT unitid          - -     (#PCDATA | %m.phrase.basic;)*   >
+<!ATTLIST unitid          %a.global;
+          label           CDATA                         #IMPLIED
+          type            CDATA                         #IMPLIED 
+          encodinganalog  CDATA                         #IMPLIED  >
+
+<!--                             UNIT LOCATION
+                                 The physical or logical location 
+                                 of the unit being described. For 
+                                 example, the location within a 
+                                 repository where boxes and folders 
+                                 are located, or, within a 
+                                 collection the box and folder 
+                                 numbers. 
+--> 
+<!ELEMENT unitloc         - -     (#PCDATA | %m.phrase.basic;)*    >
+<!ATTLIST unitloc         %a.global;
+          label           CDATA                         #IMPLIED
+          loctype         (repository | container | otherloctype)
+                                                       #IMPLIED
+          otherloctype  
+                          CDATA                         #IMPLIED 
+          containertype
+                          (carton | box | folder | reel | frame |
+                           oversize-cabinet | map-case |
+                           box-folder | othercontainertype)
+                                                       #IMPLIED
+          othercontainertype
+                          CDATA                         #IMPLIED
+
+          encodinganalog  CDATA                         #IMPLIED  >
+
+<!--                       UNIT TITLE
+                           Title of the material being described.
+                           Model contains a <unitdate> to 
+                           accommodate the option of including 
+                           the date of the unit within the title 
+                           rather than as a separate peer element.
+-->
+<!ELEMENT unittitle       - -     (#PCDATA | %m.phrase.basic; | 
+                                  %m.phrase.access; |
+                                  unitdate | num | date)*         >
+<!ATTLIST unittitle       %a.global;
+          label           CDATA                        #IMPLIED
+
+          encodinganalog  CDATA                        #IMPLIED 
+          type            CDATA                        #IMPLIED    >
+
+
+<!-- ********************************************************** -->
+<!--              DESCRIPTION ELEMENTS (%m.desc.elems;)     
+                  Elements that describe one unit, such as
+                  an <archdesc> or Component <c>                -->
+<!-- ********************************************************** -->
+     
+<!-- ********************************************************** -->
+<!--              ADMINISTRATIVE INFORMATION ELEMENTS           -->
+<!-- ********************************************************** -->
+
+<!--                            ADMINISTRATIVE INFORMATION
+                                A container element for bundling 
+                                information about the source, 
+                                provenance, availability, 
+                                restriction, processing, preferred 
+                                citation, and other matters 
+                                relating to the management of the 
+                                material being described.
+-->
+<!ELEMENT admininfo      - -     (head?, (p | note | 
+                                  %m.admin.info; | admininfo)+ )  >
+<!ATTLIST admininfo      %a.global; 
+          encodinganalog CDATA                         #IMPLIED   > 
+
+<!--elem  head           declared in Basic Structural Elements  -->
+
+<!--elem  p (paragraph)  declared in Basic Structural Elements  -->
+
+<!--elem  note           declared in Basic Structural Elements  -->
+
+<!--                             RESTRICTIONS on ACCESS         --> 
+<!ELEMENT accessrestrict - -     (%head.n.para;)                  >
+<!ATTLIST accessrestrict %a.global; 
+          encodinganalog CDATA                         #IMPLIED   > 
+
+<!--                             ACQUISITION INFORMATION        --> 
+<!ELEMENT acqinfo        - -     (%head.n.para;)                  >
+<!ATTLIST acqinfo        %a.global; 
+          encodinganalog CDATA                         #IMPLIED   > 
+
+<!--                             ALTERNATE FORM AVAILABLE       --> 
+<!ELEMENT altformavail   - -     (%head.n.para;)                  >
+<!ATTLIST altformavail   %a.global; 
+          encodinganalog CDATA                         #IMPLIED   > 
+
+<!--                             APPRAISAL                      --> 
+<!ELEMENT appraisal      - -     (%head.n.para;)                  >
+<!ATTLIST appraisal      %a.global; 
+          encodinganalog CDATA                         #IMPLIED   > 
+<!--                             CUSTODIAL HISTORY              --> 
+<!ELEMENT custodhist     - -     (head?, (%m.blocks; | acqinfo)*) >
+<!ATTLIST custodhist     %a.global; 
+          encodinganalog CDATA                         #IMPLIED   > 
+
+<!--                             PREFERRED CITATION             --> 
+<!ELEMENT prefercite     - -     (%head.n.para;)                  >
+<!ATTLIST prefercite     %a.global; 
+          encodinganalog CDATA                         #IMPLIED   > 
+
+
+<!--                             PROCESSING INFORMATION         --> 
+<!ELEMENT processinfo    - -     (%head.n.para;)                  >
+<!ATTLIST processinfo    %a.global; 
+          encodinganalog CDATA                         #IMPLIED   > 
+
+<!--                             RESTRICTIONS on USE            --> 
+<!ELEMENT userestrict    - -     (%head.n.para;)                  >
+<!ATTLIST userestrict    %a.global; 
+          encodinganalog CDATA                         #IMPLIED   > 
+
+<!-- ********************************************************** -->
+<!--              BIOGRAPHICAL HISTORY ELEMENTS                 -->
+<!-- ********************************************************** -->
+
+<!--                             BIOGRAPHICAL HISTORY 
+                                 Biographical and/or historical
+                                 information about the individual
+                                 or corporate body. It may be 
+                                 prose, a chronological list, 
+                                 or both.
+-->
+<!ELEMENT bioghist       - -     (head?, (p | note |
+                                  chronlist | bioghist |
+                                  dao | daogrp)+ )                >
+<!ATTLIST bioghist       %a.global; 
+          encodinganalog CDATA                        #IMPLIED    > 
+
+<!--elem  head           declared in Basic Structural Elements  -->
+
+<!--elem  p (paragraph)  declared in Basic Structural Elements  -->
+
+<!--elem  note           declared in Basic Structural Elements  -->
+
+
+<!--                             CHRONOLOGY/CHRONOLOGICAL LIST  -->
+<!ELEMENT chronlist      - -     (head?, (listhead)?,
+                                  (chronitem)+ )                  >
+<!ATTLIST chronlist      %a.global;                               
+          encodinganalog CDATA                         #IMPLIED   >
+
+<!-- elem listhead       declared under General Purpose Lists.  -->
+
+<!--                             CHRONOLOGICAL LIST ITEM        -->
+<!ELEMENT chronitem      - -     (date, (event | eventgrp))       >
+<!ATTLIST chronitem      %a.global;                               >
+
+<!--elem  date           declared in Phrase Data Elements       -->
+
+<!--                             EVENT                          -->
+<!ELEMENT event          - -     (%para.content;)*                >
+<!ATTLIST event          %a.global;                               >
+
+<!--                             EVENT GROUP                    -->
+<!--                             A containing element to be used 
+                                 when more than one event is 
+                                 associated with a date.
+-->
+<!ELEMENT eventgrp       - -     (event+)                         >
+<!ATTLIST eventgrp       %a.global;                               >
+
+
+<!-- ********************************************************** -->
+<!--              CONTROLLED ACCESS ELEMENTS                    -->
+<!-- ********************************************************** -->     
+
+<!--                             CONTROLLED ACCESS      
+                                 A container element which bundles
+                                 the authoritative forms of key
+                                 access points. Forms may be taken
+                                 from controlled vocabularies used
+                                 in USMARC-compliant systems or 
+                                 from a locally controlled
+                                 vocabulary source.
+             
+-->
+<!ELEMENT controlaccess  - -     (head?, 
+                                  (%m.blocks;|%m.phrase.access;
+                                   |controlaccess)+)>
+<!ATTLIST controlaccess  %a.global;                              
+          encodinganalog CDATA                         #IMPLIED   >
+
+<!--                             CORPORATE NAME                 -->
+<!ELEMENT corpname       - -     (#PCDATA | %m.phrase.bare; |
+                                   subarea)*                      >
+<!ATTLIST corpname       %a.global;
+                         %a.access;
+          role           CDATA                        #IMPLIED    >
+
+<!--                             FAMILY NAME                    -->
+<!ELEMENT famname        - -     (#PCDATA | %m.phrase.bare;)*     >   
+<!ATTLIST famname        %a.global;
+                         %a.access;
+          role           CDATA                        #IMPLIED    >
+
+<!--                             GEOGRAPHIC NAME                -->
+<!ELEMENT geogname       - -     (#PCDATA | %m.phrase.bare;)*     >     
+<!ATTLIST geogname       %a.global;
+                         %a.access;
+          role           CDATA                        #IMPLIED    >
+
+<!--                             GENRE/FORM
+                                 A term denoting the type of 
+                                 materials being described with 
+                                 respect to their genre (the style 
+                                 or technique of their intellectual
+                                 content), form (their physical 
+                                 character, subject content, or 
+                                 order of information), or object 
+                                 type (their function).  
+-->
+<!ELEMENT genreform      - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST genreform      %a.global;
+                         %a.access;                               > 
+
+<!--                            NAME - a relatively unstructured
+                                element that enables wrapping
+                                proper names without having to
+                                provide a great deal of structure.
+                                The "normal" attribute is used for
+                                entering a normalized version of
+                                the name for indexing. The "target"
+                                attribute can be used to point to
+                                a controlled form of the name used
+                                in the controlled access element
+                                or elsewhere.  Thus the controlled
+                                access form of the name can be used
+                                to generate the index entry.
+-->
+<!ELEMENT name           - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST name           %a.global;
+                         %a.access;
+          type           CDATA                        #IMPLIED
+          target         IDREF                        #IMPLIED
+          role           CDATA                        #IMPLIED    >
+
+<!--                             OCCUPATION                     -->
+<!ELEMENT occupation       - -   (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST occupation       %a.global;
+                           %a.access;                             >
+
+<!--                             PERSONAL NAME                  -->
+<!ELEMENT persname       - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST persname       %a.global;
+                         %a.access;
+          role           CDATA                        #IMPLIED    >
+
+<!--                             SUBJECT                        -->
+<!ELEMENT subject        - -     (#PCDATA | %m.phrase.bare;)*     >   
+<!ATTLIST subject        %a.global;
+                         %a.access;                               >
+ 
+
+<!-- ********************************************************** -->
+<!--              OTHER DESCRIPTIVE DATA                        -->
+<!-- ********************************************************** -->
+
+<!--                             Used for descriptive data not
+                                 otherwise provided for. Designed 
+                                 to accommodate most textual
+                                 features.                    
+-->
+<!ELEMENT odd            - -     (head?, (%m.blocks; | dao | 
+                                  daogrp | odd)*)                 >
+<!ATTLIST odd            %a.global; 
+          encodinganalog CDATA                        #IMPLIED    > 
+          
+
+<!-- ********************************************************** -->
+<!--              SCOPE AND CONTENT ELEMENTS                    -->
+<!-- ********************************************************** -->
+
+<!--                             SCOPE AND CONTENT
+                                 A prose statement summarizing 
+                                 information about the scope and 
+                                 content of the described material, 
+                                 including form and arrangement of 
+                                 material as well as the names of 
+                                 organizations and individuals, 
+                                 events, places, and topics 
+                                 documented. Often used to 
+                                 identify a major part of the 
+                                 finding aid that usually starts 
+                                 with a heading and may contain 
+                                 either a paragraph, or any of 
+                                 several named subdivisions such 
+                                 as <arrangement>. Subdivisions 
+                                 not specifically named are 
+                                 created using embedded 
+                                 <scopecontent>.
+-->
+<!ELEMENT scopecontent   - -     (head?, (p | note | 
+                                  arrangement | organization |
+                                  scopecontent | dao | daogrp)+ ) >
+<!ATTLIST scopecontent   %a.global; 
+          encodinganalog CDATA                        #IMPLIED    >
+
+ 
+<!-- ********************************************************** -->
+<!--              ARRANGEMENT                                   -->
+<!-- ********************************************************** -->
+
+
+<!--                             ARRANGEMENT Physical or logical 
+                                 ordering or filing sequence of 
+                                 the material being described.
+-->
+<!ELEMENT arrangement    - -     (head?, (%m.blocks; | 
+                                  arrangement)*)                  >
+<!ATTLIST arrangement            %a.global;
+          encodinganalog CDATA                        #IMPLIED    > 
+
+
+<!-- ********************************************************** -->
+<!--              ORGANIZATION                                  -->
+<!-- ********************************************************** -->
+
+
+<!--                             ORGANIZATION Logical and physical 
+                                 hierarchical groupings into 
+                                 which the material falls or is 
+                                 described.
+-->
+<!ELEMENT organization   - -     (head?, (%m.blocks; | 
+                                  organization)*)                 >
+<!ATTLIST organization           %a.global;
+          encodinganalog CDATA                        #IMPLIED    > 
+
+
+    
+<!-- ********************************************************** -->
+<!--              DESCRIPTIONS OF SUBORDINATE COMPONENTS        -->
+<!--                             ELEMENTS                       -->
+<!-- ********************************************************** -->
+
+<!-- A structure that enables different descriptive viewpoints
+     of the unit being described. The level and type of <dsc>
+     is inherited from the <archdesc> or <c> which contains it. 
+     The level and type are also emphasized in the structure
+     and the quantity of information provided in the <dsc>.
+     A <dsc> may set up <tpsec>s and <thead>s so that
+     any <c>s contained within it can be displayed in tabular
+     format.
+     NOTE: The EAD creator should use either the recursive <c> or
+     the enumerated <c01>-<c12>, but not mix the two approaches.    
+-->
+
+<!--                             DESCRIPTIONS OF SUBORDINATE 
+                                 COMPONENTS (DSC)
+-->
+<!ELEMENT dsc           - -     ((head?, tspec?, (%m.blocks;)*), 
+                                 ((thead?, (c* | c01*))* | dsc*)) >     
+<!ATTLIST dsc           %a.global; 
+          type          (analyticover | combined | in-depth |
+                         othertype)                     #REQUIRED  
+          othertype      CDATA                         #IMPLIED   
+          encodinganalog CDATA                         #IMPLIED   >
+
+<!-- ********************************************************** -->
+<!--              COMPONENT DESCRIPTION ELEMENTS                -->
+<!-- ********************************************************** -->
+
+<!-- COMPONENT - The Component <c> model allows for either the  
+     same elements as were used in the <archdesc> or for the use  
+     of Display Rows <drow>s for tabular layout.
+-->
+
+<!--                             UNNUMBERED COMPONENT           -->
+<!ELEMENT c              - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c+)* | dsc*) )
+                                  |
+                                  (drow+, c*)  )                  >
+<!ATTLIST c              %a.global;
+                         %a.component;                            
+          encodinganalog CDATA                         #IMPLIED   >
+
+<!--elem  head           declared in Basic Structural Elements  -->
+
+<!--elem  did            declared in Descriptive Identification --> 
+
+<!--m.desc.elems         all declared under Archival           
+                         Description                            -->
+
+
+<!--                             TABLE SPECIFICATION
+                                 Describes how the columns of a
+                                 Component <c> display are to be
+                                 arranged on a page.
+-->
+<!ELEMENT tspec          - -     (colspec+, spanspec*)            > 
+
+<!--elem  colspec        declared in the module eadtable.ent    -->
+<!--elem  spanspec       declared in the module eadtable.ent    -->
+
+<!--                             TABLE HEAD                    
+                                 Provides the text for the column
+                                 heads in a Component <c> that is 
+                                 displayed in tabular form.
+-->
+<!--elem  thead          declared in the module eadtable.ent    -->
+
+<!--                             DISPLAY ROW                   
+                                 Container element to hold all the
+                                 descriptive information in a
+                                 single row of a <c> that is
+                                 displayed in tabular form.
+-->
+<!ELEMENT drow           - -     (dentry+)                        >
+<!ATTLIST drow         %a.global;
+          rowsep       %yesorno;                        #IMPLIED
+          valign       (top|middle|bottom)              #IMPLIED  >
+
+
+<!--                             DISPLAY ENTRY (DISPLAY CELL)                  
+
+                                 The contents of one entry
+                                 (a single column inside a                     
+                                 row) inside a tabular
+                                 formatted <c>.
+-->
+<!ELEMENT dentry         - -     (%m.dentry;)*                    >
+<!ATTLIST dentry       %a.global; 
+          colname      NMTOKEN                          #IMPLIED
+          namest       NMTOKEN                          #IMPLIED
+          nameend      NMTOKEN                          #IMPLIED
+          spanname     NMTOKEN                          #IMPLIED
+          morerows     NUMBER                           "0"
+          colsep       %yesorno;                        #IMPLIED
+          rowsep       %yesorno;                        #IMPLIED
+          rotate       %yesorno;                        "0"
+          valign       (top|middle|bottom)              #IMPLIED
+          align        (left|right|center|justify|char) #IMPLIED
+          charoff      NUTOKEN                          #IMPLIED
+          char         CDATA                            #IMPLIED  >
+
+
+
+<!-- ********************************************************** -->
+<!--              NUMBERED COMPONENTS                           -->
+<!-- ********************************************************** -->
+
+<!--                             COMPONENT LEVEL 1              -->
+<!ELEMENT c01            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c02+)* | dsc*))
+                                  |
+                                  (drow+, c02*)  )                >
+<!ATTLIST (c01 | c02 | c03 | c04 | c05 | c06 | c07 | c08 | c09 | 
+           c10 | c11 | c12)
+                         %a.global; 
+                         %a.component;                           
+          encodinganalog CDATA                         #IMPLIED   >
+
+<!--                             COMPONENT LEVEL 2              -->
+<!ELEMENT c02            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c03+)* | dsc*))
+                                  |
+                                  (drow+, c03*)  )                 >
+
+<!--                             COMPONENT LEVEL 3              -->
+<!ELEMENT c03            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c04+)* | dsc*))
+                                  |
+                                  (drow+, c04*)  )                 >
+
+<!--                             COMPONENT LEVEL 4              -->
+<!ELEMENT c04            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c05+)* | dsc*))
+                                  |
+                                  (drow+, c05*)  )                 >
+
+<!--                             COMPONENT LEVEL 5              -->
+<!ELEMENT c05            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c06+)* | dsc*))
+                                  |
+                                  (drow+, c06*)  )                 >
+
+<!--                             COMPONENT LEVEL 6              -->
+<!ELEMENT c06            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c07+)* | dsc*))
+                                  |
+                                  (drow+, c07*)  )                 >
+
+<!--                             COMPONENT LEVEL 7              -->
+<!ELEMENT c07            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c08+)* | dsc*))
+                                  |
+                                  (drow+, c08*)  )                 >
+
+<!--                             COMPONENT LEVEL 8              -->
+<!ELEMENT c08            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c09+)* | dsc*))
+                                  |
+                                  (drow+, c09*)  )                 >
+
+<!--                             COMPONENT LEVEL 9              -->
+<!ELEMENT c09            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c10+)* | dsc*))
+                                  |
+                                  (drow+, c10*)  )                 >
+
+<!--                             COMPONENT LEVEL 10             -->
+<!ELEMENT c10            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c11+)* | dsc*))
+                                  |
+                                  (drow+, c11*)  )                 >
+
+<!--                             COMPONENT LEVEL 11             -->
+<!ELEMENT c11            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   ( (thead?,c12+)* | dsc*))
+                                  |
+                                  (drow+, c12*)  )                 >
+
+<!--                             COMPONENT LEVEL 12             -->
+<!ELEMENT c12            - -     ((head?, did?, (%m.desc.elems;)*, 
+                                   dsc*)
+                                  |
+                                  (drow+)  )                      >
+
+
+<!-- ********************************************************** -->
+<!--           ADJUNCT DESCRIPTIVE DATA (ADD) ELEMENTS          -->
+<!-- ********************************************************** -->
+
+<!--                             ADJUNCT DESCRIPTIVE DATA        
+                                 A container element to hold
+                                 information that is not 
+                                 part of the archival description
+                                 but that can facilitate the use 
+                                 of the archival material or use 
+                                 of the finding aid.
+-->
+<!ELEMENT add            - -     (head?, (%m.add;)*)             >
+<!ATTLIST add            %a.global;                               
+          encodinganalog CDATA                         #IMPLIED  >
+
+<!--                             BIBLIOGRAPHY
+                                 A list of works based on or about 
+                                 the material that is described
+                                 in the finding aid.
+-->
+<!ELEMENT bibliography   - -     (head?, (%m.blocks; | 
+                                  %m.phrase.refs; | 
+                                  bibliography)*)                >
+<!ATTLIST bibliography   %a.global;                               
+          numbered   (numbered | not)                  #IMPLIED    
+          encodinganalog CDATA                         #IMPLIED  >
+
+<!--                             BIBLIOGRAPHIC REFERENCE           
+                                 A reference to a bibliographic
+                                 entity such as a book, article,
+                                 motion picture, etc.  This
+                                 may be as simple as text(#PCDATA)
+                                 or as complex as a citation entry 
+                                 of the kind prescribed in the 
+                                 Chicago Manual of Style. The named
+                                 elements float in any order in the
+                                 citation with or without 
+                                 surrounding text.
+-->
+<!ELEMENT bibref         - -     (#PCDATA | %m.bibref;)* 
+                                -(bibref)                         >
+<!ATTLIST bibref         %a.global;                               
+                         %a.ext.ptr;                              
+          encodinganalog CDATA                         #IMPLIED   >
+
+<!--                             EDITION                        -->
+<!ELEMENT edition        - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST edition        %a.global;                           
+          encodinganalog CDATA                        #IMPLIED    > 
+
+<!--                             BIBLIOGRAPHIC SERIES           -->
+<!ELEMENT bibseries      - -     (#PCDATA | %m.phrase.bare; | 
+                                   title | num)*                  >
+<!ATTLIST bibseries      %a.global;                               
+          encodinganalog CDATA                         #IMPLIED   >
+
+<!--                             IMPRINT                        -->
+<!ELEMENT imprint        - -     (#PCDATA | %m.phrase.bare; |  
+                                  publisher | geogname | date)*   >
+<!ATTLIST imprint        %a.global;                               
+          encodinganalog CDATA                         #IMPLIED   >
+
+<!--                             PUBLISHER                      -->
+<!ELEMENT publisher      - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST publisher      %a.global; 
+          encodinganalog CDATA                        #IMPLIED    > 
+     
+<!--                             FILEPLAN
+                                 The classification plan or scheme
+                                 for the physical arrangement, 
+                                 storage, and retrieval of files 
+                                 that was used by the individual 
+                                 or organization originally 
+                                 responsible for creating or 
+                                 compiling the materials.
+-->
+<!ELEMENT fileplan       - -     (head?, (%m.blocks; | 
+                                  fileplan)*)                   >
+<!ATTLIST fileplan       %a.global;                            
+          encodinganalog CDATA                         #IMPLIED >
+
+
+<!--                             RELATED MATERIAL
+                                 Description or lists of related 
+                                 materials.
+-->
+<!ELEMENT relatedmaterial 
+                         - -     (head?, (%m.blocks; | 
+                                  %m.phrase.refs; | 
+                                  relatedmaterial)* )            >
+<!ATTLIST relatedmaterial        %a.global;                     
+          encodinganalog CDATA                         #IMPLIED  >
+
+<!--                             ARCHIVAL REFERENCE
+                                 An external reference to an 
+                                 archival entity, such as a 
+                                 collection or record group. 
+-->
+<!ELEMENT archref        - -     (#PCDATA | %m.phrase.basic; | 
+                                  %m.did;)*           -(archref) >
+<!ATTLIST archref        %a.global;
+                         %a.ext.ptr;                             >
+
+
+<!--                             SEPARATED MATERIAL
+                                 Information about material that 
+                                 has been separated or physically 
+                                 removed by the archivist from 
+                                 the material being described in 
+                                 <archdesc>.
+-->
+<!ELEMENT separatedmaterial
+                         - -     (head?, (%m.blocks; | 
+                                  %m.phrase.refs; | 
+                                  separatedmaterial)*)            >
+<!ATTLIST separatedmaterial            
+                        %a.global;                                
+          encodinganalog CDATA                         #IMPLIED   >
+
+
+
+<!-- ********************************************************** -->
+<!--               INDEX ELEMENTS                               -->
+<!-- ********************************************************** -->
+
+<!--                             INDEX     
+                                 Human-generated Index. 
+                                 Provides means to create list of
+                                 entries to the material that 
+                                 cannot be derived directly from
+                                 the material itself.
+-->
+<!ELEMENT index          - -     ( head?,(%m.blocks;)*, 
+                                  ((((listhead)?), 
+                                  indexentry+) | index*))         >
+<!ATTLIST index          %a.global;                               
+          encodinganalog CDATA                         #IMPLIED   >
+
+<!--elem listhead        declared in List elements              -->
+
+<!--                             INDEX ENTRY     
+                                 One or more name or subject
+                                 entries can be linked to one or
+                                 more locations. 
+-->
+<!ELEMENT indexentry     - -     ((namegrp | %m.phrase.access;), 
+                                  (ptrgrp | ptr | ref) )          >
+<!ATTLIST indexentry     %a.global;                               >
+
+
+<!--                             NAME GROUP 
+                                 Allows grouping of name entries
+                                 that share the same reference 
+-->
+<!ELEMENT namegrp        - -     (%m.phrase.access; | note)+      >
+<!ATTLIST namegrp        %a.global;                               >
+
+<!--                             POINTER GROUP
+                                 Container element which holds
+                                 Pointers <ptr>s.
+-->
+<!ELEMENT ptrgrp         - -     (ptr | ref)+                     >
+<!ATTLIST ptrgrp         %a.global;                               >
+
+<!-- elem ptr            declared in Links and Pointers         -->
+
+<!-- ********************************************************** -->
+<!--              BASIC STRUCTURAL ELEMENTS                     -->
+<!-- ********************************************************** -->
+
+<!--                             HEADING 
+                                 Used for headings or titles of
+                                 high and mid-level structures.
+-->
+<!ELEMENT head           - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST head           %a.global; 
+              --         Alternative/Short form of the heading  --
+              althead    CDATA                        #IMPLIED    >
+
+<!--                             PARAGRAPH                      -->
+<!ELEMENT p              - -     (%para.content;)*                >
+<!ATTLIST p              %a.global;                               >
+
+
+<!--                             BLOCK QUOTE 
+                                 Simple quotes use PCDATA.
+                                 Block quotes may contain a 
+                                 paragraph or other block 
+                                 elements.
+-->
+<!ELEMENT blockquote     - -     (%m.blocks.noquote;)*           >
+<!ATTLIST blockquote     %a.global;                              >
+
+
+<!--                             NOTE 
+                                 Used as both a summary note
+                                 in <did> and broadly available 
+                                 for general annotations.
+-->
+<!ELEMENT note           - -     (%m.blocks;)*                   >
+<!ATTLIST note           %a.global;                              
+          label          CDATA                         #IMPLIED
+          displaytype    (reveal | present)            "present" 
+          encodinganalog CDATA                         #IMPLIED  >
+
+
+<!-- ********************************************************** -->
+<!--              DATA (CONTENT) PHRASE ELEMENTS                -->
+<!-- ********************************************************** -->
+
+<!ELEMENT date           - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST date           %a.global; 
+          type           CDATA                         #IMPLIED 
+          normal         CDATA                         #IMPLIED
+          certainty      CDATA                         #IMPLIED 
+          encodinganalog CDATA                         #IMPLIED   >
+          
+<!ELEMENT num            - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST num            %a.global; 
+          type           CDATA                         #IMPLIED 
+          encodinganalog CDATA                         #IMPLIED   >
+          
+<!ELEMENT abbr           - -     (#PCDATA)                        >
+<!ATTLIST abbr           %a.global; 
+          expan          CDATA                         #IMPLIED   >
+          
+<!ELEMENT expan          - -     (#PCDATA)                        >
+<!ATTLIST expan          %a.global; 
+          abbr           CDATA                         #IMPLIED   >
+          
+<!ELEMENT address        - -     (addressline+)                   >
+<!ATTLIST address        %a.global;                               >
+
+<!ELEMENT addressline    - -     (#PCDATA | %m.phrase.bare;)*     >
+<!ATTLIST addressline    %a.global;                               >
+     
+<!-- ********************************************************** -->
+<!--              BARE PHRASE ELEMENTS (USED ALMOST ANYWHERE)   -->
+<!-- ********************************************************** -->
+
+<!--                             EMPHASIS (HIGHLIGHTING)
+                                 Used to specify an alternative 
+                                 rendering of a character, word,
+                                 phrase, etc. within another
+                                 element. For example, italics,
+                                 bold, superscript, and subscript.
+                                 Alternative rendering options are 
+                                 given in a semi-closed list.
+-->
+<!ELEMENT emph           - -     (#PCDATA | %m.phrase.basic;)*
+                                  -(emph)                         >
+<!ATTLIST emph           %a.emph;
+                         id            ID              #IMPLIED
+                         altrender     CDATA           #IMPLIED   >
+
+<!--                             LINEBREAK(for forced linebreak)-->
+<!ELEMENT lb             - o     EMPTY                            >
+     
+<!-- ********************************************************** -->
+<!--              DIGITAL ARCHIVAL OBJECTS ELEMENTS             -->
+<!-- ********************************************************** -->
+
+<!--                             DIGITAL ARCHIVAL OBJECT                 
+                                 If there is no description, this 
+                                 is an empty element; attributes
+                                 point to the actual object.       
+-->
+<!ELEMENT dao            - -     (daodesc?)                        >
+<!ATTLIST dao            %a.global;
+                         %a.ext.ptr;                              >
+
+<!--                             DIGITAL ARCHIVAL OBJECT 
+                                 DESCRIPTION
+                                 A prose description of the digital
+                                 archival object so that it can be 
+                                 read or otherwise interpreted for 
+                                 the print-impaired.
+-->
+<!ELEMENT daodesc        - -     (%head.n.para;)                 >
+<!ATTLIST daodesc        %a.global;                              >
+
+
+<!--                             DIGITAL ARCHIVAL OBJECT GROUP              
+                                 Used to group digital archival
+                                 objects together with each 
+                                 object explicitly referenced, 
+                                 with or without accompanying 
+                                 text.
+-->
+<!ELEMENT daogrp         - -     (daodesc?, dao+)                 >
+<!ATTLIST daogrp         %a.global;                               >
+
+     
+
+<!-- ********************************************************** -->
+<!--              LINKS AND POINTERS (See REFERENCES below)     -->
+<!-- ********************************************************** -->
+
+
+<!--                             POINTER
+                                 Points to another location in the 
+                                 same document and is EMPTY.
+-->
+<!ELEMENT ptr            - o     EMPTY                            >
+<!ATTLIST ptr            %a.int.ptr;                              
+                         %a.global;                               >
+ 
+
+<!--                             EXTERNAL POINTER
+                                 Points to a location in another
+                                 document and is EMPTY.
+-->
+<!ELEMENT extptr         - o     EMPTY                            >
+<!ATTLIST extptr         %a.ext.ptr;
+                         %a.global;                               >
+
+
+<!--                          NAME LOCATION ADDRESS
+                             (for external link)
+-->
+<!ELEMENT nameloc       - -   (nmlist)+                           >
+<!ATTLIST nameloc         
+            --                Tells HyTime what this is         --
+            HyTime      NAME            #FIXED       "nameloc"
+            --                Required ID                       --
+            id          ID                           #REQUIRED    >
+
+<!--                          NAME LIST SPEC (for external link)-->
+<!ELEMENT nmlist        - -   (#PCDATA)                           >
+<!ATTLIST nmlist         
+            --                Tell HyTime what this is          --
+            HyTime      NAME            #FIXED       "nmlist"
+            --                TYPE OF ITEM REFERENCED           --
+            nametype    (element | entity | unified) "element"
+            --                ENTITY                            --
+            docorsub    ENTITY                       #IMPLIED    
+            --                Optional ID                       --
+            id          ID                           #IMPLIED     >
+
+<!--                          HYTIME ILINK (Independent Link)   -->
+<!ELEMENT ilink         - O   EMPTY                               >
+<!ATTLIST ilink
+            --                Tells HyTime engine type of link  --
+            HyTime      NAME        #FIXED           "ilink"
+            --                Place to which link points        --
+            linkends    NMTOKENS                     #REQUIRED
+            --                HYTime anchor roles               --
+            anchrole    NMTOKENS                     #IMPLIED     
+            --                External Access Traversal Rule    --
+            extra       NMTOKENS                     #IMPLIED     
+            --                Internal Access Traversal Rule    --
+            intra       NMTOKENS                     #IMPLIED     
+            --                Link End Term Information         --
+            endterms    NMTOKENS                     #IMPLIED     
+            --                Traversal of agglink Anchors      --
+            aggtrav     NMTOKENS                     #IMPLIED   
+            --                An optional ID                    --
+            id          ID                           #IMPLIED     >
+
+     
+<!-- ********************************************************** -->
+<!--              CROSS REFERENCES (SEE POINTERS ABOVE)         -->
+<!-- ********************************************************** -->
+
+<!--elem bibref                declared under Bibliography      --> 
+<!--elem archref               declared under Related Material  -->
+
+<!--                             REFERENCE
+                                 Points to another location in the 
+                                 same document and may have 
+                                 content.  Includes refs to notes
+                                 and footnotes. The type attribute 
+                                 controls generated text, such as
+                                 "See also".  The displaytype
+                                 attribute controls whether the
+                                 ref appears in the text (present)
+                                 or is represented by an icon or 
+                                 highlighted text (reveal). 
+-->
+<!ELEMENT ref            - -     (%para.content;)*         -(ref) >
+<!ATTLIST ref            %a.int.ptr;
+                         %a.global;
+                         displaytype (reveal | present)            
+                         "reveal"                                 >
+
+
+<!--                             EXTERNAL REFERENCE
+                                 Points to a location in another 
+                                 document and may have 
+                                 content.  The type attribute 
+                                 controls generated text such as,
+                                 "See also".  The displaytype
+                                 attribute controls whether the
+                                 ref appears in the text (present)
+                                 or is represented by an icon or 
+                                 highlighted text (reveal). 
+-->
+<!ELEMENT extref         - -     (%para.content;)*      -(extref) >
+<!ATTLIST extref         %a.global;
+                         %a.ext.ptr;                              >
+
+
+<!--                             REFERENCE to a TITLE
+                                 A reference to a title of another
+                                 work cited within the text.  This 
+                                 reference may contain just the
+                                 name of a monograph, article, etc.
+                                 or it may use the external pointer
+                                 attributes to make a hyperlink
+                                 to the cited document.
+-->
+<!ELEMENT title         - -     (#PCDATA | %m.phrase.bare; | 
+                                 date | num)+                     >
+<!ATTLIST title         %a.global;
+                        %a.ext.ptr;                              
+                        %a.emph;
+              extent    (all | part |unknown-extent)  #IMPLIED
+              pubstatus (pub | unpub | unknown-pub)   #IMPLIED    
+              encodinganalog CDATA                    #IMPLIED    >
+     
+<!-- ********************************************************** -->
+<!--              GENERAL PURPOSE LISTS                         -->
+<!-- ********************************************************** -->
+
+
+<!--                             LIST 
+                                 Essential structure taken from TEI
+                                 except <headLabel> and <headItem> 
+                                 have been replaced with 
+                                 <listhead>, <head01>, and 
+                                 <head02> to make them generally 
+                                 available for other list 
+                                 structures in EAD.
+-->
+<!ELEMENT list           - -     (head?, 
+                                 (item+ | (listhead?, defitem+))) >
+<!ATTLIST list        %a.global;
+          type       (deflist|simple|ordered|random)  #IMPLIED    >
+
+<!--                             LIST HEAD                      
+                                 Head element for two column 
+                                 lists. Also used in chronlist
+                                 and index.
+-->          
+<!ELEMENT listhead    - -     (head01?, head02?)                  >
+<!ATTLIST listhead     %a.global;                                 >
+
+<!--                          ITEM in a LIST                    -->
+<!ELEMENT item        - -     (%para.content;)*                   >
+<!ATTLIST item        %a.global;                                  >
+
+<!ELEMENT defitem     - -     (label, item)                       >
+<!ATTLIST defitem     %a.global;                                  >
+
+<!--                          LABEL (TERM) IN A TWO-PART LIST   -->
+<!ELEMENT label       - -     (#PCDATA | %m.phrase.plus;)*        >
+<!ATTLIST label       %a.global;                                  >
+
+<!--                          HEAD IN THE FIRST COLUMN OF A LIST-->
+<!ELEMENT head01      - -     (#PCDATA | %m.phrase.bare;)*        >
+<!ATTLIST head01      %a.global;                                  >
+
+<!--                          HEAD IN THE SECOND COLUMN OF A 
+                              LIST                              -->
+<!ELEMENT head02      - -     (#PCDATA | %m.phrase.bare;)*        >
+<!ATTLIST head02      %a.global;                                  >
+
+<!-- ************** END of EAD BASIC DECLARATIONS ************* -->
+

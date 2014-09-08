@@ -1,0 +1,131 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en]C-CCK-MCD {Sony}  (Win98; U) [Netscape]">
+   <title>Cheshire II Commands</title>
+</head>
+<body background="chat5.jpg">
+<!-- Cheshire II documentation -->
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Databases</H1> </FONT>
+</center>
+
+<h2>
+<font color="#0000FF">Virtual Databases</font></h2>
+<p>\- Simultaneous Search of Multiple Databases
+<h2>
+<font color="#0000FF">DESCRIPTION</font></h2>
+This document describes the CheshireII Virtual Database facility, used to 
+provide a single named database "target" that represents multiple
+physical databases on a single Cheshire server. When a search or display
+command is sent to a virtual database, the server will search all of
+the databases listed in additional "FILENAME" entries in the config
+file for the virtual database (an example configfile is shown below).
+The results from the different physical databases are pooled.
+If a probabilistic search is done the results from all servers are
+put into a single ranking. Virtual databases rely on the configuration
+files of the underlying physical databases to determine if a search
+or display format request is possible for the given database.
+<p>
+In the
+configuration file the FILEDEF TYPE attribute is used to indicate that
+the FILETAG and the file name in <i>first</i> FILENAME tag is a DataStore file. The following may be used to do this...
+<p>
+<B>&lt;FILEDEF TYPE=VIRTUAL&gt;</B>
+<p>
+The example configuration file shown below implements a virtual database with
+the database name "vdb". The actual physical databases are "scilib" and
+"bibfile" which are named in the additional FILENAME tags. Virtual databases
+may also include EXPLAIN information (as the example shows), but need not
+have DTDs, indexes, etc. specified (if these are specified, they are 
+ignored). 
+<p>
+The configuration files for the physical databases must be named in the
+server.init file for <a href="zserver.html"> Zserver </a>. For virtual
+databases to be used with <a href="cheshire2.html">webcheshire</a> all
+of the FILEDEFs for the physical databases must be included in the
+file referenced but the "CHESHIRE_CONFIGFILE" variable. Both conventional
+SGML/XML files plus associators, and <a href="datastore.html">DataStore</a>
+databases may be combined in virtual files.
+
+<P><B>A Minimal Configfile for use with virtual databases</B> </P>
+<p>
+<PRE>
+&lt;!-- This is a test config file for Cheshire II --&gt;
+&lt;DBCONFIG&gt;
+&lt;DBENV&gt; /home/ray/Work/DBENV &lt;/DBENV&gt;
+
+&lt;!-- The only filedef is a virtual file which is actually just a way --&gt;
+&lt;!-- to search and retrieve from all of added filenames below --&gt;
+&lt;FILEDEF TYPE=VIRTUAL&gt;
+
+&lt;DEFAULTPATH&gt; /home/ray/Work/cheshire/index &lt;/DEFAULTPATH&gt;
+
+&lt;!-- filetag is the "shorthand" name of the file --&gt;
+&lt;FILETAG&gt; vdb &lt;/FILETAG&gt;
+
+&lt;!-- filenames for virtual dbs are just the filetag names of OTHER    --&gt;
+&lt;!-- files in this or other configfiles on the same server. The names --&gt;
+&lt;!-- are used to look those files and process them for retrieval      --&gt;
+&lt;!-- Virtual db configfiles are NOT used for indexing, only retrieval --&gt;
+&lt;FILENAME&gt; vdb &lt;/FILENAME&gt;   &lt;!-- should be the same as the filetag   --&gt;
+&lt;FILENAME&gt; scilib&lt;/FILENAME&gt; &lt;!-- this is an actual database see server.init --&gt;
+&lt;FILENAME&gt; bibfile &lt;/FILENAME&gt; &lt;!-- this is an actual database --&gt;
+
+&lt;!-- The virtual DB needs no index definitions (indexes of the actual  --&gt;
+&lt;!-- files are used for searching and retrieval                        --&gt;
+&lt;!-- You can have explain stuff for virtual dbs                        --&gt;
+&lt;EXPLAIN&gt;
+&lt;TITLESTRING&gt; Sample virtual database (uses bibfile and scilib)
+&lt;/TITLESTRING&gt;
+&lt;DESCRIPTION&gt; Combined searching of multiple databases using a single
+database name (vdb)
+&lt;/DESCRIPTION&gt;
+&lt;DISCLAIMERS&gt; The scilib database is only on Ray's system.
+&lt;/DISCLAIMERS&gt;
+&lt;NEWS&gt; No news &lt;/NEWS&gt;
+&lt;HOURS&gt; Whenever the system is up &lt;/HOURS&gt;
+&lt;BESTTIME&gt; Almost any time is good &lt;/BESTTIME&gt;
+&lt;LASTUPDATE&gt; Feb. 2002 &lt;/LASTUPDATE&gt;
+&lt;UPDATEINTERVAL&gt;&lt;VALUE&gt; 1 &lt;/VALUE&gt;&lt;UNIT&gt; Years &lt;/UNIT&gt;&lt;/UPDATEINTERVAL&gt;
+&lt;COVERAGE&gt; Bunch of stuff &lt;/COVERAGE&gt;
+&lt;PROPRIETARY&gt; NO &lt;/PROPRIETARY&gt;
+&lt;COPYRIGHTTEXT&gt; This is not copyrighted &lt;/COPYRIGHTTEXT&gt;
+&lt;COPYRIGHTNOTICE&gt; This would be a copyright notice if it was&lt;/COPYRIGHTNOTICE&gt;
+&lt;PRODUCERCONTACTINFO&gt;
+&lt;contact_name&gt; Ray R. Larson &lt;/contact_name&gt;
+&lt;contact_address&gt;102 South Hall UC Berkeley, CA 94720-4600
+&lt;/contact_address&gt;
+&lt;contact_email&gt; &lt;/contact_email&gt;
+&lt;/PRODUCERCONTACTINFO&gt;
+&lt;SUPPLIERCONTACTINFO&gt;
+&lt;contact_name&gt; Ray R. Larson &lt;/contact_name&gt;
+&lt;contact_address&gt;102 South Hall UC Berkeley, CA 94720-4600
+&lt;/contact_address&gt;
+&lt;contact_email&gt; &lt;/contact_email&gt;
+&lt;contact_phone&gt; 642-6046 &lt;/contact_phone&gt;
+&lt;/SUPPLIERCONTACTINFO&gt;
+&lt;/EXPLAIN&gt;
+
+&lt;/FILEDEF&gt; 
+&lt;/DBCONFIG&gt;
+
+</PRE>
+<p>
+<hr WIDTH="100%">
+<h2>
+<font color="#0000FF">BUGS</font></h2>
+None known.
+<h2>
+<font color="#0000FF">SEE ALSO</font> cheshire_load, read_datastore</h2>
+
+<h2>
+<font color="#0000FF">AUTHOR</font></h2>
+Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>)
+</body>
+</html>
+
+
+

@@ -1,0 +1,424 @@
+#!/home/cheshire/cheshire/bin/webcheshire
+# Author:  Rob Sanderson (azaroth@liv.ac.uk)
+# Copyright: &copy; (c) The University of Liverpool, All Rights Reserved
+# Version: 0.9.0 (or so)
+# Last Modified: Today (or more recently)
+# Description:  A Record and Editor management system for Cheshire
+
+puts "Content-type: text/HTML\n"
+
+# Record configs etc
+set CGI_ROOT "/home/cheshire/public_html/wikicgi"
+set CGI_PATH "/~cheshire/eadwiki/"
+set STATIC_PATH "eadfiles"
+
+set CHESHIRE_PATH "/home/cheshire/cheshire/bin"
+set CHESHIRE_NUM_START 1
+set CHESHIRE_NUMREQUESTED 1
+set CHESHIRE_ELEMENTSET METAGRS
+set CHESHIRE_RECSYNTAX GRS1
+
+set CHESHIRE_ROOT "/home/cheshire/cheshire/eadwiki"
+
+set CHESHIRE_ROOT_DATA "$CHESHIRE_ROOT/DATA"
+set CHESHIRE_ROOT_USERS "$CHESHIRE_ROOT/editors"
+
+set CHESHIRE_DATABASE_DATA "cmetadata-ead"
+set CHESHIRE_DATABASE_USERS "cmeditors"
+
+set CHESHIRE_CONFIGFILE_DATA "$CHESHIRE_ROOT/DBCONFIGFILE-ead"
+set CHESHIRE_CONFIGFILE_USERS  "$CHESHIRE_ROOT/DBCONFIGFILE-editors"
+
+set DELETED_FILES_PATH_DATA "$CHESHIRE_ROOT/deleted_records/records"
+set DELETED_FILES_PATH_USERS "$CHESHIRE_ROOT/deleted_records/editors"
+
+# 0 - require manual rebuild  1 - incremental rebuild on save 2 - full rebuild on save
+set REBUILD_ON_SAVE 1
+set REBUILD_SCRIPT_DATA  "$CHESHIRE_ROOT/buildnew.sh-ead"
+set REBUILD_SCRIPT_USERS "$CHESHIRE_ROOT/buildnew.sh-editor"
+
+set IS_ENCAPSULATED_DOCUMENT 1
+set LINKED_DOCUMENT_INDEX "DOCID"
+
+set HTACCESS_FILENAME "$CHESHIRE_ROOT/access/editors"
+
+set global_variables {CHESHIRE_DATABASE_DATA CHESHIRE_DATABASE_USERS CHESHIRE_CONFIGFILE_DATA CHESHIRE_CONFIGFILE_USERS IS_ENCAPSULATED_DOCUMENT CHESHIRE_DATABASE CHESHIRE_CONFIGFILE CHESHIRE_ELEMENTSET CHESHIRE_NUM_START CHESHIRE_RECSYNTAX CHESHIRE_NUMREQUESTED}
+
+
+# -------------------------------
+
+# Function Configuration
+set admin_functions {"adminselect" "adduser" "deluser" "userpassword" "userinfo" "userflags" "rebuild"}
+set user_functions { "useredit" "usersave" }
+set doc_functions {"docselect" "edit" "save" "move" "copy" "delete" "rename" "metadata" "addeditor" "deleditor" "addflag" "delflag" }
+set doc_flags {"" "" "" "structure" "structure" "delete" "" "" "" "delete" "" "delete" }
+
+set editor_flag_list {"admin" "delete" "structure" "globaleditor" "usereditor"}
+
+# Rather than pass around potentially long lists, record formatted info into global variables
+set current_user_info {}
+set current_document_info {}
+
+# Text Configuration
+
+array set reqargtypes {"move" "New location" "copy" "New Location" "rename" "New Name" "addeditor" "New Editor" "addflag" "New Editor Flag" "deleditor" "Editor to Delete" "delflag" "Flag to Delete" "delete" "Record ID to Delete"}
+
+
+# ---- Load Essential Libraries ----
+
+source lib/libcgi.tcl
+source lib/libdocument.tcl
+source lib/libeadgrs.tcl
+
+
+# --- Override Create Functions for EAD ---
+
+proc function_edit {key title} {
+    global global_variables indata
+    foreach var $global_variables {
+	global $var 
+    }
+
+    # Throw to form, then from javascript to real form then save.
+    # Fun.
+
+    set CHESHIRE_NUMREQUESTED 1
+    set CHESHIRE_ELEMENTSET F
+    set CHESHIRE_RECSYNTAX grs1
+    
+    set query "search cheshireID $key"
+    
+    set err [catch {eval $query} qresults]
+    set hits [lindex [lindex [lindex $qresults 0] 0] 1]
+    set sresults [lrange $qresults 1 end]
+    
+    set sresults [lindex [ lindex $sresults 0] 1]
+    regsub -all "{tagType:: 3}" $sresults "" sresults
+    regsub -all "{tagType:: 2}" $sresults "" sresults
+    regsub -all "{tagOccurrence:: 0}" $sresults "" sresults
+    regsub -all "\"" $sresults {\&quot;} sresults
+    
+    foreach item [lrange $sresults 1 end] {
+	processitem_edit $item
+    }
+    
+    writeeadform 1
+
+
+}
+
+proc function_edit2 {key title } {
+
+    throwfile "edit-top.html" [list "\%KEY\% $key" "\%TITLE\% $title" "\%INFO\% <p>"]
+    set doc [get_document $key]
+    puts $doc
+    throwfile "edit-bottom.html" {}
+
+}
+
+
+proc function_create {path } {
+    global indata REMOTE_USER current_document_info
+
+    set innames [array names indata]
+    if { [lsearch $innames "doctext"] != -1 } {
+	# We're from the createform, not a create button
+	foreach var $innames {
+	    set $var $indata($var)
+	}
+	
+ 	set errormsg ""
+	if { $cheshireID == "" } {
+	    set errormsg "You must give an identifier for the document"
+	} elseif { [regsub {[^a-zA-Z0-9_.-]} $cheshireID null null ] } {
+	    set errormsg "The identifier must contain only alphanumeric characters, plus _. and -"
+	} elseif { $title == "" } {
+	    set errormsg "You must give a title for the document"
+	} elseif {$location == ""} {
+	    set errormsg "You must give a location for the document"
+	} elseif { [regsub {[^a-zA-Z0-9_./-]} $location null null] } {
+	    set errormsg "The location must contain only alphanumeric characters, plus _ . / and -"
+	} elseif { $editors == "" && $flags == "" } {
+	    set errormsg "You must give at least one editor or editor flag for the document"
+	} elseif { $doctext == "" } {
+	    set errormsg "You must give at least a minimal document."
+	} elseif { [get_document_by_path $location] != 0 } {
+	    set errormsg "There is already a document at that location."
+	} elseif { [get_document $cheshireID] != 0 } {
+	    set errormsg "There is already a document with that identifier."
+	} else {
+
+	    # Validate editors
+	    foreach ed $editors {
+		if { [get_user_info $ed] == 0} {
+		    set errormsg "$ed is not a valid editor."
+		    break
+		}
+	    }
+
+	    # XXX Only allow admins to create with predefined flags?
+
+	    if {$errormsg == ""} {
+		# Generate metadata into current_document_info
+		# Verify and Write record as per edit
+		set_metadata "title" $title
+		set_metadata "location" $location
+		set_metadata "id" $cheshireID
+		foreach id $editors {
+		    set_metadata "addeditor" $ed
+		}
+		foreach flag $flags {
+		    set_metadata "addflag" $flag
+		}
+
+		set doc $indata(doctext)
+		set record [generate_metadata ""]
+		append record $doc
+		append record "</cheshireDocument>\n</cheshireRecord>\n"
+		
+		set myerror [validate_and_save $record $cheshireID $title]
+		
+		if {$myerror != 0 } {
+		    # Throw back to re-edit
+		    set errormsg $myerror
+		}
+	    }
+	}
+	
+	if {$errormsg != "" } {
+
+	    throwfile "eadcreateform.html" [list "\%USERS\% $editors" "\%LOCATION\% $location" "\%DOCTEXT\% $doctext" "\%KEY\% $cheshireID" "\%TITLE\% $title" "\%FLAGS\% $flags" "\%ERR\% $errormsg"]
+
+	    writeeadform 0
+	    puts "</form>\
+<p>\
+    <hr>\
+  </body>\
+</html>"
+
+
+	}
+    } else {
+	throwfile "eadcreateform.html" [list "\%USERS\% $REMOTE_USER" "\%LOCATION\% [string range $path 1 end]" "\%DOCTEXT\% " "\%KEY\% " "\%TITLE\% " "\%FLAGS\% " "\%ERR\% "]
+
+	writeeadform 0
+	puts "</form>\
+<p>\
+    <hr>\
+  </body>\
+</html>"
+    }
+    
+}
+
+
+
+
+
+
+
+
+# --- Interface Template Subroutines ---
+
+
+proc maybe_throw_reqform {key title} {
+    global reqargtypes indata
+    # Generate and throw form to ask for arguments to command.
+
+    set innames [array names indata]
+    set reqtype  $indata(request);
+    set argtype $reqargtypes($reqtype)
+    set arg2type "Unused"
+
+    if {$reqtype == "copy"} {
+	set arg2type "New ID"
+    }
+
+
+    if {[lsearch $innames arg1] == -1 || $indata(arg1) == ""} {
+	# We don't know what to do. Ask.
+	throwfile "commandargs.html" [list "\%KEY\% $key" "\%TITLE\% $title" "\%REQUEST\% $reqtype" "%ARGTXT% $argtype" "\%ARG2TXT\% $arg2type" "\%ERR\% \"\""]
+	return 1
+    } else {
+	return 0
+    }
+}
+
+proc throw_error_reqform {key title err} {
+    global reqargtypes indata
+    # There was a problem, ask again and give error.
+
+    set reqtype  $indata(request);
+    set argtype $reqargtypes($reqtype)
+
+    if {$reqtype == "copy"} {
+	set arg2type "New ID"
+    } else {
+	set arg2type "Unused"
+    }
+
+    throwfile "commandargs.html" [list "\%KEY\% $key" "\%TITLE\% $title" "\%REQUEST\% $reqtype" "%ARGTXT% $argtype" "\%ERR\% $err" "\%ARG2TXT\% $arg2type"]
+    
+}
+
+proc throw_success_file {} {
+    global indata current_document_info CGI_PATH
+
+    if {[llength $current_document_info] != 0} {
+	set location [lindex $current_document_info 2 ]
+    } else {
+	set location ""
+    }
+
+    set reqtype  $indata(request);
+    throwfile "success.html" [list "\%REQUEST\% $reqtype" "\%LOCATION\% $CGI_PATH$location"]
+    
+}
+
+
+# ---------           Main Routine          ----------
+
+# We have all the data set up from libcgi now.
+# Do we have a form/query href, if so process it.
+
+if {$message != ""} {
+    set request $indata(request)
+
+    # We'll almost certainly need editor info 
+    source lib/libuser.tcl
+
+    if {$request == "search"} {
+	# Allow searches to anyone, from both POST and GET
+	# Really? Not from POST requests /unless/ logged in.
+
+	source lib/libsearch.tcl
+	function_search
+	exit 
+
+    } elseif { $REMOTE_USER == "" } {
+	# This will catch all other GETs, as we have LimitExcept GET
+	puts "You need to be logged in."
+    } elseif { $request != "null" } {
+
+	# Establish who
+	set current_user_info [get_user_info $REMOTE_USER]
+	set is_admin [user_has_flag "admin"]
+	
+	# Check if we're trying to modify our own user info
+	if {  [lsearch $user_functions $request ] != -1 } {
+	    function_$request
+	    exit
+	}	
+
+	# Check for Admin commands
+	if {  [lsearch $admin_functions $request ] != -1 } {
+	    if { $is_admin ==  0  } {
+		throwfile "err.html" [list  "\%ERR\% You are unable to complete that administrator only request."]
+	    } else {
+		source lib/libadmin.tcl
+		function_$request
+	    }
+	    exit
+ 	}
+
+	if { $request == "create"} {
+	    # We can't get document info about a nonexistant file, so handle before other document functions.
+	    if { [user_has_flag "structure"] == 0 } {
+		throwfile "err.html" [list "\%ERR\% You are unable to create a new document as you lack the 'structure' flag."]
+	    } else {
+		function_create $indata(location)
+	    }
+	    exit 
+	}
+	
+	# Otherwise we're a document command, or someone is hacking us 
+	# Establish document and if who can mess with document
+	if { [lsearch [array names indata] cheshireID] == -1 } {
+	    throwfile "err.html" [list "\%ERR\% Unknown or Unable to Handle Request: $request"]
+	    exit 
+	}
+
+	set key $indata(cheshireID)
+	set current_document_info [get_document_info $key]
+	set title [get_document_title]
+
+	set can_edit [user_can_edit]
+	if {$can_edit == 0} {
+	    throwfile "err.html" [list  "\%ERR\% You are unable to edit that document."]
+	    exit  
+	}
+
+	if {[set dcidx [lsearch $doc_functions $request]] == -1 } {
+	    throwfile "err.html" [list "\%ERR\% Unknown or Unable to Handle Request: $request"]
+	} else {
+	    # Check we have necessary flags
+	    foreach flag [lindex $doc_flags $dcidx] {
+		if { [user_has_flag $flag] == 0 } {
+		    throwfile "err.html" [list "\%ERR\% Unable to complete your '$request' request, as you do not have the '$flag' flag."]
+		    exit 
+		}
+	    }
+	    function_$request $key $title
+	}
+    } else {
+	throwfile "err.html" [list "\%ERR\% No request given."]
+    }
+    exit
+}
+
+
+# First look for static page from PATH_INFO
+
+if {[string index $PATH_INFO [expr [string length $PATH_INFO] -1]] == "/"} {
+    set PATH_INFO "${PATH_INFO}index.html"
+}
+set path "$STATIC_PATH$PATH_INFO"
+
+if { [file exists $path] } {
+    set OUTH [open $path]
+    puts -nonewline [read $OUTH [file size $path]]
+    exit
+}
+
+
+# Second, look for pages in our database to throw
+
+# For EAD we need to do our funky transformations.
+# For this we need to import the EAD functions from eadsearchN...
+
+set docid [get_docid_by_path $PATH_INFO]
+
+if {$docid  < 1} {
+	throwfile 404.html [list "\%PATH\% $PATH_INFO"]
+} else {
+    # Now we have a unique document, so do ead2html
+
+    set CHESHIRE_DATABASE $CHESHIRE_DATABASE_DATA
+    set CHESHIRE_CONFIGFILE $CHESHIRE_CONFIGFILE_DATA
+    set CHESHIRE_RECSYNTAX grs1
+    set CHESHIRE_ELEMENTSET F
+
+    set query "search cheshireID $docid"
+    
+    set err [catch {eval $query} qresults]
+    set sresults [lrange $qresults 1 end]
+    
+    #Strip headers to ead tag, and play with results a bit
+    set sresults [lindex [ lindex $sresults 0] 1]
+    regsub -all "{tagType:: 3}" $sresults "" sresults
+    regsub -all "{tagType:: 2}" $sresults "" sresults
+    regsub -all "{tagOccurrence:: 0}" $sresults "" sresults
+    regsub -all "\"" $sresults {\&quot;} sresults
+
+    puts "<html><head><title>EAD Document</title></head><body bgcolor = white>"
+
+    foreach item [lrange $sresults 0 end] {
+	processitem $item
+    }
+    
+    puts "<p><hr>"
+    puts "<form action = \"$CGI_PATH\" method = \"POST\">\n<input type = hidden name= \"cheshireID\" value = \"$docid\">\n<input type = hidden name = request value = docselect><input type = submit value = \"Edit\">\n</form>"
+    puts "</body></html>"
+    
+}
+

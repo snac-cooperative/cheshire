@@ -1,0 +1,235 @@
+<!-- This is a test config file for Cheshire II -->
+<DBCONFIG>
+<DBENV> /Users/ray/Work/DBENV </DBENV>
+<!-- The first filedef -->
+<FILEDEF TYPE=MARCSGML>
+<defaultpath>/Users/ray/Work/cheshire/cheshire2/MAPDATA</defaultpath>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> geotest </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> testxml.data 
+</FILENAME>
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> geodata.dtd </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> testxml.data.assoc
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> dummy.history 
+</HISTORY>
+
+<INDEXES>
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+country.index
+</INDXNAME>
+<INDXTAG> country </INDXTAG>
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> country </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+city.index
+</INDXNAME>
+<INDXTAG> city </INDXTAG>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> cityname </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=LAT_LONG NORMAL=DECIMAL_LAT_LONG>
+<INDXNAME> 
+lldec.index
+</INDXNAME>
+<INDXTAG> lldec </INDXTAG>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>latlongdeg </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=LAT_LONG NORMAL=DECIMAL_LONG_LAT>
+<INDXNAME> 
+lldec2.index
+</INDXNAME>
+<INDXTAG> lldec2 </INDXTAG>
+<INDXMAP> <USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>longlatdeg </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=LATITUDE_LONGITUDE NORMAL="DDoMM'SS''NS DDDoMM'SS''EW">
+<INDXNAME> 
+llstr.index
+</INDXNAME>
+<INDXTAG> llstr </INDXTAG>
+<INDXMAP> <USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>latlongstr </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=LATITUDE_LONGITUDE NORMAL="DD-MM-SS-NS DDD-MM-SS-EW">
+<INDXNAME> 
+llhy.index
+</INDXNAME>
+<INDXTAG> llhy </INDXTAG>
+<INDXMAP> <USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>latlonghy</FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT="Bounding_Box" NORMAL="DDoMM'SS''NS DDDoMM'SS''EW DDoMM'SS''NS DDDoMM'SS''EW">
+<INDXNAME> 
+bboxstr.index
+</INDXNAME>
+<INDXTAG> bboxstr </INDXTAG>
+<INDXMAP> <USE> 7 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>bboxll </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT="GEO_BOX" NORMAL="DECIMAL_BOUNDING_BOX">
+<INDXNAME> 
+bboxdeg.index
+</INDXNAME>
+<INDXTAG> bboxdeg </INDXTAG>
+<INDXMAP> <USE> 8 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>bboxdeg </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+
+</INDEXES>
+
+<COMPONENTS>
+<COMPONENTDEF>
+<COMPONENTNAME> CITIES_COMP </COMPONENTNAME>
+<COMPONENTNORM>NONE</COMPONENTNORM>
+<COMPSTARTTAG>
+<TAGSPEC>
+<FTAG>city </FTAG>
+</TAGSPEC>
+</COMPSTARTTAG>
+<COMPONENTINDEXES>
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+cityname.index
+</INDXNAME>
+<INDXTAG> cityname </INDXTAG>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG> cityname </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=LAT_LONG NORMAL=DECIMAL_LAT_LONG>
+<INDXNAME> 
+citylldec.index
+</INDXNAME>
+<INDXTAG> citylldec </INDXTAG>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>latlongdeg </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=LATITUDE_LONGITUDE NORMAL="DDoMM'SS''NS DDDoMM'SS''EW">
+<INDXNAME> 
+cityllstr.index
+</INDXNAME>
+<INDXTAG> cityllstr </INDXTAG>
+<INDXMAP> <USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>latlongstr </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+</COMPONENTINDEXES>
+</COMPONENTDEF>
+</COMPONENTS>
+ 
+<DISPOPTIONS>
+KEEP_ALL
+</DISPOPTIONS>
+
+
+<DISPLAY>
+ <format name="XML_ELEMENT_" OID="1.2.840.10003.5.105">
+  <convert function="XML_ELEMENT">
+    <clusmap>
+      <from>
+         <tagspec>
+	   <ftag>SUBST_ELEMENT</ftag>
+	 </tagspec>
+       </from>
+       <to>
+         <tagspec>
+           <ftag>5</ftag>
+         </tagspec>
+       </to>
+     </clusmap>
+   </convert>
+ </format>
+
+ <format name="XML_ELEMENT_" OID="1.2.840.10003.5.109.10">
+  <convert function="XML_ELEMENT">
+    <clusmap>
+      <from>
+         <tagspec>
+	   <ftag>SUBST_ELEMENT</ftag>
+	 </tagspec>
+       </from>
+       <to>
+         <tagspec>
+           <ftag>SUBST_ELEMENT</ftag>
+         </tagspec>
+       </to>
+     </clusmap>
+   </convert>
+ </format>
+</DISPLAY>
+</FILEDEF> 
+
+</DBCONFIG>
+
+

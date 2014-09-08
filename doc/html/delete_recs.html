@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">delete_recs - Remove records from a 
+CheshireII database </FONT></H2>
+
+<H2>SYNOPSIS </H2>
+
+<P><B>delete_recs</B> <I>[-L logfilename] configfilename filename record_id1 <record_id2 ...></I>
+</P>
+
+<H2>DESCRIPTION </H2>
+
+<P> Delete_rec reverses the indexing work done with index_cheshire using the description included in the configuration file
+<I>configfilename</I> to un-index and remove from access one or more SGML records. The <i>filename</i> specified can be the &lt;FILETAG&gt; or
+&lt;FILENAME&gt; from the configuration file.</P>
+
+<P> For each of the record_id's (internal record sequence numbers) the
+program deletes all of the index and component entries for the
+record. Cluster information is NOT removed in the current version. The
+SGML/XML record is "deleted" by marking it in the associator file, no
+actual physical deletion of the record is performed. Note that
+"deleted" records may be re-indexed if they are not physically
+removed. </P>
+
+<H2>LOG and ERROR INFORMATION </H2>
+
+<P> If the "-L" option is not used, then running the
+<B>delete_recs</B> program creates a file in the current directory
+called INDEX_LOGFILE. If the "-L" option is used then the logfile is
+given the name provided on the command line. If this file already
+exists when the program is run, new information is appended to the
+existing file. INDEX_LOGFILE will contain any errors or problems
+encountered in indexing. </P>
+
+<H2>BUGS </H2>
+
+<P>None known </P>
+
+<H2>SEE ALSO </H2>
+
+<P><A HREF="configfiles.html">Configuration file documentation</A>, index_clusters,
+<A HREF="buildassoc.html">buildassoc </A></P>
+
+<H2>AUTHOR </H2>
+
+<P>Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>) </P>
+
+</BODY>
+</HTML>

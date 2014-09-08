@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>WIKI Documentation Notes</title>
+  </head>
+
+  <body bgcolor = white>
+    <center><b>WIKI Documentation Notes</b></center>
+
+<p>
+<b>Overview</b>
+<p>
+Cheshire Wiki is an online editing and document management system. It allows specified remote users to administer a database of documents through a web interface, as well as users to edit their own records. It maintains its own user profile database, configurable through the same interface. All modifications are recorded with the record.
+<p>
+Cheshire Wiki also provides a searching interface to the documents, allowing them to be retrieved and displayed, either via hypertext link, sophisticated search forms or browsing by making use of the underlying Cheshire2 technology.
+
+<p>
+<b>Documents</b>
+<p>
+There are two ways in which documents can be linked to their corresponding metadata. The first way is to encapsulate the document within a field of  the metadata. This system works well, as there is no chance of the document and metadata getting out of sync. However it means that when the record is requested, the metadata needs to be removed before processing it.
+<p>
+The second method is to have the metadata and record separate, but to record which record the metadata is associated with.  In this method the metadata is separate from the record, which has the obvious reverse advantages and disadvantages to the first system. The linking can be done by a unique key system, or by filename for record types that cannot be uniquely distinguished.
+<p>
+Currently the two systems are not usable within one setup, and if the documents are encapsulated, then only one DTD may be used for the record type.
+<p>
+<b>Record Metadata</b>
+<p>
+Each document, in any DTD, has a set of associated metadata.  
+This is defined as follows:
+<p>
+<table border= 1>
+<tr><td>Title</td><td>The 'title' of the document. Normally this will correspond to whatever title element is in the document DTD, but not necessarily.</td></tr>
+<tr><td>Id</td><td>A necessarily unique key to identify the record</td></tr>
+<tr><td>Location</td><td>The location of the record in the overall database structure</td></tr>
+<tr><td>Editors</td><td>Which users may edit the record</td></tr>
+<tr><td>EditorFlags</td><td>User flags that allow the record to be editted</td></tr>
+<tr><td>Created</td><td>When and by whom the record was created</td></tr>
+<tr><td>Modified</td><td>When and by whom the record was modified</td></tr>
+</table>
+
+<p>
+<b>Editor Template</b>
+<p>
+Each user has a record with the following information recorded. Entries marked with an * are changable by the user, the rest require either an admin or a user with the usereditor flag. (See below for more information on the predefined flags)
+<p>
+<table border = 1>
+<tr><td>User</td><td>The name used to log in. This is necessarily unique</td></tr>
+<tr><td>Password *</td><td>The user's password, stored in a one way encryption</td></tr>
+<tr><td>Flags</td><td>Which flags the user has</td></tr>
+<tr><td>RealName *</td><td>The user's real name</td></tr>
+<tr><td>Email *</td><td>The user's email address</td></tr>
+<tr><td>HostMask *</td><td>The hosts from where the user is allowed to connect from</td></tr>
+<tr><td>Info</td><td>Information about the user</td></tr>
+</table>
+
+<p>
+<b>Editor Flags</b>
+<p>
+Editor flags are a means to control groups of people that can accomplish certain tasks. There are several flags with predefined meanings, as outlined below. Any other word can be used as a flag to group people together. For example, rather than list a group of people able to edit a subset of documents for each record, you can simply assign them a flag and add the flag to the records that they should be able to modify.
+<p>
+Predefined Flags:
+<table border= 1>
+<tr><td><b>Flag Name</b></td><td><b>Meaning</b></td></tr>
+<tr><td>admin</td><td>Users with the admin flag are administrators for the server and inherit all other flags. As such they can do anything the system allows.</td></tr>
+<tr><td>delete</td><td>The delete flag allows the user to delete records entirely, as well as delete editors and editor flags from records which they can edit.</td></tr>
+<tr><td>structure</td><td>The structure flag allows the user to move the location of files and duplicate files.</td></tr>
+<tr><td>globaleditor</td><td>Users with this flag are able to edit any record, but not delete, move or copy unless they also have the delete and structure flags as above.</td></tr>
+<tr><td>usereditor</td><td>This flag allows the user to modify other users' settings, including creating new editors or deleting existing ones and changing flags or passwords.</td></tr>
+</table>
+
+<p>
+<b>Functions</b>
+<p>
+The following are the available functions and the flags required to perform them:
+<p>
+<table border = 1>
+<tr><td><b>Function</b></td><td><b>Flags Required</b></td><td><b>Meaning</b></td></tr>
+<tr><td>Edit User Settings</td><td>-</td><td>Users may edit their personal settings, as described in the section on the User template</td></tr>
+<tr><td>New User</td><td>usereditor</td><td>Create a new user profile</td></tr>
+<tr><td>Delete User</td><td>usereditor</td><td>Delete an existing user profile</td></tr>
+<tr><td>Change Password</td><td>usereditor</td><td>Change the password of another user</td></tr>
+<tr><td>Change Flags</td><td>usereditor</td><td>Change the flags associated with another user. Can only give the admin or usereditor flag if the user is also an admin</td></tr>
+<tr><td>Change Info</td><td>usereditor</td><td>Change the information associated with another user.</td></tr>
+<tr><td>Rebuild</td><td>admin</td><td>Rebuild the databases.</td></tr>
+<tr><td>Edit Record</td><td> - </td><td>Edit a document</td></tr>
+<tr><td>Move Record</td><td>structure</td><td>Move the location of a document</td></tr>
+<tr><td>Copy Record</td><td>structure</td><td>Copy a document to a second location</td></tr>
+<tr><td>Delete Record</td><td>delete</td><td>Delete a record</td></tr>
+<tr><td>Rename Record</td><td>-</td><td>Change the title of a record</td></tr>
+<tr><td>Show History</td><td>-</td><td>Show the history of the record</td></tr>
+<tr><td>Add Editor</td><td>-</td><td>Add a user as an editor of the record</td></tr>
+<tr><td>Delete Editor</td><td>delete</td><td>Delete an editor from a record</td></tr>
+<tr><td>Add Editor Flag</td><td> -</td><td>Add an editor flag to a record</td></tr>
+<tr><td>Delete Editor Flag</td><td>delete</td><td>Delete an editor flag from a record</td></tr>
+<tr><td>Make Static</td><td>admin</td><td>Make a database record static</td></tr>
+<tr><td>Revert Change</td><td>admin</td><td>Revert to a previous version of the document</td></tr>
+</table>
+
+
+    <hr>
+  </body>
+</html>

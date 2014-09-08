@@ -1,0 +1,106 @@
+
+<FILEDTD> dtds/editor.dtd.wrapper </FILEDTD>
+<SGMLCAT> catalog </SGMLCAT>
+<ASSOCFIL> users.assoc </ASSOCFIL>
+<HISTORY> users.history </HISTORY>
+
+<INDEXES>
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE PRIMARYKEY=REPLACE>
+<INDXNAME> indexes/users/cheshireUser.index </INDXNAME>
+<INDXTAG>cheshireUser</INDXTAG>
+
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireUser</FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> indexes/users/cheshireFlag.index </INDXNAME>
+<INDXTAG>cheshireFlag</INDXTAG>
+
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireFlag</FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> indexes/users/cheshireRealName.index </INDXNAME>
+<INDXTAG>cheshireRealName</INDXTAG>
+
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireRealName</FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> indexes/users/cheshireInfo.index </INDXNAME>
+<INDXTAG>cheshireInfo</INDXTAG>
+
+<INDXKEY>
+  <TAGSPEC><FTAG>cheshireInfo</FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+</INDEXES>
+
+<DISPLAYS>
+
+<DISPLAYDEF name="METAGRS" oid="1.2.840.10003.5.105" DEFAULT>
+  <convert function="MIXED"> 
+   <clusmap>
+        <from>
+        <tagspec><ftag>cheshireUser</ftag></tagspec></from>
+        <to>
+        <tagspec><ftag>2</ftag></tagspec></to>
+
+        <from>
+        <tagspec><ftag>cheshirePassword</ftag></tagspec></from>
+        <to>
+        <tagspec><ftag>1</ftag></tagspec></to>
+
+        <from>
+        <tagspec><ftag>cheshireFlags</ftag></tagspec></from>
+        <to>
+        <tagspec><ftag>3</ftag></tagspec></to>
+
+        <from>
+        <tagspec><ftag>cheshireRealName</ftag></tagspec></from>
+        <to>
+        <tagspec><ftag>7</ftag></tagspec></to>
+
+        <from>
+        <tagspec><ftag>cheshireEmail</ftag></tagspec></from>
+        <to>
+        <tagspec><ftag>13</ftag></tagspec></to>
+
+        <from>
+        <tagspec><ftag>cheshireHostMask</ftag></tagspec></from>
+        <to>
+        <tagspec><ftag>12</ftag></tagspec></to>
+
+        <from>
+        <tagspec><ftag>cheshireInfo</ftag></tagspec></from>
+        <to>
+        <tagspec><ftag>17</ftag></tagspec></to>
+
+      </clusmap>
+    </convert>
+</DISPLAYDEF>
+
+
+<DISPLAYDEF NAME="DOCIDGRS" OID="1.2.840.10003.5.105">
+  <convert function="MIXED"> 
+   <clusmap>
+        <from>
+	<tagspec><ftag>#DOCID#</ftag></tagspec></from>
+        <to>
+	<tagspec><ftag>5</ftag></tagspec></to>
+      </clusmap>
+    </convert>
+</DISPLAYDEF>
+
+
+</DISPLAYS>
+
+</FILEDEF>
+</DBCONFIG>

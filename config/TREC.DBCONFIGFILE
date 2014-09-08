@@ -1,0 +1,231 @@
+<!-- ******************************************************************* -->
+<!-- ************************* TREC INTERACTIVE TEST DB **************** -->
+<!-- ******************************************************************* -->
+<!-- This is the config file for the Cheshire II TREC interactive Database -->
+<DBCONFIG>
+
+
+<!--                            -->
+<!-- TREC TEST DATABASE FILEDEF -->
+<!--                            -->
+
+<!-- The Interactive TREC Financial Times datafile -->
+<FILEDEF TYPE=SGML>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> trec </FILETAG>
+
+<!-- filename is the full path name of the main data directory -->
+<FILENAME> /usr3/ray/Work/FTTEST/TESTDATA </FILENAME>
+<FILECONT ID=1 MIN=1 MAX=4> /usr3/ray/Work/TESTDATA/test1/ft1 </FILECONT>
+<FILECONT ID=2 MIN=5 MAX=13> /usr3/ray/Work/TESTDATA/test1/ft2 </FILECONT>
+<FILECONT ID=3 MIN=14 MAX=27> /usr3/ray/Work/TESTDATA/test1/ft3 </FILECONT>
+<FILECONT ID=4 MIN=28 MAX=61> /usr3/ray/Work/TESTDATA/test1/ft4 </FILECONT>
+<FILECONT ID=5 MIN=62 MAX=77> /usr3/ray/Work/TESTDATA/test2/ft5 </FILECONT>
+<FILECONT ID=6 MIN=78 MAX=93> /usr3/ray/Work/TESTDATA/test2/ft6 </FILECONT>
+<FILECONT ID=7 MIN=94 MAX=131> /usr3/ray/Work/TESTDATA/test2/ft7 </FILECONT>
+<FILECONT ID=8 MIN=132 MAX=139> /usr3/ray/Work/TESTDATA/test3/ft8 </FILECONT>
+<FILECONT ID=9 MIN=140 MAX=149> /usr3/ray/Work/TESTDATA/test3/ft9 </FILECONT>
+<FILECONT ID=10 MIN=150 MAX=164> /usr3/ray/Work/TESTDATA/test3/ft10 </FILECONT>
+<FILECONT ID=11 MIN=165 MAX=188> /usr3/ray/Work/TESTDATA/test3/ft11 </FILECONT>
+<FILECONT ID=12 MIN=189 MAX=205> /usr3/ray/Work/TESTDATA/test4/ft12 </FILECONT>
+<FILECONT ID=13 MIN=206 MAX=227> /usr3/ray/Work/TESTDATA/test4/ft13 </FILECONT>
+<FILECONT ID=14 MIN=228 MAX=259> /usr3/ray/Work/TESTDATA/test4/ft14 </FILECONT>
+<FILECONT ID=15 MIN=260 MAX=294> /usr3/ray/Work/TESTDATA/test4/ft15 </FILECONT>
+<FILECONT ID=16 MIN=295 MAX=375> /usr3/ray/Work/TESTDATA/test4/ft16 </FILECONT>
+
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /usr3/cheshire2/new/sgml/TREC.FT.DTD </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> /usr3/ray/Work/FTTEST/TREC.FT911_1.SGML.asso
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> /usr3/ray/Work/FTTEST/TREC.FT911_1.SGML.history 
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+<INDEXES>
+
+<!-- ******************************************************************* -->
+<!-- ************************* DOC NO. ********************************* -->
+<!-- ******************************************************************* -->
+<!-- The following provides document number access.                      -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /usr3/ray/Work/FTTEST/trec.docno.index </INDXNAME>
+<INDXTAG> docno </INDXTAG>
+
+<INDXMAP>
+	<USE> 12 </USE><POSIT> 3 </posit> <struct> 3 </struct> </INDXMAP>
+
+<INDASSOC> /usr3/ray/Work/FTTEST/trec.docno.assoc </INDASSOC>
+<INDXPOST> /usr3/ray/Work/FTTEST/trec.docno.post </INDXPOST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>DOCNO </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ********************** PERSONAL AUTHOR/BYLINE ********************* -->
+<!-- ******************************************************************* -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr3/ray/Work/FTTEST/trec.pauthor.index
+</INDXNAME>
+<INDXTAG> pauthor </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The associator file for the index linking the termid with postings -->
+<INDASSOC> 
+/usr3/ray/Work/FTTEST/trec.pauthor.assoc 
+</INDASSOC>
+
+<!-- The postings file for the index containing all term/document/freq info -->
+<INDXPOST> 
+/usr3/ray/Work/FTTEST/trec.pauthor.post
+</INDXPOST>
+
+<!-- The stoplist for this file -->
+<STOPLIST> /usr3/ray/Work/FTTEST/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>BYLINE</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<!-- ******************************************************************* -->
+<!-- ************************* TITLE/HEADLINE ************************** -->
+<!-- ******************************************************************* -->
+<!-- The following provides keyword title access                         -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr3/ray/Work/FTTEST/trec.headline.index </INDXNAME>
+<INDXTAG> headline </INDXTAG>
+
+<INDXMAP>
+	<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+	<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+	<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<INDASSOC> /usr3/ray/Work/FTTEST/trec.headline.assoc </INDASSOC>
+<INDXPOST> /usr3/ray/Work/FTTEST/trec.headline.post </INDXPOST>
+<STOPLIST> /usr3/ray/Work/FTTEST/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>HEADLINE </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<!-- ******************************************************************* -->
+<!-- ************************* TOPIC *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following is the primary index for probabilistic searches       -->
+<!-- It includes headlines, datelines, bylines, and full text            -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr3/ray/Work/FTTEST/trec.topic.index </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1014 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1014 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1015 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1015 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1016 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1016 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1017 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1017 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+
+<INDASSOC> /usr3/ray/Work/FTTEST/trec.topic.assoc </INDASSOC>
+<INDXPOST> /usr3/ray/Work/FTTEST/trec.topic.post </INDXPOST>
+<STOPLIST> /usr3/ray/Work/FTTEST/topicstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>HEADLINE </FTAG>
+<FTAG>DATELINE </FTAG>
+<FTAG>BYLINE </FTAG>
+<FTAG>TEXT </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+
+<!-- ******************************************************************* -->
+<!-- ************************** DATE *********************************** -->
+<!-- ******************************************************************* -->
+<!-- the following index extracts the DATE1 element from the MARC 008 field -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /usr3/ray/Work/FTTEST/trec.date.index	
+</INDXNAME>
+<INDXTAG>	date
+</INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP>
+<USE> 30 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 30 </USE><POSIT> 3 </posit> <struct> 5 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 31 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 31 </USE><POSIT> 3 </posit> <struct> 5 </struct>
+</INDXMAP>
+
+<INDASSOC> /usr3/ray/Work/FTTEST/trec.date.assoc </INDASSOC>
+<INDXPOST> /usr3/ray/Work/FTTEST/trec.date.post </INDXPOST>
+
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>DATE</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+
+</INDEXES> 
+
+</FILEDEF>
+
+</DBCONFIG>
+
+

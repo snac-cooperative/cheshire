@@ -1,0 +1,619 @@
+From dpitti@library.Berkeley.EDU Wed Apr  7 06:42:29 1993
+Received: by library.Berkeley.EDU (4.1/1.31)
+	id AA13833; Thu, 7 Apr 94 06:47:33 PDT
+Date: Thu, 7 Apr 1994 06:47:05 -0700 (PDT)
+From: Daniel Pitti <dpitti@library.Berkeley.EDU>
+Subject: data model
+To: Jerry McDonough <jmcd@lucien.berkeley.edu>
+In-Reply-To: <9304062027.AA00842@lucien.Berkeley.EDU>
+Message-Id: <Pine.3.05.9404070604.G13704-e100000@library.Berkeley.EDU>
+Mime-Version: 1.0
+Content-Type: TEXT/PLAIN; charset=US-ASCII
+Status: RO
+
+
+                         Finding Aid Data Model
+
+
+Third Draft                                           March 23, 1994 6:43 a
+
+
+Incorporates finding aids 1-7.
+
+KEY:
+
+  ( )  1 Required
+  (+)  1 or more
+  (?)  0 or 1
+  (*)  0 or more
+
+
+FRONT MATTER (?)
+
+  .title page (?) (any of the following elements, in any order)
+  . .*repository
+  . .collection area emphasis
+  . .title page title (all subelements optional; in any order)
+  . .  .finding aid type
+  . .  .**[name, personal, corporate, or family]
+  . .  .title, descriptive
+  . .  .title, genre/form 
+  . .  .other title information
+  . .  .inclusive date(s)
+  . .  .bulk date(s)
+  . .*identifying number
+  . .*statement of responsibility for finding aid
+  . .*funding information
+  . .*statement of extent note
+  . .*restrictions on use note
+  . .*immediate source of acquisition note
+
+  .table of contents (?)
+  . .heading
+
+    [collection unit entry (1 or more) followed by collection
+    unit part entries (0 or more) OR 1 collection unit part
+    entry followed by 1 or more collection unit entries 1 or
+    more times: this allows division of finding aids into parts
+    when collection is processed at different times. "Collection
+    unit" is intended to be either an entire collection, or that
+    part of a collection described at any given time]  
+
+  . .collection unit entry (+)
+  . .  .heading ( )
+  . .  .page number of reference (?)
+       [the following series entry model is also used in
+         "container list t.p.'s" below]
+  . .  .series entry (*)
+  . .  . .heading ( )
+  . .  . .page number of reference (?)
+  . .  . .subseries 1 entry (*)
+  . .  . .  .heading ( )
+  . .  . .  .page number of reference (?)
+  . .  . .  .subseries 2 entry
+  . .  . .  . .heading ( )
+  . .  . .  . .page number of reference (?)
+
+
+  . .collection unit part entry
+  . .  .heading
+  . .  .page number of reference (?)
+  . .  .collection unit entry (+)
+  . .  . .heading ( )
+  . .  . .page number of reference (?)
+         [the following series entry model is also used in
+            "container list t.p.'s" below]
+  . .  . .series entry (*)
+  . .  . .  .heading ( )
+  . .  . .  .page number of reference (?)
+  . .  . .  .subseries 1 entry (*)
+  . .  . .  . .heading ( )
+  . .  . .  . .page number of reference (?)
+  . .  . .  . .subseries 2 entry
+  . .  . .  . .  .heading ( )
+  . .  . .  . .  .page number of reference (?)
+
+
+  .*restrictions on use
+
+END FRONT MATTER
+
+COLLECTION UNIT DESCRIPTION (required)
+
+.brief collection description (required)
+. .heading
+
+. .**[brief collection description core list]
+
+[note: same structure used under provenance below, but in an
+element called brief collection description core]
+
+. . .*identifying number (?)
+. . .name (?)
+. . .  .heading (?)
+. . .  .**[name, personal, corporate, or family]
+. . .title statement
+. . .  .heading (?)
+. . .  .descriptive title
+. . .  .genre/form title
+. . .  .other title information
+. . .  .inclusive date(s) 
+. . .  .bulk date(s)
+
+. .*statement of extent note
+. .biographical note (?)
+. . .**[topic paragraph]
+. .historical note (?)
+. . .**[topic paragraph]
+. .scope and contents note (?)
+. . .**[topic paragraph]
+. .*restrictions on use note
+. .organization and arrangement note (?)
+. . .**[topic paragraph]
+. .provenance note (?)
+. . .**[topic paragraph]
+. .finding aids note (?)
+. . .**[topic paragraph]
+. .cumulative index note (?)
+. . .**[topic paragraph]
+. .abstract note (?)
+. . .**[topic paragraph]
+. .*immediate source of acquisition note
+
+. .added entry list (*)
+. . .heading (?)
+. . .*personal name, catalog entry form (*) (MARC x00 1 OR 2)
+. . .*family name, catalog entry form (*) (MARC x00 3)
+. . .*corporate name, catalog entry form (*) (MARC x10)
+. . .*subject, catalog entry form (*) (MARC 650)
+. . .*geographic name, cataloge entry form (*) (MARC 651)
+. . .genre/physical characteristics, catalog entry form (*)(MARC
+       x55)
+. . .*respository name
+
+    [collection unit section (1 or more) followed by collection
+    unit part(s) (0 or more) OR 1 collection unit part followed
+    by 1 or more collection unit sections 1 or more times: this
+    allows division of finding aids into parts when collection
+    is processed at different times. "Collection unit" is
+    intended to be either an entire collection, or that part of
+    a collection described at any given time]
+
+.collection unit part
+. .hdg?
+. .*paragraph (*)
+. . [if used, to be followed by 1 or more of the collection unit
+sections that follow]
+
+[collection unit sections]
+
+.abstract (?)
+. .heading
+  (1 or more of the following; in any order)
+. .paragraph  
+. .immediate source of acquisition
+. .*identifying number
+. .*statement of responsibility for finding aid
+
+.biography, prose (*)
+. .**[topic paragraphs (1 or more paragraphs)]
+
+.biography, chronology (*)
+. .**[topic paragraph] ( ),
+. .**[topic paragraph] (*)
+
+.*funding information
+  
+.history, prose (*)
+. .**[topic paragraph (1 or more paragraphs)]
+
+.history, chronology (*)
+. .**[topic paragraph] ( ),
+. .**[topic paragraph] (*)
+
+.provenance (?)
+. .heading
+. .brief collection description core (?) [omit start/end tags?]
+
+[note: same structure used under brief collection description]
+
+. . .*identifying number (?)
+. . .name
+. . .  .heading (?)
+. . .  .**[name, personal, corporate, or family]
+. . .title statement
+. . .  .heading (?)
+. . .  .descriptive title
+. . .  .genre/form title
+. . .  .other title information
+. . .  .inclusive date(s) 
+. . .  .bulk date(s)
+
+
+(1 or more of the following; in any order)
+. .paragraph
+. .donation procedure
+. . .**[topic paragraph (1 or more paragraphs)]
+. .*preferred citation of described materials
+. .*related materials and collections
+
+.preferred citation of described materials (?)
+. .**[topic paragraph (1 or more paragraphs)]
+
+.*restrictions on use
+
+
+.scope and contents (?)
+. .**[topic paragraph (1 or more paragraphs)] (repeatable)
+
+.series description (?)
+. .heading
+. .*description of series (+)
+. . .*description of subseries 1 (*)
+. . .  .*description of subseries 2 (*)
+
+.additional physical form available (?)
+. .**[topic paragraph (1 or more paragraphs)]
+
+.related materials and collections (?)
+. .**[topic paragraph (1 or more paragraphs)]
+  
+.list of abbreviations (*)
+. .heading
+. .list of abbreviations item (+)
+. . .abbreviation
+. . .expansion
+. .example list(*)
+. . .heading (?)
+. . .example item (+)
+. . .  .example
+. . .  .example expansion
+
+.container list (*)
+. .hdg?
+. .series (+)
+. . .series table of contents (?)
+. . .  .hdg?
+. . .  .series entry (*)
+. . .  . .heading ( )
+. . .  . .page number of reference (?)
+. . .  . .subseries 1 entry (*)
+. . .  . .  .heading ( )
+. . .  . .  .page number of reference (?)
+. . .  . .  .subseries 2 entry
+. . .  . .  . .heading ( )
+. . .  . .  . .page number of reference (?)
+. . .description of series ( ) [*list header patterns 1-5 can
+       occur before or after the description]
+. . .  .**[series/subseries descriptive elements]
+. . .*list pattern 1 or 2 or 3 or 4 or 5
+    OR
+. . .subseries 1 (+)
+. . .  .description of subseries 1 ( ) [*list header patterns 1-
+         5 can occur before or after the description]
+. . .  . .**[series/subseries descriptive elements]
+. . .  .*list pattern 1 or 2 or 3 or 4 or 5
+       OR
+. . .  .subseries 2 (+) ( )
+. . .  . .*description of subseries 2 (?) [*list header patterns
+            1-5 can occur before or after the description]
+. . .  . .  .**[series/subseries descriptive elements]
+. . .  . .*list pattern 1 or 2 or 3 or 4 or 5
+
+.separation list (*)
+. .heading (?)
+. .paragraph (*)
+  OR
+. .separation list table of contents (?)
+. . .heading (?)
+. . .separation list section entry (+) (nested elements in any
+       order)
+. . .  .*slsm
+. . .  . .(number OR 
+. . .  . .character data) (*)
+. . .  .page number of reference
+  OR
+. .list of separated items
+. . .heading (?)
+
+[bibliographic citation (+) OR separation list sections (+)]
+. . .*bibliographic citation
+
+. . .separation list section (+)
+. . .  .*slsnm
+. . .  .*bibliographic citation (+)
+
+END COLLECTION UNIT DESCRIPTION
+
+
+REUSABLE ELEMENTS
+
+immediate source of acquisition note
+  .**[topic paragraph]
+
+statement of extent note
+  .**[topic paragraph]
+
+restrictions on use note
+  .**[topic paragraph]
+
+funding information
+  .**[topic paragraph (1 or more paragraphs)
+
+repository 
+  .repository name
+  .repository address
+  . .**[address elements]
+
+restrictions on use
+  .**[topic paragraph (1 or more paragraphs)]
+
+statement of responsibility for finding aid
+  .statement of responsibility
+  .place of processing
+  .date of processing
+
+description of series
+  .**[series/subseries descriptive elements]
+
+description of subseries 1
+  .**[series/subseries descriptive elements]
+
+description of subseries 2
+  .**[series/subseries descriptive elements]
+
+paragraph (any of the following, in any order, any number of
+  times)
+  .*address
+  .**[mixed name list]
+  .*generic list, simple
+  .*generic list, 2 component
+  .*generic list, 3 component
+  .block quote
+  .**[phrase]
+
+identifying number
+  .collection number
+  .physical location number
+  .accession number
+  .group number
+
+address
+  .**[address elements]
+
+title, genre/form 
+  .(number OR 
+  .character data) (*)
+
+title, descriptive
+  .(number OR 
+  .character data) (*)
+
+personal name
+  .(number OR 
+  .character data) (*)
+ 
+family name
+  .(number OR 
+  .character data) (*)
+  
+corporate name
+  .(number OR 
+  .character data) (*)
+
+date
+  .(number OR 
+  .character data) (*)
+
+subject
+  .(number OR 
+  .character data) (*)
+
+personal name, catalog entry form
+  .surname
+  .forename
+  .date
+
+family name, catalog entry form
+
+corporate name, catalog entry form
+  .parent body
+  .subordinate body (*)
+
+subject, catalog entry form
+  .term
+  .general subdivision
+  .chronological subdivision
+
+geographic name, catalog entry form
+  .term
+  .general subdivision
+  .chronological subdivision
+
+genre/physical characteristics, catalog entry form
+  .term
+  .general subdivision
+  .chronological subdivision
+
+series/subseries name
+  .**[mixed name list]
+
+list pattern 1 (simple) [same content model as contents 1 and 2
+    below]
+  
+list pattern 2 item (container number, contents) 
+  .*container number (?)
+  .*contents 1
+
+list pattern 3   item (contents, container number)
+  .*contents 1
+  .*container number (?)
+
+list pattern 4   item (containter number, contents, contents)
+  .*container number (?)
+  .*contents 1(?)
+  .*contents 2(?)
+
+list pattern 5   item (contents, contents, container number)
+  .*contents 1 (?)
+  .*contents 2 (?)
+  .*container number (?)
+
+list pattern 1 header
+  .**[phrase]
+
+list pattern 2 header
+  .*container number column header (?)
+  .contents column header 1 (?)
+
+list pattern 3 header
+  .contents column header (?)
+  .*container number column header(?)
+
+list pattern 4 header 
+  .*container number column header (?) 
+  .contents column header 1(?)
+  .contents column header 2(?)
+
+list pattern 5 header 
+  .contents column header 1 (?)
+  .contents column header 2 (?)
+  .*container number column header (?)
+
+container number
+  .component 1 (?)
+  .component 2 (?)
+  .component 3 (?)
+
+container number column number
+  .component 1 (?)
+  .component 2 (?)
+  .component 3 (?)
+
+contents 1 and contents 2 (any of the following, in any order,
+any number of times)
+  .character data
+  .*address
+  .**[mixed name list]
+  .block quote
+  .**[phrase]
+  .long folder description
+
+heading
+  .**[component list]
+
+generic list, simple
+  .heading (?)
+  .list item (+)
+
+generic list, 2 component
+  .heading (?),
+  .list header (?)
+  OR 
+  .list header 2 components,
+  . .component 1 (?)
+  . .component 2 (?)
+
+  .list item, 2 component (+)
+  . .component 1 (?)
+  . .component 2 (?)
+
+generic list, 3 component
+  .heading (?),
+  .list header (?)
+  OR 
+  .list header 3 components,
+  . .component 1 (?)
+  . .component 2 (?)
+  . .component 3 (?)
+
+  .list item, 3 component (+)
+  . .component 1 (?)
+  . .component 2 (?)
+  . .component 3 (?)
+
+bibliographic citation
+  .number
+  .title
+  .title, article
+  .author, personal
+  .author, corporate
+  .monographic series number
+  .other bibliographic information
+  .page number of reference
+  .date, publication
+  .place of publication
+  .name of publisher
+  .title, monograph series
+  .title, (named) section (of a serial)  
+
+ELEMENT GROUPS   (appear as subelements of more than one element
+                 (defined as parameter entities)
+
+[mixed name list] %mnamlis;
+  .*title, genre/form 
+  .*title, descriptive 
+  .*personal name 
+  .*family name 
+  .*corporate name 
+  .*date 
+  .*subject 
+  .*geographic name
+
+[name, personal, corporate, or family] %name;
+  .*personal name
+  .*corporate name
+  .*family name
+
+[series/subseries descriptive elements] %sssdes;
+.heading (?) 
+.container number (?)
+.series/subseries name
+. .**[mixed name list]
+.statement of extent (?)
+.inclusive date (?)
+.bulk date (?)
+.paragraph (*)
+
+[topic paragraph]
+  .heading (?)
+  .paragraph
+
+[phrase] %phrase;
+  .character data
+  OR
+  .**[quotes] 
+    OR
+  .**[emphasis]
+  .graphic
+  .inline graphic
+
+[quotes] %quote; (except block quote)
+  .quotation embedded within quotation
+  OR
+  .quotation inline 
+
+[emphasis] %emphas;
+  .emphasis 1 
+  .emphasis 2
+  .emphasis 3 
+  .emphasis 4
+  .emphasis 5
+
+[component list]
+  .component 1 ( ) no start or end tag required.
+  .component 2 (?)
+  .component 3 (?)
+
+[address elements]
+  .street
+  .city
+  .country subdivision
+  .county
+  .postal code
+  .standard address number
+  .electronic address
+  .phone
+  .fax
+
+INCLUSIONS/EXCLUSIONS
+
+finding aid page header
+  .component 1
+  .component 2
+  .component 3
+
+    [can occur anywhere in the document except the title page
+    and within itself; an optional element for f.a.'s intended
+    to be printed]
+
+footnote (comprised of any of the following)
+  (1 or more of the following; in any order)
+  .paragraph OR
+  .bibliographic citation
+
+    [occurs anywhere in the document except within itself]
+
+
+
+

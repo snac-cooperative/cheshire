@@ -1,0 +1,17 @@
+
+<!ELEMENT cheshireRecord - - (cheshireTitle, cheshireId, cheshireLocation?, cheshireAccess, cheshireHistory, cheshireDocument)>
+
+<!ELEMENT cheshireAccess - - (cheshireEditors?, cheshireEditorFlags?)>
+<!ELEMENT cheshireHistory - - (cheshireCreated, cheshireModified*)>
+<!ELEMENT (cheshireCreated|cheshireModified) - - (cheshireUser, cheshireDate)>
+<!ATTLIST cheshireModified type CDATA #required>
+<!ELEMENT cheshireEditors - - (cheshireUser+)>
+<!ELEMENT cheshireEditorFlags - - (cheshireFlag+)>
+
+<!ELEMENT (cheshireLocation|cheshireFlag|cheshireTitle|cheshireId|cheshireUser|cheshireDate) - - (#PCDATA)>
+
+<!-- This can be changed to wrap another DTD -->
+<!ELEMENT cheshireDocument - - (html)>
+
+<!ENTITY % realdtd   SYSTEM "loose.dtd">
+%realdtd;

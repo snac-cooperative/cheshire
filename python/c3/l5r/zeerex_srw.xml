@@ -1,0 +1,150 @@
+
+<explain id="org.o-r-g.srw-card" authoritative="true" 
+  xmlns="http://explain.z3950.org/dtd/2.0/"
+  xmlns:c3="http://www.cheshire3.org/schemas/explain/">
+    <serverInfo protocol="srw/u" version="1.1" transport="http">
+     <host>srw.cheshire3.org</host>
+     <port>8080</port>
+     <database numRecs="3492" lastUpdate="2002-11-26 23:30:00">l5r</database>
+  </serverInfo>
+
+<databaseInfo>
+     <title lang="en" primary="true">Legend of the Five Rings Database</title>
+     <description lang="en" primary="true">
+          A database containing complete descriptions of cards from the L5R CCG.
+     </description>
+</databaseInfo>
+
+ <metaInfo>
+     <dateModified>2002-11-29 12:00:00</dateModified>
+</metaInfo>
+
+<indexInfo>
+     <set identifier="http://srw.o-r-g.org/indexSets/ccg/1.0/" name="ccg"/>
+     <set identifier="http://srw.o-r-g.org/indexSets/ccg/l5r/1.0/" name="ccg_l5r"/>
+     <set identifier="info:srw/cql-context-set/1/dc-v1.1" name="dc"/>
+
+     <index c3:index="l5r-idx-1">
+        <title>Card Name</title>
+        <map><name set="dc">title</name></map>
+        <configInfo>
+          <supports type="relation" c3:index="l5r-idx-1">exact</supports>
+          <supports type="relation" c3:index="l5r-idx-15">any</supports>
+          <supports type="relation" c3:index="l5r-idx-1">within</supports>
+          <supports type="relation" c3:index="l5r-idx-15">all</supports>
+          <supports type="relation" c3:index="l5r-idx-15">=</supports>
+          <supports type="relationModifier" c3:index="l5r-idx-15">word</supports>
+          <supports type="relationModifier" c3:index="l5r-idx-1">string</supports>
+          <supports type="relationModifier" c3:index="l5r-idx-16">stem</supports>
+        </configInfo>
+     </index>
+
+     <index c3:index="l5r-idx-9">
+        <title>Card Type</title>
+        <map><name set="dc">type</name></map>
+        <configInfo>
+          <supports type="relation" c3:index="l5r-idx-9">exact</supports>
+          <supports type="relation" c3:index="l5r-idx-9">any</supports>
+          <supports type="relation" c3:index="l5r-idx-9">all</supports>
+          <supports type="relation" c3:index="l5r-idx-9">=</supports>
+          <supports type="relationModifier" c3:index="l5r-idx-9">word</supports>
+          <supports type="relationModifier" c3:index="l5r-idx-9">string</supports>
+        </configInfo>
+     </index>
+
+     <index c3:index="l5r-idx-2">
+        <title>Card Text</title>
+        <map><name set="ccg">text</name></map>
+        <configInfo>
+          <supports type="relation" c3:index="l5r-idx-2">any</supports>
+          <supports type="relation" c3:index="l5r-idx-2">all</supports>
+          <supports type="relationModifier" c3:index="l5r-idx-2">word</supports>
+          <supports type="relationModifier" c3:index="l5r-idx-17">stem</supports>
+        </configInfo>
+     </index>
+
+     <index c3:index="l5r-idx-10">
+        <title>Artist</title>
+        <map><name set="ccg">artist</name></map>
+     </index>
+
+     <index c3:index="l5r-idx-11">
+        <title>Set</title>
+        <map><name set="ccg">set</name></map>
+     </index>
+
+     <index c3:index="l5r-idx-12">
+        <title>Legality</title>
+        <map><name set="ccg">legality</name></map>
+        <configInfo>
+          <supports type="relation" c3:index="l5r-idx-12">any</supports>
+          <supports type="relation" c3:index="l5r-idx-12">all</supports>
+          <supports type="relation" c3:index="l5r-idx-12">=</supports>
+          <supports type="relationModifier" c3:index="l5r-idx-12">word</supports>
+        </configInfo>
+     </index>
+
+     <index c3:index="l5r-idx-3">
+        <title>Force</title>
+        <map><name set="ccg_l5r">stat_force</name></map>
+     </index>
+
+     <index c3:index="l5r-idx-4">
+        <title>Chi</title>
+        <map><name set="ccg_l5r">stat_chi</name></map>
+     </index>
+
+     <index c3:index="l5r-idx-5">
+        <title>Focus Value</title>
+        <map><name set="ccg_l5r">stat_focus</name></map>
+     </index>
+
+
+     <index c3:index="l5r-idx-7">
+        <title>Personal Honor</title>
+        <map><name set="ccg_l5r">stat_personalHonor</name></map>
+     </index>
+
+     <index c3:index="l5r-idx-8">
+        <title>Gold Cost</title>
+        <map><name set="ccg_l5r">cost_gold</name></map>
+     </index>
+
+     <index c3:index="l5r-idx-6">
+        <title>Honor Requirement</title>
+        <map><name set="ccg_l5r">cost_honor</name></map>
+     </index>
+  </indexInfo>
+
+ <schemaInfo>
+     <schema identifier="info:srw/schema/1/dc-v1.1"
+             location="http://www.loc.gov/zing/srw/dc.xsd" 
+             sort="false" retrieve="true" name="dc">
+        <title>Dublin Core</title>
+     </schema>
+     <schema identifier="http://srw.o-r-g.org/schemas/ccg/1.0/" 
+             location="http://srw.o-r-g.org/schemas/ccg/1.0/ccg.xsd" 
+             sort="true" retrieve="true" name="ccg">
+        <title>Card Schema</title>
+     </schema>
+  </schemaInfo>
+
+  <configInfo>
+     <default type="numberOfRecords">1</default>
+     <default type="contextSet">ccg</default>
+     <default type="index">dc.title</default>
+     <default type="relation">all</default>
+     <default type="sortSchema">ccg</default>
+     <default type="retrieveSchema">ccg</default>
+     <default type="sortCaseSensitive">false</default>
+     <default type="sortAscending">true</default>
+     <default type="sortMissingValue">HighValue</default>
+     <setting type="maximumRecords">50</setting>
+
+     <supports type="proximity"/>
+     <supports type="resultSets"/>
+     <supports type="sort"/>
+     <supports type="relationModifier">relevant</supports>
+     <supports type="relationModifier">stem</supports>
+  </configInfo>
+</explain>

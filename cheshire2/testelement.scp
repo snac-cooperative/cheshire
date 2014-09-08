@@ -1,0 +1,7 @@
+set CHESHIRE_DATABASE teifile
+set CHESHIRE_NUMREQUESTED 10
+set CHESHIRE_CONFIGFILE "/usr6/ray/uvadata/teilite.config"
+set CHESHIRE_ELEMENTSET "TEST"
+set RESULTS [search text hamlet]
+puts [string range $RESULTS 0 400]
+

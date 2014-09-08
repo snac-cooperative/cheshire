@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Error: Page Not Found</title>
+  </head>
+
+  <body bgcolor = white>
+   <center> <h3>Error: Page Not Found</h3></center>
+<p>
+<hr>
+<p>
+The requested page %PATH% does not exist.
+<p>
+<hr>
+<p>
+To create a page at this location:
+<form action = "%CGI%" method="POST">
+<input type = hidden name = request value = "create">
+<input type = hidden name = location value= "%PATH%">
+<input type = submit value = "Create">
+</form>
+
+
+  </body>
+</html>

@@ -1,0 +1,334 @@
+Appendix A:   ASN.1 for Ranked List Query
+Q102  DEFINITIONS ::=  
+BEGIN 
+--
+EXPORTS RankedQuery;
+--
+IMPORTS AttributeSetId, AttributesPlusTerm, ProximityOperator, IntUnit,
+StringOrNumeric, OtherInformation, DatabaseName, ResultSetId, RPNQuery
+FROM Z39-50-APDU 
+HumanString 
+FROM RecordSyntax-explain;
+--
+RankedQuery ::= SEQUENCE {
+  needList             [1]   IMPLICIT SEQUENCE OF NeedStatement,
+                                -- The actual content of the query, stating
+                                -- the information need(s) of the user.
+  combineNeedLists     [2]   SEQUENCE {
+                                -- Evaluation of each need statement will
+                                -- result in a list of records and RSVs. This
+                                -- will take those sets and form the final
+                                -- result set. default is server-choice. 
+		combinePreference [1] CHOICE {
+				     useAlgorithm [1] IMPLICIT NULL,
+					-- server must use the specified
+					-- algorithm or return an error
+					-- diagnostic and fail the search
+				     recommended  [2] IMPLICIT NULL,
+					-- client recommends server use
+					-- specified algorithm
+				     serverChoice [3] IMPLICIT NULL },
+					-- server is free to use whatever
+					-- algorithm is most appropriate.
+
+ 		combineAlgorithm  [2] CHOICE {        
+                                     addWeight   [1] IMPLICIT NULL,        
+                                                 -- server weighted addition.
+                                     ext         [2] IMPLICIT EXTERNAL}}
+                                       OPTIONAL,
+  attributeSet         [3]   IMPLICIT AttributeSetId,     
+                                -- default attribute set for terms outside
+				-- the RestrictSet
+  searchOutputRequest  [4]   IMPLICIT SearchOutputRequest OPTIONAL, 
+                                -- The information to be accumulated and
+                                -- possibly returned by the server for this
+                                -- seach request.
+  clientServerInfo     [5]   IMPLICIT ClientServerInfo OPTIONAL, 
+                                -- Advice/Info from the client about how this
+                                -- query should be reformulated and search to
+                                -- be done.
+  serverClientInfo     [6]   IMPLICIT ServerClientInfo OPTIONAL 
+                                -- Advice/Info from the server about query. 
+				-- (Ignored by the server on resubmission of a
+				-- reformulated query).
+                     } 
+
+
+NeedStatement ::= SEQUENCE {
+  restrictSet  [1]   RestrictSet  OPTIONAL,
+  feedbackInfo [2]   FeedbackInfo  OPTIONAL,
+  rQuery       [3]   IMPLICIT OperandPlusWeight OPTIONAL, -- actual ranked query
+  weight       [4]   IMPLICIT IntUnit OPTIONAL
+                        -- relative importance of this need statement as a 0
+                        -- to 1 scaled number
+                           }  
+
+RestrictSet  ::= SEQUENCE {
+  databaseNames [1]  CHOICE {
+                       dbExclude [1] IMPLICIT SEQUENCE OF DatabaseName,
+  			-- List of database names to be excluded from the
+			-- list in the search request when evaluating this
+			-- need statement
+                       dbOnly    [2] IMPLICIT SEQUENCE OF DatabaseName
+                        -- List of database names (a subset of the databases
+                        -- specified in the search request) - the only 
+		        -- databases to be included in the search collection
+			-- for this need statement
+                            } OPTIONAL, 
+  query 	[2]  IMPLICIT RPNQuery
+                       	-- Definition of set of docs on which rQuery for this 
+			-- Need Statement is to be performed (within the 
+			-- databases specified in SearchRequest and qualified
+                        -- by databaseNames).
+                      	  }
+
+FeedbackInfo      ::= SEQUENCE OF SEQUENCE {
+   documentId	 [1]	CHOICE {
+		    	 localDocid	[1]   IMPLICIT OCTET STRING,
+		       	 -- Opaque document identifier local to a server 
+			 feedbackText	[2]   IMPLICIT HumanString,
+			 -- Relevance feedback text extracted from a document
+			 -- or fabricated by the user
+			 otherFeedbackInfo [3] EXTERNAL
+			 -- Non-textual feedback info (e.g,chemical structures)
+			 -- or record fragment identifiers (e.g, start/end
+			 -- fragment), encoded using a private scheme.
+				},
+    relevance	 [2]   IntUnit         
+                       	-- Relevance judgement data (-1..0..1 inclusive) 
+                        -- for the document identified by documentId
+			-- (-1 is most undesirable, 1 is most desirable, )
+				   	   }
+
+OperandPlusWeight ::= SEQUENCE {
+  operand            [1] CHOICE       {
+                          attrTerm          AttributesPlusTerm, -- base term
+                          sOperand    [1]   StructuredOperand 
+-- recursive definition.
+-- NOTE: A Boolean query could be specified here in the future.
+		 },
+  weight             [2] IMPLICIT IntUnit OPTIONAL,
+                          -- Relative importance of term, on 0 to 1 scale.
+                          -- Default 1.
+  clientServerInfo   [3] IMPLICIT ClientServerInfo OPTIONAL, 
+                          -- Advice/Info from the client about how this
+                          -- particular operand reformulated.  This
+                          -- over-rides the query ClientServerInfo
+  serverClientInfo   [4] IMPLICIT ServerClientInfo OPTIONAL 
+                          -- Advice/Info from the server about this
+                          -- particular operand. Allows server to annotate
+                          -- the 102 Query structure with additional
+                          -- information. Examples would include partial
+                          -- RSV's being returned after a search, or
+                          -- possibly collection information. (Ignored by the 
+			  -- server on resubmission of a reformulated query).
+                             } 
+
+StructuredOperand ::= SEQUENCE {
+  rqOperator      [1] IMPLICIT RQOperator,
+                       -- gives relationship between operands and information
+                       -- about combining them.
+  rqOperandList   [2] IMPLICIT SEQUENCE OF OperandPlusWeight,
+                       -- ordered list of operands
+  rqProximity         [3] CHOICE {  
+                       -- All operands in this subtree must be satisfied
+                        -- (have non-zero partial RSV) in the same context.
+                        -- 'unit' gives the scope of the context definition, 
+                        -- and 'distance' gives how far away from each other
+                        -- the satisfaction can be (0 indicates within the
+                        -- same unit, 1 indicates in adjacent units, and so 
+                        -- on) Note that rqProximity is a binding operator, 
+                        -- with some of the properties of a Boolean AND.  A 
+                        -- context of the same word implies that same word must
+                        -- match each of the operands of the subtree.
+                             prox  [1] IMPLICIT ProximityOperator,  
+                                         -- same syntax as in type-101 query,
+                                         -- but semantics expanded as above.
+                             ext  [2] IMPLICIT EXTERNAL} OPTIONAL}
+
+SearchOutputRequest ::= SEQUENCE {
+            -- Describes output of query.  All except doSearch 
+            -- will be given in AdditionalSearchInfo of SearchResponse.
+   doSearch	           [1] IMPLICIT BOOLEAN, 
+                                   -- True means perform the search         
+                                   -- and establish a result set.
+   returnReformulatedQuery   [2] IMPLICIT BOOLEAN,
+                                   -- True means return the query that
+                                   -- actually operated on the docs after
+                                   -- reform. This will be returned as a
+                                   -- RQInfo EXTERNAL within
+                                   -- AdditionalSearchInfo,
+                                   -- and will have Tagvalue from tagset-RQM
+   mData                     [3] IMPLICIT SEQUENCE OF SEQUENCE{
+                                   tagType  [1]   IMPLICIT INTEGER OPTIONAL,
+                                                     -- default tagset-RQM
+                                   tagValue [2]    StringOrNumeric   
+                                         -- value (probably from 
+                                         -- tagset-RQM) indicating what sorts
+                                         -- of metadata should be returned.
+                                         -- Note that depending on tag, some
+                                         -- of this metadata may be returned
+                                         -- within AdditionalSearchInfo of
+                                         -- SearchResponse, and some within
+                                         -- a Present of the document using
+                                         -- record syntax of RQRS 
+                                         -- (RankedRecordSyntax).
+                                      } OPTIONAL}
+
+ClientServerInfo ::= SEQUENCE {
+   reformClause      [1] IMPLICIT BOOLEAN,
+                          -- allow reformulation this operand/query. If false
+                          -- and the server does not support a term or
+                          -- attribute, then this part of the search fails.
+   recallImportance  [2] IMPLICIT IntUnit OPTIONAL,
+                          -- setting between 0 and 1 of how every useful doc
+                          -- is. Eg, 1, the server may try to add many
+                          -- related terms to the query, at a cost of
+                          -- precision.  Only used if reformClause is true.
+   reformMethod      [3] IMPLICIT EXTERNAL OPTIONAL,
+                          -- client/server agreed upon specification of what
+                          -- reformulation methods to be done. We will define
+                          -- a methodology for this later. Only used if
+                          -- reformClause is true.
+   resultSetDesc     [4] IMPLICIT SEQUENCE {
+                          -- describes size and properties of result set
+                          numRecordsWanted  [1] IMPLICIT INTEGER OPTIONAL,
+                                            -- max records in the result set.
+                          rsvThresholdValue [2] IMPLICIT IntUnit OPTIONAL 
+                                            -- If included, all docs in
+                                            -- result set must have RSV >=
+                                            -- rsvThresholdValue. This should
+                                            -- be between 0 and 1.
+                                   } OPTIONAL}
+
+ServerClientInfo ::= SEQUENCE {
+      -- Not completely worked out; must wait until Advanced Search group
+      -- works out specifics of how the reformulated (marked-up) query & its
+      -- associated meta-data is to be returned to the client.
+   intUnit     [1]   IMPLICIT IntUnit OPTIONAL, -- Scaled integer
+   humanString [2]   IMPLICIT HumanString OPTIONAL,
+   metaData          OtherInformation OPTIONAL 
+                       -- Data (eg collection frequency) attached to an
+                       -- operand.  We may flesh this out some after
+                       -- operational experience.
+                     			 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 }
+
+RQOperator ::=  SEQUENCE {
+ operator      [1] CHOICE {
+                  rqIndep          [1] IMPLICIT NULL,
+                       -- The operands are independent of each other.  
+                       -- Increasing a particular operand's RSV will 
+                       -- guarantee the clause RSV will not decrease.
+                  rqAND            [2] IMPLICIT IntUnit,
+                       -- Ranked AND.  This server-dependent operator 
+                       -- emphasizes, but does not require, the presence of 
+                       -- all operands.  The server may ignore the integer
+                       -- value, but if it does not, then the value of rqAND 
+                       -- is a number between 0 and 1 giving the degree to
+                       -- which satisfaction of all operands should be
+                       -- emphasized.  1 indicates all operands must be
+                       -- satisfied (ie, all operands must have non-zero RSV
+                       -- in order for clause RSV to be non-zero.)
+                  rqOR             [3] IMPLICIT IntUnit, 
+                       -- Ranked OR. This server-dependent operator 
+                       -- emphasizes the presence of a single operand.
+                       -- A clause RSV will be zero iff all operands are
+                       -- zero. The server may ignore the integer
+                       -- value, but if it does not, then the value of rqOR
+                       -- is a number between 0 and 1 giving the degree to
+                       -- which satisfaction of an operand is to be
+                       -- considered equivalent to the satisfaction of the
+                       -- other operands.  1 indicates all operands are
+                       -- equivalent.
+                  rqANDNOT         [4] IMPLICIT IntUnit, 
+                       -- Ranked ANDNOT. This server-dependent operator 
+                       -- emphasizes, but does not require, the presence of 
+                       -- the first operand and the absence of all other 
+                       -- operands.  The server may ignore the integer
+                       -- value, but if it does not, then the value of
+                       -- rqANDNOT is a number between 0 and 1 giving the
+                       -- degree to which satisfaction and non-satisfaction
+                       -- (zero-valued) of the operands should be emphasized.
+                       -- 1 indicates the first operand must be satisfied
+                       -- (non-zero RSV) and the second operand must have
+                       -- zero RSV in order for clause RSV to be non-zero.
+                  rqHeadRelation   [5] IMPLICIT SEQUENCE {               
+                       -- The first operand is related to each operand
+                       -- (independently) in a fashion described by 
+                       -- RQHeadRelation.  The operand weights (between 0
+                       -- and 1) describe the strength of the relationship.
+                       -- Examples might be synonyms, antonyms, ISA, thesauri
+                       -- classes, etc.
+                                   tagType  [1]   IMPLICIT INTEGER OPTIONAL,
+                                               -- default tagset-RQRelation
+                                   tagValue [2]     StringOrNumeric     
+                                   -- value (probably from tagset-RQRelation)
+                                   -- indicating the relationship between the
+                                   -- first operand of the StructuredOperand
+                                   -- and the remaining operands.  The server
+                                   -- will use this relationship information
+                                   -- to determine a RSV for this clause.
+                                },
+                  other            [6] IMPLICIT EXTERNAL 
+                       -- Other operators, not guaranteed to be understood 
+                       -- by client.
+                     },
+ allowedReform [2] IMPLICIT BOOLEAN
+                     -- allowed to replace this operator. If false, and the
+                     -- server does not support the operator, then this part
+                     -- of the search fails.
+         } 
+END
+
+--  Tagset-RQRelation.  Tag values used within rqHeadRelation to indicate the
+--                      relationship between the first operand (the "head"),
+--                      and the each of the other operands ("sub-operands").
+--                      For the experimental stage, tag values between 
+--                      0 and 99 are things we expect most systems will
+--                      deal with (ie will be in the final tagset, even if
+--                      not required to support), 100-999 will be shared by a
+--                      class of systems, and 1000+ for a single system.
+--                      All definitions may (and probably will) change
+--                      as we get operational experience.  Values 1,2,3
+--                      are the only ones currently required to be recognized.
+--        0       Reserved
+--        1       Term variants
+--         10     Morphological variants (stemming, truncation, etc)
+--         11     Common mispellings
+--         12     Phonetic variants
+--        2       Related words
+--         20     Synonyms
+--         21     Co-ocurring words
+--        3       Class relationships
+--         30     ISA relationship (Sub operand "is a" head operand).
+--         31     Thesaurus class (Sub operand is member of a thesaurus
+--                class headed by the head operand).
+
+--  Tagset-RQM         Tag values used for Metadata within the RankedQuery
+--                     Framework.
+--                      For the experimental stage, tag values between 
+--                      0 and 99 are things we expect most systems will
+--                      deal with (ie will be in the final tagset, even if
+--                      not required to support), 100-999 will be shared by a
+--                      class of systems, and 1000+ for a single system.
+--                      All definitions may (and probably will) change
+--                      as we get operational experience.  Values 1,2,3
+--                      are the only ones currently required to be recognized.
+--                      After operational experience, things like
+--                      collection frequency may be added.
+--                      This may eventually be subsumed within Tagset-M,
+--                      but it's easier to keep disjoint for the initial
+--                      implementation phase.
+--        0       Reserved
+--        1       RankedQuery
+--        2       RankedQuery with ServerClientInfo of each operand being
+--                an IntUnit, interpreted as the partial RSV for that operand
+--        3       RankedQuery with ServerClientInfo of each operand being
+--                a HumanString, interpreted as a server explanation of
+--                the operand.
+--        4       RankedQuery with ServerClientInfo of each operand being
+--                an EXTERNAL Diagnostic Record.
+--        5       HighlightingInfo (not yet developed, included as example).
+
+
+

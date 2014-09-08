@@ -1,0 +1,183 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>Documentation</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+</head>
+
+<body BACKGROUND="paper3.gif">
+
+<table border="0" width="600" height="57">
+  <tr>
+    <td width="100%" height="1" align="center" bgcolor="#CCE3C6"><p style="font-family: Times New Roman, serif"><a href=index.html style="text-decoration: underline">Cheshire II Home</a> | <a href="overview.html" style="text-decoration: underline">Overview</a> | <a href="proposal.html" style="text-decoration: underline">NSF Project</a> | Documentation | <a href="webinterface.html" style="text-decoration: underline">Web Cheshire</a> | <a href="papers.html" style="text-decoration: underline">Papers&Slides</a></td>
+  </tr>
+  <tr>
+    <td width="100%" height="11"></td>
+  </tr>
+  <tr>
+    <td height="20" align="left" valign="middle"><p style="font-family: Times New Roman,
+    serif"><img src="smallcat1.gif" alt="smallcat1.gif (979 bytes)" align="middle" WIDTH="84" HEIGHT="78">&nbsp;&nbsp; You are here: <a href="index.html" style="color: rgb(0,0,255); font-family: Times New Roman, serif; font-weight: bold">Cheshire 
+    II Home</a> &gt; Documentation</td>
+  </tr>
+  <tr>
+    <td width="100%" height="0" align="center" valign="top"></td>
+  </tr>
+  <tr>
+    <td width="79%" height="558"><h1 ALIGN="CENTER"><font COLOR="#B22222">Cheshire II System</font></h1>
+    <p>This page is intended as a directory 
+    of information about Cheshire II set-up and operation. <a HREF="configfiles.html">Information 
+    on configuration files has its own page.</a> The following list briefly describes the commands that 
+    are created in the bin directory when the system is built and their general purpose. There 
+    are links to more detailed information on the various commands.
+ There are also pages available on the 
+<a href="metadata.html">Cheshire Explain/Metadata services</a> and on
+<a href="datastore.html">Datastore</a> and <a href="virtual.html">
+virtual</a> databases, and <a href="bitmapindex.html">bitmapped indexes</a>.</P>
+
+<P> In addition the <a href="CHANGES.txt">CHANGES</a> file often includes
+detailed descriptions of new feature in the order they were added to the
+system.
+
+<P>Information on setting up the sytem and use of these commands in building
+databases and IR services is discussed in the <a HREF="short_overview.html">
+documents</a> contributed by Rob Sanderson of Liverpool University (now at Los Alamos).
+</span><dl>
+      <dt><span style="font-family: Times New Roman, serif">batch_load </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">a utility to load unloaded batch 
+        indexes due to indexing failure. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif"><a HREF="buildassoc.html">buildassoc</a> 
+        </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">a utility to build an associator file 
+        from an SGML file. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif"><a HREF="cheshire2.html">cheshire2</a> 
+        </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">Main client programs for both batch(script) and interactive search operations. This page
+includes all of the internal scriptable TCL commands for search, including information search ranking options </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">cheshire_load </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">A utility to build a <a href="datastore.html"> 
+Datastore</a> file from an SGML/XML file. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">countdb </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">a utility to count the number of items 
+        in an index and produce a frequency count. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">delete_recs </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">a utility to  
+        (logically) delete a record (or records) and all of its index entries.
+ </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">db_archive <br>
+        db_checkpoint <br>
+        db_deadlock <br>
+        db_dump <br>
+        db_load <br>
+        db_recover <br>
+        db_stat</span></dt>
+      <dd><span style="font-family: Times New Roman, serif">utility programs associated with the 
+        DBOpen system used in Cheshire II indexes. See the manual pages in the doc directory. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">dtd_parser </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">utility program to test DTDs for 
+        parsibility -- outputs a description of the DTD contents. </span></dd>
+
+      <dt><span style="font-family: Times New Roman, serif">dumpcomp </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">utility program to print information about components extracted from records in a database  </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">dumpdb </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">utility program to print the contents 
+        of an index file. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">dumpds </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">Utility program to print information about the contents of a 
+<a href="datastore.html"> DataStore file</a>. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">dumppost </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">utility program to print the contents 
+        and postings of an index file. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">dumprecs </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">utility program to print the contents 
+        of an SGML data file or a single record from the file. <i>NOTE: for printing 
+<a href="datastore.html"> DataStore files</a> use
+read_datastore instead of this program.</i> </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">getnumrecs </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">utility program to report the highest 
+        record id number in a data file. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">highpost </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">utility program to print all entries 
+        in an index with more than some specified postings. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">in_test </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">Test version of the indexing program 
+        (with voluminous output, useful for tracking indexing data problems.) </span></dd>
+      <dt><span style="font-family: Times New Roman, serif"><a HREF="index_cheshire.html">index_cheshire</a> 
+        </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">The main index creation program. It is 
+        suggested that the batch (-b) flag be used for best performance. (NOTE: use of the batch 
+        flag requires sufficient work space on the disks where the index will be located to hold 
+        the index contents TWICE -- but indexing is MUCH faster than not using the flag) </span></dd>
+      <dt><span style="font-family: Times New Roman, serif"><a HREF="index_clusters.html">index_clusters</a> 
+        </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">If cluster files are generated during 
+        the index_cheshire run, this program is used to finish generation of the cluster files and 
+        indexes. </span></dd>
+  <dt><span style="font-family: Times New Roman, serif"><a href="index_vectors.html">index_vectors</a></span> </dt>
+  <dd><span style="font-family: Times New Roman, serif">If vector index files are specified in the config file, they are
+generated during the index_cheshire run, then
+this
+program is used subsequently to finish generation of the vector indexes.
+ </span> </dd>
+
+      <dt><span style="font-family: Times New Roman, serif"><a HREF="jserver.html">jserver</a> </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">The Non-Z39.50 server. The server is 
+        configured by a combination of a &quot;server.init&quot; and the database configuration 
+        files for each database being served (see <a href="configfiles.html">configfiles.html</a>). 
+        This version of the server was created to interact with Java client interfaces </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">marc2sgml </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">Conversion utility to converting MARC 
+        records to SGML (using the Berkeley DTD) -- currently USMARC12.DTD</A>. Various 
+versions of the USMARC DTD are available in the docs directory.  </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">parser </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">Utility program to test parsing of SGML/XML documents -- 
+outputs a description of the document contents. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif"><a href="read_datastore.html">read_datastore</a></span></dt>
+      <dd><span style="font-family: Times New Roman, serif">A utility to read the contents of a  <a href="datastore.html"> 
+Datastore</a> file. </span></dd>
+
+      <dt><span style="font-family: Times New Roman, serif">sgml2marc </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">Conversion utility to convert SGML 
+        conforming to the Berkeley USMARC DTD to MARC records. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">staffcheshire </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">An X windows version of the client with combined elements of the 
+cheshire client and server, as well as other utility code. 
+This program is intended to be used as a scriptable
+program for managing the system. (see scripts in the config-gui 
+directory as examples) </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">test_config </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">A utility program to test the validity 
+        and parsibility of database configuration files. </span></dd>
+      <dt><span style="font-family: Times New Roman, serif">testsrch2 </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">Simple line-oriented command driven 
+        interface to the search engine. useful for testing, and can also be used in non-client scripting
+languages (such as perl) as a way to access Cheshire databases.
+<i>Note: the program is called "tstsearch" in the Windows version.</i></span></dd>
+      <dt><span style="font-family: Times New Roman, serif"><a HREF="cheshire2.html">webcheshire</a> 
+        </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">Combined elements of the cheshire 
+        client and server, used as a scriptable CGI driver (see scripts directory for samples) </span></dd>
+      <dt><span style="font-family: Times New Roman, serif"><a HREF="zserver.html">zserver</a> </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">The Z39.50 server. The server is 
+        configured by a combination of a &quot;server.init&quot; and the database configuration 
+        files for each database being served (see <a href="configfiles.html">configfiles.html</a>) 
+        </span></dd>
+      <dt><span style="font-family: Times New Roman, serif"><a HREF="cheshire2.html">ztcl</a> </span></dt>
+      <dd><span style="font-family: Times New Roman, serif">A version of the client software 
+        without X Window support. Can be used for utilities or as a line-by-line interface (for 
+        those that know a bit about Tcl/Tk). </span></dd>
+    </dl>
+    <p><span style="font-family: Times New Roman, serif"><B>Typing the name alone of any of the 
+    utility programs will show the usage and required arguments for the command.</B> </span></p>
+    <hr>
+    <i><a HREF="http://sherlock.berkeley.edu/"><p><span style="font-family: Times New Roman, serif">Ray R. Larson</a> <br>
+    Associate Professor <br>
+    School of Information Management and Systems <br>
+    University of California, Berkeley <br>
+    Berkeley, California 94720-4600 <br>
+     </span></i></td>
+  </tr>
+</table>
+</body>
+</html>
+

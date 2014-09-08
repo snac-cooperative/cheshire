@@ -1,0 +1,382 @@
+
+<explain authoritative="false" id="org.o-r-g.srw-l5r">
+  <serverInfo protocol="Z39.50" version="3">
+    <host>gondolin.hist.liv.ac.uk</host>
+    <port>210</port>
+    <database numrecs="3492" lastUpdate="2002-11-27T19:53:10">l5r</database>
+  </serverInfo>
+
+  <databaseInfo>
+    <title> L5R Card Database </title>
+    <description> This is a database of the cards in the Legend of the Five Rings card game.
+</description>
+    <restrictions> Card text and images are copyright to Wizards of the Coast and AEG as appropriate. </restrictions>
+  </databaseInfo>
+
+  <metaInfo>
+    <dateModified>2002-12-4T13:50:56</dateModified>
+  </metaInfo>
+
+  <indexInfo>
+   <set name="BIB1" identifier="1.2.840.10003.3.1"/>
+   <set name="XD" identifier="1.2.840.10003.3.12"/>
+   <set name="UTIL" identifier="1.2.840.10003.3.11"/>
+   <set name="CCG2" identifier="1.2.840.10003.3.1000.171.1"/>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-1">
+      <title>Anywhere</title>
+
+      <map>
+        <attr type="1" set="BIB1">1016</attr>
+        <attr type="3" set="BIB1">3</attr>
+        <attr type="4" set="BIB1">6</attr>
+      </map>
+      <map>
+        <attr type="1" set="BIB1">1016</attr>
+        <attr type="2" set="BIB1">102</attr>
+        <attr type="3" set="BIB1">3</attr>
+        <attr type="4" set="BIB1">6</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-2">
+      <title>Anywhere</title>
+      <map>
+        <attr type="1" set="BIB1">1016</attr>
+        <attr type="3" set="BIB1">3</attr>
+        <attr type="4" set="BIB1">6</attr>
+        <attr type="2" set="BIB1">101</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-3">
+      <title>Card Name</title>
+      <map>
+        <attr type="1" set="BIB1">4</attr>
+        <attr type="3" set="BIB1">3</attr>
+        <attr type="4" set="BIB1">6</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">1</attr>
+        <attr type="2" set="CCG2">1</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">1</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-4">
+      <title>Card Name</title>
+      <map>
+        <attr type="1" set="BIB1">4</attr>
+        <attr type="3" set="BIB1">3</attr>
+        <attr type="4" set="BIB1">6</attr>
+        <attr type="2" set="BIB1">101</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">1</attr>
+        <attr type="2" set="CCG2">1</attr>
+        <attr type="5">11</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">1</attr>
+        <attr type="5" set="XD">11</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-5">
+      <title>Card Name</title>
+      <map>
+        <attr type="1" set="BIB1">4</attr>
+        <attr type="3" set="BIB1">1</attr>
+        <attr type="4" set="BIB1">1</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">1</attr>
+        <attr type="2" set="CCG2">1</attr>
+        <attr type="5" set="UTIL">7</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-6">
+      <title>Card Text</title>
+      <map>
+        <attr type="1" set="BIB1">1010</attr>
+        <attr type="3" set="BIB1">3</attr>
+        <attr type="4" set="BIB1">6</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">4</attr>
+        <attr type="2" set="CCG2">1</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-7">
+      <title>Card Text</title>
+      <map>
+        <attr type="1" set="BIB1">1010</attr>
+        <attr type="3" set="BIB1">3</attr>
+        <attr type="4" set="BIB1">6</attr>
+        <attr type="2" set="BIB1">101</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">4</attr>
+        <attr type="2" set="CCG2">1</attr>
+        <attr type="5" set="UTIL">11</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-8">
+      <title>Card Text</title>
+      <map>
+        <attr type="1" set="BIB1">1010</attr>
+        <attr type="3" set="BIB1">1</attr>
+        <attr type="4" set="BIB1">1</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">4</attr>
+        <attr type="2" set="CCG2">1</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-9">
+      <title>Card Type</title>
+      <map>
+        <attr type="1" set="BIB1">1031</attr>
+        <attr type="3" set="BIB1">3</attr>
+        <attr type="4" set="BIB1">6</attr>
+      </map>
+      <map>
+        <attr type="1" set="CCG2">1</attr>
+        <attr type="2" set="CCG2">1</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-10">
+      <title>Artist</title>
+      <map>
+        <attr type="1" set="BIB1">1</attr>
+        <attr type="3" set="BIB1">3</attr>
+        <attr type="4" set="BIB1">6</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-11">
+      <title>Artist</title>
+      <map>
+        <attr type="1" set="BIB1">1</attr>
+        <attr type="3" set="BIB1">1</attr>
+        <attr type="4" set="BIB1">1</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-12">
+      <title>Force</title>
+      <map>
+        <attr type="1" set="BIB1">3200</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-13">
+      <title>Chi</title>
+      <map>
+        <attr type="1" set="BIB1">3201</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-14">
+      <title>Experienced Level</title>
+      <map>
+        <attr type="1" set="BIB1">3202</attr>
+      </map>
+      <map>
+        <attr type="1" set="CCG2">2</attr>
+        <attr type="2" set="CCG2">1010</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-15">
+      <title>Focus</title>
+      <map>
+        <attr type="1" set="BIB1">3203</attr>
+      </map>
+      <map>
+        <attr type="1" set="CCG2">2</attr>
+        <attr type="2" set="CCG2">1011</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-16">
+      <title>Gold Cost</title>
+      <map>
+        <attr type="1" set="BIB1">3204</attr>
+      </map>
+      <map>
+        <attr type="1" set="CCG2">2</attr>
+        <attr type="2" set="CCG2">1011</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-17">
+      <title>Honour Requirement</title>
+      <map>
+        <attr type="1" set="BIB1">3205</attr>
+      </map>
+      <map>
+        <attr type="1" set="CCG2">2</attr>
+        <attr type="2" set="CCG2">1011</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-18">
+      <title>Province Strength</title>
+      <map>
+        <attr type="1" set="BIB1">3206</attr>
+      </map>
+      <map>
+        <attr type="1" set="CCG2">2</attr>
+        <attr type="2" set="CCG2">1011</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-19">
+      <title>Personal Honour</title>
+      <map>
+        <attr type="1" set="BIB1">3207</attr>
+      </map>
+      <map>
+        <attr type="1" set="CCG2">2</attr>
+        <attr type="2" set="CCG2">1011</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-20">
+      <title></title>
+      <map>
+        <attr type="1" set="BIB1">3208</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-21">
+      <title></title>
+      <map>
+        <attr type="1" set="BIB1">3209</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-22">
+      <title>Set</title>
+      <map>
+        <attr type="1" set="BIB1">3210</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">1</attr>
+        <attr type="2" set="CCG2">2</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-23">
+      <title>Errata</title>
+      <map>
+        <attr type="1" set="BIB1">3211</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">4</attr>
+        <attr type="2" set="CCG2">3</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-24">
+      <title>Errata (Keyword)</title>
+      <map>
+        <attr type="1" set="BIB1">3212</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-25">
+      <title>Flavour </title>
+      <map>
+        <attr type="1" set="BIB1">3213</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-26">
+      <title>Flavour </title>
+      <map>
+        <attr type="1" set="BIB1">3214</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-27">
+      <title>Legality</title>
+      <map>
+        <attr type="1" set="BIB1">3215</attr>
+      </map>
+      <map>
+        <attr type="1" set="CCG2">6</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-28">
+      <title>Rarity</title>
+      <map>
+        <attr type="1" set="BIB1">3216</attr>
+      </map>
+      <map>
+        <attr type="1" set="CCG2">5</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-29">
+      <title>Location</title>
+      <map>
+        <attr type="1" set="BIB1">3217</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">7</attr>
+        <attr type="2" set="CCG2">2</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-30">
+      <title>Location</title>
+      <map>
+        <attr type="1" set="BIB1">3218</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">7</attr>
+        <attr type="2" set="CCG2">2</attr>
+      </map>
+    </index>
+
+    <index search="true" scan="true" sort="true" id="DISTRIB-l5r-31">
+      <title>Number</title>
+      <map>
+        <attr type="1" set="BIB1">3219</attr>
+      </map>
+      <map>
+        <attr type="1" set="XD">7</attr>
+        <attr type="2" set="CCG2">1</attr>
+      </map>
+    </index>
+
+  </indexInfo>
+  <recordInfo>
+    <recordSyntax identifier="1.2.840.10003.5.101">
+      <elementSet name="F"></elementSet>
+    </recordSyntax>
+    <recordSyntax identifier="1.2.840.10003.5.109.9">
+      <elementSet name="F"></elementSet>
+    </recordSyntax>
+    <recordSyntax identifier="1.2.840.10003.5.105">
+      <elementSet name="F"></elementSet>
+      <elementSet name="number"></elementSet>
+      <elementSet name="number2"></elementSet>
+      <elementSet name="TPGRS"></elementSet>
+      <elementSet name="dc"></elementSet>
+    </recordSyntax>
+    <recordSyntax identifier="1.2.840.10003.5.109.10">
+      <elementSet name="F"></elementSet>
+    </recordSyntax>
+  </recordInfo>
+</explain>

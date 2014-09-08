@@ -1,0 +1,75 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en]C-CCK-MCD {Sony}  (Win98; U) [Netscape]">
+   <title>Cheshire II Commands</title>
+</head>
+<body background="chat5.jpg">
+<!-- Cheshire II Commands documentation -->
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Databases</H1> </FONT>
+</center>
+
+<h2>
+<font color="#0000FF">DataStore Databases</font></h2>
+<p>\- Storage of pre-parsed SGML/XML
+<h2>
+<font color="#0000FF">DESCRIPTION</font></h2>
+This document describes the CheshireII DataStore facility, used to store
+versions of SGML/XML documents in a pre-parsed form. These documents
+take more storage than plain text SGML/XML, but have the advantage that
+the parsing step used for display conversions, indexing, component 
+retrieval, etc. is only done once when the document is stored
+(using the <a href="cheshire_load.html">cheshire_load</a> command), 
+and all other actions will used the pre-parsed form of the document.
+<p>
+<hr>
+<h2>
+<font color="#0000FF">DataStore Databases</font></h2>
+<p>
+The most obvious difference between normal CheshireII databases and
+a DataStore database is that DataStore databases are not "human-readable"
+SGML/XML files with associator files. Instead a DataStore database uses
+Berkeley DB to store the SGML/XML in a pre-parsed form that can be rapidly
+retrieved and reconstituted in its fully parsed internal form. In a
+configuration file the FILEDEF TYPE attribute is used to indicate that
+the file name in the FILENAME tag is a DataStore file. The following
+may be used to do this...
+<p>
+<B>&lt;FILEDEF TYPE=SGML_DATASTORE&gt;</B> or <B>&lt;FILEDEF TYPE=XML_DATASTORE&gt;</B>
+<p>
+<B>&lt;FILEDEF TYPE=MARC_DATASTORE&gt;</B> or <B>&lt;FILEDEF TYPE=MARCSGML_DATASTORE&gt;</B>
+<p>
+(The last pair is effectively equivalent for databases using the MARC
+conversion and DTDs included in the distribution), then, instead of
+using the buildassoc utility, the <A HREF="cheshire_load.html">
+cheshire_load</A> utility is used
+to load the pre-parsed version of the data into the Berkeley DB database,
+(cheshire_load has all of the same parameters as buildassoc, so the
+same type of scanning of directories, etc. can be done).
+<p>
+Except for the utilities that depend on an associator file (these have
+been replaced for DataStore files by a new utility called 
+<A HREF="read_datastore.html">read_datastore</A>.
+<p>
+All other utilities (index_cheshire, etc.) recognize from the configuration
+file that a DataStore database is being used and behave the same as for
+normal databases.
+<p>
+<hr WIDTH="100%">
+<h2>
+<font color="#0000FF">BUGS</font></h2>
+None known.
+<h2>
+<font color="#0000FF">SEE ALSO</font> cheshire_load, read_datastore</h2>
+
+<h2>
+<font color="#0000FF">AUTHOR</font></h2>
+Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>)
+</body>
+</html>
+
+
+

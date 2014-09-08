@@ -1,0 +1,16 @@
+
+<!-- ******************************************************************* -->
+<!-- ************************* DATABASE ******************************** -->
+<!-- *********************** DEFINITIONS ******************************* -->
+<!-- ******************************************************************* -->
+<!-- This is the config file for the Cheshire II EAD combined -->
+<DBCONFIG>
+<DBENV> /home/cheshire/cheshire/default </DBENV>
+<!-- The Main bibliographic file -->
+<FILEDEF TYPE=SGML>
+<DEFAULTPATH> /home/cheshire/cheshire/ead_components/ </DEFAULTPATH>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> ead_components </FILETAG>
+<!-- filename is the full path name of the file -->
+<FILENAME> DATA </FILENAME>
+

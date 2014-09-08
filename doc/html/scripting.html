@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Cheshire - Client Scripting</title>
+  </head>
+
+  <body bgcolor = white>
+    <center><h3>Client Scripting</h3></center>
+
+    <p>
+      There are two clients provided with Cheshire, a Z39.50 client (ztcl) and a web client (webcheshire).  The Z39.50 client communicates via the zserver configured in inetd.conf and the services files, webcheshire on the other hand uses the indexes and database configurations directly.  Each has TCL/TK as its underlying scripting language, with different extensions to interogate the databases.
+    <P>
+      It is important to make clear at this point the distinction between a cheshire client, and a web client. The cheshire client tells the cheshire server to do the search, and then process the results. The results could be processed into any form desired, but typically into HTML for display on a web browser. In this way, the cheshire client is still a part of the web server as it is just a cgi script.
+    <p>
+      This page makes no attempt to instruct the reader on the use of TCL/TK, but to only go over the extensions and ways in which ztcl and webcheshire can be used in the context of SGML search and retreival. As the process is similar for both, we'll go through it step by step.
+    <p>
+      <hr>
+    <p>
+    <img src = "closed.gif"><b>zselect</b><br>
+    The zselect command is used only in the ztcl client, and establishes a connection to a z39.50 server.<br>
+    Usage: <code>zselect servername [address database port] [authentication]</code>
+    <p>
+      The client comes with several pre-established servers, which can be displayed using 'parray Z_HOSTS', and these can be connected to using just the server name field. However to connect to your own, you'll need to give all the information.
+    <p>
+      The servername, if not from the Z_HOSTS list, can be anything that you want to call this particular session.<br>
+      Address is the IP address, or appropriate host name for the server you're connecting to.<br>
+      Database is the name of the database, as determined by the 'filetag' field in the DBCONFIGFILE.<br>
+      Port is the port on which to connect - this is defined in the /etc/zserver.conf file that was set up in the first step.<br>
+      Authentication is in order to give a password to connect to Z39.50 points that require a login.
+    <p>
+      This step is done in webcheshire by setting special variables:
+    <p>
+      CHESHIRE_CONFIGFILE: This is the file path of the local configuration file.<br>
+      CHESHIRE_DATABASE: And this is the name of the database in the configuration file to search, as defined in the filetag field.
+      
+      <p>
+      <img src = "closed.gif"><b>zset</b><br>
+      The next thing that needs to be done is to set up some of the attributes of the search. This is done in ztcl using the zset command, which has the same usage as 'set' from regular TCL:<br>
+      Usage: <code>zset variable value</code>
+    <p>
+      The following variables should be set before doing a search:
+      <p>
+      ElementSetNames (name): This is the name of the format in which to retreive the information. For specially defined formats, this is the name defined in the name attribute of the displaydef field. The default is F, which will retrieve the full record.
+      <p>RecordSyntax (name): This is the syntax in which the record should be returned. This is different from the format, in that the format sets which set of tags to return, whereas the Syntax is how to return them. Possible values are: SGML (return the record as is in SGML), GRS1 (return the record in the Generic Record Syntax), MARC (return a MARC record for data that is in USMARC sgml form), SUTRS (Simple Unstructured Text Record Syntax), EXPLAIN and OPAC.
+      <p>NumRequested (number): This is the number of records to be displayed, regardless of how many records match the search query. This defaults to all the returned records.
+      <p>StartPosition (number): The first record to display. This defaults to the first record, but when combined with NumRequested above is useful in displaying particular records by themselves.
+    <p>
+      These should also be set in the webcheshire client, but as above this is done via special cheshire variables. They are, respectively, CHESHIRE_ELEMENTSET, CHESHIRE_RECSYNTAX, CHESHIRE_NUMREQUESTED and CHESHIRE_NUMSTART.
+      <p>
+      <img src = "closed.gif"><b>zfind</b><br>
+      This is the command to instigate a z39.50 search. It has a simple basic usage, but the search query can be constructed in a very complex manner. It will return either an error message, or the number of hits found in the index. These can be displayed with zdisplay, discussed next.<br>
+      Usage: <code>zfind (indexname query)</code>
+    <p>
+    The indexname field is the name of the index in the database to search, as set in the indextag field in the configuration file. The query is the search to perform, set out as discussed below.  
+    <p>
+      The webcheshire equivalent is called 'search', and takes the same arguments, however will return the records in the desired syntax after the number of hits directly.
+    <p>
+      Note well that cheshire does some internal mapping of index names. These mappings are based on the use attributes of the indexes, so if you call an index 'mydate', but give it the appropriate attributes associated with a date type, then date will work as well. This is important to note, as you may need to change the names of your indexes to something that <i>isn't</i> in one of these default mappings if you don't wish to give the attributes as well.  
+    <p>
+      Query construction is done by building up using blocks of indexname and search term pairs. For example, the simplest query is just a word to search for in the index:<br>
+      <code>zfind author sanderson</code>
+    <p>
+      This can be built up with boolean operators: AND, OR, and NOT. For example:<br>
+      <code>zfind author sanderson AND title cheshire</code>
+    <p>
+      These can be nested with brackets, thus to find an article by someone called Sanderson with either cheshire or medieval in the title:<br>
+      <code>zfind author sanderson AND (title cheshire OR title medieval)</code>
+    <p>
+      To search for a phrase rather than a word - a search term with spaces in it - the term can be enclosed in { } brackets.  So to search by a full title:<br>
+      <code>zfind author sanderson AND title {full text retrieval of medieval manuscripts}</code>
+    <p>
+      There are several relational operators that can be put between the index name and the search term, which can be especially useful for searching Date indexes. The simple ones, which have the same meaning as elsewhere are: &lt; &lt;= &gt; and &gt;=.  There is also a 'within' operator - '&lt;=&gt;' useful for finding a date within a range for example.  The @ character is used in Cheshire to indicate that the results should be sorted probabilistically ranked.  Some examples are in order:<br>
+      <code>zfind idnumber &lt; 20</code><br>
+      <code>zfind date &lt;=&gt; 1800-1850</code><br>
+      <code>zfind topic @ {history malaysia ruins}</code>
+    <p>
+      <img src = "closed.gif"><b>zdisplay</b><br>
+      This command is used only in the ztcl client, and displays the result set retreived or a part thereof. The simplest use is just the command without any arguments, which will display the entire result set of the most recent search. It may also take three different arguments:<p>
+      resultset:  The name of the resultset from which to display.<br>
+      number_of_records: The number of records to display.<br>
+      first_record: The record with which to start.
+      <p>
+      <img src = "closed.gif"><b>zscan</b><br>
+      The zscan command does a scan of the requested database returning the keys and how many records they appear in around the search term.<br>
+      Usage: <code>zscan indexname term stepsize numreq position</code>
+    <p>
+      The arguments need some explanation. Firstly, the indexname is the name of the index as defined in the indxtag field.<br>
+      Term is the term around which to scan.<br>
+      Stepsize is the number of terms between each of the terms returned. This allows refining of scans from a wide scan down to a more finely grained one. To get every term, then, this should be 0.<br>
+      Numreq is the number of  keys requested.<br>
+      Position is the numerical position at which the search term should appear in the list. 
+      <p>
+      As these terms are the keys in the database, searching for them in that index is garaunteed to find results. However, the terms may appear multiple times (as is indicated in the number of records field that is returned with the term), and hence an intermediate stage may be required to get to the explicit record desired.
+    <p>
+      The local version of this command is 'lscan' and has the same arguments.
+    <p>
+      <img src = "closed.gif"><b>zsort</b><br>
+	   This command will sort a stored resultset based on the contents of a tag or attribute in the SGML. (This is only in version 2.32 and above)<br>
+	   Usage: <code>zsort [-in resultsetname ] [-out resultsetname] { -tag tagname1  | -attribute attributename1 } [ -ignore_case -case_sensitive -ascending -descending -ascending_freq -descending_freq -missing_null -missing_quit -missing_value value ] { - tag tagname2 | -attribute attributename2 } ...
+<p>
+	   When this works, I'll finish the documentation!
+<p>
+	   The web_cheshire version is called local_sort (as lsort is already a tcl command for sorting lists)
+
+    <p>
+      <img src = "closed.gif"><b>zshow</b><br>
+      The zshow command displays information about the Z39.50 session.
+    <p>
+      <img src = "closed.gif"><b>zclose</b><br>
+      Zclose will close the current Z39.50 session.
+<p>
+      <img src = "closed.gif"><b>Miscellaneous</b><br>
+      There is a global variable automatically set on startup called 'cheshire_version'. This will contain the version of the running code. This is available from version 2.30 and on.
+
+
+
+    <hr>
+    <center><b>Sample Search Script</b></center>
+    <p>
+      Here's a very simple search script.  For a much more complex example, see the GRS1 handler <a href = "grs1script.html">example</a>.
+    <p>
+      <pre>
+#!/usr/local/cheshire/bin/webcheshire
+# Simple cheshire search script
+
+# Set up environment
+set CHESHIRE_DATABASE "archives"
+set CHESHIRE_CONFIGFILE "DBCONFIGFILE"
+set CHESHIRE_ELEMENTSET F
+set CHESHIRE_RECSYNTAX grs1
+set CHESHIRE_NUM_START 1
+set CHESHIRE_NUMREQUESTED 1
+
+# Define query
+set query "search subject history"
+
+# Search
+set err [catch {eval $query} qresults]
+set hits [lindex [lindex [lindex $qresults 0] 0] 1]
+set sresults [lrange $qresults 1 end]
+
+# Display the record
+puts $sresults
+
+</pre>
+
+<p>
+<hr>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+set CHESHIRE_DATABASE bibfile
+set CHESHIRE_NUMREQUESTED 4
+set CHESHIRE_CONFIGFILE "CONFIG.DL"
+set RESULTS [search topic @ {sierras water streams}]
+puts $RESULTS

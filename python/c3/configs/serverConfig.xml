@@ -1,0 +1,62 @@
+
+<config id="Cheshire3Server" type="server">
+
+  <paths>
+    <path type="defaultPath">/home/cheshire/c3/new</path>
+    <object type="configStore" ref="defaultConfigStore"/>
+    <object type="authStore" ref="defaultAuthStore"/>
+    <object type="resultSetStore" ref="defaultResultSetStore"/>
+    <object type="queryStore" ref="defaultQueryStore"/>
+    <object type="parser" ref="defaultParser"/>
+  </paths>
+
+  <subConfigs>
+    <subConfig type="queryStore" id="defaultQueryStore">
+      <objectType>queryStore.SimpleQueryStore</objectType>
+    </subConfig>
+
+    <subConfig type="resultSetStore" id="defaultResultSetStore">
+      <objectType>resultSetStore.BDBResultSetStore</objectType>
+      <paths>
+        <path type="databasePath">RSetStore.bdb</path>
+        <path type="recordStoreHash">l5rRecordStore</path>
+      </paths>
+      <options>
+        <default type="resultSetTimeout">604800</default>
+      </options>
+    </subConfig>
+
+    <subConfig type="resultSetStore" id="PermanentResultSetStore">
+      <objectType>resultSetStore.BDBResultSetStore</objectType>
+      <paths>
+        <path type="databasePath">PermanentRSetStore.bdb</path>
+        <path type="recordStoreHash">l5rRecordStore</path>
+      </paths>
+      <options>
+        <default type="resultSetTimeout">604800</default>
+      </options>
+    </subConfig>
+
+    <path type="configStore" id="defaultConfigStore">configs/configStore.xml</path>
+    <path type="authStore" id="defaultAuthStore">configs/authStore.xml</path>
+    <!-- Import some basic object types -->
+
+    <path type="includeConfigs">configs/basicConfigs.xml</path>
+    <path type="database" id="db_l5r_cluster">configs/dbcfgCluster.xml</path>
+    <path type="database" id="db_l5r">configs/dbcfg.xml</path>
+  </subConfigs>
+
+  <objects>
+    <path type="configStore" ref="defaultConfigStore"/>
+    <path type="authStore" ref="defaultAuthStore"/>
+    <path type="queryStore" ref="defaultQueryStore"/>
+    <path type="resultSetStore" ref="defaultResultSetStore"/>
+    <path type="resultSetStore" ref="PermanentResultSetStore"/>
+
+    <path type="database" ref="db_l5r_cluster"/>
+    <path type="database" ref="db_l5r"/>
+  </objects>
+
+</config>
+
+

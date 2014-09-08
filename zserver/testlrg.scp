@@ -1,0 +1,12 @@
+# Test script for ztcl for GRS-1 conversion
+zselect testsherlock sherlock nesstar_dacat 2222
+set RESULTS [zfind localnum 3289]
+puts "$RESULTS"
+zset recsyntax sgml
+#zset elementsetnames B
+set disp [zdisplay]
+
+foreach rec [lrange $disp 1 end] {
+    puts "++++++++++++++++++++++++++++++++++++++++++++++++++"
+    puts "$rec"
+}

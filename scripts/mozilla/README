@@ -1,0 +1,9 @@
+
+Linux directory has the linux client code in it, set out in the form
+needed to create an XPI.  To do this, in the linux directory:
+zip -r cheshire-linux.xpi *
+
+threaded is a version that uses libthread for TCL to have multiple
+threads... except the performance gain is minimal :( Other resolutions
+to be investigated.
+

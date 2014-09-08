@@ -1,0 +1,51 @@
+<!-- This config file is for Cheshire II indexing/retrieval of DL image data -->
+<DBCONFIG>
+
+<!-- The first filedef -->
+<FILEDEF TYPE=SGML>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> blob </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> /usr/users/ray/Work/blobs.sgml
+</FILENAME>
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /usr/users/ray/Work/cheshire/index/IMAGETEST/blobs.dtd </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> /usr/users/ray/Work/blobs.sgml.assoc
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> /usr/users/ray/Work/cheshire/index/IMAGETEST/blobs.history 
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- First (and only) index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr/users/ray/Work/cheshire/index/IMAGETEST/blobs.indx
+</INDXNAME>
+<INDXTAG> blobs </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP><USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP><USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1010 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1016 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP><USE> 1034 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP><USE> 1035 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+
+<INDXKEY>
+<TAGSPEC><FTAG> BINS </FTAG></TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+</INDEXES>
+</FILEDEF> 
+</DBCONFIG>
+

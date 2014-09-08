@@ -1,0 +1,21 @@
+puts "***** Selecting MELVYL *****"
+puts [zselect melvyl]
+puts ""
+for {set i 0} {$i < 500} {incr i} {}
+puts "***** searching larson *****"
+set res1 [zfind author larson, ray r]
+puts $res1
+for {set i 0} {$i < 500} {incr i} {}
+puts "***** displaying *****"
+set res2  [zdisplay]
+puts $res2
+for {set i 0} {$i < 500} {incr i} {}
+puts "***** finding buckland *****"
+puts [zfind author buckland and title book availability]
+for {set i 0} {$i < 500} {incr i} {}
+puts "***** displaying *****"
+puts [zdisplay]
+for {set i 0} {$i < 500} {incr i} {}
+puts "***** closing *****"
+puts [zclose]
+exit

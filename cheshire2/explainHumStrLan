@@ -1,0 +1,31 @@
+# Test explain access and display
+puts "Contacting ATT..."
+zselect help z3950.bell-labs.com IR-Explain-1 210
+puts "Setting Attributes"
+zset attributes explain
+zset recsyntax explain
+puts "trying to get Humanstringlanguage eng"
+set results [zfind HumanStringLanguage eng]
+puts "Results are $results"
+set disp [zdisplay]
+
+foreach a [lrange $disp 1 end] {
+	puts "+++++++++++++++++++++++"
+	foreach line $a {
+	   if {[llength $line] > 3} {
+		puts ""
+		foreach part $line {
+		   if {[llength $part] == 2} {
+			puts ""
+			foreach subpart $part {
+			  puts "\t\t\t $subpart"
+			}
+		   } else {
+			puts "\t\t $part"
+		   }
+		}
+           } else {
+		puts "\t $line"
+	   }
+	}
+}

@@ -1,0 +1,15 @@
+#define TYPE      1
+#define VALUE     2
+#define NAME      3
+#define TERM      4
+#define NUMBER    5
+#define ATTLIST   6
+#define DISTANCE  7
+#define KEY       8
+#define MAXIMUM   9
+#define OID       10
+#define OPERATOR  11
+#define RELATION  12
+#define SEQUENCE  13
+#define STEP_SIZE 14
+

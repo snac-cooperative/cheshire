@@ -1,0 +1,200 @@
+
+<html>
+<head>
+<title>Cheshire3 Configuration Schema</title>
+
+<style>
+.elm {border: solid #000000 1px; background: #ffeeff; padding: 5px}
+
+I {font-style: italic; font-variant: small-caps}
+</style>
+
+</head>
+<body bgcolor="white">
+
+<center>
+<h3>Cheshire3 Configuration XML</h3>
+</center>
+
+<p>
+Every object in the Cheshire3 system has a configuration file.  Some of these files might be empty apart from the type of object to instantiate, but they must still exist.  These configuration files are written using XML and have a base schema which may be extended for different types of object.
+<p>
+The objects in Cheshire3 have a tree-like heirarchy.  Objects and values have a scope depending on where they are defined in this heirarchy.  
+The top point is a server of which there may be one or more.  Each server may contain one or more databases.  Each database may contain one or more indexes.
+Extracters, Normalisers, Preparsers, Parsers and Transformers may be instantiated at any point in the heirarchy.  Indexes may be instantiated within another index for indirection purposes such as component records or referenced records.
+
+<p>
+All objects in the Cheshire3 API with the exception of Server are called with the same parameters: self, the DOM node for the top level element of the object's configuration (eg subConfig or config) and the parent object in the heirarchy.  Servers are called with a path to the configuration file on the local machine to avoid bootstrapping issues of where the highest level of information comes from.
+
+<p>
+The elements are as follows.
+
+<p class="elm">
+<i>config</i> is the top level tag for all configuration files.  It should have an 'id' attribute which is globally unique amongst all other referenced configuration files.  This id is not necessarily the document id that will be generated if put into a configStore, as that is configStore implementation dependant.  It should also have a 'type' attribute which is one of the Cheshire3 API defined base classes.   
+<br>
+Example: &lt;config id="db_l5r" type="database"&gt;
+
+
+<p class="elm">
+<i>objectType</i>  should be the first tag in any configuration file. It contains the module and object to instantiate within the Cheshire3 system.  See the <i>imports</i> section for more information about dynamically importing custom objects.
+<br>
+Example: &lt;objectType&gt;database.SimpleDatabase&lt;/objectType&gt;
+
+
+<p class="elm">
+<i>paths</i> is a container element which wraps one or more path or object elements.  This section of the configuration file is for recording file system paths to things other than configuration files, or for references to objects that have already been instantiated previously.  It could do with a different name?
+<br>
+It may contain path and object elements.
+
+<p class="elm">
+<i>subConfigs</i> is another container element which wraps around one or more other configuration files or paths to them.  Configurations included via subConfigs are only defined, they are not necessarily instantiated as objects within the system.  You might want to include definitions of all of the basic types, but not instantiate any until they're actually needed.  In a multi-user or distributed system this is particularly useful.
+<br>
+It may contain subConfig and path elements.
+
+<p class="elm">
+<i>objects</i> is a third container which holds references to configurations to instantiate as objects within the system.  These references are via the 'ref' attribute of the path element.  The system will retrieve the identified configuration and build it into an object, stored at the current level in heirarchy as discussed above.
+<br>
+It may contain path elements with the ref attribute only.
+
+<div class="elm">
+<p>
+<i>path</i> is used to refer to either a configuration file or a file system path which is somehow important to the object.  It has the following attributes:
+<ul>
+<li><i>id</i>:    The id for the pathed configuration.
+<li><i>type</i>:  The type of path or object
+<li><i>ref</i>:   A reference to a different XML node
+<li><i>docid</i>: A document identifier from the parent's configStore
+</ul>
+Defined types, beyond the API objects:
+<ul>
+<li><i>defaultPath</i>: The default path which will be prepended to any relative paths for this object or below.
+<li><i>pythonPath</i>:  One or more additions to the search path for python modules.  Multiple paths should be divided by : characters.
+<li><i>includeConfigs</i>:  A path to a file which includes subConfigs to include at this level.  It can also include an objects section to instantiate these definitions.  Useful to split off most of the configurations/instantiations you want into one place away from your more often edited files.
+</ul>
+
+<br>
+Examples:
+<br>
+&lt;path type="index" id="idx_l5r_1"&gt; indexes/idx1cfg.xml &lt;/path&gt;
+( A path to the configuration file for an index )
+<br>
+
+</div>
+
+<p class="elm">
+<i>object</i> is a reference to an already instantiated object, via the 'ref' attribute.  The Id of the object is used for this reference, as determined by the XML (hence the need for scoped unique ids).
+
+
+<p class="elm">
+<i>subConfig</i> has the same semantics as the top level config element, but may be nested.
+
+<p class="elm">
+<i>imports</i> is a container section which defines python modules to import at run time.  It may contain one or more module elements.  These modules will be imported into the 'dynamic' module, and hence must be referenced as 'dynamic.module' or 'dynamic.object' rather than just object or module.  Cheshire3 modules are always imported and hence do not need to be included, only your own implementations.  It contains one or more module elements.
+
+<p class="elm">
+<i>module</i> defines a single call to the importing function. Can contain name, object and withName elements.
+
+<div class="elm">
+
+<p>
+<i>name</i> when used inside a module defines the name of the module to do the importing from.
+</p>
+
+<p>
+<i>object</i> defines an object to import, and may contain '*' to import all items within the module. May be repeated to import more than one object from the module at once.
+</p>
+
+<p>
+<i>withName</i> gives a name to use for the object or module imported.  Obviously it is meaningless when used with multiple objects imported at once.
+
+<p>
+Examples:
+<pre>
+&lt;module&gt;
+   &lt;name&gt;PyZ3950&lt;/name&gt;
+&lt;/module&gt;
+</pre>
+
+is the equivalent of <code>import PyZ3950</code>
+
+<pre>
+&lt;module&gt;
+  &lt;name&gt;MyNewExtractionType&lt;/name&gt;
+  &lt;withName&gt;extr1&lt;/withName&gt;
+&lt;/module&gt;
+</pre>
+
+is the equivalent of <code>import MyNewExtractionType as extr1</code>
+
+<pre>
+&lt;module&gt;
+  &lt;name&gt;otherModule&lt;/name&gt;
+  &lt;object&gt;Fish&lt;/object&gt;
+  &lt;object&gt;Squirrel&lt;/object&gt;
+&lt;/module&gt;
+</pre>
+
+is the equivalent of <code>from otherModule import Fish, Squirrel</code>
+
+</p>
+</div>
+
+    <hr>
+<p>
+Index objects have the following additional elements defined:
+<p>
+
+<i>source</i> defines a data source to include in the index.  It can include one or more xpath elements, and one process element.  It can appear multiple times within the index configuration.
+
+<p>
+<i>xpath</i> contains an xpath expression to apply to records to extract data from.  It is repeatable and each xpath expression will be applied.
+<br>
+Example:
+<pre>
+&lt;source&gt;
+  &lt;xpath&gt; /card/name &lt;/xpath&gt;
+  &lt;xpath&gt; /record/title &gt;/xpath&gt;
+  &lt;process&gt; ... &lt;/process&gt;
+&lt;/source&gt;
+</pre>
+
+
+<p>
+<i>process</i> contains an ordered list of object elements in order to define a process chain to turn the matched XPath node into the appropriate form to store in the index.
+
+eg:  
+
+<pre>
+&lt;process&gt;
+   &lt;object type="extracter" ref="ExactExtracter"/&gt;
+   &lt;object type="normaliser" ref="NoneNormaliser"/&gt;
+&lt;/process&gt;
+<pre>
+<ol>
+<li>Give extracter a DOM node from xpath. Return URLs string to normaliser. 
+<li>Normaliser normalises to valid URL list. 
+<li>PreParser then processes each URL to fetch document.
+<li>HTML to XHTML PreParser then transforms document
+<li>Parser parses to Record.
+<li>Record given to Index
+<li>Index processes for XPath
+<li>Extracter extracts keywords
+<li>Normaliser does its thing
+<li>Hand off back to first index's indexStore
+</ol>
+<pre>
+&lt;process&gt;
+   &lt;object ref="URLExtracter"/&gt;
+   &lt;object ref="URLNormaliser"/&gt;
+   &lt;object ref="URLFetchPreParser"/&gt;
+   &lt;object ref="HTMLPreParser"/&gt;
+   &lt;object ref="SAXParser"/&gt;
+   &lt;object ref="ParaKwdIndex"/&gt;
+   &lt;object ref="KeywordExtracter"/&gt;
+   &lt;object ref="PunctuationNormaliser"/&gt;
+   &lt;object ref="l5rIndexStore"/&gt;
+&lt;/process&gt;
+</pre>
+
+</body>
+</html>

@@ -1,0 +1,1675 @@
+
+
+
+
+APPLICATION PROFILE FOR THE 
+GOVERNMENT INFORMATION LOCATOR SERVICE (GILS)
+
+
+
+
+
+
+
+
+Developed as Part of the Cooperative Research Study:
+
+Expanding Research and Development on the 
+ANSI/NISO Z39.50 Search and Retrieval Standard 
+
+between the
+School of Information Studies, Syracuse University
+and
+The United States Geological Survey
+funded by
+The Interagency Working Group on 
+Data Management for Global Change
+
+
+
+
+
+
+
+Charles R. McClure <cmcclure@suvm.acs.syr.edu>
+William E. Moen<wemoen@mailbox.syr.edu>
+Co-Principal Investigators
+
+School of Information Studies
+4-206 Center for Science and Technology
+Syracuse University
+Syracuse, NY  13244-4100
+Telephone:  (315) 443-2911
+Fax: (315) 443-5806
+
+May 7, 1994
+
+
+CONTENTS
+
+1. 	Introduction
+
+2. 	Background
+
+3. 	Scope
+
+4.	Field of Application
+
+5.	References
+
+6.	Definitions
+
+7.	Z39.50 Specifications for GILS
+	7.1.	Version
+	7.2.	GILS Objects	
+	7.3.	Communication Services
+	7.4.	Z39.50 Services
+	7.4.1.	Search
+	7.4.1.1.	Attribute Set
+	7.4.1.2.	Well-known Search
+	7.4.2.	Retrieval
+	7.4.2.1.	Schema
+	7.4.2.2.	Element Sets
+	7.4.2.3.	Record Syntax
+	7.5.	Preferred Display Format
+	7.6.	Diagnostic Messages
+
+8.	GILS Core Elements
+
+Annexes
+	Annex A -- GILS Attribute Set
+	Annex B -- GILS Core Element to USMARC Mapping
+	Annex C -- Preferred Display Format for GILS
+Records
+	Annex D -- GILS Schema
+	Annex E -- GILS Core Elements
+
+
+
+
+APPLICATION PROFILE FOR THE
+GOVERNMENT INFORMATION LOCATOR SERVICE(GILS)
+
+
+1.			Introduction
+
+This document describes an application profile for the
+Government Information Locator Service (GILS).  The GILS
+Profile includes not only the specifications for
+ANSI/NISO Z39.50,  the American National Standard for
+Information Retrieval Application Service Definition and
+Protocol Specification for Open Systems Interconnection
+(National Information Standards Organization, 1992) in
+the application but also other aspects of a GILS
+conformant server that are outside the scope of Z39.50. 
+The GILS Profile provides the specifications for the
+overall GILS application relating to the GILS Core,
+which is a subset of all GILS Locator Records, and
+completely specifies the use of Z39.50 in this
+application.
+
+
+2.			Background
+
+The GILS is a response to the need for users to
+identify, locate, and access or acquire publicly
+available Federal information resources, including
+electronic information resources.  Christian (1994) is
+the authoritative document providing an overview of
+GILS, its objectives, service requirements, and core
+requirements.  According to Christian (1994), the GILS
+is an overall service and includes information and
+technology components as well as policy, regulation,
+people, etc.  The GILS is intended to help the public
+locate and access public information throughout the U.S.
+government. 
+
+The current GILS initiative builds upon a previous
+study,  _Identifying and Describing Federal Information
+Inventory/Locator Systems: Design for Networked-Based
+Locators_ (McClure, Ryan & Moen, 1992).  That study,
+which was conducted for the Office of Management and
+Budget, the National Archives and Records
+Administration, and the General Services Administration,
+recommended that each agency establish a network-
+accessible locator that describes its information
+resources.  The study also recommended that agencies use 
+Z39.50 as the appropriate information retrieval protocol
+to achieve a distributed, standards-based Government
+Information Locator Service.
+
+The development of the GILS Profile is documented in
+_Using Z39.50 in an Application for the Government
+Information Locator Service (GILS)_ (McClure & Moen,
+1994).  The GILS Profile resulted from the work of a
+group comprising experts in Z39.50 implementations,
+system implementations, and information organization,
+and  representatives of Federal agencies.  The
+specifications included in the GILS Profile reflect the
+consensus of this group and input from a range of
+stakeholders.
+
+
+3.			Scope
+
+The GILS Profile fully specifies the use of ANSI/NISO
+Z39.50 by the GILS.  In addition, the GILS Profile
+provides the specifications for the overall GILS
+application relating to the GILS Core including other
+aspects of GILS conformant servers that are outside the
+scope of  Z39.50.  
+
+This version of the GILS Profile focuses on requirements
+for a GILS server operating in the Internet environment. 
+GILS clients will be able to interconnect with any GILS
+server, and these clients will behave in a manner that
+allows interoperability with the GILS server.  Clients
+that support Z39.50 but do not implement the GILS
+Profile will be able to access GILS records with less
+than full GILS functionality.
+
+The GILS Profile addresses many aspects of the GILS
+(e.g., intersystem interactions and information
+interchange) but does not specify user interface
+requirements, the internal structure of databases that
+contain GILS Locator Records, or search engine
+functionality.  
+
+
+4.			Field of Application
+
+The GILS Profile supports search and retrieval of GILS
+Locator Records contained in GILS servers by users in
+the Internet environment.  
+
+The GILS Profile will be used by developers of GILS
+servers.  It will also be used by client developers to
+understand expected behaviors of GILS servers.  A GILS
+server accessed using Z39.50 in the Internet environment
+acts primarily as a pointer to information resources. 
+Some of these information resources pointed to by GILS
+Locator Records, as well as the GILS server itself, may
+be available electronically through other communications
+protocols including the common Internet protocols that
+facilitate electronic information transfer such as
+remote login (Telnet), File Transfer Protocol (FTP), and
+electronic mail (SMTP/MIME).  The use of these protocols
+or other communications paths is outside the scope of
+the GILS Profile.
+
+Once connected to a GILS server, users supported by
+appropriate clients that understand the GILS Profile may
+navigate through single or multiple servers.  GILS
+servers will support searching (i.e., accept a search
+query and return a result set or diagnostic messages)
+and may support browsing (i.e., accept a well-known
+search query and return a list of Locator Records in
+brief display format).  Although the GILS Profile
+addresses GILS servers only,  it is understood that
+clients have roles in the execution of these activities
+(e.g., browsing is also a client function in the sense
+of how it interprets and presents GILS data).
+
+
+5.			References
+
+The following list contains documents that contain
+provisions which, through reference in this text,
+constitute provisions of the GILS Profile.  At the time
+of this publication, the editions indicated were valid. 
+All documents are subject to revision, and parties to
+agreements based on this Profile are warned against
+automatically applying any more recent editions of the
+documents listed below, since the nature of references
+made by the Profile to such documents, is that they may
+be specific to a particular edition.  In addition, this
+list contains other documents that can be consulted for
+further information, background, etc.
+
+[1]  American National Standards Institute. (1985). 
+_American National Standard 39.2-1985 Bibliographic
+Information Interchange_.  New York: American National
+Standards Institute.
+
+[2]  Christian, Eliot. (1994, May 2).   _Government
+Information Locator Service (GILS): Report Information
+Infrastructure Task Force_.  Available on the Fedworld
+electronic bulletin board (703-321-8020) or by anonymous
+FTP (File Transfer Protocol) via the Internet at
+130.11.48.107 as /pub/gils.doc (Microsoft Word for
+Windows format) or /pub/gils.txt (ASCII text format).  
+
+[3]  Lynch, Clifford A. (1994, April 30).  "Using the
+Z39.50 Information Retrieval Protocol in the Internet
+Environment" [Draft RFC for Z39.50 over TCP/IP].
+
+[4]  McClure, Charles R. & Moen, William E. (1994, May
+7). _Using Z39.50 in an Application for the Government
+Information Locator Service (GILS)_.  Available via
+anonymous FTP at <ericir.syr.edu> as
+/USGS/profile_background.doc.ps (Postscript format) and
+as /USGS/profile_background.doc.txt (ASCII text format). 
+
+[5]  McClure, Charles R., Ryan, Joe & Moen, William E.
+Moen. (1992). _Identifying and Describing Federal
+Information Inventory/Locator Systems: Design for
+Networked-Based Locators_.  2 Vols.  Bethesda, MD:
+National Audio Visual Center [Available from ERIC,
+document no. ED349031].
+
+[6]  National Information Standards Organization.
+(1992).  _ANSI/NISO Z39.50-1992,  Information Retrieval
+Application Service Definition and Protocol
+Specification for Open Systems Interconnection_. 
+Gaithersburg, MD:  NISO Press.
+
+[7]  National Institute of Standards and Technology.
+(1992).  _FIPS No. 173, Spatial Data Transfer Standard_
+(August 28, 1992).  Gaithersburg, MD: National Institute
+of Standards and Technology.
+
+[8]  Office of Management and Budget. (1993).  Circular
+No. A-130, "Management of Federal Information Resources"
+(58 _F.R._ 36068, July 2,1993).
+
+[9]  Open Systems Environment Implementors
+Workshop/Special Interest Group on Library Applications
+(OIW/SIGLA). (1993).  OIW/SIGLA Document #1:  Using
+Z39.50-1992 Directly over TCP.
+  
+[10]  RFC 1521, MIME (Multipurpose Internet Mail
+Extensions) Part One: Mechanisms for Specifying and
+Describing the Format of Internet Message Bodies.
+
+[11]  RFC 1522, MIME (Multipurpose Internet Mail
+Extensions) Part Two: Message Header Extensions for Non-
+ASCII Text.
+
+[12]  Uniform Resource Locators (URL): A Unifying Syntax
+for the Expression of Names and Addresses of Objects on
+the Network.  (1993, October). [Internet Draft].  The
+latest URL draft is:
+ 		<url:ftp://info.cern.ch/pub/www/doc/url7a.txt>  
+
+[13]  Uniform Resource Names.  (1993, October).
+[Internet Draft]. The latest URN draft is:
+<url:ftp://ds.internic.net/internet-drafts/draft-ietf-
+uri-resource-names-01.txt>
+
+[14]  _USMARC Format for Bibliographic Data_.
+Washington, DC:  Library of Congress, Cataloging
+Distribution Service.
+
+
+6.			Definitions
+
+For purposes of this Profile, the following definitions
+apply.
+
+Client:  An initiating application. This application
+includes the Z39.50 origin. 
+
+Electronic Information Resource: Information resources
+that are maintained in electronic, digital format and
+may be accessed, searched, or retrieved via electronic
+networks or other electronic data processing
+technologies (e.g., CD-ROM).
+
+GILS Core:  A subset of all GILS Locator Records which
+describe information resources maintained by the U.S.
+Federal government and comply with the defined GILS Core
+Elements and are mutually accessible through
+interconnected electronic network facilities without
+charge to the direct user. 
+
+Government Information:  Information created, collected,
+processed, disseminated, or disposed of by or for the
+Federal government.
+
+Government Information Locator Service (GILS) : A
+decentralized collection of locators and associated
+information services used by the public either directly
+or through intermediaries to find public information
+throughout the U.S. Federal government.
+   
+Information Resource:  Includes both government
+information and information technology.
+
+Interoperability:  A condition that exists when the
+distinctions between information systems are not a
+barrier to accomplishing a task that spans multiple
+systems.
+
+Locator Record:  A collection of related data elements
+describing an information resource, the information
+available in the resource, and how to obtain the
+information. 
+
+Mandatory:  An element in a GILS Core Locator Record
+that must have a value provided by the record source. 
+The GILS Profile does not specify  which elements must
+be present from the perspective of GILS servers.
+
+Origin:  The part of a client application that initiates
+a Z39.50 association and is the source of requests
+during the association.
+
+Profile:  The statement of a function(s) and the
+environment within which it is used, in terms of a set
+of one or more standards, and where applicable,
+identification of chosen classes, subsets, options, and
+parameters of those standards.  A set of implementor
+agreements providing guidance in applying a standard
+interoperably in a specific limited context.
+
+Registered Object:  An object that is identified by a
+name-to-thing relationship in which the name is recorded
+by a registration authority to ensure that the names can
+be used unambiguously.
+
+Server:  An application that responds to an initiating
+application (i.e., a client).  The application that
+includes the Z39.50 target.  
+
+Target: The part of an server application that accepts a
+Z39.50 association.
+
+Uniform Resource Identifier (URI):  A set of related
+standards for encoding resource location and
+identification information for electronic and other
+objects.  Examples include Uniform Resource Locators
+(URLs) and Uniform Resource Names (URNs).
+
+USMARC:  An implementation of ANSI/NISO Z39.2, the
+American National Standard for Bibliographic Information
+Interchange. The USMARC format documents contain the
+definitions and content designators for the fields that
+are to be carried in records structured according to
+Z39.2.  GILS records in USMARC format contain fields
+defined in _USMARC Format for Bibliographic Data_.  This
+documentation is published by the Library of Congress.
+
+
+7. 			Z39.50 Specifications for GILS
+
+This section details the required services available
+from Z39.50, describes an Attribute Set for searching,
+four Element Set Names by which the server presents some
+or all the elements (defined in the Schema) of the
+Locator Records, and prescribes the Record Syntaxes to
+be supported by GILS servers for the transfer of Locator
+Records.  
+
+
+7.1.		Version
+
+GILS clients and servers support Z39.50 Verson 2 as
+specified in Z39.50-1994.  GILS requires support of
+various objects, some of which are not defined in
+Z39.50-1992.  These are listed in 7.2.
+
+
+7.2.		GILS Objects
+
+The following object identifier (OID) is assigned to the
+Z39.50 standard:
+
+{iso (1) member-body (2) US (840) ANSI-standard-Z39.50
+(10003)}.
+
+This OID is abbreviated as: ANSI-standard-Z39.50.
+
+Several object classes are assigned at the level
+immediately subordinate to ANSI-standard-Z39.50,
+including:
+
+	o  3   	=  	attribute set definitions
+	o  4   	=  	diagnostic definitions
+	o  5  	=  	record syntax definitions
+	o  13 	=  	database schema definitions.
+	o  14 	= 	tagSet definitions.
+
+GILS requires support of the following objects
+
+   GILS attribute set:  {ANSI-standard-Z39.50  3  3}
+   bib1 diagnostic set:  {ANSI-standard-Z39.50  4  1}
+   USMARC record syntax:	{ANSI-standard-Z39.50  5  10}
+   SUTRS record syntax: {ANSI-standard-Z39.50  5  101}
+   GRS-1 record syntax: {ANSI-standard-Z39.50  5  105}
+   GILS schema: {ANSI-standard-Z39.50  13 2}
+   tagSet-M:	{ANSI-standard-Z39.50  14 1}
+   tagSet-G:	{ANSI-standard-Z39.50  14 2}.
+
+
+7.3.		Communication Services
+
+When Transmission Control Protocol (TCP) is used as the
+transport service, the specification for use of TCP is
+found in OIW/SIGLA Document #1, "Using Z39.50-1992
+Directly over TCP."  The use of other communication
+services is not yet defined.
+
+
+7.4.		Z39.50 Services
+
+There are three Z39.50 (Version 2) services that are
+required for conformance:  Init, Search, and Present. 
+No additional services are required for conformance to
+the GILS Profile.  Other Z39.50 services, however, may
+be provided optionally by servers and used by clients.   
+
+Standard Z39.50 Init Service negotiation procedures
+control the use of all services.
+
+7.4.1.   	Search 
+
+The GILS application will support Z39.50 Type 1 queries
+which are general purpose Boolean query structures.
+
+
+7.4.1.1.	Attribute Set
+
+The GILS Attribute Set is a superset of the Bib-1
+Attribute set and consists of all Bib-1 Attributes and
+additional Use Attributes that are defined for GILS
+elements (see Annex A for the GILS Use Attributes). 
+These newly defined GILS Use Attributes are well-known
+and correspond semantically to GILS Core Elements.  The
+GILS Attribute Set is a registered object. 
+
+GILS servers must support a limited number of GILS
+Attributes.  The required GILS Attributes follow. 
+(Note: The GILS Use Attribute is listed followed by the
+GILS Use Attribute Number and the corresponding GILS
+Core Element):  
+
+	o	Use Attributes:  Local Number (12; Local
+Control Number); Author-name corporate (1005;
+Originator); Date/Time Last Modified (1012;
+Date of Last Modification); Record Source
+(1019; Record Source); Distributor Name (2001;
+Distributor Name); Index Terms -- Controlled
+(2002; Index Terms -- Controlled); Local
+Subject Index (29; Local Subject Term); Any
+(1016)
+
+	o	Structure:  Word (2), URx (104), Date (5),
+Word List (6)
+
+	o	Relation: Greater than (5), Equal (3).
+
+GILS servers should never return any of these four
+diagnostic messages:  "Unsupported Use Attribute,"
+"Unsupported Structure Attribute," "Unsupported Position
+Attribute," or "Unsupported Attribute Type" when a query
+includes the combinations of required GILS Attributes
+listed in Table 1 in Annex A.
+
+
+7.4.1.2.	Well-known Search
+
+To provide support for browsing GILS Locator Records,
+there is a well-known search consisting of the following
+GILS Attributes:  Use Attribute: Local Number; Structure
+Attribute: URX; and a term of zero length.  GILS servers
+that support browsing of records will create a result
+set of one or more GILS Locator Records that provide the
+necessary information  to allow clients to offer menu-
+like displays of GILS Locator Records or other
+information and information resources.  
+
+The "Browse" in the GILS context involves only the
+Search and Present Services of Z39.50.  "Browse" is used
+informally in the GILS Profile, and it is not related
+nor should it be confused with the Browse Facility or
+Scan Service of Z39.50.
+
+
+7.4.2.		Retrieval
+
+This section describes the components and procedures
+used by Z39.50 to return records in response to a query.
+ 
+
+7.4.2.1.	Schema
+
+The GILS Profile specifies a GILS Schema (see Annex D
+for the  Schema).  The GILS Schema is a registered
+object.  The schema describes and/or defines tagSets
+used and an abstract record structure for a Locator
+Record.  A schema in Z39.50 can be modified and may
+evolve over time, and it is reasonable to expect the
+GILS Schema will evolve. 
+
+The GILS Schema uses elements from tagSet-M and tagSet-G
+and defines in the GILS tagSet additional elements as
+necessary.  The GILS Profile specifies tagTypes to
+identify tagSet-M elements (tagType = 1), tagSet-G
+elements (tagType =2),  and the elements defined by the
+GILS tagSet (tagType = 4).  Another tagType (tagType=3)
+is used to identify arbitrary string tags for locally
+defined elements.
+
+The GILS tagSet element numbering begins with number 1. 
+Elements can be nested and the tagging notation (i.e.,
+the tag path) will reflect the nesting. 
+
+All well-known GILS Schema elements have assigned
+numeric tags.  String-tags (i.e., text) may be used in
+the GILS Schema to label those elements that are not
+well-known (i.e., locally defined). 
+
+
+7.4.2.2.	Element Sets Names
+
+GILS servers will support four Element Set Names.  GILS
+servers will interpret the use of the Element Set Names
+required by the GILS Profile to identify the following
+elements from the GILS Schema: 
+
+	o	The primitive element set name "B" contains at
+least: title, controlIdentifier, originator, 
+and local control number
+
+	o	The primitive element set name "G" contains:
+all B Element Set elements and crossReference
+
+	o	The primitive element set name "W" contains:
+all B Element Set elements and bodyOfDisplay. 
+
+	o	The primitive element set name "F" contains:
+all elements available in the record.
+
+The server should include in a retrieved record all of
+the elements specified by the element set name for which
+there is data available in the database record and which
+can be encoded in the requested record syntax (e.g.,
+some types of locally defined binary data may not be
+encodable in a USMARC or SUTRS record).
+
+
+7.4.2.3.	Record Syntaxes
+
+GILS servers are required to support the following three
+record syntaxes:
+
+	o	USMARC -- an implementation of ANSI/NISO Z39.2
+and maintained by  the Library of Congress
+
+	o	Generic Record Syntax (GRS-1) -- defined in
+Z39.50
+
+	o	Simple Unstructured Text Record Syntax (SUTRS)
+-- defined in Z39.50.
+
+Annex B contains a mapping of Core Elements to USMARC
+for use in the USMARC record syntax.  However, since the
+data transformation is not fully reversible and requires
+interpretation, the record source is responsible for
+encoding the USMARC record(s).
+
+The data in GILS Locator Records do not always map
+clearly into USMARC records, particularly when agencies
+add their own locally defined fields to the GILS Locator
+Record.  This means that construction of USMARC records
+is subject to local interpretation.  Therefore, GILS
+Locator Records in USMARC format obtained from other
+than the original record source should be considered
+non-definitive.  The original source of the GILS Locator
+Record can be identified by examining the Original
+Control Identifier field of the record.
+
+For interchange, GRS-1 records are to be treated as the
+complete and canonical representation; SUTRS and USMARC
+should be viewed as derivative records from the
+canonical representation and as such are not as complete
+or precise.
+
+
+7.5.  	Preferred Display Format for Use with SUTRS
+
+The GILS Profile recommends a preferred display format
+for SUTRS records (see Annex C for the recommended
+display format).  For the SUTRS records, formatting
+instructions for a preferred display format is a concern
+of the server.  
+
+When the target transfers a GILS record using the SUTRS
+record syntax, it will encode the GILS record formatted
+according to the preferred display format, so that the
+client may present the record directly, without
+processing.  For SUTRS, however, the client should not
+expect to be able to parse the record to obtain any
+individual GILS elements.
+
+When the client presents a GILS record formatted by the
+server using the USMARC or GRS record syntax, it is
+recommended that the client consider the SUTRS suggested
+display layout in formatting the received record for
+presentation to the human end user.
+
+
+7.6.		Diagnostic Messages
+
+The GILS application will use Diagnostic Set Bib-1.
+
+
+8.   		Data Elements in the Locator Records
+
+GILS Locator Records consist of a number of GILS Core
+Elements that contain information to identify and
+describe Federal information resources.  The GILS Core
+Elements are defined in Annex E.
+
+Annex A 
+
+GILS Attribute Set
+
+
+The GILS Attribute Set is a superset of the Bib-1
+Attribute Set and consists of all Bib-1 Attributes and
+the additional Use Attributes listed below.  Additional
+Use Attributes that cannot be mapped to Bib-1 Use
+Attributes are numbered from 2000 through 2999.  These
+are well-known Use Attributes.
+
+GILS servers should never return any of these four 
+diagnostic messages:  "Unsupported Use Attribute,"
+"Unsupported Structure Attribute," "Unsupported Position
+Attribute," or "Unsupported Attribute Type" when a query
+includes the combinations of GILS Attributes listed in
+Table 1.  An "X" in the table means that GILS servers
+will recognize and support this combination of
+Attributes.
+
+
+USE	   WORD  URx  DATE  WORD LIST  GREATER THAN  EQUAL
+Local 
+Number      X      X           X                      X
+
+Author
+-name 
+corporate   X                  X                      X
+
+Date/
+Time Last 
+Modified                X                     X       X
+
+Record 
+Source      X                  X                      X
+
+Distributor
+Name        X                  X                      X
+
+Index Term -- 
+Controlled  X                  X                      X
+
+Local Subject 
+Index       X                  X                      X
+
+Any         X                  X                      X
+
+
+TABLE 1
+Recognized and Supported Combinations of GILS Attributes
+
+
+As stated in 7.3.1.1, GILS servers are required to
+support a minimal set of Use Attributes.  These are
+listed first.  In the cases where a Bib-1 Use
+Attribute's Name is used, the corresponding GILS Core
+Element name appears in parentheses.
+
+Required GILS Use Attributes
+_Use #_		_GILS Attribute Name_
+12		Local Number (Local Control Number)
+29		Local Subject Index (Local Subject Term)
+1005		Author-name corporate (Originator)
+1012		Date/Time Last Modified (Date of Last
+		Modification)
+1016		Any	
+1019		Record Source
+2001		Distributor Name
+2002		Index Terms -- Controlled
+
+Available GILS Use Attributes
+_Use #_		_GILS Attribute Name_
+4		Title
+1007		Identifier - Standard (Control 
+		Identifier)
+62		Abstract
+2003		Purpose
+2004		Access Constraints
+2005		Use Constraints
+2006		Distributor Organization
+2007		Distributor Street Address
+2008		Distributor City
+2008		Distributor State
+2010		Distributor Zip Code
+2011		Distributor Country
+2012		Distributor Network Address
+2013		Distributor Hours of Service
+2014		Distributor Telephone
+2015		Distributor Fax
+2016		Available Resource Description
+2017		Available Order Process
+2018		Available Technical Prerequisites
+2019		Available Time Period -- Structured
+2020		Available Time Period -- Textual
+2021		Available Linkage
+2022		Available Linkage Type
+2023		Contact Name			
+2024		Contact Organization
+2025		Contact Street Address
+2026		Contact City
+2027		Contact State
+2028		Contact Zip Code
+2029		Contact Country
+2030		Contact Network Address
+2031		Contact Hours of Service
+2032		Contact Telephone
+2033		Contact Fax
+2034		Agency Program
+2035		Sources of Data
+2036		Thesaurus
+2037		Methodology
+2038		Bounding Rectangle -- Western-most
+2039		Bounding Rectangle -- Eastern-most
+2040		Bounding Rectangle -- Northern-most
+2041		Bounding Rectangle -- Southern-most
+2042		Geographic Keyword Name
+2043		Geographic Keyword Type
+2044		Time Period - Structured
+2045		Time Period - Textual
+2046		Cross Reference Title
+2047		Cross Reference Linkage
+2048		Cross Reference Type
+2049		Original Control Identifier
+2050		Supplemental Information
+ 
+
+
+
+Annex B 
+
+GILS Core Element to USMARC Mapping
+
+This Annex provides a mapping from GILS Core Elements to
+USMARC for use by the record source and GILS servers. 
+Some of these data elements consist of two or more
+subelements, and this relationship is noted by the
+indentation.
+
+Implementors should consult the authoritative
+documentation on USMARC found in _USMARC Format for
+Bibliographic Data_.  The document is available from the
+Cataloging Distribution Service at the Library of
+Congress.  A full description of the USMARC fields and
+available subfields within each field is in that
+document.
+
+For some elements new USMARC fields and/or subfields may
+be incorporated into the USMARC format.  New fields
+and/or subfields in the process of being considered for
+inclusion in USMARC are noted.
+
+In cases where the 500 Note field is repeated to carry
+separate GILS Core Elements, the name of the GILS Core
+Element will be included and precede the data content
+for that field.  A colon will separate the GILS Data
+Element name from the rest of the content in the field. 
+For example,  500  Purpose: [data for this field]; 500
+Agency Program: [data for this field].  Each such GILS
+Core Element should be carried in separate, repeating
+500 fields.
+
+In addition to the variable length fields listed in the
+mapping, a USMARC record will also include a Leader and
+field 008: Fixed-Length Data Elements.  Certain
+character positions in each of these fixed length fields
+of a USMARC record will need to be coded specifically
+for GILS.  In addition, USMARC records for GILS will
+include a code in the 042: Authentication Code to
+identify these USMARC records specifically as GILS
+Locator Records. The following suggest values for these
+fields (or parts of these fields):
+
+Leader:  A fixed field comprising the first 24 character
+positions (00-23) of each record that provides
+information for the processing of the record.  For GILS
+records, the following character position is
+specifically relevant:
+
+Character Position: 18 -- Descriptive cataloging form
+	Value: # [i.e., blank] (Non-ISBD) 
+to indicate when International Standard Bibliographic
+Description is not followed.
+
+
+008 Fixed Length Data Elements: Forty character
+positions (00-39) containing positionally-defined data
+elements that provide coded information about the record
+as a whole or about special bibliographic aspects of the
+item being cataloged.  For GILS records that describe
+electronic information resources, the following
+character position is specifically relevant:
+
+Character Position: 26 -- Type of computer file
+Values:				a	(Numeric data)
+				b 	(Computer program)
+				c 	(Representational)
+				d 	(Document)
+				e 	(Bibliographic data)
+				f 	(Font)
+				g	(Game)
+				h 	(Sound)
+				i 	(Online system or service)  
+					[new code proposed]
+				m 	(Combination)
+				u 	(Unknown)
+				z 	(Other)
+
+042 Authentication Code
+	Value: 	gils [new code proposed]
+
+GILS Data Elements and Corresponding USMARC Tags
+_GILS Data Element_				_USMARC Tag_
+Title   					245$a
+Control Identifier				001	
+Abstract	  				520
+Purpose   					500 
+Originator  					710$a
+Access Constraints  				506
+Use Constraints		   			540
+Distributor				
+	Distributor Name			270$p 
+						[proposed field]
+	Distributor Organization		270$p
+						[proposed field]
+	Distributor Street Address		270$a 
+						[proposed field]
+	Distributor City			270$b 
+						[proposed field]
+	Distributor State			270$c 
+						[proposed field]
+	Distributor Zip Code			270$e 
+						[proposed field]
+	Distributor Country			270$d 
+						[proposed field]
+	Distributor Network Address		270$m 
+						[proposed field]
+	Distributor Hours of Service		301$a 
+						[proposed field]
+	Distributor Telephone			270$k 
+						[proposed field]
+	Distributor Fax				270$l 
+						[proposed field]
+Available Resource Description  		037$f 
+Available Order Process  			037$c
+Available Technical Prerequisites  		538
+Available Time Period -- Structured		045$c
+Available Time Period -- Textual  		037$n 
+						[proposed field]
+					(for non-electronic resource)
+						856$z	
+					(for electronic resource)
+Available Linkage  				856$u
+Available Linkage Type				856
+						1stindicator/
+						856$2
+Point of Contact 				856$m
+				     (for electronic resources)
+	Contact Name				270$p 
+						[proposed field]
+	Contact Organization			270$p 
+						[proposed field]
+	Contact Street Address			270$a 
+						[proposed field]
+	Contact City				270$b 
+						[proposed field]
+	Contact State				270$c 
+						[proposed field]
+	Contact Zip Code			270$e 
+						[proposed field]
+	Contact Country				270$d 
+						[proposed field]
+	Contact Network Address			270$m 
+						[proposed field]
+	Contact Hours of Service		301$a 
+						[proposed field]
+	Contact Telephone			270$k 
+						[proposed field]
+	Contact Fax				270$l 
+						[proposed field]
+Record Source  					040
+Date Last modified  				005
+Agency Program  				500
+Sources of Data  				537 
+						[proposed field]
+Index Terms -- Controlled  			650
+Thesaurus  					650 
+						1st indicator/
+						650$2
+Local Subject Term				653$a	
+Methodology  					567
+Spatial Reference
+Bounding Rectangle				255$c 
+	Western-most				034$d
+	Eastern-most				034$e
+	Northern-most				034$f
+	Southern-most				034$g
+Geographic Name 
+	Geographic Keyword Name			651	 
+	Geographic Keyword Type 		655	
+Time Period -- Structured			045$c
+Time Period -- Textual  			513 	
+Cross Reference Title				787$t
+Cross Reference Linkage  			787$w
+Cross Reference Type				856 
+						1st indicator/
+						856$2
+Original control identifier 			035
+Supplemental information	  		500
+
+
+USMARC Tags and Field Names 
+(from USMARC Format for Bibliographic Data)
+_USMARC Tag_	_Subfield_		_Field Name_
+001					Control Number
+005					Date and Time of Latest
+					Transaction
+034					Coded Cartographic 
+					Mathematical Data 
+			$d		Coordinates - westernmost 
+					longitude
+			$e		Coordinates - easternmost 
+					longitude
+			$f		Coordinates -northernmost 
+					latitude
+			$g		Coordinates -southernmost 
+					latitude
+035					System Control Number
+037					Source of Acquisition
+			$b		Source of stock
+					number/acquisition
+			$c		Terms of availability
+			$f		Form of issue 
+			$n		Note [proposed]
+040					Cataloging Source
+042					Authentication Code
+245					Title Statement
+			$a		Title
+255					Cartographic Mathematical
+					Data
+			$c		Statement of coordinates
+270			$a		Address
+270			$b		City
+270			$c		State or province
+270			$d		Country
+270			$e		Postal code
+270			$k		Telephone number
+270			$l		Fax number
+270			$m		Electronic mail address
+270			$p		Contact person
+301			$a		Hours
+500					General Note
+506					Restrictions on Access 
+					Note
+513 					Type of Report and Period 
+					Covered Note
+520					Summary, Etc. Note
+537					Source of Data Note 
+					[proposed]	
+538					System Details Note
+540					Terms Governing Use and 
+					Reproduction
+					Note
+567					Methodology Note
+650					Subject Added Entry -- 
+					Topical Term
+1st indicator				Level of subject
+			$2		Source of heading or term
+651	 				Subject Added Entry -- 
+					Geographic Name
+653					Index Term -- 
+					Uncontrolled
+			$a		Uncontrolled term
+655					Index Term -- Genre/Form
+710					Added Entry -- Corporate 
+					Name
+			$a		Corporate name or 
+					jurisdiction name as 
+					entry element
+787					Nonspecific Relationship 
+					Entry	
+			$t		Title
+			$w		Record Control Number
+856 					Electronic Location and 
+					Access
+1st indicator				Access method
+			$m		Contact for access 
+					assistance
+			$u		Uniform Resource Locator
+			$z		Nonpublic note
+			$2		Source of access
+ 
+
+
+
+
+Annex C 
+
+Preferred Display Format for GILS Records
+
+GILS servers will transfer records in three record
+syntaxes: 
+
+	o	USMARC
+	o	Generic Record Syntax (GRS)
+	o	Simple Unstructured Text Record Syntax
+(SUTRS).
+
+In SUTRS, the formatting of the record contents is
+handled by the server, and the client receives a record
+devoid of structure.  In USMARC and GRS, the record,
+whose structure is defined by the record syntax, is
+passed from the target to an orgin, and the client
+software has more flexibility in processing the record
+contents for  display.
+
+The recommended guidelines in this Annex describe how
+records should be displayed, whether formatted by the
+server or the client (but this does not preclude display
+formats in addition to the Preferred Display Format). 
+
+_Record Organization_:  
+
+The record should be organized so that the elements
+first viewed by the user  provide adequate information
+to either choose or eliminate the record from further
+consideration.  These elements are: Title, Originator,
+Controlled Vocabulary, Local Subject Index and Abstract.
+
+Next in the order of presentation are elements that give
+detailed information about the information resource
+being described: Spatial Reference, Time Period,
+Availability, Sources of Data, Methodology, Access
+Constraints, Use Constraints, Point of Contact, and
+Supplemental Information.
+
+The elements describing the reason for the existence of
+the data are next: Purpose and  Agency Program.
+
+Related information resources are listed next in the
+element: Cross Reference.
+
+The final elements provide bibliographic control
+information:  Control Identifier, Record Source, and
+Date of Last Modification. 
+
+
+
+_General Instructions for Formatting Full Element Set
+Name Records_:
+
+All displayable elements are to be labelled with the
+full title of the field followed by a colon.  Label
+mnemonics should only be used in situations where the
+user can ask for an explanation of the mnemonic. 
+Mnemonics should not be used in SUTRS records, since it
+should be assumed that the client knows nothing about
+the server and is incapable of interpreting the
+mnemonics.
+
+The subelements of constructed elements (i.e., locally
+defined fields, Availability, Spatial Reference, etc.)
+should be indented to reflect their association and
+structure within a well-structured element.  Labels on
+subelements can eliminate the redundant leading parts
+(e.g., the word Available on the Availability
+subelements).
+
+In the Controlled Vocabulary element, the Thesaurus
+subelement can be presented in parentheses, followed by
+the Index Terms.  Multiple Index Terms should be
+separated by a semi-colon and a space (e.g., Controlled
+Vocabulary (MeSH): Kidney; Kidney Disease). 
+Alternatively, the Thesaurus and Index Terms can be
+indented under the Controlled Vocabulary label, as is
+done with the other well-structured fields.  Local
+Subject Terms should be separated by a semi-colon and a
+space.
+
+
+_Display Format for Brief Element Set Name Records_:
+
+Brief Records consist of the Title, Control Identifier,
+Originator, and Local Control Number fields.  For
+display purposes, the Control Identifier and Local
+Control Number can be omitted.  Brief Records may be
+formatted to fit on a single line.  This may require
+that that one or both of the displayed fields will be
+truncated.  Truncation can be indicated with with
+elipsis(...).
+ 
+
+_Display Format for G Element Set Name Records_:
+
+G Records consist of Brief Record elements and
+additionally, the Cross Reference element.  For display
+purposes, the guidelines for Full Records should be
+followed.
+
+ 
+
+Annex D 
+
+GILS Schema
+
+	
+The GILS Schema describes and defines tagSets and an
+Abstract Record Structure used with the Generic Record
+Syntax (GRS).  The GILS Schema defines a GILS tagSet
+that associates a numeric tag with one or more GILS Core
+Elements.
+
+Some GILS Core elements correspond to tags already
+defined in tagSet-M and tagSet-G, and these tags are
+used to identify GILS Core elements in the Abstract
+Record Structure.  When the tagType is 1, the tag value
+is from tagSet-M.  When the tagType is 2, the tag value
+is from tagSet-G.  When the tagType is 3, the tag value
+is an arbitrary string tag.  When the tagType is 4, the
+tag value is from the GILS tagSet.
+
+There are two general classes of schema elements in the
+GILS Schema:
+
+	1)  Primitive -- these elements cannot have locally
+defined subelements
+	2)  Constructed -- these elements have one or more
+subelements any of which may be well-defined or target-
+defined; in the latter case, these locally defined
+subelements are identified with string tags
+
+This Annex first presents the GILS tagSet that
+identifies the element, its unique tag, and a
+recommended datatype.  This is followed by the GILS
+Abstract Record Structure that shows the full tag path
+for each element.
+
+
+GILS tagSet
+
+_Tag_		_Element_			_Recommended Datatype_
+1		controlIdentifier		InternationalString
+2		streetAddress  			InternationalString
+3		city				InternationalString
+4		state				InternationalString
+5		zipcode				InternationalString
+6		hoursOfService			InternationalString
+7 		resourceDescription		InternationalString
+8 		technicalPrerequisites		InternationalString
+9		westernMost			intUnit
+10		easternMost			intUnit
+11		northernMost			intUnit
+12		southernMost			intUnit
+13		geographicKeywordName		InternationalString
+14		geographicKeywordType		InternationalString
+15 		timePeriodStructured		GeneralizedTime
+16 		timePeriodTextual		InternationalString
+17 		linkage				InternationalString
+18 		linkageType			InternationalString
+19		recordSource			InternationalString
+20 		controlledTerm			InternationalString
+21		thesaurus			InternationalString
+22		localSubjectTerm		InternationalString
+23		originalControlIdentifier	InternationalString
+
+NOTE:  The element "wellKnown" from tagSet-M (1,19) and
+referred to below has the following definition:
+When an element is defined to be "structured into
+locally defined elements", the target may use this tag
+(i.e., wellKnown) in lieu of, or along with, locally
+defined tags.  For example, an element named 'title'
+might be described to be "locally structured."  The
+target might present the element structured into the
+following subelements: 'wellKnown', 'spineTitle', and
+'variantTitle', where the latter two tags are target
+defined. In this case, 'wellKnown' is assumed to mean
+'title'.
+
+50			title		Constructed  as
+follows --
+This element may include the element wellKnown and may
+also include locally defined elements.
+51			purpose		Constructed  as
+follows --
+This element may include the element wellKnown and may
+also include locally defined elements.
+52			originator	Constructed  as
+follows --
+This element may include the element wellKnown and may
+also include locally defined elements.
+53			accessConstraints	Constructed  as
+follows --
+This element may include the element wellKnown and may
+also include locally defined elements.
+54			useConstraints		Constructed  as
+follows --
+This element may include the element wellKnown and may
+also include locally defined elements.
+55 			orderProcess	Constructed  as
+follows --
+This element may include the element wellKnown and may
+also include locally defined elements.
+56 			agencyProgram	Constructed  as
+follows --
+This element may include the element wellKnown and may
+also include locally defined elements.
+57 			sourcesOfData	Constructed  as
+follows --
+This element may include the element wellKnown and may
+also include locally defined elements.
+58 			methodology	Constructed  as
+follows --
+This element may include the element wellKnown and may
+also include locally defined elements.
+59 		supplementalInformation 	Constructed  as
+follows --
+This element may include the element wellKnown and may
+also include locally defined elements.
+70			availability	Constructed  as
+follows --
+This element may include any of the following as well as
+locally defined elements: distributor,
+resourceDescription, orderProcess,
+technicalPrerequisites, timePeriod, linkage,
+linkageType.
+71 			spatialReference	Constructed as
+follows --
+This element may include any of the following as well as
+locally defined elements: boundingRectangle,
+geographicName.
+90  		distributor		Constructed  as
+follows --
+This element may include any of the following as well as
+locally defined elements: name, organization,
+streetAddress, city, state, zipCode, country,
+networkAddress, hoursOfService, phoneNumer, faxNumber.
+91			boundingRectangle	Constructed  as
+follows --
+This element may include any of the following as well as
+locally defined elements: westernMost, easternMost,
+northernMost, southernMost.
+92 			geographicName		Constructed  as
+follows --
+This element may include any of the following as well as
+locally defined elements: geographicKeywordName,
+geographicKeywordType.
+93  			timePeriod	Constructed  as
+follows --
+This element may include any of the following as well as
+locally defined elements: timePeriodStructured,
+timePeriodTextual.
+94 			pointOfContact	Constructed  as
+follows --
+This element may include any of the following as well as
+locally defined elements: name, organization,
+streetAddress, city, state, zipCode, country,
+networkAddress, hoursOfService, phoneNumber, faxNumber.
+95  		controlledVocabulary	Constructed  as
+follows --
+This element may include any of the following as well as
+locally defined elements: indexTermsControlled,
+thesaurus.
+96			indexTermsControlled	Constructed  as
+follows --
+This element may include the following as well as
+locally defined elements: controlledTerm.
+97 			localSubjectIndex	Constructed  as
+follows --
+This element may include the following as well as
+locally defined elements: localSubjectTerm.
+98 			crossReference		Constructed  as
+follows --
+This element may include any of the following as well as
+locally defined elements: title, linkage, linkageType.
+
+
+GILS Abstract Record Structure
+
+NOTE:  The element "bodyOfDisplay" in tagSet-G (2,9) may
+be used by the target to combine into this single
+element (i.e., bodyOfDisplay) one or more of the
+elements from the following abstract record structure
+into a display format.
+
+_Tag_	_Element_			_Mandatory?_	_Repeatable?_
+2_path_
+(1,10)	rank					N		N
+(1,12)	url 					N		N
+(1,14) 	local control number			Y		N
+(1,16)	dateOfLastModification			Y		N
+(4,50)	title					Y		N
+(4,1) 	controlIdentifier			Y		N
+(2,6)	abstract				Y		N
+(4,51)	purpose					Y		N
+(4,52)	originator				Y		N
+(4,53)	accessConstraints			Y		N
+(4,54)	useConstraints				Y		N
+(4,70)	availability				Y		Y
+(4,70)/(4,90) distributor			Y		N
+(4,70)/(4,90)/(2,7) distributorName		Y		N
+(4,70)/(4,90)/(2,10) distributorOrganization 	Y 		N
+(4,70)/(4,90)/(4,2) distributorStreetAddress 	Y 		N
+(4,70)/(4,90)/(4,3) distributorCity 		Y	 	N
+(4,70)/(4,90)/(4,4) distributorState 		Y	   	N
+(4,70)/(4,90)/(4,5) distributorZipCode		Y	 	N
+(4,70)/(4,90)/(2,16) distributorCountry		Y		N
+(4,70)/(4,90)/(2,12) distributorNetworkAddress	Y		Y
+(4,70)/(4,90)/(4,6) distributorHoursofService	Y		Y
+(4,70)/(4,90)/(2,14) distributorPhoneNumber	Y		Y
+(4,70)/(4,90)/(2,15) distributorFaxNumber	Y		Y
+(4,70)/(4,7) resourceDescription		N		N
+(4,70)/(4,55) orderProcess			Y		N
+(4,70)/(4,8) technicalPrerequisite		N		N
+(4,70)/(4,93) timePeriod			N		Y
+(4,70)/(4,93)/(4,15) timePeriodStructured 	N		Y
+(4,70)/(4,93)/(4,16) timePeriodTextual		N		Y
+(4,70)/(4,17) linkage				N		N	
+(4,70)/(4,18) linkageType			N		N
+(4,94)  pointOfContact				Y		N	
+(4,94)/(2,7) contactName			Y		N
+(4,94)/(2,10) contactOrganization		Y		N
+(4,94)/(4,2) contactStreetAddress		Y		N
+(4,94)/(4,3) contactCity			Y		N
+(4,94)/(4,4) contactState			Y		N
+(4,94)/(4,5) contactZipCode			Y		N
+(4,94)/(2,16) contactCountry			Y		N
+(4,94)/(2,12) contactNetworkAddress		Y		Y
+(4,94)/(4,6) contactHoursofService		Y		Y
+(4,94)/(2,14) contactPhoneNumber		Y		Y
+(4,94)/(2,15) contactFaxNumber			Y		Y
+(4,19) recordSource				Y		N	
+(4,56) agencyProgram				N		N
+(4,57) sourcesOfData				N		N
+(4,95) controlledVocabulary			N		Y
+(4,95)/(4,96) indexTermsControlled		Y		N
+(4,95)/(4,96)/(4,20) controlledTerm		Y		Y
+(4,95)/(4,21) thesaurus				Y		N
+(4,97) localSubjectIndex			N		N
+(4,97)/(4,22)localSubjectTerm 			Y		Y
+(4,58) 	methodology				N		N
+(4,71) 	spatialReference			N		N
+(4,71)/(4,91)	boundingRectangle		N		N
+(4,71)/(4,91)/(4,9)	westernMost		N		N
+(4,71)/(4,91)/(4,10)	easternMost		N		N
+(4,71)/(4,91)/(4,11)	northernMost		N		N
+(4,71)/(4,91)/(4,12)	southernMost		N		N
+(4,71)/(4,92)	 geographicName			N		Y
+(4,71)/(4,92)/(4,13)	geographicKeywordName 	Y	 	N
+(4,71)/(4,92)/(4,14)	geographicKeywordType 	Y	 	N
+(4,93)	timePeriod				N		Y
+(4,93)/(4,15)	timePeriodStructured		N		N
+(4,93)/(4,16)	timePeriodTextual		N		N
+(4,98)	crossReference				N		Y	
+(4,98)/(4,50)	crossReferenceTitle		Y		N
+(4,98)/(4,17)  	crossReferenceLinkage  		Y		N
+(4,98)/(4,18)	crossReferenceType		Y		N
+(4,23) 	originalControlIdentifier		Y		N
+(4,59) 	supplementalInformation			Y		N
+
+ 
+Annex E
+
+GILS Core Elements
+
+GILS Locator Records consist of a number of GILS Core
+Elements that contain information to identify and
+describe Federal information resources.  The term
+"mandatory" as used in this Profile applies to
+administraton of the subset of GILS Locator Records that
+have been identified by the record source as
+participating in the GILS Core.  GILS servers are not
+required to distinguish "mandatory" from other elements.  
+
+
+TITLE (Mandatory, Not Repeatable): This element conveys
+the most significant aspects of the referenced resource
+and is intended for initial presentation to users
+independently of other elements. It should provide
+sufficient information to allow users to make an initial
+decision on likely relevance. It should convey the most
+significant information available, including the general
+topic area, as well as a specific reference to the
+subject.
+
+CONTROL IDENTIFIER (Mandatory, Not Repeatable): This
+element is defined by the information provider and is
+used to distinguish this locator record from all other
+GILS Core locator records. The control identifier should
+be distinguished with the record source agency acronym
+as provided in the U.S. Government Manual. 
+
+ABSTRACT (Mandatory, Not Repeatable): This element
+presents a narrative description of the information
+resource. This narrative should provide enough general
+information to allow the user to determine if the
+information resource has sufficient potential to warrant
+contacting the provider for further information. The
+abstract should not exceed 500 words in length. 
+
+PURPOSE (Mandatory, Not Repeatable): This element
+describes why the information resource is offered and
+identifies other programs, projects, and legislative
+actions wholly or partially responsible for the
+establishment or continued delivery of this information
+resource. It may include the origin and lineage of the
+information resource, and related information resources. 
+
+ORIGINATOR (Mandatory, Not Repeatable): This element
+identifies the information resource originator, named as
+in the U.S. Government Manual where applicable. 
+
+ACCESS CONSTRAINTS (Mandatory, Not Repeatable): This
+element in some cases may contain the value "None." It
+describes any constraints or legal prerequisites for
+accessing the information resource or its component
+products or services. This includes any access
+constraints applied to assure the protection of privacy
+or intellectual property, and any other special 
+restrictions or limitations on obtaining the information
+resource.  Guidance on obtaining any users' manuals or
+other aids needed for the public to reasonably access
+the information resource must also be included here.
+ 
+USE CONSTRAINTS (Mandatory, Not Repeatable): This
+element in some cases may contain the value "None." It
+describes any constraints or legal prerequisites for
+using the information resource or its component products
+or services. This includes any use constraints applied
+to assure the protection of privacy or intellectual
+property and any other special restrictions or
+limitations on using the information resource. 
+
+AVAILABILITY (Mandatory, Repeatable): This element is a
+grouping of subelements that together describe how the
+information resource is made available.
+DISTRIBUTOR (Mandatory, Not Repeatable): This subelement
+consists of the following subordinate fields that
+provide information about the distributor:	
+		DISTRIBUTOR NAME
+		DISTRIBUTOR ORGANIZATION
+		DISTRIBUTOR STREET ADDRESS
+		DISTRIBUTOR CITY
+		DISTRIBUTOR STATE
+		DISTRIBUTOR ZIP CODE
+		DISTRIBUTOR COUNTRY
+		DISTRIBUTOR NETWORK ADDRESS
+		DISTRIBUTOR HOURS OF SERVICE
+		DISTRIBUTOR TELEPHONE
+		DISTRIBUTOR FAX
+RESOURCE DESCRIPTION (Optional, Not Repeatable): This
+subelement  identifies the resource as it is known to
+the distributor. 
+ORDER PROCESS (Mandatory, Not Repeatable): This
+subelement provides information on how to obtain the
+information resource from this distributor, including
+any fees associated with acquisition of the product or
+use of the service, order options (e.g., available in
+print or digital forms, PC or Macintosh versions), order
+methods, payment alternatives, and delivery methods. 
+TECHNICAL PREREQUISITES (Optional, Not Repeatable): This
+subelement describes any technical prerequisites for 
+use of the information resource as made available by
+this distributor. 
+
+AVAILABLE TIME PERIOD (Optional, Repeatable): This 
+subelement provides the time period reference for the 
+information resource as made available by this
+distributor, in one of two  forms:
+TIME PERIOD -- STRUCTURED: Time described using the
+USMARC prescribed structure.
+TIME PERIOD -- TEXTUAL: Time described textually.
+AVAILABLE LINKAGE (Optional, Not Repeatable): This
+subelement provides the information needed to contact an
+automated system made available by this distributor,
+expressed in a form that can be interpreted by a
+computer (i.e., URI).  Available linkages are
+appropriate to reference other locators, facilitate
+electronic delivery of off-the-shelf information
+products, or guide the user to data systems that support
+analysis and synthesis of information. 
+AVAILABLE LINKAGE TYPE (Optional, Not Repeatable): This
+subelement occurs if there is an Available Linkage
+described. It provides the data content type (i.e.,
+MIME) for the referenced URI.
+
+POINT OF CONTACT FOR FURTHER INFORMATION (Mandatory, Not 
+Repeatable): This element identifies an organization,
+and a person where appropriate, serving as the point of
+contact plus methods that may be used to make contact. 
+This element consists of the following subelements:
+	CONTACT NAME
+	CONTACT ORGANIZATION
+	CONTACT STREET ADDRESS
+	CONTACT CITY
+	CONTACT STATE
+	CONTACT ZIP CODE
+	CONTACT COUNTRY
+	CONTACT NETWORK ADDRESS
+	CONTACT HOURS OF SERVICE
+	CONTACT TELEPHONE
+	CONTACT FAX.
+
+RECORD SOURCE (Mandatory, Not Repeatable): This element
+identifies the organization, as named in the U.S.
+Government Manual, that created or last modified this
+locator record. 
+
+DATE OF LAST MODIFICATION (Mandatory, Not Repeatable):
+This element  identifies the latest date on which this
+locator record was created or modified. 
+
+AGENCY PROGRAM (*, Not Repeatable): This element
+identifies the major
+agency program or mission supported by the system and
+should include a citation for any specific legislative
+authorities associated with this information resource. 
+* This element is mandatory if the resource referenced
+by this GILS Core locator record is a Federal
+information system.
+
+SOURCES OF DATA (*, Not Repeatable): This element
+identifies the primary sources or providers of data to
+the system, whether within or outside the agency. 
+* This element is mandatory if the resource referenced
+by this GILS Core locator record is a Federal
+information system.
+
+CONTROLLED VOCABULARY (Optional, Repeatable): This
+element is a grouping of subelements that together
+provide any controlled vocabulary used to describe the
+resource and the source of that controlled vocabulary:
+INDEX TERMS -- CONTROLLED (Optional, Not Repeatable):
+This subelement is a grouping of descriptive terms drawn
+from a controlled vocabulary source to aid users in
+locating entries of potential interest. Each term is
+provided in the subordinate repeating field:
+		CONTROLLED TERM. 
+THESAURUS (Optional, Not Repeatable): This subelement
+provides the reference to a formally registered
+thesaurus or similar authoritative source of the
+controlled index terms. Notes on how to obtain
+electronic access to or copies of the referenced source
+should be provided, possibly through a Cross Reference
+to another locator record that more fully describes the
+standard and its potential application to locating GILS
+information. 
+
+LOCAL SUBJECT INDEX (Optional, Not Repeatable): This
+element is a grouping of descriptive terms to aid users
+in locating resources of potential interest, but the
+terms are not drawn from a formally registered
+controlled vocabulary source. Each term is provided in
+the repeating subelement:
+	LOCAL SUBJECT TERM
+
+METHODOLOGY (Optional, Not Repeatable): This element
+identifies any specialized tools, techniques, or
+methodology used to produce this information resource.
+The validity, degree of reliability, and any known
+possibility of errors should also be described.
+
+SPATIAL REFERENCE (Optional, Not Repeatable): This
+element is a grouping of subelements that together
+provide the  geographic reference for the information
+resource. Geographic names and coordinates can be used
+to define the bounds of coverage. Although described
+here informally, the spatial object constructs should be
+as defined in FIPS 173, "Spatial Data Transfer
+Standard."
+BOUNDING RECTANGLE (Optional, Not Repeatable): This
+subelement provides the limits of coverage expressed by
+latitude and longitude values in the order:  
+		WESTERN-MOST
+		EASTERN-MOST 
+		NORTHERN-MOST 
+		SOUTHERN-MOST.
+
+GEOGRAPHIC NAME (Optional, Repeatable): This subelement
+identifies significant areas and/or places within the
+coverage through two associated constructs: 
+		GEOGRAPHIC KEYWORD NAME 
+		GEOGRAPHIC KEYWORD TYPE.
+
+TIME PERIOD OF CONTENT (Optional, Repeatable): This
+element provides time frames associated with the
+information resource, in one of two forms:
+TIME PERIOD -- STRUCTURED: Time described using the
+USMARC prescribed structure.
+TIME PERIOD -- TEXTUAL: Time described textually.
+
+CROSS REFERENCE (Optional, Repeatable): This element is
+a grouping of subelements that together identify another
+locator record likely to be of interest: 
+CROSS REFERENCE TITLE (Mandatory, Not Repeatable): This
+subelement provides a human readable textual description
+of the cross reference.
+CROSS REFERENCE LINKAGE (Mandatory, Not Repeatable):
+This subelement provides the machine readable
+information needed to perform the access (i.e., URI). 
+CROSS REFERENCE TYPE (Mandatory, Not Repeatable): This
+subelement occurs if there is a CROSS REFERENCE LINKAGE
+and0 provides the data content type (i.e., MIME) for the
+referenced URI.
+
+ORIGINAL CONTROL IDENTIFIER (Optional, Not Repeatable):
+This element is used by the record source to refer to
+another GILS locator record from which this locator
+record was derived. 
+
+SUPPLEMENTAL INFORMATION (Optional, Not Repeatable): 
+Through this element, the record source may associate
+other descriptive information with the GILS Core locator

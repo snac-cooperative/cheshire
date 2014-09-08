@@ -1,0 +1,36 @@
+# 
+# this is a wrapper for testing/debugging Tcl CGI scripts. Specifically
+# it is for testing webcheshire scripts.
+#
+# first set up the defaul environment variables:
+#
+
+set env(SERVER_SOFTWARE) "NCSA/1.5.2"
+set env(SERVER_NAME) "Mycroft-homes.HIP.Berkeley.EDU"
+set env(GATEWAY_INTERFACE) "CGI/1.1"
+set env(SERVER_PROTOCOL) "HTTP/1.0"
+set env(SERVER_PORT) "80"
+set env(SCRIPT_NAME) "/cgi-bin/test-cgi.tcl"
+set env(REMOTE_HOST) "mycroft-homes.hip.berkeley.edu"
+set env(REMOTE_ADDR) "136.152.64.144"
+set env(HTTP_ACCEPT) "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*"
+set env(HTTP_USER_AGENT) "Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha)"
+
+# for testing GET use the following lines (uncomment them)
+#set env(REQUEST_METHOD) "GET"
+#set env(QUERY_STRING) "server=UCBDL&boolean=and&field1idx=topic&field1cont=test+1&field2idx=author&field2cont=test+2&field3idx=title&field3cont=&maxrecs=10&firstrec=1&format=html"
+
+
+#for testing POST use the following lines 
+set env(REQUEST_METHOD) "POST"
+# You have to provide a sourcestring that contains the query you want
+# to test.
+set sourcestring "server=UCBDL&boolean=and&field1idx=topic&field1cont=sierra+nevada&field2idx=author&field2cont=&field3idx=title&field3cont=&maxrecs=10&firstrec=1&format=html"
+set env(CONTENT_LENGTH) [string length $sourcestring]
+set tempfile [open "/tmp/tmpfile" "w"]
+puts $tempfile $sourcestring
+close $tempfile
+close stdin
+set stdin [open "/tmp/tmpfile" "r"]
+
+

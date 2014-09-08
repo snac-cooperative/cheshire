@@ -1,0 +1,22 @@
+# Test script for ztcl for GRS-1 conversion
+zselect testsherlock sherlock HDS_Catalogue 2222
+set RESULTS [zfind title england]
+puts "$RESULTS"
+zset recsyntax SGML
+set disp [zdisplay 2 1]
+
+foreach rec [lrange $disp 1 end] {
+    puts "+++++++++++++FULL RECORDS+++++++++++++++++++++++++++++++++++++"
+    puts "$rec"
+}
+
+
+zset elementsetnames TEST
+
+set disp [zdisplay 2 1]
+
+foreach rec [lrange $disp 1 end] {
+    puts "+++++++++++++EXCLUDE RECORDS+++++++++++++++++++++++++++++++++++++"
+    puts "$rec"
+}
+

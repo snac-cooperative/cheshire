@@ -1,0 +1,534 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en]C-CCK-MCD {Sony}  (Win98; U) [Netscape]">
+   <title>Cheshire II Commands</title>
+</head>
+<body background="chat5.jpg">
+<!-- Cheshire II Commands documentation -->
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<h2>
+<font color="#0000FF">METADATA Databases</font></h2>
+<font size=+1><a href="#zset">Zset database (METADATA | IR-Explain-1),
+</a><a href="#zfind">Zfind (METADATA and EXPLAIN indexes)</a></font>
+<p>\- Special Tcl/Tk commands for Metadata searching in CheshireII
+<h2>
+<font color="#0000FF">DESCRIPTION</font></h2>
+This document describes the CheshireII specific command language features
+for searching and retrieving metadata from the automatically generated
+databases METADATA and IR-Explain-1 in the Cheshire II system. for more
+information on the client programs <i>cheshire2, ztcl, webcheshire,</i>
+and <i>staffcheshire</i> see the <a href="cheshire2.html">Cheshire2 documentation</a>.
+<p>
+<hr>
+<h2>
+<font color="#0000FF">Metadata Database Descriptions</font></h2>
+<p>
+The CheshireII system includes two databases of metadata about the 
+system and its contents. These are the METADATA database, which includes
+local information, and the IR-Explain-1 database that supports the
+Z39.50 Explain service. These are "virtual" databases that are generated
+automatically by the system from information in the configuration files
+and in the data for other databases installed. Both the METADATA and
+IR-Explain-1 databases are searched like any other database, via 
+Z39.50, or directly via 
+<A HREF="cheshire2.html">webcheshire search commands.</A> The database
+name (METADATA or IR-Explain-1) should be set with the ZSET command 
+(or, for webcheshire the
+CHESHIRE_DATABASE variable should be set with the name). For each of
+the databases there are a special set of index names to be used in searching
+the database for metadata information. These indexes and the information
+available for retrieval are described below.
+
+<p>
+<center><b>METADATA Database Indexes/Attributes</b></center>
+<p>
+The METADATA index names are all local extensions to BIB-1 USE attributes
+within the range 5500-5504. Data is returned the same as any other 
+database search. The resulting data is just a text steam. 
+<p>
+<b>CLUSTERS</b>: <i>Arguments: <b>cluster_file_name</b> : Aliases:</i> INDEXED_BY -- USE Value = 5500
+<br>
+This index is used to find the name of the file that is clustered by the
+file named as an argument. The returned value is a file name.
+For example:
+<PRE>
+% zselect sherlock
+236 {Connection with SHERLOCK (sherlock.berkeley.edu) database 'bibfile' at port
+ 2100 is open as connection #236}
+% zset database METADATA
+% zfind clusters classcluster
+{OK {Status 1} {Hits 1} {Received 0} {Set Default}}
+% zdisplay 1 1
+{OK {Status 0} {Received 1} {Position 1} {Set Default} {NextPosition 0}} bibfile
+%
+</PRE>
+<p>
+<b>DTD_NAME</b>: <i>Arguments: <b> file_name </b> : Aliases:</i> DTD -- USE Value = 5501
+<br>
+This index is used to retrieve the DTD used for the file specified as the
+argument. The return result is the CONTENTS of the DTD. For Example...
+<PRE>
+% zselect sherlock
+236 {Connection with SHERLOCK (sherlock.berkeley.edu) database 'bibfile' at port
+ 2100 is open as connection #236}
+% zset database METADATA
+% zfind DTD classcluster
+{OK {Status 1} {Hits 1} {Received 0} {Set Default}}
+% zdisplay 1 1
+{OK {Status 0} {Received 1} {Position 1} {Set Default} {NextPosition 0}} {
+&lt;!SGML  "ISO 8879:1986"
+--
+--
+
+CHARSET
+         BASESET  "ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0"
+         DESCSET  0   9   UNUSED
+                  9   2   9
+                  11  2   UNUSED
+                  13  1   13
+...etc...
+    FORMAL   YES
+  APPINFO    NONE
+>
+&lt;!doctype lcclust [
+
+&lt;!-- This is a DTD for a cluster file based on LC Class numbers
+     it is indicative of the general format of cluster files which have
+     at a minimum: a main tag called "cluster", the first subtag is
+...etc...
+
+</PRE>
+<p>
+<b>PUBLIC_IDENTIFIER</b>: <i>Arguments: <b>file_name {"public_identifier"}</b> : Aliases:</i> PUBLIC_ID -- USE Value = 5502
+<br>
+This index is used to retrieve the SGML/XML component associated with a
+particular file and particular PUBLIC IDENTIFIER. This searches the server-side
+catalog for matching public identifiers and, if a match is found, it will
+return the CONTENTS of the file identified by that public identifier. NOTE:
+Since public identifiers may contain characters and words that are not
+legal in search commands, the public identifier should be enclosed in nested
+braces and double-quotes (or double-quotes and braces) when this command
+is issued on the client side to avoid potential parsing problems on 
+the server side. For example (using the Webcheshire interface)...
+
+<PRE>
+set CHESHIRE_DATABASE METADATA
+set CHESHIRE_NUMREQUESTED 10
+set CHESHIRE_CONFIGFILE "c:\\Glasier_test\\CONFIG.GLASIER"
+set RESULTS [search public_id glasier {"-//Society of American Archivists//DTD eadchars.ent (Encoded Archival Description (EAD) Special Characters Version 1.0)//EN"}]
+puts $RESULTS
+</PRE>
+Which results in output of...
+<PRE>
+{Metadata Query} {
+&lt;!--************************************************************--&gt;
+&lt;!--************************************************************--&gt;
+&lt;!--************************************************************--&gt;
+&lt;!--                                                            --&gt;
+&lt;!--                                                            --&gt;
+&lt;!--                                                            --&gt;
+&lt;!--                                                            --&gt;
+&lt;!--                                                            --&gt;
+&lt;!--                ENCODED ARCHIVAL DESCRIPTION                --&gt;
+&lt;!--                  DOCUMENT TYPE DEFINITION                  --&gt;
+&lt;!--                    SPECIAL CHARACTERS                      --&gt;
+&lt;!--                        VERSION 1.0                         --&gt;
+&lt;!--                                                            --&gt;
+&lt;!--                                                            --&gt;
+...etc ...
+
+</PRE>
+<p>
+<b>MAXIMUM_DOCID</b>: <i>Arguments: <b>file_name</b> : Aliases:</i> MAXDOCID, NUMBER_OF_DOCUMENTS, NUMBER_OF_RECORDS, NDOCS, NUMDOCS,
+NUMRECS  -- USE Value = 5503
+<br>
+This index is used to retrieve the maximum document or record id for the
+specified file. The result is a number (in ascii text form) representing
+the maximum document id for the specified file. For example...
+<PRE>
+set CHESHIRE_DATABASE METADATA
+set CHESHIRE_NUMREQUESTED 10
+set CHESHIRE_CONFIGFILE "c:\\Cheshire_bin\\Test_files\\testconfig.new"
+set RESULTS [search maxdocid bibfile]
+puts $RESULTS
+</PRE>
+Which results in output of...
+<PRE>
+{Metadata Query} 100
+</PRE>
+
+<p>
+<b>DOC_FILENAME</b>: <i>Arguments: <b>file_name docid_number</b> : Aliases:</i> FILENAME, DOC_FILE -- USE Value = 5504
+<br>
+This index is used to retrieve the actual file pathname (including
+CONT file names) for the specified filename and document id number.
+The result is the full pathname for the file containing the specifed document
+id number on the server.
+<PRE>
+set CHESHIRE_DATABASE METADATA
+set CHESHIRE_NUMREQUESTED 10
+set CHESHIRE_CONFIGFILE "c:\\Glasier_test\\CONFIG.GLASIER"
+set RESULTS [search filename glasier 1]
+puts $RESULTS
+
+</PRE>
+Which results in output of...
+<PRE>
+{Metadata Query} {c:\Glasier_test\Glascead.sgm}
+</PRE>
+<p>
+<hr WIDTH="100%">
+<h2>
+<font color="#0000FF">IR-Explain-1 Database Descriptions</font></h2>
+<p>
+The Cheshire II explain database is generated from information in the
+configuration files and server initialization files of the system. Most
+of the "human-readable" information in the explain records is included
+in those files (see <A HREF="configfiles.html#explain">Information 
+on configuration files</A> or on the <A HREF="zserver.html"> server and
+its initialization files</A> for more details.
+<p>
+For detailed information on the Z39.50 Explain facility, see sections
+3.2.10 and Appendix 3 & 5 of the <a href="Z39.50/part1.pdf">ANSI/NISO Z39.50-1995
+standard.</a> In this section the automatically constructed Explain database
+will be described and some sample searches and results shown.
+
+<hr WIDTH="100%">
+<p>
+<center><b>IR-Explain-1 Database Indexes/Attributes</b></center>
+<P>
+The primary search index for the IR-Explain-1 database is the 
+ExplainCategory index (aliases EXPLAIN, CATEGORY, CAT, EXP)
+Recognized keys for the the ExplainCategory index are:
+"TargetInfo", "DatabaseInfo", "RecordSyntaxInfo", "AttributeSetInfo", 
+"CategoryList" and "AttributeDetails".
+<p>
+
+Other explain attributes (Exp-1 attribute set) that are understood by
+the parser (but are not all processable via the automatically
+generated explain database) are:
+
+<p>
+"ExplainCategory", USE value: 1,
+<BR>  "EXPLAIN", USE value: 1,
+<BR>  "CATEGORY", USE value: 1,
+<BR>  "CAT", USE value: 1,
+<BR>  "EXP", USE value: 1,
+<BR>  "HumanStringLanguage", USE value: 2,
+<BR>  "DatabaseName", USE value: 3,
+<BR>  "TargetName", USE value: 4,
+<BR>  "AttributeSetOID", USE value: 5,
+<BR>  "RecordSyntaxOID", USE value: 6,
+<BR>  "TagSetOID", USE value: 7,
+<BR>  "ExtendedServicesOID", USE value: 8,
+<BR>  "DateAdded", USE value: 9,
+<BR>  "DateChanged", USE value: 10,
+<BR>  "DateExpires", USE value: 11,
+<BR>  "ElementSetName", USE value: 12,
+<BR>  "ProcessingContext", USE value: 13,
+<BR>  "ProcessingName", USE value: 14,
+<BR>  "TermListName", USE value: 15,
+<BR>  "SchemaOID", USE value: 16,
+<BR>  "Producer", USE value: 17,
+<BR>  "Supplier", USE value: 18,
+<BR>  "Availability", USE value: 19,
+<BR>  "Proprietary", USE value: 20,
+<BR>  "UserFee", USE value: 21,
+<p>
+Of the above, only ExplainCategory, Databasename, and RecordSyntaxOID
+are processed in the current version of the Cheshire explain database.
+Only limited Boolean operations are supported in the explain database,
+such as combining explaincategory attributedetails AND databasename
+to get the attribute information for a particular database.
+<p>
+<hr WIDTH="100%">
+<p>
+<center><b>IR-Explain-1 Examples</b></center>
+<p>
+The following script searches for basic information about the TARGET
+system...
+
+<pre>
+# Test explain access and display
+puts "Contacting local..."
+zselect help localhost IR-Explain-1 2100
+puts "Setting Attributes"
+# Note that the explain attribute set and record syntax must be used...
+zset attributes explain
+zset recsyntax explain
+puts "trying to get targetinfo"
+set results [zfind cat TargetInfo]
+puts "Results are $results"
+set disp [zdisplay]
+set outfile [open resultfile w]
+
+puts $outfile "FULL RECORD: $disp"
+
+foreach a [lrange $disp 1 end] {
+	puts $outfile "+++++++++++++++++++++++"
+	foreach line $a {
+	   if {[llength $line] > 3} {
+		puts $outfile ""
+		foreach part $line {
+		   if {[llength $part] == 2} {
+			puts $outfile ""
+			foreach subpart $part {
+			  puts $outfile "\t\t\t $subpart"
+			}
+		   } else {
+			puts $outfile "\t\t $part"
+		   }
+		}
+           } else {
+		puts $outfile "\t $line"
+	   }
+	}
+}
+
+</pre>
+The output to resultfile consists of the TargetInfo record -- each element
+of the record is tagged with the element name followed by two colons and a
+space. The entire return record for this and other Explain database
+searches is constructed as a Tcl list. See the
+Explain Record syntax in the Z39.50 standard <a href="Z39.50/part3.pdf">
+ANSI/NISO Z39.50-1995, Appendix 5.</a>...
+<PRE>
+FULL RECORD: {OK {Status 0} {Received 1} {Position 1} {Set Default} {NextPosition 0}} 
+{TargetInfo:: {CommonInfo:: } {Target_Name:: Cheshire II V3 ZServer NT version} {Recent_news::  {{language:: (eng)} {text:: No current news}}} {Icon:: } {namedResultSets:: TRUE} {multipleDBsearch:: TRUE} {maxResultSets:: 100} {maxResultSize:: 0} {maxTerms:: 0} {TimeoutInterval::  {{value:: 1200} {unitUsed::  {{unitSystem:: } {unitType:: time} {unit:: seconds} {scaleFactor:: 0}}}}} {Welcome_Message::  {{language:: (eng)} {text:: Welcome to the Cheshire II server on Sherlock}}} {Contact_Info::  {ContactInfo:: {name:: Ray R. Larson} {description::  {{language:: (eng)} {text:: Cheshire II Project Director}}} {address::  {{language:: (eng)} {text:: School of Information Management and Systems, University of California, Berkeley, 102 South Hall 4600, Berkeley, California 94720-4600, USA}}} {email:: ray@xxx.xxx.edu } {phone:: (510)642-6046}}} {Description::  {{language:: (eng)} {text:: This is a development and testing server for the Cheshire II project}}} {Usage_restrictions::  {{language:: (eng)} {text:: No restrictions}}} {Payment_address::  {{language:: (eng)} {text:: Freely Available}}} {Hours::  {{language:: (eng)} {text:: Should always be available}}} {NetworkAddress::  {NetworkAddress::  {internetAddress:: {hostAddress:: C622772-a.pinol1.sfba.home.com} {port:: 2100}}}} {NetworkAddress::  {NetworkAddress::  {internetAddress:: {hostAddress:: 192.168.1.100} {port:: 2100}}}} {CommonAccessInfo::  {{QueryTypesSupported::   {Type1::  {RpnCapabilities:: {operators:: { 0 1 2}} {resultSetAsOperandSupported:: TRUE} {restrictionOperandSupported:: FALSE} {ProximitySupport:: {anySupport:: FALSE} {unitsSupported:: }}}}} {diagnosticsSets::  1.2.840.10003.4.1} {AttributeSetIds::  1.2.840.10003.3.1 1.2.840.10003.3.2 1.2.840.10003.3.5} {Schemas:: } {RecordSyntaxes::  1.2.840.10003.5.10 1.2.840.10003.5.100 1.2.840.10003.5.101 1.2.840.10003.5.105 1.2.840.10003.5.109.9 1.2.840.10003.5.109.10 1.2.840.10003.5.109.3} {ResourceChallenges:: } {AccessRestrictions:: } {Costs:: } {VariantSets:: } {ElementSetNames::  F B B HTML} {UnitSystems:: }}}}
++++++++++++++++++++++++
+	 TargetInfo::
+	 CommonInfo:: 
+
+		 Target_Name::
+		 Cheshire
+		 II
+		 V3
+		 ZServer
+		 NT
+		 version
+	 Recent_news::  {{language:: (eng)} {text:: No current news}}
+	 Icon:: 
+	 namedResultSets:: TRUE
+	 multipleDBsearch:: TRUE
+	 maxResultSets:: 100
+	 maxResultSize:: 0
+	 maxTerms:: 0
+	 TimeoutInterval::  {{value:: 1200} {unitUsed::  {{unitSystem:: } {unitType:: time} {unit:: seconds} {scaleFactor:: 0}}}}
+	 Welcome_Message::  {{language:: (eng)} {text:: Welcome to the Cheshire II server on Sherlock}}
+	 Contact_Info::  {ContactInfo:: {name:: Ray R. Larson} {description::  {{language:: (eng)} {text:: Cheshire II Project Director}}} {address::  {{language:: (eng)} {text:: School of Information Management and Systems, University of California, Berkeley, 102 South Hall 4600, Berkeley, California 94720-4600, USA}}} {email:: ray@xxx.xxx.edu} {phone:: (510)642-6046}}
+	 Description::  {{language:: (eng)} {text:: This is a development and testing server for the Cheshire II project}}
+	 Usage_restrictions::  {{language:: (eng)} {text:: No restrictions}}
+	 Payment_address::  {{language:: (eng)} {text:: Freely Available}}
+	 Hours::  {{language:: (eng)} {text:: Should always be available}}
+	 NetworkAddress::  {NetworkAddress::  {internetAddress:: {hostAddress:: C622772-a.pinol1.sfba.home.com} {port:: 2100}}}
+	 NetworkAddress::  {NetworkAddress::  {internetAddress:: {hostAddress:: 192.168.1.100} {port:: 2100}}}
+	 CommonAccessInfo::  {{QueryTypesSupported::   {Type1::  {RpnCapabilities:: {operators:: { 0 1 2}} {resultSetAsOperandSupported:: TRUE} {restrictionOperandSupported:: FALSE} {ProximitySupport:: {anySupport:: FALSE} {unitsSupported:: }}}}} {diagnosticsSets::  1.2.840.10003.4.1} {AttributeSetIds::  1.2.840.10003.3.1 1.2.840.10003.3.2 1.2.840.10003.3.5} {Schemas:: } {RecordSyntaxes::  1.2.840.10003.5.10 1.2.840.10003.5.100 1.2.840.10003.5.101 1.2.840.10003.5.105 1.2.840.10003.5.109.9 1.2.840.10003.5.109.10 1.2.840.10003.5.109.3} {ResourceChallenges:: } {AccessRestrictions:: } {Costs:: } {VariantSets:: } {ElementSetNames::  F B B HTML} {UnitSystems:: }}
+
+</PRE>
+
+<p>
+The following script searches for basic information about the databases on
+the target system...
+<p>
+<PRE>
+# Test explain access and display
+puts "Contacting local..."
+zselect help localhost IR-Explain-1 2100
+puts "Setting Attributes"
+zset attributes explain
+zset recsyntax explain
+puts "trying to get targetinfo"
+set results [zfind cat DatabaseInfo]
+set searchres [lindex $results 0]
+puts "Search result: $searchres"
+set disp [zdisplay [lindex [lindex $searchres 2] 1] 1]
+foreach chunk [lrange $disp 1 end] {
+    puts "+++++++++++++++++++++"
+    foreach c $chunk {
+	if {[lindex $c 0] == "AccessInfo::"} {
+		puts "AccessInfo::"
+		foreach part [lrange $c 1 end] {
+			puts "\t $part"
+		}
+	} else {
+	       puts "$c"
+	}
+    }
+}
+
+</PRE>
+The output is...
+<PRE>
+Contacting local...
+Setting Attributes
+trying to get targetinfo
+Search result: OK {Status 1} {Hits 1} {Received 0} {Set Default}
++++++++++++++++++++++
+DatabaseInfo::
+CommonInfo::
+DatabaseName:: bibfile
+explainDatabase:: NO
+Nickname:: c:\Cheshire_bin\Test_files\testrecs
+Icon::
+user_fee:: FALSE
+available:: TRUE
+titleString::  {{language:: (eng)} {text::  Mathematics Library BIBFile books da
+tabase
+}}
+Description::  {{language:: (eng)} {text::  Contains a small sample from
+the UCBerkeley Mathematics library catalog
+}}
+AssociatedDBs::
+SubDBs::
+Disclaimers::  {{language:: (chi)} {text::  This is bogus, just testing the lang
+uage attribute
+}}
+</PRE>
+...etc...
+<p>
+The following script searches for basic information about the explain
+categories supported by the target system...
+<p>
+<PRE>
+# Test explain access and display
+puts "Contacting local..."
+zselect help localhost IR-Explain-1 2100
+puts "Setting Attributes"
+zset attributes explain
+zset recsyntax explain
+puts "trying to get categorylist"
+set results [zfind cat CategoryList]
+puts "Results are $results"
+set disp [zdisplay]
+
+foreach a [lrange $disp 1 end] {
+	puts "+++++++++++++++++++++++"
+	foreach line $a {
+	   if {[llength $line] > 3} {
+		puts ""
+		foreach part $line {
+		   if {[llength $part] == 2} {
+			puts ""
+			foreach subpart $part {
+			  puts "\t\t\t $subpart"
+			}
+		   } else {
+			puts "\t\t $part"
+		   }
+		}
+           } else {
+		puts "\t $line"
+	   }
+	}
+}
+
+</PRE>
+The results are...
+<PRE>
+Contacting local...
+Setting Attributes
+trying to get categorylist
+Results are {OK {Status 1} {Hits 1} {Received 0} {Set Default}}
++++++++++++++++++++++++
+         CategoryList::
+         CommonInfo::
+
+                 Categories::
+                 CategoryInfo:: {category:: targetInfo} {originalCategory:: } {d
+escription::  {{language:: (eng)} {text:: Description of the Cheshire II V3 ZSer
+ver NT version target}}} {asn1Module:: }
+                 CategoryInfo:: {category:: databaseInfo} {originalCategory:: }
+{description::  {{language:: (eng)} {text:: Description of Each Database}}} {asn
+1Module:: }
+                 CategoryInfo:: {category:: AttributeDetails} {originalCategory:
+: } {description::  {{language:: (eng)} {text:: Attributes and Combinations for
+each Database}}} {asn1Module:: }
+                 CategoryInfo:: {category:: recordSyntaxInfo} {originalCategory:
+: } {description::  {{language:: (eng)} {text:: Available Record Syntaxes}}} {as
+n1Module:: }
+                 CategoryInfo:: {category:: categoryInfo} {originalCategory:: }
+{description::  {{language:: (eng)} {text:: List of supported Explain categories
+}}} {asn1Module:: }
+
+</PRE>
+<p>
+The following script shows how the details of the attributes available for
+searching in the databases of the target system may be found...
+<p>
+<pre>
+# Test explain access and display
+puts "Contacting local..."
+zselect help localhost IR-Explain-1 2100
+puts "Setting Attributes"
+zset attributes explain
+zset recsyntax explain
+puts "trying to get AttributeDetails for the bibfile database"
+set results [zfind cat AttributeDetails and database bibfile]
+puts "Results are $results"
+set hits [lindex [lindex [lindex $results 0] 2] 1]
+puts "Hits = $hits"
+set results2 [zdisplay $hits 1]
+
+foreach a [lrange $results2 1 end] {
+	puts "AttributeSetInfo::"
+	foreach line [lrange $a 1 end] {
+		puts "\t $line"
+	}
+}
+
+</pre>
+
+The results are...
+<p>
+<pre>
+Contacting local...
+Setting Attributes
+trying to get AttributeDetails for the bibfile database
+Results are {OK {Status 1} {Hits 1} {Received 0} {Set Default}}
+Hits = 1
+AttributeSetInfo::
+         CommonInfo::
+         databaseName:: bibfile
+         attributesBySet::  {{attributeSet:: 1.2.840.10003.3.1} {attributesByTyp
+e::  {{attributeType:: 1} {defaultIfOmitted:: } {attributeValues::  {{value:: 1}
+ {description::  {{language:: (eng)} {text:: PERSONAL_NAME}}} {subAttributes:: }
+ {superAttributes:: } {partialSupport:: NO}} {{value:: 2} {description::  {{lang
+uage:: (eng)} {text:: CORPORATE_NAME}}} {subAttributes:: } {superAttributes:: }
+{partialSupport:: NO}} {{value:: 3} {description::  {{language:: (eng)} {text::
+CONFERENCE_NAME}}} {subAttributes:: } {superAttributes:: } {partialSupport:: NO}
+} {{value:: 4} {description::  {{language:: (eng)} {text:: TITLE}}} {subAttribut
+es:: } {superAttributes:: } {partialSupport:: NO}} {{value:: 5} {description::
+{{language:: (eng)} {text:: SERIES}}} {subAttributes:: } {superAttributes:: } {p
+artialSupport:: NO}} {{value:: 6} {description::  {{language:: (eng)} {text:: UN
+IFORM_TITLE}}} {subAttributes:: } {superAttributes:: } {partialSupport:: NO}} {{
+value:: 12} {description::  {{language:: (eng)} {text:: LOCAL_NUMBER}}} {subAttr
+ibutes:: } {superAttributes:: } {partialSupport:: NO}} {{value:: 16} {descriptio
+n::  {{language:: (eng)} {text:: LC_CALL_NUMBER}}} {subAttributes:: } {superAttr
+ibutes:: } {partialSupport:: NO}} {{value:: 21} {description::  {{language:: (en
+</pre>
+...etc...
+<p>
+
+<p>
+<hr WIDTH="100%">
+<h2>
+<font color="#0000FF">BUGS</font></h2>
+None known.
+<h2>
+<font color="#0000FF">SEE ALSO</font> Tcl(1), Tk(1), Cheshire2</h2>
+
+<h2>
+<font color="#0000FF">AUTHOR</font></h2>
+Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>)
+</body>
+</html>
+
+
+

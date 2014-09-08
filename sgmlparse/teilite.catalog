@@ -1,0 +1,21 @@
+
+
+PUBLIC  "ISO 8879-1986//ENTITIES Added Latin 1//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOlat1
+PUBLIC  "ISO 8879-1986//ENTITIES Added Latin 2//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOlat2
+PUBLIC   "ISO 8879-1986//ENTITIES Greek Symbols//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOgrk3
+PUBLIC "ISO 8879-1986//ENTITIES Alternative Greek Symbols//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOgrk4
+PUBLIC "ISO 8879-1986//ENTITIES  Alternative Greek Symbols//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOgrk4
+PUBLIC "ISO 8879-1986//ENTITIES  Alternative  Greek Symbols//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOgrk4
+PUBLIC "ISO 8879-1986//ENTITIES Greek Letters//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOgrk1
+PUBLIC "ISO 8879-1986//ENTITIES Monotoniko Greek//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOgrk2
+PUBLIC "ISO   8879-1986//ENTITIES   Monotoniko Greek//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOgrk2
+PUBLIC  "ISO 8879-1986//ENTITIES Diacritical Marks//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOdia
+PUBLIC "ISO 8879-1986//ENTITIES Numeric and Special Graphic//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOnum
+PUBLIC "ISO 8879-1986//ENTITIES Publishing//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOpub
+PUBLIC "ISO 8879-1986//ENTITIES General Technical//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOtech
+PUBLIC "ISO 8879-1986//ENTITIES Russian Cyrillic//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOcyr1
+PUBLIC "ISO 8879-1986//ENTITIES Non-Russian Cyrillic//EN" /usr/users/ray/Work/cheshire/doc/charsets/ISOcyr2
+
+PUBLIC "-//University of Virginia::Institute for Advanced Technology in the Humanities//DTD iathchar.ent (IATH Special Characters)//EN" /usr6/ray/uvadata/iathchar.ent
+
+PUBLIC "-//University of Virginia::Institute for Advanced Technology in the Humanities//DTD iathnota.ent (IATH Notation Declarations)//EN" /usr6/ray/uvadata/iathnota.ent

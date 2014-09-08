@@ -1,0 +1,138 @@
+
+<html>
+  <head>
+    <title>Cheshire Configuration Files</title>
+  </head>
+  
+  <body bgcolor = white>
+    <p>
+    <center><h3>Cheshire Configuration - Indexes</h3></center>
+    [<a href = "config-explain.html">Back to Explain</a> ]  [ <a href = "config.html">Up to the contents</a> ] [ <a href = "config-component.html">On to Components</a> ]
+	<p>
+	  The index section of the configuration file is where you can set which tags and attributes can be searched by the system.  Cheshire doesn't do a free text search of the SGML, the information must be extracted from each record in advance and the indexes section is where this is done.  Searching then takes place on these indexes, specified by the name given to it in the &lt;indxtag&gt; field, or via the BIB1 Attributes as defined in the &lt;indxmap&gt; field.
+
+    <p>
+      <img src = "closed.gif"><b>indexes</b><br>
+      The indexes tag encloses all of the indexes defined for the database, each of which is defined in an 'indexdef' tag described below.
+    <p>
+      <img src = "closed.gif"><b>indexdef</b><br>
+      This is the tag inside which is defined the individual index definitions. It has several attributes governing how the index is to be processed:
+    <table border = 1>
+      <tr><td valign = top>Access</td><td>The format of database that the index will be recorded in. This has three possible values:
+	  <table>
+	    <tr><td>BTREE</td><td>The default binary tree database</td></tr>
+	    <tr><td>HASH</td><td>A Hash style database</td></tr>
+	    <tr><td>DBMS</td><td>An SQL or (R)DBMS style database</td></tr>
+	    </table>
+
+ </td></tr>
+<tr><td valign = top>Extract</td><td>The sort of extraction to be done on the data. The possible values are:
+	  <table>
+	    <tr><td>KEYWORD</td><td>Extract keywords. This is the most common type of index as it simply goes through and records all words that aren't stoplisted as being present. The words are split by the following list of punctuation:  \t\n\r\a\b\v\f`~!@#$%^&amp;*()_=|\\{[]};:'\",&lt;.&gt;?/ and space</td></tr>
+	    <tr><td>KEYWORD_PROXIMITY</td><td>Extract keywords and maintain the proximity information. This is to allow for proximity searching - for example searching for 'cat' within 4 words of 'hat' to look for 'cat in the hat'. These indexes are much larger than plain KEYWORD indexes.</td></tr>
+	    <tr><td>KEYWORD_EXTERNAL</td><td>The keywords extracted are indicators of external, non SGML files.  These files are read in and processed ala KEYWORD.  There is also a KEYWORD_EXTERNAL_PROXIMITY, which maintains proximity information as above.  This can be used with tags that are not external as well, so for example you could index the contents of the subject tag, the topic tag and the file pointed to by the external_topic tag.
+	    <tr><td>EXACTKEY</td><td>Extract the exact contents of the tag specified to index. This is useful for things like ID Numbers or Exact Titles.</td></tr>
+	    <tr><td>DATE</td><td>The contents are dates, and should be parsed so that they can be searched with non boolean operators (eg 'search date > 1600' ). The type of date format needs to be specified in the Normal attribute, as described below.
+	    <tr><td>DATE_RANGE</td><td>The contents are ranges of dates, for example Jan 2000 - Mar 2000. Again, they need to have the format set in the Normal attribute.</td></tr>
+	    <tr><td>DATE_TIME</td><td>The contents are dates with times, for example 1pm Jan 1, 2000. There is also DATE_TIME_RANGE, which has ranges of dates and times. Again the format needs to be specified.</td></tr>
+	    <tr><td>URL</td><td>The contents extracted are URLs, and hence will not be split up at punctuation like '.'s and '/'s.  The full list of punctuation that will be split at is:   \t\n\r\a\b\v\f&lt;&gt; and space; the same applies for FILENAME below.</td></tr>
+	    <tr><td>FILENAME</td><td>The contents of the index are filenames</td></tr>
+	    <tr><td>FLD008</td><td>Used only for (US)MARC records, the index is for special processing of the 008 field.</td></tr>
+                       <tr><td>INTEGER, DECIMAL, FLOAT</td><td>These extractions types are used for numeric fields. This will allow &lt; and &gt; (etc) operators to work properly on the extracted data.  Only a single value can be included in such a field.</td></tr>
+	    </table>
+</td></tr>
+<tr><td valign = top>Normal</td><td> What normalisation should be done on the data once extracted. Possible values:
+	  <table>
+	    <tr><td>STEM</td><td>The words should be stemmed - this allows you to find 'colours' with a search for 'colour' and so forth. Useful for KEYWORD style indexes.
+	    <tr><td>NONE</td><td>The words should be left as is. Especially useful for EXACTKEY indexes (In fact they're pretty useless without this as the normalisation!)</td></tr>
+				  <tr><td>DO_NOT_NORMALIZE</td><td>This is a further step from NONE in which case, punctuation etc are all left alone as well. This is especially useful for PRIMARYKEY indexes which need to maintain the difference between case (etc) or title indexes where case is important and not reconstructable.</td></tr>
+	    <tr><td>CLASSCLUS</td><td>This is used for indexes of Library of Congress classification numbers. The index is then specially processed after extraction into a normalised form.</td></tr>
+	    <tr><td>WORDNET</td><td>This indicates that the wordnet morphing algorithm should be used. If you don't know what this is, don't worry.</td></tr>
+	  </table>
+	  <p>
+	  All of the above except DO_NOT_NORMALIZE can have '_NOMAP' appended to them to prevent character mapping from happening during the normalisation process.<br>
+	  The possible date formats are listed in the <a href = "docs/configfiles.html#dates">configuration file</a> documentation and aren't gone over here as there are many and they're fairly straight forwards.
+</td></tr>
+<tr><td valign = top>PrimaryKey</td> <td>Primary Key indexes are those in which the data should be unique. This attribute governs whether this is the case, and how duplicate data should be handled.  If the index is not a primary key, then you can leave out the attribute. It has three possible values:
+	  <table>
+	    <tr><td>IGNORE</td><td>Any duplicated keys should be ignored, keeping the first occurance.</td></tr>
+	    <tr><td>REPLACE</td><td>Any duplicated keys should replace the previous occurance.</td></tr>
+	    <tr><td>NONE</td><td>Index is not a primary key index.</td></tr>
+	  </table>
+
+	</td></tr>
+    </table>
+    <p>
+      An example or two then. For a unique identifier index, we might use:<br>
+      <code>&lt;indexdef access=btree extract=exactkey normal=do_not_normalize primarykey=replace&gt;</code>
+      <p>
+      Or for a topic keyword index:<br>
+      <code>&lt;indexdef access=btree extract=keyword normal=stem&gt;</code>
+      <p>
+      <img src = "closed.gif"><b>indxname</b><br>
+      This contains the name of the file in which the index database will be kept. For ease, we keep all indexes in the 'indexes' directory, and call them '(name).index'. The name is typically the name of the SGML tag to be indexed, and is the contents of the next field, indxtag.  An example:<br>
+      <code>&lt;indxname&gt; /home/cheshire/cheshire/ead/indexes/subject.index &lt;/indxname&gt;</code>
+      <p>
+      <img src = "closed.gif"><b>indxtag</b><br>
+      This is the name of the index, and needs to be unique within the database. This is used when querying to tell which particular index we want to search. To continue the example above,<br>
+      <code>&lt;indxtag&gt; subject &lt;/indxtag&gt;</code>
+      <p>
+      <img src = "closed.gif"><b>indxmap</b><br>
+      The indxmap tag is used to provide mappings for the Z39.50 server. Queries typically come in the BIB-1 set, and this then needs to be mapped to where the appropriate information is for this database. Thankfully, for those of us who are not Z39.50/BIB1 gurus and just want to index our SGML, this tag is not necessary.
+    <p>
+      It has several subtags, which correspond to the various z39.50 attributes: use, relation, position, struct, trunc and complet.  It would take many many pages to describe how to properly set all of these up. If you need to, there's good z39.50 documentation around -- if you have the time and found this document useful, perhaps you could contribute a Cheshire and Z39.50 page!   See the <a href = "docs/configfiles.html#indexmap">configfiles</a> documentation on this subject.
+      <p>
+      <img src = "closed.gif"><b>stoplist</b><br>
+      The stoplist tag contains the path to a file which has a list of words, one per line, to exclude from this index. Such words as 'and', 'the', 'us', 'I' etc are often put into these stoplists. Some default stoplists are provided, and should be put into the default/stoplists directory. As such an example might be:<br>
+      <code>&lt;stoplist&gt; /home/cheshire/cheshire/default/stoplists/basic.stoplist &lt;/stoplist&gt;</code>
+      <p>
+      <img src = "closed.gif"><b>indxkey</b><br>
+      This is where we specify which tags and attributes we want to process for this index. Each index can have multiple tag specifications to be included in it, which are recorded in a tagspec field, described below.
+      <p>
+      <img src = "closed.gif"><b>tagspec</b><br>
+      This field encloses a list of tags or attributes, which may be only one. This has good examples in the <a href = "docs/configfiles.html#Tag_Specifications">configfile</a> documentation as well, but will be explained here again.  All of the tagspec subfields may contain regular expressions, in the same manner as the 'grep' command. More about the regular expressions later. The names are not case sensitive, so subject will work the same as SUBJECT.
+    <p>
+      <img src = "closed.gif"><b>ftag</b><br>
+      The ftag field gives the base tag to look for. If you wanted to index the contents of the subject tag, then this would be:<br>
+      <code>&lt;ftag&gt; subject &lt;/ftag&gt;</code>
+    <p>
+      <img src = "closed.gif"><b>s</b><br>
+      By using the S tag, you can specify a subtag to index within the one given in ftag. So to index only the contents of the 'title' tags within a 'bibliography' tag, and no titles anywhere else:<br>
+      <code>&lt;ftag&gt; bibliography &lt;/ftag&gt; &lt;s&gt; title &lt;/s&gt; </code>
+    <p>
+      If S tags are repeated one after the other, then it will index all of the sub tags listed. To index title and article tags in the bibliography tag:<br>
+      <code>&lt;ftag&gt; bibliography &lt;/ftag&gt; &lt;s&gt; title &lt;/s&gt; &lt;s&gt; article &lt;/s&gt; </code>
+    <p>
+      If the S tags are nested, then you can specify multiple levels down to index. For example to index the surname tag, within the author tag, within bibliography:<br>
+      <code>&lt;ftag&gt; bibliography &lt;/ftag&gt; &lt;s&gt; author  &lt;s&gt; surname &lt;/s&gt; &lt;/s&gt; </code>
+    <p>
+      <img src = "closed.gif"><b>attr</b><br>
+      The attr tag allows us to index the contents of an attribute within a tag, rather than the main contents of the tag itself.  For example, to create an index of all the URLs stored in the HREF attribute of the A tags:<br>
+      <code>&lt;ftag&gt; a &lt;/ftag&gt; &lt;attr&gt; href &lt;/attr&gt; </code>      
+    <p>
+      <img src = "closed.gif"><b>value</b><br>
+      Used in combination with the attr tag above, the value tag implies: Index the contents of the given tag if the given attribute has this value.  The value tag goes inside the attr tag, or the S tag as described below, and applies only to this attribute or tag. So to index all of the red text in a manuscript, you might use something like:<br>
+      <code>&lt;ftag&gt; hand &lt;/ftag&gt; &lt;attr&gt; color &lt;value&gt; red &lt;/value&gt; &lt;/attr&gt; </code>
+    <p>
+      This can also be used in conjunction with the S tag, to index elements which have a subtag with the given value. To index the fld550 tag, if it contains a subtag called w with the contents of just 'g', we would use:<br>
+      <code>&lt;ftag&gt; fld550 &lt;/ftag&gt; &lt;s&gt; w &lt;value&gt; g &lt;/value&gt; &lt;/s&gt; </code>
+    <p>
+      <img src = "closed.gif"><i>Regular Expressions</i><br>
+      Rather than repeat documentation that's available everywhere, I'll only discuss regular expressions as they apply to Cheshire.
+    <p>
+      If there are no regular expression symbols in the tag name, then it will be treated as an exact match only. The A tags above would not match 'table' or 'clusmap'.
+    <p>
+      If regular expressions are used, then the tags should be anchored with the regexp indicators of beginning and end - ^ and $ respectively. Otherwise strange results may occur where the tag name occurs within another. This is especially true of short tags such as A from HTML or W from USMARC.
+    <p>
+      There are many examples of regular expressions in tags in the configfile documentation, as referenced above, but here's one quick example.  To index all the tags that start with 'fld5' followed by two further numbers (for USMARC in particular), we could use:<br>
+      <code>&lt;ftag&gt; ^fld5[0-9][0-9]$ &lt;/ftag&gt;</code>
+    <p>
+      Regular expressions are particularly useful in the value tag as they allow you to specify a broad possibility of choices. For example to index all the Anchor tags in HTML that have the HTTP protocol but none of the other possibilities we might use:<br>
+      <code>&lt;ftag&gt; ^a$ &lt;/ftag&gt; &lt;attr&gt; href &lt;value&gt; ^http://(.+)$ &lt;/value&gt; &lt;/attr&gt; </code>
+      <br>
+      Though note well that this would index the contents of the A tag, not the contents of the attribute!  Indexing the contents of an attribute that matches a regular expression cannot be done - simply index them all.
+    <p>
+      <hr>
+
+</body>
+</html>

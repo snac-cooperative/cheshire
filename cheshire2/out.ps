@@ -1,0 +1,1296 @@
+%!PS-Adobe-1.0
+%%Title: web_driver.c
+%%Creator: nenscript v1.13++ (US version) 24-November-1992
+%%For: ray
+%%CreationDate: Tue Aug  3 08:02:39 1999
+%%DocumentFonts: Times-Roman Times-Bold Helvetica-Bold Courier Courier-Bold 
+%%Pages: (atend)
+%%EndComments
+/newcodes	% foreign character encodings
+[
+160/space 161/exclamdown 162/cent 163/sterling 164/currency
+165/yen 166/brokenbar 167/section  168/dieresis 169/copyright
+170/ordfeminine 171/guillemotleft 172/logicalnot 173/hyphen 174/registered
+175/macron 176/degree 177/plusminus 178/twosuperior 179/threesuperior
+180/acute 181/mu 182/paragraph  183/periodcentered 184/cedilla
+185/onesuperior 186/ordmasculine 187/guillemotright 188/onequarter
+189/onehalf 190/threequarters 191/questiondown 192/Agrave 193/Aacute
+194/Acircumflex 195/Atilde 196/Adieresis 197/Aring 198/AE 199/Ccedilla
+200/Egrave 201/Eacute 202/Ecircumflex 203/Edieresis 204/Igrave  205/Iacute
+206/Icircumflex 207/Idieresis 208/Eth 209/Ntilde 210/Ograve 211/Oacute
+212/Ocircumflex 213/Otilde  214/Odieresis 215/multiply 216/Oslash
+217/Ugrave 218/Uacute 219/Ucircumflex 220/Udieresis 221/Yacute 222/Thorn
+223/germandbls 224/agrave 225/aacute 226/acircumflex 227/atilde
+228/adieresis 229/aring 230/ae 231/ccedilla  232/egrave 233/eacute
+234/ecircumflex 235/edieresis 236/igrave 237/iacute 238/icircumflex
+239/idieresis 240/eth 241/ntilde 242/ograve 243/oacute 244/ocircumflex
+245/otilde 246/odieresis 247/divide 248/oslash 249/ugrave  250/uacute
+251/ucircumflex 252/udieresis 253/yacute 254/thorn 255/ydieresis
+] def
+
+/reencdict 12 dict def
+
+
+
+    % change fonts using ISO Latin1 characters
+/ChgFnt		% size psname natname  =>  font
+{
+    dup FontDirectory exch known	% is re-encoded name known?
+    { exch pop }			% yes, get rid of long name
+    { dup 3 1 roll ReEncode } ifelse	% no, re-encode it
+    findfont exch scalefont setfont
+} def
+
+/ReEncode	%
+{
+    reencdict begin
+	/newname exch def
+	/basename exch def
+	/basedict basename findfont def
+	/newfont basedict maxlength dict def
+	basedict
+	{ exch dup /FID ne
+	    { dup /Encoding eq
+		{ exch dup length array copy newfont 3 1 roll put }
+		{ exch newfont 3 1 roll put } ifelse
+	    }
+	    { pop pop } ifelse
+	} forall
+	newfont /FontName newname put
+	newcodes aload pop newcodes length 2 idiv
+	{ newfont /Encoding get 3 1 roll put } repeat
+	newname newfont definefont pop
+    end
+} def
+
+1 100 div dup scale
+/#copies 1 def
+90 rotate 0 -61200 translate
+/BodyF { 700 /Courier /Courier-Latin1 ChgFnt } def
+/CW BodyF ( ) stringwidth pop def
+/Titlef {  1000 /Courier-Bold /Courier-Bold-Latin1 ChgFnt } def
+/Gpnf {  3600 /Helvetica-Bold /Helvetica-Bold-Latin1 ChgFnt } def
+/Gdatef { 1200 /Times-Bold /Times-Bold-Latin1 ChgFnt } def
+/Gtitlef { 1400 /Times-Roman /Times-Roman-Latin1 ChgFnt } def
+/K         { -2 CW mul add exch moveto (+) show } def
+/L         { CW mul add exch moveto show } def
+/T         { exch moveto show } def
+/M         { CW mul 0 rmoveto } def
+/Centre    { dup stringwidth pop 2 div neg 0 rmoveto } def
+/Gb        { newpath moveto 7200 0 rlineto 0 3600 rlineto -7200 0 rlineto fill } def
+/Gr        { newpath moveto 58700 0 rlineto 0 1800 rlineto -58700 0 rlineto fill } def
+/G         { 0.7 setgray 3600 55100 Gb 69500 55100 Gb 0.95 setgray 10800 55100 Gr } def
+/StartPage { /SavedPage save def
+  G
+  Gtitlef 40150 55730 moveto Centre 0 setgray show
+  Gpnf    73100 55640 moveto Centre 1 setgray show
+  Gdatef  7200 55700 moveto (08:02:39) Centre 0 setgray show
+                  7200 57380 moveto (Aug 03 99) Centre show
+  BodyF 0 setgray } def
+/EndPage   { 40150 53700 moveto 0 -51200 rlineto stroke showpage SavedPage restore } def
+%%EndProlog
+%%Page: 1 1
+(1) (web_driver.c) StartPage
+(/*) 53700 3600 T
+(*  Copyright \(c\) 1990-1999 [see Other Notes, below]. The Regents of the) 52930 3600 1 L
+(*  University of California \(Regents\). All Rights Reserved.) 52160 3600 1 L
+(*  ) 51390 3600 1 L
+(*  Permission to use, copy, modify, and distribute this software and its) 50620 3600 1 L
+(*  documentation for educational, research, and not-for-profit purposes,) 49850 3600 1 L
+(*  without fee and without a signed licensing agreement, is hereby) 49080 3600 1 L
+(*  granted, provided that the above copyright notice, this paragraph and) 48310 3600 1 L
+(*  the following two paragraphs appear in all copies, modifications, and) 47540 3600 1 L
+(*  distributions. Contact The Office of Technology Licensing, UC) 46770 3600 1 L
+(*  Berkeley, 2150 Shattuck Avenue, Suite 510, Berkeley, CA 94720-1620,) 46000 3600 1 L
+(*  \(510\) 643-7201, for commercial licensing opportunities. ) 45230 3600 1 L
+(*  ) 44460 3600 1 L
+(*  Created by Ray R. Larson, Aitao Chen, and Jerome McDonough, ) 43690 3600 1 L
+(*             School of Information Management and Systems, ) 42920 3600 1 L
+(*             University of California, Berkeley.) 42150 3600 1 L
+(*  ) 41380 3600 1 L
+(*    ) 40610 3600 1 L
+(*       IN NO EVENT SHALL REGENTS BE LIABLE TO ANY PARTY FOR DIRECT,) 39840 3600 1 L
+(*       INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,) 39070 3600 1 L
+(*       INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE) 38300 3600 1 L
+(*       AND ITS DOCUMENTATION, EVEN IF REGENTS HAS BEEN ADVISED OF THE) 37530 3600 1 L
+(*       POSSIBILITY OF SUCH DAMAGE. ) 36760 3600 1 L
+(*    ) 35990 3600 1 L
+(*       REGENTS SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT) 35220 3600 1 L
+(*       NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND) 34450 3600 1 L
+(*       FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE AND) 33680 3600 1 L
+(*       ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS) 32910 3600 1 L
+(*       PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE) 32140 3600 1 L
+(*       MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS. ) 31370 3600 1 L
+(*/) 30600 3600 1 L
+(/************************************************************************) 29830 3600 T
+(*) 29060 3600 T
+(*       Header Name:    se_web_driver.c) 28290 3600 T
+(*) 27520 3600 T
+(*       Programmer:     Ray Larson ) 26750 3600 T
+(*) 25980 3600 T
+(*       Purpose:        drive search engine as a cgi script) 25210 3600 T
+(*                      ) 24440 3600 T
+(*       Usage:          webcheshire searchkey) 23670 3600 T
+(*) 22900 3600 T
+(*       Variables:) 22130 3600 T
+(*) 21360 3600 T
+(*       Return Conditions and Return Codes:) 20590 3600 T
+(*) 19820 3600 T
+(*       Date:           11/1/96) 19050 3600 T
+(*       Revised:        ) 18280 3600 T
+(*       Version:        1.0) 17510 3600 T
+(*       Copyright \(c\) 1996.  The Regents of the University of California) 16740 3600 T
+(*               All Rights Reserved) 15970 3600 T
+(*) 15200 3600 T
+(************************************************************************/) 14430 3600 T
+(/* Z39.50 Library includes */) 13660 3600 T
+(#include "z3950_3.h") 12890 3600 T
+(#include "z_parameters.h") 12120 3600 T
+(#include "z3950_intern.h") 11350 3600 T
+(#define MAIN) 9810 3600 T
+(#include <cheshire.h>) 9040 3600 T
+(#include "z_parse.h") 7500 3600 T
+(#include "dispmarc.h") 5960 3600 T
+(#include <dmalloc.h>) 5190 3600 T
+(SGML_DTD *main_dtd = NULL;) 3650 3600 T
+(int last_rec_proc; /* used in indexing and parsing code */) 53700 41950 T
+(int web_cheshire_first_pass = 1;) 52930 41950 T
+(Tcl_HashTable *current_page_hash_table;) 51390 41950 T
+(/**** function prototypes ****/) 49850 41950 T
+(weighted_result *se_process_query\(char *, RPNQuery *\);) 49080 41950 T
+(weighted_result *se_pagemerge \(int num_items, weighted_result *inset1,) 48310 41950 T
+(weighted_result *inset2, Tcl_HashTable **ht\);) 47540 41950 32 L
+(weighted_result *se_andmerge \(weighted_result *inset1,) 46770 41950 T
+(weighted_result *inset2\);) 46000 41950 30 L
+(weighted_result *se_rank_docs\(weighted_result *inset\);) 45230 41950 T
+(weighted_result *se_get_page_docs\(weighted_result *final_set,) 44460 41950 T
+(Tcl_HashTable **current_page_hash_table,) 43690 41950 34 L
+(int flag\);) 42920 41950 34 L
+(char *se_get_result_filetag\(char *\);) 41380 41950 T
+(RPNQuery *queryparse\(char *query, char *attributeSetId\);) 39840 41950 T
+(/*****************************/) 37530 41950 T
+(int ) 35990 41950 T
+(Cheshire_CloseUp\(dummy, interp, argc, argv\)) 35220 41950 T
+(ClientData dummy;                   /* Current Session */) 34450 41950 4 L
+(Tcl_Interp *interp;                 /* Current interpreter. */) 33680 41950 4 L
+(int argc;                           /* Number of arguments. */) 32910 41950 4 L
+(char **argv;                        /* Argument strings. */) 32140 41950 4 L
+({) 31370 41950 T
+(extern SGML_Doclist  *PRS_first_doc;) 30600 41950 2 L
+(/* free all the outstanding docs  */) 29060 41950 2 L
+(free_doc_list\(PRS_first_doc\);) 28290 41950 2 L
+(/* free all the DTDs  */) 26750 41950 2 L
+(free_all_dtds\(\);) 25980 41950 2 L
+(cf_closeall\(\);) 24440 41950 2 L
+(return TCL_OK;) 22900 41950 2 L
+(}) 20590 41950 T
+(int) 19050 41950 T
+(Cheshire_Search\(dummy, interp, argc, argv\)) 18280 41950 T
+(ClientData dummy;                   /* Current Session */) 17510 41950 4 L
+(Tcl_Interp *interp;                 /* Current interpreter. */) 16740 41950 4 L
+(int argc;                           /* Number of arguments. */) 15970 41950 4 L
+(char **argv;                        /* Argument strings. */) 15200 41950 4 L
+({) 14430 41950 T
+(RPNQuery *RPN_Query_ptr;) 13660 41950 2 L
+(int i;                  /* loop counter */) 12890 41950 2 L
+(char *cf_name;          /* name of configuration file */) 11350 41950 2 L
+(char querystring[1000];       /* string to hold query */) 10580 41950 2 L
+(char *filename;) 9810 41950 2 L
+(char *attributeSetId;) 9040 41950 2 L
+(char *num_req_str, *num_start_str, *force_pagedoc;) 8270 41950 2 L
+(int num_request, num_start, num_end;) 7500 41950 2 L
+(int filetype;) 6730 41950 2 L
+(int set_number = 1;) 5960 41950 2 L
+(int recnum;) 5190 41950 2 L
+(char *result, *se_process_meta\(\);) 4420 41950 2 L
+(char *diagnostic_string\(\), *diagnostic_addinfo\(\);) 3650 41950 2 L
+(char resultswork[500];) 2880 41950 2 L
+EndPage
+%%Page: 2 2
+(2) (web_driver.c) StartPage
+(char *buffer;) 53700 3600 2 L
+(int resultlen;) 52930 3600 2 L
+(weighted_result *final_set;   /* result from query processing */) 52160 3600 2 L
+(weighted_result *page_final_result; /* forced pagedoc results */) 51390 3600 2 L
+(char *element_set_name;) 50620 3600 2 L
+(int element_set_spec;) 49850 3600 2 L
+(Tcl_HashEntry *entry;) 48310 3600 2 L
+(Tcl_HashSearch hash_search;) 47540 3600 2 L
+(struct pageitem {) 46000 3600 2 L
+(int pagenum;) 45230 3600 4 L
+(int setindex;) 44460 3600 4 L
+(int pageid;) 43690 3600 4 L
+(struct pageitem *next;) 42920 3600 4 L
+(} *lastpage, *page;) 42150 3600 2 L
+(struct docsum{) 40610 3600 2 L
+(int num_pages;) 39840 3600 4 L
+(float sum_wts;) 39070 3600 4 L
+(struct pageitem *page_ptr;) 38300 3600 4 L
+(struct pageitem *lastpage;) 37530 3600 4 L
+(} *doc_wts;) 36760 3600 2 L
+(FILE *dummy_file;) 35220 3600 2 L
+(int BADFLAG=0;) 34450 3600 2 L
+(LOGFILE = stdout;) 32140 3600 2 L
+(if \(argc < 2\) {) 30600 3600 2 L
+(Tcl_AppendResult\(interp, "wrong # args: should be \\"", argv[0],) 29830 3600 4 L
+(" indexname1 search_string1 <boolop> <indexname2>",) 29060 3600 23 L
+(" <search_string2> <boolop2> etc...\\"", \(char *\) NULL\);) 28290 3600 23 L
+(return TCL_ERROR;) 27520 3600 8 L
+(}) 26750 3600 6 L
+(if \(\(cf_name = Tcl_GetVar\(interp, "CHESHIRE_CONFIGFILE",) 24440 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 23670 3600 42 L
+(Tcl_AppendResult\(interp, "CHESHIRE_CONFIGFILE not set ", \(char *\) NULL\);) 22900 3600 4 L
+(return TCL_ERROR;) 22130 3600 4 L
+(}) 21360 3600 2 L
+(if \(\(filename = Tcl_GetVar\(interp, "CHESHIRE_DATABASE",) 19820 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 19050 3600 42 L
+(Tcl_AppendResult\(interp, "CHESHIRE_DATABASE not set ", \(char *\) NULL\);) 18280 3600 4 L
+(return TCL_ERROR;) 17510 3600 4 L
+(}) 16740 3600 2 L
+(if \(\(num_req_str = Tcl_GetVar\(interp, "CHESHIRE_NUMREQUESTED",) 14430 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 13660 3600 42 L
+(Tcl_AppendResult\(interp, "CHESHIRE_NUMREQUESTED not set ", \(char *\) NULL\);) 12890 3600 4 L
+(return TCL_ERROR;) 12120 3600 4 L
+(}) 11350 3600 2 L
+(if \(Tcl_GetInt\(interp, num_req_str, &num_request\) == TCL_ERROR\) {) 9810 3600 2 L
+(Tcl_AppendResult\(interp, "CHESHIRE_NUMREQUESTED not a number ", ) 9040 3600 4 L
+(\(char *\) NULL\);) 8270 3600 21 L
+(return TCL_ERROR;) 7500 3600 4 L
+(}      ) 6730 3600 2 L
+(force_pagedoc = Tcl_GetVar\(interp, "CHESHIRE_RETURN_PAGEDOCS",) 5190 3600 2 L
+(TCL_GLOBAL_ONLY \);) 4420 3600 29 L
+(if \(\(num_start_str = Tcl_GetVar\(interp, "CHESHIRE_NUM_START",) 53700 41950 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 52930 41950 42 L
+(num_start = 1;) 52160 41950 4 L
+(}) 51390 41950 2 L
+(else {) 50620 41950 2 L
+(if \(Tcl_GetInt\(interp, num_start_str, &num_start\) == TCL_ERROR\) {) 49850 41950 4 L
+(Tcl_AppendResult\(interp, "CHESHIRE_NUM_START not a number ", ) 49080 41950 6 L
+(\(char *\) NULL\);) 48310 41950 23 L
+(return TCL_ERROR;) 47540 41950 6 L
+(}    ) 46770 41950 4 L
+(}) 46000 41950 2 L
+(if \(\(element_set_name = Tcl_GetVar\(interp, "CHESHIRE_ELEMENTSET",) 44460 41950 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 43690 41950 42 L
+(element_set_name = "F"; /* default to full */) 42920 41950 4 L
+(element_set_spec = 0;) 42150 41950 4 L
+(}) 41380 41950 2 L
+(else) 40610 41950 2 L
+(element_set_spec = 1;) 39840 41950 4 L
+(if \(\(attributeSetId = Tcl_GetVar\(interp, "CHESHIRE_ATTRIBUTESET",) 38300 41950 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 37530 41950 42 L
+(attributeSetId = OID_BIB1; /* default to BIB-1 */) 36760 41950 4 L
+(}) 35990 41950 2 L
+(else { /* an attribute set -- but is it OK? */) 35220 41950 2 L
+(if \(strcasecmp\("BIB1",attributeSetId\) == 0 ) 34450 41950 4 L
+(|| strcasecmp\("BIB-1",attributeSetId\) == 0) 33680 41950 8 L
+(|| strcasecmp\(OID_BIB1,attributeSetId\) == 0\)) 32910 41950 8 L
+(attributeSetId = OID_BIB1;) 32140 41950 6 L
+(else if \(\(strcasecmp\("EXPLAIN1",attributeSetId\) == 0\)) 31370 41950 4 L
+(|| \(strcasecmp\("EXPLAIN",attributeSetId\) == 0\)) 30600 41950 13 L
+(|| \(strcasecmp\(OID_EXP1,attributeSetId\) == 0\)) 29830 41950 13 L
+(|| \(strcasecmp\("EXP1",attributeSetId\) == 0\)\)) 29060 41950 13 L
+(attributeSetId = OID_EXP1;) 28290 41950 6 L
+(else if \(\(strcasecmp\("EXTENDED",attributeSetId\) == 0\)) 27520 41950 4 L
+(|| \(strcasecmp\("EXT",attributeSetId\) == 0\)) 26750 41950 13 L
+(|| \(strcasecmp\(OID_EXP1,attributeSetId\) == 0\)) 25980 41950 13 L
+(|| \(strcasecmp\("EXT1",attributeSetId\) == 0\)\)) 25210 41950 13 L
+(attributeSetId = OID_EXT1;) 24440 41950 6 L
+(else if \(\(strcasecmp\("COMMAND",attributeSetId\) == 0\)) 23670 41950 4 L
+(|| \(strcasecmp\("COMMON",attributeSetId\) == 0\)) 22900 41950 13 L
+(|| \(strcasecmp\("CCL1",attributeSetId\) == 0\)) 22130 41950 13 L
+(|| \(strcasecmp\(OID_CCL1,attributeSetId\) == 0\)) 21360 41950 13 L
+(|| \(strcasecmp\("CCL",attributeSetId\) == 0\)\)) 20590 41950 13 L
+(attributeSetId = OID_CCL1;) 19820 41950 6 L
+(else if \(\(strcasecmp\("GILS",attributeSetId\) == 0\)) 19050 41950 4 L
+(|| \(strcasecmp\("GOVERNMENT",attributeSetId\) == 0\)) 18280 41950 13 L
+(|| \(strcasecmp\(OID_GILS,attributeSetId\) == 0\)) 17510 41950 13 L
+(|| \(strcasecmp\("GILS1",attributeSetId\) == 0\)\)) 16740 41950 13 L
+(attributeSetId = OID_GILS;) 15970 41950 6 L
+(else if \(\(strcasecmp\("STAS",attributeSetId\) == 0\)) 15200 41950 4 L
+(|| \(strcasecmp\("SCIENTIFIC",attributeSetId\) == 0\)) 14430 41950 13 L
+(|| \(strcasecmp\(OID_STAS,attributeSetId\) == 0\)) 13660 41950 13 L
+(|| \(strcasecmp\("STAS1",attributeSetId\) == 0\)\)) 12890 41950 13 L
+(attributeSetId = OID_STAS;) 12120 41950 6 L
+(else  /* default to BIB-1 if we can't recognize it */) 11350 41950 4 L
+(attributeSetId = OID_BIB1;) 10580 41950 6 L
+(}) 9810 41950 2 L
+(/* we will count records from 1 */) 7500 41950 2 L
+(if \(num_start == 0\) num_start = 1;) 6730 41950 2 L
+(/* if we got this far all the required global stuff is in place */) 4420 41950 2 L
+(/* so we can begin to process the query                         */) 3650 41950 2 L
+(if \(web_cheshire_first_pass\) {) 2880 41950 2 L
+EndPage
+%%Page: 3 3
+(3) (web_driver.c) StartPage
+(char *crflags, *opflags;) 53700 3600 4 L
+(#ifdef WIN32) 52930 3600 T
+(crflags = "rb";) 52160 3600 4 L
+(opflags = "rb";) 51390 3600 4 L
+(#else) 50620 3600 T
+(crflags = "r";) 49850 3600 4 L
+(opflags = "r";) 49080 3600 4 L
+(#endif) 48310 3600 T
+(cf_info_base = \(config_file_info *\) cf_initialize\(cf_name, ) 46770 3600 4 L
+(crflags, opflags\);) 46000 3600 54 L
+(/* to fully initialize things we need to open a particular database */) 45230 3600 4 L
+(dummy_file = cf_open\(filename, MAINFILE\);) 44460 3600 4 L
+(web_cheshire_first_pass = 0;) 43690 3600 4 L
+(}) 42920 3600 2 L
+(if \(cf_info_base == NULL\) {) 41380 3600 2 L
+(Tcl_AppendResult\(interp, "Error processing CHESHIRE_CONFIGFILE '", ) 40610 3600 4 L
+(cf_name, "'", \(char *\) NULL\);) 39840 3600 21 L
+(return TCL_ERROR;) 39070 3600 4 L
+(} ) 38300 3600 2 L
+(/* assemble all the parts of the query */) 36760 3600 2 L
+(querystring[0] = '\\0';) 35990 3600 2 L
+(for \(i=1; i<argc; i++\) {) 35220 3600 2 L
+(strcat\(querystring,argv[i]\);) 34450 3600 4 L
+(strcat\(querystring," "\);) 33680 3600 4 L
+(}) 32910 3600 2 L
+(RPN_Query_ptr = queryparse\(querystring, attributeSetId\);) 31370 3600 2 L
+(clean_up_query_parse\(\);  ) 29830 3600 2 L
+(if \(strcasecmp\(filename, "METADATA"\) == 0\) {) 28290 3600 2 L
+(Tcl_AppendElement\( interp, "Metadata Query"\);) 26750 3600 4 L
+(result = se_process_meta\(RPN_Query_ptr\);) 25980 3600 4 L
+(if \(result == NULL\) {) 25210 3600 4 L
+(int code;) 24440 3600 6 L
+(if \(code = diagnostic_get\(\)\) {) 23670 3600 6 L
+(sprintf\(resultswork, "Diagnostic code %d : %s : Addinfo = '%s'\\n",) 22900 3600 8 L
+(code,diagnostic_string\(code\), diagnostic_addinfo\(\)\);) 22130 3600 16 L
+(diagnostic_clear\(\);) 21360 3600 8 L
+(Tcl_AppendElement\( interp, resultswork\);        ) 20590 3600 8 L
+(}) 19820 3600 6 L
+(}) 19050 3600 4 L
+(else {) 18280 3600 4 L
+(/* must have it -- so print it */) 17510 3600 6 L
+(resultlen = strlen\(result\);) 15970 3600 6 L
+(if \(resultlen == 0\)) 15200 3600 6 L
+(Tcl_AppendElement\( interp,"No result-- must not be a clustered file"\);) 14430 3600 8 L
+(else) 13660 3600 6 L
+(Tcl_AppendElement\( interp, result\);) 12890 3600 8 L
+(}) 12120 3600 4 L
+(}) 11350 3600 2 L
+(else {) 10580 3600 2 L
+(/* actually process the query and retrieve the results */) 9810 3600 4 L
+(final_set = se_process_query\(filename, RPN_Query_ptr\);) 9040 3600 4 L
+(FreeRPNQuery\(RPN_Query_ptr\);) 7500 3600 4 L
+(if \(final_set != NULL\) {) 5960 3600 4 L
+(/* we won't store result sets in the web version... */) 4420 3600 6 L
+(/* if \(final_set->num_hits > 1\) {                   */) 3650 3600 6 L
+(/* char temp_input[80];                             */) 2880 3600 6 L
+(/*                                                  */    ) 53700 41950 6 L
+(/* sprintf\(result_set_name, "S%d", set_number++\);   */) 52930 41950 6 L
+(/*                                                  */) 52160 41950 6 L
+(/* if \(se_store_result_set\(final_set, result_set_name, filename, */) 51390 41950 6 L
+(/*                         "/tmp", 1\) */) 50620 41950 6 L
+(/*    == FAIL\) {                                    */) 49850 41950 6 L
+(/*                                                  */) 49080 41950 6 L
+(/*  set_number--;                                   */) 48310 41950 6 L
+(/* }                                                */) 47540 41950 6 L
+(if \(final_set->num_hits == 0\) { /* No hits */) 46000 41950 6 L
+(int code;) 45230 41950 8 L
+(sprintf\( resultswork, "{Hits 0} {Returning 0} {Start 0}"\);) 44460 41950 8 L
+(Tcl_AppendElement\( interp, resultswork \);) 43690 41950 8 L
+(if \(code = diagnostic_get\(\)\) {) 42920 41950 8 L
+(sprintf\(resultswork, "Diagnostic code %d : %s : Addinfo = '%s'\\n",) 42150 41950 10 L
+(code,diagnostic_string\(code\), diagnostic_addinfo\(\)\);) 41380 41950 18 L
+(diagnostic_clear\(\);) 40610 41950 10 L
+(Tcl_AppendElement\( interp, resultswork \);) 39840 41950 10 L
+(}) 39070 41950 8 L
+(Tcl_AppendElement\( interp, "No matching records found" \);) 38300 41950 8 L
+(FREE\(final_set\);) 37530 41950 8 L
+(return TCL_OK;) 36760 41950 8 L
+(}) 35990 41950 6 L
+(/* One or more hits */) 34450 41950 6 L
+(if \(\(num_request + \(num_start-1\)\) > final_set->num_hits\)) 33680 41950 6 L
+(num_end = final_set->num_hits;) 32910 41950 8 L
+(else) 32140 41950 6 L
+(num_end = \(num_start-1\) + num_request;) 31370 41950 8 L
+(if \(\(num_request = num_end - \(num_start-1\)\) == 0\)) 29830 41950 6 L
+(num_request = 1;) 29060 41950 8 L
+(if \(num_request < 0\) {) 27520 41950 6 L
+(num_start = 1;) 26750 41950 8 L
+(num_request = 0;) 25980 41950 8 L
+(}) 25210 41950 6 L
+(if \(\(final_set->result_type & PAGED_RESULT\) ) 23670 41950 6 L
+(&& \(force_pagedoc == NULL\)\) {) 22900 41950 10 L
+(sprintf\(resultswork, "{PAGEHits %d} {Returning %d} {Start %d}",) 21360 41950 8 L
+(final_set->num_hits, num_request, num_start\); ) 20590 41950 16 L
+(Tcl_AppendElement\(interp, resultswork\);) 19820 41950 8 L
+(for\(i=\(num_start-1\);i<num_end; i++\) {) 17510 41950 8 L
+(char *pseudo_doc, *se_pseudo_doc\(\);) 16740 41950 10 L
+(pseudo_doc = se_pseudo_doc\(i, final_set\);) 15970 41950 10 L
+(Tcl_AppendElement\(interp, pseudo_doc\);) 15200 41950 10 L
+(if \(pseudo_doc\) FREE\(pseudo_doc\);) 14430 41950 10 L
+(}) 13660 41950 8 L
+(} else if \(final_set->result_type & PAGED_RESULT \) {) 12890 41950 6 L
+(page_final_result = se_get_page_docs\(final_set, ) 11350 41950 8 L
+(&current_page_hash_table,) 10580 41950 45 L
+(1\);) 9810 41950 45 L
+(FREE\(final_set\);) 9040 41950 8 L
+(final_set = se_rank_docs\(page_final_result\);) 8270 41950 8 L
+(page_final_result->result_type |= PAGED_DOC_RESULT;) 7500 41950 8 L
+(}) 6730 41950 6 L
+(if \(final_set->result_type & PAGED_DOC_RESULT\) {) 5190 41950 6 L
+(sprintf\(resultswork, "{PageDocHits %d} {Returning %d} {Start %d}",) 3650 41950 8 L
+(final_set->num_hits, num_request, num_start\); ) 2880 41950 16 L
+EndPage
+%%Page: 4 4
+(4) (web_driver.c) StartPage
+(Tcl_AppendElement\(interp, resultswork\);) 53700 3600 8 L
+(for\(i=\(num_start-1\);i<num_end;i++\) {) 52160 3600 8 L
+(char *doc, *GetRawSGML\(\);) 51390 3600 10 L
+(recnum =  final_set->entries[i].record_num;) 49850 3600 10 L
+(doc = GetRawSGML\(filename, recnum\);) 48310 3600 10 L
+(/* Add the final rank and the raw document to the results */) 46770 3600 10 L
+(if \(doc\) {) 46000 3600 10 L
+(buffer = CALLOC\(char, strlen\(doc\)+100\);) 45230 3600 12 L
+(sprintf \(buffer, "%f {%s} {", final_set->entries[i].weight, ) 43690 3600 12 L
+(doc\);) 42920 3600 21 L
+(/* get the page hash info for final_set1 */) 41380 3600 12 L
+(entry = Tcl_FindHashEntry\(current_page_hash_table, ) 40610 3600 12 L
+(\(void *\)recnum\);    ) 39840 3600 38 L
+(if \(entry == NULL\) {) 39070 3600 12 L
+(/* there are no page hits for this doc */) 38300 3600 14 L
+(strcat\(buffer, "}"\);) 37530 3600 14 L
+(}) 36760 3600 12 L
+(else {) 35990 3600 12 L
+(doc_wts = \(struct docsum *\) Tcl_GetHashValue\(entry\);) 35220 3600 14 L
+(buffer = REALLOC\(buffer, char, strlen\(buffer\) + 10000\); /* overkill?) 34450 3600 14 L
+33680 3600 K (*/) 33680 3600 T
+(/* we won't include weights for this type of search */) 32910 3600 14 L
+(for \(page = doc_wts->page_ptr; page != NULL; page = page->next\) {) 32140 3600 14 L
+(sprintf\(resultswork, "%d ", page->pagenum\);) 31370 3600 16 L
+(strcat\(buffer, resultswork\);) 30600 3600 16 L
+(}) 29830 3600 14 L
+(buffer[strlen\(buffer\)-1] = '}'; ) 29060 3600 14 L
+(}) 28290 3600 12 L
+(}) 27520 3600 10 L
+(/* free up the document, should be finished with it */) 26750 3600 10 L
+(FREE\(doc\);) 25980 3600 10 L
+(/* add to the return set */) 24440 3600 10 L
+(Tcl_AppendElement\(interp, buffer\);) 23670 3600 10 L
+(FREE\(buffer\);) 22900 3600 10 L
+(}) 22130 3600 8 L
+(}) 19820 3600 6 L
+(else {) 19050 3600 6 L
+(sprintf\(resultswork, "{Hits %d} {Returning %d} {Start %d}",) 18280 3600 8 L
+(final_set->num_hits, num_request, num_start\); ) 17510 3600 16 L
+(Tcl_AppendElement\(interp, resultswork\);) 16740 3600 8 L
+(filetype = cf_getfiletype\(filename\);) 15200 3600 8 L
+(for\(i=\(num_start-1\);i<num_end;i++\) {) 13660 3600 8 L
+(if \(filetype == FILE_TYPE_MARCFILE ) 12120 3600 10 L
+(|| filetype == FILE_TYPE_SGMLFILE) 11350 3600 14 L
+(|| filetype == FILE_TYPE_CLUSTER\) { ) 10580 3600 14 L
+(char *doc, *GetRawSGML\(\);) 9810 3600 12 L
+(if \(element_set_spec == 0\) {) 8270 3600 12 L
+(doc = GetRawSGML\(filename, final_set->entries[i].record_num\);) 7500 3600 14 L
+(/* just append the raw document to the results */) 6730 3600 14 L
+(if \(doc\) ) 5960 3600 14 L
+(Tcl_AppendElement\(interp, doc\);) 5190 3600 16 L
+(} ) 4420 3600 12 L
+(else { /* There is a specified elementsetname */) 3650 3600 12 L
+(SGML_Document *doc, *GetSGML\(\);) 2880 3600 14 L
+(char *buf = NULL;) 53700 41950 14 L
+(doc = GetSGML\(filename, final_set->entries[i].record_num\);) 52160 41950 14 L
+(if \(doc\) {) 50620 41950 14 L
+(displayrec\(doc, &buf, 2000000,) 49850 41950 16 L
+(element_set_name,) 49080 41950 27 L
+(NULL,) 48310 41950 27 L
+(filename, NULL, &buf\);) 47540 41950 27 L
+(/* either outptr or buffer will be filled with the results */) 46770 41950 16 L
+(/* and both are referenced by buf                          */) 46000 41950 16 L
+(Tcl_AppendElement\(interp, buf\);) 45230 41950 16 L
+(if \(buf\) FREE\(buf\);) 44460 41950 16 L
+(}) 43690 41950 14 L
+(}) 42920 41950 12 L
+(}) 42150 41950 10 L
+(}  ) 41380 41950 8 L
+(}) 40610 41950 6 L
+(}) 39840 41950 4 L
+(else { /* NULL final-set from search */) 39070 41950 4 L
+(sprintf\( resultswork, "{Hits 0} {Returning 0} {NO SUCH INDEX?}"\);) 38300 41950 6 L
+(Tcl_AppendElement\( interp, resultswork \);) 37530 41950 6 L
+(}) 36760 41950 4 L
+(}) 35990 41950 2 L
+(return TCL_OK;) 34450 41950 2 L
+(}) 32910 41950 T
+(/* TileBar_Search implements a search for two sets of  concepts/terms */) 30600 41950 T
+(/* from a paged index                                                 */) 29830 41950 T
+(/* these are then returned as a Tcl list in a format for presentation */) 29060 41950 T
+(/* via the DLIB java client                                           */) 28290 41950 T
+(int) 27520 41950 T
+(TileBar_Search\(dummy, interp, argc, argv\)) 26750 41950 T
+(ClientData dummy;                   /* Current Session */) 25980 41950 4 L
+(Tcl_Interp *interp;                 /* Current interpreter. */) 25210 41950 4 L
+(int argc;                           /* Number of arguments. */) 24440 41950 4 L
+(char **argv;                        /* Argument strings. */) 23670 41950 4 L
+({) 22900 41950 T
+(RPNQuery *RPN_Query_ptr1, *RPN_Query_ptr2, *RPN_Query_ptr3;) 22130 41950 2 L
+(int i;                  /* loop counter */) 20590 41950 2 L
+(char *cf_name;          /* name of configuration file */) 19050 41950 2 L
+(char querystring1[1000];      /* string to hold query */) 18280 41950 2 L
+(char querystring2[1000];      /* string to hold query */) 17510 41950 2 L
+(char elib_id[100];    /* string to hold query */) 16740 41950 2 L
+(char *filename;) 15970 41950 2 L
+(char *attributeSetId;) 15200 41950 2 L
+(char *num_req_str, *num_start_str;) 14430 41950 2 L
+(int num_request, num_start, num_end, recnum;) 13660 41950 2 L
+(int filetype;) 12890 41950 2 L
+(int set_number = 1;) 12120 41950 2 L
+(char *result, *se_process_meta\(\);) 11350 41950 2 L
+(char *diagnostic_string\(\), *diagnostic_addinfo\(\);) 10580 41950 2 L
+(char resultswork[500];) 9810 41950 2 L
+(char *buffer;) 9040 41950 2 L
+(int resultlen;) 8270 41950 2 L
+(FILE *dummy_file;) 6730 41950 2 L
+(int BADFLAG=0;) 5960 41950 2 L
+(/* results from query processing */) 4420 41950 2 L
+(weighted_result *concept_set1, *concept_set2; ) 3650 41950 2 L
+(weighted_result *merged_doc_set, *elib_id_set;) 2880 41950 2 L
+EndPage
+%%Page: 5 5
+(5) (web_driver.c) StartPage
+(Tcl_HashTable *mergehashtab = NULL;) 52930 3600 2 L
+(Tcl_HashEntry *entry;) 52160 3600 2 L
+(Tcl_HashSearch hash_search;) 51390 3600 2 L
+(struct pageitem {) 49850 3600 2 L
+(int pagenum;) 49080 3600 4 L
+(int setindex;) 48310 3600 4 L
+(int pageid;) 47540 3600 4 L
+(struct pageitem *next;) 46770 3600 4 L
+(} *lastpage, *page;) 46000 3600 2 L
+(struct docsum{) 44460 3600 2 L
+(int num_pages;) 43690 3600 4 L
+(float sum_wts;) 42920 3600 4 L
+(struct pageitem *page_ptr;) 42150 3600 4 L
+(struct pageitem *lastpage;) 41380 3600 4 L
+(} *doc_wts;) 40610 3600 2 L
+(LOGFILE = stdout;) 38300 3600 2 L
+(if \(argc < 4 || argc > 5\) {) 36760 3600 2 L
+(Tcl_AppendResult\(interp, "wrong # args: should be \\"", argv[0],) 35990 3600 4 L
+("index_name {concept1 terms} {concept2 terms} {elib_id}\\n", ) 35220 3600 21 L
+(\(char *\) NULL\);) 34450 3600 21 L
+(return TCL_ERROR;) 33680 3600 4 L
+(}) 32910 3600 2 L
+(if \(\(cf_name = Tcl_GetVar\(interp, "CHESHIRE_CONFIGFILE",) 31370 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 30600 3600 42 L
+(Tcl_AppendResult\(interp, "CHESHIRE_CONFIGFILE not set ", \(char *\) NULL\);) 29830 3600 4 L
+(return TCL_ERROR;) 29060 3600 4 L
+(}) 28290 3600 2 L
+(if \(\(filename = Tcl_GetVar\(interp, "CHESHIRE_DATABASE",) 26750 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 25980 3600 42 L
+(Tcl_AppendResult\(interp, "CHESHIRE_DATABASE not set ", \(char *\) NULL\);) 25210 3600 4 L
+(return TCL_ERROR;) 24440 3600 4 L
+(}) 23670 3600 2 L
+(if \(\(num_req_str = Tcl_GetVar\(interp, "CHESHIRE_NUMREQUESTED",) 22130 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 21360 3600 42 L
+(Tcl_AppendResult\(interp, "CHESHIRE_NUMREQUESTED not set ", \(char *\) NULL\);) 20590 3600 4 L
+(return TCL_ERROR;) 19820 3600 4 L
+(}) 19050 3600 2 L
+(if \(Tcl_GetInt\(interp, num_req_str, &num_request\) == TCL_ERROR\) {) 17510 3600 2 L
+(Tcl_AppendResult\(interp, "CHESHIRE_NUMREQUESTED not a number ", ) 16740 3600 4 L
+(\(char *\) NULL\);) 15970 3600 21 L
+(return TCL_ERROR;) 15200 3600 4 L
+(}      ) 14430 3600 2 L
+(if \(\(num_start_str = Tcl_GetVar\(interp, "CHESHIRE_NUM_START",) 12890 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 12120 3600 42 L
+(num_start = 1;) 11350 3600 4 L
+(}) 10580 3600 2 L
+(else {) 9810 3600 2 L
+(if \(Tcl_GetInt\(interp, num_start_str, &num_start\) == TCL_ERROR\) {) 9040 3600 4 L
+(Tcl_AppendResult\(interp, "CHESHIRE_NUM_START not a number ", ) 8270 3600 6 L
+(\(char *\) NULL\);) 7500 3600 23 L
+(return TCL_ERROR;) 6730 3600 6 L
+(}    ) 5960 3600 4 L
+(}) 5190 3600 2 L
+(if \(\(attributeSetId = Tcl_GetVar\(interp, "CHESHIRE_ATTRIBUTESET",) 3650 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 2880 3600 42 L
+(attributeSetId = OID_BIB1;) 53700 41950 4 L
+(}) 52930 41950 2 L
+(else { /* an attribute set -- but is it OK? */) 52160 41950 2 L
+(if \(strcasecmp\("BIB1",attributeSetId\) == 0 ) 51390 41950 4 L
+(|| strcasecmp\("BIB-1",attributeSetId\) == 0) 50620 41950 8 L
+(|| strcasecmp\(OID_BIB1,attributeSetId\) == 0\)) 49850 41950 8 L
+(attributeSetId = OID_BIB1;) 49080 41950 6 L
+(else if \(\(strcasecmp\("EXPLAIN1",attributeSetId\) == 0\)) 48310 41950 4 L
+(|| \(strcasecmp\("EXPLAIN",attributeSetId\) == 0\)) 47540 41950 13 L
+(|| \(strcasecmp\(OID_EXP1,attributeSetId\) == 0\)) 46770 41950 13 L
+(|| \(strcasecmp\("EXP1",attributeSetId\) == 0\)\)) 46000 41950 13 L
+(attributeSetId = OID_EXP1;) 45230 41950 6 L
+(else if \(\(strcasecmp\("EXTENDED",attributeSetId\) == 0\)) 44460 41950 4 L
+(|| \(strcasecmp\("EXT",attributeSetId\) == 0\)) 43690 41950 13 L
+(|| \(strcasecmp\(OID_EXP1,attributeSetId\) == 0\)) 42920 41950 13 L
+(|| \(strcasecmp\("EXT1",attributeSetId\) == 0\)\)) 42150 41950 13 L
+(attributeSetId = OID_EXT1;) 41380 41950 6 L
+(else if \(\(strcasecmp\("COMMAND",attributeSetId\) == 0\)) 40610 41950 4 L
+(|| \(strcasecmp\("COMMON",attributeSetId\) == 0\)) 39840 41950 13 L
+(|| \(strcasecmp\("CCL1",attributeSetId\) == 0\)) 39070 41950 13 L
+(|| \(strcasecmp\(OID_CCL1,attributeSetId\) == 0\)) 38300 41950 13 L
+(|| \(strcasecmp\("CCL",attributeSetId\) == 0\)\)) 37530 41950 13 L
+(attributeSetId = OID_CCL1;) 36760 41950 6 L
+(else if \(\(strcasecmp\("GILS",attributeSetId\) == 0\)) 35990 41950 4 L
+(|| \(strcasecmp\("GOVERNMENT",attributeSetId\) == 0\)) 35220 41950 13 L
+(|| \(strcasecmp\(OID_GILS,attributeSetId\) == 0\)) 34450 41950 13 L
+(|| \(strcasecmp\("GILS1",attributeSetId\) == 0\)\)) 33680 41950 13 L
+(attributeSetId = OID_GILS;) 32910 41950 6 L
+(else if \(\(strcasecmp\("STAS",attributeSetId\) == 0\)) 32140 41950 4 L
+(|| \(strcasecmp\("SCIENTIFIC",attributeSetId\) == 0\)) 31370 41950 13 L
+(|| \(strcasecmp\(OID_STAS,attributeSetId\) == 0\)) 30600 41950 13 L
+(|| \(strcasecmp\("STAS1",attributeSetId\) == 0\)\)) 29830 41950 13 L
+(attributeSetId = OID_STAS;) 29060 41950 6 L
+(else  /* default to BIB-1 if we can't recognize it */) 28290 41950 4 L
+(attributeSetId = OID_BIB1;) 27520 41950 6 L
+(}) 26750 41950 2 L
+(/* we will count records from 1 */) 25210 41950 2 L
+(if \(num_start == 0\) num_start = 1;) 24440 41950 2 L
+(/* if we got this far all the required global stuff is in place */) 22900 41950 2 L
+(/* so we can begin to process the query                         */) 22130 41950 2 L
+(if \(web_cheshire_first_pass\) {) 21360 41950 2 L
+(char *crflags, *opflags;) 20590 41950 4 L
+(#ifdef WIN32) 19820 41950 T
+(crflags = "rb";) 19050 41950 4 L
+(opflags = "rb";) 18280 41950 4 L
+(#else) 17510 41950 T
+(crflags = "r";) 16740 41950 4 L
+(opflags = "r";) 15970 41950 4 L
+(#endif) 15200 41950 T
+(cf_info_base = \(config_file_info *\) cf_initialize\(cf_name,) 13660 41950 4 L
+(crflags, opflags\);) 12890 41950 54 L
+(/* to fully initialize things we need to open a particular database */) 12120 41950 4 L
+(dummy_file = cf_open\(filename, MAINFILE\);) 11350 41950 4 L
+(web_cheshire_first_pass = 0;) 10580 41950 4 L
+(}) 9810 41950 2 L
+(if \(cf_info_base == NULL\) {) 8270 41950 2 L
+(Tcl_AppendResult\(interp, "Error processing CHESHIRE_CONFIGFILE '", ) 7500 41950 4 L
+(cf_name, "'", \(char *\) NULL\);) 6730 41950 21 L
+(return TCL_ERROR;) 5960 41950 4 L
+(} ) 5190 41950 2 L
+(elib_id_set = NULL;) 3650 41950 2 L
+EndPage
+%%Page: 6 6
+(6) (web_driver.c) StartPage
+(/* assemble all the parts of the query         */) 53700 3600 2 L
+(/* the concept strings are bracketed so that   */) 52930 3600 2 L
+(/* boolean ops are treated as stopwords        */) 52160 3600 2 L
+(querystring1[0] = '\\0';) 51390 3600 2 L
+(strcat\(querystring1, argv[1]\); /* argv[1] should be the index to use */) 50620 3600 2 L
+(strcat\(querystring1," @ {"\);) 49850 3600 2 L
+(strcat\(querystring1, argv[2]\);) 49080 3600 2 L
+(strcat\(querystring1, "}"\);) 48310 3600 2 L
+(RPN_Query_ptr1 = queryparse\(querystring1, attributeSetId\);) 47540 3600 2 L
+(clean_up_query_parse\(\);  ) 46770 3600 2 L
+(querystring2[0] = '\\0';) 45230 3600 2 L
+(strcat\(querystring2, argv[1]\); /* argv[1] should be the index to use */) 44460 3600 2 L
+(strcat\(querystring2," @ {"\);) 43690 3600 2 L
+(strcat\(querystring2, argv[3]\);) 42920 3600 2 L
+(strcat\(querystring2, "}"\);) 42150 3600 2 L
+(RPN_Query_ptr2 = queryparse\(querystring2, attributeSetId\);) 41380 3600 2 L
+(clean_up_query_parse\(\);  ) 40610 3600 2 L
+(if \(argc == 5\) {) 39070 3600 2 L
+(elib_id[0] = '\\0';) 38300 3600 4 L
+(strcat\(elib_id, "localnum "\);) 37530 3600 4 L
+(strcat\(elib_id, argv[4]\);) 36760 3600 4 L
+(RPN_Query_ptr3 = queryparse\(elib_id, attributeSetId\);) 35990 3600 4 L
+(clean_up_query_parse\(\);  ) 35220 3600 4 L
+(}) 33680 3600 2 L
+(/* actually process the queries and retrieve the results */) 31370 3600 3 L
+(concept_set1 = se_process_query\(filename, RPN_Query_ptr1\);) 30600 3600 2 L
+(FreeRPNQuery\(RPN_Query_ptr1\);) 29830 3600 2 L
+(concept_set2 = se_process_query\(filename, RPN_Query_ptr2\);) 29060 3600 2 L
+(FreeRPNQuery\(RPN_Query_ptr2\);) 28290 3600 2 L
+(if \(argc == 5\) {) 26750 3600 2 L
+(elib_id_set = se_process_query\(filename, RPN_Query_ptr3\);) 25980 3600 4 L
+(FreeRPNQuery\(RPN_Query_ptr3\);) 25210 3600 4 L
+(if \(elib_id_set == NULL || elib_id_set->num_hits == 0\) {) 24440 3600 4 L
+(int code;) 23670 3600 6 L
+(sprintf\( resultswork, "{TBHits 0} {Returning 0} {Start 0}"\);) 22900 3600 6 L
+(Tcl_AppendElement\( interp, resultswork \);) 22130 3600 6 L
+(if \(code = diagnostic_get\(\)\) {) 21360 3600 6 L
+(sprintf\(resultswork, "Diagnostic code %d : %s : Addinfo = '%s'\\n",) 20590 3600 8 L
+(code,diagnostic_string\(code\), diagnostic_addinfo\(\)\);) 19820 3600 16 L
+(diagnostic_clear\(\);) 19050 3600 8 L
+(Tcl_AppendElement\( interp, resultswork \);) 18280 3600 8 L
+(}) 17510 3600 6 L
+(if \(elib_id_set->num_hits == 0\) {) 16740 3600 6 L
+(sprintf\(resultswork, "No matching records found for Elib ID %s",) 15970 3600 8 L
+(argv[4]\);) 15200 3600 16 L
+(Tcl_AppendElement\( interp, resultswork\);) 14430 3600 8 L
+(}) 13660 3600 6 L
+(FREE\(concept_set1\);) 12890 3600 6 L
+(FREE\(concept_set2\);) 12120 3600 6 L
+(FREE\(elib_id_set\);) 11350 3600 6 L
+(return TCL_ERROR;) 10580 3600 6 L
+(}) 9810 3600 4 L
+(}) 9040 3600 2 L
+(if \(concept_set1 != NULL && concept_set2 != NULL\) {) 7500 3600 2 L
+(if \(\(concept_set1->result_type & PAGED_RESULT\) != PAGED_RESULT) 5960 3600 4 L
+(|| \(concept_set2->result_type & PAGED_RESULT\) != PAGED_RESULT\) {) 5190 3600 8 L
+(Tcl_AppendResult\(interp, "Index didn't return PAGES ",) 4420 3600 6 L
+(\(char *\) NULL\);) 3650 3600 23 L
+(FREE\(concept_set1\);) 2880 3600 6 L
+(FREE\(concept_set2\);) 53700 41950 6 L
+(return TCL_ERROR;) 52930 41950 6 L
+(}) 52160 41950 4 L
+(if \(concept_set1->num_hits == 0) 50620 41950 4 L
+(|| concept_set2->num_hits == 0\) { /* No hits */) 49850 41950 8 L
+(int code;) 49080 41950 6 L
+(sprintf\( resultswork, "{TBHits 0} {Returning 0} {Start 0}"\);) 48310 41950 6 L
+(Tcl_AppendElement\( interp, resultswork \);) 47540 41950 6 L
+(if \(code = diagnostic_get\(\)\) {) 46770 41950 6 L
+(sprintf\(resultswork, "Diagnostic code %d : %s : Addinfo = '%s'\\n",) 46000 41950 8 L
+(code,diagnostic_string\(code\), diagnostic_addinfo\(\)\);) 45230 41950 16 L
+(diagnostic_clear\(\);) 44460 41950 8 L
+(Tcl_AppendElement\( interp, resultswork \);) 43690 41950 8 L
+(}) 42920 41950 6 L
+(if \(concept_set1->num_hits == 0\)) 41380 41950 6 L
+(Tcl_AppendElement\( interp, "No matching records found for concept 1" \);) 40610 41950 8 L
+(if \(concept_set2->num_hits == 0\)) 39840 41950 6 L
+(Tcl_AppendElement\( interp, "No matching records found for concept 2" \);) 39070 41950 8 L
+(FREE\(concept_set1\);) 38300 41950 6 L
+(FREE\(concept_set2\);) 37530 41950 6 L
+(return TCL_OK;) 36760 41950 6 L
+(}) 35990 41950 4 L
+(merged_doc_set = se_pagemerge\( num_request, concept_set1, ) 34450 41950 4 L
+(concept_set2, &mergehashtab\);) 33680 41950 35 L
+(if \(elib_id_set != NULL\) { /* restrict to the elib id */) 31370 41950 4 L
+(merged_doc_set = se_andmerge\(merged_doc_set, elib_id_set\);) 30600 41950 6 L
+(}) 29830 41950 4 L
+(if \(merged_doc_set == NULL\) { /* No pages with both concepts */) 28290 41950 4 L
+(int code;) 27520 41950 6 L
+(sprintf\( resultswork, "{TBHits 0} {Returning 0} {Start 0}"\);) 26750 41950 6 L
+(Tcl_AppendElement\( interp, resultswork \);) 25980 41950 6 L
+(if \(code = diagnostic_get\(\)\) {) 25210 41950 6 L
+(sprintf\(resultswork, "Diagnostic code %d : %s : Addinfo = '%s'\\n",) 24440 41950 8 L
+(code,diagnostic_string\(code\), diagnostic_addinfo\(\)\);) 23670 41950 16 L
+(diagnostic_clear\(\);) 22900 41950 8 L
+(Tcl_AppendElement\( interp, resultswork \);) 22130 41950 8 L
+(}) 21360 41950 6 L
+(Tcl_AppendElement\( interp, ) 20590 41950 6 L
+("No pages containing both concepts" \);) 19820 41950 24 L
+(FREE\(concept_set1\);) 19050 41950 6 L
+(FREE\(concept_set2\);) 18280 41950 6 L
+(free_page_hash_tab\(mergehashtab\);) 17510 41950 6 L
+(return TCL_OK;) 16740 41950 6 L
+(}) 15970 41950 4 L
+(if \(merged_doc_set->num_hits == 0\) { /* No hits */) 14430 41950 4 L
+(int code;) 13660 41950 6 L
+(sprintf\( resultswork, "{TBHits 0} {Returning 0} {Start 0}"\);) 12890 41950 6 L
+(Tcl_AppendElement\( interp, resultswork \);) 12120 41950 6 L
+(if \(code = diagnostic_get\(\)\) {) 11350 41950 6 L
+(sprintf\(resultswork, "Diagnostic code %d : %s : Addinfo = '%s'\\n",) 10580 41950 8 L
+(code,diagnostic_string\(code\), diagnostic_addinfo\(\)\);) 9810 41950 16 L
+(diagnostic_clear\(\);) 9040 41950 8 L
+(Tcl_AppendElement\( interp, resultswork \);) 8270 41950 8 L
+(}) 7500 41950 6 L
+(Tcl_AppendElement\( interp, ) 6730 41950 6 L
+("No matching records containing both concepts" \);) 5960 41950 24 L
+(FREE\(concept_set1\);) 5190 41950 6 L
+(FREE\(concept_set2\);) 4420 41950 6 L
+(free_page_hash_tab\(mergehashtab\);) 3650 41950 6 L
+(return TCL_OK;) 2880 41950 6 L
+EndPage
+%%Page: 7 7
+(7) (web_driver.c) StartPage
+(}) 53700 3600 4 L
+(/* One or more hits */) 51390 3600 4 L
+(if \(\(num_request + \(num_start-1\)\) > merged_doc_set->num_hits\)) 50620 3600 4 L
+(num_end = merged_doc_set->num_hits;) 49850 3600 6 L
+(else) 49080 3600 4 L
+(num_end = \(num_start-1\) + num_request;) 48310 3600 6 L
+(if \(\(num_request = num_end - \(num_start-1\)\) == 0\)) 46770 3600 4 L
+(num_request = 1;) 46000 3600 6 L
+(if \(num_request < 0\) {) 44460 3600 4 L
+(num_start = 1;) 43690 3600 6 L
+(num_request = 0;) 42920 3600 6 L
+(}) 42150 3600 4 L
+(sprintf\(resultswork, "{TBHits %d} {Returning %d} {Start %d}",) 40610 3600 4 L
+(merged_doc_set->num_hits, num_request, num_start\); ) 39840 3600 12 L
+(Tcl_AppendElement\(interp, resultswork\);) 39070 3600 4 L
+(for\(i=\(num_start-1\);i<num_end;i++\) {) 37530 3600 4 L
+(char *doc, *GetRawSGML\(\);) 36760 3600 6 L
+(recnum =  merged_doc_set->entries[i].record_num;) 35220 3600 6 L
+(doc = GetRawSGML\(filename, recnum\);) 33680 3600 6 L
+(/* just append the raw document to the results */) 32140 3600 6 L
+(if \(doc\) {) 31370 3600 6 L
+(buffer = CALLOC\(char, strlen\(doc\)+100\);) 30600 3600 8 L
+(sprintf \(buffer, "%f {%s} {", merged_doc_set->entries[i].weight, ) 29830 3600 8 L
+(doc\);) 29060 3600 17 L
+(/* get the page hash info for docs */) 27520 3600 8 L
+(entry = Tcl_FindHashEntry\(mergehashtab, \(void *\)recnum\);    ) 26750 3600 8 L
+(if \(entry == NULL\) {) 25980 3600 8 L
+(/* there are no page hits for this doc */) 25210 3600 10 L
+(strcat\(buffer, "} {}"\);) 24440 3600 10 L
+(}) 23670 3600 8 L
+(else {/* output each group of page matches */) 22900 3600 8 L
+(buffer = REALLOC\(buffer, char, strlen\(buffer\) + 10000\); /* overkill?*/) 22130 3600 10 L
+(doc_wts = \(struct docsum *\) Tcl_GetHashValue\(entry\);) 21360 3600 10 L
+(/* skip the merged list -- coded as zero */) 20590 3600 10 L
+(for \(page = doc_wts->page_ptr; page != NULL && page->pageid == 0; ) 19820 3600 10 L
+(page = page->next\) {}) 19050 3600 15 L
+(if \(page == NULL || page->pageid == 2\)) 18280 3600 10 L
+(strcat\(buffer, " "\); /* this handles empty pageid 1 lists */) 17510 3600 12 L
+(for \( ; page != NULL && page->pageid == 1; page = page->next\) {) 16740 3600 10 L
+(sprintf\(resultswork, "{%08d %f} ", page->pagenum,) 15970 3600 12 L
+(concept_set1->entries[page->setindex].weight\);) 15200 3600 20 L
+(strcat\(buffer, resultswork\);) 14430 3600 12 L
+(}) 13660 3600 10 L
+(buffer[strlen\(buffer\)-1] = '}';) 12890 3600 10 L
+(strcat\(buffer, " {"\);) 12120 3600 10 L
+(if \(page == NULL\)) 11350 3600 10 L
+(strcat\(buffer, "}"\);) 10580 3600 12 L
+(else {) 9810 3600 10 L
+(for \( ; page != NULL && page->pageid == 2; page = page->next\) {) 9040 3600 12 L
+(sprintf\(resultswork, "{%08d %f} ", page->pagenum,) 8270 3600 14 L
+(concept_set2->entries[page->setindex].weight\);) 7500 3600 22 L
+(strcat\(buffer, resultswork\);) 6730 3600 14 L
+(}) 5960 3600 12 L
+(buffer[strlen\(buffer\)-1] = '}';) 5190 3600 12 L
+(}) 4420 3600 10 L
+(}) 3650 3600 8 L
+(Tcl_AppendElement\(interp, buffer\);) 53700 41950 8 L
+(/* free up the document, should be finished with it */) 52930 41950 8 L
+(FREE\(doc\);) 52160 41950 8 L
+(if \(buffer\) FREE\(buffer\);) 51390 41950 8 L
+(}) 50620 41950 6 L
+(}) 49850 41950 4 L
+(/* free the hash tables and result sets */) 49080 41950 4 L
+(FREE\(concept_set1\);) 48310 41950 4 L
+(FREE\(concept_set2\);) 47540 41950 4 L
+(free_page_hash_tab\(mergehashtab\);) 46770 41950 4 L
+(FREE\(merged_doc_set\);) 46000 41950 4 L
+(}) 45230 41950 2 L
+(else { /* NULL final-set from search */) 44460 41950 2 L
+(sprintf\( resultswork, ) 43690 41950 4 L
+("{TBHits 0} {Returning 0} {Start 0} {NO SUCH INDEX?}"\);) 42920 41950 12 L
+(Tcl_AppendElement\( interp, resultswork \);) 42150 41950 4 L
+(}) 41380 41950 2 L
+(return TCL_OK;) 39840 41950 2 L
+(}) 38300 41950 T
+(int) 36760 41950 T
+(TermFreq_Search\(dummy, interp, argc, argv\)) 35990 41950 T
+(ClientData dummy;                   /* Current Session */) 35220 41950 4 L
+(Tcl_Interp *interp;                 /* Current interpreter. */) 34450 41950 4 L
+(int argc;                           /* Number of arguments. */) 33680 41950 4 L
+(char **argv;                        /* Argument strings. */) 32910 41950 4 L
+({) 32140 41950 T
+(RPNQuery *RPN_Query_ptr;) 31370 41950 2 L
+(int i;                  /* loop counter */) 29830 41950 2 L
+(char *cf_name;          /* name of configuration file */) 28290 41950 2 L
+(char querystring[1000];       /* string to hold query */) 27520 41950 2 L
+(char *filename;) 26750 41950 2 L
+(char *attributeSetId;) 25980 41950 2 L
+(char *num_req_str, *num_start_str;) 25210 41950 2 L
+(int num_request, num_start, num_end;) 24440 41950 2 L
+(int filetype;) 23670 41950 2 L
+(int set_number = 1;) 22900 41950 2 L
+(char *result, *se_process_meta\(\);) 22130 41950 2 L
+(char *diagnostic_string\(\), *diagnostic_addinfo\(\);) 21360 41950 2 L
+(char resultswork[500];) 20590 41950 2 L
+(char *buffer;) 19820 41950 2 L
+(int resultlen;) 19050 41950 2 L
+(weighted_result *final_set;   /* result from query processing */) 18280 41950 2 L
+(FILE *dummy_file;) 17510 41950 2 L
+(LOGFILE = stdout;) 15970 41950 2 L
+(if \(argc < 2\) {) 14430 41950 2 L
+(Tcl_AppendResult\(interp, "wrong # args: should be \\"", argv[0],) 13660 41950 4 L
+(" indexname1 search_string1 <boolop> <indexname2>",) 12890 41950 23 L
+(" <search_string2> <boolop2> etc...\\"", \(char *\) NULL\);) 12120 41950 23 L
+(return TCL_ERROR;) 11350 41950 8 L
+(}) 10580 41950 6 L
+(if \(\(cf_name = Tcl_GetVar\(interp, "CHESHIRE_CONFIGFILE",) 8270 41950 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 7500 41950 42 L
+(Tcl_AppendResult\(interp, "CHESHIRE_CONFIGFILE not set ", \(char *\) NULL\);) 6730 41950 4 L
+(return TCL_ERROR;) 5960 41950 4 L
+(}) 5190 41950 2 L
+(if \(\(filename = Tcl_GetVar\(interp, "CHESHIRE_DATABASE",) 3650 41950 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 2880 41950 42 L
+EndPage
+%%Page: 8 8
+(8) (web_driver.c) StartPage
+(Tcl_AppendResult\(interp, "CHESHIRE_DATABASE not set ", \(char *\) NULL\);) 53700 3600 4 L
+(return TCL_ERROR;) 52930 3600 4 L
+(}) 52160 3600 2 L
+(if \(\(num_req_str = Tcl_GetVar\(interp, "CHESHIRE_NUMREQUESTED",) 49850 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 49080 3600 42 L
+(Tcl_AppendResult\(interp, "CHESHIRE_NUMREQUESTED not set ", \(char *\) NULL\);) 48310 3600 4 L
+(return TCL_ERROR;) 47540 3600 4 L
+(}) 46770 3600 2 L
+(if \(Tcl_GetInt\(interp, num_req_str, &num_request\) == TCL_ERROR\) {) 45230 3600 2 L
+(Tcl_AppendResult\(interp, "CHESHIRE_NUMREQUESTED not a number ", ) 44460 3600 4 L
+(\(char *\) NULL\);) 43690 3600 21 L
+(return TCL_ERROR;) 42920 3600 4 L
+(}      ) 42150 3600 2 L
+(if \(\(num_start_str = Tcl_GetVar\(interp, "CHESHIRE_NUM_START",) 40610 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 39840 3600 42 L
+(num_start = 1;) 39070 3600 4 L
+(}) 38300 3600 2 L
+(else {) 37530 3600 2 L
+(if \(Tcl_GetInt\(interp, num_start_str, &num_start\) == TCL_ERROR\) {) 36760 3600 4 L
+(Tcl_AppendResult\(interp, "CHESHIRE_NUM_START not a number ", ) 35990 3600 6 L
+(\(char *\) NULL\);) 35220 3600 23 L
+(return TCL_ERROR;) 34450 3600 6 L
+(}    ) 33680 3600 4 L
+(}) 32910 3600 2 L
+(if \(\(attributeSetId = Tcl_GetVar\(interp, "CHESHIRE_ATTRIBUTESET",) 32140 3600 2 L
+(TCL_GLOBAL_ONLY \)\) == NULL\) {) 31370 3600 42 L
+(attributeSetId = OID_BIB1;) 30600 3600 4 L
+(}) 29830 3600 2 L
+(else { /* an attribute set -- but is it OK? */) 29060 3600 2 L
+(if \(strcasecmp\("BIB1",attributeSetId\) == 0 ) 28290 3600 4 L
+(|| strcasecmp\("BIB-1",attributeSetId\) == 0) 27520 3600 8 L
+(|| strcasecmp\(OID_BIB1,attributeSetId\) == 0\)) 26750 3600 8 L
+(attributeSetId = OID_BIB1;) 25980 3600 6 L
+(else if \(\(strcasecmp\("EXPLAIN1",attributeSetId\) == 0\)) 25210 3600 4 L
+(|| \(strcasecmp\("EXPLAIN",attributeSetId\) == 0\)) 24440 3600 13 L
+(|| \(strcasecmp\(OID_EXP1,attributeSetId\) == 0\)) 23670 3600 13 L
+(|| \(strcasecmp\("EXP1",attributeSetId\) == 0\)\)) 22900 3600 13 L
+(attributeSetId = OID_EXP1;) 22130 3600 6 L
+(else if \(\(strcasecmp\("EXTENDED",attributeSetId\) == 0\)) 21360 3600 4 L
+(|| \(strcasecmp\("EXT",attributeSetId\) == 0\)) 20590 3600 13 L
+(|| \(strcasecmp\(OID_EXP1,attributeSetId\) == 0\)) 19820 3600 13 L
+(|| \(strcasecmp\("EXT1",attributeSetId\) == 0\)\)) 19050 3600 13 L
+(attributeSetId = OID_EXT1;) 18280 3600 6 L
+(else if \(\(strcasecmp\("COMMAND",attributeSetId\) == 0\)) 17510 3600 4 L
+(|| \(strcasecmp\("COMMON",attributeSetId\) == 0\)) 16740 3600 13 L
+(|| \(strcasecmp\("CCL1",attributeSetId\) == 0\)) 15970 3600 13 L
+(|| \(strcasecmp\(OID_CCL1,attributeSetId\) == 0\)) 15200 3600 13 L
+(|| \(strcasecmp\("CCL",attributeSetId\) == 0\)\)) 14430 3600 13 L
+(attributeSetId = OID_CCL1;) 13660 3600 6 L
+(else if \(\(strcasecmp\("GILS",attributeSetId\) == 0\)) 12890 3600 4 L
+(|| \(strcasecmp\("GOVERNMENT",attributeSetId\) == 0\)) 12120 3600 13 L
+(|| \(strcasecmp\(OID_GILS,attributeSetId\) == 0\)) 11350 3600 13 L
+(|| \(strcasecmp\("GILS1",attributeSetId\) == 0\)\)) 10580 3600 13 L
+(attributeSetId = OID_GILS;) 9810 3600 6 L
+(else if \(\(strcasecmp\("STAS",attributeSetId\) == 0\)) 9040 3600 4 L
+(|| \(strcasecmp\("SCIENTIFIC",attributeSetId\) == 0\)) 8270 3600 13 L
+(|| \(strcasecmp\(OID_STAS,attributeSetId\) == 0\)) 7500 3600 13 L
+(|| \(strcasecmp\("STAS1",attributeSetId\) == 0\)\)) 6730 3600 13 L
+(attributeSetId = OID_STAS;) 5960 3600 6 L
+(else  /* default to BIB-1 if we can't recognize it */) 5190 3600 4 L
+(attributeSetId = OID_BIB1;) 4420 3600 6 L
+(}) 3650 3600 2 L
+(/* we will count records from 1 */) 53700 41950 2 L
+(if \(num_start == 0\) num_start = 1;) 52930 41950 2 L
+(/* if we got this far all the required global stuff is in place */) 51390 41950 2 L
+(/* so we can begin to process the query                         */) 50620 41950 2 L
+(if \(web_cheshire_first_pass\) {) 49850 41950 2 L
+(char *crflags, *opflags;) 49080 41950 4 L
+(#ifdef WIN32) 48310 41950 T
+(crflags = "rb";) 47540 41950 4 L
+(opflags = "rb";) 46770 41950 4 L
+(#else) 46000 41950 T
+(crflags = "r";) 45230 41950 4 L
+(opflags = "r";) 44460 41950 4 L
+(#endif) 43690 41950 T
+(cf_info_base = \(config_file_info *\) cf_initialize\(cf_name, ) 42150 41950 4 L
+(crflags, opflags\);) 41380 41950 54 L
+(/* to fully initialize things we need to open a particular database */) 40610 41950 4 L
+(dummy_file = cf_open\(filename, MAINFILE\);) 39840 41950 4 L
+(web_cheshire_first_pass = 0;) 39070 41950 4 L
+(}) 38300 41950 2 L
+(if \(cf_info_base == NULL\) {) 36760 41950 2 L
+(Tcl_AppendResult\(interp, "Error processing CHESHIRE_CONFIGFILE '", ) 35990 41950 4 L
+(cf_name, "'", \(char *\) NULL\);) 35220 41950 21 L
+(return TCL_ERROR;) 34450 41950 4 L
+(} ) 33680 41950 2 L
+(/* assemble all the parts of the query */) 32140 41950 2 L
+(querystring[0] = '\\0';) 31370 41950 2 L
+(for \(i=1; i<argc; i++\) {) 30600 41950 2 L
+(strcat\(querystring,argv[i]\);) 29830 41950 4 L
+(strcat\(querystring," "\);) 29060 41950 4 L
+(}) 28290 41950 2 L
+(RPN_Query_ptr = queryparse\(querystring, attributeSetId\);) 26750 41950 2 L
+(clean_up_query_parse\(\);  ) 25210 41950 2 L
+(if \(strcasecmp\(filename, "METADATA"\) == 0\) {) 23670 41950 2 L
+(Tcl_AppendElement\( interp, "Metadata Query"\);) 22130 41950 4 L
+(result = se_process_meta\(RPN_Query_ptr\);) 21360 41950 4 L
+(if \(result == NULL\) {) 20590 41950 4 L
+(int code;) 19820 41950 6 L
+(if \(code = diagnostic_get\(\)\) {) 19050 41950 6 L
+(sprintf\(resultswork, "Diagnostic code %d : %s : Addinfo = '%s'\\n",) 18280 41950 8 L
+(code,diagnostic_string\(code\), diagnostic_addinfo\(\)\);) 17510 41950 16 L
+(diagnostic_clear\(\);) 16740 41950 8 L
+(Tcl_AppendElement\( interp, resultswork\);        ) 15970 41950 8 L
+(}) 15200 41950 6 L
+(}) 14430 41950 4 L
+(else {) 13660 41950 4 L
+(/* must have it -- so print it */) 12890 41950 6 L
+(resultlen = strlen\(result\);) 11350 41950 6 L
+(if \(resultlen == 0\)) 10580 41950 6 L
+(Tcl_AppendElement\( interp,"No result-- must not be a clustered file"\);) 9810 41950 8 L
+(else) 9040 41950 6 L
+(Tcl_AppendElement\( interp, result\);) 8270 41950 8 L
+(}) 7500 41950 4 L
+(}) 6730 41950 2 L
+(else {) 5960 41950 2 L
+(/* actually process the query and retrieve the results */) 5190 41950 4 L
+(final_set = se_process_query\(filename, RPN_Query_ptr\);) 4420 41950 4 L
+(FreeRPNQuery\(RPN_Query_ptr\);) 2880 41950 4 L
+EndPage
+%%Page: 9 9
+(9) (web_driver.c) StartPage
+(if \(final_set != NULL\) {) 52930 3600 4 L
+(/* we won't store result sets in the web version... */) 51390 3600 6 L
+(/* if \(final_set->num_hits > 1\) {                   */) 50620 3600 6 L
+(/* char temp_input[80];                             */) 49850 3600 6 L
+(/*                                                  */    ) 49080 3600 6 L
+(/* sprintf\(result_set_name, "S%d", set_number++\);   */) 48310 3600 6 L
+(/*                                                  */) 47540 3600 6 L
+(/* if \(se_store_result_set\(final_set, result_set_name, */) 46770 3600 6 L
+(/*                         filename, "/tmp", 1\)     */) 46000 3600 6 L
+(/*    == FAIL\) {                                    */) 45230 3600 6 L
+(/*                                                  */) 44460 3600 6 L
+(/*  set_number--;                                   */) 43690 3600 6 L
+(/* }                                                */) 42920 3600 6 L
+(if \(final_set->num_hits == 0\) { /* No hits */) 41380 3600 6 L
+(int code;) 40610 3600 8 L
+(sprintf\( resultswork, "{Hits 0} {Returning 0} {Start 0}"\);) 39840 3600 8 L
+(Tcl_AppendElement\( interp, resultswork \);) 39070 3600 8 L
+(if \(code = diagnostic_get\(\)\) {) 38300 3600 8 L
+(sprintf\(resultswork, "Diagnostic code %d : %s : Addinfo = '%s'\\n",) 37530 3600 10 L
+(code,diagnostic_string\(code\), diagnostic_addinfo\(\)\);) 36760 3600 18 L
+(diagnostic_clear\(\);) 35990 3600 10 L
+(Tcl_AppendElement\( interp, resultswork \);) 35220 3600 10 L
+(}) 34450 3600 8 L
+(Tcl_AppendElement\( interp, "No matching records found" \);) 33680 3600 8 L
+(FREE\(final_set\);) 32910 3600 8 L
+(return TCL_OK;) 32140 3600 8 L
+(}) 31370 3600 6 L
+(/* One or more hits */) 29830 3600 6 L
+(if \(\(num_request + \(num_start-1\)\) > final_set->num_hits\)) 29060 3600 6 L
+(num_end = final_set->num_hits;) 28290 3600 8 L
+(else) 27520 3600 6 L
+(num_end = \(num_start-1\) + num_request;) 26750 3600 8 L
+(if \(\(num_request = num_end - \(num_start-1\)\) == 0\)) 25210 3600 6 L
+(num_request = 1;) 24440 3600 8 L
+(if \(num_request < 0\) {) 22900 3600 6 L
+(num_start = 1;) 22130 3600 8 L
+(num_request = 0;) 21360 3600 8 L
+(}) 20590 3600 6 L
+(if \(final_set->result_type & PAGED_RESULT\) {) 19050 3600 6 L
+(sprintf\(resultswork, "{PAGEHits %d} {Returning %d} {Start %d}",) 17510 3600 8 L
+(final_set->num_hits, num_request, num_start\); ) 16740 3600 16 L
+(Tcl_AppendElement\(interp, resultswork\);) 15970 3600 8 L
+(for\(i=\(num_start-1\);i<num_end; i++\) {) 13660 3600 8 L
+(char *pseudo_doc, *se_pseudo_doc\(\);) 12890 3600 10 L
+(pseudo_doc = se_pseudo_doc\(i, final_set\);) 12120 3600 10 L
+(Tcl_AppendElement\(interp, pseudo_doc\);) 11350 3600 10 L
+(if \(pseudo_doc\) FREE\(pseudo_doc\);) 10580 3600 10 L
+(}) 9810 3600 8 L
+(}) 9040 3600 6 L
+(else {) 8270 3600 6 L
+(sprintf\(resultswork, "{Hits %d} {Returning %d} {Start %d}",) 7500 3600 8 L
+(final_set->num_hits, num_request, num_start\); ) 6730 3600 16 L
+(Tcl_AppendElement\(interp, resultswork\);) 5960 3600 8 L
+(for\(i=\(num_start-1\);i<num_end;i++\) {) 4420 3600 8 L
+(char *doc, *GetRawSGML\(\);) 3650 3600 10 L
+(doc = GetRawSGML\(filename, final_set->entries[i].record_num\);) 53700 41950 10 L
+(/* just append the raw document to the results */) 52930 41950 10 L
+(if \(doc\) ) 52160 41950 10 L
+(Tcl_AppendElement\(interp, doc\);) 51390 41950 12 L
+(}      ) 50620 41950 8 L
+(}) 49850 41950 6 L
+(}) 49080 41950 4 L
+(else { /* NULL final-set from search */) 48310 41950 4 L
+(sprintf\( resultswork, "{Hits 0} {Returning 0} {NO SUCH INDEX?}"\);) 47540 41950 6 L
+(Tcl_AppendElement\( interp, resultswork \);) 46770 41950 6 L
+(}) 46000 41950 4 L
+(}) 45230 41950 2 L
+(return TCL_OK;) 43690 41950 2 L
+(}) 42150 41950 T
+(/* this function can be used to give the current "id" for the current user */) 39840 41950 T
+(/* this is actually the connection file descriptor number in this version  */) 39070 41950 T
+(/* when called with a non-NULL session pointer, it stores the file desc.   */) 38300 41950 T
+(/* when called with a NULL session pointer it returns the current file desc*/) 37530 41950 T
+(/* or zero if no file descriptor has been set                              */) 36760 41950 T
+(int) 35990 41950 T
+(current_user_id\(ZSESSION *session\)) 35220 41950 T
+({) 34450 41950 T
+(static int current_user_id_number=0;) 33680 41950 2 L
+(if \(session == NULL\)) 32140 41950 2 L
+(return \(current_user_id_number\);) 31370 41950 4 L
+(else) 30600 41950 2 L
+(current_user_id_number = session->fd;) 29830 41950 4 L
+(return\(current_user_id_number\);) 29060 41950 2 L
+(}) 28290 41950 T
+(/* the following are used in building some stuff during config file parsing */) 26750 41950 T
+(StringOrNumeric *) 24440 41950 T
+(BuildStringOrNumeric\(char *string, int numeric, int which\)) 23670 41950 T
+({) 22900 41950 T
+(StringOrNumeric *tmp;) 22130 41950 2 L
+(tmp = CALLOC\(StringOrNumeric, 1\);) 20590 41950 2 L
+(if \(which == 0\) {) 19050 41950 2 L
+(tmp->which = e25_string;) 18280 41950 4 L
+(tmp->u.string = NewInternationalString\(string\);) 17510 41950 4 L
+(}) 16740 41950 2 L
+(else {) 15970 41950 2 L
+(tmp->which = e25_numeric;) 15200 41950 4 L
+(tmp->u.numeric = numeric;) 14430 41950 4 L
+(}) 13660 41950 2 L
+(return \(tmp\);) 12120 41950 2 L
+(}) 11350 41950 T
+(HumanString *) 9810 41950 T
+(BuildHumanString\(char *text, char *language\)) 9040 41950 T
+({) 8270 41950 T
+(HumanString *tmp;) 7500 41950 2 L
+(if \(text == NULL\)) 5960 41950 2 L
+(return NULL;) 5190 41950 4 L
+(tmp = CALLOC\(HumanString, 1\);) 3650 41950 2 L
+(tmp->item.language = \(LanguageCode *\)NewInternationalString\(language\);) 2880 41950 2 L
+EndPage
+%%Page: 10 10
+(10) (web_driver.c) StartPage
+(tmp->item.text = NewInternationalString\(text\);) 53700 3600 2 L
+(return\(tmp\);) 52160 3600 2 L
+(}) 50620 3600 T
+EndPage
+%%Page: 1 11
+(1) (web_tb_doc.c) StartPage
+(/*) 53700 3600 T
+(*  Copyright \(c\) 1990-1999 [see Other Notes, below]. The Regents of the) 52930 3600 1 L
+(*  University of California \(Regents\). All Rights Reserved.) 52160 3600 1 L
+(*  ) 51390 3600 1 L
+(*  Permission to use, copy, modify, and distribute this software and its) 50620 3600 1 L
+(*  documentation for educational, research, and not-for-profit purposes,) 49850 3600 1 L
+(*  without fee and without a signed licensing agreement, is hereby) 49080 3600 1 L
+(*  granted, provided that the above copyright notice, this paragraph and) 48310 3600 1 L
+(*  the following two paragraphs appear in all copies, modifications, and) 47540 3600 1 L
+(*  distributions. Contact The Office of Technology Licensing, UC) 46770 3600 1 L
+(*  Berkeley, 2150 Shattuck Avenue, Suite 510, Berkeley, CA 94720-1620,) 46000 3600 1 L
+(*  \(510\) 643-7201, for commercial licensing opportunities. ) 45230 3600 1 L
+(*  ) 44460 3600 1 L
+(*  Created by Ray R. Larson, Aitao Chen, and Jerome McDonough, ) 43690 3600 1 L
+(*             School of Information Management and Systems, ) 42920 3600 1 L
+(*             University of California, Berkeley.) 42150 3600 1 L
+(*  ) 41380 3600 1 L
+(*    ) 40610 3600 1 L
+(*       IN NO EVENT SHALL REGENTS BE LIABLE TO ANY PARTY FOR DIRECT,) 39840 3600 1 L
+(*       INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,) 39070 3600 1 L
+(*       INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE) 38300 3600 1 L
+(*       AND ITS DOCUMENTATION, EVEN IF REGENTS HAS BEEN ADVISED OF THE) 37530 3600 1 L
+(*       POSSIBILITY OF SUCH DAMAGE. ) 36760 3600 1 L
+(*    ) 35990 3600 1 L
+(*       REGENTS SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT) 35220 3600 1 L
+(*       NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND) 34450 3600 1 L
+(*       FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE AND) 33680 3600 1 L
+(*       ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS) 32910 3600 1 L
+(*       PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE) 32140 3600 1 L
+(*       MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS. ) 31370 3600 1 L
+(*/) 30600 3600 1 L
+(/************************************************************************) 29830 3600 T
+(*) 29060 3600 T
+(*       Header Name:    web_tb_doc.c) 28290 3600 T
+(*) 27520 3600 T
+(*       Programmer:     Ray R. Larson) 26750 3600 T
+(*              ) 25980 3600 T
+(*) 25210 3600 T
+(*       Purpose:        create a "paged" document for tilebars) 24440 3600 T
+(*                       ) 23670 3600 T
+(*) 22900 3600 T
+(*       Usage:          char *web_tb_doc\(weighted_result 1*, weighted_result 2*\);) 22130 3600 T
+(*) 21360 3600 T
+(*       Variables:      ) 20590 3600 T
+(*) 19820 3600 T
+(*       Return Conditions and Return Codes:) 19050 3600 T
+(*                       returns pointer to new DOCS weighted_result set) 18280 3600 T
+(*                       or NULL on error) 17510 3600 T
+(*) 16740 3600 T
+(*       Date:           11/20/96) 15970 3600 T
+(*       Version:        1.0) 15200 3600 T
+(*       Copyright \(c\) 1996.  The Regents of the University of California) 14430 3600 T
+(*               All Rights Reserved) 13660 3600 T
+(*) 12890 3600 T
+(************************************************************************/) 12120 3600 T
+(#include <cheshire.h>) 10580 3600 T
+(char *web_tb_doc\(Tcl_Interp *interp, int ID, weighted_result *inset\)) 9040 3600 T
+({) 8270 3600 T
+(int i = 0; /* loop and array indices */) 7500 3600 2 L
+(int prob_flag = 0;) 6730 3600 2 L
+(FILE *pagemap;) 5190 3600 2 L
+(FILE *pagenames;) 4420 3600 2 L
+(page_assoc_rec page_data;) 2880 3600 2 L
+(long pagenum, recnum, int_pagenum;) 52930 41950 2 L
+(int recsize;) 52160 41950 2 L
+(SGML_Document *doc, *GetSGML\(\);) 50620 41950 2 L
+(char *c_ptr;) 49850 41950 2 L
+(char *index_tag;) 49080 41950 2 L
+(char filename[100];) 48310 41950 2 L
+(char *record_buffer = NULL;) 47540 41950 2 L
+(char name_data[100];) 46770 41950 2 L
+(char workstring[500];) 46000 41950 2 L
+(idx_list_entry *idx;) 44460 41950 2 L
+(display_format *df;) 43690 41950 2 L
+(if \(inset == NULL\)) 42150 41950 2 L
+(return\(NULL\);) 41380 41950 4 L
+(/* check to see if the set is from a paged search    */) 39840 41950 2 L
+(if \(\(inset->result_type & PAGED_RESULT\) != PAGED_RESULT\) {) 39070 41950 2 L
+(fprintf\(LOGFILE, "Not PAGED_RESULT in web_tb_doc\\n"\);) 38300 41950 4 L
+(return \(NULL\);) 37530 41950 4 L
+(}) 36760 41950 2 L
+(/* check to see if the set is a probabilistic search */) 35220 41950 2 L
+(if \(inset->result_type & PROBABILISTIC_RESULT\) {) 34450 41950 2 L
+(prob_flag = 1;) 33680 41950 4 L
+(}) 32910 41950 2 L
+(/* we need to open up the appropriate index file stuff */) 31370 41950 2 L
+(/* the index name should be stored as part of the file */) 30600 41950 2 L
+(/* name in the input set...                            */) 29830 41950 2 L
+(strcpy\(filename, inset->filename\);) 29060 41950 2 L
+(if \(\(c_ptr = strchr\(filename, ':'\)\) != NULL\) {) 27520 41950 2 L
+(if \(*\(c_ptr+1\) == ':'\) {) 26750 41950 4 L
+(*c_ptr = '\\0';) 25980 41950 6 L
+(index_tag = \(char *\)\(c_ptr + 2\);) 25210 41950 6 L
+(}) 24440 41950 4 L
+(else {) 23670 41950 4 L
+(fprintf\(LOGFILE, "Can't find index name in web_tb_doc\\n"\);) 22900 41950 6 L
+(return \(NULL\);) 22130 41950 6 L
+(}) 21360 41950 4 L
+(}) 20590 41950 2 L
+(pagemap = \(FILE *\) cf_index_open\(filename, index_tag, PAGEASSOCFILE\);) 19050 41950 2 L
+(pagenames = \(FILE *\) cf_index_open\(filename, index_tag, PAGENAMEFILE\);) 18280 41950 2 L
+(/* use the "internal" page/doc number */) 16740 41950 2 L
+(for \(i = 0; i < inset->num_hits; i++\) { ) 15200 41950 2 L
+(int_pagenum = inset->entries[i].record_num;) 14430 41950 4 L
+(fseek \(pagemap, \(int_pagenum * sizeof\(page_assoc_rec\)\), 0\);) 12890 41950 4 L
+(fread \(&page_data, sizeof\(page_assoc_rec\), 1, pagemap\);) 12120 41950 4 L
+(recnum = page_data.parentid;) 10580 41950 4 L
+(pagenum = page_data.pagenum; /* the "external" page number */) 9810 41950 4 L
+(doc = GetSGML\(filename, recnum\);) 8270 41950 4 L
+(/* got the full doc from the file and parsed it ... now */) 6730 41950 4 L
+(/* trim it according to the specs...                    */) 5960 41950 4 L
+(if \(doc\) {) 5190 41950 4 L
+(fseek \(pagenames, page_data.nameoffset, 0\);) 4420 41950 6 L
+(fread \(&name_data, 100, 1, pagenames\);) 3650 41950 6 L
+EndPage
+%%Page: 2 12
+(2) (web_tb_doc.c) StartPage
+(sprintf\(workstring, "\\n<PAGENUM>%d</PAGENUM>\\n<PAGENAME>%s</PAGENAME>\\n", ) 53700 3600 6 L
+(pagenum\);) 52930 3600 14 L
+(if \(\(recsize = displayrec\(doc, &record_buffer, ) 51390 3600 6 L
+(10000, "PAGED_DEFAULT", filename, workstring\)\) == ) 50620 3600 32 L
+49850 3600 K (-1\) {) 49850 3600 T
+(diagnostic_set\(17,0,NULL\);) 49080 3600 8 L
+(printf\("record exceeds maxrecsize in displayrec\\n"\);) 48310 3600 8 L
+(}) 47540 3600 6 L
+(else if \(recsize == -2\) {) 46770 3600 6 L
+(diagnostic_set\(25,0,NULL\);) 46000 3600 8 L
+(printf\("invalid element set name for DB\\n"\);) 45230 3600 8 L
+(}) 44460 3600 6 L
+(else if \(recsize == -3\) {) 43690 3600 6 L
+(diagnostic_set\(26,0,NULL\); /* only default elements supported...*/) 42920 3600 8 L
+(printf\("Nothing to include in PAGED_DEFAULT format\\n"\);) 42150 3600 8 L
+(}) 41380 3600 6 L
+(else if \(recsize == 0\) {) 40610 3600 6 L
+(diagnostic_set\(14,0,NULL\);) 39840 3600 8 L
+(printf\("Problem in converting to PAGED_DEFAULT format\\n"\);) 39070 3600 8 L
+(}) 37530 3600 6 L
+(} ) 36760 3600 4 L
+(return \(record_buffer\);) 35220 3600 4 L
+(}) 34450 3600 2 L
+(/* if no doc, no record */) 32910 3600 2 L
+(return\(NULL\);) 32140 3600 2 L
+(}) 30600 3600 T
+EndPage
+%%Trailer
+%%Pages: 12

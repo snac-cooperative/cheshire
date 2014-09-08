@@ -1,0 +1,9 @@
+puts "Connecting to ATT Factbook"
+zselect att_cia
+zset recsyntax GRS1
+set results [zfind title ghana]
+puts "Search results: $results"
+set disp [zdisplay]
+
+puts "Display results:"
+puts "$disp"

@@ -1,0 +1,36 @@
+# Test explain access and display
+puts "Contacting local..."
+zselect help sherlock IR-Explain-1 2100
+puts "Setting Attributes"
+zset attributes explain
+zset recsyntax explain
+
+puts [zshow all]
+
+puts "trying to get targetinfo"
+set results [zfind cat TargetInfo]
+puts "Results are $results"
+set disp [zdisplay]
+
+puts "FULL Record::: $disp"
+
+foreach a [lrange $disp 1 end] {
+	puts "+++++++++++++++++++++++"
+	foreach line $a {
+	   if {[llength $line] > 3} {
+		puts ""
+		foreach part $line {
+		   if {[llength $part] == 2} {
+			puts ""
+			foreach subpart $part {
+			  puts "\t\t\t $subpart"
+			}
+		   } else {
+			puts "\t\t $part"
+		   }
+		}
+           } else {
+		puts "\t $line"
+	   }
+	}
+}

@@ -1,0 +1,21 @@
+puts "selecting MELVYL Periodical"
+zselect per
+puts "setting format/syntax"
+zset recformat opac
+zset pElementSetNames F
+puts "find"
+zfind title information science
+puts "present"
+set x [zdisplay]
+puts "formatting opac record"
+set recs [lrange $x 1 end]
+set num 0
+foreach record $recs {
+	puts "**********************"
+#	set y [lindex [lindex $record 0] 1]
+	puts [zformat long $record OPAC [incr num] 80]
+}
+zclose
+
+
+

@@ -1,0 +1,436 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+<TITLE>Cheshire II Bib1 Configuration Utility</TITLE>
+<META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V3.2 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+<table>
+<tr><td><h1> Cheshire II Bib-1 Configuration Utility</h1>
+<td><img src=cat_head_only.gif height=120 border=0></td></tr>
+<tr><td>For more information,
+see the <a href=http://cheshire.lib.berkeley.edu/>Cheshire II Homepage</a>.
+</td></tr>
+</table>
+<hr>
+<FORM ACTION="/cgi-bin/handle_bib1.tcl" METHOD="POST">
+<INPUT TYPE="submit" VALUE="Search">
+<INPUT TYPE="reset" VALUE="Clear Form">
+
+
+<center><H1>Bib-1 USE attributes</H1></center>
+<P>
+The USE attribute determines which index on the server is searched.
+The following set of menus include the Z39.50 BIB-1 options for USE 
+values.
+<P>
+<h2>Original Bib-1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WAIS Additions&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Approved Extensions</h2>
+<SELECT NAME=use1>
+<option value=0 SELECTED>None</option>
+<option value=1>Personal name</option>
+<option value=2>Corporate name</option>
+<option value=3>Conference name</option>
+<option value=4>Title</option>
+<option value=5>Title series</option>
+<option value=6>Title uniform</option>
+<option value=7>ISBN</option>
+<option value=8>ISSN</option>
+<option value=9>LC card number</option>
+<option value=10>BNB card no.</option>
+<option value=11>BGF number</option>
+<option value=12>Local number</option>
+<option value=13>Dewey classification</option>
+<option value=14>UDC classification</option>
+<option value=15>Bliss classification</option>
+<option value=16>LC call number</option>
+<option value=17>NLM call number</option>
+<option value=18>NAL call number</option>
+<option value=19>MOS call number</option>
+<option value=20>Local classification</option>
+<option value=21>Subject heading</option>
+<option value=22>Subject Rameau</option>
+<option value=23>BDI index subject</option>
+<option value=24>INSPEC subject</option>
+<option value=25>MESH subject</option>
+<option value=26>PA subject</option>
+<option value=27>LC subject heading</option>
+<option value=28>RVM subject heading</option>
+<option value=29>Local subject index</option>
+<option value=30>Date</option>
+<option value=31>Date of publication</option>
+<option value=32>Date of acquisition</option>
+<option value=33>Title key</option>
+<option value=34>Title collective</option>
+<option value=35>Title parallel</option>
+<option value=36>Title cover</option>
+<option value=37>Title added title page</option>
+<option value=38>Title caption</option>
+<option value=39>Title running</option>
+<option value=40>Title spine</option>
+<option value=41>Title other variant</option>
+<option value=42>Title former</option>
+<option value=43>Title abbreviated</option>
+<option value=44>Title expanded</option>
+<option value=45>Subject precis</option>
+<option value=46>Subject rswk</option>
+<option value=47>Subject subdivision</option>
+<option value=48>Number natl biblio</option>
+<option value=49>Number legal deposit</option>
+<option value=50>Number govt publication</option>
+<option value=51>Number publisher for music</option>
+<option value=52>Number db</option>
+<option value=53>Number local call</option>
+<option value=54>Code -- language</option>
+<option value=55>Code -- geographic area</option>
+<option value=56>Code -- institution</option>
+<option value=57>Name and title</option>
+<option value=58>Name geographic</option>
+<option value=59>Place publication</option>
+<option value=60>CODEN</option>
+<option value=61>Microform generation</option>
+<option value=62>Abstract</option>
+<option value=63>Note</option>
+</SELECT>
+&nbsp;&nbsp;&nbsp;
+<SELECT NAME=use2>
+<option value=0 SELECTED>None</option>
+<option value=1000>Author-title</option>
+<option value=1001>Record type</option>
+<option value=1002>Name</option>
+<option value=1003>Author</option>
+<option value=1004>Author-name personal</option>
+<option value=1005>Author-name corporation</option>
+<option value=1006>Author-name conference</option>
+<option value=1007>Identifier -- standard</option>
+<option value=1008>Subject -- LC children's</option>
+<option value=1009>Subject name -- personal</option>
+<option value=1010>Body of text</option>
+<option value=1011>Date/time added to database</option>
+<option value=1012>Date/time last modified</option>
+<option value=1013>Authority/format identifier</option>
+<option value=1014>Concept-text</option>
+<option value=1015>Concept-reference</option>
+<option value=1016>Any</option>
+<option value=1017>Default</option>
+<option value=1018>Publisher</option>
+<option value=1019>Record-source</option>
+<option value=1020>Editor</option>
+<option value=1021>Bib-level</option>
+<option value=1022>Geographic-class</option>
+<option value=1023>Indexed-by</option>
+<option value=1024>Map-scale</option>
+<option value=1025>Music-key</option>
+<option value=1026>Related-periodical</option>
+<option value=1027>Report-number</option>
+<option value=1028>Stock-number</option>
+<option value=1030>Thematic-number</option>
+<option value=1031>Material-type</option>
+<option value=1032>Doc-id</option>
+<option value=1033>Host-item</option>
+<option value=1034>Content-type</option>
+<option value=1035>Anywhere</option>
+<option value=1036>Author-Title-Subject</option>
+</SELECT>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT NAME=use3>
+<option value=0 SELECTED>None</option>
+<option value=1037>SICI</option>
+<option value=1038>Abstract-language</option>
+<option value=1039>Application-kind</option>
+<option value=1040>Classification</option>
+<option value=1041>Classification-basic</option>
+<option value=1042>Classification-local-record</option>
+<option value=1043>Enzyme</option>
+<option value=1044>Possessing-institution</option>
+<option value=1045>Record-linking</option>
+<option value=1046>Record-status</option>
+<option value=1047>Treatment</option>
+<option value=1048>Control-number-GKD</option>
+<option value=1049>Control-number-linking</option>
+<option value=1050>Control-number-PND</option>
+<option value=1051>Control-number-SWD</option>
+<option value=1052>Control-number-ZDB</option>
+<option value=1053>Country-publication (country of Publication)</option>
+<option value=1054>Date-conference (meeting date)</option>
+<option value=1055>Date-record-status</option>
+<option value=1056>Dissertation-information</option>
+<option value=1057>Meeting-organizer</option>
+<option value=1058>Note-availability</option>
+<option value=1059>Number-CAS-registry (CAS registry number)</option>
+<option value=1060>Number-document (document number)</option>
+<option value=1061>Number-local-accounting</option>
+<option value=1062>Number-local-acquisition</option>
+<option value=1063>Number-local-call-copy-specific</option>
+<option value=1064>Number-of-reference (reference count)</option>
+<option value=1065>Number-norm</option>
+<option value=1066>Number-volume</option>
+<option value=1067>Place-conference (meeting location)</option>
+<option value=1068>Reference (references and footnotes)</option>
+<option value=1069>Referenced-journal (reference work)</option>
+<option value=1070>Section-code</option>
+<option value=1071>Section-heading</option>
+<option value=1072>Subject-GOO</option>
+<option value=1073>Subject-name-conference</option>
+<option value=1074>Subject-name-corporate</option>
+<option value=1075>Subject-name-form</option>
+<option value=1076>Subject-name-geographical</option>
+<option value=1077>Subject-name-chronological</option>
+<option value=1078>Subject-name-title</option>
+<option value=1079>Subject-name-topical</option>
+<option value=1080>Subject-uncontrolled</option>
+<option value=1081>Terminology-chemical (chemical name)</option>
+<option value=1082>Title-translated</option>
+<option value=1083>Year-of-beginning</option>
+<option value=d>1084>Year-of-ending</option>
+<option value=1085>Subject-AGROVOC</option>
+<option value=1086>Subject-COMPASS</option>
+<option value=1087>Subject-EPT</option>
+<option value=1088>Subject-NAL</option>
+<option value=1210>Sears Subject Heading</option>
+<option value=1089>Classification-BCM</option>
+<option value=1090>Classification-DB</option>
+<option value=1091>Identifier-ISRC</option>
+<option value=1092>Identifier-ISMN</option>
+<option value=1093>Identifier-ISRN</option>
+<option value=1094>Identifier-DOI</option>
+<option value=1209>Identifier - URN</option>
+<option value=1095>Code-language-original</option>
+<option value=1096>Title-later</option>
+</SELECT>
+
+<h2> Dublin Core USE attributes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GILS Attributes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New Music Attributes</h2>
+
+<p>
+<SELECT NAME=use4>
+<option value=0 SELECTED>None</option>
+<option value=1097>DC-Title</option>
+<option value=1098>DC-Creator</option>
+<option value=1099>DC-Subject</option>
+<option value=1100>DC-Description</option>
+<option value=1101>DC-Publisher</option>
+<option value=1102>DC-Date</option>
+<option value=1103>DC-ResourceType</option>
+<option value=1104>DC-ResourceIdentifier</option>
+<option value=1105>DC-Language</option>
+<option value=1106>DC-OtherContributor</option>
+<option value=1107>DC-Format</option>
+<option value=1108>DC-Source</option>
+<option value=1109>DC-Relation</option>
+<option value=1110>DC-Coverage</option>
+<option value=1111>DC-RightsManagement</option>
+</SELECT>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT NAME=use5>
+<option value=0 SELECTED>None</option>
+
+<option value=1112>Controlled Subject Index</option>
+<option value=1113>Subject Thesaurus</option>
+<option value=1114>Index Terms -- Controlled</option>
+<option value=1115>Controlled Term</option>
+<option value=1116>Spatial Domain</option>
+<option value=1117>Bounding Coordinates</option>
+<option value=1118>West Bounding Coordinate</option>
+<option value=1119>East Bounding Coordinate</option>
+<option value=1120>North Bounding Coordinate</option>
+<option value=1121>South Bounding Coordinate</option>
+<option value=1122>Place</option>
+<option value=1123>Place Keyword Thesaurus</option>
+<option value=1124>Place Keyword</option>
+<option value=1125>Time Period</option>
+<option value=1126>Time Period Textual</option>
+<option value=1127>Time Period Structured</option>
+<option value=1128>Beginning Date</option>
+<option value=1129>Ending Date</option>
+<option value=1130>Availability</option>
+<option value=1131>Distributor</option>
+<option value=1132>Distributor Name</option>
+<option value=1133>Distributor Organization</option>
+<option value=1134>Distributor Street Address</option>
+<option value=1135>Distributor City</option>
+<option value=1136>Distributor State or Province</option>
+<option value=1137>Distributor Zip or Postal Code</option>
+<option value=1138>Distributor Country</option>
+<option value=1139>Distributor Network Address</option>
+<option value=1140>Distributor Hours of Service</option>
+<option value=1141>Distributor Telephone</option>
+<option value=1142>Distributor Fax</option>
+<option value=1143>Resource Description</option>
+<option value=1144>Order Process</option>
+<option value=1145>Order Information</option>
+<option value=1146>Cost</option>
+<option value=1147>Cost Information</option>
+<option value=1148>Technical Prerequisites</option>
+<option value=1149>Available Time Period</option>
+<option value=1150>Available Time Textual</option>
+<option value=1151>Available Time Structured</option>
+<option value=1152>Available Linkage</option>
+<option value=1153>Linkage Type</option>
+<option value=1154>Linkage</option>
+<option value=1155>Sources of Data</option>
+<option value=1156>Methodology</option>
+<option value=1157>Access Constraints</option>
+<option value=1158>General Access Constraints</option>
+<option value=1159>Originator Dissemination Control</option>
+<option value=1160>Security Classification Control</option>
+<option value=1161>Use Constraints</option>
+<option value=1162>Point of Contact</option>
+<option value=1163>Contact Name</option>
+<option value=1164>Contact Organization</option>
+<option value=1165>Contact Street Address</option>
+<option value=1166>Contact City</option>
+<option value=1167>Contact State or Province</option>
+<option value=1168>Contact Zip or Postal Code</option>
+<option value=1169>Contact Country</option>
+<option value=1170>Contact Network Address</option>
+<option value=1171>Contact Hours of Service</option>
+<option value=1172>Contact Telephone</option>
+<option value=1173>Contact Fax</option>
+<option value=1174>Supplemental Information</option>
+<option value=1175>Purpose</option>
+<option value=1176>Agency Program</option>
+<option value=1177>Cross Reference</option>
+<option value=1178>Cross Reference Title</option>
+<option value=1179>Cross Reference Relationship</option>
+<option value=1180>Cross Reference Linkage</option>
+<option value=1181>Schedule Number</option>
+<option value=1182>Original Control Identifier</option>
+<option value=1183>Language of Record</option>
+<option value=1184>Record Review Date</option>
+</SELECT>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<SELECT NAME=use6>
+<option value=0 SELECTED>None</option>
+<option value=1185>Performer</option>
+<option value=1186>Performer-Individual</option>
+<option value=1187>Performer-Group</option>
+<option value=1188>Instrumentation</option>
+<option value=1189>Instrumentation-Original</option>
+<option value=1190>Instrumentation-Current</option>
+<option value=1191>Arrangement</option>
+<option value=1192>Arrangement-Original</option>
+<option value=1193>Arrangement-Current</option>
+<option value=1194>Musical Key-Original</option>
+<option value=1195>Musical Key-Current</option>
+<option value=1196>Date-Composition</option>
+<option value=1197>Date-Recording</option>
+<option value=1198>Place-Recording</option>
+<option value=1199>Country-Recording</option>
+<option value=1200>Number-ISWC</option>
+<option value=1201>Number-Matrix</option>
+<option value=1202>Number-Plate</option>
+<option value=1203>Classification-McColvin</option>
+<option value=1204>Duration</option>
+<option value=1205>Number-Copies</option>
+<option value=1206>Musical Theme</option>
+<option value=1207>Instruments - total number</option>
+<option value=1208>Instruments - distinct number</option>
+</SELECT>
+
+<P>
+
+
+<i>
+A complete description of the BIB-1 attributes and semantics can be found at
+the  <a href="http://lcweb.loc.gov/z3950/agency/defns/bib1.html">
+Z39.50 Maintenance Agency</a>
+<P>
+The Dublin Core Semantics are defined
+in <a href="http://purl.oclc.org/metadata/dublin_core_elements"> Dublin Core Metadata Element
+Set: Reference Description</a>.
+<p>
+The GILS Use attributes, approved at the June 1998 ZIG
+meeting, correspond semantically to GILS Core Elements, described in 
+the  <a href="http://www.usgs.gov/gils/prof_v2.html#sec_7">GILS Z39.50 Specification</a>
+Annex E.</i>
+<p>
+
+
+<hr>
+
+<H1> Other BIB-1 Attributes</H1>
+
+<H2>Relation Attributes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Position Attributes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Structure attributes</H2>
+
+<SELECT NAME=relation>
+<option value=0 SELECTED>None</option>
+<option value=1>less than &lt; </option>
+<option value=4>greater or equal &gt;=</option>
+<option value=100>phonetic</option>
+<option value=2>less or equal &lt;=</option>
+<option value=5>greater than &gt;</option>
+<option value=101>stem %</option>
+<option value=3>equal =</option>
+<option value=6>not equal &lt;&gt;</option>
+<option value=102>relevance @</option>
+<option value=103>AlwaysMatches</option>
+<option value=104>Within &lt;=&gt;</option>
+</SELECT>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+
+<SELECT NAME=position>
+<option value=0 SELECTED>None</option>
+<option value=1>first in field</option>
+<option value=2>first in subfield</option>
+<option value=3>any position in field</option>
+</SELECT>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+
+<SELECT NAME=structure>
+<option value=0 SELECTED>None</option>
+<option value=1>Phrase</option>
+<option value=6>word list</option>
+<option value=104>urx</option>
+<option value=2>word</option>
+<option value=100>date (un-normalized)</option>
+<option value=105>free-form-text</option>
+<option value=3>key</option>
+<option value=101>name (normalized)</option>
+<option value=106>document-text</option>
+<option value=4>year</option>
+<option value=102>name (un-normalized)</option>
+<option value=107>local number</option>
+<option value=5>date (normalized)</option>
+<option value=103>structure</option>
+<option value=108>string</option>
+<option value=109>numeric string</option>
+</SELECT>
+<P>
+<H2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Truncation Attributes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Completeness Attributes</H2>
+<p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+<SELECT NAME=truncation>
+<option value=0 SELECTED>None</option>
+<option value=1>Right Truncation</option>
+<option value=100>Do not truncate</option>
+<option value=102>Glob (regExpr-1)</option>
+<option value=2>Left truncation</option>
+<option value=103>Regexp (regExpr-2)</option>
+<option value=101>Process #</option>
+<option value=104>Process ? (variable) and # (single)</option>
+<option value=3>Left and right</option>
+</SELECT>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+<SELECT NAME=completeness>
+<option value=0 SELECTED>None</option>
+<option value=1>incomplete subfield</option>
+<option value=2>complete subfield</option>
+<option value=3>complete field</option>
+</SELECT>
+
+<P> <HR></P>
+<H3><FONT COLOR="#0000FF">Cheshire II Project</FONT> </H3>
+<P>Ray R. Larson</P>
+<P>School of Information Management and Systems</P>
+<P>University of California, Berkeley</P>
+<P>Berkeley, California 94720-4600</P>
+<P>ray@sherlock.sims.berkeley.edu </P>
+</BODY>
+</HTML>
+

@@ -1,0 +1,2704 @@
+This file describes changes from version 2.7 on.
+Version 2.8 -- 
+   Added -T option to index_cheshire permitting the user to specify
+a temporary directory for the _BATCHTEMP, _BATCHSORT, and system sort
+intermediate files when the -b (batch) indexing option is used.
+
+   Corrected a potential bug in zserver/displayrec.c that would probably
+cause a crash when the "exclude" operation for a <DISPLAY> defined 
+element set was used.
+
+Version 2.9 --
+   Added support for configfile and user settable timeouts on waiting for
+incoming traffic for the client and server (The parameters were already
+in the configfiles and in the client command set, but they were ignored).
+
+   Fixed bug where query parsing errors in jserver were reported as 
+0 result (successful) searches instead of errors, now an error is sent
+back for query parsing/syntax errors.
+
+
+Version 2.10 --
+   Added support for dates and date ranges as a full-fledged data
+type, fixed bug in SGML parsing, re-enabled and tested EXCLUDE
+specifications for server-side display formatting, added server option
+to NOT save result sets to disk.
+
+Version 2.11 --
+   Bug fixes, removed fixed size buffer in server that limited returned
+record size to 70K -- now everything should be dynamically allocated. Some
+data includes "&amp;" and "&lt;" entities even when they are not declared
+in the DTD. The new config file tag <DISPOPTIONS> can now be used with  
+keywords "KEEP_AMP", "KEEP_LT", "KEEP_GT" or "KEEP_ALL" to declare that
+these should not be replaced in the records by the server. The SGML
+parser was extended to include more XML syntax (especially support for
+element and attribute names containing colons and underscores).
+
+Version 2.12 --
+   Bug fixes in SGML parsing -- Errors were occurring in DTDs that had
+the same sub-elements in the data models for both a superior and 
+subordinate element -- the internal record structure was getting things
+linked up incorrectly. sgml_gram.g was changed to fix those problems.
+   Very large records were not displaying (and crashing the server) when
+connecting via the client. This was two problems, there was still a
+fixed request for 70k max record size in the client, and the error message
+when that was exceeded was being handled incorrectly in the server.
+   Jserver has been updated to include an elementsetname or (format name)
+in the DISPLAY command. This permits subsets of record elements to be
+defined on the server and then accessed via the jserver interface.
+   Display formatting (server-side) that does conversions to GRS-1 will
+now concatenate (comma separated) all of the matching ftags in the
+"FROM" element in the configuration file.
+
+Version 2.12b --
+    Minor bug fixes -- support for very long queries (formerly limited by
+    the parser to 10k, now effectively unlimited)
+
+Version 2.12c --
+    More minor bug fixes -- support for SGML elements whose contents are
+declared "EMPTY": i.e. it is now legal to have a start_tag with no matching
+end_tag IF the element is declared as EMPTY. 
+
+Version 2.12d --
+    Fixes some problems with EMPTY tags (like when the end tag is used,
+and situations where the empty tag is immediately followed by the
+end tag for another tag. EMPTY tags SHOULD work now. Also changed
+boolean processing so that query with all stopwords as one part
+of a Boolean OR returns the results for the non-stopword part. AND
+processing is unchanged.
+
+
+Version 2.13
+   Adds more complete support for XML characteristics (including /> empty
+tags, and declared INCLUDE and IGNORE sections or CDATA sections. Also 
+adds support for DOCTYPE declarations, comments, and local DTD definitions
+within a document -- in both buildassoc and indexing. Also provides indexing
+support for proximity information including specifications in config files.
+(Proximity search support will be included in the next version RSN).
+Also includes the following  Nonstandard extensions to bib1 for Thesaurus 
+searching...
+    Index names in command parser
+  {"BROADER_TERM", "BT", "BROADER"} BIB-1 USE= 5001
+  {"NARROWER_TERM", "NT", "NARROWER"} BIB-1 USE=5002
+  {"RELATED_TERM", "RT", "RELATED"} BIB-1 USE=5003
+  {"TOP_TERM", "TT", "TOPTERM"} BIB-1 USE=5004
+
+Version 2.13b
+   Fixes some glitches in XML empty tag parsing and includes NT source
+code changes. Also includes some extensions for the opac interface in
+cheshire2/GUI7 (mainly enhancements for TREC).
+
+Version 2.13c
+   Adds GUI7 in cheshire2 (support for fulltext viewing window -- currently
+limited to TREC database use) Includes support for logging the use of the
+window. Also includes a new search processing algorithm for BlobWorld
+searching (a weighted quorum matching technique with a 50% match cutoff)
+-- the new search method is invoked using the "STEM" (%) relation attribute.
+-- also adds local USE attributes for BLOB searching...
+  Index name in command parser -- bib-1 USE attribute number
+  "BLOBID"  -- 5011
+  "IMAGEID" -- 5012
+  "BACKGROUND" | "IMAGE_BACKGROUND" -- 5013
+  "BLOB" | "BLOBS" -- 5014
+
+search blobs % $querystring1
+
+Version 2.13d
+   Added support for specifying and processing XML as a Z39.50 record syntax.
+Clients can now do "zset recsyntax XML" and the display processing in the
+server will handle XML requests (assumes that our SGML data files are
+XML compliant).
+
+Version 2.13e
+   Enabled smallElementSetNames and mediumElementSetNames in search --
+fixed some bugs in sgml_squash for "compressed" elementsets. Added
+support for "zset recsyntax HTML" which has no current implementation
+in the server, though the server will accept it as valid. Conversion
+to HTML should currently be handled as an external conversion function
+via the DISPLAY tag in configfiles, Otherwise records requested as
+HTML are sent in their normal XML/SGML form.
+
+
+Version 14  (version numbers from here forward use just the decimal part)
+
+   Added preliminary phrase search support (for matching consecutive
+term strings for indexes using proximity indexes). Phrases are specified
+with dollar signs e.g.: find topic $this is a phrase$. Numerous bug fixes
+for things like escaping open and close braces in GRS-1 in the clients,
+a bug where > was missing the first item of a range. JSERVER was ignoring
+the MAXIMUM_RECORD_SIZE in the server.init file -- it now enforces it and
+will not return records longer than the MAXIMUM_RECORD_SIZE.
+
+Version 15
+   Updated support for DATE searching -- including new MIXED YEAR and 
+MIXED YEAR RANGE. Various sgml fixes.
+
+Version 16
+
+   Support for GEO profile and attribute set. Various fixes, the
+ability to ask for internal docid for output in GRS-1
+conversions. Support for a "batch mode" testsrch2 (new command line
+option added for number of records to be returned).
+
+Version 17 
+
+Support for use of local index names (the contents of the config file
+<INDXTAG> elements) via Z39.50 Complex attributevalues (passing the
+name as a string). Added scanning for SYSTEM names in DTD and entity
+includes. The system checks if the name is a full pathname indicated
+by a leading slash "/..." on unix or the "C:\..." pattern on NT --
+will also handle "file:///..." URLs. If not a full pathname, and if
+parsing a DTD the system will check the current directory and the
+directory referenced by the main DTD file (as indicated in the config
+file) before failing. If parsing a document, the system will check
+the directory where the document came from to find includes before
+failing. PUBLIC includes are still looked up in the sgml catalog 
+for the database.
+
+Version 18
+   This version has replaced sgml entity substitution as a pre-process
+to the normal parse (it was included in the parse before), and fixed
+some bugs in the parser. The ability to indicate that indexing 
+exclude some subtree of an SGML record is also included as the
+new <INDXEXC> tag in configfiles.
+
+
+Version 19 (last version with Berkeley DB 2.2.6)
+
+    This version includes a number of bug fixes for SGML parsing and also 
+includes preliminary support for CHESHIRE specific processing instructions
+in documents that will affect how those documents are processed (including
+things like substitutions of tags and of attributes in special cases. Fixes
+some bugs (like exact keys containing more than a single occurrence of a
+tag during extraction). Further development will substitute the latest
+version of Berkeley DB, and revise the development environment.
+
+Version 20
+
+    This version uses BerkeleyDB 3.1.14 and requires that all indexes for
+existing databases be re-built to accommodate those changes. In addition,
+the system now needs to have a DATABASE ENVIRONMENT area set aside for use
+by BerkeleyDB for handling locking and disk-backed buffering of data. The
+advantage gained by these changes is that it should now be safe to run
+index-building updates while the server is actively searching the same 
+database. The database environment should be set up as an empty directory
+accessible to the server. The same database environment may be shared among
+all of the databases accessed by a server. You tell the system where the
+database environment area is located in one of two ways:
+
+1) Set the environment variable CHESHIRE_DB_HOME to the full pathname of the
+   database environment directory.
+or
+2) Add a <DBENV> tag immediately after the <DBCONFIG> and before the first
+   <FILEDEF> in the configuration file.
+
+The environment variable has priority and will override the DBENV tag in a
+config file. 
+
+IF neither of these is done, the server or program (such as
+index_cheshire, etc.) will quit with the message "CHESHIRE_DB_HOME
+must be set OR config file <DBENV> set." sent to the console or to the
+server log file.
+
+When indexing is run (actually when any program that accesses or
+updates the indexes is run) Three files are created in the database
+environment directory, (__db.001, __db.002, and __db.004). Any program
+or user who accesses the database must be able to read and write these
+files. The simplest way to handle this is to make the files world read
+and writable. Alternatively group write could be used, with all users
+allowed to update and access the database -- including the user ids
+associated with the inetd-started servers -- as members. 
+
+This version also includes some minor bug fixes as well. 
+
+With this version the full source is available using CVS for version
+control. If you would like remote access to the CVS repository, please
+contact us.
+
+Version 21
+
+    This version includes a number of bug fixes and also now has
+support for _NOMAP forms of the NORMAL types in index definitions in
+the config files -- see the configfile.html documentation in the doc
+directory.
+
+Version 22
+    This version now uses Tcl/Tk 8.3.2 (the latest stable version) and
+includes a number of changes related to that. It also includes some changes
+to configurations file structure. See the configfile.html documentation
+in the doc directory. These configfile changes should not affect any
+current configfiles.
+
+    22b: Bug fixes related to NT version including query parser support for
+ASCII characters 128-255 (to support European mappings of extended ASCII).
+
+    22c: Bug fix to buildassoc when used to incrementally add to the 
+associator while using the -r option. It will now signal duplicate filenames
+(those already in the .cont file) and not add them to the associator.
+
+    22d: added local version of zscan to webcheshire (invoked by lscan)
+fixed bug in exact key extraction. Also added additional special characters
+(such as carriage-return, form-feed, and vertical-tab) to the list of word
+separators. Bug fixes to new version of buildassoc for NT. The SGML/XML
+parser will no longer complain about AMP, LT, GT, APOS or QUOT entities
+not being defined.
+
+
+Version 23
+    This version includes the preliminary version of the config builder GUI
+(in config-gui) and adds support for component definition within the
+config files -- NOTE that component retrieval is still being worked on,
+and is not complete in this version. This version also fixes bugs for
+a number of things including inaccurate results in boolean queries using
+relational operators like > >= < <=. 
+
+Version 24
+   This version includes component definition and retrieval, permitting
+sub-elements of large SGML/XML documents to be indexed and retrieved as
+if they were standalone documents.
+
+Version 25
+   This version provides enhances component support, including the use of
+regular expressions in defining components. There are also changes to
+how elements of documents are extracted for indexing (and component
+definition). Extraction now uses a hash table of tags for each document
+built during SGML/XML parsing, instead of the torturous recursive traversal 
+of the document tree formerly employed. Don't have any numbers yet, but
+I expect that indexing speed will improve.
+
+Version 26d (changes in PI names since 26)
+   This version provides processing instruction support for indexing 
+operations. The defined processing instructions are described below
+(from the text in doc/configfile.html):
+
+Although the following processing instructions would be included in
+the SGML or XML data files and not in the config file, they affect how
+data is processed during indexing or display and thus are related to
+the other information in the configuration files. Currently, all of
+the processing instruction affect indexing of data. Eventually, there
+will be some similar instructions for display processing using the
+CHESHIREDISPLAY keyword. Currently there are three processing
+instructions "IGNORE_TAG", "DELETE_TAG", and "SUBSTITUTE_ATTR", these
+are described below:
+
+<?CHESHIREINDEX IGNORE_TAG tagname?>
+
+
+This instruction indicates that the indexing parser should do a tag
+substitution for this tagname: that is, remove the space for the tag
+tagname itself and join up the tag contents with the content on
+either end.
+
+For example, with the processing instruction:
+
+<?CHESHIREINDEX IGNORE_TAG blotz ?>
+
+data like:
+
+"this is a <blotz>new</blotz>thing"
+
+would appear to the indexing processing as:
+
+"this is a newthing"
+
+
+
+<?CHESHIREINDEX DELETE_TAG tagname?>
+
+
+This instruction indicates that the indexing parser should remove the
+tag tagname and it's contents. That is, remove the space for
+the tag and contents and join up the contents on either end.
+
+For example, with the processing instruction:
+
+<?CHESHIREINDEX DELETE_TAG blotz ?>
+
+data like:
+
+"this is a <blotz>new</blotz>thing"
+
+would appear to the indexing processing as:
+
+"this is a thing"
+
+
+
+<?CHESHIREINDEX SUBSTITUTE_ATTR tagname attributename?>
+
+
+This instruction indicates that the indexing parser should do a tag
+attribute substitution for this tag. That is, remove the space for the
+tag tagname itself and replace it with the the specified
+attribute attributename's value, closing up the contents on
+either end with the specified attribute value.
+
+For example, with the processing instruction:
+
+<?CHESHIREINDEX SUBSTITUTE_ATTR blotz xtra?>
+
+data like:
+
+"this is a <blotz xtra="old">new</blotz> thing"
+
+would appear to the indexing processing as:
+
+"this is a old thing"
+
+
+
+Version 27b
+  Many changes and fixes especially for Components and user-defined display
+formats. Everything is now using the new tag hash table lookup at the
+document level. This means that FTAGs will be more efficiently processed.
+Using ^tagname$ is no longer required for exact matches of tag names that
+might be sub-names of another tag. The preferred form is now just tagname
+without anchoring. Patterns still work fine, it is just that exact tag names
+are faster to process.
+
+Version 27c
+   Bug fixes and added support for using #PARENT# display directives with
+components. Fixed bug with character entities, and looping entity
+replacements. Added support for != relation in queries. The 
+<DISPOPTION>KEEP_ENTITIES</DISPOPTION> flag can now be used to totally
+disable general entity substitutions in documents. Pathological conditions
+in some documents (e.g. >27000 occurrences of the keyword "x" in one
+document where proximity indexing was requested) should now be handled OK.
+
+
+Version 28
+   Bug fixes, including the problem of leaving temp files in /tmp and
+/usr/tmp. Logfiles can be retained if the argument -k is given for
+zserver. Added support for PostgreSQL as an external relational
+database. A "crypt" command interface to the system DES encryption for
+the client Tcl interpreters. Many fixes and changes to the NT version.
+
+
+Version 29
+   The delete_recs program has been added (actually fixed up and moved
+from in_testdel) to remove records and their associated index entries
+and components from a database. This program doesn't delete the
+actually data record in files, it just marks the associator entry as
+deleted. The index and component data is completely removed. Many bug
+fixes, including errors in processing external display formatting. 
+
+   The system now supports "real" numeric fields for indexes (i.e. so
+that relational operators > < etc. will work on them. These are declared
+by having the extract attribute of "INTEGER" "DECIMAL" or "FLOAT" depending
+on the data. These will index only a single numeric string per matching
+tag, ignoring leading whitespace. Only numerical values are extracted. These
+are then mapped to normalized strings in the index. See the configfile.html
+file for more information.
+
+   This version also has Partial support for index_level processing
+instructions (single instructions per element to be processed).
+
+Version 30
+
+   Completed support for index_level processing instructions (can now
+include multiple instructions per element to be processed, for
+different indexes). Fixes a long-time bug in the stemmer where in some
+situations "using" became "us" and in other it became "use", Now it
+always becomes "use". Also stemming "adding" becomes "add" rather than
+"ad" but "cladding" still becomes "clad". Fixed bug in proximity phrase search
+where word order was being ignored, and tightened up the fuzziness in
+matching (now if there are more than 3 characters between words in the
+phrase, the match will fail). There is now partial support for the
+proximity operators. 
+
+   Fixed a number of bugs introduced by changes in the display system
+recently. Also added an additional test so that defined display formats
+in the configfiles will override the "default" behavior of returning 
+full SGML/XML for SUTRS with elementsetnames B and F. Now user defined
+B or F definitions will be used if they exist -- if not will still return
+the full record. The version number is now accessible from the clients.
+as the global variable "cheshire_version" (I hope I remember to update
+the version.h structure).
+
+Version 31
+
+   Fixed some bugs in SGML parsing, where occasionally (if a DTD was
+defined in a non-typical way with the sub-elements all declared before
+the main top-level element) the records would be misparsed and appear
+to lose the top-levels of the data (This was very rare, but is now fixed
+anyway).
+
+   Added a new entry in the SERVER.INIT file, PERMANENT_LOG_FILE_NAME. If
+this item is included in the server init file with a full path name,
+then the temporary log file information normally deleted by the server
+at the end of a session will be appended to this file. Note that this
+can get very big very fast in active environments (since copies of each
+record displayed are included in the log file).
+
+   Additional operator support for proximity operators. Types such
+as Word, Sentence, Paragraph, Section, Chapter, and Document are
+now handled, through approximation (I.e. we don't really store the
+actual boundries of this, but use character distance estimations instead.)
+
+Version 32
+   
+   Added the old Sequoia 2000 map widget to the Tk clients (cheshire2
+and staffcheshire. This adds a new widget type to Tk which is a
+zoomable, scrollable map of the world (using data in the
+cheshire2/MAPDATA directory).  See the documentation in doc, and/or go
+to the cheshire2 directory, and run "cheshire2 map3.tcl" to see what
+it can do. (Note that the NT version of the client has some problems with
+redrawing the map after it has been covered.)
+
+   When the truncation attribute 100 (DO NOT TRUNCATE) is included in
+an exact-key search, it now does the correct thing (normally searching
+for exact keys will do a right-truncated match, so that if the query
+key is a left-anchored substring of the data, the data is
+returned. Now, by specifying 5=100 it has to be an exact match of the
+entire key.
+
+   Support for Z39.50 Sort has been added to the system. The syntax for the
+sort command on the (Z39.50) client side is: 
+
+ZSORT -IN_RESULTS {list_of_input_resultsetnames} 
+        -OUT_RESULTS Output_resultsetname  
+	{{{-TAG sgml/xml_tag_1} | { -ATTRIBUTE attribute_1}}
+        -IGNORE_CASE -CASE_SENSITIVE -ASCENDING -DESCENDING -ASCENDING_FREQ
+        -DESCENDING_FREQ -MISSING_NULL -MISSING_QUIT",
+        -MISSING_VALUE \"value\" }
+        ... -TAG sgml/xml_tag_2 ...etc... -ATTR attribute_2 ...etc...
+
+Default is -IGNORECASE -ASCENDING -MISSING_NULL with latest
+resultsetname as both input and outputname. May abbreviate options if
+unique. For example to sort the records of the current resultset by
+the TITLE tag, you could specify "ZSORT -TAG TITLE". If you wanted
+sort things by descending date within case-sensitive title for resultset
+RES1 to be saved as RES2 you could specify:
+
+ZSORT -IN RES1 -OUT RES2 -TAG TITLE -CASE -TAG DATE -DESC"
+
+Since the option flags are applied to each part of the sort key, they are
+repeated FOLLOWING each -TAG or -ATTR specification an apply to it only,
+any options NOT specified take the default values. For the Webcheshire
+client the local version of the command is local_sort (lsort is already
+used in Tcl) cheshire_sort is an alias for local_sort. See doc/cheshire2.html
+for further information about zsort.
+
+On the server side there is support for sorting by tag, attributes and
+by elementsetnames (only two such name RANK and SCORE are currently
+available and sort by the ranking values of the resultset).
+
+
+Version 32c
+
+   Many bug fixes again. This version provides preliminary support for
+indexing where the data contain the frequency indication with the terms.
+This is of use in indexing harvested terms when building distributed indexes
+using scan (see the scripts/distrib/distrib_build.tcl script). There is
+configfile support and there are utilities to help support storage of
+pre-parsed sgml/xml in a BerkeleyDB database. This is not yet complete, but
+some of the bug fixes here required earlier release.
+
+
+Version 32d
+
+   Many more bug fixes. Support for Z39.50 attribute architecture added.
+The INDXMAP elements of the config file can now include the ATTRIBUTESET=
+attribute for each tag and there are new tags for the attribute architecture
+components (see doc/configfiles.html). Query parsing of clients and servers
+also now supports the attribute architecture. The testparse command has
+been made part of the normal build to permit testing of command parsing
+
+-> testparse
+Query-> author xxx
+The Query is : 'author xxx'
+
+AUTHOR[ 1=1003] {xxx}
+Query-> [bib1 1=1003] xxx
+The Query is : '[bib1 1=1003] xxx'
+
+AUTHOR[ 1.2.840.10003.3.1 1=1003] {xxx}
+Query-> [GEO 1=55, BIB1 2=3] xxx
+The Query is : '[GEO 1=55, BIB1 2=3] xxx'
+
+CODE-GEOGRAPHIC_AREA[ 1.2.840.10003.3.9 1=55 1.2.840.10003.3.1 2=3] = {xxx}
+Query-> 
+
+
+To combine multiple attribute set in the same query, you may specify
+the attributeset OID or Symolic names for the following Attribute
+sets: "BIB-1", "EXP-1", "EXT-1", "CCL-1", "GILS", "STAS",
+"COLLECTIONS-1", "CIMI-1", "GEO-1", "ZBIG", "UTIL" ;, "XD-1", "ZTHES",
+"FIN-1", "DAN-1" and "HOLDINGS"). Either these symbolic names (and
+many variants) or the OIDs may be specified (OIDs of unlisted
+attribute sets can also be specified). See the doc/cheshire2.html for 
+search command syntax.
+
+Version 32e
+
+This version includes bug fixes for some GRS1 display problems in webcheshire
+and additional error checking for database access.
+
+
+Version 32f
+
+This version includes more bug fixes and additions to processing
+instruction handling to improve handling of components. In addition
+Present (or Search with included records) results on the clients now
+return an additional list element in the first (0th) element that
+includes the record syntax (both a name and OID) of the results if it
+can be determined. For example in webcheshire the new form of results
+looks like ...
+
+{{Hits 26} {Returning 4} {Start 1} {Resultset NONE} {RecordSyntax XML 1.2.840.10003.5.109.10}} {<USMARC Material="BK" ID="00000074"><leader><LRL>...
+
+In ztcl it looks like...
+
+{OK {Status 0} {Received 1} {Position 1} {Set Default} {NextPosition 2} {RecordSyntax MARC 1.2.840.10003.5.10}} {00617nam  2200217   450 001001300...
+
+
+Version 32g
+
+This version includes bug fixes, especially for processing instructions. This
+version also fixes a long-standing memory leak on some architectures
+(particularly for very large records) that affected webcheshire and possibly
+the zserver and indexing as well (though the problem was observed 
+primarily in webcheshire). It is not clear if this leak was due to use
+of certain (dmalloc) macros or an OS problem, but realloc'ed memory was
+not being freed correctly. This is now fixed using a malloc/copy/free sequence
+instead of realloc. 
+
+
+Version 32h
+
+This version MAY have finally found a fix for the Berkeley DB lockup problem.
+
+Version 32i
+
+Minor bug fixes (Lscan was having problems with "terms" that were longer
+than a single word and included boolean operators). Also includes the
+best (so far) probabilistic distributed search collection ranking
+(performs slightly better the CORI algorithm on short queries on the 236
+collection partitioning of three TREC disks).
+
+Version 32j
+
+Fixes for zmakeformat command in clients (removed USMARC assumptions about
+records). Initialisms are now extracted in indexing and search keys. Thus,
+if U.S.A. appears in a record, it is now indexed as "u.s.a". Trailing 
+periods are removed from initialisms and normal words.
+
+Version 33
+
+This version includes implementation of virtual databases (i.e., 
+a database that actually represents multiple databases on the same server,
+with pooled results for search and display. See virtual.html in the
+docs directory.
+
+It also includes the first "datastore" implementation. If a configfile
+uses a 
+<FILEDEF TYPE=SGML_DATASTORE> or <FILEDEF TYPE=XML_DATASTORE> 
+<FILEDEF TYPE=MARC_DATASTORE> or <FILEDEF TYPE=MARCSGML_DATASTORE>
+(The last pair is effectively equivalent for databases using the MARC
+conversion and DTDs included in the distribution), then, instead of
+using the buildassoc utility, the (new) cheshire_load utility is used
+to load a pre-parsed version of the data into a Berkeley DB database,
+(cheshire_load has all of the same parameters as buildassoc, so the
+same type of scanning of directories, etc. can be done). No associator
+is used, and the often slow parsing of records is done just once when
+the data is loaded into the database. This can improve the performance
+for display and reformatting of large records or components derived
+from large records. The <FILENAME> element of the configfile is created
+(if necessary) by cheshire_load. A simple "dump" utility "read_datastore"
+is included for examining records in a datastore database. Indexing and
+retrieval, displays, etc. should work the same as before using datastore.
+An additional utility "dumpds" provides information about the keys and
+record sizes in the DATASTORE DB file, including the hex values of the
+digest keys used to test whether or not a record being added by cheshire_load
+duplicates a record already in the database.
+The documentation for these new programs is also in the docs directory.
+
+This version also includes a number of bug fixes (such as the failure
+to not convert character entity references when the KEEP_ENTITIES dispoption
+was use).
+
+Version 33a
+
+Minor bug fixes so that associator files can safely be removed from 
+config files for DataStore databases. 
+
+Version 33b
+
+Bug fixes: Search was missing one record in virtual databases. Fixed a crash
+when the configfile was not found. 
+
+Support for local use of DBMS databases has been added to webcheshire
+as the "SQL" or "LSQL" command. This is similar to the ZQL command,
+but also allows modification and creation of local relational DBMS
+tables (currently available only for the PostgreSQL ORDBMS).
+
+Support for result sets and Boolean operations on resultsets is now
+supported for virtual databases. This assumes that the resultsets to
+be combined by Boolean operators are all from the SAME virtual database.
+
+Support for include operations on configfiles using the <CONFIGINCLUDE>
+tag -- this tag can be used to reference the contents of other files
+containing configuration file information. It can be used in
+place of a filedef so that the named file is read and the filedef
+in that file is included. It is possible to use this for other
+parts of a configfile, but not in all situations. Note that the
+configfile using ConfigInclude must AT LEAST include a DBCONFIG
+tag and DBENV tag in addition to the ConfigInclude tags. DBCONFIG
+and DBENV tags are ignored in files included with ConfigInclude, so
+it is possible for multiple standalone configfiles to be combined, 
+for example, for a virtual database definition where the individual
+databases are added to the virtual DB configfile by ConfigInclude.
+
+Version 33c
+
+Further bug fixes for virtual database sets and sorting. These now appear
+to be behaving correctly.
+
+Version 33d
+
+More bug fixes for virtual databases, a problem with using the new
+CONFIGINCLUDE in conjunction with CONTINCLUDE is now fixed. Some fixes
+for FREQ normalization in indexing. Also a problem of not limiting
+index extraction to the full tag path when a nested set of tags plus
+an attribute and value(s) were the in the tag specification for an
+index is now corrected.
+
+Version 33e
+
+Further bug fixes. In particular there was a hard to trace problem with
+some ranked searches turning up with boolean results. This was due to some
+errors in the addition of the Z39.50 attribute architecture. These errors
+(and some cases where a failed search reported an invalid attribute
+combination) should now be fixed.
+
+Version 33f
+
+A problem with using DataStore Databases over Z39.50 was traced to warning
+messages being sent to STDOUT instead of to the logfile, this led to lots
+of strange behavior. This has now been corrected. Also there is a simple
+Geographical search interface based on the Mapwidget (running as the
+Tcl/Tk scripts cheshire2/mapgeosearch.tcl (for LARGE screens) and 
+cheshire2/mapsmgeosrch.tcl (for smaller screens).
+
+Version 33g
+
+Support for ELEMENT, SUBELEMENT proximity for components where 
+the left-hand part of prox operation HAS ELEMENTs of the right-hand part
+or the left-hand part IS a SUBELEMENT of the right-hand part. Note that
+this proximity determination is done using the existing component information,
+and the indexes used should NOT be proximity indexes, but just normal
+component indexes. This was already in place for situations where 
+one side of the proximity operation was a set of full documents and
+the other side was component drawn from those documents (in that case
+only the components that are subelements of the full documents are
+returned).
+
+Also (finally) added aliases for ELEMENTSETNAMES in the clients, so that,
+for example "zset element xxx" or "zset elementset" are now valid.
+
+Version 33h
+
+This version includes bug fixes and PARTIAL support for full-blown
+XML.  If a configfile declares that FILEDEF TYPE=XML the parser and
+system do case-sensitive matching (instead of case-insensitive as is
+done for TYPE=SGML. There is also code included for XMLSchema parsing
+in configfiles and for schemas themselves -- THIS IS NOT WORKING YET
+but was included in this interim release so that the bug fixes and
+case-sensitive support was available.
+
+Version 33i
+
+Bug with previous version made SGML matching of FTAG names fail when
+namespaces were included. Namespaces are now ignored in tag name matching
+EXCEPT when a tag pattern is used -- so DON'T use namespaces in tag
+patterns and things should work as you expect (or make the namespace
+an optional part of the pattern)
+
+Added DEFAULTPATH support for convert external functions names, so that
+if a display conversion function is specified without a full path name,
+it defaults to the DEFAULTPATH location.
+
+Version 34
+
+Some bug fixes and support Geographic Information Retrieval (GIR)
+using lat_long and Bounding Box indexes and indexing (See discussion
+of search support below). In addition there is now support for dynamic
+extraction of XML elements using a special elementsetname.
+
+GEOGRAPHIC IR
+
+The system now supports geographic coordinate indexing and retrieval
+for a variety of coordinate formats. See configfiles.html for details
+of lat-long and bounding-box index specifications in configuring indexes.
+Retrieval is performed using the relational operators defined in the
+GEO Profile. This provides additional operators for geographic and
+time period searching. These can be specified (assuming the attributeset
+is GEO) as follows. (BIB-1 relops, <=, <, =, >, <=, and <>
+are the same as BIB-1). The following new operators are available for
+the Cheshire clients...
+  
+Operators
+Name
+  Semantics
+  
+>=<  .OVERLAPS.  [GEO 2=7]
+Overlaps
+The access point region has a geometric area in common with the search
+    term region. Given a search term region of S and access point
+    region of T, the following algebra expresses the conditions
+    required: {S(North) >= T(South)} and {S(South) <= T(North)} and
+    {S(East) >= T(West)} and {S(West) <= T(East)}.
+  
+>#<  .FULLY_ENCLOSED_WITHIN.  [GEO 2=8]
+Fully Enclosed Within
+The access point region is fully enclosed within the search term region.
+    
+<#>  .ENCLOSES.  [GEO 2=9]
+Encloses
+The access point region fully encloses the search term region.
+    
+<>#  .OUTSIDE_OF.  [GEO 2=10]
+Fully Outside Of
+The access point region has no geometric area in common with the search
+    term region.
+  
+  
++-+  .NEAR.  [GEO 2=11]
+Near
+The access point region falls within a default distance of the search term
+    region. The default distance currently defined is 50 miles. Later an
+    attribute architecture modifier will be introduced to permit user
+    specification of the distance.
+  
+  
+.#.  .MEMBERS_CONTAIN.  [GEO 2=12]
+Members Contain
+The access point element or one of its subordinate elements is equal
+    to the search term value (subject to possible qualification by the
+    Truncation and Structure Attributes). (Not currently available on
+    Cheshire servers)
+  
+!.#.  .MEMBERS_NOT_CONTAIN.  [GEO 2=13]
+Members Not Contain
+The access point element and all of its subordinate elements are not
+    equal to the search term value (subject to possible qualification
+    by the Truncation and Structure Attributes). (Not currently
+    available on Cheshire servers)
+  
+  
+:<: .BEFORE.  [GEO 2=14]
+Before
+    The access point date (or date range) is before the search term date (or
+    date range).
+  
+:<=: .BEFORE_OR_DURING.  [GEO 2=15]
+Before or During
+The access point date (or date range) is before or during the search term
+    date (or date range).
+  
+  
+:=:  .DURING.  [GEO 2=16]
+During
+The access point date (or date range) is during the search term date (or
+    date range). (Same as WITHIN above on Cheshire)
+  
+  
+:>=:  .DURING_OR_AFTER.  [GEO 2=17]
+During or After
+The access point date (or date range) is during or after the search term
+    date (or date range).
+  
+  
+:>:  .AFTER.  [GEO 2=18]
+After
+The access point date (or date range) is after the search term date (or
+    date range).
+
+All of this information is all presented under zfind in the cheshire2.html
+documentation.  
+
+A sample database of geographic information and test scripts are available
+in the cheshire2/MAPDATA directory.
+
+
+
+DYNAMIC SINGLE ELEMENT EXTRACTION
+
+Single XML or SGML elements may be extracted dynamically from the records
+in a database using the following format (assuming XML output is wanted):
+
+<displaydef name="XML_ELEMENT_" OID="1.2.840.10003.5.109.10">
+<convert function="XML_ELEMENT">
+  <clusmap>
+    <from>
+      <tagspec>
+        <ftag> SUBST_ELEMENT </ftag>
+      </tagspec>
+    </from>
+    <to>
+      <tagspec>
+        <ftag> SUBST_ELEMENT </ftag> 
+      </tagspec>
+    </to>
+  </clusmap>
+</convert>
+</displaydef>
+
+This format is used in querying by setting the elementsetname to
+"XML_ELEMENT_xxx" where the "xxx" is the full name of an element in
+the records. Only that single element is extracted (or if it occurs 
+multiple times in the same record, all of the occurrences are extracted).
+For example, assuming the above displaydef is defined for the example
+bibfile database (see index/testconfig.new), then sending the following
+commands to the client:
+
+% zset recsyntax xml
+% zset elementset "XML_ELEMENT_Fld245"
+% zfind su mathematics
+{OK {Status 1} {Hits 17} {Received 0} {Set Default} {RecordSyntax UNKNOWN}}
+% zdisplay
+
+Will result in...
+
+{OK {Status 0} {Received 10} {Position 1} {Set Default} {NextPosition 11} {RecordSyntax XML 1.2.840.10003.5.109.10}} {<RESULT_DATA DOCID="1">
+<Fld245 AddEnty="No" NFChars="0"><a>Singularitâes áa Cargáese</a></Fld245>
+</RESULT_DATA>
+} {<RESULT_DATA DOCID="2">
+<Fld245 AddEnty="Yes" NFChars="0"><a>Modáeles locaux de champs et de formes /</a><c>Robert Roussarie</c></Fld245>
+</RESULT_DATA>
+} {<RESULT_DATA DOCID="5">
+<Fld245 AddEnty="No" NFChars="0"><a>Metody modelirovaniëiìa i obrabotka informaëtìsii /</a><c>otv. redaktory K.A. Bagrinovskiæi, E.L. Berlëiìand</c></Fld245>
+</RESULT_DATA>
+
+
+Notice that the extra tag <RESULT_DATA> has been added to each
+record (the DOCID attribute is the internal document ID for the source
+record).
+
+Thus, any XML/SGML element can be requested from the database records of
+a database with this display format defined.
+
+
+Version 34b
+
+A change was made to the marc2sgml conversion program. It now produces
+faked "a" subfields for those bad MARC records that lack the initial
+subfield delimiter of a non-00x field -- this won't always be
+correct... but the record is no longer just thrown out.
+
+Bug fix for a coding error that was causing clustering to fail.
+
+Version 34c
+
+ (version 34c not released)
+
+
+Version 34d
+
+Extensions to Dynamic single element extraction (see version 34) so
+that the single XML or SGML elements to be extracted dynamically from
+the records can be specified by a simplified XPATH string 
+(only direct paths ( /a/b/c/ etc.) are supported and not the xpath keyword 
+specifications for relative paths. For example, using the displaydef
+above, a path can be specified as...
+
+% zset elementset "XML_ELEMENT_/USMARC/VarFlds/Titles/Fld245"
+
+note that the path need not be a complete path, as long as the subordinate
+path elements are descendents of the superordinate ones, the path can
+be matched.
+
+Also, if a set of elements is wanted from a record, these may be
+specified using the XPATH "|" notation, for example
+
+% zset elementset "XML_ELEMENT_Fld245|Fld650|Fld651
+
+would retrieve all Fld245, Fld650 and Fld651 tags from the record (so
+it isn't -really- single element extraction at all).
+
+Note ALSO that because the XPATH notation is converted into TAGSPECs
+internally, all of the wildcard and pattern matching available in
+configfile TAGSPECs is available in the XPATH specifications (this is
+NOT, however, guaranteed to be a real XPATH wildcards implementation).
+
+For example, in place of the above example
+
+% zset elementset "XML_ELEMENT_Fld245|^Fld65."
+
+could be used to match Fld245 along with any tag starting with "Fld65"
+followed by any other character. 
+
+There is also now support for attribute (and attribute+value) specifications
+using XPATH. For example:
+
+% zset elementset XML_ELEMENT_Fld245/@AddEnty 
+
+would retrieve just the AddEnty attribute values for the Fld245 tag, and
+
+% zset elementset XML_ELEMENT_Fld245/@AddEnty=No
+
+would return just Fld245's that had the attribute AddEnty with the value "No".
+
+However, the combination of full/partial paths with regular expressions
+will usually fail to work (due to the way the paths are turned into
+TAGSPECs), so the following will NOT work correctly...
+
+% zset elementset "XML_ELEMENT_TITLES/Fld245|SUBJECTS/^Fld65."
+
+This would be interpreted as the FTAG path...
+
+<FTAG>TITLES</FTAG><s>Fld245|SUBJECTS</s><s>^Fld65.</s>
+
+Which would not match any tags in a correctly constructed USMARC record.
+
+Please also note that this is just a display format for records retrieved
+by searches and is not an additional search -- If no element specified
+in the XPATH specification is found in a retrieved record an empty record
+will be returned. These empty records look like:
+
+<RESULT_DATA DOCID="74"></RESULT_DATA>
+
+which implies that the record with DOCID 74 matched the query, but did not
+have any fields matching the XPATH specification.
+
+
+Bug fixes, including a bug in clustering that led to indexing crashes.
+Also added date range formats for MOST of the single date and datetime
+formats in configfiles, e.g. if there is a date format "YYYYMMDD" there
+is now a matching range format "YYYYMMDD-YYYYMMDD". The exception to this
+is the hyphenated date formats like "MM-DD-YYYY" which are are ambiguous
+about where the range would start... Some accomodation will be made for
+these later.
+
+This version also includes makefile changes and code changes so that
+the system wiill run under Mac OS X -- full operation (i.e. windowing
+clients) currently requires that XFree86 be installed on the machine
+as well. 
+
+It includes bug fixes for: 
+
+1) a problem of certain invalid client search commands causing the
+NEXT command to crash,
+
+2) Situations where a single content field larger than the maximum
+sort line length led to incorrect values in temporary cluster files
+and caused clustering to fail,
+
+3) A situation where searches using a local index name (instead of
+Z39.50 numeric USE attributes) would not perform a probabilistic
+search unless the relation code 102 was in the indxmap elements of the
+configfile indexdef for the index (normally -- and once again true --
+any index may have a probabilistic search performed on it),
+
+4) A situation where a range search (> >= < <=) for a single term used
+in a range query (e.g. title > {a}) was on the stopword list for the
+index would return zero results. This will now return the range regardless
+of whether the word is stopword.
+
+
+Version 35
+
+This version provides support for arbitrary conversions of XML/SGML
+records to MARC format. The "MARC" convert function can be used to do
+XML/SGML to MARC conversions -- it is up to configfile creator to
+provide the appropriate mappings from XML/SGML elements to MARC fields
+and subfields. This requires that the "FROM" and "TO" definitions be
+structured correctly for MARC conversions.  The "FROM" tagspecs should
+specify one or more tags/elements in the order that they are to
+appear in the subfields specified in the "TO" specifications. For
+example, in a MARC conversion from an EAD format finding aid the
+following might be specified...
+
+        <from>
+                <tagspec>
+		<ftag>archdesc</ftag><s>repository</s><s>address</s>
+                <ftag>archdesc</ftag><s>repository</s><s>corpname|name</s>
+                <ftag>archdesc</ftag><s>unitdate</s>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>260</ftag>
+		<ftag>a</ftag>
+		<ftag>b</ftag>
+		<ftag>c</ftag>
+                </tagspec></to> 
+
+Each FROM/TO pair in the specification should correspond to a single
+MARC field.  In the TO specification, the first FTAG should be the
+three digit MARC field number/name. The following FTAGS (if any) in
+the TO specification should be the subfields of the MARC field in the
+order they are to appear.  The FROM fields specified in each FTAG line
+should have a matching TO ftag line (following the first field name
+line). Data from fields found will be put into the matching subfields
+of the field. However, if there are multiple occurrences of particular
+field or subfield values for a given record, sometimes the mapping
+will be inaccurate (there is currently no way to automatically detect
+which of the subfields is paired with each of the other
+subfields). (Exceptions for MARC header components are discussed
+below)
+
+Here is a complete convert specification for an EAD database. (NOTE the
+new "MARC_DTD" attribute for DISPLAYDEF (or its FORMAT synonym -- this
+is REQUIRED for marc conversions). Internally this process converts from
+the original SGML/XML to MARCSGML and then uses the sgml2marc capabilities
+of Cheshire to generate the actual MARC record, hence it needs the 
+MARCSGML DTD.
+
+
+<DISPLAYDEF NAME="EADMARC" OID="1.2.840.10003.5.10" MARC_DTD="/home/ray/Work/cheshire/doc/install/USMARC12.DTD">
+  <convert function="MARC"> 
+   <clusmap>
+        <FROM>
+		<tagspec>
+		<ftag> MARC_HEADER_MATERIAL_TYPE </ftag>
+		</tagspec> </FROM>
+	<TO>    <tagspec>
+		<ftag> AM </ftag>
+		</tagspec> </TO>
+        <from>
+                <tagspec>
+                <ftag>eadid</ftag>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>001</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>filedesc</ftag><s>titlestmt</s><s>titleproper</s>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>245</ftag><attr>1<value>No</value></attr>
+		<ftag>a</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+		<ftag>archdesc</ftag><s>repository</s><s>address</s>
+                <ftag>archdesc</ftag><s>repository</s><s>corpname|name</s>
+                <ftag>archdesc</ftag><s>unitdate</s>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>260</ftag>
+		<ftag>a</ftag>
+		<ftag>b</ftag><attr>DISPLAY_FIRST_ONLY</attr>
+		<ftag>c</ftag><attr>DISPLAY_FIRST_ONLY</attr>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>archdesc</ftag><s>note</s>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>500</ftag>
+		<ftag>a</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>archdesc</ftag><s>bioghist</s>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>545</ftag>
+		<ftag>a</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>archdesc</ftag><s>controlaccess</s><s>persname</s><s>emph</s><attr>altrender <value>surname</value></attr>
+                <ftag>archdesc</ftag><s>controlaccess</s><s>persname</s><s>emph</s><attr>altrender <value>forename</value></attr>
+                <ftag>archdesc</ftag><s>controlaccess</s><s>persname</s><s>emph</s><attr>altrender <value>dates</value></attr>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>600</ftag>
+		<ftag>a</ftag>
+		<ftag>b</ftag>
+		<ftag>d</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>archdesc</ftag><s>controlaccess</s><s>corpname</s><s>emph</s><attr>altrender <value>a</value></attr>
+                <ftag>archdesc</ftag><s>controlaccess</s><s>corpname</s><s>emph</s><attr>altrender <value>x</value></attr>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>610</ftag>
+		<ftag>a</ftag>
+		<ftag>x</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>archdesc</ftag><s>controlaccess</s><s>subject</s><s>emph</s><attr>altrender <value>a</value></attr>
+                <ftag>archdesc</ftag><s>controlaccess</s><s>subject</s><s>emph</s><attr>altrender <value>z</value></attr>
+                <ftag>archdesc</ftag><s>controlaccess</s><s>subject</s><s>emph</s><attr>altrender <value>x</value></attr>
+                <ftag>archdesc</ftag><s>controlaccess</s><s>subject</s><s>emph</s><attr>altrender <value>y</value></attr>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>650</ftag>
+		<ftag>a</ftag>
+		<ftag>z</ftag>
+		<ftag>x</ftag>
+		<ftag>y</ftag>
+                </tagspec></to> 
+        <from>
+                <tagspec>
+                <ftag>archdesc</ftag><s>physdesc</s><s>extent</s>
+                </tagspec></from>
+        <to>
+                <tagspec>
+                <ftag>300</ftag>
+		<ftag>a</ftag>
+                </tagspec></to> 
+   </clusmap>
+ </convert>
+</DISPLAYDEF>
+
+
+The pseudo-tag "MARC_HEADER_MATERIAL_TYPE", along with the similar
+pseudo-tags "MARC_HEADER_RECSTAT", "MARC_HEADER_RECTYPE", and
+"MARC_HEADER_BIBLEVEL" are a way to insert values into the MARC
+HEADER.  For these elements the "ftag" of the TO specification is
+used for the value to be inserted in the MARC header (and so should
+be appropriate values for these MARC header elements). Using this specification, the following EAD record...
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+<ead>
+<eadheader>
+<eadid type="JISC-HUB">GB 0206 MS 515</eadid>
+<filedesc>
+<titlestmt><titleproper>Papers and letters in connection with the Nuffield College Social Reconstruction Survey, 1941-1943, by John Harry Jones</titleproper></titlestmt>
+</filedesc>
+<profiledesc><creation encodinganalog="JISC-HUB24">
+<date encodinganalog="JISC-HUB26">28/02/2000</date>smo</creation>
+</profiledesc>
+</eadheader>
+<archdesc level="collection" langmaterial="eng" encodinganalog="JISC-HUB04">
+<did>
+<repository><corpname>GB 0206 Leeds University Library</corpname></repository>
+<unitid encodinganalog="JISC-HUB01">GB 0206 MS 515</unitid>
+<unittitle encodinganalog="JISC-HUB02">Papers and letters in connection with the Nuffield College Social Reconstruction Survey, 1941-1943, by John Harry Jones</unittitle>
+<unitdate encodinganalog="JISC-HUB03" normal="1941xxxx-1943xxxx">
+1941-1943</unitdate>
+<origination encodinganalog="JISC-HUB06">Jones, John Harry, 1881-1973</origination>
+
+<physdesc>
+<extent encodinganalog="JISC-HUB05">184 items within 15 envelopes</extent>
+
+</physdesc>
+</did>
+<bioghist encodinganalog="JISC-HUB07"><p>John Harry Jones was Professor of Economics at Leeds 1919-1946. He was born in Wales and graduated at Cardiff in 1903. After further study at Leipzig and Berlin he lectured at Liverpool and Glasgow before coming to Leeds. During the First World War he served in the Ministries of Munitions and of Labour. Later he served on a number of Royal Commissions and Boards, notably the Nova Scotia Royal Commission of Economic Enquiry in 1934.</p></bioghist>
+
+<admininfo>
+
+<acqinfo encodinganalog="JISC-HUB09"><p>Gift of the School of Economic and Social Studies, October 1980</p></acqinfo>
+<accessrestrict encodinganalog="JISC-HUB14"><p>Access is unrestricted</p></accessrestrict>
+
+</admininfo>
+<note encodinganalog="JISC-HUB16"><p>In English</p></note>
+
+<odd encodinganalog="JISC-HUB23"><p>The Nuffield College Social Reconstruction Survey, 1941-1943, was led by G.D.H. Cole</p></odd>
+<add>
+<otherfindaid encodinganalog="JISC-HUB18"><p>Contents listed in the Letters database
+<extref href="http://www.leeds.ac.uk/library/spcoll/letters/letintro.htm">http://www.leeds.ac.uk/library/spcoll/letters/letintro.htm</extref></p></otherfindaid>
+
+</add>
+<controlaccess>
+<persname encodinganalog="JISC-HUB40" source="aacr2">
+<emph altrender="surname">Jones</emph><emph altrender="forename">John Harry</emph><emph altrender="dates">1881-1973</emph>
+</persname>
+<persname encodinganalog="JISC-HUB40" source="aacr2">
+<emph altrender="surname">Cole</emph><emph altrender="forename">George Douglas Howard</emph><emph altrender="dates">1889-1959</emph>
+</persname>
+
+<corpname encodinganalog="JISC-HUB41" source="lcsh">
+<emph altrender="a">Nuffield College Social Reconstruction Survey</emph>
+</corpname>
+
+<subject encodinganalog="JISC-HUB43" source="lcsh">
+<emph altrender="a">Great Britain</emph><emph altrender="x">Social conditions</emph><emph altrender="y">20th century</emph>
+</subject>
+<subject encodinganalog="JISC-HUB43" source="lcsh">
+<emph altrender="a">Letters</emph><emph altrender="y">20th century</emph>
+</subject>
+
+</controlaccess>
+</archdesc>
+</ead>
+
+can be converted to the following MARC record (this is the zformat print
+format of the record -- a true MARC record is returned from the server).
+
+Record ID: 1
+001 GB 0206 MS 515
+245 0 $aPapers and letters in connection with the Nuffield College
+   Social Reconstruction Survey, 1941-1943, by John Harry Jones
+260   $bGB 0206 Leeds University Library$c1941-1943
+300   $a184 items within 15 envelopes
+500   $aIn English
+545   $aJohn Harry Jones was Professor of Economics at Leeds
+   1919-1946. He was born in Wales and graduated at Cardiff in 1903.
+   After further study at Leipzig and Berlin he lectured at Liverpool
+   and Glasgow before coming to Leeds. During the First World War he
+   served in the Ministries of Munitions and of Labour. Later he
+   served on a number of Royal Commissions and Boards, notably the
+   Nova Scotia Royal Commission of Economic Enquiry in 1934.
+600   $aCole$bGeorge Douglas Howard$d1889-1959
+600   $aJones$bJohn Harry$d1881-1973
+610   $aNuffield College Social Reconstruction Survey
+650   $aLetters$zSocial conditions$x20th century$y20th century
+650   $aGreat Britain$zSocial conditions$x20th century$y20th century
+650   $zSocial conditions$x20th century$y20th century
+
+Note that leading whitespace in fields, and tags in fields to be
+converted (such as the <p> tags in the 500 field data) are removed during
+the conversion to MARC.
+
+Note also that if the original SGML/XML doesn't have all the same kinds
+of subfields as a real MARC record, you will have to "make do" with 
+approximations (for example EAD titles like the one above should really
+be split into $a for the title proper and $c for the remainder of the
+title page info and statement of responsibility, but with no tagging
+in the EAD making that distinction, we settle for putting it all in $a.
+
+
+Version 35b
+
+    This version includes additions to the XML/SGML
+support for Dynamic single element extraction (see version 34). The
+records created using this method now include the full XPATH for
+each item extracted. The new results (for a XML_ELEMENT_Fld650 elementset
+specification from a USMARC DTD database) look like:
+
+...
+<RESULT_DATA DOCID="2">
+<ITEM XPATH="/USMARC[1]/VarFlds[1]/VarDFlds[1]/SubjAccs[1]/Fld650[1]">
+<Fld650 SubjLvl="NoInfo" SubjSys="LCSH"><a>Vector algebra.</a></Fld650>
+</ITEM>
+<ITEM XPATH="/USMARC[1]/VarFlds[1]/VarDFlds[1]/SubjAccs[1]/Fld650[2]">
+<Fld650 SubjLvl="NoInfo" SubjSys="LCSH"><a>Differential forms.</a></Fld650>
+</ITEM>
+<ITEM XPATH="/USMARC[1]/VarFlds[1]/VarDFlds[1]/SubjAccs[1]/Fld650[3]">
+<Fld650 SubjLvl="NoInfo" SubjSys="LCSH"><a>Singularities (Mathematics)</a></Fld650>
+</ITEM>
+<ITEM XPATH="/USMARC[1]/VarFlds[1]/VarDFlds[1]/SubjAccs[1]/Fld650[4]">
+<Fld650 SubjLvl="NoInfo" SubjSys="LCSH"><a>Differential equations.</a></Fld650>
+</ITEM>
+</RESULT_DATA>
+...
+
+There is now an ITEM element for each matching document element (which
+is included as a subelement of the ITEM element). The XPATH attribute
+of the element is XPATH for the element, including the sequence number
+of sibling elements when they have the same parent path.
+
+In addition, the XPATH specifications for the element wanted can ALSO
+include occurrence numbers, which are used to restrict the fields returned
+for example for XML_ELEMENT_Fld650[3] the same record as above would only
+return the third occurrence of the subject:
+
+<RESULT_DATA DOCID="2">
+<ITEM XPATH="/USMARC[1]/VarFlds[1]/VarDFlds[1]/SubjAccs[1]/Fld650[3]">
+<Fld650 SubjLvl="NoInfo" SubjSys="LCSH"><a>Singularities (Mathematics)</a></Fld650>
+</ITEM>
+</RESULT_DATA>
+
+This capability gives fairly powerful control over the display
+elements extracted.
+
+In addition there is another "display format" that does not require a
+specification in the config files. It is "STRING_SEGMENT_..." treated
+similarly to the XML_ELEMENT_ elementset specifications as an elementsetname.
+The purpose is to exact strings from the underlying SGML/XML data of a
+Cheshire database without having to do parsing of the records. This will
+work only when the record syntax requested is XML, SGML or SUTRS.
+The basic forms are:
+
+zset elementsetname STRING_SEGMENT_400 
+(for Z connections) or
+set CHESHIRE_ELEMENTSET STRING_SEGMENT_400 
+(for webcheshire local retrieval)
+
+
+zset elementsetname STRING_SEGMENT_200_400
+(for Z connections) or
+set CHESHIRE_ELEMENTSET STRING_SEGMENT_200_400 
+(for webcheshire local retrieval)
+
+where 400 is the END position of the part of the record that you want
+to get and 200 is the START position, the second form assumes that
+start position is the beginning of the record (char position
+0). Unlike the XML_ELEMENT_... definitions above, this does NOT
+require an DISPLAYDEF -- (i.e. it should work for any records). 
+
+Alternatively, the following form can be used to extract the FIRST
+matching SGML/XML tag in a record...
+
+zset elementsetname STRING_SEGMENT_Fld245
+(for Z connections) or
+set CHESHIRE_ELEMENTSET STRING_SEGMENT_Fld245 
+(for webcheshire local retrieval)
+
+To extract the first occurrence of the tag Fld245 -- note that ONLY a
+single tag and NOT an xpath can be used with this, since it is not
+parsing the record, but doing simple string matching for the first
+occurrence of the tag. If a record doesn't have the tag anyplace, it
+returns the string "*** NO MATCHING TAGS IN MATCHING RECORD ***" in place
+of the tag. Note also that it is entirely possible to return string
+values that will not be valid XML or SGML, it is up to the user/scripter
+to take appropriate action when using this type of retrieval. The primary
+advantages are 1) No parsing is done so it is fast to return results and
+2) arbitrary pieces of the records can be extracted. Of course, even
+though you can send such an elementset name to any Z server, only 
+cheshire servers will be able to process it.
+
+NOTE: (added 10-18-2006) The string returned in the results now includes
+the following information at the beginning of the result string 
+"docid NNNNN|rank NNNNN|relv NNNNN|rawrel NNN.NNNNNN|". The NNNNN's are
+replaced by the relevant number, and the vertical bar separates the fields.
+This is for applications that need to get back the ranking information
+along with the display data.
+
+
+*** Python Support ***
+This version includes relatively complete support for the Python
+language. (http://www.python.org/) It relies on Python version 2+ and
+is built as an extension which may be dynamically imported. To build
+and install the extension: In the 'python' directory is a script
+called moduleSetup.py.  Run this with the argument 'install' and all
+the magic will happen.  eg: ./moduleSetup.py install After this you
+can import it with 'import ZCheshire' or 'from ZCheshire import *'
+
+Quick API summary by example:
+
+import ZCheshire
+ZCheshire.connect('gondolin.hist.liv.ac.uk', 210)
+ZCheshire.set('database', 'l5r')
+ZCheshire.set('recordSyntax', 'GRS1')
+ZCheshire.set('elementSet', 'TPGRS')
+results = ZCheshire.search('cardname shugenja', 'wizardResultSet')
+# sort(in, out, type, sortSpec, case, descending, missingValue)
+ZCheshire.sort('wizardResultSet', 'sortedResults',
+'index','xcardname',0,0,'Z')
+# present(position, number, resultset)
+record = ZCheshire.present(1, 1, 'sortedResults')
+ZCheshire.delete('sortedResults')
+scanresults = ZCheshire.scan('cardname', 'n', 0, 20, 1)
+ZCheshire.close()
+
+Explain and GRS1 create nested list/dictionaries to reflect the
+structure of the record.
+A ZOOM compliant layer is also provided. (ChZoom.py)
+Documentation on the API will be finished Real Soon Now in the docs/
+directory.
+
+A bug in virtual db searches has been fixed. The symptom was that
+in proximity searches (actually any multiword searches whether boolean
+or probabilistic) would retrieve the correct results from the first of the
+databases listed and would only retrieve matches for the first term of
+the later listed databases. This is now fixed so that correct searches
+are performed for each database in a virtual database.
+
+
+Version 36
+
+This version, along with the usual bug fixes, includes a significant
+new addition -- XML Schema support.
+
+XML Schema Support
+
+XML Schemas are rapidly replacing DTDs as a preferred method of
+describing the structure and contents of XML documents. This release
+includes support for schema parsing and use. In essence, schemas can
+now be used in configfiles much in the same way that DTDs have been
+used.
+
+The configfile FILEDTD tag now can include an attribute "TYPE" that
+can have the values "SGML", "XML", or "XMLSchema". This attribute is
+OPTIONAL and will default to SGML if not supplied. There is also a new
+tag "XMLSCHEMA" that immediately follows the FILEDTD tag. This tag
+precedes the full path name of the XMLSchema Definition file for the
+XML document(s) you will be indexing. If the FILEDTD TYPE=XMLSCHEMA
+attribute is set, then it is an error not to also include an XMLSCHEMA
+tag. To use XMLSchemas you need to use a definition like the following...
+
+<FILEDTD TYPE=XMLSCHEMA> /cheshire/doc/install/XMLSchema_wrapper.dtd 
+</FILEDTD>
+<XMLSCHEMA> /home/ray/Work/cheshire/xmlschema/METS/mets.xsd </XMLSCHEMA>
+
+
+The FILEDTD definition must point to the DTD for XMLSchema that is
+included in the doc/install directory (you can move the XMLSchema.dtd
+and XMLSchema_wrapper.dtd files whereever you want as long as they are
+specified in the FILEDTD tag of the configfile.  Internally Cheshire
+uses the XMLSchema DTD to parse the Schema file as a document. Then
+this parsed document is converted to the internal format used for both
+DTDs and Schemas.
+
+You may include multiple XMLSCHEMA tags in the same configfile for
+multiple XML namespaces if the XML documents you are indexing
+incorporate tags from these different namespaces, but do not
+explicitly include or import them in the main XMLSchema. (The main
+XMLSchema for the documents should be the first XMLSCHEMA tag defined,
+especially if it does importing or including of other schema
+elements).
+
+Because arbitrary tags may be included in XML using the ANY
+psuedo-element in XMLSchema, if ANY has been defined, then the normal
+tag and attribute validation checking is relaxed and any "Well Formed"
+XML can be included. (For example, METS documents including arbitrary
+metadata inclusions can be parsed and indexed). Cheshire doesn't
+enforce or check any datatype specifications from the XMLSchema. You
+should use an external schema validation tool to check your data if
+this is desired.
+
+You can test schemas using the "schema_parser" program (the program
+takes the XMLSchema.dtd wrapper as the first argument and one or
+more XMLSchema definitions as additional arguments, and produces 
+output similar to "dtd_parser".
+
+Otherwise, using XMLSchemas should behave the same as using a DTD.
+
+************ POTENTIAL SCRIPTING INCOMPATIBILITY *******************
+In addition, the client and server code has been modified so that an
+error is no longer generated by zero results in searches, instead a
+zero-hit result is returned. This will most affect Z39.50 client
+scripts, where the zero results used to signal a TCL error that needed
+to be trapped. The other implication is that it is now possible to
+create resultsets on the server with no records in them. These have
+been tested with Boolean operations and perform as they should
+(i.e. if you have two resultsets EMPTYSET with 0 results and FULLSET
+with 10 results. EMPTYSET OR FULLSET returns the same 10 as FULLSET,
+EMPTYSET AND FULLSET gives an empty set, EMPTYSET NOT FULLSET gives an
+empty set while FULLSET NOT EMPTYSET gives the same as FULLSET.
+For those dependent on the old behaviour it can be restored by 
+defining the compile-time definition "OLDRESULTHANDLING" when
+compiling cheshire2/zquery.c and zserver/searchapi.c
+
+Note:  This change was made due to the Z39.50 specifications which
+state that 0 matches is a successful search, not an error.  --Rob
+
+Version 37
+
+This version, along with the usual bug fixes, adds support for an
+additional probabilistic search method using the Okapi BM-25 algorithm
+It is invoked from a client-side search using "@+" in the place that
+"@" is used for tradition probabilistic searches. 
+
+In addition, this version adds support for supplying Postgres userids
+and passwords (Note that password support must be enabled for postgres
+databases for this to take effect, and that the postgres users must
+have a password set using "CREATE USER xx WITH PASSWORD zz ..." or
+"ALTER USER xx WITH PASSWORD zz ...", where "zz" is the password
+desired.  No spaces are permitted in the passwords or userid and the
+userid cannot contain a colon).  
+
+For the webcheshire client, the postgres userid and password are set
+using the global variables CHESHIRE_DATABASE_LOGIN and
+CHESHIRE_DATABASE_PWD.
+
+For Z39.50 Clients, the password must be supplied as an additional
+argument to the zselect command in the form "loginid:password" (the
+colon to separate the login and password is required and no spaces are
+permitted).
+
+Version 38
+
+This version adds support for a version of the CORI distributed search
+retrieval algorithm and for bitmapped indexing. 
+
+CORI is an algorithm originally developed by Jamie Callan while at the
+University of Mass., Amherst and seems to provide about the best
+performance of any distributed search algorithm to date. To use CORI
+(it should only be used with harvested databases of distributed index
+information) simply use "@#" where you would use "@" in a
+probabilistic search. 
+
+Bitmapped indexes and indexing are specified in the configuration file
+by setting the ACCESS attribute to "BITMAPPED" in the INDEXDEF tag for
+the index you wish to make a bitmap. Bitmap indexes can ONLY be used
+for Boolean retrieval, and they are specifically designed to speed up
+access time on indexes that have only a few values (such as an
+attribute that appears in every record of the database and has only 3
+or possible values), and a very large number of records (i.e.,
+hundreds of thousands or millions of records). In a BITMAPPED index
+only a single bit is stored for (potentially) each record in the
+database, instead of the 64 bits per entry stored in conventional
+indexes.
+
+Bitmapped indexes are optimal for very common elements with a few
+values, and will typically have an order of magnitude reduction in the
+size of the stored index and an order of magnitude increase in the
+speed of retrieval (either when retrieving all items with one of the
+values, or for using Boolean AND or Boolean NOT to restrict a result
+set to only items with one of the values. Boolean OR, however will
+have no particular speed advantage over a conventional
+index. Bitmapped indexes should NEVER be used for keywords extracted
+from text fields, in fact it is recommended that the EXTRACT=EXACTKEY
+be used, if possible, for the most efficient indexing and retrieval.
+The EXTRACT=KEYWORD attribute may be used, but if a search key translates
+to multiple values in the index, there is some loss of efficiency (but
+it may still be faster than a conventional index).
+
+Included in the index directory is a utility to convert from a conventional
+index to a bitmapped index. This utility is called convert2bitmap and it
+will be automatically built and put into the bin directory in the normal
+building process for the distribution. The program is used by the command:
+
+convert2bitmap configfile in_mainfile_name in_index_name out_index_pathname
+
+That is, the arguments are the configfile of the database containing
+the conventional index to be converted, the name (FILETAG) of the main
+file in that configfile, and the name (INDXTAG) of that index. The
+last argument is a full pathname of the new bitmap index to be created
+(it doesn't need an entry in the specified configfile). Once the new
+bitmapped index is created this pathname is used as the INDXNAME for
+the new index (which should have EXTRACT and NORMAL attributes and
+other INDEXDEF components the same as the conventional index, but with
+the ACCESS type of BITMAPPED (you will need a different name and tag
+for the new index if you are keeping the conventional index in place).
+
+
+Version 38b
+
+  This version is bug fixes for problems encountered in large virtual
+databases (too many files open problem) and a bug encountered in bitmap
+indexes (correctly missing bitmap data blocks returned NULL instead
+of an all-zero block). This version has been tested with a virtual 
+database of 236 physical databases totalling over 12 million records
+with successfully resolved bitmap queries of up of over 8 million "hits".
+
+Version 38c
+
+  This version has some bug fixes for proximity searching (when stopwords
+where included in a $phrase$ type query to a proximity index with a
+stoplist, the space taken up by the stopword was not taken into account
+when determining if the non-stoplist terms were in order and "next to"
+each other, hence some matches failed that should have succeeded.
+
+  In addition this version fixes some problems in the way that the
+XML_ELEMENT_ elementset displays were handled. If the XPATH-like
+specification of the element included a logical OR (|) in the path the
+structure was sometimes incorrectly interpreted. For example,
+"XML_ELEMENT_/book/chapter/para/para_titl|/book/title" was
+interpreted incorrectly. Now you can use an OR of either xpath
+expressions or tagnames (or rather tagname regular expressions, since
+anything with an "|" is interpreted as a regular expression). Note
+that ORs of tagnames might require anchoring for tagnames that are
+substrings of other tagnames)
+
+For example, to retrieve either para_titles or book titles the elementset
+
+XML_ELEMENT_/book/chapter/para/para_titl|/book/title
+
+will now work fine similarly the elementset
+
+XML_ELEMENT_para_titl|title
+
+MIGHT provide the same results, depending on where para_titl and title are
+permitted to occur by the schema or DTD. If, however, there are also
+tags such as "titlePage" the preceding elementset would extract them
+also, so to be safe use begin and end of string regular expression markers
+when using an ORed tagname list, e.g.:
+
+XML_ELEMENT_^para_titl$|^title$
+
+(unless you know that a tagname is not a substring of any other tagname)
+
+Some additional restructuring of the code in search and elimination of
+global variables was also done.
+
+
+Version 38d
+
+This version fixes some bugs in date range processing using elements
+defined as DATE_RANGE with the "<=>" or "within" operator. The
+operator will now match any ranges that OVERLAP the search range, or
+single years that are within the range.
+
+In addition, this version adds an additional GEO bounding box type
+called "FGDC_BOUNDING_BOX" that supports the FGDC order of coordinates
+for both data to be indexed and search. FGDC order for bounding box
+coordinates is West bounding coordinate (BC), East BC, north BC,
+south BC. This type expects the coordinates to be decimal latitude/longitude
+coordinates.
+
+
+Version 38e
+
+Same as 38d except for the addition of more Python code and some minor
+changes in date parsing (single dates for YYYY-YYYY type ranges now
+create a range from the beginning to the end of that year, similar to
+what was already done for MIXED_YEAR_RANGE.
+
+
+Version 38f
+
+Same as above with a fix for OVERLAP matching in the GEO operators. 
+
+Version 39
+
+(bug fixes. new operators, MySQL support)
+
+This version includes bug fixes for some problems in SORT resultset
+merging and in some boolean operations between mixed BOOLEAN and
+PROBABILISTIC resultsets which sometimes led to incorrect ranking
+sequence in resultsets.  In addition there are some new query merge
+operations (see below), and some bug fixes in translating certain
+XPaths in XML_ELEMENT-type displays. Another memory leak was found and
+plugged in SGML/XML parsing. Several bugs were found and fixed in
+scanning and using bitmapped indexes and their resultsets via Z39.50.
+
+This version adds FUZZY, RESTRICT and MERGE operators to the Cheshire
+system.  Fuzzy operators are versions of the Boolean operators that
+are less "strict" than the conventional Boolean operators, applied to
+weighted result lists.  In place of Boolean AND, the "!FUZZY_AND"
+operator takes the mean of the two weights in the result sets for the
+same record. The "!FUZZY_OR" takes the largest of the two weights for
+the same record. "!FUZZY_NOT" currently behaves the same way as strict
+Boolean "NOT". Otherwise these operators are used the same way as the
+strict Boolean operators.
+
+The "!RESTRICT_TO" and "!RESTRICT_FROM" operators take either a
+component result and a document result, or two component results
+(where one component contains the other). In the case of component and
+document results the component list is restricted to components that
+are in the document result -- the matching components only are
+returned retaining their weight from the original component
+result. When two nested component results are used with these
+operators the result is larger components that include one or more of
+the smaller components. (Note that with component and document results
+!RESTRICT_TO and !RESTRICT_FROM may be used interchangibly and the
+type of operation to be performed is determined by the nature of the
+resultsets, but with two component results Parent and Child, the
+following order should be followed...
+
+Parent !RESTRICT_FROM Child
+Child !RESTRICT_TO Parent
+
+Naturally Parent and Child can be any sub-query that result in the
+appropriate kind of component.
+
+The !MERGE_SUM operator combines the two resultsets (like a Boolean
+OR) but adds the weights (actually the resulting raw ranking adds 1 +
+a probabilistic result and 1.5 for boolean results with matching
+document or component ids in both lists, and the original value for
+items found only in a single result). Note that !MERGE_SUM weights may
+exceed 1 and are not probabilities.
+
+The !MERGE_MEAN operator combines the two resultsets (like a Boolean
+OR) but takes the MEAN (or average) of the weights from items in both
+lists and half of the weight of items in only a single list.
+
+The !MERGE_NORM operator combines the two resultsets (like a Boolean
+OR) but takes the MEAN (or average) of the MIN_MAX normalized weights
+from items in both lists and half of the MIN_MAX normalized weight of
+items in only a single list. MIN_MAX normalization scales all of
+the weights in the resultset based on the maximum and minimum weights
+in the resultset the resulting weights lie in the range from 0 to 1. This
+is particularly useful when one partial resultset uses a different ranking
+algorithm from the other (such as merging normal probabilistic and
+Okapi BM-25 results). This is the (currently) recommended
+operator for merging probabilistic resultsets.
+
+This version also adds support for MySQL. The interface for using the
+DBMS via Z39.50 is the same as it has been for PostgreSQL. Internally
+you may need to make special accommodations in your database structure
+since MySQL (in the current 4.0.14 version) doesn't yet support
+views. You will also typically need to use both a database name and a
+userid and possibly a password (see version 37 above) for MySQL. To
+compile a version with MySQL enabled you will need to define MYSQLDBMS
+in the Makefile and set appropriate DBMS_INC and DBMS_LIB entries. (An
+example Makefile is included as Makefile.mysql). We haven't tested with
+older versions of MySQL (or with the current Alpha releases), so please
+let us know if there are any problems with differing versions.
+
+
+
+Version 39b
+
+This version adds support for URL external indexing (I.e. a URL is
+is included in the data, and it is fetched and read by the indexer
+and the data returned is indexed). To fetch the external URL the
+system relies on a user-specified external tool to do the fetching.
+(The recommended tool is "Curl" which is open source and available from
+http://curl.haxx.se/). For example, the following index description might
+be used to combine record elements and external URL-referenced data in
+the same index...
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD_EXTERNAL NORMAL=STEM>
+<INDXNAME> indexes/DL.topic.indx </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+
+<STOPLIST> indexes/titlestoplist </STOPLIST>
+
+<EXTERN_APP> curl --silent %~URL~% </EXTERN_APP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG> TITLE </FTAG>
+<FTAG> ABSTRACT </FTAG>
+<FTAG> TEXT-REF </FTAG><ATTR>EXTERNAL_URL_REF</ATTR>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+In the example above the new <EXTERN_APP> tag indicates the command
+used to fetch the URL, the string "%~URL~%" is used to indicate where
+the URL is to be inserted into the command. The special <ATTR> value
+"EXTERNAL_URL_REF" indicates that the "TEXT-REF" tag in the records
+contains the URL that is to be fetched. Note also that the EXTRACT
+attribute for the <INDEXDEF> is "KEYWORD_EXTERNAL", same as if the
+reference was to an external file (see configfile.html in docs).
+
+If the URL (or a text file name for conventional EXTERNAL extraction)
+is an attribute value of the data being indexed (e.g., 
+<sometag someattr="http://someaddress.edu"> stuff <sometag>) then the
+"EXTERNAL_URL_REF" or "TEXT_FILE_REF" keyword is used as the contents
+of a "VALUE" tag for the attribute. For example, given the above data
+structure the FTAG would be:
+<FTAG> sometag </FTAG><ATTR>someattr<VALUE>EXTERNAL_URL_REF</VALUE></ATTR>.
+If the value of the attribute is not one of those two keywords, it 
+fulfills the usual function of restricting the indexed tags to those whose
+specified attribute contain the specified value.
+
+This version also provided support for ranked geographic retrieval. The
+work on this part was done by Patricia Frontiera as part of her PhD 
+research work. The new operator "@>=<" or ".OVERLAPS_RANK." performs
+the same operation as the boolean OPERLAPS ">=<", but ranks the resulting
+regions retrieved based on the amount of overlap and the relative sizes
+of search area and target area. Similarly, "@>#<" or ".FULLY_ENCLOSED_WITHIN_RANK.", and "@<#>" or ".ENCLOSES_RANK." act like their Boolean counterparts
+with ranking applied to the results (see the new file se_georank.c for details
+of the ranking operations).
+
+Among the various bug fixes is one that ensures that conversion of diacritics
+will be done consistently for indexing and searching (unless the _NOMAP
+keywords are used for the NORMAL attribute of an indexdef, in which case
+no diacritics are changed).
+
+Version 39c
+
+Support was added for the Z39.50-2003 resultCount element of
+SortResponse.  The size of the sorted resultset(s) is now returned
+both in resultCount and in the addedinfo (where it was done
+before). Other Z39.50-2003 changes (such as assuming that INIT
+requests with 0 for PreferredMessageSize and ExceptionalRecordSize
+meaning that the server may set its own values for these). These
+changes are OPTIONAL and controlled by the Z_VERSION variable in the
+main Makefile. If using a Z39.50 client program that is only
+Z39.50-1995 compatible, you may want to comment out the Z_VERSION line
+in the main Makefile to build a 1995 compatible server.
+
+Version 39d
+
+Bug fixes in the implementation of the Okapi BM-25 retrieval algorithm
+(it performs MUCH better now), and changes in how some variables used
+in ranking are calculated. In particular, the second INT value in the
+associator file (previously always 0) is now used by buildassoc to
+store the total size of all records in the associator file (if curious
+about the contents of the associator file, you can inspect them with
+the "od" command in unix or linux with the appropriate settings to
+display 4 byte integers).
+
+A PDF copy of the Z39.50-2003 (approved) standard has been added to the
+doc/related directory.
+
+Version 39e
+
+Bug fixes include the addition of "?" as a valid character in query text
+for the client programs. Previously "?" was used as an operator in
+Z39.50 queries to specify the "Phonetic" relation value of BIB-1, now
+"??" is used for this. The change is primarily to support searches
+that at specify a URL containing cgi attributes. Support for indexing
+complete URLs (with EXTRACT="URL") has been available for some time.
+
+Another bug fix was applied to "blob" searching (i.e. searches using
+the % operator that rank results by the number of terms in common
+between the query and the document with a cutoff threshold that half
+of the terms must match).
+
+Another bug fix involves processing truncation searching. In some cases
+truncated searches were not normalized correctly before search processing.
+This fix causes all truncation searches to be normalized.
+
+
+Two new additions to the new MERGE operators have been added. One is
+!MERGE_CMBZ which takes the sum of the normalized scores in a pair of
+resultsets and multiplies by 2 (for any documents in both sets). The other
+is !MERGE_NSUM which takes the sum of the NORMALIZED scores.
+
+
+Version 39f
+
+Minor bug fixes and changes to handle situations like a negative step
+size or zero requested terms in SCAN. Addition of component name and
+id to docid in header information returned for
+XML_ELEMENT_... elementsets (if the document being formatted is actually a
+component).
+
+One significant bug fix dealt with a problem where if there were
+multiple databases on a server with components defined and they used
+the same names for the component indexes in the different databases,
+then searching would sometimes attempt to search the wrong index. This
+is now fixed, so that this now works like as expected.
+
+A number of changes were made to the option that returns retrieval
+statistics information for webcheshire searches. This mode is
+activated by defining "set CHESHIRE_SEARCH_STAT_DUMP 1" before doing
+the search, and results in a dump of statistical information about
+each matching record or component following the output of the
+requested records. NOTE that the stats output includes entries for ALL
+matching records, not just the number requested by the search
+(CHESHIRE_NUMREQUESTED).  Changes in statistics collection also adds
+component id info to the records output. There are optional additions
+to the configuration files, so that parameters for retrieval algorithms
+can be specified on an index by index basis. Currently these options
+have no effect. When the parameters are integrated into the existing ranking
+algorithms (and at least one new algorithm family is added) we will go
+to a new full version.
+
+Version 39g
+
+Added support for making all numbers stopwords. Just include the
+special key "#NONUMBERS#" in the stopword list for an index and all
+numbers will be removed during indexing and retrieval for that
+index. Any "words" that are entirely composed of any combination of
+the characters "-0123456789+." will be removed, but compounds like
+"10th" or "1st-7th" will not, because the words also contain
+letters. The sample stoplist "topicstoplist" in index/TESTDATA has an
+example of #NONUMBERS#. Note that use of this is NOT recommended for
+most databases, since some users may want to search by numbers, and it
+obviously should not be used in date or numerical indexes, but it can
+considerably shrink index size for full-text indexes.
+
+In addition the term "BASIC" is now used for simple normalization 
+(NONE is still a synonym, but BASIC is preferred and used now in the
+documentation).
+
+This release also corrects a problem with XML schemas when handling
+substitutionGroups. Also corrects a bug introduced by the 29f changes
+for XML_Element_... when doing GRS1 conversions (oops).
+
+
+Version 40
+
+Various bug fixes and several significant additions of functionality
+discussed below, including support for regular expression matching
+within resultsets, support for ranking parameters for the ranked
+retrieval methods, and preliminary support for "search in document"
+adding matched term highlighting information in search and display.
+Use of some older system functions (such as tmpnam and sys_errlist)
+that have been deprecated has been changed to use the current
+preferred versions (this means fewer warning messages in compilation,
+although there will still be some use of these functions in some
+versions of the Tcl libraries and BerkeleyDB). 
+
+Missing values in attribute specifications in queries are now
+correctly flagged as syntax errors (i.e., a query like "zfind [1=4,
+2=] stuff" previously could cause a crash of the client, but is now
+handled correctly).
+
+With this version, the default included Makefile is set for Linux (and
+from this version on, most development will occur on Linux systems).
+
+Added support for date extraction normalization in
+MARC 008 field data, including support for date ranges (see the
+EXTRACT options for indexes in the configfile documentation).
+
+Added "DO_NOT_NORMALIZE" and "BASIC" as options for the NORMAL attribute
+for clustering keys (config file element CLUSTER/CLUSKEY@NORMAL).
+NOTE ALSO that to avoid unintended conversions of Unicode UTF-8 characters,
+the _NOMAP options for the NORMAL attribute should be specified when
+using XML that uses any UTF-8 characters out of the ASCII area.
+
+This version adds support for restricting resultsets based on regular
+expression matching on the entire record. In order to use this feature
+a resultset from a conventional search is needed, and the Z39.50
+syntax is based on the syntax for relevance feedback. (The following
+discussion addresses the Z39.50 version first, and then the similar
+feature for the webcheshire client.)
+
+If you have done a search and the resultset is named "default", you
+can request a search for the word "stuff" in records 2 and 5 of that
+resultset by doing a search like:
+
+zfind default:2,5,find,stuff
+
+Note that in this simple form, each word to be searched must be
+separated by commas, and the word "find" must appear first after the
+list of numbers representing the records (in resultset sequence) to be
+searched. Matching is NOT case sensitive. Ranges of resultset numbers
+can also be used. For example...
+
+zfind default:2,5,10-30,find,stuff
+
+would do the search for "stuff" in records 2, 5 and 10 through 30.
+For more complex searches full regular expression matching is available,
+but the entire resultset string must be enclosed in double quotes, single
+quotes, or braces ({}), for example to search for cat or dog anywhere
+in record 5 you could use:
+
+zfind {default:5,find,(cat)|(dog)} 
+
+to find the exact string "cat and dog" you could use:
+
+zfind {default:5,find,(cat and dog)}
+or simply:
+zfind {default:5,find,cat and dog}
+
+To match any of a set of regular expressions, just separate each by commas,
+for example:
+
+zfind default:2,5,find,stuff,blotz,zap
+
+would search for words "stuff", "blotz", or "zap" in resultset records 2 
+and 5. This could also be expressed as:
+
+zfind {default:2,5,find,(stuff)|(blotz)|(zap)} 
+
+Note that these searches are not exactly the same -- the first version
+searches for the three words surrounded by non-alphabetic strings,
+including blank, newlines, punctuation, etc. and the regular
+expression searches for the strings regardless of any surrounding
+characters. Simple words like "stuff" in the first example are treated
+internally as the regular expression:
+
+(^|[^a-zA-Z])(stuff)([^a-zA-Z]|$)
+
+Also note that numbers are considered word separators by this as well.
+
+Remember that using "eval" in client TCL processing may strip a layer
+of quotes or braces from search strings before they actually reach the
+search parser, so if you are getting syntax errors, you might need to
+double the braces or quotes.  All of the above searches return a
+reduced resultset with only those records that are both included in
+the list of records, and that match the regular expression(s). Note
+that this form of resultset name can be used anyplace in a query that
+a simple resultset name is used, so
+
+zfind title gone with the wind AND {res1:1,(frankly my dear)}
+
+would do a boolean "AND" between the resultsets returned by the title
+search and the resultset returned with regular expression matching on
+record 1 of results "res1". Note that "res1" must exist before the
+query is submitted or else an error will occur. Also note the because
+of the parsing method used, the regular expression may not include
+embedded commas, but only commas to separate the list items.
+
+The webcheshire client has a similar feature, but only a single
+regular expression pattern is matched for ALL of the items resulting
+from a normal search. The regular expression is simply set in a
+variable called "CHESHIRE_REGEX_FILTER" and that regular expression is
+applied to all of the results of subsequent searches until the
+variable is "unset" or set to a different value or the null string
+(""). The following example shows the usual sequence...
+
+set CHESHIRE_DATABASE bibfile
+set CHESHIRE_CONFIGFILE "testconfig.new"
+set CHESHIRE_RECSYNTAX SGML
+set CHESHIRE_NUM_START 1
+set CHESHIRE_NUMREQUESTED 5
+
+set query "search topic geometry"
+set CHESHIRE_REGEX_FILTER {(mathematical statistics)}
+
+set results [eval $query]
+
+The returned "results" are limited to those that match both the main
+query and the regular expression in CHESHIRE_REGEX_FILTER. Note that
+the single term matching mode in the Z39.50 version is NOT used, so if
+you want to match a term like "stuff" surrounded by blanks, etc. you should
+use a regular expression that does that, such as:
+
+set CHESHIRE_REGEX_FILTER {(^|[^a-zA-Z])(stuff)([^a-zA-Z]|$)}
+
+Note also that because these filtering operations take place on the raw
+SGML/XML records, it is possible to include structural elements of the
+records in the regular expressions for either the webcheshire or Z39.50
+forms. For example, the following can match "geometry" in the 
+"Fld650" tags in the above tcl script...
+
+set CHESHIRE_REGEX_FILTER {(<Fld650)(.*)(geometry)(.*)(</Fld650>)}
+
+(Note also that if this the sort of search you want to do on a regular
+basis, it would be better and faster to just create an index for that
+tag).
+
+A second major addition in this version is ability to provide
+user-defined ranking parameters for the different ranked retrieval
+methods. This is primarily intended for those doing IR research. This
+feature allows the specification on an index-by-index basis of the
+regression coefficients for Logistic Regression (AKA probabilistic
+searching), the k1, b(beta), and k3 constants for the Okapi BM-25
+algorithm and will eventually be used with our upcoming support for
+Language Models as well. If you didn't understand anything in this
+paragraph, then you probably should NOT try to use this feature, by
+simply doing things as before and NOT including the RANK_PARAMS tags
+with an index. In that case, the default parameter values for the
+ranking methods will be used (which will mean that the ranking will
+use the same parameters as it always has before).
+
+To use the ranking parameters you need to specify them in the configuration
+file. The basic syntax for adding them for a given index is:
+
+<!-- the index def you want to modify -->
+<!-- ******************************************************************* -->
+<!-- ************************* TOPIC *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following is the primary index for probabilistic searches       -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD_PROX NORMAL=STEM>
+<INDXNAME> indexes/topic.index </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+
+<STOPLIST> indexes/topicstoplist </STOPLIST>
+<!-- NEW params from LR -->
+<RANK_PARAMS TYPE="Logistic_Regression">
+<PARAM ID="0">-7.758</PARAM> <!-- this is the LR intercept coefficient -->
+<PARAM ID="1">5.670</PARAM>  <!-- "1" is the weight for avg query term freq-->
+<PARAM ID="2">-3.427</PARAM> <!-- "2" is the weight for query length -->
+<PARAM ID="3">1.787</PARAM>  <!-- "3" is the weight for avg doc term freq -->
+<PARAM ID="4">-0.030</PARAM> <!-- "4" is the weight for doc length -->
+<PARAM ID="5">1.952</PARAM>  <!-- "5" is the weight for avg term IDF -->
+<PARAM ID="6">5.880</PARAM>  <!-- "6" is the weight for num matching terms -->
+</RANK_PARAMS>
+<RANK_PARAMS TYPE="OKAPI">   <!-- These are the tunable Okapi constants -->
+<PARAM ID="1">1.3</PARAM>    <!-- "1" is the k1 constant -->
+<PARAM ID="2">0.41</PARAM>   <!-- "2" is the b or beta constant -->
+<PARAM ID="3">750.0</PARAM>  <!-- "3" is the k3 constant -->
+</RANK_PARAMS>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>fm</FTAG><S>tig</S><S>atl</S>
+<FTAG>abs</FTAG>
+<FTAG>bdy</FTAG>
+<FTAG>bibl</FTAG><S>bb</S><S>atl</S>
+<FTAG>app</FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+Notice that the "TYPE" attribute for the RANK_PARAMS tag specifies
+which ranking method to apply the parameters to. 
+For Logistic Regression the parameters are:
+ID="0": the LR intercept coefficient
+ID="1": the coefficient for average query term frequency (over matching terms)
+ID="2": the coefficient for query length
+ID="3": the coefficient for average document term frequency (over matching 
+        terms)
+ID="4": the coefficient for document length
+ID="5": the coefficient for average term Inverse Document Frequency, 
+        (over matching terms)
+ID="6": the coefficient for the number of matching terms 
+
+For Okapi ranking the parameters are:
+ID="1": the k1 constant
+ID="2": the b or beta constant
+ID="3": the k3 constant
+
+
+If any of the parameters are skipped, the default values will be
+used. The default values for Logistic regression are: "0"=-3.70,
+"1"=1.269, "2"=-0.310, "3"=0.679, "4"=-0.021 , "5"=0.223,
+"6"=4.01. Setting any of these parameters to 0.0 means that that the
+weight for that element will be set to zero. The defaults for the
+OKAPI constants are "1"(k1)=1.5, "2"(b)=0.45 and "3"(k3)=500.0. This
+feature means that you can tune the ranking algorithms to the
+characteristics of a particular index and document element (or set of
+elements) and have, for example, different ranking methods for title
+searches vs subject searches, etc.
+
+
+*NOTE: The following has been superceded by the client highlighting 
+*      command described in Version 41.
+
+We are in the process of adding support for returning keyword
+highlighting information in results. This requires that proximity
+indexes be used for searches where such highlighting information is
+desired. The highlighting code uses the term offsets in the proximity
+data to locate the words to be highlighted in the results. Thus,
+regardless of the stemming or other term normalization, a list of the
+offsets for beginnings of the words matching the query is
+returned. This information is passed back in different ways, depending
+on the display format selected. Note, however that if a display format
+is requested that does NOT include the matching words, no extra data
+containing them is returned (e.g. if you search on a subject word, and
+the requested format doesn't include subjects, no highlighting
+information is returned. IT IS HIGHLY RECOMMENDED TO REQUEST FULL
+RECORDS to avoid this limitation. It is even MORE highly recommended
+to use client side scripting to accomplish this if at all possible,
+because of the additional server-side processing required, and because
+it is usually much simpler to accomplish (and will need to be
+done to some extent in ANY CASE in order to actually use the word
+location information in the client).
+
+To activate the request for the highlighting information, you can use
+the following in the webcheshire client:
+
+set CHESHIRE_ADDSEARCHINFO_CHAR "HIGHLIGHT_INFO_SEARCH_WORDS"
+
+To transmit the same request via Z39.50 use the following:
+
+zset addedsearchinfo CHAR "HIGHLIGHT_INFO_SEARCH_WORDS"
+
+
+Version 40b
+
+Some changes in OLD code to make it compliant with more pedantic new
+parsers in newer versions of GCC.
+
+
+Version 41
+
+This version includes some substantial additions, including the ability to
+index data in relational DBs and use Cheshire's ranked searching on it.
+This is, of course, only applicable if you are using PostgreSQL or MySQL
+at present, and set the appropriate flags in the Makefile for building
+with a DBMS.
+
+In order to do indexing on a relational DBMS, you will need to use a
+new type of index definition in a FILEDEF with type=DBMS. (See the example
+in config/testconfig.dbms_new or config/testconfig.dbms_new2).
+
+DBMS indexing extracts the data from the DBMS and formats it as XML
+then passes it to the indexing routines. In order to do this a simple
+DTD is automatically generated for each index based on the columns
+selected from the database, and then used in parsing the data for
+index creation. Here is an example index definition from the 
+testconfig.dbms_new config file:
+
+
+<INDEXDEF ACCESS=DBMS_BTREE EXTRACT=KEYWORD NORMAL=STEM >
+<INDXNAME> /home/ray/Work/cheshire/config/TESTDATA/title.index </INDXNAME>
+<INDXTAG> titleindex </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 60 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 60 </USE><STRUCT> 109 </STRUCT></INDXMAP>
+<INDXKEY>
+<TAGSPEC>
+<SQL>SELECT * FROM bib;</SQL>
+<FTAG>DBDOC</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+There are several things to note in this definition. First the ACCESS
+type is DBMS_BTREE which serves as the indication that this is NOT
+just a query to be passed along directly to the DBMS. In index defs
+used to simply map queries to the DBMS, the INDXNAME tag contains the
+name of the DBMS table, and the INDXTAG contains the name of the
+column to search in. With DBMS_BTREE indexes, these are instead like
+the INDEXNAME and INDXTAG in normal SGML/XML databases.  Because this
+type of config file can mix both DBMS mapping indexes and the new
+DBMS_BTREE indexes, you cannot use the DEFAULTPATH option, and must
+specify the full path name for INDXNAME. The INDXNAME, therefore, must
+be a full path name of the actual location for the Cheshire index
+file. 
+
+The other thing to note is the new config tag <SQL> which can be used
+within <TAGSPEC> the same way as <FTAG>. This tag incloses the SQL
+statement with is to be used to extract the data from the DBMS, and it
+should be followed by an <FTAG> containing the column name (or
+pattern of names and wildcards) from which the data will be extracted.
+The data fetched from the DBMS is formatted using the same method as
+XML recordsyntax for DBMS mapping searches. 
+
+Other additions in this version include some changes to support the use
+of the XML_ELEMENT_ elementset when accessing virtual databases either
+locally or via Z39.50. This means that each of the "real" databases
+that make up the virtual database can have different XML structures,
+and as long as queries map to appropriate indexes in each real database,
+the results can be returned either as raw XML or as an XML_ELEMENT_...
+pattern of the desired elements from each real database.
+
+Another addition is the inclusion of a highlighting function for the
+clients. The basic Tcl command is
+
+highlight <-stem> "search word string" "data string" "pre-string" "post-string"
+
+The "data string" is searched for each occurrence of words (or stems)
+in the "search word string" (the search string is assumed to follow
+the syntax of a cheshire search command, but may also just be a string
+of words, in which case the first word is ignored). For each word (or stem)
+found, the "pre-string" is inserted before it, and the "post-string" is
+inserted after it (or after the stem if the "-stem" options is specified.
+Aliases for "highlight" are "zhighlight" and "cheshirehighlight". 
+For example, suppose a search has been done for "zfind su mathematics" in
+a cheshire database, if the formatted record (rec) looks like:
+
+Title:         Essays in statistical science : papers in honor of
+                  P.A.P. Moran / edited by J. Gani and E.J. Hannan.
+Publisher:     Sheffield, Eng. : Applied Probability Trust.
+Date:          1982.
+Pages:         434 p. : ill..
+Notes:         "Journal of applied probability special volume ;
+                  v.19A"
+               Includes bibliographies and index
+               Publications of P.A.P. Moran: p. 1-6
+Subjects:      Mathematical statistics.
+               Statistics.
+               Stochastic processes.
+Other Authors: Moran, P. A. P. (Patrick Alfred Pierce), 1917.
+               Hannan, E. J. (Edward James), 1921.
+               Gani, J. M. (Joseph Mark).
+
+
+Then the Tcl statement:
+
+set result [highlight -stem "zfind su mathematics" $rec "<START>" "<END>"]
+
+would set result to:
+
+Title:         Essays in statistical science : papers in honor of
+                  P.A.P. Moran / edited by J. Gani and E.J. Hannan.
+Publisher:     Sheffield, Eng. : Applied Probability Trust.
+Date:          1982.
+Pages:         434 p. : ill..
+Notes:         "Journal of applied probability special volume ;
+                  v.19A"
+               Includes bibliographies and index
+               Publications of P.A.P. Moran: p. 1-6
+Subjects:      <START>Mathemat<END>ical statistics.
+               Statistics.
+               Stochastic processes.
+Other Authors: Moran, P. A. P. (Patrick Alfred Pierce), 1917.
+               Hannan, E. J. (Edward James), 1921.
+               Gani, J. M. (Joseph Mark).
+
+
+Note that this is a Client-side operation and the highlighted items will NOT
+be restricted to the occurrences items actually indexed by the index
+used in searching, but it will highlight any occurrence in the string.
+If the "-stem" option is not used, then the highlighted occurrences must
+match the entire word as specified in the search string. Note however that
+this will work with ANY search string and ANY data string, so it can be
+used anywhere. For example...
+
+% set query "zfind su THIS IS A TEST"
+zfind su THIS IS A TEST
+% set data "This is the data that we are testing on."
+This is the data that we are testing on.
+% set result [highlight $query $data "<B>" "</B>"]
+<B>This</B> <B>is</B> the data that we are testing on.
+% set result [highlight -stem $query $data "<B>" "</B>"]
+<B>Thi</B>s <B>is</B> the data that we are <B>test</B>ing on.
+
+Remember that syntactical parts of a query (like zfind, index names, and
+Boolean operators) are ignored in highlight processing, so that a query
+like:
+% set query "search title data and author test"
+search title data and author test
+
+would give the following when applied to the same data as above:
+% set result [highlight $query $data "<B>" "</B>"]
+This is the <B>data</B> that we are testing on.
+% set result [highlight -stem $query $data "<B>" "</B>"]
+This is the <B>data</B> that we are <B>test</B>ing on.
+
+(note: changes were made to ignore most punctuation marks in the query or
+document)
+
+Version 41b
+
+Increased the size limit for number of databases in a server.init file file
+from 100 to 1000. Other minor bug fixes.
+
+Added simple "S" or plural stemming based on the SMART stemmer. The 
+"S" stemmer is invoked by using "SSTEM" or "SSTEM_FREQ" in place of
+"STEM" or "STEM_FREQ" in the "NORMAL" attribute of an index definition
+in the config file.
+
+In addition the Snowball stemmer has been added, providing stemming
+capabilities for multiple European languages including English
+(porter2), French, German, Dutch, Spanish, Italian, Swedish,
+Portuguese, Russian (UTF-8 or KOI-8 encoded), Danish and
+Norwegian. These are invoked by using "NORMAL" attributes of
+FRENCH_STEM, GERMAN_STEM, DUTCH_STEM, SPANISH_STEM, ITALIAN_STEM,
+SWEDISH_STEM, PORTUGUESE_STEM, RUSSIAN_STEM (or RUSSIAN_UTF8_STEM),
+RUSSIAN_KOI8_STEM, DANISH_STEM and NORWEGIAN_STEM, respectively.
+
+Added MINMAX score normalization for virtual resultsets, in order to
+make the results sortable by score.
+
+Version 42
+
+Bug fixes include removal of some memory leaks. New functionality includes
+several additional ranking algorithms and the addition of automated
+georeferencing of text to indexing.
+
+New Ranking Algorithms
+
+1. Berkeley TREC-2 Logistic Regression Algorithm.
+
+Added support for the Berkeley "TREC-2" probabilistic search
+method. This is invoked in a query by using "@@" in place of "@". The
+basic formula is similar to that used in the basic probabilistic
+ranking, but uses different weights for some elements and variant
+forms of variables. The basic formula is:
+
+ Summations of... 
+ * doc->query_term_weight +=
+ *                   query_term_weight/((float)query_length + 35.0);
+ *
+ *  doc->doc_term_weight += log(doc_tw / ((float)doc_length+80.0));
+ *
+ *  doc->log_grf += log((float)term_collection_freq / COLLECTION_LENGTH);
+ *
+ *  doc->numberMatchTerms += 1;
+ *
+ Combined as...
+ *  query_doc_weights = 37.4    * doc->query_term_weight +
+ *          0.330  * doc->doc_term_weight +
+ *          -0.1937 * doc->log_grf;
+ *
+ *  logodds = -3.51 +
+ *         query_doc_weights/(1.0 + sqrt((double)doc->numberMatchTerms)) +
+ *         0.0929 * doc->numberMatchTerms;
+ *
+ *  probability = (float) 1.0/(1.0 + exp((double)-logodds));
+ *
+ *
+
+2. Conventional TFIDF-style Vector Model retrieval.
+
+We have also added support for "standard" TFIDF with Cosine
+normalization as used in SMART and other systems.  TFIDF searching is
+invoked by using "@/" in a query (in place of "@"). Our version of
+TFIDF is based on the "best" combination of weighting factors
+suggested by Salton and Buckley in "Term-Weighting Approaches of
+Automatic Text Retrieval" (Information Processing and Management,
+v. 25, no. 5, 1988).  This requires that vector data be built during
+indexing (thus it has an added storage overhead during indexing, and a
+smaller storage overhead for some global variables in the indexes. 
+This is specified by using "ACCESS=VECTOR" in the configfile for the
+index.  To fully build files including vector indexes you must run a
+second program in index called "index_vectors" which calculates part
+of global vector information need for the indexing. (Note that if
+boolean or other ranked searches are done on vector indexes they will
+behave normally, but if a TFIDF search is done on conventional files
+they will not use the full algorithm and will be less effective.)
+
+The "SMART" indication of the type of searching and indexing done is
+"tfc" for document terms (term freq * IDF with cosine length
+normalization) for query terms the "augmented normalized term
+frequency" weight is used multiplied by IDF (using collection
+frequency info) without further normalization (or "nfx").  The
+resulting weights are calculated as SUM (qtw * dtw), that is the
+vector product of the query and document term vector weights.
+
+
+Geographic indexing: We have included a new georeferencing indexing
+subsystem. This subsystem extracts proper nouns from the text being
+indexed (note that this is a very simple minded proper noun recognizer
+-- it looks for sequences of capitalized words in the text) and
+attempts to match them in a digital gazetteer. We have used a
+gazetteer derived from the World Gazetteer
+(http://www.world-gazetteer.com) with 224698 entries in both English
+and German for multilingual geographic indexing. The indexing
+subsystem provides three different index types: verified place names
+(an index of names which matched the gazetteer), point coordinates
+(latitude and longitude coordinates of the verified place name) and
+bounding box coordinates (bounding boxes for the matched places from
+the gazetteer). It is worth noting that due to the lightweight
+parsing, and although the names are compared against the gazetteer, it
+is quite common for proper name of persons and places to be the same
+and this leads to potential false associations between articles
+mentioning persons with such name and particular places. With that
+caveat, the following configfile examples show how to invoke the
+geoindexing...
+
+<!-- Inferred indexes from gazetteer lookup -->
+<INDEXDEF ACCESS=BTREE EXTRACT=GEOTEXT NORMAL=BASIC>
+<INDXNAME> indexes/geotext_en.index </INDXNAME>
+<INDXTAG> geotext </INDXTAG>
+
+<EXTERN_APP>GAZETTEER:/projects/metadata2/cheshire/WorldGazetteer/CONFIG.WORLDGAZ:WorldGaz:EXACTNAME:NAME</EXTERN_APP>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>DATELINE </FTAG>
+<FTAG>TEXT </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=GEOTEXT_LAT_LONG NORMAL="DECIMAL_LAT_LONG">
+<INDXNAME> indexes/geopoint_en.index
+</INDXNAME>
+<INDXTAG> geopoint </INDXTAG>
+
+<EXTERN_APP>GAZETTEER:/projects/metadata2/cheshire/WorldGazetteer/CONFIG.WORLDGAZ:WorldGaz:EXACTNAME:DD_LAT_LONG</EXTERN_APP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>DATELINE </FTAG>
+<FTAG>TEXT </FTAG>
+<FTAG>LEAD </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=GEOTEXT_BOUNDING_BOX NORMAL="DECIMAL_BOUNDING_BOX">
+<INDXNAME> indexes/geobox_en.index
+</INDXNAME>
+<INDXTAG> geobox </INDXTAG>
+
+<EXTERN_APP>GAZETTEER:/projects/metadata2/cheshire/WorldGazetteer/CONFIG.WORLDGAZ:WorldGaz:EXACTNAME:DD_BOUNDING_RECT</EXTERN_APP>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>DATELINE </FTAG>
+<FTAG>TEXT </FTAG>
+<FTAG>LEAD </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+The EXTRACT attribute values of GEOTEXT, GEOTEXT_LAT_LONG, and
+GEOTEXT_BOUNDING_BOX rely on an external Cheshire database containing
+a gazetteer, candidate proper noun terms from the matching INDXKEY
+elements from the document are compared against this gazetteer
+database and only terms/phrases that match gazetteer entries are
+actually entered into the index. In the first INDEXDEF above, only
+the names that match names in the gazetteer are entered into the index,
+in the second, the decimal Latitude/Longitude coordinates for the matching
+gazetteer entries are entered into the index, and in the third case
+the bounding boxes from the matching coordinates are entered into the
+index.
+
+The EXTERN_APP tag must be used to specify the config file, database
+name and index to be used in the matching. The NORMAL tag should
+indicate one of the text processing normalization methods. (BASIC is
+simplest). The generated terms for GEOTEXT indexes are, by default,
+keywords derived from the Gazetteer entry names, using EXACTKEY or
+EXACTKEY_NOMAP uses the exact phrase from the
+Gazetteer. DO_NOT_NORMALIZE retains the exact capitalization, spacing,
+etc. from from Gazetteer entry.
+
+The EXTERN_APP tag is used to specify the cheshire database to be used
+as a gazetteer to look up names of places for GEOTEXT extraction
+methods. The contents of the tag (with no spaces or returns in it)
+should look like:
+"<extern_app>GAZETTEER:/path/to/config/file:database_name:index_to_search_names:exact_tagname_for_element_to_index</extern_app>"
+The colons must be used to separate elements. The
+"/path/to/config/file" should be just that - the full path name of the
+config file for the gazetteer database. "database_name" should be the
+name of the database in the config file. "index_to_search_names"
+should be the index name (INDXTAG) for the index to use in
+matching. "exact_tagname_for_element_to_index" is the name of the tag
+(exactly as it appears in the gazetteer records) in the gazetteer data
+file that should be extracted and used for the index entries in the
+new index. Any additional elements separated by colons are currently
+ignored. 
+
+
+
+Version 43
+
+This version includes many bug fixes affecting things ranging from 
+sgml parsing to hyphen token extraction. Perhaps the largest change
+is the addition of the libstemmer library from the Snowball project
+that includes support for both ISO-8859-1 and UTF-8 encodings in the
+data and several new stemmers for new languages. The language list
+supported includes: Danish, Dutch, English, Finnish, French, German,
+Hungarian, Italian, Norwegian, Portuguese, Romanian, Russian,
+Spanish, Swedish and Turkish, as well as 2 versions of the Porter
+stemmer. This library is not included in the distribution, but 
+is available from http://snowball.tartarus.org/. Because the
+stemmer can handle either ISO-8859-1 or UTF-8, we have added an
+attribute to the config files to indicate the encoding for a 
+given file. The new <FILEENCODING> tag can have the values "UTF-8" or
+"ISO-8859-1" or "KOI8" for files with those encodings. This will be
+passed along in indexes using Snowball stemming to select the correct
+stemmer to use.
+
+This version also adds support for parsing and indexing XML documents
+without DTDs or Schemas. The new file type "XML_NODTD" is available
+for declaring this -- no DTD or Schema definitions are needed with
+this type of file, and it will be parsed as long as it is well-formed
+XML.
+
+Version 44
+ 
+A large number of bug fix changes, and the *incomplete* inclusion of an
+extension using the libxml2 library to handle xml documents without DTDs
+or Schemas (NOTE -- IT DOESN"T WORK YET, BUT libxml2 is required to link
+this version).
+
+Version 45
+
+This version includes some additional bug fixes, and the addition
+of "CODED" or "EXISTS" bitmapped indexes and NGRAM or SHINGLE indexes.
+(The libxml2 work is still pending, see above).
+
+CODED INDEXES
+
+Coded indexes were developed as a way to provide fast checks on the
+existence of a given tag or attribute (or attribute value) in a 
+document. For example, in MARC name authority records the only
+way to distinguish a name-only record from a name/title record is
+the existence of a "<t>" subtag in the 100 field. For the LCNAF, 
+creating an index of the $t subfield results in an index of 40Mb,
+while a "coded" index uses only 2Mb for the same data. When all you
+want is to know whether or not a tag, attribute, or attribute value
+exists in a given record, then this type of index is faster and
+much less space intensive compared to regular indexes.
+
+In a configuration file coded indexes are indicated as shown
+
+<!-- ******************************************************************* -->
+<!-- *************** bitmap coded index for name/title recs   ********** -->
+<!-- ******************************************************************* -->
+<INDEXDEF ACCESS=BITMAPPED EXTRACT=CODED NORMAL=BASIC>
+<INDXNAME>
+indexes/hasnametitle.index
+</INDXNAME>
+<INDXTAG> hasnametitle </INDXTAG>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be indexed (as to existence) for this index    -->
+<INDXKEY>
+<TAGSPEC>
+        <FTAG>FLD100</FTAG><s>t</s>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+or...
+
+<INDEXDEF ACCESS=BITMAPPED EXTRACT=ATTRIBUTE_EXISTS NORMAL=NONE>
+<INDXNAME> indexes/testcoded.index </INDXNAME>
+<INDXTAG> coded </INDXTAG>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<!-- in this case, we are indexing only those records with  -->
+<!-- the value "4" for the NFChars attribute of tag FLD245  -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><attr>NFChars <value>4</value></attr>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+As usual, the CODED extract tag has several equivalent aliases for 
+element or tag indexing that can be used, including:
+
+"CODED" = "ELEMENT_EXISTS" = "EXISTS" = "CONTAINS" = "EXISTS_ELEMENT"
+
+and, for attributes or attributes plus values...
+
+"ATTRIBUTE_EXISTS" = "EXISTS_ATTRIBUTE" = "CONTAINS_ATTRIBUTE"
+
+Whether for elements, attributes, or attribute values the TAGSPEC is
+used to indicate the appropriate record content. All that is stored
+is one value (the character '1'), with a bitmap for all records 
+containing the matching element, attribute, or attribute value.
+
+This means that searching to find all of the records in the "coded"
+attribute index above would just need the search:
+ 
+search coded 1 
+
+These indexes can be used in Boolean operations also (but are meaningful
+only as Boolean results). For example, using the "hasnametitle" index
+above a search might be (assuming a NAME index on FLD100 too):
+
+search NAME Franklin, Benjamin NOT hasnametitle 1
+
+Which would retrieve only the Benjamin Franklin records that did NOT have
+a $t subfield.
+
+NOTE: since "value" is a valid tagspec element for both attributes and
+for subtags, it is also possible to use coded indexes indentify records
+containing a particular string in a given subtag. However, because
+this uses unanchored regular expression matching during indexing, you need to
+be careful in the value specification.
+
+NGRAM Indexes and search
+
+NGRAM indexes segment texts into ngrams of 3, 4, or 5 letters, for
+each non-keyword stopword. The ngrams are "shingled" or overlapping,
+so that, for example, the text:
+
+"John Smith" 
+
+as 3grams would generate
+
+' jo':'joh':'ohn':'hn ':' sm':'smi':'mit':'ith':'th '. 
+
+Notice that a space is used to represent the beginning and end of
+words in the generated trigrams.  Ngrams will remove any stopwords,
+and follow any other normalization specifications during index
+(although all ascii punctuation, except for hyphens, is removed
+regardless of normalization (non-ascii unicode punctuation will
+remain). Unicode behavior has not been fully tested, but the
+segmenting is byte rather than character based, and so may have
+strange results. Specification of NGRAM indexes is:
+ 
+<INDEXDEF ACCESS=BTREE EXTRACT=NGRAMS NORMAL=BASIC>
+<INDXNAME> TESTDATA/testngram.index </INDXNAME>
+<INDXTAG> ngram </INDXTAG>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD100 </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+This specification would extract 3grams (trigrams) from FLD100. 
+The following aliases can be used for the EXTRACT parameter:
+
+"NGRAM" "NGRAMS" "SHINGLE" "SHINGLES" for 3grams
+
+"NGRAM4" "NGRAMS4" for 4grams
+
+"NGRAM5" "NGRAMS5" for 5grams
+
+ACCESS should be BTREE, and NORMAL can be any of the text normalization 
+options (i.e., GEO or Date normalizations will not work).
+
+NGRAM Searching
+
+Using the configfile example above a search might simply be:
+
+search ngram John Smyth
+
+Searching in an NGRAM index applies the same ngram segmenting to the
+search string, and the results are ranked by the percentage of ngrams
+in the search string that were matched in the record. NGRAM searching
+is useful where spelling is uncertain or irregular (as in name matching).
+However, because the order of ngrams is not considered, the results for
+matches of less than about 65% (rank 0.65) are usually very poor. But
+generally searches with minor spelling errors will be able to find the
+desired items at or near the top of the result list.  
+
+VERSION 45b
+
+Some performance improvements for NGRAM searching, still working on
+true optimization.
+
+

@@ -1,0 +1,165 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<title>Annex E:&nbsp; Modification History</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h2 align="center"><a href="geo22.htm">Z39.50 Application Profile for Geospatial Metadata
+or &quot;GEO&quot;</a><br>
+Annex E:&nbsp; Modification History</h2>
+
+<hr>
+
+<h3>Contents</h3>
+
+<ol>
+  <li><a href="#Changes from 2.0 to 2.1">Changes from 2.0 to 2.1</a></li>
+  <li><a href="#Changes from 2.1 to 2.2">Changes from 2.1 to 2.2</a></li>
+  <li><a href="#Changes from 2.2 to 3.x">Changes from 2.2 to 3.x</a></li>
+  <li><a href="#Changes from 3.x to 4.x">Changes from 3.x to 4.x</a></li>
+</ol>
+
+<hr>
+
+<h3>E.1 <a name="Changes from 2.0 to 2.1">Changes from 2.0 to 2.1</a></h3>
+
+<p>descript (Description) 4 105 -&gt; 3102 112&nbsp; <br>
+onlink (Online_Linkage) 3813 -&gt; 2021<br>
+<br>
+timeinfo (Time_Period_Information) 3900 -&gt; 2062<br>
+&nbsp; begdate (Beginning_Date) 3907 -&gt; 2072<br>
+&nbsp; enddate (Ending_Date) 3909 -&gt;2073<br>
+<br>
+spdom (Spatial_Domain) 3110 -&gt; 2059<br>
+&nbsp; bounding (Bounding_Coordinates)&nbsp; 3111 -&gt; 2060<br>
+&nbsp;&nbsp;&nbsp; westbc (West_Bounding_Coordinate) 3112 -&gt; 2038<br>
+&nbsp;&nbsp;&nbsp; eastbc (East_Bounding_Coordinate) 3113 -&gt; 2039<br>
+&nbsp;&nbsp;&nbsp; northbc (North_Bounding_Coordinate) 3114 -&gt; 2040<br>
+&nbsp;&nbsp;&nbsp; southbc (South_Bounding_Coordinate) 3115 -&gt; 2041<br>
+<br>
+dsgpoly (Bounding Polygon)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3116 Structure: 111 -&gt; 112
+&nbsp; <br>
+availabl (Available_Time_Period)&nbsp; 3643 -&gt; 2065<br>
+timeperd (Time_Period_of_Content) 3901 115 -&gt; 3901 112<br>
+cntemail&nbsp; (Contact_Electronic_Mail_Address) 3016 -&gt; 2030&nbsp;&nbsp; <br>
+crossref&nbsp; (Cross_Reference) 3147 -&gt; 2068<br>
+distrib&nbsp;&nbsp; (Distributor)&nbsp; 3601 -&gt; 2000 <br>
+fees&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Fees) 3638 -&gt; 2055
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+onlink&nbsp;&nbsp;&nbsp; (Online_Linkage)&nbsp; 3813 -&gt; 2021<br>
+place&nbsp;&nbsp;&nbsp;&nbsp; (Place) 3125 -&gt; 2061 <br>
+ptcontac&nbsp; (Point_of_Contact) 3136 -&gt; 2067 <br>
+rngdates&nbsp; (Range_of_Dates)&nbsp; 3906 Structure: 112 -&gt; 115<br>
+supplinf&nbsp; (Supplemental_Information) 3105 -&gt; 2050<br>
+timeinfo&nbsp; (Time_Period_Information)&nbsp; 3900 -&gt; 2062<br>
+<br>
+cntemail (Contact_Electronic_Mail_Address) 3016 -&gt; 2030<br>
+crossref (Cross_Reference) 3147 -&gt; 2068<br>
+distrib (Distributor)&nbsp; 3601 -&gt; 2000<br>
+<br>
+Tag name vertcnt -&gt; vertcount<br>
+Tag name columns -&gt; colcount</p>
+
+<p>Coordinate Structure tag changed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 108
+-&gt; 200<br>
+Coordinate_String Structure tag changed&nbsp; 109 -&gt; 201<br>
+Coordinate_Range Structure is dropped (110)<br>
+BoundingPolygon and BoundingCoordinate Structures dropped <br>
+Composite changed&nbsp;&nbsp; 112 -&gt; 204<br>
+RealMeasurement&nbsp; 113 -&gt; 205<br>
+IntMeasurement&nbsp;&nbsp;&nbsp; 114 -&gt; 206<br>
+DateRange&nbsp;&nbsp; 115 -&gt; 207</p>
+
+<p>MembersEqual -&gt; MembersContain<br>
+MembersNotEqual -&gt; MembersNotContain</p>
+
+<h3>E.2. <a name="Changes from 2.1 to 2.2">Changes from 2.1 to 2.2</a></h3>
+
+<ul>
+  <li>Added a <a href="geo22.htm#Contents">Table of Contents</a> with hyperlinks to each
+    section, subsection, etc. Placed annexes into separate documents. Provided
+    additional links throughout the document to ease navigation.</li>
+  <li>Updated the <a href="geo22.htm#5. References">References</a> section, including links to
+    the references.</li>
+  <li>Added definition of <a href="geo22.htm#Extent">Extent</a> and included the element as a <a
+    href="annex_b.htm#Mandatory Attribute Combinations">mandatory</a> search element.</li>
+  <li>Revised the <a href="geo22.htm#7.4.1. Search">Search</a> section. Added
+    clarifications.</li>
+  <li>Revised the <a href="geo22.htm#7.4.2.3. Record Syntaxes">Record Syntaxes</a> section to
+    reflect current practice. Added HTML and SGML record syntaxes.</li>
+  <li>Consolidated the <a href="geo22.htm#7.5. Preferred Display Format">Preferred Display
+    Format</a> section and old Annex into a single section in the main body of the document.</li>
+  <li>Revised Annex A. Separated Annex A into two annexes (<a href="annex_a.htm">A</a>
+    and <a href="annex_b.htm">B</a>) for ease of use. Added links to the FGDC Content
+    Standard for Digital Geospatial Metadata <a href="geo22.htm#[2]">[2]</a> for each <a
+    href="annex_a.htm#Use Attributes">Use</a> Attribute. Added definitions of <a
+    href="annex_a.htm#Structure Attributes">Structure</a>, <a
+    href="annex_a.htm#Relation Attributes">Relation</a> and <a
+    href="annex_a.htm#Truncation Attributes">Truncation</a>  Attributes. Expanded the
+    mandatory combinations table for completeness. Provided clarifications and
+    guidelines on using attributes.</li>
+  <li>Changed the Structure Attribute Year(4), Date Normalized (5), and Date Unnormalized
+    (100) to Date String (210).</li>
+  <li>Changed the Structure Attribute Free-Form Text (105) to Phrase(1), Word (2), and Word
+    List (6) for compatibility with GILS and library applications.</li>
+  <li>Changed the Structure Attributes Coordinate (200), Int Measurement (206), and Real
+    Measurement (205) to Numeric String (109).</li>
+  <li>Added the <a href="annex_a.htm#Truncation Attributes">Truncation Attributes</a> section
+    to <a href="annex_a.htm">Annex A</a>.</li>
+  <li>Updated the definition of the Structure Attribute Coordinate String.</li>
+  <li>Moved the modification history to <a href="annex_e.htm">Annex E</a>.</li>
+  <li>Included <a href="annex_b.htm#Attribute Combination Guidelines">Attribute combination
+    guidelines</a> in <a href="annex_b.htm">Annex B</a>.</li>
+  <li>Required Implementation Id, Name, and Version in the Z39.50 Init Service. </li>
+  <li>Restricted the mandatory Time Period Information Use Attribute to searching the Time
+    Period Information of the Time Period of Content element. The Time Period Information Use
+    Attribute is required in combination with the Date String Structure Attribute, where the
+    date search applies to the <a
+    href="http://geochange.er.usgs.gov/pub/tools/metadata/standard/09.html#Single Date/Time">Single
+    Date/Time</a>, <a
+    href="http://geochange.er.usgs.gov/pub/tools/metadata/standard/09.html#Multiple Dates/Times">Multiple
+    Dates/Times</a>, and <a
+    href="http://geochange.er.usgs.gov/pub/tools/metadata/standard/09.html#Range of Dates/Times">Range
+    of Dates/Times</a> subordinate elements.</li>
+  <li>Added the <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/01.html#Data Set G-Polygon">Data
+    Set G-Polygon</a> (dsgpoly) element to the S element set.</li>
+  <li>Added XML as a required Record Syntax. The XML DTD is included in <a href="annex_c.htm">Annex
+    C</a>.</li>
+  <li>Added optional support for the A element set. The A element set consists of the Title
+    and Abstract elements.</li>
+  <li>Changed the GRS-1 Record Syntax from optional to required.</li>
+  <li>Included the Structure Attribute Always Matches (103). Always Matches is
+    now required in combination with the Any (1016) Use Attribute to obtain a
+    count of the number of records in a Geo database.</li>
+</ul>
+
+<h4>E.2.1 Unresolved Issues</h4>
+
+<ul>
+  <li>The need for Composite Structure Attribute; Members Contain and Members Not Contain
+    Relation Attributes.</li>
+</ul>
+
+<h3>E.3. <a name="Changes from 2.2 to 3.x">Changes from 2.2 to 3.x</a></h3>
+
+<p>Planned Work: Alignment of the GEO Profile with the GILS and CIP Profiles. Includes support for the Common Element Set and reference tag paths for generation of
+GRS-1 of the Common Element Set.</p>
+
+<h3>E.4. <a name="Changes from 3.x to 4.x">Changes from 3.x to 4.x</a></h3>
+
+<p>Planned Work: Full alignment with the ISO 15046-15 Metadata Standard.</p>
+
+<hr>
+
+<table border="1" bordercolor="#FFFFFF">
+  <tr>
+    <td width="468"><a href="annex_e.htm">Top of Annex E</a></td>
+    <td width="503"><p align="right"><a href="geo22.htm#Contents">Back to Main Contents</a></td>
+  </tr>
+</table>
+</body>
+</html>

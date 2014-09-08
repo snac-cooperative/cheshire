@@ -1,0 +1,480 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.75 [en]C-CCK-MCD   (WinNT; U) [Netscape]">
+   <title>Cheshire II Commands</title>
+</head>
+<body background="chat5.jpg">
+<!-- Cheshire II Commands documentation -->
+<center>
+<h1>
+<img SRC="smallcat.gif" \  align=CENTER><font color="#B22222">Cheshire
+II Commands</font></h1></center>
+
+<h2>
+<font color="#0000FF">COMMANDS</font></h2>
+<font size=+1><a href="#map">map</a>- Create and manipulate map widgets
+(This is a builtin command for the cheshire2 and staffcheshire interpreters)</font>
+<h2>
+<font color="#0000FF"><font size=+1>SYNOPSIS</font></font></h2>
+<b><font size=+1>map<i> pathName ?options</i></font></b>
+<p><font size=+1>See the ``options'' manual entries for Tcl/Tk for details
+on the standard options available for widgets.</font>
+<br><i><font size=+1>(An example script using map widgets is included in
+the cheshire2 directory of the distribution called map2.tcl -- it uses
+data in the cheshire2/MAPDATA directory.)</font></i>
+<h2>
+<font color="#0000FF"><font size=+1>"WIDGET-SPECIFIC OPTIONS"</font></font></h2>
+<font size=+1>Name: <b>mapfile</b></font>
+<br><font size=+1>Class: <b>Mapfile</b></font>
+<br><font size=+1>Command-Line Switch: <b>-mapfile</b> <i>filename</i></font>
+<br><font size=+1>This is required to specify the name of the file containing
+the map data. The currently sorted formats for map data are described below.</font>
+<p><font size=+1>Name: <b>latitude</b></font>
+<br><font size=+1>Class: <b>Latitude</b></font>
+<br><font size=+1>Command-Line Switch: <b>-latitude</b> <i>latitude</i></font>
+<br><font size=+1>Sets the latitude for the centerpoint of the displayed
+map. Defaults to 0o0'0''N (the equator).</font>
+<p><font size=+1>Name: <b>longitude</b></font>
+<br><font size=+1>Class: <b>Longitude</b></font>
+<br><font size=+1>Command-Line Switch: <b>-longitude</b> <i>longitude</i></font>
+<br><font size=+1>Sets the longitude for the centerpoint of the displayed
+map. Defaults to 0o0'0''W (the prime meridian).</font>
+<p><font size=+1>Name: <b>height</b></font>
+<br><font size=+1>Class: <b>Height</b></font>
+<br><font size=+1>Command-Line Switch: <b>-height</b> <i>heightvalue</i></font>
+<br><font size=+1>Specifies a desired window height that the map widget
+should request from its geometry manager. The value may be specified in
+any of the forms described in the COORDINATES section below.</font>
+<p><font size=+1>Name: <b>width</b></font>
+<br><font size=+1>Class: <b>width</b></font>
+<br><font size=+1>Command-Line Switch: <b>-width</b> <i>widthvalue</i></font>
+<br><font size=+1>Specifies a desired window width that the map widget
+should request from its geometry manager. The value may be specified in
+any of the forms described in the COORDINATES section below.</font>
+<p><font size=+1>Name: <b>background</b></font>
+<br><font size=+1>Class: <b>Background</b></font>
+<br><font size=+1>Command-Line Switch: <b>-background or -bg</b> <i>color</i></font>
+<br><font size=+1>This sets the background color to be used for the map
+widget -- it defaults to Black (#000) on color screens, and to White (#FFF)
+on monochrome.</font>
+<p><font size=+1>Name: <b>coastlines</b></font>
+<br><font size=+1>Class: <b>Coastlines</b></font>
+<br><font size=+1>Command-Line Switch: <b>-coastlines</b> <i>color</i></font>
+<br><font size=+1>This sets the color for lines used to draw the outline
+of continents. It defaults to green (#0A0).</font>
+<p><font size=+1>Name: <b>countries</b></font>
+<br><font size=+1>Class: Countries</font>
+<br><font size=+1>Command-Line Switch: <b>-countries</b> <i>color</i></font>
+<br><font size=+1>This sets the color for lines used to draw political
+borders of countries. It defaults to red (#D00).</font>
+<p><font size=+1>Name: <b>states</b></font>
+<br><font size=+1>Class: <b>States</b></font>
+<br><font size=+1>Command-Line Switch: <b>-states</b> <i>color</i></font>
+<br><font size=+1>This sets the color for lines used to draw political
+borders of states in the U.S. and international zones (like the old Berlin
+corridors). It defaults to yellow (#FF0).</font>
+<p><font size=+1>Name: <b>islands</b></font>
+<br><font size=+1>Class: <b>Islands</b></font>
+<br><font size=+1>Command-Line Switch: <b>-islands</b> <i>color</i></font>
+<br><font size=+1>This sets the color for lines used to draw the coastlines
+of islands (smaller than an continent). It defaults to light green (#5F5).</font>
+<p><font size=+1>Name: <b>lakes</b></font>
+<br><font size=+1>Class: <b>Lakes</b></font>
+<br><font size=+1>Command-Line Switch:
+<b>-lakes</b> <i>color</i></font>
+<br><font size=+1>This sets the color for lines used to draw the shorelines
+of lakes. It defaults to light blue (#AAF).</font>
+<p><font size=+1>Name: <b>rivers</b></font>
+<br><font size=+1>Class: <b>Rivers</b></font>
+<br><font size=+1>Command-Line Switch: <b>-rivers</b> <i>color</i></font>
+<br><font size=+1>This sets the color for lines used to draw the shorelines
+of rivers. It defaults to blue (#33F).</font>
+<p><font size=+1>Name: <b>zoom</b></font>
+<br><font size=+1>Class: <b>Zoom</b></font>
+<br><font size=+1>Command-Line Switch:
+<b>-zoom</b> <i>zoom_value</i></font>
+<br><font size=+1>This sets the <i>zoom_value</i> (a floating-point number)
+for the map. The <i>zoom_value</i> indicates how much area is displayed
+around the centerpoint. when the <i>zoom_value</i> is about 1, the whole
+world is displayed, when it is ~1000, or greater, the map is zoomed-in
+to the maximum resolution. The zoom scale is not linear, and higher values
+zoom-in less than low values.</font>
+<p><font size=+1>Name: <b>aspect</b></font>
+<br><font size=+1>Class: <b>Aspect</b></font>
+<br><font size=+1>Command-Line Switch: <b>-aspect</b> <i>aspect_value</i></font>
+<br><font size=+1>The <i>aspect_value</i> is used to adjust the relationship
+of X and Y points in drawing the map. This provides a rough way to correct
+for distortion in the polar regions due to the cylindrical projection used
+for the map. When looking at a full-size (<i>zoom_value</i> ~ 1) map centered
+at the equator, an <i>aspect</i> value of about 110-120 appears similar
+to a Mercator projection. This will vary depending on the size of the map
+window. The aspect value can be used to "tweak" the appearance of the map.
+It has a more obvious effect at higher "zoom" values.</font>
+<p><font size=+1>Name: <b>detail</b></font>
+<br><font size=+1>Class: <b>Detail</b></font>
+<br><font size=+1>Command-Line Switch: <b>-detail</b> <i>detail_value</i></font>
+<br><font size=+1>This sets the level of detail drawn for the map. Acceptable
+values range from 0 to 10. However, with the current default map provided
+with the widget, only values 1 through 5 are really usable. The highest
+level of detail is provided by a value of 1, and increasing the number
+reduces the number of points/lines drawn. A value of 5 draws only every
+fifth point, this can be done very fast, but there isn't much accuracy
+or detail. A value of 1 or 0 takes longer to draw the map, but provides
+much more detail.</font>
+<h2>
+<font color="#0000FF"><font size=+1>INTRODUCTION</font></font></h2>
+<font size=+1>The <b>map</b> command creates a new window (given by the
+<i>pathName</i>
+argument) and makes it into a map widget. Additional options, described
+above, may be specified on the command line or in the option database to
+configure aspects of the map such as its colors and centerpoint. The <b>map</b>
+command returns its
+<i>pathName</i> argument. At the time this command
+is invoked, there must not exist a window named <i>pathName</i>, but
+<i>pathName</i>'s
+parent must exist.</font>
+<p><font size=+1>The <b>map widget</b> has been developed as an extension
+to the Tcl/Tk language and is intended to provide a toolkit for simple
+geographic information retrieval (GIR) applications. The map widget and
+its associated widget commands (see below) provide a simple way to put
+geographic functionality into Tcl/Tk applications. A map widget is created
+in the same way as any other widget, e.g.:</font>
+<p><b><font size=+1>map .mp.win1.mapwin -mapfile map.data -width 7i -height
+3.5i -detail 4 -aspect 100</font></b>
+<p><font size=+1>This statement starts with the "verb" map that indicates
+a request for a new map "widget". The verb is followed by the name to be
+used for the widget window created. The map widget follows the Tcl/Tk object-oriented
+style of object creation, with all subsequent operations on an object treated
+as commands where the "verb" is the name of the object involved, called
+"widget commands". In the statement shown above, the widget name is followed
+by a number of options specifying some characteristics of the map. The
+<b>-mapfile</b>
+option indicates the file name of where the map data is located.</font>
+<p><font size=+1>The map widget currently uses data in a compressed format
+derived the World Data Bank II data set originally created by the Central
+Intelligence Agency and released to the public domain. Additional formats
+are planned for support of such things as TIGER map data (but aren't in
+the current release). The next options in the command above (<b>-width</b>
+and <b>-height</b>) provide the dimensions of the widget and may be specified
+in inches, centimeters, millimeters, printer's points, or screen pixel
+units. The <b>-detail</b> option indicates how detailed the map drawing
+should be, ranging from 1, representing the highest detail available, to
+5 indicating that only about 1/5 of the detail will be displayed. The <b>-aspect</b>
+option is used to correct the appearance of map when zoomed in at high
+and low latitudes (the map widget uses a cylindrical projection, so there
+is a "spreading out" of features when drawing high and low latitudes).
+There are an number of additional options that can be specified in the
+map command, as shown above in the <i>WIDGET SPECIFIC OPTIONS</i> section.</font>
+<h2>
+<font color="#0000FF"><font size=+2>"WIDGET COMMAND"</font></font></h2>
+<font size=+1>The <b>map</b> command creates a new Tcl command whose name
+is <i>pathName</i>. This command may be used to invoke various operations
+on the widget. It has the following general form:</font>
+<p><font size=+1><i>pathName </i><b>option<i> </i></b>?<i>arg arg ...</i>?</font>
+<p><font size=+1><i>Option</i> and the <i>arg</i>s determine the exact
+behavior of the command.</font>
+<p><font size=+1>The following widget commands are possible for map widgets:</font>
+<p><i><font size=+1>pathName<b> </b></font></i><font size=+1><b>centerpixel</b><i>screenx
+screeny?</i></font>
+<p><font size=+1>Given a screen x-coordinate screenx and screen y-coordinate
+screeny this command centers the map view on the point indicated by these
+screen coordinates.</font>
+<p><font size=+1><i>pathName </i><b>configure<i> </i></b><i>?option? ?value?
+?option value ...?</i></font>
+<p><font size=+1>Query or modify the configuration options of the widget.
+If no option is specified, returns a list describing all of the available
+options for pathName (see Tk_ConfigureInfo for ormation on the format of
+this list). If option is specified with no value, then the command returns
+a list describing the one named option (this list will be identical to
+the corresponding sublist of the value returned if no option is specified).
+If one or more option-value pairs are specified, then the command modifies
+the given widget option(s) to have the given value(s); in this case the
+command returns an empty string. Option may have any of the values accepted
+by the canvas command.</font>
+<p><i><font size=+1>pathName<b> </b></font></i><font size=+1><b>create
+</b><i>type
+color lat lon ?lat lon ...? ?</i></font>
+<p><font size=+1>Create a new drawing object in pathName of type type in
+color color. The exact format of the arguments after type and color depends
+on type, but usually they consist of the latitude and longitude coordinates
+for one or more points. See the subsections on individual item types below
+for more on the syntax of this command. This command returns the id for
+the new item.</font>
+<p><i><font size=+1>pathName<b> </b></font></i><font size=+1><b>destroy
+</b><i>object_id</i></font>
+<p><font size=+1>Deletes a drawing object created by the create command
+from the map. The object_id argument is the id returned by the create command
+for the item.</font>
+<p><i><font size=+1>pathName<b> </b></font></i><b><font size=+1>display<i>
+| </i>redisplay</font></b>
+<p><font size=+1>Redraw the current map at the current latitude and longitude.
+(Generally not needed, re-drawing is usually automatic when any change
+is made to the map widget options).</font>
+<p><i><font size=+1>pathName<b> </b></font></i><font size=+1><b>distance
+</b><i>pixel1_x
+pixel1_y pixel2_x pixel2_y</i></font>
+<p><font size=+1>Return the approximate distance in miles (float value)
+between the points on the map indicated by the screen pixel x and y coordinates.</font>
+<p><i><font size=+1>pathName<b> </b></font></i><b><font size=+1>getcenter</font></b>
+<p><font size=+1>Return a list whose elements are the latitude and longitude
+associated with the centerpoint of the current map display.</font>
+<p><i><font size=+1>pathName<b> </b></font></i><b><font size=+1>getframe</font></b>
+<p><font size=+1>Return a list whose elements are the latitude and longitude
+associated with the top left corner and bottom right corner of the current
+map display. E.g., the value will look something like:</font>
+<p><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+54o5'48''N 110o1'1''W 31o10'48''N 68o21'1''W</font>
+<p><i><font size=+1>pathName<b> </b></font></i><b><font size=+1>getlatitude</font></b>
+<p><font size=+1>Return the latitude associated with the centerpoint of
+the current map display.</font>
+<p><i><font size=+1>pathName<b> </b></font></i><b><font size=+1>getlongitude</font></b>
+<p><font size=+1>Return the longitude associated with the centerpoint of
+the current map display.</font>
+<p><i><font size=+1>pathName<b> </b></font></i><font size=+1><b>getlatlon
+</b><i>screenx
+screeny</i></font>
+<p><font size=+1>Return a list whose elements are the latitude and longitude
+associated with the given screen pixel coordinates of the current map display.</font>
+<p><i><font size=+1>pathName<b> </b></font></i><font size=+1><b>getxy </b><i>latitude
+longitude</i></font>
+<p><font size=+1>Return a list whose elements are the screen pixel x and
+y coordinates associated with the given latitude and longitude specifications.
+If the map display doesn't contain the coordinate specified, the list elements
+returned are {-1 -1}.</font>
+<p><i><font size=+1>pathName<b> </b></font></i><font size=+1><b>rubberband
+</b><i>end?
+<b>|
+</b>type color lat lon ?lat lon ...?</i></font>
+<p><font size=+1>Create a new drawing object that can be "stretched" as
+it is displayed without affecting other display graphics. The drawing objects
+are of any type described in the following section. Otherwise this is similar
+to the the create command above. The end option transforms the rubberband
+object into a normal object, in the color specified in the original rubberband
+command. There can be only one rubberband object at a time.</font>
+<p><i><font size=+1>pathName<b> </b></font></i><font size=+1><b>zoommap
+</b><i>[+|-]zoomval</i></font>
+<p><font size=+1>Zoom the map view to a different level. Using plus (+)
+or minus (-) changes the zoom value relative to its current setting. Any
+other number (in a floating point form) zooms to that value and redisplays
+the map.</font>
+<h2>
+<font color="#0000FF"><font size=+1>"OVERVIEW OF DRAWING ITEM TYPES"</font></font></h2>
+<font size=+1>The sections below describe the various types of drawing
+items supported by map widgets. Each item type is characterized by two
+things: first, the form of the create command used to create instances
+of the type; and second, a set of configuration options for items of that
+type, which may be used in the create and itemconfigure widget commands.
+Most items don't support indexing or selection or the commands related
+to them, such as index and insert. Where items do support these facilities,
+it is noted explicitly in the descriptions below (at present, only text
+items provide this support).</font>
+<h2>
+<font color="#0000FF"><font size=+1>"LINE ITEMS"</font></font></h2>
+<font size=+1>Items of type line appear on the display as a single line
+segment. Lines are created with widget commands of the following form:</font>
+<p><font size=+1><i>pathName</i> <b>create line</b> <i>color lat1 lon1
+lat2 lon2</i></font>
+<p><font size=+1>The arguments lat1 through lon2 give the coordinates for
+two latitude/longitude points that describe the end points of the line
+on the map. Color gives the color to be used for drawing the line (in any
+standard TK color format). For example:</font>
+<br><b><font size=+1>.map create line white 0o0'0''N 179o0'0''W 0o0'0''N
+179o59'59''E</font></b>
+<h2>
+<font color="#0000FF"><font size=+1>"RECTANGLE ITEMS"</font></font></h2>
+<font size=+1>Items of type rectangle appear on the display as a box of
+connected four connected line segments. Rectangles are created with widget
+commands of the following form:</font>
+<p><font size=+1><i>pathName</i> <b>create rectangle</b> <i>color lat1
+lon1 lat2 lon2</i></font>
+<p><font size=+1>The arguments lat1 through lon2 give the latitude and
+longitude coordinates for the top-left and bottom-right corners of the
+box, respectively. Color gives the color to be used for drawing the rectangle
+(in any standard TK color format). For example:</font>
+<br><b><font size=+1>.map create rectangle violet 50o0'0''N 70o0'0''W&nbsp;
+10o0'0''N 20o0'0''W</font></b>
+<h2>
+<font color="#0000FF"><font size=+1>"FILLEDRECTANGLE ITEMS"</font></font></h2>
+<font size=+1>Items of type filledrectangle appear on the display as a
+transparent filled box. Filledrectangles are created with widget commands
+of the following form:</font>
+<p><font size=+1><i>pathName</i> <b>create filledrectangle</b> <i>color
+lat1 lon1 lat2 lon2</i></font>
+<p><font size=+1>The arguments lat1 through lon2 give the latitude and
+longitude coordinates for the top-left and bottom-right corners of the
+box, respectively. Color gives the color to be used for filling the rectangle
+(in any standard TK color format). A stipple pattern is used for filledrectangle
+items. For example:</font>
+<br><b><font size=+1>.map create filledrectangle violet 55o0'0''N 75o0'0''W&nbsp;
+5o0'0''N 15o0'0''W</font></b>
+<h2>
+<font color="#0000FF"><font size=+1>"POLYGON ITEMS"</font></font></h2>
+<font size=+1>Items of type polygon appear on the display as a transparent
+filled shapes. Polygons are created with widget commands of the following
+form:</font>
+<p><font size=+1><i>pathName</i> <b>create polygon </b><i>color lat1 lon1
+... latN lonN</i></font>
+<p><font size=+1>The arguments lat1 through lonN give the latitude and
+longitude coordinates for each vertex of the polygon. Note that the last
+vertex pair is NOT automatically the same as the first supplied, so polygon
+items need to have the last vertex the same as the first to create the
+filled object. Color gives the color to be used for filling the rectangle
+(in any standard TK color format). A stipple pattern is used for filledrectangle
+items. For example:</font>
+<br><b><font size=+1>.map create polygon blue 23o0'0''N 120o0'0''W 24o0'0''N
+120o0'0''W 25o0'0''N 22o0'0''W 20o0'0''N 122o0'0''W 23o0'0''N 120o0'0''W</font></b>
+<h2>
+<font color="#0000FF"><font size=+1>"POLYLINE ITEMS"</font></font></h2>
+<font size=+1>Items of type polyline appear on the display as one or more
+connected line segments. Lines are created with widget commands of the
+following form:</font>
+<p><font size=+1><i>pathName</i> <b>create polyline</b>&nbsp;<i> color
+lat1 lon1 ... latN lonN</i></font>
+<p><font size=+1>The arguments lat1 through lonN give the coordinates for
+a series of two or more points that describe a series of connected line
+segments. Note that the last vertex pair is NOT automatically the same
+as the first supplied, so polyline items need to have the last vertex the
+same as the first to create a closed set of lines. Color gives the color
+to be used for the lines (in any standard TK color format). For example:</font>
+<br><b><font size=+1>.map create polyline yellow 23o0'0''N 120o0'0''W 24o0'0''N
+120o0'0''W 25o0'0''N 22o0'0''W 20o0'0''N 122o0'0''W 23o0'0''N 120o0'0''W</font></b>
+<h2>
+<font color="#0000FF"><font size=+1>"POINT ITEMS"</font></font></h2>
+<font size=+1>Items of type point appear on the display as a single point
+or pixel at the latitude and longitude specified:</font>
+<p><font size=+1><i>pathName</i> <b>create point </b><i>color lat lon</i></font>
+<p><font size=+1>The arguments lat and lon give the coordinates for the
+latitude/longitude point on the map. Color gives the color to be used for
+drawing the point (in any standard TK color format). For example:</font>
+<br><b><font size=+1>.map create point white 23o0'0''N 120o0'0''W</font></b>
+<h2>
+<font color="#0000FF"><font size=+1>WDB-II Map Format</font></font></h2>
+<font size=+1>The WDB-II files used for the map drawing routines are sequential
+files composed of fixed length six byte records which can be accessed randomly.
+Each record is composed of three 16-bit signed integers. There are no record
+separators used in these files. The record layout is :</font>
+<p><font size=+1>| Code | Latitude | Longitude</font>
+<p><font size=+1>Or, as a structure in C:</font>
+<p><font size=+1>struct { short Code;</font>
+<br><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+short Latitude;</font>
+<br><font size=+1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+short Longitude; } PNT ;</font>
+<p><font size=+1>Within the WDB-II files the records are stored as shown
+below. In some cases there may be hundreds of points in a single line segment.
+In other cases there may be consecutive header records which locate individual
+points to be plotted.</font>
+<p><font size=+1>|Header|Point1|Point2|...|PointN|Header|Point1|Point2|...|PointN|Header|Point1|Point2|Header|</font>
+<br><font size=+1>Header|Header|Point1|Point2|PointN|</font>
+<p><font size=+1>The same format is used for both the line header records
+and point records. The usage of each field is as follows :</font>
+<br><font size=+1>CODE - Line Header Records.</font>
+<br><font size=+1>The CODE field is used to :</font>
+<p><font size=+1>1. Identify the type of line segment which is described
+by the point records which follow it,</font>
+<p><font size=+1>2. Identify the line or point within the line type, and</font>
+<p><font size=+1>3. Provide the coordinates if the record describes a point.</font>
+<p><font size=+1>In header records the CODE field is always a positive
+four digit number in the form of :</font>
+<br><font size=+1>ABBB where</font>
+<p><b><font size=+1>A =&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+BBB =&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+CODES =</font></b>
+<br><font size=+1>1 = Coast lines&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+001 -> 208&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+1001 -> 1208</font>
+<br><font size=+1>2 = Country boundries&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+001 -> 301&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+2001 -> 2301</font>
+<br><font size=+1>4 = State boundries&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+001 -> 111&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+4001 -> 4111</font>
+<br><font size=+1>5 = Islands&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+001 -> 344&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+5001 -> 5344</font>
+<br><font size=+1>6 = Lakes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+001 -> 103&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+6001 -> 6103</font>
+<br><font size=+1>7 = Rivers&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+001 -> 196&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+7001 -> 7196</font>
+<p><font size=+1>CODE - Point records.</font>
+<p><font size=+1>In point records the CODE field contains the detail level.
+The detail level is a value in the range of 1 through 5. To properly retrieve
+points at any detail level use the following comparison :</font>
+<p><font size=+1>if (code >= desired_detail_level) ...</font>
+<p><font size=+1>LATITUDE and LONGITUDE - In both header and point records.</font>
+<p><font size=+1>The latitude and longitude fields contain the coordinate
+values expressed in signed minutes. The values in these fields are computed
+with the formula COORD_VALUE = (Degrees * 60) + Minutes. Thus, the ranges
+of coordinate values in WDB-II are :</font>
+<br><font size=+1>90 00N = 5400</font>
+<br><font size=+1>90 00S = -5400</font>
+<br><font size=+1>180 00E = 10800</font>
+<br><font size=+1>180 00W = -10800</font>
+<p><font size=+1>WDB-II uses the standard four quadrant cartesian coordinate
+system in which north, south, east, and west are referenced to the equator
+and the Greenwich meridian.</font>
+<p><font size=+1>When a header record is followed by point records the
+coordinates in the header record are the beginning of the line. When a
+header record is followed by another header record then the coordinates
+in the header record should be plotted as a single point. When working
+at low levels of detail it is common to find multiple consecutive header
+records which locate isolated points. There may also be gaps between some
+of the lines.</font>
+<h2>
+<font color="#0000FF"><font size=+1>"SCREEN COORDINATES"</font></font></h2>
+<font size=+1>All coordinates related to the width and height of maps are
+stored as floating-point numbers. These coordinates are specified in screen
+units, which are floating-point numbers optionally followed by one of several
+letters. If no letter is supplied then the distance is in pixels. If the
+letter is m then the distance is in millimeters on the screen; if it is
+c then the distance is in centimeters; i means inches, and p means printers
+points (1/72 inch). Larger y-coordinates refer to points lower on the screen;
+larger x-coordinates refer to points farther to the right.</font>
+<h2>
+<font color="#0000FF"><font size=+1>"SCREEN COORDINATES"</font></font></h2>
+<font size=+1>Coordinates of objects to be drawn on maps (including the
+base map itself) must be specified in some form of latitude and longitude.
+Complete latitude and longitude constants are specified as:</font>
+<p><font size=+1><i>degrees</i><b>o</b><i>minutes</i><b>'</b><i>seconds</i><b>''</b>{<b>N,S,E,W</b>}</font>
+<p><font size=+1>(that is lowercase 'o' for the degrees symbol). In this
+form the coordinates of San Francisco might be specified as: 37o46'30''N
+122o25'1''W. There are a few functions for transforming from one coordinate
+specification to another. The <b>degrees_to_latlon</b> tcl function takes
+longitude and latitude values expressed as decimal degrees (eg. "37.775002
+-122.416946" for the latlon value shown above). <b>latlon_to_degrees</b></font>
+<br><font size=+1>performs the inverse operation. For example:</font><font size=+1></font>
+<p><font size=+1>% degrees_to_latlon 45.000 -122.50</font>
+<br><font size=+1>45o0'0"N 122o30'0"W</font>
+<br><font size=+1>% latlon_to_degrees 45o0'0"N 122o30'0"W</font>
+<br><font size=+1>45.000000 -122.500000</font>
+<p><font size=+1>If someone wants to hack up a set of other coordinate
+transforms, please do...</font>
+<h2>
+<font color="#0000FF"><font size=+1>ACKNOWLEDGEMENTS</font></font></h2>
+<font size=+1>Parts of the WDBII documentation and the associated data
+files are in the public domain and may used without fee so long as appropriate
+credits are included. Credit is hereby given to Fred Pospeschil and Antonio
+Riveria who created the microcomputer version of WDB-II on which this map
+widget is based. The original coordinate data for WDB-II was created by
+the Central Intelligence Agency.</font>
+<h2>
+<font color="#0000FF"><font size=+1>BUGS</font></font></h2>
+<font size=+1>Works only with a particular version of The WDB II database,
+and is not a general map drawing facility.</font>
+<p><font size=+1>Zooming is somewhat logrithmic, and probably should not
+be.</font>
+<h2>
+<font color="#0000FF"><font size=+1>SEE ALSO</font></font></h2>
+
+<h2>
+<font color="#0000FF"><font size=+1>AUTHOR</font></font></h2>
+
+<h2>
+<font color="#000000"><font size=+1>Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>)</font></font></h2>
+
+</body>
+</html>

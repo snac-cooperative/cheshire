@@ -1,0 +1,23 @@
+PUBLIC "-//Society of American Archivists//DTD ead.dtd (Encoded Archival Description (EAD))//EN" /usr/users/ray/Work/cheshire/sgmlparse/EAD.DTD
+PUBLIC "-//Society of American Archivists//DTD eadnotat.ent (EAD Notation Declarations)//EN" /usr/users/ray/Work/cheshire/sgmlparse/EADNOTAT.ENT
+PUBLIC "-//Society of American Archivists//DTD eadbase.ent (EAD Basic Declarations)//EN" /usr/users/ray/Work/cheshire/sgmlparse/EADBASE.ENT
+PUBLIC "-//Society of American Archivists//DTD eadchars.ent (EAD Special Characters)//EN" /usr/users/ray/Work/cheshire/sgmlparse/EADCHARS.ENT
+PUBLIC "-//Society of American Archivists//DTD eadtable.ent (EAD Table Elements)//EN" /usr/users/ray/Work/cheshire/sgmlparse/EADTABLE.ENT
+PUBLIC "-//Society of American Archivists//DTD eadtable.ent (EAD Table
+ Elements)//EN" /usr/users/ray/Work/cheshire/sgmlparse/EADTABLE.ENT
+PUBLIC  "ISO 8879-1986//ENTITIES Added Latin 1//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOlat1
+PUBLIC  "ISO 8879-1986//ENTITIES Added Latin 2//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOlat2
+PUBLIC   "ISO 8879-1986//ENTITIES Greek Symbols//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOgrk3
+PUBLIC "ISO 8879-1986//ENTITIES Alternative Greek Symbols//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOgrk4
+PUBLIC "ISO 8879-1986//ENTITIES  Alternative Greek Symbols//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOgrk4
+PUBLIC "ISO 8879-1986//ENTITIES  Alternative  Greek Symbols//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOgrk4
+PUBLIC "ISO 8879-1986//ENTITIES Greek Letters//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOgrk1
+PUBLIC "ISO 8879-1986//ENTITIES Monotoniko Greek//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOgrk2
+PUBLIC "ISO   8879-1986//ENTITIES   Monotoniko Greek//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOgrk2
+PUBLIC  "ISO 8879-1986//ENTITIES Diacritical Marks//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOdia
+PUBLIC "ISO 8879-1986//ENTITIES Numeric and Special Graphic//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOnum
+PUBLIC "ISO 8879-1986//ENTITIES Publishing//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOpub
+PUBLIC "ISO 8879-1986//ENTITIES General Technical//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOtech
+PUBLIC "ISO 8879-1986//ENTITIES Russian Cyrillic//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOcyr1
+PUBLIC "ISO 8879-1986//ENTITIES Non-Russian Cyrillic//EN" /usr/users/ray/Work/old_cheshire2/sgml/charsets/ISOcyr2
+SGMLDECL "/usr/users/ray/Work/cheshire/sgmlparse/test_default_sgml_dcl"

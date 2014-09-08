@@ -1,0 +1,1355 @@
+#!/home/ray/Work/cheshire/bin/webcheshire
+# 
+# Prototype implementation of SDLIP Server using DAV/DASL for 
+# communications.
+# This entire implementation was done in the Tcl scripting 
+# language for webcheshire.
+# 
+# Supports direct searching of local (Berkeley DL) databases
+# and a Z39.50 gateway to other databases (especially CDL's MELVYL
+# and related DBs).
+#
+# 
+
+# the following might be needed for some installations
+proc loadxmlpackages {args} {
+     set dir /home/ray/Work/cheshire/sdlip/TclXML-1.1.1
+     source  /home/ray/Work/cheshire/sdlip/TclXML-1.1.1/pkgIndex.tcl
+}
+#
+package unknown loadxmlpackages
+
+package require xml
+
+set line 0
+set DEBUG 1
+
+set xmlnamespaces("") {}
+
+set HOST [exec hostname]
+
+# set/clear some globals for parsing
+set select_flag 0
+set from_flag 0
+set where_flag 0
+set orderby_flag 0
+set limit_flag 0
+set subcolname_flag 0
+set lit_pending 0
+set prop_pending 0
+set href_pending 0
+set scope_flag 0
+set select {}
+set from {}
+set where {}
+set orderby {}
+set limit {}
+set last_data {}
+set current_attrval {}
+set prop_list {}
+set clientsid {}
+set stateTimeOutReq {}
+set queryoptions {}
+set CHESHIRE_LOGFILE "/tmp/sdlip_logfile"
+
+while {[gets stdin instuff] > 0} {
+    incr line
+    if {$line == 1} {
+	if {[string match "SEARCH * HTTP/1.1" $instuff] == 1} {
+	#    puts $outfile "Matched Search header: $instuff"
+	} else {
+	    puts stdout "Access Denied"
+	    exit
+	}
+    } else {
+	set type [string trim [lindex [split $instuff :] 0] " "]
+	set value [string trim [lindex [split $instuff :] 1] " "]
+	set header($type) $value
+    }
+}
+
+
+set maxheaders $line
+# we get the length of the message from the header...
+set content_length $header(Content-Length)
+
+#catch {puts $outfile "content length is $content_length"}
+
+# Use content-length to read the data
+set message [read stdin $content_length]
+set stackptr 0
+set searchstack(0) {}
+
+
+# Metadata interface functions
+proc getVersion {} {
+
+    #build the xml result -- the appends are just to keep it readable...
+    set xmlstuff "<?xml version=\"1.0\"?>"
+    append xmlstuff "\n<s:SDLIPVersion "
+    append xmlstuff "xmlns:s=\"http://interlib.org/SDLIP/1.0#\"> "
+    append xmlstuff "\n<s:SearchInterface>\n    <s:version> 1.0 "
+    append xmlstuff "</s:version>\n</s:SearchInterface>"
+    append xmlstuff "\n<s:ResultAccessInterface>\n    <s:version> NONE "
+    append xmlstuff "</s:version>\n</s:ResultAccessInterface>"
+    append xmlstuff "\n<s:MetadataInterface>\n    <s:version> 1.0 "
+    append xmlstuff "</s:version>\n</s:MetadataInterface>"
+    append xmlstuff "\n</s:SDLIPVersion>"
+    set length [string length $xmlstuff]
+    
+    puts "HTTP/1.1 207 Multistatus"
+    puts "Content-Type: application/xml"
+    puts "Content-Length: $length"
+    puts ""
+    puts "$xmlstuff"
+    
+}
+
+proc getInterface {} {
+    
+    #build the xml result -- the appends are just to keep it readable...
+    set xmlstuff "<?xml version=\"1.0\"?>"
+    append xmlstuff "\n<s:SDLIPInterface "
+    append xmlstuff "xmlns:s=\"http://interlib.org/SDLIP/1.0#\"> "
+    append xmlstuff "\n<s:SearchInterface>\n    <s:version> 1.0 "
+    append xmlstuff "</s:version>\n</s:SearchInterface>"
+    append xmlstuff "\n<s:ResultAccessInterface>\n    <s:version> NONE "
+    append xmlstuff "</s:version>\n</s:ResultAccessInterface>"
+    append xmlstuff "\n<s:MetadataInterface>\n    <s:version> 1.0 "
+    append xmlstuff "</s:version>\n</s:MetadataInterface>"
+    append xmlstuff "\n</s:SDLIPInterface>"
+    set length [string length $xmlstuff]
+    puts "HTTP/1.1 207 Multistatus"
+    puts "Content-Type: application/xml"
+    puts "Content-Length: $length"
+    puts ""
+    puts "$xmlstuff"    
+}
+
+proc getSubcollectionInfo {} {
+     global HOST
+
+    #build the xml result -- the appends are just to keep it readable...
+    set xmlstuff "<?xml version=\"1.0\"?>"
+    append xmlstuff "<s:subcolInfo "
+    append xmlstuff "xmlns:s=\"http://interlib.org/SDLIP/1.0#\" "
+    append xmlstuff "xmlns:d=\"DAV:\"> "
+    
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>DIGLIB</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "The U.C. Berkeley Environmental Digital Library collection"
+    append xmlstuff " hosted on dlp.cs.berkeley.edu."
+    append xmlstuff "\n</s:subcolDesc>"
+    if {$HOST == "dlp.CS.Berkeley.EDU" 
+    || $HOST == "galaxy.CS.Berkeley.EDU" } {
+	append xmlstuff "\n<s:defaultSubcol/>"
+    }
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+    
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>SUNSITE</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "U.C. Berkeley Physical Sciences libraries catalog"
+    append xmlstuff " hosted on the Library SunSite. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+    
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>SCILIB</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "U.C. Berkeley Physical Sciences libraries catalog"
+    append xmlstuff " hosted on Sherlock.berkeley.edu. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    if {$HOST == "sherlock"} {
+	append xmlstuff "\n<s:defaultSubcol/>"
+    }
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+    
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>MELVYL</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "MELVYL, the University of California Union Catalog,"
+    append xmlstuff " including the holdings of the California State Library. "
+    append xmlstuff " Hosted at the California Digital Library. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>PE</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "PE is the University of California Periodicals Database "
+    append xmlstuff " hosted at the California Digital Library. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>ATT_CIA</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "The CIA World FactBook"
+    append xmlstuff " hosted at ATT research. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>LC_BOOKS</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "Library of Congress Books database (Voyager)"
+    append xmlstuff " hosted at the Library of Congress. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>MAGS</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff " Expanded Academic Index of periodicals"
+    append xmlstuff " hosted at the California Digital Library. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>ABI</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "ABI Inform database "
+    append xmlstuff " hosted at the California Digital Library. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>INS</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "INSPEC database"
+    append xmlstuff " hosted at the California Digital Library. Accessed via Z39.50"
+    append xmlstuff " hosted on Sherlock.berkeley.edu. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>NEWS</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "National Newspaper Index"
+
+    append xmlstuff " hosted at the California Digital Library. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>COMP</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "Computer Database"
+    append xmlstuff " hosted at the California Digital Library. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+
+    append xmlstuff "\n<s:subcol>"
+    append xmlstuff "\n<s:subcolName>ArtIndex</s:subcolName>"
+    append xmlstuff "\n<s:subcolDesc>"
+    append xmlstuff "ArtIndex database"
+    append xmlstuff " hosted at OCLC. Accessed via Z39.50"
+    append xmlstuff "\n</s:subcolDesc>"
+    append xmlstuff "\n<s:queryLangs><d:basicsearch/></s:queryLangs>"
+    append xmlstuff "\n</s:subcol>"
+
+    append xmlstuff "\n</s:subcolInfo>"
+    set length [string length $xmlstuff]
+    puts "HTTP/1.1 207 Multistatus"
+    puts "Content-Type: application/xml"
+    puts "Content-Length: $length"
+    puts ""
+    puts "$xmlstuff"
+    
+
+}
+
+proc getPropertyInfo {collection} {
+
+    set collection [string toupper [string trim $collection "{} "]]
+#    puts "Collection requested $collection"
+
+    set xmlstuff "<?xml version=\"1.0\"?>"
+    append xmlstuff "\n<s:propList "
+    append xmlstuff "xmlns:dc=\"http://purl.org/dc/elements/1.1/\" "
+    append xmlstuff "xmlns:b=\"rfc1357:\" "
+    append xmlstuff "xmlns:z=\"z3950:\" "
+    append xmlstuff "xmlns:t=\"ATT_CIA_FACTBOOK:\" "
+    append xmlstuff "xmlns:s=\"http://interlib.org/SDLIP/1.0#\">\n"
+
+    switch $collection {
+	"BIBFILE" -
+	"DIGLIB" { 
+	    append xmlstuff "\n<dc:Title>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</dc:Title>"
+	    append xmlstuff "\n<dc:Creator>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</dc:Creator>"
+	    append xmlstuff "\n<dc:Contributor>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</dc:Contributor>"
+	    append xmlstuff "\n<dc:Type>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</dc:Type>"
+	    append xmlstuff "\n<dc:Identifier>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</dc:Identifier>"
+	    append xmlstuff "\n<dc:Date>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</dc:Date>"
+	    append xmlstuff "\n<dc:Subject>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</dc:Subject>"
+	    append xmlstuff "\n<dc:Description>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Description>"
+	    append xmlstuff "\n<z:ANY>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</z:ANY>"
+
+	    append xmlstuff "\n<b:BIB-VERSION>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:BIB-VERSION>"
+	    append xmlstuff "\n<b:ID>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:ID>"
+	    append xmlstuff "\n<b:ENTRY>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:ENTRY>"
+	    append xmlstuff "\n<b:DATE>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:DATE>"
+	    append xmlstuff "\n<b:TITLE>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:TITLE>"
+	    append xmlstuff "\n<b:ORGANIZATION>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n<b:/ORGANIZATION>"
+	    append xmlstuff "\n<b:ABSTRACT>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:ABSTRACT>"
+	    append xmlstuff "\n<b:AUTHOR-CONTRIBUTING-INSTITUTIONAL>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:AUTHOR-CONTRIBUTING-INSTITUTIONAL>"
+	    append xmlstuff "\n<b:AUTHOR-CONTRIBUTING-PERSONAL>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:AUTHOR-CONTRIBUTING-PERSONAL>"
+	    append xmlstuff "\n<b:AUTHOR-PERSONAL-CONTRIBUTING>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:AUTHOR-PERSONAL-CONTRIBUTING>"
+	    append xmlstuff "\n<b:AUTHOR-INSTITUTIONAL>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:AUTHOR-INSTITUTIONAL>"
+	    append xmlstuff "\n<b:AUTHOR-PERSONAL>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:AUTHOR-PERSONAL>"
+	    append xmlstuff "\n<b:AUTHOR>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:AUTHOR>"
+	    append xmlstuff "\n<b:CONTACT>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:CONTACT>"
+	    append xmlstuff "\n<b:KEYWORDS>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:KEYWORDS>"
+	    append xmlstuff "\n<b:NOTES>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:NOTES>"
+	    append xmlstuff "\n<b:BIOREGION>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:BIOREGION>"
+	    append xmlstuff "\n<b:CERES-BIOREGION>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:CERES-BIOREGION>"
+	    append xmlstuff "\n<b:TEXTSOUP>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:TEXTSOUP>"
+	    append xmlstuff "\n<b:LOCATION>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:LOCATION>"
+	    append xmlstuff "\n<b:PAGES>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:PAGES>"
+	    append xmlstuff "\n<b:PROJECT>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:PROJECT>"
+	    append xmlstuff "\n<b:REVISION>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:REVISION>"
+	    append xmlstuff "\n<b:REVISION-DATE>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:REVISION-DATE>"
+	    append xmlstuff "\n<b:SERIES>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:SERIES>"
+	    append xmlstuff "\n<b:TITLE>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:TITLE>"
+	    append xmlstuff "\n<b:URL>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:URL>"
+	    append xmlstuff "\n<b:TYPE>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:TYPE>"
+	    append xmlstuff "\n<b:ULTIMATE-CLIENT>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:ULTIMATE-CLIENT>"
+	    append xmlstuff "\n<b:TEXT-REF>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:TEXT-REF>"
+	    append xmlstuff "\n<b:PAGED-REF>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</b:PAGED-REF>"
+
+
+
+	}
+	"ATT_CIA" {
+	    append xmlstuff "\n<dc:Title>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</dc:Title>"
+	    append xmlstuff "\n<z:ANY>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</z:ANY>"
+	    append xmlstuff "\n<t:TEXT>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</t:TEXT>"
+   	}
+	"SUNSITE" -
+	"SCILIB" -
+	"MELVYL" -
+	"PE" -
+	"PER" -
+	"MAGS" -
+	"ABI" -
+	"INS" -
+	"NEWS" -
+	"COMP" -
+	"ARTINDEX" -
+	"LC_BOOKS" {
+	    append xmlstuff "\n<dc:Title>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Title>"
+	    append xmlstuff "\n<dc:Creator>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Creator>"
+	    append xmlstuff "\n<dc:Contributor>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Contributor>"
+	    append xmlstuff "\n<dc:Type>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Type>"
+	    append xmlstuff "\n<dc:Identifier>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Identifier>"
+	    append xmlstuff "\n<dc:Date>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Date>"
+	    append xmlstuff "\n<dc:Subject>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Subject>"
+	    append xmlstuff "\n<dc:Description>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Description>"
+	    append xmlstuff "\n<dc:Format>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Format>"
+	    append xmlstuff "\n<dc:Publisher>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Publisher>"
+	    append xmlstuff "\n<dc:Source>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Source>"
+	    append xmlstuff "\n<dc:Language>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Language>"
+	    append xmlstuff "\n<dc:Relation>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Relation>"
+	    append xmlstuff "\n<dc:Coverage>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Coverage>"
+	    append xmlstuff "\n<dc:Rights>"
+	    append xmlstuff "\n   <s:retrievable/>"
+	    append xmlstuff "\n</dc:Rights>"
+	    append xmlstuff "\n<z:ANY>"
+	    append xmlstuff "\n   <s:searchable/>"
+	    append xmlstuff "\n</z:ANY>"
+	}
+	default {
+	    errorresult 400 NOT_FOUND_EXC "Requested database '$collection' not found"
+	}
+    }
+
+    #build the xml result -- the appends are just to keep it readable...
+    
+
+    append xmlstuff "\n</s:propList>"
+
+    set length [string length $xmlstuff]
+    puts "HTTP/1.1 207 Multistatus"
+    puts "Content-Type: application/xml"
+    puts "Content-Length: $length"
+    puts ""
+    puts "$xmlstuff"
+    
+}
+
+
+# Stack operations for queries
+proc pushstack {args} {
+    global stackptr
+    global searchstack
+    
+    set searchstack([incr stackptr]) $args
+    
+}
+
+proc peekstack {} {
+    global stackptr
+    global searchstack
+
+    return $searchstack($stackptr)
+}
+
+proc popstack {args} {
+    global stackptr
+    global searchstack
+    if {$stackptr == 0} {
+	return ""
+    }
+    set result $searchstack($stackptr)
+    incr stackptr -1
+    return $result
+}
+
+
+
+# define some procs for handling callbacks from XML query parsing
+proc HandleStartTag {name attlist args} {
+    global xmlnamespaces
+    global select_flag from_flag where_flag orderby_flag limit_flag 
+    global select from where orderby limit last_data prop_pending lit_pending
+    global prop_list current_attrval href_pending scope_flag subcolname_flag
+
+    foreach {attname attval} $attlist {
+	if {[string match "xmlns:*" $attname] == 1} {
+	    set xmlnamespaces([lindex [split $attname :] 1]) $attval
+	}
+    }
+
+    set nlist [split $name :]
+    if {[llength $nlist] == 1} {
+	set tagname $nlist
+	set namesp ""
+    } else {
+	set tagname [lindex $nlist 1]
+	set namesp [lindex $nlist 0]
+    }
+
+    if {[llength $args] > 0} {
+	# Empty tags reported here
+#	puts "additional args = $args"
+    }
+
+    switch -regexp $tagname {
+	"^\[Ss\]\[Ee\]\[Aa\]\[Rr\]\[Cc\]\[Hh\]\[Rr\]\[Ee\]\[Qq\]\[Uu\]\[Ee\]\[Ss\]\[Tt\]$" {
+#	    puts "SEARCHREQUEST"
+	}
+	"^\[Bb\]\[Aa\]\[Ss\]\[Ii\]\[Cc\]\[Ss\]\[Ee\]\[Aa\]\[Rr\]\[Cc\]\[Hh\]$" {
+#	    puts "BASICSEARCH"
+	}
+	"^\[Ss\]\[Ee\]\[Ll\]\[Ee\]\[Cc\]\[Tt\]$" { 
+#	    puts "SELECT"
+	    set select_flag 1
+	}
+	"^\[Gg\]\[Ee\]\[Tt\]\[Vv\]\[Ee\]\[Rr\]\[Ss\]\[Ii\]\[Oo\]\[Nn\]$" { 
+#	    puts "GETVERSION metadata"
+	    getVersion
+	    exit
+	}
+	"^\[Gg\]\[Ee\]\[Tt\]\[Ii\]\[Nn\]\[Tt\]\[Ee\]\[Rr\]\[Ff\]\[Aa\]\[Cc\]\[Ee\]$" { 
+#	    puts "GETINTERFACE metadata"
+	    getInterface
+	    exit
+	}
+	"^\[Gg\]\[Ee\]\[Tt\]\[Ss\]\[Uu\]\[Bb\]\[Cc\]\[Oo\]\[Ll\]\[Ll\]\[Ee\]\[Cc\]\[Tt\]\[Ii\]\[Oo\]\[Nn\]\[Ii\]\[Nn\]\[Ff\]\[Oo\]$" { 
+#	    puts "getSubcollectionInfo metadata"
+	    getSubcollectionInfo
+	    exit
+	}
+	"^\[Gg\]\[Ee\]\[Tt\]\[Pp\]\[Rr\]\[Oo\]\[Pp\]\[Ee\]\[Rr\]\[Tt\]\[Yy\]\[Ii\]\[Nn\]\[Ff\]\[Oo\]$" { 
+#	    puts "getPropertyInfo metadata"
+	}
+	"^\[Ss\]\[Uu\]\[Bb\]\[Cc\]\[Oo\]\[Ll\]\[Nn\]\[Aa\]\[Mm\]\[Ee\]$" { 
+#	    puts "subcolname metadata"
+	    set subcolname_flag 1
+	    set lit_pending 1
+	}
+	"^\[Dd\]\[Ee\]\[Ff\]\[Aa\]\[Uu\]\[Ll\]\[Tt\]\[Ss\]\[Uu\]\[Bb\]\[Cc\]\[Oo\]\[Ll\]$" { 
+#	    puts "defaultSubcol metadata"
+
+	}
+	"^\[Aa\]\[Ll\]\[Ll\]\[Pp\]\[Rr\]\[Oo\]\[Pp\]$" { 
+	    if {$select_flag == 1} {
+		set prop_list "*"
+	    }
+	}
+	"^\[Pp\]\[Rr\]\[Oo\]\[Pp\]$" { 
+	    set prop_pending 1
+	}
+	"^\[Hh\]\[Rr\]\[Ee\]\[Ff\]$" { 
+	    set href_pending 1
+	}
+	
+	"^\[Ll\]\[Ii\]\[Tt\]\[Ee\]\[Rr\]\[Aa\]\[Ll\]$" { 
+	    set lit_pending 1
+	}
+	"^\[Ff\]\[Rr\]\[Oo\]\[Mm\]$" { 
+#	    puts "FROM"
+	    set from_flag 1
+	    set from {}
+	}
+	"^\[Ss\]\[Cc\]\[Oo\]\[Pp\]\[Ee\]$" {
+#	    puts "SCOPE"
+	    set scope_flag 1
+	}
+	"^\[Ww\]\[Hh\]\[Ee\]\[Rr\]\[Ee\]$" { 
+#	    puts "WHERE"
+	    set where_flag 1
+	}
+	"^\[Aa\]\[Nn\]\[Dd\]$" {
+	    pushstack "AND"
+	}
+	"^\[Oo\]\[Rr\]$" {
+	    pushstack "OR"
+	}
+	"^\[Nn\]\[Oo\]\[Tt\]$" {
+	    pushstack "NOT"
+	}
+	"^\[Ll\]\[Tt\]$" {
+	    pushstack "<"
+	}
+	"^\[Ll\]\[Tt\]\[Ee\]$" { 
+	    pushstack "<="
+	}
+	"^\[Gg\]\[Tt\]$" {
+	    pushstack ">"
+	}
+	"^\[Gg\]\[Tt\]\[Ee\]$" {
+	    pushstack ">="
+	}
+	"^\[Ee\]\[Qq\]$" {
+	    pushstack "="
+	}
+	"^\[Ii\]\[Ss\]\[Dd\]\[Ee\]\[Ff\]\[Ii\]\[Nn\]\[Ee\]\[Dd\]$" {
+#	    puts "ISDEFINED"
+	}
+	"^\[Ll\]\[Ii\]\[Kk\]\[Ee\]$" {
+	    pushstack "@"
+	}
+	"^\[Cc\]\[Oo\]\[Nn\]\[Tt\]\[Aa\]\[Ii\]\[Nn\]\[Ss\]$" {
+	    set current_attrval "ANY @"
+	    set lit_pending 1
+	}
+	"^\[Oo\]\[Rr\]\[Dd\]\[Ee\]\[Rr\]\[Bb\]\[Yy\]$" { 
+#	    puts "ORDERBY"
+	    set orderby_flag 1
+	}
+	"^\[Oo\]\[Rr\]\[Dd\]\[Ee\]\[Rr\]$" {
+#	    puts "ORDER"
+	}
+	"^\[Aa\]\[Ss\]\[Cc\]\[Ee\]\[Nn\]\[Dd\]\[Ii\]\[Nn\]\[Gg\]$" {
+#	    puts "ASCENDING"
+	}
+	"^\[Dd\]\[Ee\]\[Ss\]\[Cc\]\[Ee\]\[Nn\]\[Dd\]\[Ii\]\[Nn\]\[Gg\]$" {
+#	    puts "DESCENDING "
+	}
+	"^\[Ll\]\[Ii\]\[Mm\]\[Ii\]\[Tt\]$" { 
+#	    puts "LIMIT "
+	    set limit_flag 1
+	}
+	"^\[Nn\]\[Rr\]\[Ee\]\[Ss\]\[Uu\]\[Ll\]\[Tt\]\[Ss\]$" {
+#	    puts "NRESULTS"
+	}
+	"^\[Cc\]\[Ll\]\[Ii\]\[Ee\]\[Nn\]\[Tt\]\[Ss\]\[Ii\]\[Dd\]$" {
+#	    puts "CLIENTSID (SDLIP)"
+	}
+	"^\[Ss\]\[Tt\]\[Aa\]\[Tt\]\[Ee\]\[Tt\]\[Ii\]\[Mm\]\[Ee\]\[Oo\]\[Uu\]\[Tt\]\[Rr\]\[Ee\]\[Qq\]$" {
+#	    puts "STATETIMEOUTREQ (SDLIP)"
+	}
+	"^\[Qq\]\[Uu\]\[Ee\]\[Rr\]\[Yy\]\[Oo\]\[Pp\]\[Tt\]\[Ii\]\[Oo\]\[Nn\]\[Ss\]$" {
+#	    puts "QueryOPTIONS (SDLIP)"
+	}
+
+	"^\[Nn\]\[Uu\]\[Mm\]\[Dd\]\[Oo\]\[Cc\]\[Ss\]$" { 
+#	    puts "NUMDOCS (SDLIP) "
+	    set limit_flag 1
+	}
+
+	default {
+	  
+	    if {$prop_pending == 1} {
+		if {$select_flag == 1} {
+		    lappend prop_list "$namesp:$tagname"
+		} else {
+		    set current_attrval "$namesp:$tagname"
+		    append current_attrval " \{[popstack]\}"
+		}
+	    } else {
+		#puts "unknown tag: $tagname"
+	    }
+
+	}
+	
+    }
+    
+}
+
+proc HandleEndTag {name args} { 
+    global xmlnamespaces
+    global select_flag from_flag where_flag orderby_flag limit_flag 
+    global select from where orderby limit last_data prop_pending lit_pending
+    global prop_list current_attrval href_pending scope_flag
+    global clientsid stateTimeOutReq queryoptions subcolname_flag
+
+    set nlist [split $name :]
+    if {[llength $nlist] == 1} {
+	set tagname $nlist
+	set namesp ""
+    } else {
+	set tagname [lindex $nlist 1]
+	set namesp [lindex $nlist 0]
+    }
+#    puts "End Tag </$tagname> (namespace $namesp = $xmlnamespaces($namesp))"
+    
+    if {[llength $args] > 0} {
+	# Empty tags reported here
+#	puts "additional args = $args"
+    }
+    
+    switch -regexp $tagname {
+	"^\[Ss\]\[Ee\]\[Aa\]\[Rr\]\[Cc\]\[Hh\]\[Rr\]\[Ee\]\[Qq\]\[Uu\]\[Ee\]\[Ss\]\[Tt\]$" {
+#	    puts "SEARCHREQUEST"	
+	}
+	"^\[Bb\]\[Aa\]\[Ss\]\[Ii\]\[Cc\]\[Ss\]\[Ee\]\[Aa\]\[Rr\]\[Cc\]\[Hh\]$" {
+#	    puts "BASICSEARCH"
+	}
+	"^\[Ss\]\[Ee\]\[Ll\]\[Ee\]\[Cc\]\[Tt\]$" {
+#	    puts "SELECT"
+	    set select_flag 0
+	    set select $prop_list
+	    set prop_list {}
+	}
+	"^\[Ff\]\[Rr\]\[Oo\]\[Mm\]$" { 
+#	    puts "FROM" 
+	    set from_flag 0
+	}
+	"^\[Gg\]\[Ee\]\[Tt\]\[Pp\]\[Rr\]\[Oo\]\[Pp\]\[Ee\]\[Rr\]\[Tt\]\[Yy\]\[Ii\]\[Nn\]\[Ff\]\[Oo\]$" { 
+#	    puts "getPropertyInfo metadata"
+	    getPropertyInfo $current_attrval
+	    exit
+	}
+	"^\[Ss\]\[Uu\]\[Bb\]\[Cc\]\[Oo\]\[Ll\]\[Nn\]\[Aa\]\[Mm\]\[Ee\]$" { 
+#	    puts "end subcolname metadata"
+	    set subcolname_flag 0
+	    set lit_pending 0
+	}
+	"^\[Gg\]\[Ee\]\[Tt\]\[Ii\]\[Nn\]\[Tt\]\[Ee\]\[Rr\]\[Ff\]\[Aa\]\[Cc\]\[Ee\]$" { 
+#	    puts "GETINTERFACE metadata"
+	    getInterface
+	    exit
+	}
+	"^\[Aa\]\[Ll\]\[Ll\]\[Pp\]\[Rr\]\[Oo\]\[Pp\]$" { 
+	    if {$select_flag == 1} {
+		set prop_list "*"
+	    }
+	}
+	"^\[Pp\]\[Rr\]\[Oo\]\[Pp\]$" { 
+	    set prop_pending 0
+	}
+
+	"^\[Hh\]\[Rr\]\[Ee\]\[Ff\]$" { 
+	    set href_pending 0
+	}
+
+	"^\[Ll\]\[Ii\]\[Tt\]\[Ee\]\[Rr\]\[Aa\]\[Ll\]$" {
+	    set lit_pending 0
+	    pushstack $current_attrval
+	    set current_attrval {}
+	}
+	"^\[Ss\]\[Cc\]\[Oo\]\[Pp\]\[Ee\]$" {
+#	    puts "SCOPE"
+	    set scope_flag 0
+	}
+	"^\[Ww\]\[Hh\]\[Ee\]\[Rr\]\[Ee\]$" {
+#	    puts "WHERE"
+	    set where_flag 0
+	    # finalize the query ...
+	}
+	"^\[Aa\]\[Nn\]\[Dd\]$" {
+#	    puts "AND"
+	}
+	"^\[Oo\]\[Rr\]$" {
+#	    puts "OR"
+	}
+	"^\[Nn\]\[Oo\]\[Tt\]$" {
+#	    puts "NOT"
+	}
+	"^\[Ll\]\[Tt\]$" {
+#	    puts "LT"
+	}
+	"^\[Ll\]\[Tt\]\[Ee\]$" {
+#	    puts "LTE "
+	}
+	"^\[Gg\]\[Tt\]$" {
+#	    puts "GT "
+	}
+	"^\[Gg\]\[Tt\]\[Ee\]$" {
+#	    puts "GTE "
+	}
+	"^\[Ee\]\[Qq\]$" {
+#	    puts "EQ "
+	}
+	"^\[Ii\]\[Ss\]\[Dd\]\[Ee\]\[Ff\]\[Ii\]\[Nn\]\[Ee\]\[Dd\]$" {
+#	    puts "ISDEFINED"
+	}
+	"^\[Ll\]\[Ii\]\[Kk\]\[Ee\]$" {
+#	    puts "LIKE"
+	}
+	"^\[Cc\]\[Oo\]\[Nn\]\[Tt\]\[Aa\]\[Ii\]\[Nn\]\[Ss\]$" {
+#	    puts "CONTAINS"
+	    set lit_pending 0
+	    pushstack $current_attrval
+	    set current_attrval {}
+	}
+	"^\[Oo\]\[Rr\]\[Dd\]\[Ee\]\[Rr\]\[Bb\]\[Yy\]$" {
+#	    puts "ORDERBY"
+	    set orderby_flag 0
+	}
+	"^\[Oo\]\[Rr\]\[Dd\]\[Ee\]\[Rr\]$" {
+#	    puts "ORDER"
+	}
+	"^\[Aa\]\[Ss\]\[Cc\]\[Ee\]\[Nn\]\[Dd\]\[Ii\]\[Nn\]\[Gg\]$" {
+#	    puts "ASCENDING"
+	}
+	"^\[Dd\]\[Ee\]\[Ss\]\[Cc\]\[Ee\]\[Nn\]\[Dd\]\[Ii\]\[Nn\]\[Gg\]$" {
+#	    puts "DESCENDING "
+	}
+	"^\[Ll\]\[Ii\]\[Mm\]\[Ii\]\[Tt\]$" { 
+#	    puts "LIMIT "
+	    set limit_flag 0
+	}
+	"^\[Nn\]\[Rr\]\[Ee\]\[Ss\]\[Uu\]\[Ll\]\[Tt\]\[Ss\]$" {
+#	    puts "NRESULTS"
+	    set limit $last_data
+	}
+	"^\[Cc\]\[Ll\]\[Ii\]\[Ee\]\[Nn\]\[Tt\]\[Ss\]\[Ii\]\[Dd\]$" {
+#	    puts "CLIENTSID (SDLIP)"
+	    set clientsid $last_data
+	}
+
+	"^\[Ss\]\[Tt\]\[Aa\]\[Tt\]\[Ee\]\[Tt\]\[Ii\]\[Mm\]\[Ee\]\[Oo\]\[Uu\]\[Tt\]\[Rr\]\[Ee\]\[Qq\]$" {
+#	    puts "STATETIMEOUTREQ (SDLIP)"
+	    set stateTimeOutReq $last_data
+	}
+
+	"^\[Qq\]\[Uu\]\[Ee\]\[Rr\]\[Yy\]\[Oo\]\[Pp\]\[Tt\]\[Ii\]\[Oo\]\[Nn\]\[Ss\]$" {
+#	    puts "QueryOPTIONS (SDLIP)"
+	    set queryoptions $last_data
+	}
+
+	"^\[Nn\]\[Uu\]\[Mm\]\[Dd\]\[Oo\]\[Cc\]\[Ss\]$" { 
+#	    puts "NUMDOCS (SDLIP) "
+	    set limit_flag 0
+	    set limit $last_data
+	}
+	
+	default {
+#	    puts "unmatched item is $tagname"
+	}
+	
+    }
+}
+
+proc HandleData {data} {
+    global last_data current_attrval lit_pending href_pending limit_flag from
+    if {[string length $data] > 0 
+    && [regexp {^[ 	]*$} $data] == 0} {
+	# don't bother if it is all white space...
+#	puts "********* current data '$data' ************"
+	set last_data $data
+	if {$lit_pending == 1} {
+	    lappend current_attrval $last_data
+	}
+	if {$href_pending == 1} {
+	    lappend from $last_data
+	}
+    }
+}
+
+proc errorresult {errcode exceptioncode errorinfo} {
+    switch $errcode {
+	"400" {set msg "Bad-Request"}
+	"422" {set msg "Unprocessable-Entity"}
+	"507" {set msg "Insufficient-Storage"}
+    }
+
+    puts "HTTP/1.1 $errcode $msg"
+    puts "Content-Type: text/xml"
+
+    switch $exceptioncode {
+	"INVALID_REQUEST_EXC" {set numericcode 400}
+	"UNAUTHORIZED_EXC" {set numericcode 401}
+	"PAYMENT_REQUIRED_EXC" {set numericcode 402}
+	"NOT_FOUND_EXC" {set numericcode 404}
+	"ILLEGAL_METHOD_EXC" {set numericcode 405}
+	"REQUEST_TIMEOUT_EXC" {set numericcode 408}
+	"QUERY_LANGUAGE_UNKNOWN_EXC" {set numericcode 450}
+	"BAD_QUERY_EXC" {set numericcode 451}
+	"INVALID_PROPERTY_EXC" {set numericcode 452}
+	"INVALID_SESSIONID_EXC" {set numericcode 453}
+	"INVALID_SUBCOLLECTION_EXC" {set numericcode 454}
+	"MALFORMED_XML_EXC" {set numericcode 455}
+	"SERVER_ERROR_EXC" {set numericcode 500}
+	"NOT_IMPLEMENTED_EXC" {set numericcode 501}
+	"SERVICE_UNAVAILABLE_EXC" {set numericcode 503}
+
+    }
+    #build the xml result -- the appends are just to keep it readable...
+    set xmlstuff "<?xml version=\"1.0\"?>"
+    append xmlstuff "<d:multistatus "
+    append xmlstuff "xmlns:d=\"DAV:\" " 
+    append xmlstuff "xmlns:s=\"http://interlib.org/SDLIP/1.0#\" "
+    append xmlstuff "xmlns:l=\"http://elib.cs.berkeley.edu/cheshire\">"
+    append xmlstuff "<d:response>"
+    append xmlstuff "<d:href>http://interlib.org/SDLIP/1.0#$exceptioncode</d:href>"
+    append xmlstuff "<d:propstat><d:prop>"
+    append xmlstuff "<l:errorinfo> $errorinfo </l:errorinfo>"
+    append xmlstuff "</d:prop></d:propstat>"
+    append xmlstuff "<s:exceptionCode>$numericcode</s:exceptionCode>"
+    append xmlstuff "<d:responsedescription>"
+    append xmlstuff " $errorinfo "
+    append xmlstuff "</d:responsedescription>"
+    append xmlstuff "</d:response>"
+    append xmlstuff "</d:multistatus>"
+
+    set length [string length $xmlstuff]
+    puts "Content-Length: $length"
+    puts ""
+    puts "$xmlstuff"
+    # exit on any error...
+    exit
+}
+
+set qparser [xml::parser qparser]
+
+$qparser configure -elementstartcommand HandleStartTag
+$qparser configure -elementendcommand HandleEndTag
+$qparser configure -characterdatacommand HandleData
+$qparser configure -reportempty 1
+
+if {[catch {$qparser parse $message} err] != 0} {
+    errorresult 400 MALFORMED_XML_EXC $err
+
+} else {
+    # parsing of the basicquery succeeded
+    # some debugging code...
+    #parray searchstack
+    #puts "stack top is $stackptr"
+    #puts "Other query elements..."
+    #puts "select: $select"
+    #puts "from: $from"
+    #puts "limit: $limit"
+    #puts "clientsid:$clientsid"
+    #puts "statetimeoutrq: $stateTimeOutReq"
+    #puts "queryoptions: $queryoptions"
+  
+    
+    # test some possible errors or limitations
+    if {$select == {} && $stateTimeOutReq == {}} {
+	#assume some parsing error
+	errorresult 422 BAD_QUERY_EXC  "Query or request either malformed or the operation requested is not currently supported"
+    }
+    
+    if {[llength $from] > 1} {
+	#currently we only allow one server at a time
+	errorresult 400 INVALID_REQUEST_EXC  "Only one server per query permitted"
+    }
+#    if {$stateTimeOutReq != 0} {
+# we don't keep state in this version
+#	errorresult 400 NOT_IMPLEMENTED_EXC "stateTimeOutReq not available yet"
+#    }
+
+    if {$limit == {}} {
+	set maxrecs 100
+    } else {
+	set maxrecs $limit
+    }
+    # parse the xml query and build a cheshire query...
+    set query {}
+    set left {}
+    set right {}
+    set ops {}
+    set done 0
+    
+    # unwind the stack...
+
+    while {$done == 0} {
+	set right "([popstack])"
+	set left  "([popstack])"
+	if {$left == "()"} {
+	    set done 1
+	    set query $right
+	} else {
+	    set ops [popstack]
+	    set query "$left $ops $right"
+	    pushstack $query
+	}
+    }
+    regsub -all "\[{}\]" $query "" workquery
+
+    set OCLCATTR ""
+    
+    switch -glob $from {
+	"*diglib" -
+	"*bibfile" -
+	"*BIBFILE" {
+	    set CHESHIRE_DATABASE bibfile
+	    set CHESHIRE_NUMREQUESTED $maxrecs
+	    set CHESHIRE_NUM_START 1
+	    set CHESHIRE_CONFIGFILE "/elib/sys/cheshire/DATA/CONFIG.DL"
+	    set resultsetid 0
+	    set servername "UCBDL"
+	    set serverdisp "UC Berkeley Digital Library"
+	    
+	    regsub -all -nocase "\[a-z\]+:creator" $workquery "author" q2
+	    regsub -all -nocase "\[a-z\]+:title" $q2 "title" q1
+	    regsub -all -nocase "\[a-z\]+:type" $q1 "record_type_key" q2
+	    regsub -all -nocase "\[a-z\]+:identifier" $q2 "localnum" q1
+	    regsub -all -nocase "\[a-z\]+:date" $q1 "date" q2
+	    regsub -all -nocase "\[a-z\]+:subject" $q2 "topic" q1
+	    regsub -all -nocase "\[a-z\]+:description" $q1 "topic" q2
+	    regsub -all -nocase "\[a-z\]+:contributor" $q1 "author" q2
+	    regsub -all -nocase "ANY @" $q2 "topic @" q1
+	    set query "search $q1 resultsetid $resultsetid"
+	    # puts "query is $query"
+	}
+	
+	"*MELVYL" -
+	"*PE" -
+	"*PER" -
+	"*ABI" -
+	"*INS" -
+	"*MAGS" -
+	"*COMP" -
+	"*SUNSITE" -
+	"*ATT_CIA" -
+        "*SCILIB" -
+        "*LC_BOOKS" -
+	"*NEWS" -
+	"*ARTINDEX" -
+	"*artindex" -
+	"*ArtIndex" -
+	"*melvyl" -
+	"*pe" -
+	"*per" -
+	"*abi" -
+	"*ins" -
+	"*mags" -
+	"*comp" -
+	"*sunsite" -
+        "*lc_books" -
+	"*scilib" -
+	"*att_cia" -
+	"*news" {
+	    # set up the z39.50 connection 
+	    set servername [string toupper [file tail $from]]
+	    set resultsetid 0
+
+	    switch $servername {
+		"SUNSITE" {set serverdisp "UCB Physical Sciences"}
+		"SCILIB" {set serverdisp "UCB Physical Sciences"}
+		"MELVYL" {set serverdisp "CDL - UC Books"}
+		"PE" {set serverdisp "CDL - UC Periodicals"}
+		"PER" {set serverdisp "CDL - UC Periodicals"}
+		"ATT_CIA" {set serverdisp "CIA World Factbook from ATT"}
+		"MAGS" {set serverdisp "CDL - Expanded Academic Index"}
+		"ABI" {set serverdisp "CDL - ABI Inform"}
+		"INS" {set serverdisp "CDL - Inspec"}
+		"NEWS" {set serverdisp "CDL - National Newspaper Index"}
+		"COMP" {set serverdisp "CDL - Computer Database"}
+		"ARTINDEX" {set serverdisp "OCLC - ArtIndex Database"}
+		"LC_BOOKS" {set serverdisp "Library of Congress Books DB"}
+	    }
+
+	    if {$servername == "SCILIB"} {
+		set err [catch {zselect $servername sherlock.berkeley.edu scilib 2100} sresults]
+            } elseif {$servername == "LC_BOOKS"} {
+                set err [catch {zselect $servername z3950.loc.gov voyager 7090} sresults]
+            } elseif {$servername == "ARTINDEX"} {
+                set err [catch {zselect $servername z3950.oclc.org artindex 210 100199107/STATE} sresults]
+		set OCLCATTR {\[4=6\]}
+	    } else {
+		set err [catch {zselect $servername} sresults]
+	    }
+
+	    if {$err != 0} {
+		# unable to connect to db
+		errorresult 400 SERVICE_UNAVAILABLE_EXC "Database/service not available"
+	    }
+	    # this is a kludge --- should do something with namespaces
+	    regsub -all -nocase "\[a-z\]+:creator" $workquery "author $OCLCATTR" q2
+	    regsub -all -nocase "\[a-z\]+:title" $q2 "title $OCLCATTR" q1
+	    regsub -all -nocase "\[a-z\]+:type" $q1 "record_type" q2
+	    regsub -all -nocase "\[a-z\]+:identifier" $q2 "call_number" q1
+	    regsub -all -nocase "\[a-z\]+:date" $q1 "date" q2
+	    regsub -all -nocase "\[a-z\]+:subject" $q2 "subject $OCLCATTR" q1
+	    regsub -all -nocase "\[a-z\]+:description" $q1 "subject $OCLCATTR" q2
+	    regsub -all -nocase "\[a-z\]+:contributor" $q1 "author $OCLCATTR" q2
+	    
+	    if {$servername == "SCILIB" || $servername == "SUNSITE"} {
+		regsub -all -nocase "ANY @" $q2 "topic @" q1
+	    } else {
+		regsub -all -nocase "ANY @" $q2 "ANY $OCLCATTR" q1
+	    }
+	    
+	    set query "zfind $q1 resultsetid $resultsetid"
+	    
+	    # puts "query is $query"
+	    
+	    if {$servername == "ATT_CIA"} {
+		zset recsyntax sutrs
+	    } elseif {$servername == "MELVYL" || $servername == "PE"} {
+		zset recsyntax OPAC
+	    } else {
+		zset recsyntax MARC
+	    }
+	    zset smallsetupperbound $maxrecs
+	    zset largesetlowerbound [expr $maxrecs * 100]
+	    zset mediumsetpresentnumber $maxrecs
+	    
+	}
+	default: {
+	    if {$HOST == "sherlock"} {
+		set servername SCILIB
+		set resultsetid 0
+		set serverdisp "UCB Physical Sciences"
+		set err [catch {zselect $servername sherlock.berkeley.edu scilib 2100} sresults]
+		
+		if {$err != 0} {
+		    # unable to connect to db
+		    errorresult 400 SERVICE_UNAVAILABLE_EXC "Database/service not available"
+		}
+		# this is a kludge --- should do something with namespaces
+		regsub -all -nocase "\[a-z\]+:creator" $workquery "author $OCLCATTR" q2
+		regsub -all -nocase "\[a-z\]+:title" $q2 "title $OCLCATTR" q1
+		regsub -all -nocase "\[a-z\]+:type" $q1 "record_type" q2
+		regsub -all -nocase "\[a-z\]+:identifier" $q2 "call_number" q1
+		regsub -all -nocase "\[a-z\]+:date" $q1 "date" q2
+		regsub -all -nocase "\[a-z\]+:subject" $q2 "subject $OCLCATTR" q1
+		regsub -all -nocase "\[a-z\]+:description" $q1 "subject $OCLCATTR" q2
+		regsub -all -nocase "\[a-z\]+:contributor" $q1 "author $OCLCATTR" q2
+		regsub -all -nocase "ANY @" $q2 "topic @" q1
+		
+		set query "zfind $q1 resultsetid $resultsetid"
+		
+		# puts "query is $query"
+		zset recsyntax MARC
+		zset smallsetupperbound $maxrecs
+		zset largesetlowerbound [expr $maxrecs * 100]
+		zset mediumsetpresentnumber $maxrecs
+		
+	    } else { 
+		#assume this is DLP or galaxy
+		set CHESHIRE_DATABASE bibfile
+		set CHESHIRE_NUMREQUESTED $maxrecs
+		set CHESHIRE_NUM_START 1
+		set CHESHIRE_CONFIGFILE "/elib/sys/cheshire/DATA/CONFIG.DL"
+		set resultsetid 0
+		set servername "UCBDL"
+		set serverdisp "UC Berkeley Digital Library"
+		
+		regsub -all -nocase "\[a-z\]+:creator" $workquery "author" q2
+		regsub -all -nocase "\[a-z\]+:title" $q2 "title" q1
+		regsub -all -nocase "\[a-z\]+:type" $q1 "record_type_key" q2
+		regsub -all -nocase "\[a-z\]+:identifier" $q2 "localnum" q1
+		regsub -all -nocase "\[a-z\]+:date" $q1 "date" q2
+		regsub -all -nocase "\[a-z\]+:subject" $q2 "topic" q1
+		regsub -all -nocase "\[a-z\]+:description" $q1 "topic" q2
+		regsub -all -nocase "\[a-z\]+:contributor" $q1 "author" q2
+		regsub -all -nocase "ANY @" $q2 "topic @" q1
+		set query "search $q1 resultsetid $resultsetid"
+		# puts "query is $query"
+	    }
+	    
+	}
+	
+    }
+    
+    # Submit search and parse results
+    
+    set err [catch {eval $query} qresults]
+    
+    #puts "$qresults"
+    
+    if {$err != 0} {
+	#some error in query processing
+	errorresult 422 BAD_QUERY_EXC "$qresults : $query"
+	
+    }
+    
+    if {$servername != "UCBDL"} {
+	set hits [lindex [lindex [lindex $qresults 0] 2] 1]
+	set errmsg "[lindex $qresults 1]"
+	set recvd  [lindex [lindex [lindex $qresults 0] 3] 1]
+	set hittype "Hits"
+	
+    } else { #local searches are formatted differently...
+	set hittype [lindex [lindex [lindex $qresults 0] 0] 0]
+	set hits [lindex [lindex [lindex $qresults 0] 0] 1]
+	set recvd [lindex [lindex [lindex $qresults 0] 1] 1]
+	set errmsg ""
+    }
+    
+    # puts "HITS = $hits"
+    set serversideid "[pid]-$resultsetid"
+    
+    if {$hits == 0} {
+	set databuffer "<?xml version=\"1.0\"?><d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://interlib.org/SDLIP/1.0#\"><d:response><d:href>http://interlib.org/SDLIP/1.0\#SearchResult</d:href><s:expectedTotal>0</s:expectedTotal><s:stateTimeout>0</s:stateTimeout><s:serverSID>$serversideid</s:serverSID></d:response>"
+	
+    } else {
+	
+	# otherwise just build a list of records...
+	# puts "hits $hits recvd $recvd"
+	if {$recvd == 0} {
+	    #fetch some more records
+	    set err [catch {zdisplay} x]
+	    catch {set recvd [lindex [lindex [lindex $x 0] 2] 1]}
+	    catch {set num [lindex [lindex [lindex $x 0] 3] 1]}
+	    catch {set next_start [lindex [lindex [lindex $x 0] 5] 1]}
+	    catch {set qresults $x}
+	    # puts "FIRST recvd: $recvd num: $num next_start: $next_start"
+	}
+	
+	if {$maxrecs > $hits} {
+	    set maxrecs $hits
+	}
+	
+	if {$recvd <= $maxrecs} {
+	    set sresults [lrange $qresults 1 end]
+	    # Retrieve records
+	    
+	    set num 1
+	    set numdisp 0
+	    set LEFTBRACKET "\["
+	    set RIGHTBRACKET "\]"
+	    set QUOTES "\""
+	    
+	    if {$servername == "ATT_CIA"} {
+		set databuffer "<?xml version=\"1.0\"?><d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://interlib.org/SDLIP/1.0#\" xmlns:a=\"ATT_CIA_FACTBOOK:\"><d:response><d:href>http://interlib.org/SDLIP/1.0\#SearchResult</d:href><s:expectedTotal>$hits</s:expectedTotal><s:stateTimeout>0</s:stateTimeout><s:serverSID>$serversideid</s:serverSID>\n</d:response>"
+		regsub -all -nocase "\[\[\]" $sresults "(" x
+		regsub -all -nocase "\[\]\]" $x ")" sresults
+		
+	    } elseif {$servername == "UCBDL"} {
+		set databuffer "<?xml version=\"1.0\"?><d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://interlib.org/SDLIP/1.0#\" xmlns:b=\"rfc1357:\"><d:response><d:href>http://interlib.org/SDLIP/1.0\#SearchResult</d:href><s:expectedTotal>$hits</s:expectedTotal><s:stateTimeout>0</s:stateTimeout><s:serverSID>$serversideid</s:serverSID>\n</d:response>"
+	    } else {
+		set databuffer "<?xml version=\"1.0\"?><d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"http://interlib.org/SDLIP/1.0#\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\"><d:response><d:href>http://interlib.org/SDLIP/1.0\#SearchResult</d:href><s:expectedTotal>$hits</s:expectedTotal><s:stateTimeout>0</s:stateTimeout><s:serverSID>$serversideid</s:serverSID>\n</d:response>"
+	    }
+	    
+	    while {$numdisp < $maxrecs && $recvd > 0} {
+		
+		
+		foreach record $sresults {
+		    set y $record
+		    set recnum [expr $numdisp + 1]	
+		    append databuffer "\n<d:response><d:href>http://elib.cs.berkeley.edu:8888/$serversideid-$num</d:href>\n<d:propstat><d:prop>"
+		    
+		    
+		    if {$servername == "ATT_CIA"} {
+			append databuffer "\n<a:TEXT>"
+			# change all ampersand chars to entities
+			regsub -all "&" $y "&amp;" outrec0
+			regsub -all ">" $outrec0 "&gt;" outrec1
+			regsub -all "<" $outrec1 "&lt;" outrec0 
+			append databuffer $outrec0
+			append databuffer "</a:TEXT>"
+			
+		    } elseif {$servername == "UCBDL"} {
+			# just send back the records as is... with ns added
+			regsub -all "<ELIB-BIB>" $y {} outrec0
+			regsub -all "</ELIB-BIB>" $outrec0 {} outrec1
+			regsub -all "<" $outrec1 "<b:" outrec0
+			regsub -all "<b:/" $outrec0 "</b:" outrec1
+			# change all ampersand chars to entities
+			regsub -all "&" $outrec1 "&amp;" outrec0
+			
+			regsub -all "/elib/data/docs" $outrec0 "http://elib.cs.berkeley.edu/docs/data" newrec
+			
+			append databuffer $newrec
+			
+		    } elseif {$servername == "MELVYL" 
+			|| $servername == "PE"
+			|| $servername == "PER"} { 
+			    # This now converts ampersands lt and gt...
+			    set outrec0 [zformat dc $y opac $num 80]
+			    regsub -all {\[|\]|\$[0-9]} $outrec0 {\\&} outrec
+			    append databuffer $outrec
+			    
+			} else {
+			    # puts [subst {[zformat $fmt $y $rectype $num 80]}]
+			    set outrec0 [zformat dc $y MARC $num 80]
+			    #since this is the elib server change the hard pointers...
+			    regsub -all {\[|\]|\$[0-9]} $outrec0 {\\&} outrec
+			    append databuffer $outrec
+			}
+			append databuffer "\n</d:prop>\n<d:status>HTTP/1.1 200 OK</d:status>\n</d:propstat><s:DID>$recnum</s:DID></d:response>\n"
+			
+			incr num
+			incr numdisp
+			
+			if {$numdisp >= $maxrecs} {
+			    break
+			}
+		    }
+		    if {$numdisp < $maxrecs} { 
+			#fetch some more records
+			set err [catch {zdisplay} x]
+			catch {set recvd [lindex [lindex [lindex $x 0] 2] 1]}
+			catch {set num [lindex [lindex [lindex $x 0] 3] 1]}
+			catch {set next_start [lindex [lindex [lindex $x 0] 5] 1]}
+			catch {set sresults [lrange $x 1 end]}
+			# puts "\n\nCONT recvd: $recvd num: $num next_start: $next_start\n\n"
+		    }
+		}
+	    }
+	}
+    }
+    # return the data
+    append databuffer "</d:multistatus>" 
+    
+    puts "HTTP/1.1 207 Multistatus"
+    puts "Content-Type: application/xml"
+    puts "Content-Length: [string length $databuffer]"
+    puts ""
+    puts "$databuffer"
+    exit
+

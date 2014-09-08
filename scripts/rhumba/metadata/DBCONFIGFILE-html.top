@@ -1,0 +1,10 @@
+
+<DBCONFIG>
+<DBENV>/home/cheshire/cheshire/default</DBENV>
+<!-- The Main bibliographic file -->
+<FILEDEF TYPE=SGML>
+<DEFAULTPATH> /home/cheshire/cheshire/metadata </DEFAULTPATH>
+
+<FILETAG>cmetadata</FILETAG>
+<FILENAME> /home/cheshire/cheshire/metadata/DATA</FILENAME>
+

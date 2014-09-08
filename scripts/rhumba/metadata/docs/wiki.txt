@@ -1,0 +1,10 @@
+
+RhUMBA, Record and User Management Becomes Automated, is a Cheshire application developped to provide a web interface to the creation and maintenance of SGML records.  By using the standard web authentication system to validate users in conjunction with a local cheshire based user database very sophisticated levels of distribution of management are possible.
+
+RhUMBA provides two basic databases - metadata stored along with the SGML records, and a user database.  The metadata is used to track changes to records, creation, deletion and provide a persistent URL and title for each. It also maintains which users are allowed to edit the individual records.  The user database stores the individual users, information about them such as their email address, their password for the system and which functions they are permitted access to in the system.
+
+Each record can have multiple editors and named groups of editors. The records can be moved, copied, deleted, renamed and have their metadata updated or displayed. Users can be created, deleted or have any of their fields modified from simple web forms. Admins are able to rebuild either the record or the user database as well as all the other functions.
+
+The SGML records can be created and edited in stages - an EAD implementation of RhUMBA creates the SGML from a forms interface, then allows further changes to the generated record before finally verifying and saving.  If the SGML is invalid, the reason will be returned and further editing allowed before finally saving to the database.  
+
+RhUMBA is modeled after the proven 'Wiki' model of distributed authoring as created by Ward Cunningham for the Portland Pattern Repository, with additional features as permitted by the underlying Cheshire technology.  It does not rely on proprietary extensions such as Microsoft's DAV (Distributed Authoring and Versioning) or Netscape's 'Publish' feature.

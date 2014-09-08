@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">index_vectors - Index CheshireII VECTOR files </FONT></H2>
+
+<H2>SYNOPSIS </H2>
+<B>index_vectors</B> <I>[-T tempfiledir -S "sort flags" -L logfilename] configfilename </I>
+
+
+<P><H2> DESCRIPTION</H2> 
+<P>
+Index_vectors uses the descriptions included in the configuration
+file <I>configfilename</I> to index the vector files of a
+Cheshire II database. This program must be run AFTER the normal
+index_cheshire run has completed, since it uses the index information 
+created by that program.
+<P>
+The configuration file should describe the main SGML data file,
+the associator file (See <B>buildassoc</B>), the DTDs for the 
+main SGML data file and the indexes, including vector index files
+(I.e., those with ACCESS=VECTOR in the index definition). 
+This program will
+create the vector files specified in the configuration file for
+the vector index files (only those with ACCESS=VECTOR). 
+If this program is NOT run, the vector indexes can still be used like
+normal BTREE indexes, but will not be able to resolve blind feedback
+searches.
+<P>
+
+<P><H2> LOG and ERROR INFORMATION</H2>
+
+<P> If the "-L" option is not used, then running the
+<B>index_vectors</B> program creates or appends to a file in the
+current directory called INDEX_LOGFILE. If the "-L" option is used
+then the logfile is given the name provided on the command line. If
+this file already exists when the program is run, new information is
+appended to the existing file. INDEX_LOGFILE will contain any errors
+or problems encountered in indexing. </P>
+
+
+<P><H2> BUGS</H2>
+None known
+
+<P><H2> SEE ALSO</H2>
+Configuration file documentation, index_cheshire
+
+<P><H2> AUTHOR</H2>
+Ray R. Larson  (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>)
+

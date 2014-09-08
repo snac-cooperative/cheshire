@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+  <head>
+    <title>Running Cheshire</title>
+  </head>
+
+  <body bgcolor = white>
+    <center><h3>Running Cheshire</h3></center>
+    <p>
+      There are three main programs to be run to build a cheshire database, two main client programs, two different servers and several that display information about the indexes or database.  Here we'll go into the building and informational programs. The clients are discussed in the scripting page.
+    <p>
+      The buildnew.sh script (see the <a href = "#buildnew">bottom of the page</a>) is set up to run these programs as needed in the indexing process and can be used as a reference when doing this by hand.
+    <p>
+    <hr>
+    <p>
+      <img src = "closed.gif"><b>buildassoc</b><br>
+      The buildassoc program is the first to be run and ascertains the locations of the individual records to be indexed. It records these in an associator file, referenced in the 'assocfil' field in the configuration file. If it is run over a directory, rather than a single file, it will also produce a '(directory name).cont' file which contains the files in the 'filecont' format needed by the configuration file.
+    <p>
+      Buildassoc thus has two ways in which it can be run which affects one of the command line arguments, however the other two remain the same.
+    <p>
+      To run it on a sinple SGML file:<br>
+      <code>buildassoc [-q] sgmlfile [assocfile] sgmltag</code>
+    <p>
+      And to run it recursively over a directory:<br>
+      <code>buildassoc [-q] -r directory assocfile sgmltag</code>
+    <p>
+      The '-q' flag stands for 'quiet', and if given then the standard output of record length is suppressed.
+      <br>
+      The sgmlfile argument is the file name where the sgml data is kept.
+      <br>'-r directory' gives the directory over which to run. This should be given as a full path, as this will be what is recorded in the DATA.cont file.
+      <br>assocfile is the name of the associator file to create. Typically the name of your database with .assoc appended to it. If it is not given in the single file version, then the associator will will be called the same name as your sgml file with '.assoc' appended to it.
+      <br>sgmltag is the name of the top level sgml tag in your DTD. For example &lt;EAD&gt;, &lt;TEI.2&gt;, &lt;USMARC&gt; and so forth. Don't include the brackets around the tag name as Unix interpreters will have a field day.
+    <p>
+      Notes:
+      <ul>
+      <li>  If you have a single file and run buildassoc with the -r flag, it will silently fail. Simply take the -r flag out and it should work.
+      <li> Don't include the final / of a directory, or the .cont file will be created as directoryname/.cont.
+      <li> You don't have to delete the associator file if you're only adding a new record to the database, however it's generally easier to run it from scratch every time.
+    </ul>
+<p>
+      Example:  buildassoc -r /home/cheshire/cheshire/quickstep/DATA quickstep.assoc email
+
+<p>
+      <img src = "closed.gif"><b>index_cheshire</b><br>
+      The index_cheshire program is what does most of the indexing work once the record locations have been established. Using the configuration file, it builds the indexes and component indexes from the data.
+      <p>
+      It is run as:<br>
+      <code>index_cheshire [-b] [-T tempdirname] [-L logfilename ] configfilename [startrec] [maxrec]</code>
+    <p>
+      The -b flag is recommended to be given, as then index_cheshire will use batch loading techniques that greatly increase the indexing speed. However it does require a lot more disk space while indexing.
+      <br>'-T tempdirname' gives index_cheshire an alternate directory in which to create its temporary files.
+      <br> '-L logfilename' gives a new name to the log file generated during the indexing process. The default is INDEX_LOGFILE.
+      <br>configfilename is the name of the configuration file, typically DBCONFIGFILE.
+      <br>startrec, if given, makes cheshire start at the numbered record rather than the first. If not given, then index_cheshire will start at the first record.
+      <br>maxrec is the last record number to process. It defaults to the last record in the database.
+    <p>
+      The file INDEX_LOGFILE, or other log file as specified,  will be created, or have information appended to it if it already exists, over the indexing process. This will record any errors which occur during the indexing process, and is hence vital for debugging a misperforming system.
+    <p>To add records to an existing database, run the buildassoc program first without removing the old assoc file. The new records will then be appended to the end. Then run index_cheshire with the startrec argument of the first new record to process.
+<p>
+Notes:
+<ul>
+<li>If you have a primary key index, with more than 10 records with the same key, then you cannot use batch mode (correct at version 2.31 at least) as the batch loading may get the files out of order. Simply don't use the -b flag.
+</ul>
+
+<p>
+Example:  index_cheshire -b  DBCONFIGFILE
+
+    <p>
+      <img src = "closed.gif"><b>index_clusters</b><br>
+      While index_cheshire handles the components and main indexes, the index_clusters program must be run if any clusters are defined. It is run in much the same way as index_cheshire:
+    <p>
+      <code>index_clusters [-b] [-T tempfiledir] [-L logfilename ] configfilename [INDEXONLY]</code>
+    <p>
+      If the INDEXONLY argument is given, then index_clusters will not try to create the cluster data, but just index it. This is for cases when the cluster data has already been created, but needs to have the indexes for it rebuilt.
+      <br>The other arguments to index_clusters are the same as for index_cheshire.
+    <p>
+      <hr>
+    <p>
+      <img src = "closed.gif"><b>countdb</b><br>
+      Countdb gives frequency information about the items in an index. It reports the total number of entries, the average number of records per entry, the maximum records in an entry and the top 200 frequencies.
+      <p>
+      Usage: <code>countdb configfilename mainfile_name index_name</code>
+      <p>
+      Configfilename is the path of the configuration file for the database.
+      <br>Mainfile_name is the name of the configuration, as recorded in the 'filetag' field in the configuration.
+      <br>Index_name is the name of the index, as recorded in the 'indextag' field.
+      <p>
+      For example:<br>
+      <code>countdb DBCONFIGFILE archives subject</code>
+    <p>
+      <img src = "closed.gif"><b>dumpdb</b><br>
+      Dumpdb takes the same arguments as countdb, but shows the entire index with every key and the corresponding frequencies and total records.
+
+    <p>
+      <img src = "closed.gif"><b>dumppost</b><br>
+      Dumppost, like dumpdb, shows the entire index, but gives the record numbers and frequency of occurance within the record for every key in the database.  It takes the same arguments as countdb.
+
+    <p>
+      <img src = "closed.gif"><b>highpost</b><br>
+      The highpost program produces a list of keys which have a frequency above the minimum given in the minpost argument. Otherwise the arguments are the same as countdb.
+    <p>
+      Usage: <code>highpost minpost configfilename mainfile_name index_name</code>
+
+    <p>
+      <img src = "closed.gif"><b>dtd_parser</b><br>
+      This program will test a dtd to see if it is valid. If so, it will dump a pattern file to '(dtd).completeout'. If this is empty and very little output was produced, or an error message given, then the DTD is invalid. Be sure to check that the DTD has a DOCTYPE, a lot are distributed without this.
+    <p>
+      Usage: <code>dtd_parser dtd_name [sgml_catalog_name]</code>
+    <p>
+      dtd_name is the file name of the dtd, not the public identifier for it.
+      <br>If the dtd needs to reference other files, then you will also need to give the file path for the catalog file in the second argument.
+    <p>
+      <img src = "closed.gif"><b>test_config</b><br>
+      The test_config program will, surprisingly enough, test the validity of a configuration file. Information about the file is reported as it runs through it.
+      <p>
+      Usage: <code>test_config configfilename</code>
+    <p>
+    <hr>
+    <a name = "buildnew">
+    <p><b>Sample Buildnew.sh Script</b></p>
+    <p>
+      Here is a sample, only slightly non trivial buildnew script.  If given an argument it will treat this as the start record for index_cheshire to continue processing at. It creates its logs in a 'logs' directory and otherwise is fairly tidy.
+
+    <pre>
+#!/bin/sh
+
+# Set up environment
+cd /home/cheshire/cheshire/metadata
+export PATH=$PATH:/home/cheshire/cheshire/bin
+
+rm DBCONFIGFILE DATA.cont metadata.assoc
+
+# Trash old index/assoc files for complete rebuild
+if [ "$1" == "" ]; then
+  rm logs/INDEX_LOGFILE indexes/*.index
+fi
+    
+
+# Rebuild associator.
+buildassoc -r /home/cheshire/cheshire/metadata/DATA metadata.assoc cheshireRecord
+
+cp DBCONFIGFILE.top DBCONFIGFILE
+cat DATA.cont >> DBCONFIGFILE
+cat DBCONFIGFILE.bottom >> DBCONFIGFILE
+
+if [ "$1" == "" ]; then
+  index_cheshire  -L logs/INDEX_LOGFILE DBCONFIGFILE
+else 
+  index_cheshire -L logs/INDEX_LOGFILE DBCONFIGFILE $1
+fi
+
+</pre>
+    
+
+<p>
+<hr>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!-- This is a test config file for Cheshire II -->
+<DBCONFIG>
+<DBENV> /home/ray/Work/DBENV </DBENV>
+
+<!-- The first filedef is a virtual file which is actually just a way -->
+<!-- to search and retrieve from all of added filedefs  below         -->
+<!-- this file is an example for virtual files used with webcheshire  -->
+<!-- In addition this particular file uses the CONFIGINCLUDE tags     -->
+<!-- to add in external configfiles for the virtual file set.         -->
+<!-- see end of this configfile for the CONFIGINCLUDE tags            -->
+<FILEDEF TYPE=VIRTUAL>
+
+<DEFAULTPATH> /home/ray/Work/cheshire/index </DEFAULTPATH>
+
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> vdb </FILETAG>
+
+<!-- filenames for virtual dbs are just the filetag names of OTHER    -->
+<!-- files in this or other configfiles on the same server. The names -->
+<!-- are used to look those files and process them for retrieval      -->
+<!-- Virtual db configfiles are NOT used for indexing, only retrieval -->
+<FILENAME> vdb </FILENAME>   <!-- should be the same as the filetag   -->
+<FILENAME> scilib</FILENAME> <!-- this is an actual database see server.init -->
+<FILETAG> bibfile </FILETAG> <!-- this is an actual database -->
+
+<!-- The virtual DB needs no index definitions (indexes of the actual  -->
+<!-- files are used for searching and retrieval                        -->
+<!-- You can have explain stuff for virtual dbs                        -->
+<EXPLAIN>
+<TITLESTRING> Sample virtual database (uses bibfile and scilib)
+</TITLESTRING>
+<DESCRIPTION> Combined searching of multiple databases using a single
+database name (vdb)
+</DESCRIPTION>
+<DISCLAIMERS> The scilib database is only on Ray's system.
+</DISCLAIMERS>
+<NEWS> No news </NEWS>
+<HOURS> Whenever the system is up </HOURS>
+<BESTTIME> Almost any time is good </BESTTIME>
+<LASTUPDATE> Feb. 2002 </LASTUPDATE>
+<UPDATEINTERVAL><VALUE> 1 </VALUE><UNIT> Years </UNIT></UPDATEINTERVAL>
+<COVERAGE> Bunch of stuff </COVERAGE>
+<PROPRIETARY> NO </PROPRIETARY>
+<COPYRIGHTTEXT> This is not copyrighted </COPYRIGHTTEXT>
+<COPYRIGHTNOTICE> This would be a copyright notice if it was</COPYRIGHTNOTICE>
+<PRODUCERCONTACTINFO>
+<contact_name> Ray R. Larson </contact_name>
+<contact_address>102 South Hall UC Berkeley, CA 94720-4600
+</contact_address>
+<contact_email> ray@sherlock.berkeley.edu </contact_email>
+</PRODUCERCONTACTINFO>
+<SUPPLIERCONTACTINFO>
+<contact_name> Ray R. Larson </contact_name>
+<contact_address>102 South Hall UC Berkeley, CA 94720-4600
+</contact_address>
+<contact_email> ray@sherlock.berkeley.edu </contact_email>
+<contact_phone> 642-6046 </contact_phone>
+</SUPPLIERCONTACTINFO>
+</EXPLAIN>
+</FILEDEF> 
+
+<!-- REAL filedef 1 -->
+<CONFIGINCLUDE> /home/ray/Work/cheshire/index/testconfig.new 
+</CONFIGINCLUDE>
+
+<!-- REAL filedef 2 -->
+<CONFIGINCLUDE> /projects/cheshire/DATA/SCILIB_NEW/DBCONFIGFILE 
+</CONFIGINCLUDE>
+
+</DBCONFIG>
+
+

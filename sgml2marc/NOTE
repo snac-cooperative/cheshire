@@ -1,0 +1,2 @@
+This dir contains the sgml2marc code where as many dependencies as
+possible have been removed (from things like DB and the config libraries)

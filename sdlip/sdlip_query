@@ -1,0 +1,6 @@
+SEARCH / HTTP/1.1
+Content-Encoding: utf-8
+Content-Length: 330
+Content-Type: text/xml
+
+<a:searchrequest xmlns:a="DAV:" xmlns:b="http://interlib.org/SDLIP/1.0#"><a:basicsearch><a:select><a:allprop/></a:select>  <a:where><a:contains>mathematics</a:contains></a:where><a:limit><a:nresults>10</a:nresults></a:limit><b:clientSID>12345</b:clientSID><b:stateTimeoutReq>0</b:stateTimeoutReq></a:basicsearch></a:searchrequest>

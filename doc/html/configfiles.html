@@ -1,0 +1,6481 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Configuration Files</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V3.2 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">CONFIGURATION FILE CONTENTS</FONT></H2>
+
+<P>
+<HR></P>
+
+<H4><FONT COLOR="#B22222"><A HREF="#mainfile">Configuration File Tags for
+the Main File Definition</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#mainfile2">Tags for the Main File Definition
+(Continued)</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#indexfile">Tags for the Index File
+Definition</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#indexfile2">Tags for the Index File
+Definition (Continued)</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#components">Sub-Tags for Component Definition</A></FONT>
+</H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#cluster">Sub-Tags for Cluster Definition</A></FONT>
+</H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#display">Sub-Tags for Display Specification</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#explain">Sub-Tags for Z39.50 Explain Information</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#access">ACCESS attribute Codes and Their
+Meanings</A></FONT></H4>
+<H4><FONT COLOR="#B22222"><A HREF="#extract">EXTRACT attribute Codes and Their
+Meanings</A></FONT></H4>
+<H4><FONT COLOR="#B22222"><A HREF="#normal">NORMAL attribute Codes and Their
+Meanings</A></FONT></H4>
+<H4><FONT COLOR="#B22222"><A HREF="#dates">Date Format Patterns and Their
+Interpretations</A></FONT></H4>
+<H4><FONT COLOR="#B22222"><A HREF="#latlong">LAT_LONG and BOUNDING_BOX Format Patterns and Their Interpretations</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#marc008">MARC 008 Field Sub-Elements</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#indexmap">Sub-Tags for Z39.50 Index
+Mapping Definition</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#bib1_use">Z39.50 BIB-1 USE Attributes</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#gils_use">Z39.50 GILS USE Attributes
+</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#bib1_relation">Z39.50 BIB-1 Relation
+Attributes</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#bib1_position">Z39.50 BIB-1 Position
+Attributes</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#bib1_structure">Z39.50 BIB-1 Structure
+Attributes</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#bib1_trunc">Z39.50 BIB-1 Truncation
+Attributes</A></FONT> </H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#bib1_completeness">Z39.50 BIB-1 Completeness
+Attributes</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#sgmlcatalog">SGML Catalog Entry formats</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#sgmlcatalog2">SGML Catalog Entry formats
+(Continued)</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#index_extract">Sub-Tags for Index Extraction Elements Definition (tagspec)</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#Tag_Specifications">Tag Specifications</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#CONFIG_FILE_DTD">Configuration File
+DTD</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#SAMPLE_CONFIG">Sample Configuration
+File</A></FONT></H4>
+
+<H4><FONT COLOR="#B22222"><A HREF="#PROCESSING_INSTR">
+Cheshire Processing Instructions in SGML/XML files </A></FONT></H4>
+
+<P>
+<HR></P>
+
+<P>This document describes the format used in the Cheshire II configuration
+files and their contents. </P>
+
+<P>Configuration files provide the specifications for indexing of SGML
+elements and sub-elements by the Cheshire II server and search engine.
+There may be multiple configuration files for each &quot;file&quot; maintained
+by the server, or the configuration specifications for multiple files may
+be included in a single configuration file. </P>
+
+<P>Configuration files are themselves SGML documents (The DTD is appended).
+The following table describes each element (tag) for the configuration
+file and it's contents. There are matching end tags (beginning with &quot;&lt;/&quot;
+for each of the tags described below. Everything between a begin tag and
+end tag is processed as the value of the tag, all &quot;white space&quot;
+(blanks, tabs, carriage returns, newlines) and SGML comments (anything
+beginning with &quot;&lt;!--&quot; and ending with &quot;--&gt;&quot;)
+are ignored in processing. The exception to this is blank spaces in
+QUOTED file names under Windows to permit multiword file and directory names</P>
+
+<P><A NAME="mainfile"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Configuration File Tags for the Main File Definition</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>Data Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>&lt;dbconfig&gt;</TD>
+
+<TD>tag</TD>
+
+<TD>This tag begins a configuration file. It is required. </TD>
+</TR>
+
+<TR>
+<TD>&lt;dbenv&gt;</TD>
+
+<TD>directory name</TD>
+
+<TD>This tag is optional and may be used to set the (required) database
+environment directory for indexes defined in the config file. Alternatively, 
+if the CHESHIRE_DB_HOME environment variable
+is set, then it overrides values specified here. As of version 2.20, one
+or the other must be set. Unlike the environment variable, the DBENV option
+lets you have a separate environment for all indexed. For further information
+in database environments, see the BerkeleyDB documentation included in the
+distribution.
+</TR>
+
+<TR>
+<TD>&lt;filedef TYPE= ?&gt;</TD>
+
+<TD>tag</TD>
+
+<TD>This tag introduces a new file definition. All tags until the matching
+end tag are part of this file definition. The tag includes the following
+attributes: </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>TYPE = <I>filetype</I></TD>
+
+<TD>This attribute specifies the type of file. The current recognized
+types are SGML, XML, MARC, MARCSGML, AUTH, CLUSTER, LCTREE, MAPPED
+(these are actually ALL SGML files, but filetypes other than the
+default (SGML) have special processing routines in the server) and SQL
+| DBMS | RDBMS (which are external relational database files that are
+accessible via Z39.50, but are not managed or indexed directly by
+Cheshire) and finally SGML_DATASTORE, XML_DATASTORE, MARC_DATASTORE
+and MARCSGML_DATASTORE (which use the Cheshire <A HREF="datastore.html">DataStore</a> facility to
+store pre-parsed versions of the SGML, XML, or MARC_SGML data). VIRTUAL
+may be used for <A HREF="virtual.html">virtual databases</A>. Note
+that MAPPED files assume that the SGML structure is just a definition
+of how to access the data from non-SGML documents stored in one or
+more files. </TD> </TR>
+
+
+<TR>
+<TD>&lt;ConfigInclude&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag can be used to reference the contents of other files
+containing configuration file information. It can be used in
+place of a filedef so that the named file is read and the filedef
+in that file is included. It is possible to use this for other
+parts of a configfile, but not in all situations. Note that the
+configfile using ConfigInclude must AT LEAST include a DBCONFIG
+tag and DBENV tag in addition to the ConfigInclude tags. DBCONFIG
+and DBENV tags are ignored in files included with ConfigInclude, so
+it is possible for multiple standalone configfiles to be combined, 
+for example, for a virtual database definition where the individual
+databases are added to the virtual DB configfile by ConfigInclude.   </TD>
+</TR>
+
+<TR>
+<TD>&lt;filename&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name of the main file for this file
+when the database is a single file of records. It should contain only the
+directory name containing the files (not really used) if multiple continuation
+files are being used. It should contain the name of the external database
+when the filetype is DBMS. For DataStore files this is the actual Berkeley DB
+database file in which the pre-parsed SGML/XML data is stored. </TD>
+</TR>
+
+<TR>
+<TD>&lt;filetag&gt;</TD>
+
+<TD>string</TD>
+
+<TD>This tag precedes a nickname to use for the file, this can be used
+in place of the full filename whenever the file name needs to be specified.
+(MUST BE UNIQUE across all files, especially since the server can support
+multiple config files for different databases) </TD>
+</TR>
+
+<TR>
+<TD>&lt;filecont ID=? MIN=? MAX=?&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name of a continuation file for very
+large files that, for example, must be split over different devices, or
+are stored as multiple separate files in a directory subtree (see the &quot;-r&quot;
+option of the buildassoc utility that can automatically generate all filecont
+entries for a given directory subtree). </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>ID=<I>number</I></TD>
+
+<TD>The id attribute of filecont gives the sequence number of this particular
+continuation file (there may be multiple continuation files). </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>MIN=<I>number</I></TD>
+
+<TD>This provides the smallest document ID number contained in the continuation
+file. </TD>
+</TR>
+
+<TR>
+<TD>ATTR</TD>
+
+<TD>MAX=<I>number</I></TD>
+
+<TD>This provides the highest document ID number contained in the continuation
+file. </TD>
+</TR>
+
+<TR>
+<TD>&lt;continclude&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name of a file that contains ONLY filecont
+definitions as described above. The file is read and processed as if it
+were included in the configuration file directly. this may be interspersed
+with filecont tags.
+</TD>
+</TR>
+
+
+<TR>
+<TD>&lt;filedtd TYPE= ?&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name of the SGML/XML Document Type Definition
+(DTD) file for this file. OR, if the TYPE=XMLSCHEMA attribute is set,
+the name is the name of the XMLSchema DTD file. </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>TYPE = <I>dtdtype</I></TD>
+
+<TD>This attribute specifies the type of DTD or Schema. The current recognized
+types are SGML, XML, and XMLSchema. This attribute is OPTIONAL and will
+default to SGML if not supplied.
+</TD> </TR>
+
+
+<TR>
+<TD>&lt;XMLSchema&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name of the XMLSchema Definition
+for this file. If the FILEDTD TYPE=XMLSCHEMA attribute is set,
+then it is an error not to include this tag. </TD>
+</TR>
+
+
+</TABLE>
+
+<P><A NAME="mainfile2"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Configuration File Tags for the Main File Definition
+(cont.)</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>Data Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>&lt;SGMLcat&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name of the SGML catalog file used
+to resolve PUBLIC name references (and potentially other references) for
+this DTD. This provides the basis for an &quot;Entity Manager&quot; that
+generates a system identifier for every external entity using catalog entry
+files in the format defined by SGML Open Technical Resolution TR9401:1995
+(http://www.sgmlopen.org/sgml/docs/library/9401.htm). See below for catalog
+entry formats. </TD>
+</TR>
+
+<TR>
+<TD>&lt;Explain&gt</TD>
+
+<TD>explain defs</TD>
+
+<TD>This tag precedes a set of Z39.50 explain definitions for the database (file),
+This information is used along with the rest of the the configuration
+information to generate explain records for the file. See the
+Explain definitions table below. </TD>
+</TR>
+
+
+<TR>
+<TD>&lt;assocfil&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name of the associator file for this
+file. This should be empty for DBMS filetypes. </TD>
+</TR>
+
+<TR>
+<TD>&lt;history&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name of the history file for this file.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;indexes&gt;</TD>
+
+<TD>comments</TD>
+
+<TD>This tag precedes the definitions of indexes for this file. Each index
+definition (described in the following table) is specified following this
+tag and preceding the matching &lt;/indexes&gt; tag. </TD>
+</TR>
+
+<TR>
+<TD>&lt;components&gt;</TD>
+
+<TD>comments</TD>
+
+<TD>This tag precedes the definitions of components for this
+file. Each component definition (ComponentDef: described in a
+following table) is specified following this tag and preceding the
+matching &lt;/componentss&gt; tag. </TD> </TR>
+
+<TR>
+<TD>&lt;clusters&gt;</TD>
+
+<TD>filename</TD>
+
+<TD>If the filedef type attribute is NOT CLUSTER, then this tag is used
+to introduce the definitions and names of cluster files based on elements extracted from
+this file and to indicate the cluster key element(s) for the clustering
+process. Each cluster name should have it's own filedef definition with
+the type attribute set to CLUSTER. One cluster file name should be specified
+per occurrance of the tag. When the filedef type attribute IS CLUSTER,
+then this will contain the name of the file being clustered. (not used
+for DBMS filetypes.) See the following table on cluster specifications
+for the sub-elements used in the cluster tag. </TD>
+</TR>
+
+<TR>
+<TD>&lt;dispoptions&gt;</TD>
+
+<TD>keywords</TD>
+
+<TD>This tag precedes one or more from a set of keywords relating to
+special options for conversion by the cheshire server when records are
+returned. The option keywords are: <B>KEEP_AMP</B> to retain any
+"&amp;amp;"(&amp;) entities, <B>KEEP_LT</B> to retain any
+"&amp;lt;"(&lt;) entities, <B>KEEP_GT</B> to retain any
+"&amp;gt;"(&gt;) entities, or <B>KEEP_ALL</B> to retain all three. The
+default operation of the server is to convert these to their single
+character form.
+
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;displays&gt;</TD>
+
+<TD>displayspec</TD>
+
+<TD>This tag precedes the definitions of display formats (or &quot;element
+sets&quot; in Z39.50 jargon) for this file/database. Each &quot;Display
+Specification&quot; definition (described in a subsequent table) is specified
+following this tag and preceding the matching &lt;/displays&gt; tag. This
+is an optional tag. If not supplied, the entire record is always returned
+regardless of the &quot;element set&quot; requested in a present or search.
+The old form of this tag (&lt;display&gt;) will still work.
+</TD>
+</TR>
+</TABLE>
+
+<P><A NAME="indexfile"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Configuration File Tags for the Index File Definition</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>Data Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>&lt;indexdef ATTR...&gt;</TD>
+
+<TD>comments</TD>
+
+<TD>This tag signals the beginning of one particular index definition.
+The attributes that should be included in each indexdef are: </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>ACCESS= <I>access type</I></TD>
+
+<TD>This is the access method to be used in this index. The methods are
+BTREE, HASH, VECTOR or BITMAPPED. The default is &quot;BTREE&quot;.
+For DBMS (SQL or RDBMS) filetypes &quot;DBMS&quot; is used. 
+See Table below for access types.
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR</TD>
+
+<TD>EXTRACT=<I>key type</I></TD>
+
+<TD>This attribute specifies the sort of extraction to be performed on
+the data. Currently &quot;KEYWORD&quot;, &quot;EXACTKEY&quot;,
+&quot;FLD008_KEY&quot;, &quot;FLD008_DATE&quot;, &quot;FLD008_DATERANGE&quot;, &quot;URL&quot;, &quot;FILENAME&quot;,
+&quot;DATE&quot;, &quot;DATE_TIME&quot, &quot;DATE_RANGE&quot;,
+&quot;DATE_TIME_RANGE&quot;, &quot;GEOTEXT$quot;, &quot;LAT_LONG$quot;, 
+&quot;BOUNDING_BOX&quot;,
+&quot;GEOTEXT_LAT_LONG$quot;, &quot;GEOTEXT_BOUNDING_BOX&quot;, 
+&quot;KEYWORD_EXTERNAL&quot;
+&quot;KEYWORD_PROXIMITY&quot; or
+&quot;KEYWORD_EXTERNAL_PROXIMITY&quot; are supported. In DBMS files
+KEYWORD and EXACTKEY are valid and used for text or char
+fields. INTEGER_KEY (or INTEGER), DECIMAL_KEY (or DECIMAL), and 
+FLOAT_KEY (or FLOAT) are also available for
+SINGLE numerical data elements and also for DBMS files
+mapping. &quot;KEYWORD&quot; is the default. See table below for all
+<A HREF="#extract">EXTRACT attribute Codes and Their
+Meanings</A> along with aliases for the codes. </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>NORMAL=<I>normalization type</I></TD>
+
+<TD>This attribute specifies the sort of normalization to be performed
+on the keys extracted. The options are &quot;STEM&quot;,
+&quot;WORDNET&quot;, &quot;CLASSCLUS&quot;, &quot;BASIC&quot;,
+&quot;DO_NOT_NORMALIZE&quot;, &quot;REMOVE_TAGS_ONLY&quot;,
+&quot;STEM_NOMAP&quot;, &quot;WORDNET_NOMAP&quot;, &quot;XKEY&quot; or
+&quot;EXACTKEY&quot;, &quot;XKEY_NOMAP&quot; or
+&quot;EXACTKEY_NOMAP&quot;, &quot;CLASSCLUS_NOMAP&quot;,
+&quot;BASIC_NOMAP&quot;, &quot;STEM_FREQ&quot; &quot;XKEY_FREQ&quot;,
+and &quot;BASIC_FREQ&quot;, &quot;REMOVE_TAGS_ONLY_FREQ&quot;. Recent
+additions include a simple plural-removing stemmer "SSTEM" or
+"SSTEM_FREQ" and the Snowball stemmer for European languages
+including: FRENCH_STEM, GERMAN_STEM, DUTCH_STEM, SPANISH_STEM,
+ITALIAN_STEM, SWEDISH_STEM, PORTUGUESE_STEM, RUSSIAN_STEM (or
+RUSSIAN_UTF8_STEM), RUSSIAN_KOI8_STEM, DANISH_STEM and NORWEGIAN_STEM
+
+If the EXTRACT attribute
+is one of the date or date time values, NORMAL must be the pattern to
+use in extracting the date from the records. See the table 
+<A HREF="#dates">Date Format Patterns and Their Interpretations</A>
+for DATE_TIME format patterns. &quot;BASIC&quot; is the default.
+If the EXTRACT attribute
+is one of the LAT_LONG or BOUNDING_BOX values, NORMAL must be the pattern to
+use in extracting the coordinate information from the records. 
+See the table below: 
+<A HREF="#latlong">LAT_LONG and BOUNDING_BOX Format Patterns and Their Interpretations</A> 
+for LAT_LONG and BOUNDING_BOX format patterns. &quot;BASIC&quot; is the default.
+See table of normalization types below. </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>PRIMARYKEY=<I>Primary key options</I></TD>
+
+<TD>&quot;PRIMARYKEY=IGNORE&quot; or simply &quot;PRIMARYKEY&quot; in this
+attribute indicates that the index is the primary key for the data file,
+and any duplicate keys are to be ignored (REJECT is a synonym for IGNORE).
+&quot;PRIMARYKEY=REPLACE&quot; indicates that incoming records with duplicate
+primary keys are to replace any older existing record with that same primary
+key. &quot;PRIMARYKEY=NO&quot;, &quot;PRIMARYKEY=NONE&quot; or &quot;NOTPRIMARYKEY&quot;,
+or nothing is the default value and indicates a normal non-primary key
+index. Note that there should only be one primary key defined for any file,
+if more are defined only the last one defined will be used as the primary
+key. </TD>
+</TR>
+
+<TR>
+<TD>&lt;indxtag&gt;</TD>
+
+<TD>string</TD>
+
+<TD>This tag precedes a name for this index (such as &quot;author&quot;
+&quot;title&quot;, etc.) For DBMS indexes this should be the DBMS COLUMN
+name from the table or view. </TD>
+</TR>
+
+<TR>
+<TD>&lt;indxname&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name for the actual index file created
+by DBOPEN. Note that this file now contains all index and postings information.
+For DBMS indexes this should be the DBMS table or View name. </TD>
+</TR>
+
+<TR>
+<TD colspan=3>Continued on next page</TD>
+</TR>
+</TABLE>
+
+<P><A NAME="indexfile2"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Configuration File Tags for the Index File Definition
+(Continued)</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>Data Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>&lt;indxmap ATTR...&gt;</TD>
+
+<TD>map entries</TD>
+
+<TD>indxmap entries are used to indicate which Z39.50 attributes should
+be mapped to this index. Any attributes NOT specified imply that ANY value
+for that element should be mapped to this index. Note that these are examined
+sequentially, so the order in the configfile matters. The sub-elements
+of indxmap are described in a later table. </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>ATTRIBUTESET=<I>Z39.50 Attribute Set</I></TD>
+
+<TD>This is the attribute set to be used in matching z39.50 queries to
+this index. (Symolic names for the following Attribute sets supported are &quot;BIB-1&quot;, &quot;EXP-1&quot;,
+&quot;EXT-1&quot;, &quot;CCL-1&quot;, &quot;GILS&quot;, &quot;STAS&quot;, &quot;COLLECTIONS-1&quot;, &quot;CIMI-1&quot;, &quot;GEO-1&quot;, &quot;ZBIG&quot;, &quot;UTIL&quot; ;, &quot;XD-1&quot;, &quot;ZTHES&quot;, &quot;FIN-1&quot;, &quot;DAN-1&quot; and &quot;HOLDINGS&quot;). Either these symbolic names (and many variants) or the OIDs may be specified (OIDs of unlisted attribute sets can also be specified).<br>
+Default is BIB-1. </TD>
+</TR>
+
+<TR>
+<TD>&lt;indxcont ID= ???&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name of a continuation index file for
+very large index files. (NOT IMPLEMENTED IN THIS VERSION) </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>ID = <I>number</I></TD>
+
+<TD>The id attribute of indxcont gives the sequence number of this particular
+index continuation file. </TD>
+</TR>
+
+<TR>
+<TD>&lt;stoplist&gt;</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name for the stopword list to use in
+indexing this set of fields. </TD>
+</TR>
+
+<TR>
+<TD>&lt;RANK_PARAMS TYPE= ???&gt;</TD>
+
+<TD>PARAMS list</TD>
+
+<TD>This tag encloses a set of parameters to be passed to the appropriate
+ranking method specified in the TYPE attribute. </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>TYPE = <I>ranking type name</I></TD>
+
+<TD>The TYPE attribute of RANK_PARAMS gives the type of ranking to
+which the subsequent &lt;PARAM&gt; tags applies the possible values
+are: "Logistic_Regression" (or "LR" or "LOGREG"), "OKAPI" (or "OK" or
+"BM25") or "Language_Modeling" (or "LANGMOD" or "LM") (Note however
+that this last is not available yet - version 40).
+
+ </TD>
+</TR>
+
+<TD>&lt;PARAM ID=???&gt;</TD>
+
+<TD>parameter value</TD>
+
+<TD>This tag represents the value of a parameter to be passed to the appropriate
+ranking method specified in the TYPE attribute of the enclosing RANK_PARAMS
+tag. </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>ID=<I>integer</I></TD>
+
+<TD>The ID attribute of PARAM identifies the particular parameter 
+that the contents of the PARAM tag represents. For Logistic Regression
+there are 7 possible values (with ID's numbered 0-6), and for Okapi
+there are 3 possible values (with ID's numbered 1-3).
+For Logistic Regression the parameters are:
+<BR>ID="0": the LR intercept coefficient
+<BR>ID="1": the coefficient for average query term frequency (over matching terms)
+<BR>ID="2": the coefficient for query length
+<BR>ID="3": the coefficient for average document term frequency (over matching 
+<BR>        terms)
+<BR>ID="4": the coefficient for document length
+<BR>ID="5": the coefficient for average term Inverse Document Frequency, 
+        (over matching terms)
+<BR>ID="6": the coefficient for the number of matching terms 
+<BR>
+<BR>For Okapi ranking the parameters are:
+<BR>ID="1": the k1 constant
+<BR>ID="2": the b or beta constant
+<BR>ID="3": the k3 constant
+<BR>For further information on the meanings of these parameters see the
+published papers on Cheshire as used for information retrieval evaluations
+such as INEX and TREC, or the papers of Stephen Robertson on the Okapi
+algorithm.
+
+ </TD>
+</TR>
+
+
+<TR>
+<TD>&lt;extern_app&gt;</TD>
+
+<TD>External indexing application</TD>
+
+<TD>This tag has (currently) two different uses.  <BR>First, it can
+introduce the command name and arguments for external indexing of
+URLs. The string "%~URL~%" should be used in the place where the URL
+in the data should be substituted in order to fetch the external data
+so that it can be indexed. A temporary copy must be made of each item
+during indexing but NO filename should be specified for the
+application (i.e., the output should be to stdout). The recommended
+application to use here is curl (http://curl.haxx.se) which is
+available on Linux, some other Unixes and Mac OS X. Using curl the tag
+might look like: 
+<BR>"&lt;extern_app&gt; curl --silent %~URL~% &lt;/extern_app&gt;" 
+<BR>The Second use of this tag is to specify the
+cheshire database to be used as a gazetteer to look up names of places
+for GEOTEXT extraction methods. In this case the contents of the tag
+(with no spaces or returns in it) should look like:
+<BR>"&lt;extern_app&gt;GAZETTEER:/path/to/config/file:database_name:index_to_search_names:exact_tagname_for_element_to_index&lt;/extern_app&gt;"
+<BR>The colons must be used to separate elements. The
+"/path/to/config/file" should be just that - the full path name of the
+config file. "database_name" should be the name of the database in the
+config file. "index_to_search_names" should be the index name
+(indxtag) for the index to use in
+matching. "exact_tagname_for_element_to_index" is the name of the tag
+(exactly as it appears in the gazetteer records) in the gazetteer data
+file that should be extracted and used for the index entries in the
+new index.
+
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;indxexc&gt;</TD>
+
+<TD>tag specifications</TD>
+
+<TD>This tag introduces the list of record elements that are to be
+excluded from indexing for this index file. Any elements included here
+(and all of their sub-elements) will be ignored during the indexing
+process. See table below for indxkey (i.e., tagspec) specifications.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;indxkey&gt;</TD>
+
+<TD>tag specifications</TD>
+
+<TD>This tag introduces the list of record elements and sub-elements to
+be indexed in this index file. See table below for indxkey specifications.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;/indxkey&gt;</TD>
+
+<TD>tag</TD>
+
+<TD>End of the code list for this index. </TD>
+</TR>
+</TABLE>
+
+<P><A NAME="components"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Configuration File Tags for Component Definition
+</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>Data Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>&lt;ComponentDef&gt;</TD>
+
+<TD>Definition</TD>
+
+<TD>This element introduces a new component definition. </TD>
+
+<TR>
+<TD>&lt;ComponentName&gt;</TD>
+
+<TD>name</TD>
+
+<TD>This element is the name for the component. This should be
+a file name (full file path) where the component-level information for
+each document of the current filedef is to be kept.</TD>
+</TR>
+
+
+<TR>
+<TD>&lt;ComponentNorm&gt;</TD>
+
+<TD>normalization</TD>
+
+<TD>This optional element specifies normalization to be applied to
+the component during indexing. Options currently are "NONE", "COMPRESS", and
+"NOCOMPRESS". NONE is the same as omitting the element entirely. COMPRESS
+means to flatten out all markup within the bounds of the component. NOCOMPRESS means to retain the markup (currently NOCOMPRESS and NONE function the
+same). </TD>
+
+
+<TR>
+<TD>&lt;ComponentStartTag&gt;</TD>
+
+<TD>tag definition</TD>
+
+<TD>This element introduces an TAGSPEC (see below) that defines the beginning
+of the component (or the beginning with the end assumed to be the matching
+end tag, if no ComponentEndTag is supplied). Note that if multiple
+FTAGs are specified within the TAGSPEC, only the FIRST will be used </TD>
+
+<TR>
+<TD>&lt;ComponentEndTag&gt;</TD>
+
+<TD>tag definition</TD>
+
+<TD>This element introduces an TAGSPEC (see below) that defines the end
+of the component. The system assumes that if both a ComponentStartTag
+and an ComponentEndTag are supplied then the component spans the data
+from the start tag to the first occurrence of the end tag found in the
+following data. The span is from the ComponentStartTag beginning UP TO
+the ComponentEndTag start. Note that if multiple
+FTAGs are specified within the TAGSPEC, only the FIRST will be used </TD>
+
+<TR>
+<TD>&lt;ComponentIndexes&gt;</TD>
+
+<TD>index definition</TD>
+
+<TD>This element introduces a set of indexdef's (see above) that define 
+the access to the component component. Indexdefs are identical to
+those for the file as a whole, but apply only to the components defined
+by this ComponentDef and not to the whole document.  </TD>
+
+</TABLE>
+
+<P><A NAME="cluster"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Configuration File Sub-Tags for Cluster Definition</FONT>
+</H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>Sub-tags/ATTR</TH>
+
+<TH>Data Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>&lt;clusterdef&gt;</TD>
+
+<TD>see below</TD>
+
+<TD>cluster definition</TD>
+
+<TD>This tag is used to introduce a cluster definition. In earlier
+config files the &lt;CLUSTER&gt; tag was used for this purpose. The
+preferred form is now to use &lt;CLUSTERS&gt;&lt;CLUSTERDEF&gt; ... &lt;/CLUSTERDEF&gt; &lt;CLUSTERDEF&gt; ... &lt;/CLUSTERDEF&gt;&lt;/CLUSTERS&gt;, 
+where the ... is composed of the tags below. For compatibility the old form
+(&lt;CLUSTER&gt;) will still work. 
+</TR>
+<TR>
+<TD>&lt;clusbase&gt;</TD>
+
+<TD>none</TD>
+
+<TD>filename or filetag</TD>
+
+<TD>This tag is used when the filedef type attribute is CLUSTER. It indicates
+which file is clustered by this file. </TD>
+</TR>
+
+<TR>
+<TD>&lt;clustag&gt;</TD>
+
+<TD>none</TD>
+
+<TD>filename or filetag</TD>
+
+<TD>This tag is used when the filedef type attribute is NOT CLUSTER. It
+indicates which file contains the clusters specified by the following cluster
+definition information. </TD>
+</TR>
+<TR>
+<TD>&lt;clusname&gt;</TD>
+
+<TD>none</TD>
+
+<TD>filename or filetag</TD>
+
+<TD>This tag is used when the filedef type attribute is NOT CLUSTER. It
+indicates which file contains the clusters specified by the following cluster
+definition information. (clusname and clustag are aliases for each other). </TD>
+</TR>
+
+<TR>
+<TD>&lt;cluskey </TD>
+
+<TD>NORMAL=???&gt;</TD>
+
+<TD>tagspec</TD>
+
+<TD>This tag introduces the list of record element(s) that are to be used
+to cluster this file. These are specified like the indxkey tag specifications.
+See table below for indxkey specifications. </TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>NORMAL=???</TD>
+
+<TD>normalization type</TD>
+
+<TD>This attribute specifies the sort of normalization to be performed
+on the keys extracted. The options are &quot;STEM&quot;, &quot;WORDNET&quot;,
+&quot;CLASSCLUS&quot;, &quot;BASIC&quot; &quot;STEM_NOMAP&quot;, 
+&quot;WORDNET_NOMAP&quot;, &quot;XKEY&quot; or &quot;EXACTKEY&quot;,
+&quot;XKEY_NOMAP&quot; or &quot;EXACTKEY_NOMAP&quot;,
+&quot;CLASSCLUS_NOMAP&quot;, and &quot;BASIC_NOMAP&quot;,
+&quot;STEM_FREQ&quot; &quot;XKEY_FREQ&quot;, and  &quot;BASIC_FREQ&quot;.
+&quot;BASIC&quot; (formerly NONE was used for this option, and is still a
+synonym) is the default.
+See table of normalization types below. </TD>
+</TR>
+
+<TR>
+<TD>&lt;stoplist&gt;</TD>
+
+<TD>none</TD>
+
+<TD>filepath</TD>
+
+<TD>This tag precedes the full path name for the stopword list to use in
+extracting cluster keys for the cluster file. </TD>
+</TR>
+
+<A NAME="sumtag"></A>
+<TR>
+<TD>&lt;clusmap&gt;</TD>
+
+<TD></TD>
+
+<TD>clusmap entries</TD>
+
+<TD>clusmap entries are used to indicate which elements in the base file
+are to be inserted in the cluster file. Each clusmap entry should contain
+two subtags, &lt;from&gt; and &lt;to&gt;, and an optional third tag &lt;summarize&gt;. Note that the same clusmap structure is used to define conversions
+of display formats as well (see <A HREF="#display">Sub-Tags for Display Specification</A>).
+</TD>
+</TR>
+
+<TR>
+<TD>SUBTAG</TD>
+
+<TD>&lt;from&gt;</TD>
+
+<TD>tagspec</TD>
+
+<TD>This should contain a tagspec, (i.e., it can contain multiple tag definitions
+from the base file). </TD>
+</TR>
+
+<TR>
+<TD>SUBTAG</TD>
+
+<TD>&lt;to&gt;</TD>
+
+<TD>tagspec</TD>
+
+<TD>This should be a simple tagspec name that corresponds to a tag in the
+cluster file. Patterns in the &lt;to&gt; tagspec are not allowed. </TD>
+</TR>
+
+<TR>
+<TD>SUBTAG</TD>
+
+<TD>&lt;summarize&gt;</TD>
+
+<TD>tagspec</TD>
+
+<TD>This is used to specify that summary information be created for this
+clusmap entry and stored as in specificed tagspec. &lt;summarize&gt; should
+contain the following tags: </TD>
+</TR>
+
+<TR>
+<TD>SUBTAG</TD>
+
+<TD>SUBTAG</TD>
+
+<TD>&lt;maxnum&gt;</TD>
+
+<TD>This tag, which gives the maximum number of summary entries to generate,
+is followed by a simple tagspec </TD>
+</TR>
+
+<TR>
+<TD>SUBTAG</TD>
+
+<TD>SUBTAG</TD>
+
+<TD>&lt;tagspec&gt;</TD>
+
+<TD>(see below) This includes a name that corresponds to a tag in the cluster
+file. Patterns in the &lt;summarize&gt; tagspec are also not allowed. When
+a &lt;summarize&gt; tag is given, each unique data item from the &lt;from&gt;
+tag is collected and the occurances counted. The &lt;maxnum&gt; most frequently
+occurring data items are output as the contents of the &lt;tagspec&gt;
+specified. </TD>
+</TR>
+</TABLE>
+
+<P><A NAME="display"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Configuration File Sub-Tags for Display Specification</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>Sub-tags/ATTR</TH>
+
+<TH>Data Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>&lt;displaydef ATTR...&gt;</TD>
+
+<TD></TD>
+
+<TD>format spec</TD>
+
+<TD>The displaydef tag introduces a named display format definition. This is the
+treated the same as the format tag below (they are aliases for each 
+other) </TD>
+</TR>
+<TR>
+<TD>&lt;format ATTR...&gt;</TD>
+
+<TD></TD>
+
+<TD>format spec</TD>
+
+<TD>The format tag introduces a named format definition. This is the
+treated the same as the displaydef tag above (they are aliases for each
+other)</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>NAME=???</TD>
+
+<TD>format name</TD>
+
+<TD>This attribute specifies the name of the format that will be matched
+against the specified elementset name in a Z39.50 present or search. 
+There are some special names that can be used for special purposes. 
+
+The special format name &quot;XML_ELEMENT_???&quot; (where an XML or
+SGML element name is substituted for "???") is used when the document
+is an XML or SGML document and you only want to extract the named element.
+The this case the convert operation is used with the function name "XML_ELEMENT" and the FROM specification has the special FTAG name "SUBST_ELEMENT". 
+When this combination is found in the DISPLAY specification (along with
+the XML or SGML OID) then the named element is extracted and returned
+as the result of the display operation (wrapped in a &lt;RESULT_DATA DOCID="1"&gt; tag with the appropriate source docid. Note that only a single 
+element will be substituted, though other special elements
+(such as "#RANK#", etc.) can be included in the results).
+<P>
+In addition to the above, the ELEMENTSET syntax STRING_SEGMENT_s_e 
+(where s and e are numbers giving the starting character position and
+the ending character position of in a document) can be used in scripts
+to extract strings from the record without full parsing. (The form
+STRING_SEGMENT_e can also be used to get everything from the 
+beginning of the record up to character position "e"). This elementset
+name does NOT need a displaydef/format to operate, but is included here
+because of its similar operation to XML_ELEMENT_ elementsets. See the 
+<a href="cheshire2.html#segment">client documentation</a> for more details.
+<P>
+The special format name &quot;PAGED_DEFAULT&quot; is used when the document
+has been indexed and retrieved using a KEYWORD_EXTERNAL index that uses
+the &quot;PAGED_DIRECTORY_REF&quot; attribute for extraction (see index
+definition information below). In this case &quot;psuedo-records&quot;
+will be generated representing each matching page of the page collection.
+They will include any tags not &quot;excluded&quot; from the base document.
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>OID=???</TD>
+
+<TD>recsyntax OID</TD>
+
+<TD>
+This attribute specifies the OID of the record syntax that will be matched
+against the specified record syntax oid in a Z39.50 present or search.
+This is typically used for &quot;convert&quot; specifications when converting 
+from XML/SGML to some other record syntax like GRS-1. 
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>MARC_DTD=???</TD>
+
+<TD><i>filename</i></TD>
+
+<TD>
+This attribute specifies the filename of the USMARC DTD that will be used
+in the MARC conversion for this format. The DTD should be one of the
+the USMARC dtds supplied in the doc/install directory of the cheshire
+distribution. MARC conversion for a NON-MARC file will cause an error
+if this filename is not supplied. DEFAULTPATH specifications are 
+prepended to the DTD name if it is not a full pathname.
+
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>DEFAULT</TD>
+
+<TD>optional</TD>
+
+<TD>If the DEFAULT keyword attribute is used, then the associated format
+is used whenever no explicit format is specified in a present or search.
+
+<P>Format specifications are used to indicate which elements in the base
+file are to be used in sending a record to a client via Z39.50. Each format
+entry can contain ONE of three subtags &lt;include&gt;, &lt;exclude&gt;, and &lt;convert&gt; (currently these cannot be combined in the same format).
+These are described below. </P>
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;include&gt;</TD>
+
+<TD></TD>
+
+<TD>tagspec</TD>
+
+<TD>This should contain a tagspec, (i.e., it can contain multiple tag definitions
+from the base file). It indicates which tags to INCLUDE in the records
+when this format is requested. This tag is optional and should be used
+when a particular format uses only some small set of tags from the base
+record. (NOT CURRENTLY SUPPORTED -- USE EXCLUDE) </TD>
+</TR>
+
+<TR>
+<TD>&lt;exclude ATTR...&gt;</TD>
+
+<TD></TD>
+
+<TD>tagspec</TD>
+
+<TD>This should contain a tagspec, (i.e., it can contain multiple tag definitions
+from the base file). It indicates which tags to EXCLUDE in the records
+when this format is requested. This tag is optional also and should be
+used when a particular format uses everything except some small set of
+tags. </TD>
+</TR>
+<TR>
+<TD>ATTR:</TD>
+
+<TD>COMPRESS=???</TD>
+
+<TD>exclusion compression</TD> <TD> This attribute can be used to
+indicate whether SGML elements that may be listed in the exclude
+specification and which are required by the DTD for the document are
+to be reduced to minimal forms (with all data replaced by elipsis
+(...) and only required tags retained. The options are "COMPRESS=YES"
+or "COMPRESS=TRUE" simply "COMPRESS", or "COMPRESS=NO" or "NOCOMPRESS"
+or "COMPRESS=FALSE"
+</TR>
+
+<TR>
+<TD>&lt;convert ATTR...&gt;</TD>
+
+<TD></TD>
+
+<TD>clusmap</TD>
+
+<TD>This is used to specify a conversion function to be run for each record,
+or for specific tags in a record. The tags to be converted are
+specified exactly like the cluster mapping (clusmap) described above.
+There should be a "FROM" and "TO" tagspec for each record element
+to be converted. The SUMMARIZE clusmap tag may be used to specify
+a string that should be substituted for matching tags. The string
+to be substituted is put in the <A HREF="#sumtag">TAGSPEC part of the SUMMARIZE tag</a>. The MAXNUM tag of the SUMMARIZE part is used to indicate
+the maximum number of conversions of matching tags to be performed (0 is
+all of them, and any number greater than 0 is the maximum number of conversions). Some special tokens can be used in the FROM part of a tagspec to indicate
+that metadata or processing information (such as internal document ID number,
+ranking value in retrieval, etc.) be included in the specified TO tag. See
+the following table for a description of these tokens. 
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>FUNCTION=???</TD>
+
+<TD>function name or path</TD>
+
+<TD>This attribute is the name of the function to apply to either the specified
+tags, or to the entire record if no tags are specified. The &quot;PAGE_PATH&quot;
+function indicates that the complete page path name should be constructed
+from the indicated tag (which should contain only the directory path) and
+returned as the tag &quot;&lt;PAGE_PATH&gt;&quot;. 
+The &quot;RECMAP&quot; function maps to the requested record syntax specified
+in the OID attribute of the display tag. When the OID for the format 
+requested is GRS-1, the keywords
+"TAGSET-M" and "TAGSET-G" can be used to map to the specified tags
+from these tagsets (by tag name or number). To use TAGSET-G numeric tags
+in conjunction with the SGML tag subelements of the mapped tags (I.e.,
+to treat all subelements of the TAGSET-G mapped tags like RECMAP conversion)
+the keyword "MIXED" can be used for the function.
+<p>
+"XML-ELEMENT" can be used to extract a single specified tag, or pattern that
+can match multiple tags,
+(in FROM). The TO element is used to substitute a new name for the
+tag specified in the FROM name tag name. If the conversion record syntax
+OID is XML or SGML, the element and its subelements are returned. If the
+conversion record syntax OID is for GRS-1, the specified element is
+converted to GRS-1 syntax like a "MIXED" record.
+<p>
+"MARC" can be used to do XML/SGML to MARC conversions -- it is up to
+configfile creator to provide the appropriate mappings from XML/SGML 
+elements to MARC fields and subfields. This requires that the 
+"FROM" and "TO" definitions be structured correctly for MARC conversions.
+The "FROM" tagspecs should specify one or more tags/elements <b>in the order
+that they are to appear in the subfields specified in the "TO" specifications.</b>
+For example, in a MARC conversion from an EAD format finding aid the following
+might be specified...
+<P><PRE>
+        &lt;from&gt;
+                &lt;tagspec&gt;
+		&lt;ftag&gt;archdesc&lt;/ftag&gt;&lt;s&gt;repository&lt;/s&gt;&lt;s&gt;address&lt;/s&gt;
+                &lt;ftag&gt;archdesc&lt;/ftag&gt;&lt;s&gt;repository&lt;/s&gt;&lt;s&gt;corpname|name&lt;/s&gt;
+                &lt;ftag&gt;archdesc&lt;/ftag&gt;&lt;s&gt;unitdate&lt;/s&gt;
+                &lt;/tagspec&gt;&lt;/from&gt;
+        &lt;to&gt;
+                &lt;tagspec&gt;
+                &lt;ftag&gt;260&lt;/ftag&gt;
+		&lt;ftag&gt;a&lt;/ftag&gt;
+		&lt;ftag&gt;b&lt;/ftag&gt;
+		&lt;ftag&gt;c&lt;/ftag&gt;
+                &lt;/tagspec&gt;&lt;/to&gt; 
+</PRE>
+<p>
+Each FROM/TO pair in the specification should correspond to a single MARC
+field.
+In the TO specification, the first FTAG should be the three digit MARC
+field number/name. The following FTAGS (if any) in the TO
+specification should be the subfields of the MARC field in the order
+they are to appear.  The FROM fields specified in each FTAG line
+should have a matching TO ftag line (following the first field name
+line). Data from fields found will be put into the matching subfields
+of the field. However, if there are multiple occurrences of particular
+field or subfield values for a given record, sometimes the mapping will
+be inaccurate (there is currently no way to automatically detect which
+of the subfields is paired with each of the other subfields).
+<p>
+If the function is a full pathname (e.g. starting with a / in unix or
+Linux or a drive letter, colon, backslash in NT/Windows), it is taken
+to be an EXTERNAL conversion program. Such an external program should
+be set up to read a single record via STDIN and to put out the
+converted form via STDOUT.
+
+
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+
+<TD>ALL?</TD>
+
+<TD>optional</TD>
+
+<TD>If the ALL attribute is used, it indicates that the function is to
+be applied to the entire record, and no tags are specified. When
+doing RECMAP conversion the output tags are the same as the SGML
+record tags (The ALL option works in GRS-1 record syntax conversions ONLY).
+</TD>
+</TR>
+</TABLE>
+
+<P><A NAME="tokens"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Display Specification Tokens for Conversions</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TOKEN</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD><I>NOTE:</I></TD>
+
+<TD> The tokens in this table can be used in the <FTAG> part of the FROM
+tagspec in a FORMAT specification to indicate that metadata or processing
+information should be placed in the tag specified in the matching TO 
+part of the format.
+</TD>
+</TR>
+
+<TR>
+<TD>#DOCID#</TD>
+
+<TD>Insert the internal document id number for the record. </TD>
+</TR>
+
+<TR>
+<TD>#COMPONENTID#</TD>
+
+<TD>Insert the internal component id number for the retrieved component. </TD>
+</TR>
+
+<TR>
+<TD>#COMPID#</TD>
+
+<TD>Insert the internal component id number for the retrieved component. </TD>
+</TR>
+
+<TR>
+<TD>#RANK#</TD>
+
+<TD>Insert the retrieval rank (i.e. the sequence in the ranking) for the record or component. </TD>
+</TR>
+
+<TR>
+<TD>#SCORE#</TD>
+
+<TD>Insert the retrieval score (normalized to a range from 1000 to 0) 
+for the record or component. </TD>
+</TR>
+
+<TR>
+<TD>#RELEVANCE#</TD>
+
+<TD>Insert the retrieval score (normalized to a range from 1000 to 0) 
+for the record or component. </TD>
+</TR>
+
+<TR>
+<TD>#RAWSCORE#</TD>
+
+<TD>Insert the raw retrieval score (calculated probability of relevance) 
+for the record or component. </TD>
+</TR>
+
+<TR>
+<TD>#RAWRELEVANCE#</TD>
+
+<TD>Insert the raw retrieval score (calculated probability of relevance) 
+for the record or component. </TD>
+</TR>
+
+<TR>
+<TD>#FILENAME#</TD>
+
+<TD>Insert the full pathname for the document or collection 
+of documents. </TD>
+</TR>
+
+<TR>
+<TD>#DBNAME#</TD>
+
+<TD>Insert the (short) database name (<FILETAG>) for the document 
+or component. </TD>
+</TR>
+
+
+<TR>
+<TD>#PARENT#</TD>
+
+<TD> For component displays, extract and include the tag (specified
+as the sub-elements of the from tag after the #PARENT# ftag). In the
+display the elements will have their names converted to PARENT-x where
+'x' is the tag name in the parent document.</TD>
+</TR>
+
+<TR>
+<TD>SUBST_ELEMENT</TD>
+
+<TD>Insert the element specified by the current elementsetname as
+"XML_ELEMENT_xxx" where xxx is the element name to be substituted. </TD>
+</TR>
+
+</TABLE>
+
+<P><A NAME="explain"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Configuration File Sub-Tags for Z39.50 Explain Information
+<br>All Explain information is optional and need not be supplied</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>Sub-tags/ATTR</TH>
+
+<TH>Data Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>&lt;TITLESTRING ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>
+Title to use for this database.
+</TR>
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;DESCRIPTION ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>
+Description of the database and its contents.
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;DISCLAIMERS ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>
+Any disclaimers associated with the database.
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;NEWS ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>
+Any news about the database.
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;HOURS ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>
+Hours of access for the database.
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;BESTTIME ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>
+Best times to access the database.
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;LASTUPDATE&gt;</TD>
+<TD>none</TD>
+<TD>text</TD>
+<TD>
+Last time the database was updated.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;UPDATEINTERVAL&gt;</TD>
+<TD>SUBTAGS</TD>
+<TD>text</TD>
+<TD>
+Frequency of updates of the database.
+</TD>
+</TR>
+
+<TR>
+<TD>SUBTAG</TD>
+<TD>&lt;VALUE&gt;</TD>
+<TD>number</TD>
+<TD>
+The number of days, weeks, years, etc between updates.
+</TD>
+</TR>
+
+<TR>
+<TD>SUBTAG</TD>
+<TD>&lt;UNIT&gt;</TD>
+<TD>time unit info</TD>
+<TD>
+The time unit used (day, week, month, year);
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;COVERAGE ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>Database coverage
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;PROPRIETARY&gt;</TD>
+<TD>none</TD>
+<TD>boolean</TD>
+<TD>
+Is the database proprietary? Acceptable contents are "YES" or "TRUE", "NO"
+or "FALSE".
+</TD>
+</TR>
+
+
+<TR>
+<TD>&lt;COPYRIGHTTEXT ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>Copyright text information
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;COPYRIGHTNOTICE ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>Copyright notice
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;PRODUCERCONTACTINFO&gt;</TD>
+<TD>none</TD>
+<TD>contactinfo</TD>
+<TD>
+Producer of the database -- contents are tagged using the CONTACT_... tags
+below.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;SUPPLIERCONTACTINFO&gt;</TD>
+<TD>none</TD>
+<TD>contactinfo</TD>
+<TD>
+Supplier of the database -- contents are tagged using the CONTACT_... tags
+below.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;SUBMISSIONCONTACTINFO&gt;</TD>
+<TD>none</TD>
+<TD>text</TD>
+<TD>
+Where to send submissions to the database -- 
+contents are tagged using the CONTACT_... tags below.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;CONTACT_NAME&gt;</TD>
+<TD>none</TD>
+<TD>text</TD>
+<TD>
+Name of the the contact person.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;CONTACT_DESCRIPTION ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>
+Description of contact information.
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;CONTACT_ADDRESS ATTR&gt;</TD>
+<TD>ATTR</TD>
+<TD>text</TD>
+<TD>
+Contact Addrress.
+</TD>
+</TR>
+
+<TR>
+<TD>ATTR:</TD>
+<TD>LANGUAGE=code</TD>
+<TD>language code</TD>
+<TD>
+Use the USMARC three letter language codes
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;CONTACT_EMAIL&gt;</TD>
+<TD>none</TD>
+<TD>text</TD>
+<TD>
+Contact Email.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;CONTACT_PHONE&gt;</TD>
+<TD>none</TD>
+<TD>text</TD>
+<TD>
+Contact Phone number.
+</TD>
+</TR>
+
+</TABLE>
+
+<P><A NAME="access"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">ACCESS Codes and Their Meanings</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>Code</TH>
+
+<TH>Affects</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>BTREE</TD>
+
+<TD>access type</TD>
+
+<TD>Selects the DBOPEN BTREE format for the main index file. </TD>
+</TR>
+
+<TR>
+<TD>HASH</TD>
+
+<TD>access type</TD>
+
+<TD>Selects the DBOPEN HASH format for the main index file. </TD>
+</TR>
+
+<TR>
+<TD>BITMAPPED</TD>
+
+<TD>access type</TD>
+
+<TD>Selects a bitmapped index file. Bitmap indexes can ONLY be used
+for Boolean retrieval, and they are specifically designed to speed up
+access time on indexes that have only a few values (such as an
+attribute that appears in every record of the database and has only 3
+or possible values), and a very large number of records (i.e.,
+hundreds of thousands or millions of records). In a BITMAPPED index
+only a single bit is stored for (potentially) each record in the
+database, instead of the 64 bits per entry stored in conventional
+indexes. More information about bitmapped indexes is available <a href=bitmapindex.html>here</a> </TD>
+</TR>
+
+<TR>
+<TD>VECTOR</TD>
+
+<TD>access type</TD>
+
+<TD>
+VECTOR files include a normal BTREE and an additional vector file,
+which must be created by running the <a href="index_vectors.html">
+index_vectors</a> program after
+normal indexing. VECTOR files permit quick lookup by internal termids,
+and a listing of all termids with frequency information for each
+document with lookup by internal document id). The VECTOR files are
+primarily used for blind feedback retrieval, to locate additional related
+terms to be added to an initial query.
+</TD>
+</TR>
+
+<TR>
+<TD>DBMS</TD>
+
+<TD>access type</TD>
+
+<TD>Indicates that the &quot;index&quot; name is an external DBMS table
+and column specification for the database indicated in the index tag. </TD>
+</TR>
+</TABLE>
+<A NAME="extract"></A>
+<p><HR><p>
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">EXTRACT Codes and Their Meanings</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>Code</TH>
+
+<TH>Affects</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>KEYWORD</TD>
+
+<TD>key type</TD>
+
+<TD>Indicates that keywords are to be extracted from the elements specified
+for this index. (In external DBMS files this is used to match character
+or text fields using the &quot;like&quot; operator) </TD>
+</TR>
+
+<TR>
+<TD>KEYWORD_EXTERNAL</TD>
+
+<TD>key type</TD>
+
+<TD>Indicates that keywords are to be extracted from the elements specified
+for this index some of which are indications of external non-SGML text
+files or of URLs of external HTML files. </TD>
+</TR>
+
+<TR>
+<TR>
+<TD>KEYWORD_PROXIMITY</TD>
+
+<TD>key type</TD>
+
+<TD>Indicates that keywords are to be extracted from the elements specified
+for this index and that proximity (character position information) is
+to be maintained in the index. PROXIMITY and KEYWORD_PROX are synonyms
+for this specification. Note that indexes including proximity information
+will be much larger than simple keyword indexes.
+ </TD>
+</TR>
+
+<TR>
+<TD>KEYWORD_EXTERNAL_PROXIMITY</TD>
+
+<TD>key type</TD>
+
+<TD>Indicates that keywords are to be extracted from the elements
+specified for this index some of which are indications of external
+non-SGML text files or of URLs of external HTML files and that
+proximity (character position information) is to be maintained in the
+index. KEYWORD_PROXIMITY_EXTERNAL, KEYWORD_EXTERNAL_PROX, and 
+KEYWORD_PROX_EXTERNAL are synonyms for this specification.
+Note that indexes including proximity information
+will be much larger than simple keyword indexes.
+</TD>
+</TR>
+
+<TR>
+<TD>EXACTKEY</TD>
+
+<TD>key type</TD>
+
+<TD>Indicates that exact keys are to be extracted from the elements specified
+for this index. Nota Bene: if a pattern is used for the tags specified
+for exact key extraction all items that match that pattern at the same
+level of nesting will be extracted and concatenated to form the exact key
+-- see tag specifications below. (In external DBMS files this is used to
+match text or character fields using &quot;=&quot;). </TD>
+</TR>
+
+<TR>
+<TD>FLD008_KEY</TD>
+
+<TD>key type</TD>
+
+<TD>Indicates that sub-elements of a MARC 008 field are to be extracted
+from the field tag specified for this index. The particular sub-elements
+are listed in the &quot;008 elements&quot; table below. (Only applicable
+for SGML MARC records) </TD>
+</TR>
+
+
+<TR>
+<TD>FLD008_DATE</TD>
+
+<TD>key type</TD>
+
+<TD>Indicates that sub-elements of a MARC 008 field are to be extracted
+from the field tag specified for this index. This is used in conjunction
+with one of the date formats for the NORMAL attribute(see below). The particular sub-elements
+are listed in the &quot;008 elements&quot; table below. (Only applicable
+for SGML MARC records) </TD>
+</TR>
+
+
+<TR>
+<TD>FLD008_DATERANGE</TD>
+
+<TD>key type</TD>
+
+<TD>Indicates that sub-elements of a MARC 008 field are to be
+extracted from the field tag specified for this index.  This is used
+in conjunction with one of the date range formats for the NORMAL
+attribute(see below). The particular sub-elements are listed in the
+&quot;008 elements&quot; table below. (Only applicable for SGML MARC
+records) </TD> </TR>
+
+<TR>
+<TD>URL</TD>
+
+<TD>key type</TD>
+
+<TD>This is used to indicate that the contents to be extracted are URLs. </TD>
+</TR>
+
+<TR>
+<TD>FILENAME</TD>
+
+<TD>key type</TD>
+
+<TD>This is used to indicate that the contents to be extracted are filenames
+(for example, full unix pathnames). </TD>
+</TR>
+
+<TR>
+<TD>DATE</TD>
+
+<TD>key type</TD>
+
+<TD>This is to indicate that the extracted values should be parsed for
+date values based on the pattern provided in the NORMAL attribute (see
+below). </TD>
+</TR>
+
+<TR>
+<TD>DATE_RANGE</TD>
+
+<TD>key type</TD>
+
+<TD>This is to indicate that the extracted values should be parsed for
+date range values based on the pattern provided in the NORMAL attribute (see
+below). </TD>
+</TR>
+
+<TR>
+<TD>DATE_TIME</TD>
+
+<TD>key type</TD>
+
+<TD>This is to indicate that the extracted values should be parsed for
+date and time values based on the pattern provided in the NORMAL attribute (see
+below). </TD>
+</TR>
+
+<TR>
+<TD>DATE_TIME_RANGE</TD>
+
+<TD>key type</TD>
+
+<TD>This is to indicate that the extracted values should be parsed for
+date and time range values based on the pattern provided in the NORMAL
+attribute (see below). 
+</TD> 
+</TR>
+
+<TR>
+<TD>INTEGER_KEY</TD>
+
+<TD>key type</TD>
+
+<TD>This is used to extract a single integer value, which should be
+the first data within the tag/field being extracted (white space will
+be ignored, but non numerical characters will not be indexed). The
+index entry is currently a zero-padded string of 10 digits with an
+optional leading minus sign.
+It is also used with DBMS files to indicate that the external DBMS
+type for this field is an integer. </TD>
+</TR>
+
+<TR>
+<TD>DECIMAL_KEY</TD>
+
+<TD>key type</TD>
+
+<TD>This is used to extract a single decimal value, which should be
+the first data within the tag/field being extracted (white space will
+be ignored, but non numerical characters will not be indexed). The number 
+may include a decimal point and fractional part (for example "100.4356". 
+The index entry is currently a zero-padded string of 16 digits with an
+optional leading minus sign and 6 digits after the decimal point.
+This specification is also used with DBMS files to indicate that the external DBMS
+type for this field is an decimal number. </TD>
+</TR>
+
+<TR>
+<TD>LAT_LONG</TD>
+
+<TD>key type</TD>
+
+<TD>This is to indicate that the extracted values should be parsed for 
+Latitude and Longitude values based on the pattern provided in the NORMAL attribute (see
+below). </TD>
+</TR>
+
+<TR>
+<TD>LATITUDE_LONGITUDE</TD>
+
+<TD>key type</TD>
+
+<TD>Same as LAT_LONG above. </TD>
+</TR>
+
+<TR>
+<TD>LATITUDE/LONGITUDE</TD>
+
+<TD>key type</TD>
+
+<TD>Same as LAT_LONG above. </TD>
+</TR>
+
+<TR>
+<TD>GEO_POINT</TD>
+
+<TD>key type</TD>
+
+<TD>Same as LAT_LONG above. </TD>
+</TR>
+
+<TR>
+<TD>BOUNDING_BOX</TD>
+
+<TD>key type</TD>
+
+<TD>This is to indicate that the extracted values should be parsed for 
+a pair of Latitude and Longitude values based on the pattern provided in the NORMAL attribute (see
+below). </TD>
+</TR>
+
+<TR>
+<TD>GEO_BOX</TD>
+
+<TD>key type</TD>
+
+<TD>Same as BOUNDING_BOX above. </TD>
+</TR>
+
+<TR>
+<TD>GEOTEXT</TD>
+
+<TD>key type</TD>
+
+<TD>This normalization relies on an external cheshire database containing a
+gazetteer, candidate terms in the document are compared against this
+gazetteer database and only terms/phrases that match gazetteer entries
+are actually entered into the index. The EXTERN_APP tag (see above) must be
+used to specify the config file, database name and index to be used
+in matching. The NORMAL tag should indicate one of the text processing
+normalization methods below (BASIC) is simplest. The generated terms
+are, by default, keywords derived from the Gazetteer entry names, using
+EXACTKEY or EXACTKEY_NOMAP uses the exact phrase from the Gazetteer.
+DO_NOT_NORMALIZE retains the exact capitalization, spacing, etc. from
+from Gazetteer entry.</TD>
+
+</TR>
+
+<TR>
+<TD>GEOTEXT_LAT_LONG</TD>
+
+<TD>key type</TD>
+
+<TD>This normalization relies on an external cheshire database containing a
+gazetteer, candidate terms in the document are compared against this
+gazetteer database and only terms/phrases that match gazetteer entries
+are actually included, but the (point) coordinates from the gazetteer are used
+as the generated keys. The EXTERN_APP tag (see above) must be
+used to specify the config file, database name and index to be used
+in matching. Lat_long NORMAL specifications should be used to indicate
+how queries should be parsed when matching to the generated index. </TD>
+</TR>
+
+<TR>
+<TD>GEOTEXT_BOUNDING_BOX</TD>
+
+<TD>key type</TD>
+
+<TD>This normalization relies on an external cheshire database containing a
+gazetteer, candidate terms in the document are compared against this
+gazetteer database and only terms/phrases that match gazetteer entries
+are actually included. In this case bounding box coordinates 
+from the gazetteer are used directly or generated from point data for
+the generated keys entered into the index. The EXTERN_APP tag (see above) 
+must be used to specify the config file, database name and index to be used
+in matching. Bounding_box NORMAL specifications should be used to indicate
+how queries should be parsed when matching to the generated index.</TD>
+</TR>
+
+
+</TABLE> 
+
+<p>
+<A NAME="normal"></A> 
+<HR>
+<p> 
+<TABLE BORDER=2 > 
+<CAPTION> <H2><FONT COLOR="#B22222">NORMAL Codes and Their Meanings</FONT></H2> </CAPTION>
+
+<TR>
+<TH>Code</TH>
+
+<TH>Affects</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that the Porter stemming algorithm should be used to normalize
+the keywords extracted. </TD>
+</TR>
+
+<TR>
+<TD>STEM_FREQ</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that the Porter stemming algorithm should be used to normalize
+the keywords extracted. This normalization type assumes that <B>each</B> keyword
+is paired with frequency information in the form &quot;{word 20}&quot;,
+where 20 is the frequency. <i>THIS IS PRIMARILY USED FOR COLLECTION-LEVEL 
+DOCUMENTS IN DISTRIBUTED SEARCH.</i></TD>
+</TR>
+
+
+<TR>
+<TD>SSTEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a simple plural-removal algorithm should be used to
+normalize the keywords extracted. </TD> </TR>
+
+<TR>
+<TD>SSTEM_FREQ</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a simple plural-removal algorithm should be used to normalize
+the keywords extracted. This normalization type assumes that <B>each</B> keyword
+is paired with frequency information in the form &quot;{word 20}&quot;,
+where 20 is the frequency. <i>THIS IS PRIMARILY USED FOR COLLECTION-LEVEL 
+DOCUMENTS IN DISTRIBUTED SEARCH.</i></TD>
+</TR>
+
+<TR>
+<TD>FRENCH_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the French
+language should be used to normalize the keywords extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD>
+</TR>
+
+<TR>
+<TD>GERMAN_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the
+German language should be used to normalize the
+keywords extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+<TR>
+<TD>ENGLISH_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the
+English language (porter2 stemmer) should be used to normalize the
+keywords extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+<TR>
+<TD>PORTER_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the
+English language (original porter stemmer) language should be used to
+normalize the keywords extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+<TR>
+<TD>DUTCH_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the Dutch
+language should be used to normalize the keywords extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD>
+</TR>
+
+<TR>
+<TD>SPANISH_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the
+Spanish language should be used to normalize the keywords
+extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+<TR>
+<TD>ITALIAN_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the
+Italian language should be used to normalize the keywords
+extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+<TR>
+<TD>SWEDISH_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the
+Swedish language should be used to normalize the keywords
+extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+<TR>
+<TD>PORTUGUESE_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the
+Portuguese language should be used to normalize the keywords
+extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+<TR>
+<TD>RUSSIAN_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the
+Russian language (in UTF-8 encoding) should be used to normalize the
+keywords extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+<TR>
+<TD>RUSSIAN_UTF8_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the Russian language (UTF-8 Encoding) should be used to
+normalize the keywords extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). (alias of the previous code) </TD> </TR>
+
+<TR>
+<TD>RUSSIAN_KOI8_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the
+Russian language (in KOI-8 encoding) should be used to normalize the
+keywords extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+<TR>
+<TD>DANISH_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the Danish language should be used to
+normalize the keywords extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+<TR>
+<TD>NORWEGIAN_STEM</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that a Snowball-stemmer generated stemmer for the
+Norwegian language should be used to normalize the keywords
+extracted. (Note: FREQ form is also supplied as ..._STEMFREQ). </TD> </TR>
+
+
+<TR>
+<TD>WORDNET</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that WordNet &quot;morphing&quot; should be used to normalize
+the keywords extracted. </TD>
+</TR>
+
+<TR>
+<TD>EXACTKEY</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that spacing should be normalized, punctuation and stopwords
+the removed from the key extracted. (XKEY is an alias for EXACTKEY). </TD>
+</TR>
+
+<TR>
+<TD>XKEY_FREQ</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that spacing should be normalized, punctuation and stopwords
+the removed from the key extracted. 
+This normalization type assumes that <B>each</B> exact key
+is paired with frequency information in the form &quot;{exact key value 20}&quot;,
+where 20 is the frequency. <i>THIS IS PRIMARILY USED FOR COLLECTION-LEVEL 
+DOCUMENTS IN DISTRIBUTED SEARCH.</i>
+</TD>
+</TR>
+
+<TR>
+<TD>CLASSCLUS</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that LC class number normalization for classification clustering
+should be used to normalize the key extracted. </TD>
+</TR>
+
+<TR>
+<TD>BASIC_NOMAP</TD>
+
+<TD>normalization</TD>
+
+<TD> No term normalization will be done. _NOMAP indicates that the character mappings
+done during normalization in indexing and retrieval should NOT be used  </TD>
+</TR>
+
+<TR>
+<TD>STEM_NOMAP</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that the Porter stemming algorithm should be used to normalize
+the keywords extracted. _NOMAP indicates that the character mappings
+done during normalization in indexing and retrieval should NOT be used </TD>
+</TR>
+
+<TR>
+<TD>WORDNET_NOMAP</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that WordNet &quot;morphing&quot; should be used to normalize
+the keywords extracted. _NOMAP indicates that the character mappings
+done during normalization in indexing and retrieval should NOT be used </TD>
+</TR>
+
+<TD>EXACTKEY_NOMAP</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that spacing should be normalized, punctuation and stopwords
+the removed from the key extracted. (XKEY_NOMAP is an alias for 
+EXACTKEY_NOMAP). </TD>
+</TR>
+
+<TR>
+<TD>CLASSCLUS_NOMAP</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that LC class number normalization for classification clustering
+should be used to normalize the key extracted. _NOMAP indicates that the character mappings
+done during normalization in indexing and retrieval should NOT be used </TD>
+</TR>
+
+<TR>
+<TD><i>DATE PATTERN VALUE</i></TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that the key extracted will be a date (the EXTRACT attribute
+must be one of the date types) and the date pattern will be used in 
+matching the elements of the dates that appear in the database records.
+See the table 
+<A HREF="#dates">Date Format Patterns and Their Interpretations</A>
+for DATE_TIME format patterns.
+Date parsing is fairly flexible, and as long as the order of elements
+is correct, dates should be correctly extracted. (NOTE: date patterns for
+cluster key normalization is not currently supported)</TD>
+</TR>
+
+<TR>
+<TD><i>LAT_LONG PATTERN VALUE</i></TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that the key extracted will be a Latitude and Longitude
+value (the EXTRACT attribute
+must be one of the LAT_LONG types) and the LAT_LONG pattern will be used in 
+matching the elements of the coordinates that appear in the database records.
+LAT_LONG parsing is fairly flexible, but the order of elements
+is important. See the table <A HREF="#latlong">LAT_LONG and BOUNDING_BOX Format Patterns and Their Interpretations</A> for the specific codes that 
+can be used.</TD>
+</TR>
+
+<TR>
+<TD><i>BOUNDING_BOX PATTERN VALUE</i></TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that the key extracted will be a pair of Latitude and Longitude
+values (the EXTRACT attribute
+must be one of the BOUNDING_BOX types) and the LAT_LONG pattern will be used in 
+matching the elements of the coordinates that appear in the database records.
+Parsing is fairly flexible, but the order of elements is important. See the 
+table <A HREF="#latlong">LAT_LONG and BOUNDING_BOX Format Patterns 
+and Their Interpretations</A> for the specific codes that 
+can be used.</TD>
+</TR>
+
+<TR>
+<TD>BASIC</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that the key extracted should simply be converted to lower
+case and have punctuation, extraneous spaces and stopwords removed. </TD>
+</TR>
+
+<TR>
+<TD>NONE</TD>
+
+<TD>normalization</TD>
+
+<TD>Same as BASIC, this is the deprecated name for this
+option. Indicates that the key extracted should simply be converted to
+lower case and have punctuation, extraneous spaces and stopwords
+removed. NONE can be used just as BASIC is use (including in the compounds
+below).</TD> </TR>
+
+<TR>
+<TD>BASIC_FREQ</TD>
+
+<TD>normalization</TD>
+
+<TD>Indicates that the key extracted should simply be converted to
+lower case and have punctuation and stopwords removed. This
+normalization type assumes that <B>each</B> keyword is paired with
+frequency information in the form &quot;{word 20}&quot;, where 20 is
+the frequency. <i>THIS IS PRIMARILY USED FOR COLLECTION-LEVEL
+DOCUMENTS IN DISTRIBUTED SEARCH.</i>
+</TD>
+</TR>
+
+<TR>
+<TD>DO_NOT_NORMALIZE</TD>
+
+<TD>normalization</TD>
+
+<TD>This mean NO normalization, including the simple normalization done
+by BASIC is to be performed. The terms are put into the index exactly as
+they appear in the document with capitalization, etc. intact.  NOTE that
+if SGML/XML tags appear in the extracted data, they WILL be included
+in the generated key.
+</TD>
+</TR>
+<TR>
+
+<TD>REMOVE_TAGS_ONLY</TD>
+
+<TD>normalization</TD>
+
+<TD>This mean NO normalization, including the simple normalization done
+by BASIC is to be performed, EXCEPT FOR REMOVAL OF EMBEDDED SGML/XML TAGS
+in the data. The terms are put into the index exactly as
+they appear in the document with capitalization, etc. intact.
+</TD>
+</TR>
+
+<TD>REMOVE_TAGS_ONLY_FREQ</TD>
+
+<TD>normalization</TD>
+
+<TD>This mean NO normalization, including the simple normalization done
+by BASIC is to be performed, EXCEPT FOR REMOVAL OF EMBEDDED SGML/XML TAGS
+in the data. The terms are put into the index exactly as
+they appear in the document with capitalization, etc. intact.
+This normalization type assumes that <B>each</B> key
+is paired with frequency information in the form &quot;{exact key value 20}&quot;,
+where 20 is the frequency. <i>THIS IS PRIMARILY USED FOR COLLECTION-LEVEL 
+DOCUMENTS IN DISTRIBUTED SEARCH.</i>
+</TD>
+</TR>
+
+
+</TABLE>
+
+
+<p><A NAME="dates"></A>
+<HR><p>
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">DATE FORMATS and Their Interpretation</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>FORMAT</TH>
+
+<TH>Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>YYMMDD </TD>
+
+<TD><I>date</I></TD>
+<TD>Fixed format dates, e.g.: 980223.
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+
+<TR>
+<TD>YYYYMMDD </TD>
+
+<TD><I>date</I></TD>
+<TD>Fixed format date, e.g.: 19980223</TD>
+
+
+<TR>
+<TD>MM/DD/YY </TD>
+
+<TD><I>date</I></TD>
+<TD>slash style dates, e.g.: 2/23/98
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+
+<TR>
+<TD>MM/DD/YYYY </TD>
+
+<TD><I>date</I></TD>
+<TD>slash style dates with full year, e.g.: 2/23/1998.</TD>
+
+
+<TR>
+<TD>DD/MM/YY </TD>
+
+<TD><I>date</I></TD>
+<TD>slash style dates, e.g.: 2/23/98
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+
+<TR>
+<TD>DD/MM/YYYY </TD>
+
+<TD><I>date</I></TD>
+<TD>slash style dates with full year, e.g.: 2/23/1998.</TD>
+
+<TR>
+<TD>MM.DD.YY </TD>
+
+<TD><I>date</I></TD>
+<TD>dot style dates, e.g.: 2.23.98
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+<TR>
+<TD>MM.DD.YYYY </TD>
+
+<TD><I>date</I></TD>
+<TD>dot style dates with full year, e.g.: 2/23/1998.</TD>
+
+<TR>
+<TD>DD.MM.YY </TD>
+
+<TD><I>date</I></TD>
+<TD>dot style dates, e.g.: 22.02.98
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+<TR>
+<TD>DD.MM.YYYY </TD>
+
+<TD><I>date</I></TD>
+<TD>dot style dates with full year, e.g.: 2/23/1998.</TD>
+
+<TR>
+<TD>DD MMM YYYY </TD>
+
+<TD><I>date</I></TD>
+<TD>Dates with month abbreviations, e.g.: 23 Feb 1998</TD>
+
+
+<TR>
+<TD>DD MMM YEAR </TD>
+
+<TD><I>date</I></TD>
+<TD>Dates with month abbreviations, e.g.: 23 Feb 1998. This
+form may be used if the data contain years with less (or more) 
+than 4 digits, but
+are not in the Twentieth century.
+For example "13 Apr 856 AD", or "25 Dec 1 B.C." are legal dates for this
+format.
+</TD>
+
+
+<TR>
+<TD>DD MMM YY </TD>
+
+<TD><I>date</I></TD>
+<TD>Dates with month abbreviations, e.g.: 23 Feb 98.
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+<TR>
+<TD>DD MONTH YY </TD>
+
+<TD><I>date</I></TD>
+<TD>Dates with month abbreviations or full month names, e.g.: 23 February 98.
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+
+<TR>
+<TD>DD MONTH YYYY </TD>
+
+<TD><I>date</I></TD>
+<TD>Dates with month abbreviations or full month names, e.g.: 23 February 98.
+</TD>
+
+
+<TR>
+<TD>DD MONTH YEAR </TD>
+
+<TD><I>date</I></TD>
+<TD>Dates with month abbreviations or full month names, e.g.: 23 February 98.
+ This
+form may be used if the data contain years with less (or more) 
+than 4 digits, but
+are not in the Twentieth century.
+For example "13 Apr 856 AD", or "25 Dec 1 B.C." are legal dates for this
+format.</TD>
+
+<TR>
+<TD>MONTH DD, YY </TD>
+
+<TD><I>date</I></TD>
+<TD>Dates with month abbreviations or full month names, e.g.: February 23, 98.
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+
+
+<TR>
+<TD>MONTH DD, YYYY </TD>
+
+<TD><I>date</I></TD>
+<TD>Dates with month abbreviations or full month names, e.g.: February 23, 1998.
+</TD>
+
+
+<TR>
+<TD>YYMMDD HH:MM </TD>
+
+<TD><I>date_time</I></TD>
+<TD>Fixed format date and time, e.g.: 980223 12:04
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+
+
+<TR>
+<TD>YYYYMMDD HH:MM </TD>
+
+<TD><I>date_time</I></TD>
+<TD>Fixed format date and time, e.g.: 19980223 12:04</TD>
+
+
+<TR>
+<TD>MM/DD/YY HH:MM </TD>
+
+<TD><I>date_time</I></TD>
+<TD>slash style dates with time of day, e.g.: 2/23/98 12:02
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+
+<TR>
+<TD>MM/DD/YYYY HH:MM </TD>
+
+<TD><I>date_time</I></TD>
+<TD>slash style dates with time of day, e.g.: 2/23/1998 12:02</TD>
+
+
+<TR>
+<TD>DD/MM/YY HH:MM </TD>
+
+<TD><I>date_time</I></TD>
+<TD>slash style dates with time of day, e.g.: 23/2/98 12:02
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+
+<TR>
+<TD>DD/MM/YYYY HH:MM </TD>
+
+<TD><I>date_time</I></TD>
+<TD>slash style dates with time of day, e.g.: 23/2/1998 12:02</TD>
+
+
+<TR>
+<TD>MM.DD.YY HH:MM </TD>
+
+<TD><I>date_time</I></TD>
+<TD>dot style dates with time of day, e.g.: 2.23.98 12:02
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+<TR>
+<TD>MM.DD.YYYY HH:MM </TD>
+
+<TD><I>date_time</I></TD>
+<TD>dot style dates with time of day, e.g.: 2.23.1998 12:02</TD>
+
+<TR>
+<TD>DD.MM.YY HH:MM </TD>
+
+<TD><I>date_time</I></TD>
+<TD>dot style dates with time of day, e.g.: 23.2.98 12:02
+Note that the system will assume that dates in this form are
+for the Twentieth century ONLY -- 98 becomes 1998</TD>
+
+<TR>
+<TD>DD.MM.YYYY HH:MM </TD>
+
+<TD><I>date_time</I></TD>
+<TD>dot style dates with time of day, e.g.: 23.2.1998 12:02</TD>
+
+<TR>
+<TD>YYYY </TD>
+
+<TD><I>date</I></TD>
+<TD>fixed format, year only, e.g.: 1998, 1754, 1292, 1056</TD>
+
+
+<TR>
+<TD>YEAR </TD>
+
+<TD><I>date</I></TD>
+<TD>Variable length years, e.g.: "1998", "24 B.C.E.", "57 A.D.",
+"500000 B.C.", "1852 C.E."</TD>
+
+
+<TR>
+<TD>YYDDD </TD>
+
+<TD><I>date</I></TD>
+<TD>Julian Dates (not currently supported)</TD>
+
+
+<TR>
+<TD>DECADE </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Decades within a century, e.g. "1940's" is interpreted
+as the range from 1940-1949, "20's" is interpreted as
+1920-1929, 1870's is interpreted as 1870-1879.</TD>
+
+
+<TR>
+<TD>CENTURY </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Centuries, e.g.: 20th is interpreted as 1900-1999, 
+"4th century b.c." is interpreted as 400B.C.-301B.C. </TD>
+
+
+<TR>
+<TD>MILLENNIUM </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Millennia, e.g.: "4th millenium B.C." is interpreted as
+4000B.C.- 3001B.C.
+</TD>
+
+<TR>
+<TD>MIXED YEAR </TD>
+
+<TD><I>date</I></TD>
+<TD>Extracts year from mixed data which may include full dates and
+years. Assumes that only 3 and 4 digit numbers in the string
+is the year, so it may error if there are decade, century or millenium
+specifications. Checks for era also. Any text (except for era specifications
+following the year -- e.g.: 924 B.C.--) or non-numeric characters are
+ignored.
+</TD>
+
+<TR>
+<TD>MIXED_YEAR </TD>
+
+<TD><I>date</I></TD>
+<TD>Same as above
+</TD>
+
+
+<TR>
+<TD>UNIX_TIME </TD>
+
+<TD><I>date</I></TD>
+<TD>Dates as returned by the UNIX ctime function, for example
+"Wed Apr 12 10:18:21 2000 EDT" the trailing zone information is
+ignored.
+</TD>
+
+<TR>
+<TD>UNIX_CTIME </TD>
+
+<TD><I>date</I></TD>
+<TD>Same as above
+</TD>
+
+<TR>
+<TD>DAY MONTH DD HH:MM:SS YEAR </TD>
+
+<TD><I>date</I></TD>
+<TD>Same as UNIX_TIME above
+</TD>
+
+<TR>
+<TD>DAY MMM DD HH:MM:SS YYYY </TD>
+
+<TD><I>date</I></TD>
+<TD>Same as UNIX_TIME above
+</TD>
+
+<TR>
+<TD>YYYY-YYYY </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of years in fixed (4 digit) form, e.g.: 1920-1945</TD>
+
+
+<TR>
+<TD>YYYY to YYYY </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of years in fixed (4 digit) form, e.g.: "1920 to 1945"</TD>
+
+
+<TR>
+<TD>YYYY through YYYY </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of years in fixed (4 digit) form, e.g.: "1920 through 1945"</TD>
+
+
+
+<TR>
+<TD>YEAR-YEAR </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of years without fixed format, e.g.: "22 B.C - 12 A.D.", 
+1950-1990, "50000 BCE - 100 CE"</TD>
+
+
+<TR>
+<TD>YEAR to YEAR </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of years without fixed format, e.g.: "22 B.C to 12 A.D.", 
+1950 to 1990, "50000 BCE to 100 CE"</TD>
+
+<TR>
+<TD>YEAR through YEAR </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of years without fixed format, e.g.: "22 B.C - 12 A.D.", 
+1950-1990, "50000 BCE to 100 CE"</TD>
+
+<TR>
+<TD>DECADE-DECADE </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of decades, e.g.: "20's-50's" is interpreted as 1920-1959. 
+</TD>
+
+
+<TR>
+<TD>DECADE to DECADE </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of decades, e.g.: "20's to 50's" is interpreted as 1920-1950. 
+</TD>
+
+<TR>
+<TD>DECADE through DECADE </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of decades, e.g.: "20's through 50's" is interpreted as 1920-1959. 
+
+<TR>
+<TD>CENTURY-CENTURY </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of Centuries, e.g.: "3rd cent bc - 8th century ad" is
+interpreted as 300B.C.-700A.D.</TD>
+
+
+<TR>
+<TD>CENTURY to CENTURY </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of Centuries, e.g.: "3rd cent bc to 8th century ad" is
+interpreted as 300B.C.-700A.D.</TD>
+
+<TR>
+<TD>CENTURY through CENTURY </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of Centuries, e.g.: "3rd cent bc through 8th century ad" is
+interpreted as 300B.C.-799A.D.</TD>
+
+<TR>
+<TD>MILLENNIUM-MILLENNIUM </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of Millennia, e.g.: "8th millennium bc through 1st millenium AD" is
+interpreted as 8000B.C.-999A.D.</TD>
+
+<TR>
+<TD>MILLENNIUM to MILLENNIUM </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of Millennia, e.g.: "8th millennium bc through 1st millenium AD" is
+interpreted as 8000B.C.-999A.D.</TD>
+
+<TR>
+<TD>MILLENNIUM through MILLENNIUM </TD>
+
+<TD><I>date_range</I></TD>
+<TD>Range of Millennia, e.g.: "8th millennium bc through 1st millenium AD" is
+interpreted as 8000B.C.-999A.D.</TD>
+
+
+<TR>
+<TD>MIXED YEAR RANGE</TD>
+
+<TD><I>date</I></TD>
+
+<TD>Extracts one or a pair of years from mixed data which may include
+full dates and years. Assumes that 3 and 4 digit numbers in the string
+are the year specifications. The first two three and four digit
+numbers are used to determine the date range, so it may error if there
+are decade, century or millenium specifications. Checks for era also.
+If the data contains only a single (3 or 4 digit) year, the range is
+created for the that year only. Any text (except for era specifications
+following the year -- e.g.: 924 B.C.--) or non-numeric characters are
+ignored.
+</TD>
+
+<TR>
+<TD>MIXED_YEAR_RANGE </TD>
+
+<TD><I>date</I></TD>
+<TD>Same as above
+</TD>
+
+</TABLE>
+
+
+<p><A NAME="latlong"></A>
+<HR><p>
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">LAT_LONG and BOUNDING_BOX FORMATS and Their Interpretation</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>FORMAT</TH>
+
+<TH>Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>DDoMM'SS''NS DDDoMM'SS''EW </TD>
+
+<TD><I>LAT_LONG</I></TD>
+<TD>Latitude and Longitude using "DD" (degrees), "MM" (minutes) and
+"SS", separated by "o" (lower case O) for degrees, a single quote for
+minutes and two single quotes for seconds, followed by EITHER "N" or "S"
+for Latitudes or "E" or "W" for Longitudes. For example, Latitude
+and Longitude for San Francisco, California can be expressed as
+"37o45'53''N 122o24'36''W" and parsed using this format.</TD>
+
+<TR>
+<TD>DD-MM-SS NS DDD-MM-SS EW </TD>
+
+<TD><I>LAT_LONG</I></TD> <TD>Latitude and Longitude using "DD"
+(degrees), "MM" (minutes) and "SS", separated by hypens, followed by
+one or more spaces and EITHER "N" or "S" for Latitudes or "E" or "W"
+for Longitudes. For example, Latitude and Longitude for San Francisco,
+California can be expressed as "37-45-53 N 122-24-36 W" and parsed
+using this format.</TD>
+
+<TR>
+<TD>DD-MM-SS-NS DDD-MM-SS-EW </TD>
+
+<TD><I>LAT_LONG</I></TD> <TD>Latitude and Longitude using "DD"
+(degrees), "MM" (minutes) and "SS", and EITHER "N" or "S" for
+Latitudes or "E" or "W" for Longitudes, separated by hypens. For
+example, Latitude and Longitude for San Francisco, California can be
+expressed as "37-45-53-N 122-24-36-W" and parsed using this
+format.</TD>
+
+<TR>
+<TD>DECIMAL_LAT_LONG </TD>
+
+<TD><I>LAT_LONG</I></TD>
+<TD>Latitude and Longitude using degrees and decimal fractions of degrees
+with positive numbers indicating NORTH latitudes or EAST longitudes, and
+negative numbers indicating SOUTH latitudes and WEST longitudes. For example, 
+Latitude
+and Longitude for San Francisco, California can be expressed as
+"37.765 -122.41" and parsed using this format.</TD>
+
+
+<TR>
+<TD>DECIMAL_LONG_LAT </TD>
+
+<TD><I>LAT_LONG</I></TD>
+<TD>Latitude and Longitude using degrees and decimal fractions of degrees
+with positive numbers indicating NORTH latitudes or EAST longitudes, and
+negative numbers indicating SOUTH latitudes and WEST longitudes. For example, 
+Longitude
+and Latitude for San Francisco, California can be expressed as
+"-122.41 37.765" and parsed using this format.</TD>
+
+<TR>
+<TD>DECIMAL_BOUNDING_BOX </TD>
+
+<TD><I>BOUNDING_BOX</I></TD>
+<TD>A pair of Latitudes and Longitudes using degrees and decimal fractions of degrees
+with positive numbers indicating NORTH latitudes or EAST longitudes, and
+negative numbers indicating SOUTH latitudes and WEST longitudes. The first
+latitude and longitude represent the North-West corner of the bounding
+box and the second latitude and longitude represent the South-West corner.
+For example, a bounding box around peninsula of 
+ California can be expressed as
+"37.815834 -122.498886 37.601112 -122.318611"
+and parsed using this format.</TD>
+
+<TR>
+<TD>FGDC_BOUNDING_BOX </TD>
+
+<TD><I>BOUNDING_BOX</I></TD>
+<TD>A set of Latitude and Longitude coordinates using degrees and decimal fractions of degrees
+with positive numbers indicating NORTH latitudes or EAST longitudes, and
+negative numbers indicating SOUTH latitudes and WEST longitudes. These
+coordinates follow the order for bounding boxes in the FGDC guidelines.
+That is, the first coordinate is the West bounding coordinate (BC), 
+followed by the East BC, the North BC, and the South BC.
+For example, a FGDC bounding box around peninsula of 
+ California can be expressed as
+"-122.498886 -122.318611 37.815834 37.601112"
+and parsed using this format. Note that whitespace and XML tags are
+ignored when extracting the data, so a recommended FGDC XML bounding
+box definition like:
+<br>&lt;bounding&gt;
+<br>&lt;westbc&gt;-122.71456201&lt;/westbc&gt;
+<br>&lt;eastbc&gt;-122.19128542&lt;/eastbc&gt;
+<br>&lt;northbc&gt;38.00205344&lt;/northbc&gt;
+<br>&lt;southbc&gt;37.68397727&lt;/southbc&gt;
+<br>&lt;/bounding&gt;
+<br> can be parsed correctly without pre-processing.
+</TD>
+
+<TR>
+<TD>DDoMM'SS''NS DDDoMM'SS''EW DDoMM'SS''NS DDDoMM'SS''EW</TD>
+
+<TD><I>BOUNDING_BOX</I></TD>
+<TD>A pair of Latitude and Longitude coordinates using "DD" (degrees), "MM" (minutes) and
+"SS", separated by "o" (lower case O) for degrees, a single quote for
+minutes and two single quotes for seconds, followed by EITHER "N" or "S"
+for Latitudes or "E" or "W" for Longitudes. For example, a bounding box for
+the peninsula of San Francisco, California can be expressed as
+"37o48'57''N 122o29'56''W 37o36'4''N 122o19'7''W" and
+parsed using this format </TD>
+<TR>
+<TR>
+<TD>DDoMM'SS''NS DDDoMM'SS''EW DDoMM'SS''NS DDDoMM'SS''EW</TD>
+
+<TD><I>BOUNDING_BOX</I></TD>
+<TD>A pair of Latitude and Longitude coordinates using "DD" (degrees), "MM" (minutes) and
+"SS", separated by "o" (lower case O) for degrees, a single quote for
+minutes and two single quotes for seconds, followed by EITHER "N" or "S"
+for Latitudes or "E" or "W" for Longitudes. For example, a bounding box for
+the peninsula of San Francisco, California can be expressed as
+"37o48'57''N 122o29'56''W 37o36'4''N 122o19'7''W" and
+parsed using this format </TD>
+<TR>
+<TR>
+
+<TD>DD-MM-SS NS DDD-MM-SS EW DD-MM-SS NS DDD-MM-SS EW</TD>
+
+<TD><I>BOUNDING_BOX</I></TD>
+<TD>A pair of Latitude and Longitude coordinates using "DD" (degrees), "MM" (minutes) and
+"SS", separated by hyphens, followed whitespace and by EITHER "N" or "S"
+for Latitudes or "E" or "W" for Longitudes. For example, a bounding box for
+the peninsula of San Francisco, California can be expressed as
+"37-48-57 N 122-29-56 W 37-36-4 N 122-19-7 W" and
+parsed using this format </TD>
+<TR>
+
+<TD>DD-MM-SS-NS DDD-MM-SS-EW DD-MM-SS-NS DDD-MM-SS-EW</TD>
+
+<TD><I>BOUNDING_BOX</I></TD>
+<TD>A pair of Latitude and Longitude coordinates using "DD" (degrees), "MM" (minutes) and
+"SS", and EITHER "N" or "S"
+for Latitudes or "E" or "W" for Longitudes, all separated by hyphens. For example, a bounding box for
+the peninsula of San Francisco, California can be expressed as
+"37-48-57-N 122-29-56-W 37-36-4-N 122-19-7-W" and
+parsed using this format </TD>
+<TR>
+
+<TD><B><I>Note on Format Parsing:</I></B></TD>
+
+<TD></TD>
+<TD>In the above described formats (other than format keywords "DECIMAL_LAT_LONG",
+"DECIMAL_LONG_LAT" and "DECIMAL_BOUNDING_BOX", which require things in
+an appropriate decimal form), the elements used in the DATA itself as
+separators need only be one of any of the separators in all of 
+the above formats. This means that, for example, the format specification
+"DDoMM'SS''NS DDDoMM'SS''EW" could be used to correctly parse data that
+looked like "37-48-57-N 122-29-56-W" or "37o48-57 N 122'29'56'W", or
+even " 37 48 57 n 122  29 56  w",
+etc. However, the one of the formats, as shown above, should appear in the EXTRACT
+attribute for the index for correct configuration file processing.
+ </TD>
+<TR>
+
+</TABLE>
+
+<P><A NAME="marc008"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">MARC 008 Field Sub-Elements for FLD008_KEY Extraction
+<BR>
+(See MARC 008 Documentation for full details of codes)</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>Name</TH>
+
+<TH>008 position</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>008_entry_date</TD>
+
+<TD>pos 00-05 </TD>
+
+<TD>Date record created as yymmdd. </TD>
+</TR>
+
+<TR>
+<TD>008_date_type</TD>
+
+<TD>pos 06</TD>
+
+<TD>Type of date code; s = single, c = 2 dates actual and copyright, etc.
+</TD>
+</TR>
+
+<TR>
+<TD>008_date1</TD>
+
+<TD>pos 07-10</TD>
+
+<TD>If date type is s or c this is the publication date. </TD>
+</TR>
+
+<TR>
+<TD>008_date2</TD>
+
+<TD>pos 11-14</TD>
+
+<TD>If date type is c this is the copyright date. </TD>
+</TR>
+
+<TR>
+<TD>008_daterange</TD>
+
+<TD>pos 11-14</TD>
+
+<TD>If date type is i, k, m, q, c, or d then date1 is used as the starting
+date of a date range, and date2 is used as the ending date of the date range.
+If any other letters are used, the date1 value is assumed to both the
+start and end date of the range. </TD>
+</TR>
+
+<TR>
+<TD>008_country_code</TD>
+
+<TD>pos 15-17</TD>
+
+<TD>Country of publication code. </TD>
+</TR>
+
+<TR>
+<TD>008_illus_code</TD>
+
+<TD>pos 18-21</TD>
+
+<TD>Types of illustration codes: a = illus; b = maps; c = portraits; etc.
+</TD>
+</TR>
+
+<TR>
+<TD>008_intellectual_level</TD>
+
+<TD>pos 22</TD>
+
+<TD>Intellectual Level j = juvenile, blank = adult. </TD>
+</TR>
+
+<TR>
+<TD>008_form_of_reproduction</TD>
+
+<TD>pos 23</TD>
+
+<TD>Form of reproduction: blank = paper or original, a = microfilm, etc.
+</TD>
+</TR>
+
+<TR>
+<TD>008_nature_of_contents</TD>
+
+<TD>pos 24-27</TD>
+
+<TD>Contents: b = is or has bibliography, i = is index, etc. </TD>
+</TR>
+
+<TR>
+<TD>008_government_pub_code</TD>
+
+<TD>pos 28</TD>
+
+<TD>Government Document code: f = federal/national, s = state/province;
+etc. </TD>
+</TR>
+
+<TR>
+<TD>008_conference_indicator</TD>
+
+<TD>pos 29</TD>
+
+<TD>Conference code: 0 or blank - not a conference; 1 = conference pub.
+</TD>
+</TR>
+
+<TR>
+<TD>008_festschrift_indicator</TD>
+
+<TD>pos 30</TD>
+
+<TD>0 = Not a Festschrift; 1 = Festschrift. </TD>
+</TR>
+
+<TR>
+<TD>008_index_indicator</TD>
+
+<TD>pos 31</TD>
+
+<TD>0 = No index; 1 = has index. </TD>
+</TR>
+
+<TR>
+<TD>008_main_entry_in_body</TD>
+
+<TD>pos 32</TD>
+
+<TD>0 = Main entry not in body of record; 1 = is in body of record. </TD>
+</TR>
+
+<TR>
+<TD>008_fiction_indicator</TD>
+
+<TD>pos 33</TD>
+
+<TD>0 = Not Fiction; 1 = is Fiction. </TD>
+</TR>
+
+<TR>
+<TD>008_biography_indicator</TD>
+
+<TD>pos 34</TD>
+
+<TD>a = autobiography; b = individual biography; etc. </TD>
+</TR>
+
+<TR>
+<TD>008_language_code</TD>
+
+<TD>pos 35-37</TD>
+
+<TD>Three character language code (e.g. eng, fre, rus). </TD>
+</TR>
+
+<TR>
+<TD>008_modified_record_code</TD>
+
+<TD>pos 38</TD>
+
+<TD>blank = Not modified record; m = modified record. </TD>
+</TR>
+
+<TR>
+<TD>008_cataloging_source</TD>
+
+<TD>pos 39</TD>
+
+<TD>Cataloging source code: blank = LC; a = NAL; d = Non-LC; etc. </TD>
+</TR>
+</TABLE>
+
+<P><A NAME="indexmap"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Configuration File Sub-Tags for Z39.50 Index
+Mapping Definition</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>Data Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>&lt;use&gt;</TD>
+
+<TD>USE attribute</TD>
+
+<TD>USE attribute numbers from the Z39.50 standard (defaults to BIB-1,
+table A-3-1 reproduced below) in the Appendix 3 of the standard. 
+If USE value
+of "0" is given, it indicates that the index is the default index when
+no attributes are specified in the query.</TD>
+</TR>
+
+<TR>
+<TD>&lt;relation&gt;</TD>
+
+<TD>RELATION attribute</TD>
+
+<TD>Relation attribute numbers from the Z39.50 standard (defaults to BIB-1,
+table A-3-2 reproduced below) in the Appendix 3 of the standard. </TD>
+</TR>
+
+<TR>
+<TD>&lt;position&gt;</TD>
+
+<TD>POSITION attribute</TD>
+
+<TD>Position attribute numbers from the Z39.50 standard (defaults to BIB-1,
+table A-3-3 reproduced below) in the Appendix 3 of the standard. </TD>
+</TR>
+
+<TR>
+<TD>&lt;struct&gt;</TD>
+
+<TD>STRUCTURE attribute</TD>
+
+<TD>Structure attribute numbers from the Z39.50 standard (defaults to BIB-1,
+table A-3-4 reproduced below) in the Appendix 3 of the standard. </TD>
+</TR>
+
+<TR>
+<TD>&lt;trunc&gt;</TD>
+
+<TD>TRUNCATION attribute</TD>
+
+<TD>Truncation attribute numbers from the Z39.50 standard (defaults to
+BIB-1, table A-3-5 reproduced below) in the Appendix 3 of the standard.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;complet&gt;</TD>
+
+<TD>COMPLETENESS attribute</TD>
+
+<TD>Completeness attribute numbers from the Z39.50 standard (defaults to
+BIB-1, table A-3-6 reproduced below) in the Appendix 3 of the standard.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;access_point&gt;</TD>
+
+<TD>Access Point attribute type</TD>
+
+<TD>Access Point attributes from the Z39.50 attribute architecture. Type number 1. (&lt;access ... &gt; can be used as an alias for this tag).
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;semantic_qualifier&gt;</TD>
+
+<TD>Semantic Qualifier attribute type</TD>
+
+<TD>Semantic Qualifier attributes from the Z39.50 attribute architecture. Type number 2. (&lt;semantic ... &gt; can be used as an alias for this tag).
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;language&gt;</TD>
+
+<TD>Language attribute type</TD>
+
+<TD>Language attributes from the Z39.50 attribute architecture. Type number 3.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;content_authority&gt;</TD>
+
+<TD>Content Authority attribute type</TD>
+
+<TD>Content Authority attributes from the Z39.50 attribute architecture. Type number 4. (&lt;authority ... &gt; can be used as an alias for this tag).
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;expansion&gt;</TD>
+
+<TD>Expansion attribute type</TD>
+
+<TD>Expansion attributes from the Z39.50 attribute architecture. Type number 5.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;normalized_weight&gt;</TD>
+
+<TD>Normalized Weight attribute type</TD>
+
+<TD>Normalized Weight attributes from the Z39.50 attribute architecture. Type number 6. (&lt;weight ... &gt; can be used as an alias for this tag).
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;hit_count&gt;</TD>
+
+<TD>Hit Count attribute type</TD>
+
+<TD>Hit Count attributes from the Z39.50 attribute architecture. Type number 7. (&lt;hits ... &gt; can be used as an alias for this tag).
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;comparison&gt;</TD>
+
+<TD>Comparison attribute type</TD>
+
+<TD>Comparison attributes from the Z39.50 attribute architecture. Type number 8.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;format&gt;</TD>
+
+<TD>Format/Structure attribute type</TD>
+
+<TD>Format/Stucture attributes from the Z39.50 attribute architecture. Type number 9.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;occurrence&gt;</TD>
+
+<TD>Occurrence attribute type</TD>
+
+<TD>Occurrence attributes from the Z39.50 attribute architecture. Type number 10.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;indirection&gt;</TD>
+
+<TD>Indirection attribute type</TD>
+
+<TD>Indirection attributes from the Z39.50 attribute architecture. Type number 11.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;functional_qualifier&gt;</TD>
+
+<TD>Functional Qualifier attribute type</TD>
+
+<TD>Functional Qualifier attributes from the Z39.50 attribute architecture. Type number 12. (&lt;functional ... &gt; or &lt;function ... &gt; can be used as an alias for this tag). 
+</TD>
+</TR>
+
+
+
+<TR>
+<TD>&lt;description&gt;</TD>
+
+<TD>DESCRIPTION of USE attribute</TD>
+
+<TD>The description can be used to identify the attribute by a local
+name in the automatically generated EXPLAIN data, otherwise the 
+USE value will be used to lookup the typical name in an internal table.
+NOTE: The description applies only to the USE attribute and not to
+the entire combination. If multiple descriptions are given for the same
+USE attribute, only the FIRST will be used in generating explain records.
+
+</TD>
+</TR>
+</TABLE>
+
+<P><A NAME="bib1_use"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Table A-3-1 : Z39.50 BIB-1 USE Attributes</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>Use</TH>
+
+<TH>Value</TH>
+
+<TH>Use</TH>
+
+<TH>Value</TH>
+
+<TH>Use</TH>
+
+<TH>Value</TH>
+</TR>
+
+<TR>
+<TD>Personal name</TD>
+
+<TD>1</TD>
+
+<TD>Title collective</TD>
+
+<TD>34</TD>
+
+<TD>Author</TD>
+
+<TD>1003 </TD>
+</TR>
+
+<TR>
+<TD>Corporate name</TD>
+
+<TD>2</TD>
+
+<TD>Title parallel</TD>
+
+<TD>35</TD>
+
+<TD>Author-name personal</TD>
+
+<TD>1004 </TD>
+</TR>
+
+<TR>
+<TD>Conference name</TD>
+
+<TD>3</TD>
+
+<TD>Title cover</TD>
+
+<TD>36</TD>
+
+<TD>Author-name corporation</TD>
+
+<TD>1005</TD>
+</TR>
+
+<TR>
+<TD>Title</TD>
+
+<TD>4</TD>
+
+<TD>Title added title page</TD>
+
+<TD>37</TD>
+
+<TD>Author-name conference</TD>
+
+<TD>1006 </TD>
+</TR>
+
+<TR>
+<TD>Title series</TD>
+
+<TD>5</TD>
+
+<TD>Title caption</TD>
+
+<TD>38</TD>
+
+<TD>Identifier -- standard</TD>
+
+<TD>1007 </TD>
+</TR>
+
+<TR>
+<TD>Title uniform</TD>
+
+<TD>6</TD>
+
+<TD>Title running</TD>
+
+<TD>39</TD>
+
+<TD>Subject -- LC children's</TD>
+
+<TD>1008 </TD>
+</TR>
+
+<TR>
+<TD>ISBN</TD>
+
+<TD>7</TD>
+
+<TD>Title spine</TD>
+
+<TD>40</TD>
+
+<TD>Subject name -- personal</TD>
+
+<TD>1009 </TD>
+</TR>
+
+<TR>
+<TD>ISSN</TD>
+
+<TD>8</TD>
+
+<TD>Title other variant</TD>
+
+<TD>41</TD>
+
+<TD>Body of text</TD>
+
+<TD>1010</TD>
+</TR>
+
+<TR>
+<TD>LC card number</TD>
+
+<TD>9</TD>
+
+<TD>Title former</TD>
+
+<TD>42</TD>
+
+<TD>Date/time added to database</TD>
+
+<TD>1011 </TD>
+</TR>
+
+<TR>
+<TD>BNB card no.</TD>
+
+<TD>10</TD>
+
+<TD>Title abbreviated</TD>
+
+<TD>43</TD>
+
+<TD>Date/time last modified</TD>
+
+<TD>1012 </TD>
+</TR>
+
+<TR>
+<TD>BGF number</TD>
+
+<TD>11</TD>
+
+<TD>Title expanded</TD>
+
+<TD>44</TD>
+
+<TD>Authority/format identifier</TD>
+
+<TD>1013 </TD>
+</TR>
+
+<TR>
+<TD>Local number</TD>
+
+<TD>12</TD>
+
+<TD>Subject precis</TD>
+
+<TD>45</TD>
+
+<TD>Concept-text</TD>
+
+<TD>1014 </TD>
+</TR>
+
+<TR>
+<TD>Dewey classification</TD>
+
+<TD>13</TD>
+
+<TD>Subject rswk</TD>
+
+<TD>46</TD>
+
+<TD>Concept-reference</TD>
+
+<TD>1015</TD>
+</TR>
+
+<TR>
+<TD>UDC classification</TD>
+
+<TD>14</TD>
+
+<TD>Subject subdivision</TD>
+
+<TD>47</TD>
+
+<TD>Any</TD>
+
+<TD>1016 </TD>
+</TR>
+
+<TR>
+<TD>Bliss classification</TD>
+
+<TD>15</TD>
+
+<TD>Number natl biblio</TD>
+
+<TD>48</TD>
+
+<TD>Default</TD>
+
+<TD>1017 </TD>
+</TR>
+
+<TR>
+<TD>LC call number</TD>
+
+<TD>16</TD>
+
+<TD>Number legal deposit</TD>
+
+<TD>49</TD>
+
+<TD>Publisher</TD>
+
+<TD>1018</TD>
+</TR>
+
+<TR>
+<TD>NLM call number</TD>
+
+<TD>17</TD>
+
+<TD>Number govt publication</TD>
+
+<TD>50</TD>
+
+<TD>Record-source</TD>
+
+<TD>1019 </TD>
+</TR>
+
+<TR>
+<TD>NAL call number</TD>
+
+<TD>18</TD>
+
+<TD>Number publisher for music</TD>
+
+<TD>51</TD>
+
+<TD>Editor</TD>
+
+<TD>1020 </TD>
+</TR>
+
+<TR>
+<TD>MOS call number</TD>
+
+<TD>19</TD>
+
+<TD>Number db</TD>
+
+<TD>52</TD>
+
+<TD>Bib-level</TD>
+
+<TD>1021 </TD>
+</TR>
+
+<TR>
+<TD>Local classification</TD>
+
+<TD>20</TD>
+
+<TD>Number local call</TD>
+
+<TD>53</TD>
+
+<TD>Geographic-class</TD>
+
+<TD>1022</TD>
+</TR>
+
+<TR>
+<TD>Subject heading</TD>
+
+<TD>21</TD>
+
+<TD>Code -- language</TD>
+
+<TD>54</TD>
+
+<TD>Indexed-by</TD>
+
+<TD>1023 </TD>
+</TR>
+
+<TR>
+<TD>Subject Rameau</TD>
+
+<TD>22</TD>
+
+<TD>Code -- geographic area</TD>
+
+<TD>55</TD>
+
+<TD>Map-scale</TD>
+
+<TD>1024 </TD>
+</TR>
+
+<TR>
+<TD>BDI index subject</TD>
+
+<TD>23</TD>
+
+<TD>Code -- institution</TD>
+
+<TD>56</TD>
+
+<TD>Music-key</TD>
+
+<TD>1025</TD>
+</TR>
+
+<TR>
+<TD>INSPEC subject</TD>
+
+<TD>24</TD>
+
+<TD>Name and title</TD>
+
+<TD>57</TD>
+
+<TD>Related-periodical</TD>
+
+<TD>1026 </TD>
+</TR>
+
+<TR>
+<TD>MESH subject</TD>
+
+<TD>25</TD>
+
+<TD>Name geographic</TD>
+
+<TD>58</TD>
+
+<TD>Report-number</TD>
+
+<TD>1027 </TD>
+</TR>
+
+<TR>
+<TD>PA subject</TD>
+
+<TD>26</TD>
+
+<TD>Place publication</TD>
+
+<TD>59</TD>
+
+<TD>Stock-number</TD>
+
+<TD>1028</TD>
+</TR>
+
+<TR>
+<TD>LC subject heading</TD>
+
+<TD>27</TD>
+
+<TD>CODEN</TD>
+
+<TD>60</TD>
+
+<TD>Thematic-number</TD>
+
+<TD>1030 </TD>
+</TR>
+
+<TR>
+<TD>RVM subject heading</TD>
+
+<TD>28</TD>
+
+<TD>Microform generation</TD>
+
+<TD>61</TD>
+
+<TD>Material-type</TD>
+
+<TD>1031 </TD>
+</TR>
+
+<TR>
+<TD>Local subject index</TD>
+
+<TD>29</TD>
+
+<TD>Abstract</TD>
+
+<TD>62</TD>
+
+<TD>Doc-id</TD>
+
+<TD>1032</TD>
+</TR>
+
+<TR>
+<TD>Date</TD>
+
+<TD>30</TD>
+
+<TD>Note</TD>
+
+<TD>63</TD>
+
+<TD>Host-item</TD>
+
+<TD>1033 </TD>
+</TR>
+
+<TR>
+<TD>Date of publication</TD>
+
+<TD>31</TD>
+
+<TD>Author-title</TD>
+
+<TD>1000</TD>
+
+<TD>Content-type</TD>
+
+<TD>1034</TD>
+</TR>
+
+<TR>
+<TD>Date of acquisition</TD>
+
+<TD>32</TD>
+
+<TD>Record type</TD>
+
+<TD>1001</TD>
+
+<TD>Anywhere</TD>
+
+<TD>1035 </TD>
+</TR>
+
+<TR>
+<TD>Title key</TD>
+
+<TD>33</TD>
+
+<TD>Name</TD>
+
+<TD>1002</TD>
+
+<TD></TD>
+
+<TD></TD>
+</TR>
+</TABLE>
+
+<hr>
+
+<p>
+<h1> Approved Extensions to bib-1 Attribute Set </h1>
+<p>
+<hr>
+
+<h2>The attributes listed below are added to the bib-1 attribute set, 1.2.840.10003.3.1.</h2>
+
+<hr>
+<a name = "within">
+<h3>The following Relation attribute is added to the bib-1 attribute set, as a result of the August
+1997 ZIG meeting in Copenhagen:</h3><br>
+<dl>
+<dt> 104: <b>Within</b> </dt>
+         <dd><em> When this relation attribute is supplied the intent is to select records where the
+         value of the access point as determined by the Use attribute is within the bounds
+         specified by the term (where the term itself may be composed of several terms). A
+         profile or implementor agreement may specify precisely what form a term should
+         take when this relation attribute is used, and how the term specifies bounds. As an
+         example, see the implementor agreement <a
+         href="http://lcweb.loc.gov/z3950/agency/agree/range.html"> Linear Range
+         Searching</a>
+
+</dd>
+</dl>
+
+
+
+<hr>
+<h3>The following Truncation attribute is added to the bib-1 attribute set, as a result of the
+October, 1996 ZIG meeting in Brussels:</h3>
+<dl>
+<dt> 104: <b>Z39.58</b> </dt>
+         <dd><em> Truncation as defined in Z39.58-1992, section 7.7.2: "Character Masking" (page
+         9); including subsections:
+                  <ul>
+                  <li> 7.7.2.1: "Variable number of characters", and
+                  <li> 7.7.2.2: "Fixed number of characters". 
+         </ul>
+                            <blockquote>
+              <p>
+                            The rules governing the ussage of this attribute are explicitly articulated as
+              follows (if this is inconsistent with Z39.58, these rules take precedence).
+              <p>
+                            The character '?' (question mark) is used to mask a variable number of 
+              characters. It may be followed by a positive integer, i.e. one or more 
+              consecutive decimal digits (where the first is positive) in which the positive
+              integer represented by the string of digits (beginning with the digit
+              immediately following the '?', up to and not including the first non-digit
+              character), indicates a range of characters to mask, from zero up to and
+              including the specified integer. 
+              <p>
+                            When '?' is not immediately followed by a positive decimal digit, it indicates
+              an arbitrary number of characters to mask (from zero to a system defined
+              limit).
+              <p>
+                            The character '#' (pound or number sign) is used to mask a single character.
+              Multiple consecutive occurrences of '#' may be used to indicate a precise
+              number of characters to mask.
+
+</blockquote>
+         </em>
+         </dd>
+</dl>
+<hr>
+
+<table border = 1>
+
+<caption><h2>Bib-1 Use Attributes -- Extensions</h2></caption>
+    <tr>
+
+        <th>Name</th>
+
+      <th>Value </th>
+      <th>Semantics </th>  
+</tr>
+
+<tr><td>Doc-id<i>(semantic definition change)</i>                     </td>
+<td>1032</td> 
+                      <td><i>The following semantic definition was adopted  at the 
+                         August 1997 ZIG meeting. </i>An identifier or Doc-ID, 
+                         assigned by a server, that uniquely 
+                         identifies a document on that server. May or may not be 
+                         persistent. May be, for example, a URL. 
+
+                    </td>   </tr>
+<tr>
+      <td> SICI </td>    <td>1037</td>
+
+          <td>
+The Serial Item and Contribution Identifier; based on NISO Z39.56, which provides an extensible
+mechanism for the creation of a  code which uniquely identifies either an issue of a serial title or a
+contribution (e.g., article) within a serial regardles of distribution meduim (paper, electronic,
+microform, etc.). 
+</td></tr>
+
+
+<tr>
+
+<td><i>Following (thru 1083 submitted by German Library)</i></td>
+
+</tr>
+
+
+     <tr> <td>Abstract-language</td> <td>1038</td>
+<td>          The language code or the language name for the language of the abstract. Entries are
+made  in accordance with ISO 639-1988 'Code for the representation of names of language'. The
+ 2-digit letter code is used as language code, the English term is used as language name.
+</td></tr>
+
+
+          <tr> <td>Application-kind</td> <td>1039</td> 
+<td>          Information (code or full text) about the patent application. </td></tr>
+          <tr> <td>Classification</td> <td>1040</td> 
+<td>          The code or the section heading of a classification system. The attribute is a general
+(broad)
+          attribute for codes which are not existing as a serch key. </td></tr>
+          <tr> <td>Classification-basic</td> <td>1041</td> 
+<td>          The code or the section heading of the Dutch classification system. </td></tr>
+          <tr> <td>Classification-local-record</td> <td>1042</td> 
+<td>          The code or the section heading of a classification system assigned to a holding
+record. </td></tr>
+          <tr> <td>Enzyme</td> <td>1043</td> 
+<td>          The enzyme code or the enzyme nomenclature. Codes are assigned by the 'Enzyme
+          Commission' in the 'International Union of Biochemistry'. </td></tr>
+          <tr> <td>Possessing-institution</td> <td>1044</td> 
+<td>          A code (library symbol or other code) of the institution which possesses the document.
+The
+          codes are agreed upon between the partners. </td></tr>
+          <tr> <td>Record-linking</td> <td>1045</td> 
+<td>          An alphabetical code which determines the type of linking. </td></tr>
+          <tr> <td>Record-status</td> <td>1046</td> 
+<td>          Information about the status of the record, e.g. new, corrected, deleted, revised.
+</td></tr>
+
+          <tr> <td>Treatment</td> <td>1047</td>
+<td>          A statement (code or full text) describing subject aspects of the content. </td></tr>
+          <tr> <td>Control-number-GKD</td> <td>1048</td>
+<td>          The identification number of a corporate body name from the German authority file for
+          corporate body names "Gemeinsame Koerper-schaftsdatei" (GKD). </td></tr>
+          <tr> <td>Control-number-linking</td> <td>1049</td>
+<td>          The unique identification number of the linked record. Attribute 'code-record-type'
+contains a
+          code for the type of record which contains the 'control-number-linking' (b - bibliographical
+          record, e - record for copy-specific data, n - authority record, l - holding record, p - record
+          for cross references, v - full text). Attribute 'code-record-linking' contains a code which
+          determines the type of linking. </td></tr>
+          <tr> <td>Control-number-PND</td> <td>1050</td>
+<td>          The identification number of a personal name from the German authority file for
+personal
+          names "Personennamendatei" (PND). </td></tr>
+          <tr> <td>Control-number-SWD</td> <td>1051</td>
+<td>          The identification number of a subject heading from the German authority file for
+subject
+          headings "Schlagwortnormdatei" (SWD). </td></tr>
+          <tr> <td>Control-number-ZDB</td> <td>1052</td>
+<td>          The identification number of a document in the German database for serials
+          "Zeitschriftendatenbank" (ZDB). </td></tr>
+          <tr> <td>Country-publication (country of Publication)</td><td>1053</td>
+<td>          The country code or the country name of the country where the document has been
+          published. Entries are made according to ISO 3166 'Codes for the Representation of
+Names
+          of Countries'. As country code a 2-digit letter code is used, as country name the English
+          country name. </td></tr>
+          <tr> <td>Date-conference (meeting date)</td><td>1054</td>
+<td>          The date of the conference or of another meeting. </td></tr>
+          <tr> <td>Date-record-status</td> <td>1055</td>
+<td>          The date on which the record status was assigned. </td></tr>
+          <tr> <td>Dissertation-information</td> <td>1056</td>
+<td>          Information about a dissertation thesis, or another publication connected with an
+academic
+          degree. </td></tr>
+          <tr> <td>Meeting-organizer</td> <td>1057</td>
+<td>          The name of the organizer or the sponsor of a conference. </td></tr>
+          <tr> <td>Note-availability</td> <td>1058</td>
+<td>          Information about the availability of a document (delivery information). </td></tr>
+          <tr> <td>Number-CAS-registry (CAS registry number)</td><td>1059</td>
+<td>          The 'Chemical Abstract Registry' number of the substance described in a document.
+</td></tr>
+          <tr> <td>Number-document (document number)</td><td>1060</td>
+<td>          The publication number of the document (e.g. the number of the abstract in a
+secondary
+          publication, or the number of the manuscript in a primary journal) provided that this
+number
+          is not used as 'internal key' in the database. A publication number used as 'internal key' is
+          entered in Attribute 12. </td></tr>
+          <tr> <td>Number-local-accounting</td> <td>1061</td>
+<td>          The account number of the document assigned by the accounting system. </td></tr>
+          <tr> <td>Number-local-acquisition</td> <td>1062</td>
+<td>          Document acquisition number assigned by the system. </td></tr>
+          <tr> <td>Number-local-call-copy-specific</td> <td>1063</td>
+<td>          The document's shelf number. </td></tr>
+          <tr> <td>Number-of-reference (reference count)</td><td>1064</td>
+<td>          The number of literature references cited in a document. </td></tr>
+          <tr> <td>Number-norm</td> <td>1065</td>
+<td>          The number of a norm or standard. </td></tr>
+          <tr> <td>Number-volume</td> <td>1066</td>
+<td>          The number of single volumes of a multivolume publication, (year's) issues of serials,
+parts of
+          multivolume publications, serials journals etc. </td></tr>
+          <tr> <td>Place-conference (meeting location)</td><td>1067</td>
+<td>          The place where the conference or meeting was held. </td></tr>
+          <tr> <td>Reference (references and footnotes)</td><td>1068</td>
+<td>          A literature reference from a document. The bibliographic data of a reference consists
+e.g. of
+          a title, author, journal, publication year, volume and page information of the cited
+document.</td></tr>
+          <tr> <td>Referenced-journal (reference work)</td><td>1069</td>
+<td>          The title of a journal cited in a document. </td></tr>
+          <tr> <td>Section-code</td> <td>1070</td>
+<td>          The section code of a subject classification. </td></tr>
+          <tr> <td>Section-heading</td> <td>1071</td>
+<td>          The section heading of a subject classification </td></tr>
+          <tr> <td>Subject-GOO</td> <td>1072</td>
+<td>          A subject heading from the 'Gemeenschappelijke Onderwerps Onts luiting' (GOO).
+</td></tr>
+          <tr> <td>Subject-name-conference</td> <td>1073</td>
+<td>          A conference name used as subject heading. </td></tr>
+          <tr> <td>Subject-name-corporate</td> <td>1074</td>
+<td>          A corporate body name used as a subject heading. </td></tr>
+          <tr> <td>Subject-name-form</td> <td>1075</td>
+<td>          A formal topical subject heading, e.g. collection of articles, handbook, source.
+</td></tr>
+    <tr> <td>Subject-name-geographical</td> <td>1076</td>
+<td>          A geographical/ethnographical subject heading. </td></tr>
+<tr>     <td>Subject-name-chronological</td> <td>          1077</td>
+<td>          A chronological subject heading. </td></tr>
+          <tr> <td>Subject-name-title</td> <td>1078</td>
+<td>          A title proper used as subject heading. </td></tr>
+          <tr> <td>Subject-name-topical</td> <td>1079</td>
+<td>          A topical subject heading. </td></tr>
+          <tr> <td>Subject-uncontrolled</td> <td>1080</td>
+<td>          An uncontrolled subject term. General (broad) attribute for subject terms not specified
+any
+          further, existing as a search key. </td></tr>
+          <tr> <td>Terminology-chemical (chemical name)</td><td>1081</td>
+<td>          The description of a chemical substance. This is either the name of the substance or a
+name
+          from another classification system, e.g. enzyme code. </td></tr>
+          <tr> <td>Title-translated</td> <td>1082</td>
+<td>          The translation of a title. </td></tr>
+          <tr> <td>Year-of-beginning</td> <td>1083</td>
+<td>          The publication year of the first issue/volume of serial publications (journals,
+newspapers,
+          etc.). 
+
+
+<tr>
+
+<td><i>Following (thru 1096) submitted by  Danish National Library Authority, approved
+     at January 1998 ZIG meeting</i></td>
+
+</tr>
+<tr><td>          Year-of-ending</td>  <td>1084</td><td>
+          The publication year of the last issue/volume of serial publications (journals, newspapers,
+          etc.</td></tr>
+<tr><td>          Subject-AGROVOC</td> <td>1085</td><td>
+          A subject heading from the multilingual agricultural thesaurus from FAO. </td></tr>
+<tr><td>          Subject-COMPASS </td> <td>1086</td><td>
+          A subject heading from Computer Aided Subject System from British Library. </td></tr>
+<tr><td>          Subject-EPT</td> <td>1087</td><td>
+          A subject heading from European Pedagogical Thesaurus. </td></tr>
+<tr><td>          Subject-NAL</td> <td>1088</td><td>
+          A subject heading from National Agricultural Library. </td></tr>
+<tr><td>          Classification-BCM</td> <td>1089</td><td>
+          A classification number from British Catalogue of Music. </td></tr>
+<tr><td>          Classification-DB </td> <td>1090</td><td>
+          A classification number from Deutsche Bibliothek. </td></tr>
+<tr><td>          Identifier-ISRC</td> <td>1091</td><td>
+          ISRC. International standard recording code (ISO 3901). </td></tr>
+
+<tr><td>          Identifier-ISMN</td> <td>1092</td><td>
+         International standard music number (ISO 10957). ISMN</td></tr>
+<tr><td>          Identifier-ISRN</td> <td>1093</td><td>
+      ISRN.  International standard technical report number (ISO 10444). </td></tr>
+<tr><td>          Identifier-DOI</td> <td>1094</td><td>
+          Digital Object Identifier. </td></tr>
+<tr><td>          Code-language-original</td> <td>1095</td><td>
+          A code that indicates the original language of the item. </td></tr></td></tr>
+<tr><td>          Title-later</td> <td>1096</td><td>
+          A later version of title. </td></tr>
+
+</table>
+
+<a name = "dublinCore">
+<h3> 
+The following 15 Use attributes correspond to the Dublin Core elements. Semantics are defined
+in <a href="http://purl.oclc.org/metadata/dublin_core_elements"> Dublin Core Metadata Element
+Set: Reference Description</a>.
+<p>
+<a name="june98">
+<a name= "dublin">
+
+<table border>
+
+<tr>
+
+
+
+<td><i>Following (1097 thru 1111) are Dublin Core Use attributes, approved
+     at June 1998 ZIG meeting.  For detailed semantics see <a
+href="http://purl.oclc.org/metadata/dublin_core/">Description of Dublin Core Elements
+</a></i></td>
+
+</tr>
+ 
+    <tr>
+
+        <th>Name</th>
+
+      <th>Value </th>
+</tr>
+
+
+<tr><td>      DC-Title </td><td>1097</td><td>&nbsp</td><tr>
+<tr><td>          DC-Creator </td><td>1098</td><td>&nbsp</td><tr>
+<tr><td>          DC-Subject </td><td>1099</td><td>&nbsp</td><tr>
+<tr><td>          DC-Description </td><td>1100</td><td>&nbsp</td><tr>
+<tr><td>          DC-Publisher </td><td>1101</td><td>&nbsp</td><tr>
+<tr><td>          DC-Date </td><td>1102</td><td>&nbsp</td><tr>
+<tr><td>          DC-ResourceType </td><td>1103</td><td>&nbsp</td><tr>
+<tr><td>          DC-ResourceIdentifier </td><td>1104</td><td>&nbsp</td><tr>
+<tr><td>          DC-Language </td><td>1105</td><td>&nbsp</td><tr>
+<tr><td>          DC-OtherContributor </td><td>1106</td><td>&nbsp</td><tr>
+<tr><td>          DC-Format </td><td>1107</td><td>&nbsp</td><tr>
+<tr><td>          DC-Source </td><td>1108</td><td>&nbsp</td><tr>
+<tr><td>          DC-Relation </td><td>1109</td><td>&nbsp</td><tr>
+<tr><td>          DC-Coverage </td><td>1110</td><td>&nbsp</td><tr>
+<tr><td>          DC-RightsManagement </td><td>1111</td><td>&nbsp</td><tr>
+
+
+</table>
+
+
+
+
+<a name="gils">
+
+<table border>
+
+<tr>
+<td><i>The following (1112 thru 1184) are GILS Use attributes, approved at the June 1998 ZIG
+meeting. The GILS Use Attributes correspond semantically to GILS Core Elements, described in 
+the  <a href="http://www.usgs.gov/gils/prof_v2.html#sec_7">GILS Z39.50 Specification</a>
+Annex E.</i></td> 
+
+</tr>
+    <tr>
+
+        <th>Name</th>
+
+      <th>Value </th>
+</tr>
+
+    <tr><td> Controlled Subject Index </td><td>1112</td><td>&nbsp</td></tr>
+    <tr><td> Subject Thesaurus </td><td>1113</td><td>&nbsp</td></tr>
+    <tr><td> Index Terms -- Controlled </td><td>1114</td><td>&nbsp</td></tr>
+    <tr><td> Controlled Term </td><td>1115</td><td>&nbsp</td></tr>
+    <tr><td> Spatial Domain </td><td>1116</td><td>&nbsp</td></tr>
+    <tr><td> Bounding Coordinates </td><td>1117</td><td>&nbsp</td></tr>
+    <tr><td> West Bounding Coordinate </td><td>1118</td><td>&nbsp</td></tr>
+    <tr><td> East Bounding Coordinate </td><td>1119</td><td>&nbsp</td></tr>
+    <tr><td> North Bounding Coordinate </td><td>1120</td><td>&nbsp</td></tr>
+    <tr><td> South Bounding Coordinate </td><td>1121</td><td>&nbsp</td></tr>
+    <tr><td> Place </td><td>1122</td><td>&nbsp</td></tr>
+    <tr><td> Place Keyword Thesaurus </td><td>1123</td><td>&nbsp</td></tr>
+    <tr><td> Place Keyword </td><td>1124</td><td>&nbsp</td></tr>
+    <tr><td> Time Period </td><td>1125</td><td>&nbsp</td></tr>
+    <tr><td> Time Period Textual </td><td>1126</td><td>&nbsp</td></tr>
+    <tr><td> Time Period Structured </td><td>1127</td><td>&nbsp</td></tr>
+    <tr><td> Beginning Date </td><td>1128</td><td>&nbsp</td></tr>
+    <tr><td> Ending Date </td><td>1129</td><td>&nbsp</td></tr>
+    <tr><td> Availability </td><td>1130</td><td>&nbsp</td></tr>
+    <tr><td> Distributor </td><td>1131</td><td>&nbsp</td></tr>
+    <tr><td> Distributor Name </td><td>1132</td><td>&nbsp</td></tr>
+    <tr><td> Distributor Organization </td><td>1133</td><td>&nbsp</td></tr>
+    <tr><td> Distributor Street Address </td><td>1134</td><td>&nbsp</td></tr>
+    <tr><td> Distributor City </td><td>1135</td><td>&nbsp</td></tr>
+    <tr><td> Distributor State or Province </td><td>1136</td><td>&nbsp</td></tr>
+    <tr><td> Distributor Zip or Postal Code </td><td>1137</td><td>&nbsp</td></tr>
+    <tr><td> Distributor Country </td><td>1138</td><td>&nbsp</td></tr>
+    <tr><td> Distributor Network Address </td><td>1139</td><td>&nbsp</td></tr>
+    <tr><td> Distributor Hours of Service </td><td>1140</td><td>&nbsp</td></tr>
+    <tr><td> Distributor Telephone </td><td>1141</td><td>&nbsp</td></tr>
+    <tr><td> Distributor Fax </td><td>1142</td><td>&nbsp</td></tr>
+    <tr><td> Resource Description </td><td>1143</td><td>&nbsp</td></tr>
+    <tr><td> Order Process </td><td>1144</td><td>&nbsp</td></tr>
+    <tr><td> Order Information </td><td>1145</td><td>&nbsp</td></tr>
+    <tr><td> Cost </td><td>1146</td><td>&nbsp</td></tr>
+    <tr><td> Cost Information </td><td>1147</td><td>&nbsp</td></tr>
+    <tr><td> Technical Prerequisites </td><td>1148</td><td>&nbsp</td></tr>
+    <tr><td> Available Time Period </td><td>1149</td><td>&nbsp</td></tr>
+    <tr><td> Available Time Textual </td><td>1150</td><td>&nbsp</td></tr>
+    <tr><td> Available Time Structured </td><td>1151</td><td>&nbsp</td></tr>
+    <tr><td> Available Linkage </td><td>1152</td><td>&nbsp</td></tr>
+    <tr><td> Linkage Type </td><td>1153</td><td>&nbsp</td></tr>
+    <tr><td> Linkage </td><td>1154</td><td>&nbsp</td></tr>
+    <tr><td> Sources of Data </td><td>1155</td><td>&nbsp</td></tr>
+    <tr><td> Methodology </td><td>1156</td><td>&nbsp</td></tr>
+    <tr><td> Access Constraints </td><td>1157</td><td>&nbsp</td></tr>
+    <tr><td> General Access Constraints </td><td>1158</td><td>&nbsp</td></tr>
+    <tr><td> Originator Dissemination Control </td><td>1159</td><td>&nbsp</td></tr>
+    <tr><td> Security Classification Control </td><td>1160</td><td>&nbsp</td></tr>
+    <tr><td> Use Constraints </td><td>1161</td><td>&nbsp</td></tr>
+    <tr><td> Point of Contact </td><td>1162</td><td>&nbsp</td></tr>
+    <tr><td> Contact Name </td><td>1163</td><td>&nbsp</td></tr>
+    <tr><td> Contact Organization </td><td>1164</td><td>&nbsp</td></tr>
+    <tr><td> Contact Street Address </td><td>1165</td><td>&nbsp</td></tr>
+    <tr><td> Contact City </td><td>1166</td><td>&nbsp</td></tr>
+    <tr><td> Contact State or Province </td><td>1167</td><td>&nbsp</td></tr>
+    <tr><td> Contact Zip or Postal Code </td><td>1168</td><td>&nbsp</td></tr>
+    <tr><td> Contact Country </td><td>1169</td><td>&nbsp</td></tr>
+    <tr><td> Contact Network Address </td><td>1170</td><td>&nbsp</td></tr>
+    <tr><td> Contact Hours of Service </td><td>1171</td><td>&nbsp</td></tr>
+    <tr><td> Contact Telephone </td><td>1172</td><td>&nbsp</td></tr>
+    <tr><td> Contact Fax </td><td>1173</td><td>&nbsp</td></tr>
+    <tr><td> Supplemental Information </td><td>1174</td><td>&nbsp</td></tr>
+    <tr><td> Purpose </td><td>1175</td><td>&nbsp</td></tr>
+    <tr><td> Agency Program </td><td>1176</td><td>&nbsp</td></tr>
+    <tr><td> Cross Reference </td><td>1177</td><td>&nbsp</td></tr>
+    <tr><td> Cross Reference Title </td><td>1178</td><td>&nbsp</td></tr>
+    <tr><td> Cross Reference Relationship </td><td>1179</td><td>&nbsp</td></tr>
+    <tr><td> Cross Reference Linkage </td><td>1180</td><td>&nbsp</td></tr>
+    <tr><td> Schedule Number </td><td>1181</td><td>&nbsp</td></tr>
+    <tr><td> Original Control Identifier </td><td>1182</td><td>&nbsp</td></tr>
+    <tr><td> Language of Record </td><td>1183</td><td>&nbsp</td></tr>
+    <tr><td> Record Review Date </td><td>1184</td><td>&nbsp</td></tr>
+
+
+</table>
+
+
+
+<P><A NAME="gils_use"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Table A-3-1b : Z39.50 GILS USE Attributes <BR>
+(GILS (OID 1.2.840.10003.3.5) also includes all BIB-1 attributes)</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>Use</TH>
+
+<TH>Value</TH>
+
+<TH>Use</TH>
+
+<TH>Value</TH>
+</TR>
+
+<TR>
+<TD>DistributorName</TD>
+
+<TD>2001</TD>
+
+<TD>Contact Street Address</TD>
+
+<TD>2025</TD>
+</TR>
+
+<TR>
+<TD>Index Terms -- Controlled</TD>
+
+<TD>2002</TD>
+
+<TD>Contact City</TD>
+
+<TD>2026 </TD>
+</TR>
+
+<TR>
+<TD>Purpose</TD>
+
+<TD>2003</TD>
+
+<TD>Contact State</TD>
+
+<TD>2027 </TD>
+</TR>
+
+<TR>
+<TD>Access Constraints</TD>
+
+<TD>2004</TD>
+
+<TD>Contact Zip Code</TD>
+
+<TD>2028 </TD>
+</TR>
+
+<TR>
+<TD>Use Constraints</TD>
+
+<TD>2005</TD>
+
+<TD>Contact Country</TD>
+
+<TD>2029 </TD>
+</TR>
+
+<TR>
+<TD>Distributor Organization</TD>
+
+<TD>2006</TD>
+
+<TD>Contact Network Address</TD>
+
+<TD>2030</TD>
+</TR>
+
+<TR>
+<TD>Distributor Street Address</TD>
+
+<TD>2007</TD>
+
+<TD>Contact Hours of Service</TD>
+
+<TD>2031 </TD>
+</TR>
+
+<TR>
+<TD>Distributor City</TD>
+
+<TD>2008</TD>
+
+<TD>Contact Telephone</TD>
+
+<TD>2032 </TD>
+</TR>
+
+<TR>
+<TD>Distributor State</TD>
+
+<TD>2009</TD>
+
+<TD>Contact Fax</TD>
+
+<TD>2033</TD>
+</TR>
+
+<TR>
+<TD>Distributor Zip Code</TD>
+
+<TD>2010</TD>
+
+<TD>Agency Program</TD>
+
+<TD>2034 </TD>
+</TR>
+
+<TR>
+<TD>Distributor Country</TD>
+
+<TD>2011</TD>
+
+<TD>Sources of Data</TD>
+
+<TD>2035 </TD>
+</TR>
+
+<TR>
+<TD>Distributor Network Address</TD>
+
+<TD>2012</TD>
+
+<TD>Thesaurus</TD>
+
+<TD>2036 </TD>
+</TR>
+
+<TR>
+<TD>Distributor Hours of Service</TD>
+
+<TD>2013</TD>
+
+<TD>Methodology</TD>
+
+<TD>2037 </TD>
+</TR>
+
+<TR>
+<TD>Distributor Telephone</TD>
+
+<TD>2014</TD>
+
+<TD>Bounding Rectangle -- Western-most</TD>
+
+<TD>2038 </TD>
+</TR>
+
+<TR>
+<TD>Distributor_Fax</TD>
+
+<TD>2015</TD>
+
+<TD>Bounding Rectangle -- Eastern-most</TD>
+
+<TD>2039 </TD>
+</TR>
+
+<TR>
+<TD>Available Resource Description</TD>
+
+<TD>2016</TD>
+
+<TD>Bounding Rectangle -- Northern-most</TD>
+
+<TD>2040 </TD>
+</TR>
+
+<TR>
+<TD>Available Order Process</TD>
+
+<TD>2017</TD>
+
+<TD>Bounding Rectangle -- Southern-most</TD>
+
+<TD>2041 </TD>
+</TR>
+
+<TR>
+<TD>Available Technical Prerequisites</TD>
+
+<TD>2018</TD>
+
+<TD>Geographic Keyword Name</TD>
+
+<TD>2042 </TD>
+</TR>
+
+<TR>
+<TD>Available Time Period -- Structured</TD>
+
+<TD>2019</TD>
+
+<TD>Geographic Keyword Type</TD>
+
+<TD>2043 </TD>
+</TR>
+
+<TR>
+<TD>Available Time Period -- Textual</TD>
+
+<TD>2020</TD>
+
+<TD>Time Period - Structured</TD>
+
+<TD>2044 </TD>
+</TR>
+
+<TR>
+<TD>Available Linkage</TD>
+
+<TD>2021</TD>
+
+<TD>Time Period - Textual</TD>
+
+<TD>2045 </TD>
+</TR>
+
+<TR>
+<TD>Available Linkage Type</TD>
+
+<TD>2022</TD>
+
+<TD>Cross Reference Title</TD>
+
+<TD>2046 </TD>
+</TR>
+
+<TR>
+<TD>Contact Name</TD>
+
+<TD>2023</TD>
+
+<TD>Cross Reference Linkage</TD>
+
+<TD>2047 </TD>
+</TR>
+
+<TR>
+<TD>Contact Organization</TD>
+
+<TD>2024</TD>
+
+<TD>Cross Reference Type</TD>
+
+<TD>2048</TD>
+</TR>
+
+<TR>
+<TD>Original Control Identifier</TD>
+
+<TD>2049</TD>
+
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD>Supplemental Information</TD>
+
+<TD>2050</TD>
+
+<TD></TD>
+
+<TD></TD>
+</TR>
+
+<TR>
+<TD></TD>
+</TR>
+</TABLE>
+
+<P><A NAME="bib1_relation"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Table A-3-2: Z39.50 BIB-1 Relation Attributes</FONT></H2>
+</CAPTION>
+
+<TR>
+<TD>Relation</TD>
+
+<TD>Value</TD>
+
+<TD>Relation</TD>
+
+<TD>Value</TD>
+
+<TD>Relation</TD>
+
+<TD>Value </TD>
+</TR>
+
+<TR>
+<TD>less than</TD>
+
+<TD>1</TD>
+
+<TD>greater or equal</TD>
+
+<TD>4</TD>
+
+<TD>phonetic</TD>
+
+<TD>100 </TD>
+</TR>
+
+<TR>
+<TD>less or equal</TD>
+
+<TD>2</TD>
+
+<TD>greater than</TD>
+
+<TD>5</TD>
+
+<TD>stem</TD>
+
+<TD>101 </TD>
+</TR>
+
+<TR>
+<TD>equal</TD>
+
+<TD>3</TD>
+
+<TD>not equal</TD>
+
+<TD>6</TD>
+
+<TD>relevance</TD>
+
+<TD>102 </TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+
+<TD></TD>
+
+<TD></TD>
+
+<TD>AlwaysMatches</TD>
+
+<TD>103</TD>
+</TR>
+</TABLE>
+
+<P><A NAME="bib1_position"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Table A-3-3: Z39.50 BIB-1 Position Attributes</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>Position</TH>
+
+<TH>Value</TH>
+
+<TH>Position</TH>
+
+<TH>Value</TH>
+
+<TH>Position</TH>
+
+<TH>Value</TH>
+</TR>
+
+<TR>
+<TD>first in field</TD>
+
+<TD>1</TD>
+
+<TD>first in subfield</TD>
+
+<TD>2</TD>
+
+<TD>any position in field</TD>
+
+<TD>3 </TD>
+</TR>
+</TABLE>
+
+<P><A NAME="bib1_structure"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Table A-3-4: Z39.50 BIB-1 Structure Attributes</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>Structure</TH>
+
+<TH>Value</TH>
+
+<TH>Structure</TH>
+
+<TH>Value</TH>
+
+<TH>Structure</TH>
+
+<TH>Value</TH>
+</TR>
+
+<TR>
+<TD>Phrase</TD>
+
+<TD>1</TD>
+
+<TD>word list</TD>
+
+<TD>6</TD>
+
+<TD>urx</TD>
+
+<TD>104</TD>
+</TR>
+
+<TR>
+<TD>word</TD>
+
+<TD>2</TD>
+
+<TD>date (un-normalized)</TD>
+
+<TD>100</TD>
+
+<TD>free-form-text</TD>
+
+<TD>105 </TD>
+</TR>
+
+<TR>
+<TD>key</TD>
+
+<TD>3</TD>
+
+<TD>name (normalized)</TD>
+
+<TD>101</TD>
+
+<TD>document-text</TD>
+
+<TD>106</TD>
+</TR>
+
+<TR>
+<TD>year</TD>
+
+<TD>4</TD>
+
+<TD>name (un-normalized)</TD>
+
+<TD>102</TD>
+
+<TD>local number</TD>
+
+<TD>107 </TD>
+</TR>
+
+<TR>
+<TD>date (normalized)</TD>
+
+<TD>5</TD>
+
+<TD>structure</TD>
+
+<TD>103</TD>
+
+<TD>string</TD>
+
+<TD>108</TD>
+</TR>
+
+<TR>
+<TD></TD>
+
+<TD></TD>
+
+<TD></TD>
+
+<TD></TD>
+
+<TD>numeric string</TD>
+
+<TD>109 </TD>
+</TR>
+</TABLE>
+
+<P><A NAME="bib1_trunc"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Table A-3-5: Z39.50 BIB-1 Truncation Attributes</FONT>
+</H2>
+</CAPTION>
+
+<TR>
+<TH>Truncation</TH>
+
+<TH>Value</TH>
+
+<TH>Truncation</TH>
+
+<TH>Value</TH>
+
+<TH>Truncation</TH>
+
+<TH>Value</TH>
+</TR>
+
+<TR>
+<TD>Right Truncation</TD>
+
+<TD>1</TD>
+
+<TD>Do not truncate</TD>
+
+<TD>100</TD>
+
+<TD>Glob (regExpr-1)</TD>
+
+<TD>102</TD>
+</TR>
+
+<TR>
+<TD>Left truncation</TD>
+
+<TD>2</TD>
+
+<TD>Process # ...</TD>
+
+<TD>101</TD>
+
+<TD>Regexp (regExpr-2)</TD>
+
+<TD>103</TD>
+</TR>
+
+<TR>
+<TD>Left and right</TD>
+
+<TD>3</TD>
+</TR>
+</TABLE>
+
+<P><A NAME="bib1_completeness"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Table A-3-5: Z39.50 BIB-1 Completeness Attributes</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>Completeness</TH>
+
+<TH>Value</TH>
+
+<TH>Completeness</TH>
+
+<TH>Value</TH>
+
+<TH>Completeness</TH>
+
+<TH>Value</TH>
+</TR>
+
+<TR>
+<TD>incomplete subfield</TD>
+
+<TD>1</TD>
+
+<TD>complete subfield</TD>
+
+<TD>2</TD>
+
+<TD>complete field</TD>
+
+<TD>3</TD>
+</TR>
+</TABLE>
+
+<P><A NAME="sgmlcatalog"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">SGML Catalog Entry formats</FONT></H2>
+</CAPTION>
+
+<TR>
+<TD>TAG</TD>
+
+<TD>arg1</TD>
+
+<TD>arg2</TD>
+
+<TD>Meaning</TD>
+</TR>
+
+<TR>
+<TD>PUBLIC</TD>
+
+<TD>pubid</TD>
+
+<TD>sysid</TD>
+
+<TD>This specifies that <I>sysid</I> should be used as the effective system
+identifier if the public identifier is <I>pubid</I>. <I>Sysid</I> is a
+system identifier as defined in ISO 8879 and <I>pubid</I> is a public identifier
+as defined in ISO 8879. </TD>
+</TR>
+
+<TR>
+<TD>ENTITY</TD>
+
+<TD>name</TD>
+
+<TD>sysid</TD>
+
+<TD>This specifies that <I>sysid</I> should be used as the effective system
+identifier if the entity is a general entity whose name is <I>name</I>.
+</TD>
+</TR>
+
+<TR>
+<TD>ENTITY </TD>
+
+<TD><B>%</B>name</TD>
+
+<TD>sysid</TD>
+
+<TD>This specifies that <I>sysid</I> should be used as the effective system
+identifier if the entity is a parameter entity whose name is <I>name</I>.
+Note that there is no space between the <B>%</B> and the <I>name</I>. </TD>
+</TR>
+
+<TR>
+<TD>DOCTYPE </TD>
+
+<TD>name</TD>
+
+<TD>sysid</TD>
+
+<TD>This specifies that <I>sysid</I> should be used as the effective system
+identifier if the entity is an entity declared in a document type declaration
+whose document type name is <I>name</I>. </TD>
+</TR>
+
+<TR>
+<TD>LINKTYPE</TD>
+
+<TD>name</TD>
+
+<TD>sysid</TD>
+
+<TD>This specifies that <I>sysid</I> should be used as the effective system
+identifier if the entity is an entity declared in a link type declaration
+whose link type name is <I>name</I>. </TD>
+</TR>
+
+<TR>
+<TD>NOTATION</TD>
+
+<TD>name</TD>
+
+<TD>sysid</TD>
+
+<TD>This specifies that <I>sysid</I> should be used as the effective system
+identifier for a notation whose name is <I>name</I>. This is an extension
+to the SGML Open format used for compatibility with SP 1.1.1.. </TD>
+</TR>
+
+<TR>
+<TD>OVERRIDE </TD>
+
+<TD>bool</TD>
+
+<TD></TD>
+
+<TD><I>bool</I> may be <B>YES</B> or <B>NO</B>. This sets the overriding
+mode for entries up to the next occurrence of OVERRIDE or the end of the
+catalog entry file. At the beginning of a catalog entry file the overriding
+mode will be NO. A PUBLIC, ENTITY, DOCTYPE, LINKTYPE or NOTATION entry
+with an overriding mode of YES will be used whether or not the external
+identifier has an explicit system identifier; those with an overriding
+mode of NO will be ignored if external identifier has an explicit system
+identifier. This is an extension to the SGML Open format, and is not implemented
+in this version. </TD>
+</TR>
+
+<TR>
+<TD>SYSTEM</TD>
+
+<TD>sysid1</TD>
+
+<TD>sysid2</TD>
+
+<TD>This specifies that <I>sysid2</I> should be used as the effective system
+identifier if the system identifier specified in the external identifier
+was <I>sysid1</I>. This is an extension to the SGML Open format. <I>sysid2</I>
+should always be quoted to ensure that it is not misinterpreted when parsed
+by a system that does not support this extension. </TD>
+</TR>
+
+<TR>
+<TD>SGMLDECL </TD>
+
+<TD>sysid</TD>
+
+<TD></TD>
+
+<TD>This specifies that if the document does not contain an SGML declaration,
+the SGML declaration in <I>sysid</I> should be implied. </TD>
+</TR>
+
+<TR>
+<TD>DOCUMENT</TD>
+
+<TD>sysid</TD>
+
+<TD></TD>
+
+<TD>This specifies that the document entity is <I>sysid</I>. (for compatibility
+with SP 1.1.1.) </TD>
+</TR>
+
+<TR>
+<TD>CATALOG</TD>
+
+<TD>sysid</TD>
+
+<TD></TD>
+
+<TD>This specifies that <I>sysid</I> is the system identifier of an additional
+catalog entry file to be read after this one. Multiple <B>CATALOG</B> entries
+are allowed and will be read in order. This is an extension to the SGML
+Open format. </TD>
+</TR>
+</TABLE>
+
+<P><A NAME="sgmlcatalog2"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">SGML Catalog Entry formats (Continued)</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>arg1</TH>
+
+<TH>arg2</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>BASE</TD>
+
+<TD>sysid</TD>
+
+<TD></TD>
+
+<TD>This specifies that relative storage object identifiers in system identifiers
+in the catalog entry file following this entry should be resolved using
+first storage object identifier in <I>sysid</I> as the base, instead of
+the storage object identifiers of the storage objects comprising the catalog
+entry file. This is an extension to the SGML Open format. This extension
+is proposed in &quot;Using SGML Open Catalogs and MIME to Exchange SGML
+Documents&quot; (ftp://ftp.internic.net/internet-drafts/draft-ietf-mimesgml-exch-02.txt)
+Note that the <I>sysid</I> must exist. This is not currently implemented.
+</TD>
+</TR>
+
+<TR>
+<TD>DELEGATE</TD>
+
+<TD>pubid-prefix</TD>
+
+<TD>sysid</TD>
+
+<TD>This specifies that entities with a public identifier that has <I>pubid-prefix</I>
+as a prefix should be resolved using a catalog whose system identfier is
+<I>sysid</I>. For more details, see &quot;A Proposal for Delegating SGML
+Open Catalogs&quot; (http://www.entmp.org/fpi-urn/delegate.html). This
+is an extension to the SGML Open format. Not currently implemented. </TD>
+</TR>
+</TABLE>
+
+<P><B>Notes on SGML Catalog Entries. </B> </P>
+
+<P>The delimiters can be omitted from the <I>sysid</I> provided it does
+not contain any white space. Comments are allowed between parameters delimited
+by <B>--</B> as in SGML. </P>
+
+<P>The environment variable <B>SGML_CATALOG_FILES</B> contains a list of
+catalog entry files. The list is separated by colons under Unix and by
+semi-colons under MS-DOS and Windows.. These will be searched after any
+catalog entry file specified using the <B>&lt;SGMLCat&gt;</B> tag, or if
+no such file is specified, after the catalog entry file called <B>catalog</B>
+in the same place as the DTD. </P>
+
+<P><A NAME="index_extract"></A>
+<HR></P>
+
+<TABLE BORDER=2 >
+<CAPTION>
+<H2><FONT COLOR="#B22222">Configuration File Sub-Tags for Index Extraction
+Elements Definition</FONT></H2>
+</CAPTION>
+
+<TR>
+<TH>TAG</TH>
+
+<TH>Data Type</TH>
+
+<TH>Meaning</TH>
+</TR>
+
+<TR>
+<TD>&lt;tagspec&gt;</TD>
+
+<TD>set of tags</TD>
+
+<TD>This tag introduces the list of record elements and sub-elements to
+be indexed (or excluded) in this index file, or that are used to specify cluster keys
+and cluster element mappings as a sub-sub-elements of the &lt;cluster&gt;
+tag in a filedef. </TD>
+</TR>
+
+<TR>
+<TD>&lt;ftag&gt;</TD>
+
+<TD>tag pattern</TD>
+
+<TD>This tag introduces a tag or tag pattern that is either the entire
+specification of the elements to be extracted, or is the &quot;top level&quot;
+of a sequence of nested or alternative sub-tags. </TD>
+</TR>
+
+<TR>
+<TD>&lt;s&gt;</TD>
+
+<TD>tag pattern</TD>
+
+<TD>This tag introduces a tag or tag pattern that is either the entire
+specification of the elements to be extracted at the current level of a
+sequence of nested sub-tags. &lt;S&gt; tags may be nested. </TD>
+</TR>
+
+<TR>
+<TD>&lt;attr&gt;</TD>
+
+<TD>name</TD>
+
+<TD>This tag introduces an attribute name that is to be extracted at the
+current level of a sequence of nested sub-tags. The attribute must be associated
+with the last tag in sequence of &lt;ftag&gt; and &lt;s&gt; tags. When
+this tag is used it implies that only the value of the specified attribute,
+and NOT the value(s) of the entire field are to be extracted for indexing.
+</TD>
+</TR>
+
+<TR>
+<TD>&lt;value&gt;</TD>
+
+<TD>name</TD>
+
+<TD>This tag introduces an attribute value OR a tag content value
+pattern that is to be used to select some subset of tags or records to
+be processed. This MUST be inclosed in the &lt;attr&gt; &lt;/attr&gt;
+OR &lt;s&gt; &lt;/s&gt; tags described above. Values are used
+primarily for selecting sub-document parts for processing. Another use
+is to index only fields that have a particular attribute value. 
+When used with "S" tags this tag should be the last in a list
+of "S" tags (or the only "S" tag). If the index type is one of
+the "EXTERNAL" types, and the VALUE tag contains either "TEXT_FILE_REF"
+or "EXTERNAL_URL_REF", then the filename or URL of the external data is
+taken from enclosing ATTR tag.</TD>
+</TR>
+
+<TR>
+<TD>&lt;replace&gt;</TD>
+
+<TD>name</TD>
+
+<TD>This tag introduces a pair of values that are to be used to modify
+the contents of the record. This MUST be inclosed in
+the &lt;attr&gt; &lt;/attr&gt; tags described above and is expected only
+to be used for the TEXT_FILE_REF attribute value. The two elements are
+a pattern string and a replacment string. Whenever the pattern string
+is found in the string specified in the record, it is replaced with
+the replacement string. This permits re-direction of the external
+text file location (or, for example, conversion of URLs to file paths) </TD>
+</TR>
+
+<TR>
+<TD>&lt;attr&gt;</TD>
+
+<TD>008_element_name</TD>
+
+<TD>This tag introduces an element name that is to be extracted at the
+current level of tags. This works only for records that are USMARC and
+in the BOOKS format, and when the EXTRACT attribute for the index is FLD008_KEY
+anything else (should be) ignored in processing. Only the specified single
+value of the 008 field is extracted for indexing. (see list of 008 tags
+above). </TD>
+</TR>
+
+<TR>
+<TD>&lt;attr&gt;</TD>
+
+<TD>TEXT_FILE_REF</TD>
+
+<TD>This tag introduces an element name that is to be extracted at the
+current level of tags. The EXTRACT attribute for the index should be
+KEYWORD_EXTERNAL.  This combination indicates that if a matching tag
+pattern is found then the contents of that tag are to treated as a
+full path name to a text (or html or sgml) file containing the text to
+be indexed. (To index the contents of a filename contained in an attribute
+instead of as the tag contents, use "EXTERNAL_URL_REF" as the content
+of a VALUE tag enclosed in the appropriate ATTR tag.) </TD>
+
+</TR>
+
+<TR>
+<TD></TD>
+</TR>
+<TR>
+<TD>&lt;attr&gt;</TD>
+
+<TD>TEXT_DIRECTORY_REF</TD>
+
+<TD>This tag introduces an element name that is to be extracted at the
+current level of tags. The EXTRACT attribute for the index should be KEYWORD_EXTERNAL.
+This combination indicates that if a matching tag pattern is found then
+the contents of that tag are to treated as a full path name to a directory
+containing a collection of text (or html or sgml) files containing the
+texts to be indexed. </TD>
+</TR>
+
+<TR>
+<TD>&lt;attr&gt;</TD>
+
+<TD>PAGED_DIRECTORY_REF</TD>
+
+<TD>This tag introduces an element name that is to be extracted at the
+current level of tags. This is treated the same as TEXT_DIRECTORY_REF above
+with the following additions. The PAGED_DIRECTORY_REF directory should
+contain separate files for each page of a text document. The file names
+should contain the page number (all non-numeric parts of names will be
+used for references to the file but ignored for internal identification.
+A special index for each page is created by generating a unique &quot;document
+id&quot; for each page. and also creating some special mapping files to
+link each id to the &quot;base document&quot; being indexed. NOTE: THIS
+SHOULD BE THE ONLY TAG/ATTR COMBINATION FOR THE INDEX. Searches in a PAGED_DIRECTORY_REF
+index will return psuedo-records for each matching page constructed according
+to the Display Specification named &quot;PAGED_DEFAULT&quot;. </TD>
+</TR>
+
+<TR>
+<TD>&lt;attr&gt;</TD>
+
+<TD>EXTERNAL_URL_REF</TD>
+
+<TD>This tag introduces an element name that is to be extracted at the
+current level of tags. The EXTRACT attribute for the index should be KEYWORD_EXTERNAL.
+This combination indicates that if a matching tag pattern is found then
+the contents of that tag are to treated as a URL indicating the text, html,
+or other file containing the text to be indexed. The URL will be accessed
+using the appropriate retrieval protocol (e.g.: http, ftp, gopher, etc.).
+The actual fetching of the URL is accomplished by an external application
+(see the &lt;extern_app&gt; tag above). (To index the contents of
+a URL contained in an attribute instead of as the tag content, use 
+"EXTERNAL_URL_REF" as the content of a VALUE tag enclosed in the
+appropriate ATTR tag.) </TD>
+</TR>
+</TABLE>
+
+<H2 ALIGN=CENTER><A NAME="Tag_Specifications"></A><B><FONT COLOR="#B22222">Tag
+Specifications </FONT></B> </H2>
+
+<P>Tag specifications are designed to allow any combination of tags
+(or regular expression patterns representing tags) to be
+expressed. The configfile parser accepts extended regular expressions
+in the same form as the grep command. If none of the characters used
+to create regular expressions is used, then the system will attempt to
+match the exact tag specified. Case is ignored in tag
+matching. In the following description `character' excludes new line:
+</P>
+
+<UL>
+<LI>A \ followed by a single character other than new line matches that
+character. </LI>
+
+<LI>The character ^ matches the beginning of a line or tag. </LI>
+
+<LI>The character $ matches the end of a line or tag. </LI>
+
+<LI>A . (dot) matches any character. </LI>
+
+<LI>A single character not otherwise endowed with special meaning matches
+that character. </LI>
+
+<LI>A string enclosed in brackets [] matches any single character from
+the string. Ranges of ASCII character codes may be abbreviated as in `a-z0-9'.
+A ']' may occur only as the first character of the string. A literal '-'
+must be placed where it can not be mistaken as a range indicator. </LI>
+
+<LI>A regular expression followed by an '*' (asterisk) matches a sequence
+of 0 or more matches of the regular expression. A regular expression followed
+by a '+' (plus) matches a sequence of 1 or more matches of the regular
+expression. A regular expression followed by a '?' (question mark) matches
+a sequence of 0 or 1 matches of the regular expression. </LI>
+
+<LI>Two regular expressions concatenated match a match of the first followed
+by a match of the second. </LI>
+
+<LI>Two regular expressions separated by | match either a match for the
+first or a match for the second. </LI>
+
+<LI>A regular expression enclosed in parentheses matches a match for the
+regular expression. </LI>
+</UL>
+
+<P>The order of precedence of operators at the same parenthesis level is
+the following: [], then *+?, then concatenation, then | and new line. 
+</P>
+
+<P>The following examples indicate something of how these specifications
+are constructed. </P>
+
+<PRE>&lt;TAGSPEC&gt;
+&lt;FTAG&gt;FLD100  &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD110 &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD111 &lt;/FTAG&gt;
+&lt;/TAGSPEC&gt; 
+</PRE>
+
+<P>This specification indicates that the &lt;FLD100&gt; &lt;FLD110&gt;
+and &lt;FLD111&gt; are to be extracted for the index. </P>
+
+<PRE>&lt;TAGSPEC&gt;
+&lt;FTAG&gt; FLD100 &lt;/FTAG&gt;&lt;S&gt; ^a &lt;/S&gt;
+&lt;/TAGSPEC&gt;
+</PRE>
+
+<P>This asks for the &lt;a&gt; subelement of the &lt;FLD100&gt; tag. (the
+following examples will assume the TAGSPEC tags). </P>
+
+<P>&lt;FTAG&gt; FLD1.. &lt;/FTAG&gt;&lt;s&gt; ^a &lt;/S&gt; </P>
+
+<P>This asks for subelement &lt;a&gt; if it is the first element of any
+tag with the name &quot;FLD1&quot; with two additional characters. </P>
+
+<P>&lt;ftag&gt; FLD[178]00 &lt;/ftag&gt;&lt;s&gt; [abd] &lt;/s&gt; </P>
+
+<P>This asks for any &lt;a&gt;, &lt;b&gt;, or &lt;d&gt; subelements of
+&lt;FLD100&gt;, &lt;FLD700&gt;, or &lt;FLD800&gt;. </P>
+
+<P>&lt;ftag&gt; stuff &lt;/ftag&gt; &lt;s&gt; suba &lt;/s&gt; &lt;s&gt;
+subb &lt;/s&gt; </P>
+
+<P>This asks for the sub-elements &lt;suba&gt; and &lt;subb&gt; which are
+within any tag named &quot;stuff&quot;. </P>
+
+<P>&lt;ftag&gt; stuff.* &lt;/ftag&gt; &lt;s&gt; sub1 &lt;s&gt; sub2 &lt;/s&gt;&lt;/s&gt;
+</P>
+
+<P>This asks for the sub-sub-element &lt;sub2&gt; only within tags &lt;sub1&gt;
+which are within any tag name beginning with the string &quot;stuff&quot;
+followed by any combination of characters. The nesting may be done as deeping
+as needed to specify the correct sub-element when element names may be
+ambiguous (E.g.: specifying the tag &lt;a&gt; in a MARC record would get
+almost every field. In more deeply nested SGML, similar problems can arise.)
+</P>
+
+<P>Obviously, these regular expressions may become fairly complex and a
+single expression may specify a large number of fields to be extracted
+by the indexing routines. Caution should be used (especially in
+short tags) to avoid matching OTHER tags. The '^' and '$' anchoring
+indicators are useful to avoid false matches. For example, a tag
+specification like:</P>
+
+<P>&lt;FTAG&gt; [AB] &lt;/FTAG&gt; </P>
+
+<P>Would match not only "&lt;A&gt;" and  "&lt;B&gt;", but also  "&lt;CAT&gt;" 
+or  "&lt;BAR&gt;", because the pattern is not anchored with '^' or '$'. To
+correctly match only the  "&lt;A&gt;" and  "&lt;B&gt;" tags you would need
+to use:</P>
+
+<P>&lt;FTAG&gt; ^[AB]$ &lt;/FTAG&gt; </P>
+
+
+<P>As noted above, when used with the EXACTKEY extraction flag, any tags
+at the same level of nesting will be concatenated. For example, if the
+expression: </P>
+
+<P>&lt;FTAG&gt; FLD6.. &lt;/FTAG&gt; </P>
+
+<P>is used to create an &quot;exact subject&quot; index, then all adjacent
+fields in a record that had matching tags would be concatenated into a
+single key. If exact keys for each individual 6xx field are wanted then
+some sub-elements must be specified, even if the subfield specification
+would match for all subfields. A specification such as: </P>
+
+<P>&lt;FTAG&gt; FLD6.. &lt;/FTAG&gt;&lt;s&gt;.*&lt;/s&gt; </P>
+
+<P>Would match each individual field and extract a key made up of all of
+the subjfields concatenated together. </P>
+
+<P>
+<HR></P>
+
+<H2 ALIGN=CENTER><A NAME="CONFIG_FILE_DTD"></A><B><FONT COLOR="#B22222">CONFIG
+FILE DTD </FONT></B> </H2>
+
+<CENTER><P>The following is the SGML Declaration and DTD for configuration
+files. </P></CENTER>
+
+<PRE>
+&lt;!SGML  &quot;ISO 8879:1986&quot;
+--
+--
+
+CHARSET
+         BASESET  &quot;ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0&quot;
+         DESCSET  0   9   UNUSED
+                  9   2   9
+                  11  2   UNUSED
+                  13  1   13
+                  14  18  UNUSED
+                  32  95  32
+                  127 1   UNUSED
+     BASESET   &quot;ISO Registration Number 100//CHARSET
+                ECMA-94 Right Part of Latin Alphabet Nr. 1//ESC 2/13 4/1&quot;
+     DESCSET   128 32 UNUSED
+               160 95 32
+               255  1 UNUSED
+
+
+CAPACITY        SGMLREF
+                TOTALCAP        150000
+                GRPCAP          150000
+  
+SCOPE    DOCUMENT
+SYNTAX   
+         SHUNCHAR CONTROLS 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18
+                           19 20 21 22 23 24 25 26 27 28 29 30 31 127 255
+         BASESET  &quot;ISO 646:1983//CHARSET
+                   International Reference Version (IRV)//ESC 2/5 4/0&quot;
+         DESCSET  0 128 0
+         FUNCTION RE          13
+                  RS          10
+                  SPACE       32
+                  TAB SEPCHAR  9
+         NAMING   LCNMSTRT &quot;&quot;
+                  UCNMSTRT &quot;&quot;
+                  LCNMCHAR &quot;.-_:&quot;
+                  UCNMCHAR &quot;.-_:&quot;
+                  NAMECASE GENERAL YES
+                           ENTITY  NO
+         DELIM    GENERAL  SGMLREF
+                  SHORTREF SGMLREF
+         NAMES    SGMLREF
+         QUANTITY SGMLREF
+                  NAMELEN  34
+                  TAGLVL   100
+                  LITLEN   1024
+                  GRPGTCNT 150
+                  GRPCNT   64                   
+
+FEATURES
+  MINIMIZE
+    DATATAG  NO
+    OMITTAG  YES
+    RANK     NO
+    SHORTTAG YES
+  LINK
+    SIMPLE   NO
+    IMPLICIT NO
+    EXPLICIT NO
+  OTHER
+    CONCUR   NO
+    SUBDOC   NO
+    FORMAL   YES
+  APPINFO    NONE
+&gt;
+&lt;!doctype dbconfig [
+
+&lt;!-- This is the data type definition for the configuration files used
+     in the Cheshire2 system. It spells out the acceptable markup for
+     the configuration files and the standard codes used
+  --&gt;
+
+&lt;!ELEMENT dbconfig - - (DBENV?,(ConfigInclude|filedef)+)&gt;
+
+&lt;!-- DBENV is a directory where the DB stores some working data --&gt;
+&lt;!ELEMENT DBENV - - (#PCDATA)&gt;
+
+&lt;!ELEMENT filedef - - (defaultpath?,(filename | filetag)+,(filecont | continclude)*, (explain | filedtd | sgmlcat | XMLSchema)* , assocfil?, history?, indexes?, clusters?, components?, dispoptions?, displays?)&gt;
+&lt;!-- Note that not all of the types listed below are implemented directly --&gt;
+&lt;!ATTLIST filedef TYPE (SGML | XML | MARC | MARCSGML | AUTH | CLUSTER | LCCTREE | MAPPED | SQL | DBMS | RDBMS | EXPLAIN | VIRTUAL | SGML_DATASTORE | XML_DATASTORE | MARC_DATASTORE | MARCSGML_DATASTORE) &quot;SGML&quot;&gt;
+
+&lt;!-- DefaultPath will be pre-pended to any filename that does not begin at root --&gt;
+&lt;!ELEMENT defaultpath - - (#PCDATA)&gt;
+
+&lt;!ELEMENT filename - - (#PCDATA)&gt;
+
+&lt;!ELEMENT filetag   - - (#PCDATA)&gt;
+
+&lt;!ELEMENT sgmlcat   - - (#PCDATA)&gt;
+
+&lt;!-- optional continuation files for very large data files --&gt;
+&lt;!ELEMENT filecont   - - (#PCDATA)&gt;
+&lt;!ATTLIST filecont id NUMBER #REQUIRED
+                   min NUMBER #REQUIRED
+                   max NUMBER #REQUIRED&gt;
+&lt;!ELEMENT continclude   - - (#PCDATA)&gt;
+
+&lt;!ELEMENT explain   - - (TITLESTRING | DESCRIPTION | DISCLAIMERS | NEWS | HOURS |
+			BESTTIME | LASTUPDATE | updateinterval | COVERAGE |
+			PROPRIETARY | COPYRIGHTTEXT | COPYRIGHTNOTICE |
+			producercontactinfo | suppliercontactinfo | submissioncontactinfo)*&gt;
+
+&lt;!ELEMENT titlestring         - - (#PCDATA)&gt;
+&lt;!ELEMENT description         - - (#PCDATA)&gt;
+&lt;!ELEMENT disclaimers         - - (#PCDATA)&gt;
+&lt;!ELEMENT news                - - (#PCDATA)&gt;
+&lt;!ELEMENT hours               - - (#PCDATA)&gt;
+&lt;!ELEMENT besttime            - - (#PCDATA)&gt;
+&lt;!ELEMENT lastupdate          - - (#PCDATA)&gt;
+&lt;!ELEMENT coverage            - - (#PCDATA)&gt;
+&lt;!ELEMENT proprietary         - - (#PCDATA)&gt;
+&lt;!ELEMENT copyrighttext       - - (#PCDATA)&gt;
+&lt;!ELEMENT copyrightnotice     - - (#PCDATA)&gt;
+
+
+&lt;!ELEMENT updateinterval - - (value, units)&gt;
+&lt;!ELEMENT producercontactinfo - - (contact_name?, contact_description?,
+		contact_address?, contact_email?, contact_phone?)&gt;
+&lt;!ELEMENT suppliercontactinfo - - (contact_name?, contact_description?,
+		contact_address?, contact_email?, contact_phone?)&gt;
+&lt;!ELEMENT submissioncontactinfo - - (contact_name?, contact_description?,
+		contact_address?, contact_email?, contact_phone?)&gt;
+
+&lt;!ELEMENT contact_name         - - (#PCDATA)&gt;
+&lt;!ELEMENT contact_description  - - (#PCDATA)&gt;
+&lt;!ELEMENT contact_address      - - (#PCDATA)&gt;
+&lt;!ELEMENT contact_email        - - (#PCDATA)&gt;
+&lt;!ELEMENT contact_phone        - - (#PCDATA)&gt;
+
+
+&lt;!ELEMENT value     - - (#PCDATA)&gt;
+&lt;!ELEMENT units     - - (#PCDATA)&gt;
+
+
+
+&lt;!ATTLIST (titlestring, 
+          description,
+	  disclaimers,
+          news,
+          hours,
+          besttime,
+          coverage,
+          copyrighttext,
+          copyrightnotice)  LANGUAGE CDATA #IMPLIED&gt;
+
+
+&lt;!ELEMENT filedtd   - - (#PCDATA)&gt;
+&lt;!ATTLIST filedtd TYPE (SGML | XML | XMLSCHEMA) &quot;SGML&quot; &gt;
+&lt;!ELEMENT XMLSchema - - (#PCDATA)&gt;
+&lt;!ELEMENT assocfil  - - (#PCDATA)&gt;
+&lt;!ELEMENT history   - - (#PCDATA)&gt;
+
+
+&lt;!-- The following elements provide the definition language for indexes
+     to be generated for the particular file --&gt;
+&lt;!ELEMENT indexes  - - (indexdef+)&gt;
+&lt;!ELEMENT indexdef - - ((indxname | indxtag)+,indxmap*,indxcont*,stoplist?, indxexc? ,indxkey+)&gt;
+
+&lt;!-- Note that the NORMAL Attribute below has the possible values of:
+     &quot;STEM&quot;, &quot;WORDNET&quot;, &quot;CLASSCLUS&quot;, &quot;BASIC&quot;, &quot;NONE&quot; &quot;DO_NOT_NORMALIZE&quot;, &quot;REMOVE_TAGS_ONLY&quot;, 
+     &quot;STEM_NOMAP&quot;, 
+     &quot;WORDNET_NOMAP&quot;, &quot;XKEY&quot; or &quot;EXACTKEY&quot;, &quot;XKEY_NOMAP&quot; or &quot;EXACTKEY_NOMAP&quot;, 
+     &quot;CLASSCLUS_NOMAP&quot;, &quot;BASIC_NOMAP&quot;, &quot;NONE_NOMAP&quot;, &quot;STEM_FREQ&quot; &quot;XKEY_FREQ&quot;, &quot;BASIC_FREQ&quot; and &quot;NONE_FREQ&quot;
+     but it is also used for format specifications for Date and LAT_LONG or
+     BOUNDING_BOX formats, so not all are enumerated --&gt;
+&lt;!ATTLIST indexdef ACCESS (BTREE | HASH | RECNO | DBMS | BITMAPPED) &quot;BTREE&quot;
+         EXTRACT (KEYWORD | EXACTKEY | FLD008KEY | 
+		KEYWORD_SUBDOC | EXACTKEY_SUBDOC | URL | FILENAME |
+		DATE | DATE_RANGE | DATE_TIME | DATE_TIME_RANGE |
+		INTEGER_KEY | DECIMAL_KEY | FLOAT_KEY |
+		INTEGER | DECIMAL | FLOAT | LAT_LONG | BOUNDING_BOX |
+		KEYWORD_PROXIMITY | KEYWORD_EXTERNAL_PROXIMITY |
+		KEYWORD_EXTERNAL) &quot;KEYWORD&quot;
+         NORMAL CDATA #IMPLIED
+         PRIMARYKEY (NO | REJECT | IGNORE | REPLACE) &quot;NO&quot; &gt;
+
+&lt;!ELEMENT indxname - - (#PCDATA)&gt;
+&lt;!ELEMENT indxtag  - - (#PCDATA)&gt;
+
+&lt;!-- indxmap is used to indicate which Z39.50 attributes should be mapped
+     to this index. Any attributes NOT specified imply that ANY value 
+     for that element should be mapped to this index. Note that the
+     order in the configfile doesn't matter (any longer) USE or ACCESS_POINT
+     are required to match indexes --&gt;
+&lt;!ELEMENT indxmap  - - ((use | relat | posit | struct | trunc | complet
+			| access_point | semantic_qualifier | language 
+			| content_authority | expansion | normalized_weight
+			| hit_count | comparison | format | occurrence
+			| indirection | functional_qualifier)+&gt;
+
+&lt;!-- possible values for the ATTRIBUTESET attribute include:
+     &quot;BIB-1&quot;, &quot;EXP-1&quot;, &quot;EXT-1&quot;, &quot;CCL-1&quot;, &quot;GILS&quot;, &quot;STAS&quot;, &quot;COLLECTIONS-1&quot;, 
+     &quot;CIMI-1&quot;, &quot;GEO-1&quot;, &quot;ZBIG&quot;, &quot;UTIL&quot; ;, &quot;XD-1&quot;, &quot;ZTHES&quot;, &quot;FIN-1&quot;, 
+     &quot;DAN-1&quot; and &quot;HOLDINGS&quot;, or any valid Z39.50 ATTRIBUTESET OID --&gt;
+&lt;!ATTLIST indxmap ATTRIBUTESET CDATA #IMPLIED &gt; 
+
+&lt;!-- optional continuation files for large index (NOT CURRENTLY USED) --&gt;
+&lt;!ELEMENT indxcont - - (#PCDATA)&gt;
+&lt;!ATTLIST indxcont id NUMBER #REQUIRED&gt;
+
+&lt;!ELEMENT stoplist  - - (#PCDATA)&gt;
+
+&lt;!-- The extern_app tag specifies the command name and arguments for 
+     external indexing of URLs. The string &quot;%~URL~%&quot; should be used in 
+     the place where the URL in the data should be substituted in order 
+     to fetch the external data so that it can be indexed. A temporary 
+     copy must be made of each item during indexing but NO filename 
+     should be specified for the application (i.e., the output should be 
+     to stdout). The recommended application to use here is curl 
+     (http://curl.haxx.se) which is available on Linux, some other Unixes 
+     and Mac OS X. Using curl the tag might look like: 
+     &quot;&lt;extern_app&gt; curl --silent %~URL~% &lt;/extern_app&gt;&quot; --&gt;
+
+&lt;!ELEMENT extern_app - - (#PCDATA)&gt;
+
+&lt;!-- Indxexc(s) contain the field specifications for areas where index
+     keys are NOT to be extracted. This tag effectively masks off parts
+     of the record and prohibits indexing subelements within those parts
+--&gt;
+&lt;!ELEMENT indxexc - - (tagspec+)&gt;
+
+&lt;!-- Indxkey(s) contain the field specifications for index extraction
+--&gt;
+&lt;!ELEMENT indxkey - - (tagspec+)&gt;
+
+&lt;!ELEMENT tagspec - - (ftag,s*,attr?)+&gt;
+
+&lt;!-- ftag is a field tag: either the SGML or MARC tag generally
+--&gt;
+&lt;!ELEMENT ftag - - (#PCDATA)&gt;
+
+&lt;!-- s is subfields or other selection criteria; may want to have a more
+     detailed syntax for a variety of things. But right now just data 
+--&gt;
+&lt;!ELEMENT s - - (s* & #PCDATA)*&gt;
+
+&lt;!-- attr is the name of the ATTRIBUTE associated with the tag that
+     should be indexed (i.e. don't index the field contents, just 
+     the value of that attribute.
+--&gt;
+&lt;!ELEMENT attr - - (#PCDATA | value)*&gt;
+
+&lt;!-- cluster contains name of a &quot;base&quot; file from which a cluster file 
+     was extracted, or a specification of the cluster file to be extracted
+     from the current file --&gt;
+&lt;!ELEMENT clusters - - (cluster | clusterdef)&gt;
+&lt;!ELEMENT cluster - - (clusbase | ((clusname | clustag), cluskey, stoplist?, clusmap+))&gt;
+&lt;!ELEMENT clusterdef - - (clusbase | (clusname, cluskey, stoplist?, clusmap+))&gt;
+
+&lt;!-- clusbase is the name of the file clustered by this file --&gt;
+&lt;!ELEMENT clusbase - - (#PCDATA)&gt;
+
+&lt;!-- clusname is the name of the cluster file to be extracted from
+     this file --&gt;
+&lt;!ELEMENT clusname - - (#PCDATA)&gt;
+&lt;!-- clustag is the name of the cluster file to be extracted from
+     this file: it is an alias for clusname --&gt;
+&lt;!ELEMENT clustag - - (#PCDATA)&gt;
+
+&lt;!-- cluskey is the key on which the clustering is based --&gt;
+&lt;!ELEMENT cluskey  - - (tagspec)&gt;
+&lt;!-- the NORMAL attribute of cluskey indicate the normalization to be done --&gt;
+&lt;!ATTLIST cluskey  NORMAL (STEM | WORDNET | CLASSCLUS | EXACTKEY | BASIC | NONE) &quot;BASIC&quot; &gt;
+
+&lt;!-- clusmap indicates the mapping from base file elements to cluster file
+     elements --&gt;
+&lt;!ELEMENT clusmap  - - ((from,to,summarize?)+)&gt;
+&lt;!ELEMENT from - - (tagspec)&gt;
+&lt;!ELEMENT to   - - (tagspec)&gt;
+&lt;!ELEMENT summarize - - (maxnum, tagspec)&gt;
+&lt;!ELEMENT maxnum - - (#PCDATA)&gt;
+
+&lt;!-- The following elements are used to specify a mapping between
+     z39.50 attributes and a particular index definition
+--&gt;
+&lt;!ELEMENT use - - (#PCDATA)&gt;
+&lt;!ATTLIST use ATTR CDATA #IMPLIED &gt; 
+
+&lt;!ELEMENT relat - - (#PCDATA)&gt;
+&lt;!ATTLIST relat ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT posit - - (#PCDATA)&gt;
+&lt;!ATTLIST posit ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT struct - - (#PCDATA)&gt;
+&lt;!ATTLIST struct ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT trunc - - (#PCDATA)&gt;
+&lt;!ATTLIST trunc ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT complet - - (#PCDATA)&gt;
+&lt;!ATTLIST complet ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT access_point - - (#PCDATA)&gt;
+&lt;!ATTLIST access_point ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT semantic_qualifier - - (#PCDATA)&gt;
+&lt;!ATTLIST semantic_qualifier ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT language - - (#PCDATA)&gt;
+&lt;!ATTLIST language ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT content_authority - - (#PCDATA)&gt;
+&lt;!ATTLIST content_authority ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT expansion - - (#PCDATA)&gt;
+&lt;!ATTLIST expansion ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT normalized_weight - - (#PCDATA)&gt;
+&lt;!ATTLIST normalized_weight ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT hit_count - - (#PCDATA)&gt;
+&lt;!ATTLIST hit_count ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT comparison - - (#PCDATA)&gt;
+&lt;!ATTLIST comparison ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT format - - (#PCDATA)&gt;
+&lt;!ATTLIST format ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT occurrence - - (#PCDATA)&gt;
+&lt;!ATTLIST occurrence ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT indirection - - (#PCDATA)&gt;
+&lt;!ATTLIST indirection ATTR CDATA #IMPLIED &gt; 
+&lt;!ELEMENT functional_qualifier - - (#PCDATA)&gt;
+&lt;!ATTLIST functional_qualifier ATTR CDATA #IMPLIED &gt; 
+
+&lt;!-- display indicates the mapping from base file elements to
+     the elements that should be returned in a given format--&gt;
+&lt;!ELEMENT dispoptions - - (#PCDATA)&gt;
+&lt;!ELEMENT displays  - - (format | displaydef)+&gt;
+
+
+&lt;!-- format and displaydef are actually aliases for each other --&gt;
+&lt;!ELEMENT format - - (include?,exclude?,convert?)&gt;
+&lt;!-- the NAME attribute of format indicates the format name --&gt;
+&lt;!-- the DEFAULT attribute indicates the default format --&gt;
+&lt;!ATTLIST format  NAME NMTOKEN #REQUIRED 
+                  OID  NMTOKEN #IMPLIED
+                  DEFAULT (DEFAULT) #IMPLIED&gt;
+
+
+&lt;!ELEMENT displaydef - - (include?,exclude?,convert?)&gt;
+&lt;!-- the NAME attribute of format indicates the format name --&gt;
+&lt;!-- the DEFAULT attribute indicates the default format --&gt;
+&lt;!ATTLIST displaydef  NAME NMTOKEN #REQUIRED 
+                  OID  NMTOKEN #IMPLIED
+                  DEFAULT (DEFAULT) #IMPLIED&gt;
+
+&lt;!ELEMENT include - - (tagspec)&gt;
+&lt;!ELEMENT exclude - - (tagspec)&gt;
+
+&lt;!ATTLIST exclude COMPRESS (COMPRESS) #IMPLIED&gt;
+
+&lt;!ELEMENT convert - - (clusmap)&gt;
+
+&lt;!ATTLIST convert FUNCTION CDATA #IMPLIED&gt;
+
+&lt;!ELEMENT components - - (componentdef*)&gt;
+
+&lt;!ELEMENT componentdef - - (componentname, componentnorm*, 
+                           (compstarttag | componentstarttag | componentstart),
+                           (compendtag | componentendtag | componentendtag)?, 
+                           componentindexes)&gt;
+
+&lt;!ELEMENT componentname - - (#PCDATA)&gt;
+&lt;!ELEMENT componentnorm  - - (#PCDATA)&gt;
+
+&lt;!-- these are really just aliases for each other --&gt;
+&lt;!ELEMENT compstarttag  - - (tagspec)&gt;
+&lt;!ELEMENT componentstarttag  - - (tagspec)&gt;
+&lt;!ELEMENT componentstart  - - (tagspec)&gt;
+&lt;!-- these are really just aliases for each other --&gt;
+&lt;!ELEMENT compendtag  - - (tagspec)&gt;
+&lt;!ELEMENT componentendtag  - - (tagspec)&gt;
+&lt;!ELEMENT componentend  - - (tagspec)&gt;
+
+&lt;!ELEMENT componentindexes  - - (indexdef+)&gt;
+
+]&gt;
+
+
+
+</PRE>
+
+<P>
+<HR></P>
+
+<H2 ALIGN=CENTER><A NAME="SAMPLE_CONFIG"></A><B><FONT COLOR="#B22222">SAMPLE
+CONFIGURATION FILE</FONT> </B> </H2>
+
+<P>The following is an example of a configuration file (this is the one
+used for testing the indexing library). </P>
+
+<PRE>&lt;!-- This is a test config file for Cheshire II --&gt;
+&lt;DBCONFIG&gt;
+
+&lt;!-- The first filedef --&gt;
+&lt;FILEDEF TYPE=SGML&gt;
+&lt;!-- filetag is the &quot;shorthand&quot; name of the file --&gt;
+&lt;FILETAG&gt; bibfile &lt;/FILETAG&gt;
+
+&lt;!-- filename is the full path name of the file --&gt;
+&lt;FILENAME&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/morerecs.sgml 
+&lt;/FILENAME&gt;
+
+&lt;!-- fileDTD is the full path name of the file's DTD --&gt;
+&lt;FILEDTD&gt; /usr3/cheshire2/new/sgml/USMARC07.DTD &lt;/FILEDTD&gt;
+
+&lt;!-- assocfil is the full path name of the file's Associator --&gt;
+&lt;ASSOCFIL&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/morerecs.sgml.asso
+&lt;/ASSOCFIL&gt;
+
+&lt;!-- history is the full path name of the file's history file --&gt;
+&lt;HISTORY&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/morerecs.sgml.history 
+&lt;/HISTORY&gt;
+
+&lt;!-- The following are the index definitions for the file --&gt;
+&lt;INDEXES&gt;
+
+&lt;!-- First index def --&gt;
+&lt;INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=BASIC&gt;
+&lt;INDXNAME&gt; 
+/export/home/ray/Work/cheshire2/indexing/TESTDATA/dictionary.author
+&lt;/INDXNAME&gt;
+&lt;INDXTAG&gt; author &lt;/INDXTAG&gt;
+
+&lt;!-- The following INDXMAP items provide a mapping from the AUTHOR tag to --&gt;
+&lt;!-- the appropriate Z39.50 BIB1 attribute numbers      --&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 1 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 2 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 3 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 1002 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 1003 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 1004 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 1005 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 1006 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+
+&lt;!-- The stoplist for this file --&gt;
+&lt;STOPLIST&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/authorstoplist 
+&lt;/STOPLIST&gt;
+
+&lt;!-- The INDXKEY area contains the specifications of tags in the doc --&gt;
+&lt;!-- that are to be extracted and indexed for this index    --&gt;
+&lt;INDXKEY&gt;
+&lt;TAGSPEC&gt;
+&lt;FTAG&gt;FLD100  &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD110 &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD111 &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD700 &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD710 &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD711 &lt;/FTAG&gt; 
+&lt;/TAGSPEC&gt; 
+&lt;/INDXKEY&gt; 
+&lt;/INDEXDEF&gt;
+
+&lt;!-- The next index entry definition --&gt;
+&lt;INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=BASIC&gt;
+&lt;INDXNAME&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/dictionary.xauthor
+&lt;/INDXNAME&gt;
+&lt;INDXTAG&gt; xauthor &lt;/INDXTAG&gt;
+
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 1 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 2 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 3 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 1002 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 1003 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 1004 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 1005 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 1006 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+
+&lt;STOPLIST&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/authorstoplist &lt;/STOPLIST&gt;
+&lt;INDXKEY&gt;
+&lt;TAGSPEC&gt;
+&lt;!-- Notice the use of pattern matching in the following --&gt;
+&lt;FTAG&gt;FLD[178]00 &lt;/FTAG&gt; &lt;S&gt; ^a &lt;/S&gt;
+&lt;FTAG&gt;FLD[178]10 &lt;/FTAG&gt; &lt;S&gt; ^[abdc] &lt;/S&gt;
+&lt;FTAG&gt;FLD[178]11 &lt;/FTAG&gt; &lt;S&gt; ^[abdc] &lt;/S&gt;
+&lt;FTAG&gt;FLD600 &lt;/FTAG&gt; &lt;S&gt; ^a &lt;/S&gt;
+&lt;FTAG&gt;FLD610 &lt;/FTAG&gt; &lt;S&gt; ^[ab] &lt;/S&gt;
+&lt;FTAG&gt;FLD611 &lt;/FTAG&gt; &lt;S&gt; ^[ab] &lt;/S&gt; &lt;/TAGSPEC&gt; &lt;/INDXKEY&gt; &lt;/INDEXDEF&gt;
+
+&lt;INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM&gt;
+&lt;INDXNAME&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/dictionary.title &lt;/INDXNAME&gt;
+&lt;INDXTAG&gt; title &lt;/INDXTAG&gt;
+
+&lt;INDXMAP&gt;
+&lt;USE&gt; 4 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 5 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 6 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+
+&lt;STOPLIST&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/titlestoplist &lt;/STOPLIST&gt;
+&lt;INDXKEY&gt;
+&lt;TAGSPEC&gt;
+&lt;FTAG&gt;FLD245 &lt;/FTAG&gt;&lt;S&gt;[ab] &lt;/S&gt;
+&lt;FTAG&gt;FLD240 &lt;/FTAG&gt; &lt;S&gt; [atp] &lt;/S&gt;
+&lt;FTAG&gt;FLD130 &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD730 &lt;/FTAG&gt; &lt;/TAGSPEC&gt; &lt;/INDXKEY&gt; &lt;/INDEXDEF&gt;
+
+&lt;INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=BASIC&gt;
+&lt;INDXNAME&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/dictionary.xtitle &lt;/INDXNAME&gt;
+&lt;INDXTAG&gt; xtitle &lt;/INDXTAG&gt;
+
+&lt;INDXMAP&gt;
+&lt;USE&gt; 4 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 5 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; 
+&lt;USE&gt; 6 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;trunc&gt; 1 &lt;/trunc&gt; &lt;/INDXMAP&gt;
+
+&lt;STOPLIST&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/titlestoplist &lt;/STOPLIST&gt;
+&lt;INDXKEY&gt;
+&lt;TAGSPEC&gt;
+&lt;FTAG&gt;FLD245 &lt;/FTAG&gt;&lt;S&gt;[ab] &lt;/S&gt;
+&lt;FTAG&gt;FLD240 &lt;/FTAG&gt; &lt;S&gt;[abtp] &lt;/S&gt;
+&lt;FTAG&gt;FLD130 &lt;/FTAG&gt; &lt;s&gt;[ab] &lt;/s&gt;
+&lt;FTAG&gt;FLD730 &lt;/FTAG&gt; &lt;s&gt;[ab] &lt;/s&gt; &lt;/TAGSPEC&gt; &lt;/INDXKEY&gt; &lt;/INDEXDEF&gt;
+
+&lt;INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM&gt;
+&lt;INDXNAME&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/dictionary.subject &lt;/INDXNAME&gt;
+&lt;INDXTAG&gt; subject &lt;/INDXTAG&gt;
+
+&lt;INDXMAP&gt;
+&lt;USE&gt; 21 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt;
+&lt;USE&gt; 26 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt;
+&lt;USE&gt; 25 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt;
+&lt;USE&gt; 27 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt;
+&lt;USE&gt; 28 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+
+&lt;STOPLIST&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/titlestoplist &lt;/STOPLIST&gt;
+&lt;INDXKEY&gt;
+&lt;TAGSPEC&gt;
+&lt;FTAG&gt;FLD6.. &lt;/FTAG&gt; &lt;/TAGSPEC&gt; &lt;/INDXKEY&gt; &lt;/INDEXDEF&gt;
+
+
+&lt;INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM&gt;
+&lt;INDXNAME&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/dictionary.topic &lt;/INDXNAME&gt;
+&lt;INDXTAG&gt; topic &lt;/INDXTAG&gt;
+
+&lt;INDXMAP&gt;
+&lt;USE&gt; 29 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt; &lt;/INDXMAP&gt;
+
+&lt;STOPLIST&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/titlestoplist &lt;/STOPLIST&gt;
+&lt;INDXKEY&gt;
+&lt;TAGSPEC&gt;
+&lt;FTAG&gt;FLD6.. &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD245 &lt;/FTAG&gt;&lt;S&gt;a &lt;/S&gt;&lt;S&gt;b &lt;/S&gt;
+&lt;FTAG&gt;FLD240 &lt;/FTAG&gt;&lt;S&gt;a &lt;/S&gt;&lt;S&gt;t &lt;/S&gt;&lt;S&gt;p &lt;/S&gt;
+&lt;FTAG&gt;FLD4.. &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD8.. &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD130 &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD730 &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD740 &lt;/FTAG&gt;
+&lt;FTAG&gt;FLD1.. &lt;/FTAG&gt;&lt;S&gt;t &lt;/S&gt;
+&lt;FTAG&gt;FLD7.. &lt;/FTAG&gt;&lt;S&gt;t &lt;/S&gt; 
+&lt;/TAGSPEC&gt; 
+&lt;/INDXKEY&gt; 
+&lt;/INDEXDEF&gt; 
+
+&lt;INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=BASIC PRIMARYKEY=replace&gt;
+&lt;INDXNAME&gt; 
+/usr/users/ray/Work/z3950_3/index/TESTDATA/dictionary.localnum
+&lt;/INDXNAME&gt;
+&lt;INDXTAG&gt; localnum &lt;/INDXTAG&gt;
+
+&lt;!-- The following INDXMAP items provide a mapping from the AUTHOR tag to --&gt;
+&lt;!-- the appropriate Z39.50 BIB1 attribute numbers      --&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 12 &lt;/USE&gt;&lt;STRUCT&gt; 2 &lt;/STRUCT&gt;&lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 12 &lt;/USE&gt;&lt;STRUCT&gt; 1 &lt;/STRUCT&gt;&lt;/INDXMAP&gt;
+&lt;INDXMAP&gt; &lt;USE&gt; 12 &lt;/USE&gt;&lt;STRUCT&gt; 6 &lt;/STRUCT&gt;&lt;/INDXMAP&gt;
+
+&lt;!-- The stoplist for this file --&gt;
+
+
+&lt;!-- The INDXKEY area contains the specifications of tags in the doc --&gt;
+&lt;!-- that are to be extracted and indexed for this index    --&gt;
+&lt;INDXKEY&gt;
+&lt;TAGSPEC&gt;
+&lt;FTAG&gt;FLD001  &lt;/FTAG&gt;
+&lt;/TAGSPEC&gt; 
+&lt;/INDXKEY&gt; 
+&lt;/INDEXDEF&gt;
+&lt;/INDEXES&gt; 
+
+&lt;!-- The following defines a cluster index to be extracted --&gt;
+&lt;CLUSTER&gt;
+&lt;clusname&gt; mainclusfile &lt;/clusname&gt;
+&lt;cluskey normal=CLASSCLUS&gt; 
+     &lt;tagspec&gt;
+         &lt;ftag&gt;FLD090&lt;/ftag&gt;&lt;s&gt;[ab]&lt;/s&gt;
+     &lt;/tagspec&gt;
+&lt;/cluskey&gt;
+&lt;STOPLIST&gt; /export/home/ray/Work/cheshire2/indexing/TESTDATA/cluststoplist &lt;/STOPLIST&gt;
+&lt;clusmap&gt;
+   &lt;from&gt;
+       &lt;tagspec&gt;
+          &lt;ftag&gt;FLD245&lt;/ftag&gt;&lt;s&gt;[ab]&lt;/s&gt;
+       &lt;/tagspec&gt;&lt;/from&gt;
+   &lt;to&gt;
+       &lt;tagspec&gt;
+          &lt;ftag&gt;titles&lt;/ftag&gt;
+       &lt;/tagspec&gt;&lt;/to&gt;
+   &lt;from&gt;
+       &lt;tagspec&gt;
+          &lt;ftag&gt;FLD650&lt;/ftag&gt;&lt;s&gt;[abcdz]&lt;/s&gt;
+       &lt;/tagspec&gt;&lt;/from&gt;
+   &lt;to&gt;
+       &lt;tagspec&gt;
+          &lt;ftag&gt;subjects&lt;/ftag&gt;
+       &lt;/tagspec&gt;&lt;/to&gt;
+   &lt;summarize&gt;
+       &lt;maxnum&gt; 10 &lt;/maxnum&gt; 
+       &lt;tagspec&gt;
+          &lt;ftag&gt;subjsum&lt;/ftag&gt;
+       &lt;/tagspec&gt;&lt;/summarize&gt;
+
+&lt;/clusmap&gt;
+&lt;/CLUSTER&gt;
+&lt;/FILEDEF&gt; 
+
+&lt;!-- ******************************************************************* --&gt;
+&lt;!-- ************************* CLUSTER FILE **************************** --&gt;
+&lt;!-- ************************** DEFINITIONS **************************** --&gt;
+&lt;!-- ******************************************************************* --&gt;
+&lt;!-- The next filedef is for a cluster file implementing class clusters  --&gt;
+&lt;FILEDEF TYPE=CLUSTER&gt;
+&lt;!-- filetag is the &quot;shorthand&quot; name of the file --&gt;
+&lt;Filetag&gt;  mainclusfile
+&lt;/FILETAG&gt;
+&lt;!-- filename is the full path name of the file --&gt;
+&lt;FILENAME&gt;      /export/home/ray/Work/cheshire2/indexing/TEST2/classcluster.data
+&lt;/FILENAME&gt;
+&lt;!-- fileDTD is the full path name of the file's DTD --&gt;
+&lt;FILEDTD&gt;       /usr3/cheshire2/data2/classcluster.dtd
+&lt;/FILEDTD&gt;
+&lt;!-- assocfil is the full path name of the file's Associator --&gt;
+&lt;ASSOCFIL&gt;      /export/home/ray/Work/cheshire2/indexing/TEST2/classcluster.assoc
+&lt;/ASSOCFIL&gt;
+&lt;!-- history is the full path name of the file's history file --&gt;
+&lt;HISTORY&gt;       /export/home/ray/Work/cheshire2/indexing/TEST2/classcluster.history
+&lt;/HISTORY&gt;
+
+&lt;!-- The following are the index definitions for the file --&gt;
+
+&lt;INDEXES&gt;
+&lt;!-- The following defines the cluster key index for the cluster --&gt;
+&lt;INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=CLASSCLUS PRIMARYKEY=REPLACE&gt;
+&lt;INDXNAME&gt;      
+                /export/home/ray/Work/cheshire2/indexing/TEST2/clasclus.lcckey.index
+                
+&lt;/INDXNAME&gt;
+&lt;INDXTAG&gt;  lckey
+                
+&lt;/INDXTAG&gt;
+
+&lt;INDXMAP&gt;
+&lt;USE&gt; 16 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt;
+&lt;USE&gt; 16 &lt;/USE&gt;&lt;POSIT&gt; 1 &lt;/posit&gt; &lt;struct&gt; 3 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt;
+&lt;USE&gt; 16 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 1 &lt;/struct&gt; &lt;/INDXMAP&gt;
+&lt;INDXMAP&gt;
+&lt;USE&gt; 16 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 3 &lt;/struct&gt; &lt;/INDXMAP&gt;
+
+&lt;INDXKEY&gt;
+&lt;TAGSPEC&gt;
+        &lt;FTAG&gt; CLUSKEY &lt;/FTAG&gt;
+&lt;/TAGSPEC&gt; 
+&lt;/INDXKEY&gt; 
+&lt;/INDEXDEF&gt;
+
+&lt;!-- the following provides general term access to the cluster file --&gt;
+&lt;INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM&gt;
+&lt;INDXNAME&gt;
+                /export/home/ray/Work/cheshire2/indexing/TEST2/clasclus.terms.index
+                
+&lt;/INDXNAME&gt;
+&lt;INDXTAG&gt;       terms
+&lt;/INDXTAG&gt;
+
+&lt;!-- this maps from z39.50 &quot;local subject index&quot; to this index --&gt;
+&lt;INDXMAP&gt;
+&lt;USE&gt; 29 &lt;/USE&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt;
+&lt;/INDXMAP&gt;
+&lt;INDXMAP&gt;
+&lt;USE&gt; 29 &lt;/USE&gt;&lt;RELAT&gt; 102 &lt;/RELAT&gt;&lt;POSIT&gt; 3 &lt;/posit&gt; &lt;struct&gt; 6 &lt;/struct&gt;
+&lt;/INDXMAP&gt;
+
+&lt;STOPLIST&gt; /usr3/cheshire2/data2/titlestoplist
+&lt;/STOPLIST&gt;
+&lt;INDXKEY&gt;
+&lt;TAGSPEC&gt;
+        &lt;FTAG&gt;titles&lt;/FTAG&gt;
+        &lt;FTAG&gt;subjects&lt;/FTAG&gt;
+&lt;/TAGSPEC&gt;
+&lt;/INDXKEY&gt;
+&lt;/INDEXDEF&gt;
+
+&lt;/INDEXES&gt;
+&lt;CLUSTER&gt;
+        &lt;CLUSBASE&gt;bibfile&lt;/CLUSBASE&gt;
+&lt;/CLUSTER&gt;
+&lt;/FILEDEF&gt;
+
+&lt;/DBCONFIG&gt;
+
+</PRE>
+
+<P>
+<HR></P>
+
+<H2 ALIGN=CENTER>
+<A NAME="PROCESSING_INSTR"></A>
+<B><FONT COLOR="#B22222">
+Cheshire Processing Instructions in SGML/XML files</FONT> </B> </H2>
+
+<P>Although the following processing instructions would be included in
+the SGML or XML data files and not in the config file, they affect how
+data is processed during indexing or display and thus are related to
+the other information in the configuration files. Currently, all of
+the processing instructions affect indexing of data. Eventually, there
+will be some similar instructions for display processing using the
+CHESHIREDISPLAY keyword. Currently there are six processing
+instructions "IGNORE_TAG", "DELETE_TAG", "SUBSTITUTE_ATTR",
+"INDEX_IGNORE_TAG", "INDEX_DELETE_TAG", and "INDEX_SUBSTITUTE_ATTR",
+these are described below:</P>
+
+<UL>
+<li><B>&lt;?CHESHIREINDEX IGNORE_TAG <i>tagname</i>?&gt;</B>
+<P>
+
+This instruction indicates that the indexing parser should do a tag
+substitution for this tagname: that is, remove the space for the tag
+<i>tagname</i> itself and join up the tag contents with the content on
+either end. (Note that this form applies to all indexes that may
+extract this tag)
+<p>
+For example, with the processing instruction:
+<pre>
+<B>&lt;?CHESHIREINDEX IGNORE_TAG blotz ?&gt;</B>
+</pre>
+data like:
+<pre>
+this is a &lt;blotz&gt;new&lt;/blotz&gt;thing
+</pre>
+would appear to the indexing processing as:
+<pre>
+this is a newthing
+</pre>
+
+<p>
+<li><B>&lt;?CHESHIREINDEX DELETE_TAG <i>tagname</i>?&gt;</B>
+<P>
+
+This instruction indicates that the indexing parser should remove the
+tag <i>tagname</i> and it's contents. That is, remove the space for
+the tag and contents and join up the contents on either end. 
+(Note that this form applies to all indexes that may
+extract this tag)
+<p>
+For example, with the processing instruction:
+<pre>
+<B>&lt;?CHESHIREINDEX DELETE_TAG blotz ?&gt;</B>
+</pre>
+data like:
+<pre>
+this is a &lt;blotz&gt;new&lt;/blotz&gt;thing
+</pre>
+would appear to the indexing processing as:
+<pre>
+this is a thing
+</pre>
+
+<p>
+<li><B>&lt;?CHESHIREINDEX SUBSTITUTE_ATTR <i>tagname</i> <i>attributename</i>?&gt;</B>
+<P>
+
+This instruction indicates that the indexing parser should do a tag
+attribute substitution for this tag. That is, remove the space for the
+tag <i>tagname</i> itself and replace it with the the specified
+attribute <i>attributename</i>'s value, closing up the contents on
+either end with the specified attribute value.
+(Note that this form applies to all indexes that may
+extract this tag)
+<p>
+For example, with the processing instruction:
+<pre>
+<B>&lt;?CHESHIREINDEX SUBSTITUTE_ATTR blotz xtra?&gt;</B>
+</pre>
+data like:
+<pre>
+this is a &lt;blotz xtra="old"&gt;new&lt;/blotz&gt; thing
+</pre>
+would appear to the indexing processing as:
+<pre>
+this is a old thing
+</pre>
+<P>
+
+<li><B>&lt;?CHESHIREINDEX INDEX_IGNORE_TAG <i>index</i> <i>tagname</i>?&gt;</B>
+<P>
+
+This instruction indicates that the indexing parser should do a tag
+substitution for this tagname (as above), but ONLY when extracting for
+the particular index tag or name.
+
+<p>
+<li><B>&lt;?CHESHIREINDEX INDEX_DELETE_TAG <i>index</i> <i>tagname</i>?&gt;</B>
+<P>
+
+This instruction indicates that the indexing parser should remove the
+tag <i>tagname</i> and it's contents, but ONLY when processing the
+specified index tag or name.
+<p>
+<li><B>&lt;?CHESHIREINDEX INDEX_SUBSTITUTE_ATTR <i>index</i> <i>tagname</i> <i>attributename</i>?&gt;</B>
+<P>
+
+This instruction indicates that the indexing parser should do a tag
+attribute substitution for this tag. That is, remove the space for the
+tag <i>tagname</i> itself and replace it with the the specified
+attribute <i>attributename</i>'s value, closing up the contents on
+either end with the specified attribute value. However this will ONLY be
+done while processing the specified index.
+</UL>
+
+Note that multiple index-specific processing instructions may be
+included for a given tag. However, if non-index-specific and index-specific
+processing instructions are included for a particular tag, then the
+non-index-specific will have priority (and apply to all indexes using
+the tag).
+
+<P> <HR></P>
+
+<H3><FONT COLOR="#0000FF">Cheshire II Project</FONT> </H3>
+
+<P>Ray R. Larson</P>
+
+<P>School of Information Management and Systems</P>
+
+<P>University of California, Berkeley</P>
+
+<P>Berkeley, California 94720-4600</P>
+
+<P><SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT></P>
+
+</BODY>
+</HTML>

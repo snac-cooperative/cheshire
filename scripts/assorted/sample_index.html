@@ -1,0 +1,135 @@
+<html>
+<head>
+<title>
+Test Cheshire Sample Database
+</title>
+</head>
+<body bgcolor=#FFFFFF >
+<h2>
+<img align = left
+src = "cat_head_only.gif">
+Cheshire II -- Sample Database
+<br> 
+<em>at the University of California, Berkeley 
+<br> School of Information Management and Systems</em>
+<p><b><em>Searching via the Cheshire II system</em></b>
+<p>
+</h2>
+<a href = "help.html">
+<img align = right src = "smallcat.gif"></a>
+Use this form to perform fielded or full-text searching on all the
+bibliographic records for the sample database included in the 
+Cheshire distribution in the "index" directory.
+Additional information
+about Cheshire II, its use, and the other host institutions to which it
+provides access is available on the 
+<A HREF="help.html">
+help screen</A>.
+<br clear = left>
+
+<HR>
+
+<FORM ACTION="/cgi-bin/CheshireII_sample.tcl" METHOD=POST>
+
+<H2>Cheshire II WWW Search Interface</H2>
+
+<P>
+<INPUT TYPE=submit VALUE=" Start Search "> 
+<input type=reset VALUE=" Clear Fields ">
+<p>
+Select an online catalog or other information service:<br>
+
+<SELECT name=server>
+<OPTION value=TESTSERVER SELECTED> Test Database Local
+<OPTION value=TESTSERVERZ> Test Database via Z39.50
+<OPTION value=SF>SF Foundation Collection
+<OPTION value=MELVYL>UC Books (MELVYVL)
+<OPTION value=PE>UC Periodicals (MELVYL)
+<OPTION value=TEN>UC Ten-year (MELVYL)
+<OPTION value=SUNSITE>UCB Physical Sciences
+<OPTION value=ATT>AT&T Library
+<OPTION value=CMU>Carnegie Mellon U
+<OPTION value=ATT_CIA>CIA World Factbook
+<OPTION value=DUKE>Duke Univ
+<OPTION value=GILS>Govt Info Locator
+<OPTION value=HKUST>Hong Kong U Sci Tech
+<OPTION value=LC_BOOKS>Library of Congress
+<OPTION value=PENN>Penn State
+<OPTION value=UNCC>UNC Chapel Hill
+</SELECT>
+
+<p>Combine fields using: <INPUT NAME=boolean TYPE=radio VALUE=and
+CHECKED> Boolean AND <INPUT NAME=boolean TYPE=radio VALUE=or> Boolean
+OR<br>
+
+<SELECT name=field1idx>
+<option value=localnum>Local ID number
+<option value=author>Author
+<option value=title>Title
+<option value=publisher>Publisher
+<option value=date>Date
+<option value=subject>Subject
+<option value=topic SELECTED>Topic
+<option value=none>Unused
+</select>  <INPUT NAME=field1cont TYPE=TEXT SIZE=45><br>
+
+<SELECT name=field2idx>
+<option value=author SELECTED>Author
+<option value=title>Title
+<option value=publisher>Publisher
+<option value=date>Date
+<option value=subject>Subject
+<option value=topic>Topic (Full Text)
+<option value=none>Unused
+</select>  <INPUT NAME=field2cont TYPE=TEXT SIZE=45><br>
+
+<SELECT name=field3idx>
+<option value=author>Author
+<option value=title SELECTED>Title
+<option value=publisher>Publisher
+<option value=date>Date
+<option value=subject>Subject
+<option value=topic>Topic (Full Text)
+<option value=none>Unused
+</select>  <INPUT NAME=field3cont TYPE=TEXT SIZE=45>
+<p>
+<A HREF="help.html#IND">Information
+about search fields</A>
+<p>Number of records: 
+<INPUT NAME=maxrecs TYPE=TEXT SIZE=3 VALUE="10">
+First record:
+<INPUT NAME=firstrec TYPE=text SIZE=3 VALUE="1">
+
+Display format:
+<SELECT NAME=format>
+<option value=html SELECTED>Long
+<option value=shorthtml>Short
+<option value=reviewhtml>Review
+</SELECT>
+
+</FORM>
+
+<HR>
+
+<P>The original Cheshire II development was carried out at the UC Berkeley <A
+HREF="http://info.sims.berkeley.edu/"> School of Information
+Management and Systems</A>, and was underwritten by a grant from the
+Department of Education.  Participants include Prof. <A
+HREF="http://sherlock.berkeley.edu/">Ray Larson</A> (principle
+investigator), Lucy Kuntz, <A HREF="http://lucien.berkeley.edu/">Jerry
+McDonough</A>, <A
+HREF="http://cheshire.lib.berkeley.edu/Html/rhmhome.html">Ralph
+Moon</A>, and Paul O'Leary. 
+
+<P><B>Help:</B> <A HREF="help.html">Information
+about Cheshire II searching.</A><P>
+Send comments regarding the <I>Cheshire II Next-Generation
+Online Catalog</I> and <I>Web Cheshire</I> to 
+<A HREF=mailto:ray@sherlock.sims.berkeley.edu>
+ray@sherlock.SIMS.Berkeley.EDU</A> 
+<hr>
+<address>
+
+</address>
+</body>
+</html>

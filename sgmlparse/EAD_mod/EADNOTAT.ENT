@@ -1,0 +1,210 @@
+<!--              PUBLIC IDENTIFIER of this DTD Fragment
+"-//Society of American Archivists//DTD eadnotat.ent (EAD Notation Declarations)//EN"
+-->
+
+<!-- **********************************************************  -->
+<!--  NAME:      Encoded Archival Description (EAD) Notation     -->
+<!--             Declarations                                    -->
+<!--                                    (File    = eadnotat.ent) -->
+<!--                                    (Version = 2.0)          -->
+<!--                                    (Vers Date 96/09/16)     -->
+<!--                                                             -->
+<!--  PURPOSE:   Declarations for notations used in references   -->
+<!--             to external entities in EAD archival documents. -->
+<!--                                                             -->
+<!--                                                             -->
+<!--  CONTACT:   EAD listserv of the Library of Congress Network -->
+<!--             Development and MARC Standards Office.          -->
+<!--             To subscribe to this listserv, send a one-line  -->
+<!--             message to LISTSERV@LOC.GOV containing the      -->
+<!--             text:  SUBSCRIBE EAD YourName. Once subscribed, -->
+<!--             submit messages to EAD@LOC.GOV.                 -->
+<!--                                                             -->
+<!--  SPONSOR:  The EAD is a cooperative effort sponsored by     -->
+<!--      several institutions and professional associations.    -->
+<!--      Its development has been supported through a series of -->
+<!--      fellowships and grants.                                -->
+<!--                                                             -->
+<!--      The Society of American Archivists (SAA) through the   -->
+<!--      EAD Working Group of the Committee on Archival         -->
+<!--      Information Exchange (CAIE) is responsible for         -->
+<!--      the intellectual content of EAD and for monitoring     -->
+<!--      and assisting in its ongoing development. The working  -->
+<!--      group includes individuals representing various        -->
+<!--      interests within the SAA as well as representatives    -->
+<!--      from OCLC, Research Libraries Group (RLG), and the     -->
+<!--      Library of Congress.                                   -->
+<!--                                                             -->
+<!--      The Library of Congress Network Development and MARC   -->
+<!--      Standards Office is the international maintenance      -->
+<!--      agency for the standard.                               -->
+<!--                                                             -->
+<!--      Funding agencies who have contributed generously to    -->
+<!--      the development of the standard include:  Department   -->
+<!--      of Education (Title IIA grant) to the University of    -->
+<!--      California, Berkeley, for developing a prototype       -->
+<!--      encoding standard and database for finding aids; The   -->
+<!--      Library, University of California, Berkeley, for       -->
+<!--      supporting ongoing development of a community-based    -->
+<!--      standard; Commission on Preservation and Access for a  -->
+<!--      three-day conference (4-6 April 1995) on the Berkeley  -->
+<!--      Finding Aid Project (BFAP); Bentley Historical         -->
+<!--      Library, Andrew W. Mellon Foundation, and the National -->
+<!--      Endowment for the Humanities (Division of Preservation -->
+<!--      and Access) for assembling representatives from the    -->
+<!--      archival community for a week-long (22-29 July 1995)   -->
+<!--      Bentley fellowship program to develop design           -->
+<!--      principles and revise the BFAP data model and DTD;     -->
+<!--      Library of Congress National Digital Library Program   -->
+<!--      for sponsoring a three-day meeting (1-3 November 1995) -->
+<!--      of the Bentley team and other experts to review the    -->
+<!--      Bentley model and for providing the technical support  -->
+<!--      of an SGML consulting firm to make modifications and   -->
+<!--      supply accompanying documentation for an alpha version -->
+<!--      of the DTD; and the Council on Library Resources for   -->
+<!--      sponsoring the development and publication of          -->
+<!--      application guidelines.                                -->
+<!--                                                             -->
+<!--  NOTE:      This is a modular DTD.  It references other     -->
+<!--             DTD modules through the use of Formal Public    -->
+<!--             Identifiers and/or SYSTEM entity references.    -->
+<!--             TO USE THIS DTD YOU MUST make the proper        -->
+<!--             FORMAL or SYSTEM pathname connection!!!!!!!     -->
+<!--                                                             -->
+<!--  WRITTEN:   Daniel V. Pitti                                 -->
+<!--             University of California, Berkeley, The Library -->
+<!--             DATE: 1995-10                                   -->
+<!--                                                             -->
+<!--  ALPHA MODIFICATIONS:                                       -->
+<!--             Daniel V. Pitti                                 -->
+<!--             University of California, Berkeley, The Library -->
+<!--             and the                                         -->
+<!--             ATLIS Consulting Group (DAL)                    -->
+<!--             Rockville, Maryland  20852                      -->
+<!--             (under contract with the National Digital       -->
+<!--             Library Program, Library of Congress)           -->
+<!--             DATE: 1996-01                                   -->
+<!--                                                             -->
+<!--  BETA MODIFICATIONS:                                        -->
+<!--             Daniel V. Pitti                                 -->
+<!--             University of California, Berkeley, The Library -->
+<!--             DATE: 1996-06                                   -->
+<!-- **********************************************************  -->
+
+<!-- **********************************************************  -->
+<!--              CHANGE HISTORY (FOR VERSIONS POST BETA )       -->
+<!-- **********************************************************  -->
+<!-- 
+NUM    DESCRIPTION OF CHANGE                              MM/DD/YY
+
+-->
+<!-- **********************************************************  -->
+
+
+<!-- **********************************************************  -->
+<!--              NOTATION DECLARATIONS                          -->
+<!-- **********************************************************  -->
+
+
+<!-- **************LOCAL NOTATION DECLARATIONS*****************  -->
+<!--Local notation declarations should be entered below this note.
+ 
+    WARNING: LOCAL NOTATION DECLARATIONS WILL BE AN IMPEDIMENT TO
+    EASILY INTERCHANGING EAD DOCUMENT INSTANCES. BEFORE USING LOCAL
+    NOTATION DECLARATIONS, CONSULT WITH THE LIBRARY OF CONGRESS
+    NETWORK DEVELOPMENT AND MARC STANDARDS OFFICE.               -->
+<!-- **********************************************************  -->
+
+
+
+<!--********************ISO STANDARD NOTATIONS*****************  -->
+<!--The following notation declarations are for ISO standards. The
+    declarations were selected from a list of declarations
+    compiled by Martin Bryan, The SGML Centre, Churchdown, Glos.,
+    GL3 2PU, UK (mtbryan@sgml.u-net.com). The list was compiled for
+    a proposed ISO TR. There are both ISO 9070 names and SGML 
+    notation declarations for each referenced standard.          -->
+<!-- **********************************************************  -->
+
+<!--                             SGML                            --> 
+<!NOTATION SGML     PUBLIC "ISO 8879:1986//NOTATION
+                            Information processing -
+                            Text and office systems -
+                            Standard Generalized Markup Language
+                            (SGML)//EN"                            >
+
+<!--                             JPEG                            --> 
+<!NOTATION JPEG     PUBLIC "ISO/IEC 10918:1993//NOTATION
+                            Digital Compression and Coding of
+                            Continuous-tone Still Images
+                            (JPEG)//EN"                            >
+
+<!--                            MPEG1vid                         --> 
+<!NOTATION MPEG1vid PUBLIC "ISO/IEC 11172-2:1993//NOTATION
+                            Information technology -
+                            Coding of moving pictures and associated
+                            audio for digital storage media at up to
+                            about 1,5 Mbit/s -
+                            Part 2: Video//EN"                     >
+
+<!--                            MPEG1aud                         --> 
+<!NOTATION MPEG1aud PUBLIC "ISO/IEC 11172-3:1993//NOTATION
+                            Information technology -
+                            Coding of moving pictures and associated
+                            audio for digital storage media at up to
+                            about 1,5 Mbit/s -
+                            Part 3: Audio//EN"                     >
+
+<!--                            MPEG2vid                         --> 
+<!NOTATION MPEG2vid PUBLIC "ISO/IEC 13818-2:1995//NOTATION
+                            Information technology -
+                            Coding of moving pictures and associated
+                            audio: Part 2. Video//EN"              >
+
+<!--                            MPEG2aud                         --> 
+<!NOTATION MPEG2aud PUBLIC "ISO/IEC 13818-3:1995//NOTATION
+                            Coding of moving pictures and associated
+                            audio: Part 3. Audio//EN"              >
+
+
+<!--********************PROPRIETARY NOTATIONS******************  -->
+<!--The following notation declarations are for proprietary 
+    notations. These declarations are taken from _Making 
+    Hypermedia Work: A User's Guide to Hytime / Steven J. DeRose 
+    and David G. Durand (Boston: Kluwer Academic Publishers), 
+    pp. 322ff. (ISBN 0-7923-9432-1). If owners of these notations
+    register FPI's, it is recommended that these be used instead
+    of those listed below.                                       -->
+<!-- **********************************************************  -->
+
+<!--                             PCX                             --> 
+
+<!NOTATION  PCX  PUBLIC
+                 "+//ISBN 0-7923-9432-1::Graphic Notation//NOTATION 
+                 ZSoft PCX bitmap//EN"                             >
+
+<!--                             GIF                             --> 
+<!NOTATION GIF  PUBLIC
+                 "+//ISBN 0-7923-9432-1::Graphic Notation//NOTATION 
+                 CompuServe Graphic Interchange Format//EN"        >
+
+<!--                             TIFF                            -->
+<!NOTATION TIFF PUBLIC
+                 "+//ISBN 0-7923-9432-1::Graphic Notation//NOTATION 
+                  Aldus/Microsoft Tagged Interchange File 
+                  Format//EN"                                      >
+
+<!--                             EPS                             --> 
+<!NOTATION EPS  PUBLIC
+                 "+//ISBN 0-7923-9432-1::Graphic Notation//NOTATION 
+		 Adobe Systems Encapulated PostScript//EN"         >
+
+<!--                             PICT                            -->
+<!NOTATION PICT PUBLIC
+                "+//ISBN 0-7923-9432-1::Graphic Notation//NOTATION 
+                Apple Computer Quickdraw Picture//EN"              >
+
+
+<!-- ************ END of EAD NOTATION DECLARATIONS ***********  -->
+
+

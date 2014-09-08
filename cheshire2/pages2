@@ -1,0 +1,5 @@
+set CHESHIRE_DATABASE diglib
+set CHESHIRE_NUMREQUESTED 2
+set CHESHIRE_CONFIGFILE "CONFIG.DL"
+set RESULTS [search localnum 7 and any @ water]
+puts $RESULTS

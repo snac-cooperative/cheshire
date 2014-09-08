@@ -1,0 +1,45 @@
+SEARCH / HTTP/1.1
+Content-Encoding: utf-8
+Content-Length: 1536
+Content-Type: text/xml
+
+<a:searchrequest xmlns:b="DublinCore:"
+xmlns:c="http://interlib.org/SDLIP/1.0#" xmlns:a="DAV:">
+        <a:basicsearch>
+                <a:select>
+                        <a:prop>
+                                <b:title/>
+                                <b:creator/>
+                        </a:prop>
+                </a:select>
+                <a:from>
+                        <a:scope>
+                               
+<a:href>sdlip://galaxy.cs.berkeley.edu:8888/MAGS</a:href>
+                        </a:scope>
+                </a:from>
+                <a:where>
+                        <a:and>
+                                <a:eq>
+                                        <a:prop>
+                                                <b:xxtitle/>
+                                        </a:prop>
+                                        <a:literal>library</a:literal>
+                                </a:eq>
+                                <a:eq>
+                                        <a:prop>
+                                                <b:xxtitle/>
+                                        </a:prop>
+                                       
+<a:literal>management</a:literal>
+                                </a:eq>
+                        </a:and>
+                </a:where>
+                <a:limit>
+                        <a:nresults>10</a:nresults>
+                </a:limit>
+                <c:clientSID>12345</c:clientSID>
+                <c:stateTimeoutReq>0</c:stateTimeoutReq>
+        </a:basicsearch>
+</a:searchrequest>
+

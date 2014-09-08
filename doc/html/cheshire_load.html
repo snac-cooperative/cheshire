@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">cheshire_load - Create or extend a
+CheshireII <a href="datastore.html">DataStore</a> file</FONT></H2>
+
+<P><BR>
+</P>
+
+<H2>SYNOPSIS </H2>
+
+<H3><B>cheshire_load</B> <I>[-q][-s] configfile sgmlfile sgmltag</I> <BR>
+or: <BR>
+<B>cheshire_load</B><I> [-q][-s] -r configfile directory sgmltag</I> </H3>
+
+<H2>DESCRIPTION </H2>
+
+<P>Cheshire_load creates or extends the datastore file for an SGML/XML data file
+used in the Cheshire II system. Datastore files store pre-parsed versions
+of the SGML/XML documents and the original documents need not be
+available after cheshire_load has finished its job. </P>
+
+<P> There are two forms of this command (the same as for buildassoc),
+one for single SGML data files (where the file contains all of the
+SGML data), and the other for situations where there are multiple SGML
+files each containing multiple records within a directory subtree. In
+the second form (indicated by the -r) only the top-level directory is
+provided as an argument, and the subtree is recursively scanned for
+files which contain the identifying SGML tag <I>sgmltag</I>.  This
+recursive form of the command generates a special file of
+&quot;FILECONT&quot; tags for inclusion in the configuration file for
+the database. </P>
+
+<P> The <I>configfile</I> argument should be the name of the configuration
+file to be processed. Note that ONLY the first file definition in the
+configuration file will be created, the configfile can be simple and
+omit index definitions, etc. if desired (an example of a minimal configfile
+for creating a datastore file is shown below). The file named in the 
+FILENAME tag of the configfile will be created if it doesn't exist, or
+used if it does. The parsed SGML/XML data will all be loaded into
+that file.</P>
+
+<P> The <I>sgmlfile</I> argument should be the name of the (single) SGML
+file to be processed. </P>
+
+<P> The <I>directory</I> argument, used with the <I>-r</I> option,
+should be the pathname of the root directory subtree to be
+processed. </P>
+
+<P> The <I>sgmltag</I> argument should be the top-level tag defining a
+record in the SGML data file. </P>
+
+<P> If the <I>-q</I> flag is used, information about each record processed
+is suppressed, otherwise the program indicates each record found and it's
+length. This will also suppress reports of attempts to load duplicate
+records (they are not loaded in any case).</P>
+
+<P> If the <I>-s</I> flag is used, extra header information is skipped
+and not counted as part of the record. This is useful when, for example,
+XML records that you want to index as documents are "wrapped" with an
+XML declaration, DOCTYPE and extra begin and end tags at the beginning
+and end of the file to make the whole file a single valid XML document.
+In extraction, these leading and end tags are ignored and only the
+tags asked for are used as begin and end tags of "documents". 
+</P>
+
+<P><B>A Minimal Configfile for use with cheshire_load</B> </P>
+<p>
+<PRE>
+&lt;!-- This is a test config file for Cheshire II --&gt;
+&lt;DBCONFIG&gt;
+&lt;DBENV&gt; /home/ray/Work/DBENV &lt;/DBENV&gt;
+
+&lt;!-- The filedef --&gt;
+&lt;FILEDEF TYPE=MARCSGML_DATASTORE&gt;
+
+&lt;DEFAULTPATH&gt; /home/ray/Work/cheshire/index &lt;/DEFAULTPATH&gt;
+
+&lt;!-- filetag is the "shorthand" name of the file --&gt;
+&lt;FILETAG&gt; bibfile &lt;/FILETAG&gt;
+
+&lt;!-- filename is the full path name of the file --&gt;
+&lt;FILENAME&gt; TEST_DATASTORE &lt;/FILENAME&gt;
+
+&lt;!-- fileDTD is the full path name of the file's DTD --&gt;
+&lt;FILEDTD&gt; /home/ray/Work/cheshire/doc/USMARC08.DTD &lt;/FILEDTD&gt;
+
+&lt;DISPOPTIONS&gt;
+KEEP_ALL
+&lt;/DISPOPTIONS&gt;
+
+&lt;/FILEDEF&gt; 
+&lt;/DBCONFIG&gt;
+
+</PRE>
+<p>
+
+<H2> OUTPUT FILES </H2>
+
+<P>The file named in the FILENAME tag in the configfile is created or
+extended using this command.</P>
+
+<H2> ERROR INFORMATION</H2>
+
+<P>Errors are reported to stderr; </P>
+
+<H2> BUGS </H2>
+
+<P>None known </P>
+
+<H2> SEE ALSO </H2>
+
+<P><A HREF="configfiles.html">Configuration file documentation,</A> <A HREF="index_cheshire.html">index_cheshire
+</A></P>
+
+<H2> AUTHOR </H2>
+
+<P>Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>) </P>
+
+</BODY>
+</HTML>
+
+
+
+

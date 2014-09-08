@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">jserver - Run the CheshireII Server without Z39.50</FONT></H2>
+
+<H2>SYNOPSIS </H2>
+<B>jserver</B><I>[-p port] [-c server_init_file]</I>
+.BE 
+
+<P><H2> DESCRIPTION  </H2>
+<P>
+This command runs the Cheshire II search from the command line.
+Normally the server will be set up to run via INETD and will be run
+when users connect on its defined port. Running the server from the
+command line is useful for testing and "debugging" database and
+server configurations.
+<P>
+Once started the server waits for a tcp/ip connection from a user and
+processes all commands described below from that user until the connection is
+terminated. The server then cleans up and exits.
+
+<P>
+There are two arguments for this command:
+<P>
+The <I>-p</I> argument provides a port
+number for incoming connections. This is overridden by INETD, but it
+overrides the PORT parameter in the initialization file (see below).
+<P>
+The <I>-c</I> argument provides the name of a server init file. If
+not supplied the server tries to read a file called "server.init"
+in the current directory.
+
+
+<P><H2> INETD SERVER SETUP </H2>
+
+Server setup to run under inetd will 
+require root access to modify some systems file.
+
+A line like the following should be added to the /etc/services file,
+(the 2222 can be any port you want)
+
+<PRE>
+jcheshire        2222/tcp        ir      # Cheshire II server
+</PRE>
+
+Then a line like the following should be added to /etc/inetd.conf (note
+that this should be a single line, even though it wraps here):
+
+<PRE>
+#
+# Non-Z39.50 Information Retrieval access...
+#
+jcheshire        stream  tcp     nowait  nobody  /usr/local/bin/jserver 
+jserver -c /usr/test/data/server.init
+#
+</PRE>
+
+This means that when the "jcheshire service" on port 2222 is connected to,
+it will start up a session as user "nobody" using the program at
+/usr/local/bin/jserver
+
+The arguments passed to the zserver are what remains on the line above:
+jserver -c /usr/test/data/server.init
+
+This is argv[0] -- the program name -- argv[1] -- "-c" a flag indicating 
+that the following argument is the name of the initialization file for
+the server.
+
+<P><H2> JSERVER INIT FILE CONTENTS </H2>
+<P>
+The server initialization file contains a variety of information on
+the configuration of the server, and the database files associated 
+with the server. The jserver initialization file contents are identical
+to the zserver initialization file contents (see the zserver man page).
+However, with the jserver only the first named database and configuration
+file are used.
+
+<P><H2>JSERVER CONNECTIONS AND COMMAND LANGUAGE</H2>
+<P>
+When a client connects to the server on the correct port a simple ascii
+command language is used to interact with the search engine. This 
+command language doesn't allow the richness of interaction that is
+available with a Z39.50 connection, but it does permit search and retrieval
+from the database.
+<P>
+Each command sent to the server is an ascii string terminated by a newline.
+The first word of the command may be truncated to a single letter (eg, "f"
+for find). The responses returned from the server all consist of an
+initial 8 byte string of ascii numeric characters (0-9) giving the length
+of the rest of the message. If the result is an error message, the first
+byte of the message will be an "E".
+<P>
+
+<HR>
+<P><B>INIT {password}</B>
+<P>
+Initializes the server and prepares for searching. The result, if
+successful is the word "OK", followed by the word "FILE" followed
+by the filename or path. Passwords are not currently implemented.
+<P>
+for example:
+<PRE>
+init
+00000053OK FILE /usr/users/ray/Work/ESSEX_TEST/codebook3.sgm
+</PRE>
+
+<HR>
+<P><B>FIND </B><I>indexname1 [RELOP] search_string1 
+[[BOOLOP] indexname2 [RELOP] search_string2 [BOOLOP2]... [resultsetid id_string]</I>
+<P>
+This command will search the current database specified on the
+current host/server established by the zselect command.
+<P>
+
+<I>resultsetid id_string</I>                              (OPTIONAL)
+<P>
+
+This specifies a server-side set name (id_string) which will be used
+for the storing the results of the current search. This will not work
+unless the server supports named result sets. If omitted the result
+set name used is "Default".
+<P>
+
+<I>indexname</I>
+<P>
+
+This can be any name in the BIB1, GILS, or EXP1 attribute sets. However,
+the server-side database will need to be set up to create indexes for
+the attributes desired (see the documentation on configuration files).
+<P>
+
+<I>RELOP</I>
+<P>
+
+The relational operation to be performed. This are:
+<P>
+   
+blank | = : Searches for equal values to the search string.
+<BR>
+<= | LE | .LE. : Search for values less than or equal to the search string.
+<BR>
+< | LT | .LT. : Search for values less than the search string.
+<BR>
+> | GT | .GT. : Search for values greater than the search string.
+<BR>
+>= | GE | .GE. : Search for values greater than or equal to the search string.
+<BR>
+<> | != | NE | .NE. : Search for values NOT equal to the search string.
+<BR>
+? | PHON | .PHON. : Search for values phonetically similar to the search string.
+<BR>
+% | STEM | .STEM. : Search for stemmed values equal to the stemmed search string
+.
+<BR>
+@ | REL | .REL. : Search for items relevant to the search string.
+<P>
+
+Note that most system do not support ?, % or @, and many support only
+equal. The Cheshire server supports @ to indicate a probabilistic
+ranked search should be performed.
+<P>
+
+<I>BOOLOP</I>
+<P>
+
+The Boolean operator to apply between results from different indexes.
+these are:
+<P>
+
+AND | .AND. | && : Boolean AND
+<BR>
+OR | .OR. | || : Boolean OR
+<BR>
+NOT | .NOT. | ANDNOT | .ANDNOT. | !! : Boolean NOT
+<P>
+
+Note that parentheses may be used to group Boolean sub-expressions, for
+example:
+<BR>
+find title gone and (title wind or title fishing) 
+<P>
+<I>search_string</I>
+<P>
+
+The term(s) to locate in the index. May include a truncation symbol (#).
+Phrase searching within an index that supports proximity searching is
+indicated by enclosing the phrase in dollar signs -- for example:
+
+<p><B>find title $gone with the wind$</B></p>
+
+The results of a successful search include the name of the result set
+containing the search results followed by the number of records located
+in the search.
+<P>
+For example:
+<PRE>
+find title england and any workers
+00000010Default 3
+</PRE>
+<HR>
+<B>DISPLAY</B> <I>resultsetid  start_records_num number_of_records display_format_name</I>
+<P>
+Display number_of_records records resulting from a search having the
+specified resultsetid, and retrieve number_of_records starting at 
+start_record_num in the result set.
+<P>
+<I>resultsetid</I>                        
+<P>
+This specifies the server result set name to use when retrieving a record.
+<P>
+<I>start_records_num</I>                     
+<P>
+The ordinal number of the position in the result set.
+<P>
+<I>number_of_records</I> 
+<P>
+The number of records that the client will try to retrieve from the result set.
+<P>
+<I>display_format_name</I> (optional)
+<P>
+The name of a &lt;DISPLAY&gt; format in the configuration file of the
+database being searched. See the <A href=configfiles.html>configfile documentation</A> for description of the &lt;DISPLAY&gt; part of the config file.
+If the format exists the server will apply the formatting conversion or
+specification to the retrieved records, and return the formatted records.
+Typically, this will be used with an &lt;EXCLUDE&gt; format that eliminates
+unwanted parts of the SGML document. This argument is optional, if omitted
+the display defaults to returning the full SGML records.
+<P>
+for example:
+<PRE>
+display default 1 3
+00018036 00000003&lt;codebook&gt;&lt;stdyDscr&gt;
+      &lt;citation&gt;
+         &lt;titlStmt&gt;
+            &lt;titl&gt;Working Members of the British House of Commons : England, 1691-1693&lt;/titl&gt;...
+</PRE>
+<P>
+The result contains another 8 digit number following a space after the
+length component. This number is the number of records retrieved and
+included in the results.  The ascii character #30 (hex 0x1E, octal
+036) separates each of the records sent back in the results from the
+next record (there is no terminating character). The records are
+returned in their raw SGML form.
+
+<HR>
+<B>CLOSE</B>
+<P>
+Close the connection. This command drops the connection and shuts down
+the server.
+<P>
+Any other commands or garbage sent to the server will result in the
+error message:
+<BR>
+00000019E Unknown command
+
+<p>
+
+
+<P><H2> OUTPUT FILES </H2>
+<P>
+A transaction log file is generated in the RESULT_SET_DIRECTORY with
+the name defined in LOG_FILE_NAME. This will also contain system
+error messages.
+
+<P><H2> ERROR INFORMATION </H2>
+<P>
+It is not uncommon for server failure or indexing failure to be caused
+by incorrect configuration files or server.init files. The first place to
+look is in any log files (zserver.log) left in the RESULT_SET_DIRECTORY 
+location. All error messages from the server are sent to the log file
+(unless the server is started from the command line). If the server fails
+before the log file is opened, the cause of the failure will be written
+(if possible) to the file /tmp/templog.
+
+
+<P><H2> BUGS </H2>
+None known
+
+<P><H2> SEE ALSO </H2>
+<a href=configfiles.html>Configuration file documentation</a>, 
+<a href=index_cheshire.html>index_cheshire</a>
+
+<P><H2> AUTHOR </H2>
+Ray R. Larson  (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>)
+

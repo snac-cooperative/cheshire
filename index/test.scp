@@ -1,0 +1,47 @@
+set CHESHIRE_CONFIGFILE test.config
+set CHESHIRE_DATABASE test
+set CHESHIRE_NUMREQUESTED 5
+puts ""
+puts "TESTING < 123"
+puts ""
+puts [search test < 123]
+puts ""
+puts "TESTING > z"
+puts ""
+puts [search test > z]
+puts ""
+puts "TESTING < z"
+puts ""
+puts [search test < z]
+puts ""
+puts "TESTING > a"
+puts ""
+puts [search test > a]
+puts ""
+puts "TESTING < a"
+puts ""
+puts [search test < a]
+puts ""
+puts "TESTING <= a"
+puts ""
+puts [search test <= a]
+puts ""
+puts "TESTING <= aaaaa (lowest key)"
+puts ""
+puts [search test <= aaaaa]
+puts ""
+puts "TESTING < bbbbb"
+puts ""
+puts [search test < bbbbb]
+puts ""
+puts "TESTING <= bbbbb"
+puts ""
+puts [search test <= bbbbb]
+puts ""
+puts "TESTING > bbbbb"
+puts ""
+puts [search test > bbbbb]
+puts ""
+puts "TESTING >= bbbbb"
+puts ""
+puts [search test >= bbbbb]

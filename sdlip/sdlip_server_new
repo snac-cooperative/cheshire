@@ -1,0 +1,784 @@
+#!/elib/sys/cheshire/bin/webcheshire
+# 
+# Prototype implementation of SDLIP Server using DAV/DASL for 
+# communications.
+# This entire implementation was done in the Tcl scripting 
+# language for webcheshire.
+# 
+# Supports direct searching of local (Berkeley DL) databases
+# and a Z39.50 gateway to other databases (especially CDL's MELVYL
+# and related DBs).
+#
+# 
+
+# the following might be needed for some installations
+proc loadxmlpackages {args} {
+     set dir /elib/sys/cheshire/lib/tcl8.0/XML
+     source /elib/sys/cheshire/lib/tcl8.0/XML/pkgIndex.tcl
+}
+#
+package unknown loadxmlpackages
+
+package require xml
+
+set line 0
+set DEBUG 1
+
+set xmlnamespaces("") {}
+
+# set/clear some globals for parsin
+set select_flag 0
+set from_flag 0
+set where_flag 0
+set orderby_flag 0
+set limit_flag 0
+set lit_pending 0
+set prop_pending 0
+set href_pending 0
+set scope_flag 0
+set select {}
+set from {}
+set where {}
+set orderby {}
+set limit {}
+set last_data {}
+set current_attrval {}
+set prop_list {}
+set clientsid {}
+set stateTimeOutReq {}
+set queryoptions {}
+set CHESHIRE_LOGFILE "/tmp/sdlip_logfile"
+
+while {[gets stdin instuff] > 0} {
+    incr line
+    if {$line == 1} {
+	if {[string match "SEARCH * HTTP/1.1" $instuff] == 1} {
+	#    puts $outfile "Matched Search header: $instuff"
+	} else {
+	    puts stdout "Access Denied"
+	    exit
+	}
+    } else {
+	set type [string trim [lindex [split $instuff :] 0] " "]
+	set value [string trim [lindex [split $instuff :] 1] " "]
+	set header($type) $value
+    }
+}
+
+
+set maxheaders $line
+# we get the length of the message from the header...
+set content_length $header(Content-Length)
+
+#catch {puts $outfile "content length is $content_length"}
+
+# Use content-length to read the data
+set message [read stdin $content_length]
+set stackptr 0
+set searchstack(0) {}
+
+# Stack operations for queries
+proc pushstack {args} {
+    global stackptr
+    global searchstack
+
+    set searchstack([incr stackptr]) $args
+
+}
+
+proc peekstack {} {
+    global stackptr
+    global searchstack
+
+    return $searchstack($stackptr)
+}
+
+proc popstack {args} {
+    global stackptr
+    global searchstack
+    if {$stackptr == 0} {
+	return ""
+    }
+    set result $searchstack($stackptr)
+    incr stackptr -1
+    return $result
+}
+
+
+
+# define some procs for handling callbacks from XML query parsing
+proc HandleStartTag {name attlist args} {
+    global xmlnamespaces
+    global select_flag from_flag where_flag orderby_flag limit_flag 
+    global select from where orderby limit last_data prop_pending lit_pending
+    global prop_list current_attrval href_pending scope_flag
+
+    foreach {attname attval} $attlist {
+	if {[string match "xmlns:*" $attname] == 1} {
+	    set xmlnamespaces([lindex [split $attname :] 1]) $attval
+	}
+    }
+
+    set nlist [split $name :]
+    if {[llength $nlist] == 1} {
+	set tagname $nlist
+	set namesp ""
+    } else {
+	set tagname [lindex $nlist 1]
+	set namesp [lindex $nlist 0]
+    }
+
+    if {[llength $args] > 0} {
+	# Empty tags reported here
+#	puts "additional args = $args"
+    }
+
+    switch -regexp $tagname {
+	"^\[Ss\]\[Ee\]\[Aa\]\[Rr\]\[Cc\]\[Hh\]\[Rr\]\[Ee\]\[Qq\]\[Uu\]\[Ee\]\[Ss\]\[Tt\]$" {
+#	    puts "SEARCHREQUEST"
+	}
+	"^\[Bb\]\[Aa\]\[Ss\]\[Ii\]\[Cc\]\[Ss\]\[Ee\]\[Aa\]\[Rr\]\[Cc\]\[Hh\]$" {
+#	    puts "BASICSEARCH"
+	}
+	"^\[Ss\]\[Ee\]\[Ll\]\[Ee\]\[Cc\]\[Tt\]$" { 
+#	    puts "SELECT"
+	    set select_flag 1
+	}
+	"^\[Aa\]\[Ll\]\[Ll\]\[Pp\]\[Rr\]\[Oo\]\[Pp\]$" { 
+	    if {$select_flag == 1} {
+		set prop_list "*"
+	    }
+	}
+	"^\[Pp\]\[Rr\]\[Oo\]\[Pp\]$" { 
+	    set prop_pending 1
+	}
+	"^\[Hh\]\[Rr\]\[Ee\]\[Ff\]$" { 
+	    set href_pending 1
+	}
+	
+	"^\[Ll\]\[Ii\]\[Tt\]\[Ee\]\[Rr\]\[Aa\]\[Ll\]$" { 
+	    set lit_pending 1
+	}
+	"^\[Ff\]\[Rr\]\[Oo\]\[Mm\]$" { 
+#	    puts "FROM"
+	    set from_flag 1
+	    set from {}
+	}
+	"^\[Ss\]\[Cc\]\[Oo\]\[Pp\]\[Ee\]$" {
+#	    puts "SCOPE"
+	    set scope_flag 1
+	}
+	"^\[Ww\]\[Hh\]\[Ee\]\[Rr\]\[Ee\]$" { 
+#	    puts "WHERE"
+	    set where_flag 1
+	}
+	"^\[Aa\]\[Nn\]\[Dd\]$" {
+	    pushstack "AND"
+	}
+	"^\[Oo\]\[Rr\]$" {
+	    pushstack "OR"
+	}
+	"^\[Nn\]\[Oo\]\[Tt\]$" {
+	    pushstack "NOT"
+	}
+	"^\[Ll\]\[Tt\]$" {
+	    pushstack "<"
+	}
+	"^\[Ll\]\[Tt\]\[Ee\]$" { 
+	    pushstack "<="
+	}
+	"^\[Gg\]\[Tt\]$" {
+	    pushstack ">"
+	}
+	"^\[Gg\]\[Tt\]\[Ee\]$" {
+	    pushstack ">="
+	}
+	"^\[Ee\]\[Qq\]$" {
+	    pushstack "="
+	}
+	"^\[Ii\]\[Ss\]\[Dd\]\[Ee\]\[Ff\]\[Ii\]\[Nn\]\[Ee\]\[Dd\]$" {
+#	    puts "ISDEFINED"
+	}
+	"^\[Ll\]\[Ii\]\[Kk\]\[Ee\]$" {
+	    pushstack "@"
+	}
+	"^\[Cc\]\[Oo\]\[Nn\]\[Tt\]\[Aa\]\[Ii\]\[Nn\]\[Ss\]$" {
+	    set current_attrval "ANY @"
+	    set lit_pending 1
+	}
+	"^\[Oo\]\[Rr\]\[Dd\]\[Ee\]\[Rr\]\[Bb\]\[Yy\]$" { 
+#	    puts "ORDERBY"
+	    set orderby_flag 1
+	}
+	"^\[Oo\]\[Rr\]\[Dd\]\[Ee\]\[Rr\]$" {
+#	    puts "ORDER"
+	}
+	"^\[Aa\]\[Ss\]\[Cc\]\[Ee\]\[Nn\]\[Dd\]\[Ii\]\[Nn\]\[Gg\]$" {
+#	    puts "ASCENDING"
+	}
+	"^\[Dd\]\[Ee\]\[Ss\]\[Cc\]\[Ee\]\[Nn\]\[Dd\]\[Ii\]\[Nn\]\[Gg\]$" {
+#	    puts "DESCENDING "
+	}
+	"^\[Ll\]\[Ii\]\[Mm\]\[Ii\]\[Tt\]$" { 
+#	    puts "LIMIT "
+	    set limit_flag 1
+	}
+	"^\[Nn\]\[Rr\]\[Ee\]\[Ss\]\[Uu\]\[Ll\]\[Tt\]\[Ss\]$" {
+#	    puts "NRESULTS"
+	}
+	"^\[Cc\]\[Ll\]\[Ii\]\[Ee\]\[Nn\]\[Tt\]\[Ss\]\[Ii\]\[Dd\]$" {
+#	    puts "CLIENTSID (SDLIP)"
+	}
+	"^\[Ss\]\[Tt\]\[Aa\]\[Tt\]\[Ee\]\[Tt\]\[Ii\]\[Mm\]\[Ee\]\[Oo\]\[Uu\]\[Tt\]\[Rr\]\[Ee\]\[Qq\]$" {
+#	    puts "STATETIMEOUTREQ (SDLIP)"
+	}
+	"^\[Qq\]\[Uu\]\[Ee\]\[Rr\]\[Yy\]\[Oo\]\[Pp\]\[Tt\]\[Ii\]\[Oo\]\[Nn\]\[Ss\]$" {
+#	    puts "QueryOPTIONS (SDLIP)"
+	}
+
+	"^\[Nn\]\[Uu\]\[Mm\]\[Dd\]\[Oo\]\[Cc\]\[Ss\]$" { 
+#	    puts "NUMDOCS (SDLIP) "
+	    set limit_flag 1
+	}
+
+	default {
+	  
+	    if {$prop_pending == 1} {
+		if {$select_flag == 1} {
+		    lappend prop_list "$namesp:$tagname"
+		} else {
+		    set current_attrval "$namesp:$tagname"
+		    append current_attrval " \{[popstack]\}"
+		}
+	    } else {
+		#puts "unknown tag: $tagname"
+	    }
+
+	}
+	
+    }
+    
+}
+
+proc HandleEndTag {name args} { 
+    global xmlnamespaces
+    global select_flag from_flag where_flag orderby_flag limit_flag 
+    global select from where orderby limit last_data prop_pending lit_pending
+    global prop_list current_attrval href_pending scope_flag
+    global clientsid stateTimeOutReq queryoptions
+
+    set nlist [split $name :]
+    if {[llength $nlist] == 1} {
+	set tagname $nlist
+	set namesp ""
+    } else {
+	set tagname [lindex $nlist 1]
+	set namesp [lindex $nlist 0]
+    }
+#    puts "End Tag </$tagname> (namespace $namesp = $xmlnamespaces($namesp))"
+    
+    if {[llength $args] > 0} {
+	# Empty tags reported here
+#	puts "additional args = $args"
+    }
+    
+    switch -regexp $tagname {
+	"^\[Ss\]\[Ee\]\[Aa\]\[Rr\]\[Cc\]\[Hh\]\[Rr\]\[Ee\]\[Qq\]\[Uu\]\[Ee\]\[Ss\]\[Tt\]$" {
+#	    puts "SEARCHREQUEST"	
+	}
+	"^\[Bb\]\[Aa\]\[Ss\]\[Ii\]\[Cc\]\[Ss\]\[Ee\]\[Aa\]\[Rr\]\[Cc\]\[Hh\]$" {
+#	    puts "BASICSEARCH"
+	}
+	"^\[Ss\]\[Ee\]\[Ll\]\[Ee\]\[Cc\]\[Tt\]$" {
+#	    puts "SELECT"
+	    set select_flag 0
+	    set select $prop_list
+	    set prop_list {}
+	}
+	"^\[Ff\]\[Rr\]\[Oo\]\[Mm\]$" { 
+#	    puts "FROM" 
+	    set from_flag 0
+	}
+	"^\[Aa\]\[Ll\]\[Ll\]\[Pp\]\[Rr\]\[Oo\]\[Pp\]$" { 
+	    if {$select_flag == 1} {
+		set prop_list "*"
+	    }
+	}
+	"^\[Pp\]\[Rr\]\[Oo\]\[Pp\]$" { 
+	    set prop_pending 0
+	}
+
+	"^\[Hh\]\[Rr\]\[Ee\]\[Ff\]$" { 
+	    set href_pending 0
+	}
+
+	"^\[Ll\]\[Ii\]\[Tt\]\[Ee\]\[Rr\]\[Aa\]\[Ll\]$" {
+	    set lit_pending 0
+	    pushstack $current_attrval
+	    set current_attrval {}
+	}
+	"^\[Ss\]\[Cc\]\[Oo\]\[Pp\]\[Ee\]$" {
+#	    puts "SCOPE"
+	    set scope_flag 0
+	}
+	"^\[Ww\]\[Hh\]\[Ee\]\[Rr\]\[Ee\]$" {
+#	    puts "WHERE"
+	    set where_flag 0
+	    # finalize the query ...
+	}
+	"^\[Aa\]\[Nn\]\[Dd\]$" {
+#	    puts "AND"
+	}
+	"^\[Oo\]\[Rr\]$" {
+#	    puts "OR"
+	}
+	"^\[Nn\]\[Oo\]\[Tt\]$" {
+#	    puts "NOT"
+	}
+	"^\[Ll\]\[Tt\]$" {
+#	    puts "LT"
+	}
+	"^\[Ll\]\[Tt\]\[Ee\]$" {
+#	    puts "LTE "
+	}
+	"^\[Gg\]\[Tt\]$" {
+#	    puts "GT "
+	}
+	"^\[Gg\]\[Tt\]\[Ee\]$" {
+#	    puts "GTE "
+	}
+	"^\[Ee\]\[Qq\]$" {
+#	    puts "EQ "
+	}
+	"^\[Ii\]\[Ss\]\[Dd\]\[Ee\]\[Ff\]\[Ii\]\[Nn\]\[Ee\]\[Dd\]$" {
+#	    puts "ISDEFINED"
+	}
+	"^\[Ll\]\[Ii\]\[Kk\]\[Ee\]$" {
+#	    puts "LIKE"
+	}
+	"^\[Cc\]\[Oo\]\[Nn\]\[Tt\]\[Aa\]\[Ii\]\[Nn\]\[Ss\]$" {
+#	    puts "CONTAINS"
+	    set lit_pending 0
+	    pushstack $current_attrval
+	    set current_attrval {}
+	}
+	"^\[Oo\]\[Rr\]\[Dd\]\[Ee\]\[Rr\]\[Bb\]\[Yy\]$" {
+#	    puts "ORDERBY"
+	    set orderby_flag 0
+	}
+	"^\[Oo\]\[Rr\]\[Dd\]\[Ee\]\[Rr\]$" {
+#	    puts "ORDER"
+	}
+	"^\[Aa\]\[Ss\]\[Cc\]\[Ee\]\[Nn\]\[Dd\]\[Ii\]\[Nn\]\[Gg\]$" {
+#	    puts "ASCENDING"
+	}
+	"^\[Dd\]\[Ee\]\[Ss\]\[Cc\]\[Ee\]\[Nn\]\[Dd\]\[Ii\]\[Nn\]\[Gg\]$" {
+#	    puts "DESCENDING "
+	}
+	"^\[Ll\]\[Ii\]\[Mm\]\[Ii\]\[Tt\]$" { 
+#	    puts "LIMIT "
+	    set limit_flag 0
+	}
+	"^\[Nn\]\[Rr\]\[Ee\]\[Ss\]\[Uu\]\[Ll\]\[Tt\]\[Ss\]$" {
+#	    puts "NRESULTS"
+	    set limit $last_data
+	}
+	"^\[Cc\]\[Ll\]\[Ii\]\[Ee\]\[Nn\]\[Tt\]\[Ss\]\[Ii\]\[Dd\]$" {
+#	    puts "CLIENTSID (SDLIP)"
+	    set clientsid $last_data
+	}
+
+	"^\[Ss\]\[Tt\]\[Aa\]\[Tt\]\[Ee\]\[Tt\]\[Ii\]\[Mm\]\[Ee\]\[Oo\]\[Uu\]\[Tt\]\[Rr\]\[Ee\]\[Qq\]$" {
+#	    puts "STATETIMEOUTREQ (SDLIP)"
+	    set stateTimeOutReq $last_data
+	}
+
+	"^\[Qq\]\[Uu\]\[Ee\]\[Rr\]\[Yy\]\[Oo\]\[Pp\]\[Tt\]\[Ii\]\[Oo\]\[Nn\]\[Ss\]$" {
+#	    puts "QueryOPTIONS (SDLIP)"
+	    set queryoptions $last_data
+	}
+
+	"^\[Nn\]\[Uu\]\[Mm\]\[Dd\]\[Oo\]\[Cc\]\[Ss\]$" { 
+#	    puts "NUMDOCS (SDLIP) "
+	    set limit_flag 0
+	    set limit $last_data
+	}
+	
+	default {
+#	    puts "unmatched item is $tagname"
+	}
+	
+    }
+}
+
+proc HandleData {data} {
+    global last_data current_attrval lit_pending href_pending limit_flag from
+    if {[string length $data] > 0 
+    && [regexp {^[ 	]*$} $data] == 0} {
+	# don't bother if it is all white space...
+#	puts "********* current data '$data' ************"
+	set last_data $data
+	if {$lit_pending == 1} {
+	    lappend current_attrval $last_data
+	}
+	if {$href_pending == 1} {
+	    lappend from $last_data
+	}
+    }
+}
+
+proc errorresult {errcode exceptioncode errorinfo} {
+    switch $errcode {
+	"400" {set msg "Bad-Request"}
+	"422" {set msg "Unprocessable-Entity"}
+	"507" {set msg "Insufficient-Storage"}
+    }
+
+    puts "HTTP/1.1 $errcode $msg"
+    puts "Content-Type: text/xml"
+
+    switch $exceptioncode {
+	"INVALID_REQUEST_EXC" {set numericcode 400}
+	"UNAUTHORIZED_EXC" {set numericcode 401}
+	"PAYMENT_REQUIRED_EXC" {set numericcode 402}
+	"NOT_FOUND_EXC" {set numericcode 404}
+	"ILLEGAL_METHOD_EXC" {set numericcode 405}
+	"REQUEST_TIMEOUT_EXC" {set numericcode 408}
+	"QUERY_LANGUAGE_UNKNOWN_EXC" {set numericcode 450}
+	"BAD_QUERY_EXC" {set numericcode 451}
+	"INVALID_PROPERTY_EXC" {set numericcode 452}
+	"INVALID_SESSIONID_EXC" {set numericcode 453}
+	"INVALID_SUBCOLLECTION_EXC" {set numericcode 454}
+	"MALFORMED_XML_EXC" {set numericcode 455}
+	"SERVER_ERROR_EXC" {set numericcode 500}
+	"NOT_IMPLEMENTED_EXC" {set numericcode 501}
+	"SERVICE_UNAVAILABLE_EXC" {set numericcode 503}
+
+    }
+    #build the xml result -- the appends are just to keep it readable...
+    set xmlstuff "<?xml version=\"1.0\"?>"
+    append xmlstuff "<d:multistatus "
+    append xmlstuff "xmlns:d=\"DAV:\" " 
+    append xmlstuff "xmlns:s=\"http://interlib.org/SDLIP/1.0#\" "
+    append xmlstuff "xmlns:l=\"http://elib.cs.berkeley.edu/cheshire\">"
+    append xmlstuff "<d:response>"
+    append xmlstuff "<d:href>http://interlib.org/SDLIP/1.0#$exceptioncode</d:href>"
+    append xmlstuff "<d:propstat><d:prop>"
+    append xmlstuff "<l:errorinfo> $errorinfo </l:errorinfo>"
+    append xmlstuff "</d:prop></d:propstat>"
+    append xmlstuff "<s:exceptionCode>$numericcode</s:exceptionCode>"
+    append xmlstuff "<d:responsedescription>"
+    append xmlstuff " $errorinfo "
+    append xmlstuff "</d:responsedescription>"
+    append xmlstuff "</d:response>"
+    append xmlstuff "</d:multistatus>"
+
+    set length [string length $xmlstuff]
+    puts "Content-Length: $length"
+    puts ""
+    puts "$xmlstuff"
+    # exit on any error...
+    exit
+}
+
+set qparser [xml::parser qparser]
+
+$qparser configure -elementstartcommand HandleStartTag
+$qparser configure -elementendcommand HandleEndTag
+$qparser configure -characterdatacommand HandleData
+$qparser configure -reportempty 1
+
+if {[catch {$qparser parse $message} err] != 0} {
+    errorresult 400 MALFORMED_XML_EXC $err
+
+} else {
+    # parsing of the basicquery succeeded
+    # some debugging code...
+    #parray searchstack
+    #puts "stack top is $stackptr"
+    #puts "Other query elements..."
+    #puts "select: $select"
+    #puts "from: $from"
+    #puts "limit: $limit"
+    #puts "clientsid:$clientsid"
+    #puts "statetimeoutrq: $stateTimeOutReq"
+    #puts "queryoptions: $queryoptions"
+
+
+    # test some possible errors or limitations
+    if {[llength $from] > 1} {
+	#currently we only allow one server at a time
+	errorresult 400 INVALID_REQUEST_EXC  "Only one server per query permitted"
+    }
+    if {$stateTimeOutReq !=0} {
+	# we don't keep state in this version
+	errorresult 400 NOT_IMPLEMENTED_EXC "stateTimeOutReq not available yet"
+    }
+
+    if {$limit == {}} {
+	set maxrecs 100
+    } else {
+	set maxrecs $limit
+    }
+# parse the xml query and build a cheshire query...
+    set query {}
+    set left {}
+    set right {}
+    set ops {}
+    set done 0
+
+# unwind the stack...
+
+    while {$done == 0} {
+	set right "([popstack])"
+	set left  "([popstack])"
+	if {$left == "()"} {
+	    set done 1
+	    set query $right
+	} else {
+	    set ops [popstack]
+	    set query "$left $ops $right"
+	    pushstack $query
+	}
+    }
+    regsub -all "\[{}\]" $query "" workquery
+    
+
+    switch -glob $from {
+	"*/diglib" -
+	"*/bibfile" -
+	"*/BIBFILE" {
+	    set CHESHIRE_DATABASE bibfile
+	    set CHESHIRE_NUMREQUESTED $maxrecs
+	    set CHESHIRE_NUM_START 1
+	    set CHESHIRE_CONFIGFILE "/elib/sys/cheshire/DATA/CONFIG.DL"
+	    set resultsetid 0
+	    set servername "UCBDL"
+	    set serverdisp "UC Berkeley Digital Library"
+	    
+	    regsub -all -nocase "\[a-z\]+:creator" $workquery "author" q2
+	    regsub -all -nocase "\[a-z\]+:title" $q2 "title" q1
+	    regsub -all -nocase "\[a-z\]+:type" $q1 "record_type" q2
+	    regsub -all -nocase "\[a-z\]+:identifier" $q2 "localnum" q1
+	    regsub -all -nocase "\[a-z\]+:date" $q1 "date" q2
+	    regsub -all -nocase "\[a-z\]+:subject" $q2 "topic" q1
+	    regsub -all -nocase "\[a-z\]+:description" $q1 "topic" q2
+	    regsub -all -nocase "\[a-z\]+:contributor" $q1 "author" q2
+	    regsub -all -nocase "ANY @" $q2 "topic @" q1
+	    set query "search $q1 resultsetid $resultsetid"
+	    # puts "query is $query"
+	}
+	
+	"*/MELVYL" -
+	"*/TEN" -
+	"*/PE" -
+	"*/PER" -
+	"*/ABI" -
+	"*/INS" -
+	"*/MAGS" -
+	"*/COMP" -
+	"*/SUNSITE" -
+	"*/ATT_CIA" -
+	"*/NEWS" -
+	"*/melvyl" -
+	"*/ten" -
+	"*/pe" -
+	"*/per" -
+	"*/abi" -
+	"*/ins" -
+	"*/mags" -
+	"*/comp" -
+	"*/sunsite" -
+	"*/scilib" -
+	"*/att_cia" -
+	"*/news" {
+	    # set up the z39.50 connection 
+	    set servername [string toupper [file tail $from]]
+	    set resultsetid 0
+	    
+	    switch $servername {
+		"SUNSITE" {set serverdisp "UCB Physical Sciences"}
+		"SCILIB" {set serverdisp "UCB Physical Sciences"}
+		"MELVYL" {set serverdisp "CDL - UC Books"}
+		"TEN" {set serverdisp "CDL - Melvyl Ten-year"}
+		"PE" {set serverdisp "CDL - UC Periodicals"}
+		"PER" {set serverdisp "CDL - UC Periodicals"}
+		"ATT_CIA" {set serverdisp "CIA World Factbook from ATT"}
+		"MAGS" {set serverdisp "CDL - Expanded Academic Index"}
+		"ABI" {set serverdisp "CDL - ABI Inform"}
+		"INS" {set serverdisp "CDL - Inspec"}
+		"NEWS" {set serverdisp "CDL - National Newspaper Index"}
+		"COMP" {set serverdisp "CDL - Computer Database"}
+		"LC_BOOKS" {set serverdisp "Library of Congress Books DB"}
+		default {set serverdisp $servername}
+	    }
+	    if {$servername == "SCILIB"} {
+		set err [catch {zselect $servername irony.sims.berkeley.edu scilib 2100} sresults]
+	    } else {
+		set err [catch {zselect $servername} sresults]
+	    }
+
+	    if {$err != 0} {
+		# unable to connect to db
+		errorresult 400 SERVICE_UNAVAILABLE "Database/service not available"
+	    }
+	    # this is a kludge --- should do something with namespaces
+	    regsub -all -nocase "\[a-z\]+:creator" $workquery "author" q2
+	    regsub -all -nocase "\[a-z\]+:title" $q2 "title" q1
+	    regsub -all -nocase "\[a-z\]+:type" $q1 "record_type" q2
+	    regsub -all -nocase "\[a-z\]+:identifier" $q2 "call_number" q1
+	    regsub -all -nocase "\[a-z\]+:date" $q1 "date" q2
+	    regsub -all -nocase "\[a-z\]+:subject" $q2 "subject" q1
+	    regsub -all -nocase "\[a-z\]+:description" $q1 "subject" q2
+	    regsub -all -nocase "\[a-z\]+:contributor" $q1 "author" q2
+
+	    if {$servername == "SCILIB" || $servername == "SUNSITE"} {
+		regsub -all -nocase "ANY @" $q2 "topic @" q1
+	    } else {
+		regsub -all -nocase "ANY @" $q2 "ANY" q1
+	    }
+
+	    set query "zfind $q1 resultsetid $resultsetid"
+	    # puts "query is $query"
+	    
+	    if {$servername == "ATT_CIA"} {
+		zset recsyntax sutrs
+	    } elseif {$servername == "MELVYL" 
+		|| $servername == "TEN" 
+		|| $servername == "PE"} {
+		    zset recsyntax OPAC
+	    } else {
+		zset recsyntax MARC
+	    }
+	    zset smallsetupperbound $maxrecs
+	    zset largesetlowerbound [expr $maxrecs * 100]
+	    zset mediumsetpresentnumber $maxrecs
+	    
+	}
+	
+    }
+    
+    # Submit search and parse results
+    
+    set err [catch {eval $query} qresults]
+
+    #puts "$qresults"
+
+    if {$err != 0} {
+	#some error in query processing
+	errorresult 422 BAD_QUERY_EXC "$qresults : $query"
+	
+    }
+
+    if {$servername != "UCBDL"} {
+	set hits [lindex [lindex [lindex $qresults 0] 2] 1]
+	set errmsg "[lindex $qresults 1]"
+	set recvd  [lindex [lindex [lindex $qresults 0] 3] 1]
+	set hittype "Hits"
+	
+    } else { #local searches are formatted differently...
+	set hittype [lindex [lindex [lindex $qresults 0] 0] 0]
+	set hits [lindex [lindex [lindex $qresults 0] 0] 1]
+	set recvd [lindex [lindex [lindex $qresults 0] 1] 1]
+	set errmsg ""
+    }
+
+
+    set serversideid "[pid]-$resultsetid"
+
+    if {$hits == 0} {
+	set databuffer "<?xml version=\"1.0\"?><d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"SDLIP:\"><d:response><d:href>http://interlib.org/SDLIP/1.0\#SearchResult</d:href><s:expectedTotal>0</s:expectedTotal><s:stateTimeout>0</s:stateTimeout><s:serverSID>$serversideid</s:serverSID></d:response>"
+
+    } else {
+
+	# otherwise just build a list of records...
+
+	if {$recvd <= $maxrecs} {
+	    set sresults [lrange $qresults 1 end]
+	    # Retrieve records
+	    
+	    set num 1
+	    set numdisp 0
+	    set LEFTBRACKET "\["
+	    set RIGHTBRACKET "\]"
+	    set QUOTES "\""
+	
+	    if {$servername == "ATT_CIA"} {
+		set databuffer "<?xml version=\"1.0\"?><d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"SDLIP:\" xmlns:a=\"ATT_CIA_FACTBOOK:\"><d:response><d:href>http://interlib.org/SDLIP/1.0\#SearchResult</d:href><s:expectedTotal>$hits</s:expectedTotal><s:stateTimeout>0</s:stateTimeout><s:serverSID>$serversideid</s:serverSID></d:response>"
+		regsub -all -nocase "\[\[\]" $sresults "(" x
+		regsub -all -nocase "\[\]\]" $x ")" sresults
+
+	    } elseif {$servername == "UCBDL"} {
+		set databuffer "<?xml version=\"1.0\"?><d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"SDLIP:\" xmlns:b=\"rfc1357:\"><d:response><d:href>http://interlib.org/SDLIP/1.0\#SearchResult</d:href><s:expectedTotal>$hits</s:expectedTotal><s:stateTimeout>0</s:stateTimeout><s:serverSID>$serversideid</s:serverSID></d:response>"
+	    } else {
+		set databuffer "<?xml version=\"1.0\"?><d:multistatus xmlns:d=\"DAV:\" xmlns:s=\"SDLIP:\" xmlns:dc=\"DublinCore:\"><d:response><d:href>http://interlib.org/SDLIP/1.0\#SearchResult</d:href><s:expectedTotal>$hits</s:expectedTotal><s:stateTimeout>0</s:stateTimeout><s:serverSID>$serversideid</s:serverSID></d:response>"
+	    }
+
+	    while {$numdisp < $maxrecs && $recvd > 0} {
+
+		foreach record $sresults {
+		    set y $record
+		    append databuffer "<d:response><d:href>http://elib.cs.berkeley.edu:8888/$serversideid-$num</d:href><d:propstat><d:prop>"
+		
+		
+		    if {$servername == "ATT_CIA"} {
+			append databuffer "<a:TEXT>"
+			append databuffer $y
+			append databuffer "</a:TEXT>"
+
+		    } elseif {$servername == "UCBDL"} {
+			# just send back the records as is... with ns added
+			regsub -all "<ELIB-BIB>" $y {} outrec0
+			regsub -all "</ELIB-BIB>" $outrec0 {} outrec1
+			regsub -all "<" $outrec1 "<b:" outrec0
+			regsub -all "<b:/" $outrec0 "</b:" outrec1
+			regsub -all "/elib/data/docs" $outrec1 "http://elib.cs.berkeley.edu/docs/data" newrec
+
+			append databuffer $newrec
+		    
+		    } elseif {$servername == "MELVYL" || $servername == "TEN"} { 
+			# just testing right now...
+			set outrec0 [zformat dc $y opac $num 80]
+			regsub -all {\[|\]|\$[0-9]} $outrec0 {\\&} outrec
+			append databuffer $outrec
+			
+		    } else {
+			# puts [subst {[zformat $fmt $y $rectype $num 80]}]
+			set outrec0 [zformat dc $y MARC $num 80]
+			#since this is the elib server change the hard pointers...
+			regsub -all {\[|\]|\$[0-9]} $outrec0 {\\&} outrec
+			append databuffer $outrec
+		    }
+		    incr num
+		    incr numdisp
+		    append databuffer "</d:prop><d:status>HTTP/1.1 200 OK</d:status></d:propstat></d:response>\n"
+		    
+		    if {$numdisp >= $maxrecs} {
+			break
+		    }
+		}
+		if {$numdisp < $maxrecs} { 
+		    #fetch some more records
+		    set err [catch {zdisplay 4} x]
+		    catch {set recvd [lindex [lindex [lindex $x 0] 2] 1]}
+		    catch {set num [lindex [lindex [lindex $x 0] 3] 1]}
+		    catch {set recs [lrange $x 1 end]}
+		}
+	    }
+	}
+    }
+}
+# return the data
+append databuffer "</d:multistatus>" 
+# change all entity ampersands to chars
+regsub -all "&amp;" $databuffer "&" outrec0
+# change all ampersand chars to entities
+regsub -all "&" $outrec0 "&amp;" databuffer
+
+puts "HTTP/1.1 207 Multistatus"
+puts "Content-Type: application/xml"
+puts "Content-Length: [string length $databuffer]"
+puts ""
+puts "$databuffer"
+exit
+

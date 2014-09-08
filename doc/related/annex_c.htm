@@ -1,0 +1,842 @@
+<html>
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+<title>Annex C: GEO Schema</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h2 align="center"><a href="geo22.htm">Z39.50 Application Profile for Geospatial Metadata
+or &quot;GEO&quot;</a><br>
+Annex C: GEO Schema</h2>
+
+<hr>
+
+<p>This Annex describes the schematic structure for the GEO Profile. The GEO Profile
+includes many information &quot;structures&quot; which are, by necessity, repeatable and
+describe an explicit dependency of one data object to another that is critical to query
+and to presentation. </p>
+
+<p>The schema for the GEO profile is described using an <a href="#XML DTD">eXtensible
+Markup Language (XML)</a> and a <a href="#SGML DTD">Standard Generalized Markup Language</a>
+(SGML) Document Type Declaration (DTD). A formal specification of the schema can be made
+using Abstract Record Structure (ARS) based on a translation of the DTD rules. See <a
+href="annex_d.htm">Annex D</a> for a listing of the long names to match the short
+(8-character or less) tags used in the DTDs below.</p>
+
+<h2><a name="XML DTD">XML DTD</a></h2>
+
+<pre>&lt;!-- FGDC Metadata DTD 1.0 19960501                                       --&gt;
+
+&lt;!-- This is the Document Type Declaration for formal metadata, metadata  --&gt;
+&lt;!-- conforming to the Content Standards for Digital Geospatial Metadata  --&gt;
+&lt;!-- of the Federal Geographic Data Committee.  This DTD corresponds to   --&gt;
+&lt;!-- the 19940608 (June 8, 1994) version of the standard.                 --&gt;
+
+&lt;!-- Tags:                                                                --&gt;
+&lt;!--     Tags are a maximum of 8-characters long, to coincide with the    --&gt;
+&lt;!--     Reference Concrete Syntax.                                       --&gt;
+
+&lt;!-- Entity sets:                                                         --&gt;
+&lt;!--     Scalar values (meaning the values of elements that are not       --&gt;
+&lt;!--     compound) are here declared #PCDATA to allow XML parsers to      --&gt;
+&lt;!--     recognize and support entities representing special characters   --&gt;
+&lt;!--     such as the degree symbol, less, and greater.                    --&gt;
+
+&lt;!-- Element ordering:                                                    --&gt;
+&lt;!--     Generally the order of elements is not significant.  However,    --&gt;
+&lt;!--     repeated groups of elements must be in order (e.g. (A, B)+)      --&gt;
+&lt;!--     and repeated elements must appear together (e.g. (A, B+, C))     --&gt;
+
+&lt;!-- Authors:                                                             --&gt;
+&lt;!--     Peter N. Schweitzer (U.S. Geological Survey, Reston, VA 20192)   --&gt;
+&lt;!--     with assistance from Doug Nebert (USGS), Eric Miller (OCLC),     --&gt;
+&lt;!--     Quinn Hart (CERES), Jim Frew (UCSB), and Archie Warnock (AWWW).  --&gt;
+&lt;!--                                                                      --&gt;
+
+&lt;!--======================================================================--&gt;
+
+&lt;!ENTITY % ISOnum PUBLIC &quot;ISO 8879:1986//ENTITIES Numeric and Special
+Graphic//EN&quot;&gt;
+&lt;!ENTITY % ISOlat1 PUBLIC &quot;ISO 8879:1986//ENTITIES Added Latin 1//EN&quot;&gt;
+
+%ISOnum;
+%ISOlat1;
+
+&lt;!--======================================================================--&gt;
+
+&lt;!ELEMENT metadata (idinfo, dataqual?, spdoinfo?, spref?, eainfo?,
+                    distinfo?, extinfo*, metainfo)&gt;
+&lt;!ELEMENT idinfo   (citation, descript, timeperd, status, spdom, keywords,
+                    accconst, useconst, ptcontac?, browse*, datacred?,
+                    secinfo?, native?, crossref*)&gt;
+&lt;!ELEMENT citation (citeinfo)&gt;
+&lt;!ELEMENT descript (abstract, purpose, supplinf?)&gt;
+&lt;!ELEMENT timeperd (timeinfo, current)&gt;
+&lt;!ELEMENT status   (progress, update)&gt;
+&lt;!ELEMENT spdom    (bounding, dsgpoly*, extent)&gt;
+&lt;!ELEMENT bounding (westbc, eastbc, northbc, southbc)&gt;
+&lt;!ELEMENT dsgpoly  (dsgpolyo, dsgpolyx*)&gt;
+&lt;!ELEMENT dsgpolyo ((gringlat, gringlon),(gringlat, gringlon),(gringlat,
+                    gringlon),(gringlat, gringlon)+)&gt;
+&lt;!ELEMENT dsgpolyx ((gringlat, gringlon),(gringlat, gringlon),(gringlat,
+                    gringlon),(gringlat, gringlon)+)&gt;
+&lt;!ELEMENT keywords theme, place?, stratum?, temporal?)&gt;
+&lt;!ELEMENT theme    ((themekt, themekey+)+)&gt;
+&lt;!ELEMENT place    ((placekt, placekey+)+)&gt;
+&lt;!ELEMENT stratum  ((stratkt, stratkey+)+)&gt;
+&lt;!ELEMENT temporal ((tempkt, tempkey+)+)&gt;
+&lt;!ELEMENT ptcontac (cntinfo)&gt;
+&lt;!ELEMENT browse   (browsen, browsed, browset)&gt;
+&lt;!ELEMENT secinfo  (secsys, secclass, sechandl)&gt;
+&lt;!ELEMENT crossref (citeinfo)&gt;
+&lt;!ELEMENT dataqual (attracc?, logic, complete, posacc?, lineage,cloud?)&gt;
+&lt;!ELEMENT attracc  (attraccr, qattracc*)&gt;
+&lt;!ELEMENT qattracc (attraccv, attracce)&gt;
+&lt;!ELEMENT posacc   (horizpa?, vertacc?)&gt;
+&lt;!ELEMENT horizpa  (horizpar, qhorizpa*)&gt;
+&lt;!ELEMENT qhorizpa (horizpav, horizpae)&gt;
+&lt;!ELEMENT vertacc  (vertaccr, qvertpa*)&gt;
+&lt;!ELEMENT qvertpa  (vertaccv, vertacce)&gt;
+&lt;!ELEMENT lineage  (srcinfo*, procstep+)&gt;
+&lt;!ELEMENT srcinfo  (srccite, srcscale?, typesrc, srctime, srccitea, 
+                    srccontr)&gt;
+&lt;!ELEMENT srccite  (citeinfo)&gt;
+&lt;!ELEMENT srctime  (timeinfo, srccurr)&gt;
+&lt;!ELEMENT procstep (procdesc, srcused*, procdate, proctime?, srcprod*,
+                    proccont?)&gt;
+&lt;!ELEMENT proccont (cntinfo)&gt;
+&lt;!ELEMENT spdoinfo (indspref?, (direct, ((ptvctinf | rastinfo))?)?)&gt;
+&lt;!ELEMENT ptvctinf ((sdtsterm | vpfterm))&gt;
+&lt;!ELEMENT sdtsterm ((sdtstype, ptvctcnt?)+)&gt;
+&lt;!ELEMENT vpfterm  (vpflevel, (vpftype, ptvctcnt?)+)&gt;
+&lt;!ELEMENT rastinfo (rasttype, (rowcount, colcount, vrtcount?)?)&gt;
+&lt;!ELEMENT spref    (horizsys?, vertdef?)&gt;
+&lt;!ELEMENT horizsys ((geograph | planar+ | local), geodetic?)&gt;
+&lt;!ELEMENT geograph (latres, longres, geogunit)&gt;
+&lt;!ELEMENT planar   ((mapproj | gridsys | localp), planci)&gt;
+&lt;!ELEMENT mapproj  (mapprojn, (albers | azimequi | equicon | equirect |
+                    gvnsp | gnomonic | lamberta | lambertc | mercator |
+                    modsak | miller | obqmerc | orthogr | polarst | polycon |
+                    robinson | sinusoid | spaceobq | stereo | transmer |
+                    vdgrin | otherprj))&gt;
+&lt;!ELEMENT albers   (stdparll+, longcm, latprjo, feast, fnorth)&gt;
+&lt;!ELEMENT azimequi (longcm, latprjo, feast, fnorth)&gt;
+&lt;!ELEMENT equicon  (stdparll+, longcm, latprjo, feast, fnorth)&gt;
+&lt;!ELEMENT equirect (stdparll, longcm, feast, fnorth)&gt;
+&lt;!ELEMENT gvnsp    (heightpt, longpc, latprjc, feast, fnorth)&gt;
+&lt;!ELEMENT gnomonic (longpc, latprjc, feast, fnorth)&gt;
+&lt;!ELEMENT lamberta (longpc, latprjc, feast, fnorth)&gt;
+&lt;!ELEMENT lambertc (stdparll+, longcm, latprjo, feast, fnorth)&gt;
+&lt;!ELEMENT mercator ((stdparll | sfequat), longcm, feast, fnorth)&gt;
+&lt;!ELEMENT modsak   (feast, fnorth)&gt;
+&lt;!ELEMENT miller   (longcm, feast, fnorth)&gt;
+&lt;!ELEMENT obqmerc  (sfctrlin, (obqlazim | obqlpt), latprjo, feast, fnorth)&gt;
+&lt;!ELEMENT obqlazim (azimangl, azimptl)&gt;
+&lt;!ELEMENT obqlpt   ((obqllat, obqllong),(obqllat, obqllong))&gt;
+&lt;!ELEMENT orthogr  (longpc, latprjc, feast, fnorth)&gt;
+&lt;!ELEMENT polarst  (svlong, (stdparll | sfprjorg), feast, fnorth)&gt;
+&lt;!ELEMENT polycon  (longcm, latprjo, feast, fnorth)&gt;
+&lt;!ELEMENT robinson (longpc, feast, fnorth)&gt;
+&lt;!ELEMENT sinusoid (longcm, feast, fnorth)&gt;
+&lt;!ELEMENT spaceobq (landsat, pathnum, feast, fnorth)&gt;
+&lt;!ELEMENT stereo   (longpc, latprjc, feast, fnorth)&gt;
+&lt;!ELEMENT transmer (sfctrmer, longcm, latprjo, feast, fnorth)&gt;
+&lt;!ELEMENT vdgrin   (longcm, feast, fnorth)&gt;
+&lt;!ELEMENT gridsys  (gridsysn, (utm | ups | spcs | arcsys | othergrd))&gt;
+&lt;!ELEMENT utm      (utmzone, transmer)&gt;
+&lt;!ELEMENT ups      (upszone, polarst)&gt;
+&lt;!ELEMENT spcs     (spcszone, (lambertc | transmer | obqmerc | polycon))&gt;
+&lt;!ELEMENT arcsys   (arczone, (equirect | azimequi))&gt;
+&lt;!ELEMENT localp   (localpd, localpgi)&gt;
+&lt;!ELEMENT planci   (plance, (coordrep | distbrep), plandu)&gt;
+&lt;!ELEMENT coordrep (absres, ordres)&gt;
+&lt;!ELEMENT distbrep (distres, bearres, bearunit, bearrefd, bearrefm)&gt;
+&lt;!ELEMENT local    (localdes, localgeo)&gt;
+&lt;!ELEMENT geodetic (horizdn?, ellips, semiaxis, denflat)&gt;
+&lt;!ELEMENT vertdef  (altsys?, depthsys?)&gt;
+&lt;!ELEMENT altsys   (altdatum, altres+, altunits, altenc)&gt;
+&lt;!ELEMENT depthsys (depthdn, depthres+, depthdu, depthem)&gt;
+&lt;!ELEMENT eainfo   (detailed*, overview*)&gt;
+&lt;!ELEMENT detailed ((enttyp, attr*)+)&gt;
+&lt;!ELEMENT enttyp   (enttypl, enttypd, enttypds)&gt;
+&lt;!ELEMENT attr     (attrlabl, attrdef, attrdefs, attrdomv+, attrunit?,
+attrmres?, (begdatea, enddatea?)*, attrvai?, attrmfrq?)&gt;
+&lt;!ELEMENT attrdomv ((edom | rdom | codesetd | udom))&gt;
+&lt;!ELEMENT edom     ((edomv, edomvd, edomvds, attr*)+)&gt;
+&lt;!ELEMENT rdom     (rdommin, rdommax, attr*)&gt;
+&lt;!ELEMENT codesetd (codesetn, codesets)&gt;
+&lt;!ELEMENT attrvai  (attrva, attrvae)&gt;
+&lt;!ELEMENT overview ((eaover, eadetcit+)+)&gt;
+&lt;!ELEMENT distinfo ((distrib, resdesc?, distliab, stdorder*, custom?,
+                    techpreq?, availabl?)+)&gt;
+&lt;!ELEMENT distrib  (cntinfo)&gt;
+&lt;!ELEMENT stdorder ((nondig | digform+), fees, ordering?, turnarnd?)&gt;
+&lt;!ELEMENT digform  (digtinfo, digtopt)&gt;
+&lt;!ELEMENT digtinfo (formname, ((formvern | formverd), formspec?)?,
+                    formcont?, filedec?, transize?)&gt;
+&lt;!ELEMENT digtopt  (((onlinopt | offoptn))+)&gt;
+&lt;!ELEMENT onlinopt (computer+, accinstr?, oncomp?)&gt;
+&lt;!ELEMENT computer ((networka | dialinst))&gt;
+&lt;!ELEMENT networka (networkr+)&gt;
+&lt;!ELEMENT dialinst (lowbps, highbps?, numdata, numstop, parity,
+                    compress?, dialtel+, dialfile+)&gt;
+&lt;!ELEMENT offoptn  (offmedia, reccap?, recfmt+, compat?)&gt;
+&lt;!ELEMENT reccap   (recden+, recdenu)&gt;
+&lt;!ELEMENT availabl (timeinfo)&gt;
+&lt;!ELEMENT metainfo (metd, (metrd, metfrd?)?, metc, metstdn, metstdv,
+                    mettc?, metac?, metuc?, metsi?)&gt;
+&lt;!ELEMENT metc     (cntinfo)&gt;
+&lt;!ELEMENT metsi    (metscs, metsc, metshd)&gt;
+&lt;!ELEMENT citeinfo (origin+, pubdate, pubtime?, title, edition?, geoform?,
+                    serinfo?, pubinfo?, othercit?, onlink*, lworkcit?)&gt;
+&lt;!ELEMENT serinfo  (sername, issue)&gt;
+&lt;!ELEMENT pubinfo  (pubplace, publish)&gt;
+&lt;!ELEMENT lworkcit (citeinfo)&gt;
+&lt;!ELEMENT timeinfo ((sngdate | mdattim | rngdates))&gt;
+&lt;!ELEMENT sngdate  (caldate, time?)&gt;
+&lt;!ELEMENT mdattim  ((caldate, time?)+)&gt;
+&lt;!ELEMENT rngdates (begdate, begtime?, enddate, endtime?)&gt;
+&lt;!ELEMENT cntinfo  ((cntperp | cntorgp), cntpos?, cntaddr+, cntvoice+,
+                    cnttdd*, cntfax*, cntemail*, hours?, cntinst?)&gt;
+&lt;!ELEMENT cntperp  (cntper, cntorg?)&gt;
+&lt;!ELEMENT cntorgp  (cntorg, cntper?)&gt;
+&lt;!ELEMENT cntaddr  (addrtype, address*, city, state, postal, country?)&gt;
+&lt;!ELEMENT arczone  (#PCDATA)&gt;
+&lt;!ELEMENT absres   (#PCDATA)&gt;
+&lt;!ELEMENT abstract (#PCDATA)&gt;
+&lt;!ELEMENT accconst (#PCDATA)&gt;
+&lt;!ELEMENT accinstr (#PCDATA)&gt;
+&lt;!ELEMENT address  (#PCDATA)&gt;
+&lt;!ELEMENT addrtype (#PCDATA)&gt;
+&lt;!ELEMENT altdatum (#PCDATA)&gt;
+&lt;!ELEMENT altunits (#PCDATA)&gt;
+&lt;!ELEMENT altenc   (#PCDATA)&gt;
+&lt;!ELEMENT altres   (#PCDATA)&gt;
+&lt;!ELEMENT attracce (#PCDATA)&gt;
+&lt;!ELEMENT attraccr (#PCDATA)&gt;
+&lt;!ELEMENT attraccv (#PCDATA)&gt;
+&lt;!ELEMENT attrdef  (#PCDATA)&gt;
+&lt;!ELEMENT attrdefs (#PCDATA)&gt;
+&lt;!ELEMENT attrlabl (#PCDATA)&gt;
+&lt;!ELEMENT attrmfrq (#PCDATA)&gt;
+&lt;!ELEMENT attrmres (#PCDATA)&gt;
+&lt;!ELEMENT attrunit (#PCDATA)&gt;
+&lt;!ELEMENT attrva   (#PCDATA)&gt;
+&lt;!ELEMENT attrvae  (#PCDATA)&gt;
+&lt;!ELEMENT azimptl  (#PCDATA)&gt;
+&lt;!ELEMENT azimangl (#PCDATA)&gt;
+&lt;!ELEMENT bearrefd (#PCDATA)&gt;
+&lt;!ELEMENT bearrefm (#PCDATA)&gt;
+&lt;!ELEMENT bearres  (#PCDATA)&gt;
+&lt;!ELEMENT bearunit (#PCDATA)&gt;
+&lt;!ELEMENT begdate  (#PCDATA)&gt;
+&lt;!ELEMENT begdatea (#PCDATA)&gt;
+&lt;!ELEMENT begtime  (#PCDATA)&gt;
+&lt;!ELEMENT browsed  (#PCDATA)&gt;
+&lt;!ELEMENT browsen  (#PCDATA)&gt;
+&lt;!ELEMENT browset  (#PCDATA)&gt;
+&lt;!ELEMENT caldate  (#PCDATA)&gt;
+&lt;!ELEMENT city     (#PCDATA)&gt;
+&lt;!ELEMENT cloud    (#PCDATA)&gt;
+&lt;!ELEMENT codesetn (#PCDATA)&gt;
+&lt;!ELEMENT codesets (#PCDATA)&gt;
+&lt;!ELEMENT colcount (#PCDATA)&gt;
+&lt;!ELEMENT compat   (#PCDATA)&gt;
+&lt;!ELEMENT complete (#PCDATA)&gt;
+&lt;!ELEMENT compress (#PCDATA)&gt;
+&lt;!ELEMENT cntemail (#PCDATA)&gt;
+&lt;!ELEMENT cntfax   (#PCDATA)&gt;
+&lt;!ELEMENT cntinst  (#PCDATA)&gt;
+&lt;!ELEMENT cntorg   (#PCDATA)&gt;
+&lt;!ELEMENT cntper   (#PCDATA)&gt;
+&lt;!ELEMENT cntpos   (#PCDATA)&gt;
+&lt;!ELEMENT cnttdd   (#PCDATA)&gt;
+&lt;!ELEMENT cntvoice (#PCDATA)&gt;
+&lt;!ELEMENT country  (#PCDATA)&gt;
+&lt;!ELEMENT current  (#PCDATA)&gt;
+&lt;!ELEMENT custom   (#PCDATA)&gt;
+&lt;!ELEMENT datacred (#PCDATA)&gt;
+&lt;!ELEMENT denflat  (#PCDATA)&gt;
+&lt;!ELEMENT depthdn  (#PCDATA)&gt;
+&lt;!ELEMENT depthdu  (#PCDATA)&gt;
+&lt;!ELEMENT depthem  (#PCDATA)&gt;
+&lt;!ELEMENT depthres (#PCDATA)&gt;
+&lt;!ELEMENT dialfile (#PCDATA)&gt;
+&lt;!ELEMENT dialtel  (#PCDATA)&gt;
+&lt;!ELEMENT direct   (#PCDATA)&gt;
+&lt;!ELEMENT distres  (#PCDATA)&gt;
+&lt;!ELEMENT distliab (#PCDATA)&gt;
+&lt;!ELEMENT eastbc   (#PCDATA)&gt;
+&lt;!ELEMENT edition  (#PCDATA)&gt;
+&lt;!ELEMENT ellips   (#PCDATA)&gt;
+&lt;!ELEMENT enddate  (#PCDATA)&gt;
+&lt;!ELEMENT enddatea (#PCDATA)&gt;
+&lt;!ELEMENT endtime  (#PCDATA)&gt;
+&lt;!ELEMENT enttypd  (#PCDATA)&gt;
+&lt;!ELEMENT enttypds (#PCDATA)&gt;
+&lt;!ELEMENT enttypl  (#PCDATA)&gt;
+&lt;!ELEMENT eadetcit (#PCDATA)&gt;
+&lt;!ELEMENT eaover   (#PCDATA)&gt;
+&lt;!ELEMENT edomv    (#PCDATA)&gt;
+&lt;!ELEMENT edomvd   (#PCDATA)&gt;
+&lt;!ELEMENT edomvds  (#PCDATA)&gt;
+&lt;!ELEMENT extent   (#PCDATA)&gt;
+&lt;!ELEMENT feast    (#PCDATA)&gt;
+&lt;!ELEMENT fnorth   (#PCDATA)&gt;
+&lt;!ELEMENT fees     (#PCDATA)&gt;
+&lt;!ELEMENT filedec  (#PCDATA)&gt;
+&lt;!ELEMENT formcont (#PCDATA)&gt;
+&lt;!ELEMENT formname (#PCDATA)&gt;
+&lt;!ELEMENT formspec (#PCDATA)&gt;
+&lt;!ELEMENT formverd (#PCDATA)&gt;
+&lt;!ELEMENT formvern (#PCDATA)&gt;
+&lt;!ELEMENT gringlat (#PCDATA)&gt;
+&lt;!ELEMENT gringlon (#PCDATA)&gt;
+&lt;!ELEMENT geogunit (#PCDATA)&gt;
+&lt;!ELEMENT geoform  (#PCDATA)&gt;
+&lt;!ELEMENT gridsysn (#PCDATA)&gt;
+&lt;!ELEMENT heightpt (#PCDATA)&gt;
+&lt;!ELEMENT highbps  (#PCDATA)&gt;
+&lt;!ELEMENT horizdn  (#PCDATA)&gt;
+&lt;!ELEMENT horizpae (#PCDATA)&gt;
+&lt;!ELEMENT horizpar (#PCDATA)&gt;
+&lt;!ELEMENT horizpav (#PCDATA)&gt;
+&lt;!ELEMENT hours    (#PCDATA)&gt;
+&lt;!ELEMENT indspref (#PCDATA)&gt;
+&lt;!ELEMENT issue    (#PCDATA)&gt;
+&lt;!ELEMENT landsat  (#PCDATA)&gt;
+&lt;!ELEMENT latres   (#PCDATA)&gt;
+&lt;!ELEMENT latprjc  (#PCDATA)&gt;
+&lt;!ELEMENT latprjo  (#PCDATA)&gt;
+&lt;!ELEMENT localdes (#PCDATA)&gt;
+&lt;!ELEMENT localgeo (#PCDATA)&gt;
+&lt;!ELEMENT localpd  (#PCDATA)&gt;
+&lt;!ELEMENT localpgi (#PCDATA)&gt;
+&lt;!ELEMENT logic    (#PCDATA)&gt;
+&lt;!ELEMENT longres  (#PCDATA)&gt;
+&lt;!ELEMENT longcm   (#PCDATA)&gt;
+&lt;!ELEMENT longpc   (#PCDATA)&gt;
+&lt;!ELEMENT lowbps   (#PCDATA)&gt;
+&lt;!ELEMENT update   (#PCDATA)&gt;
+&lt;!ELEMENT mapprojn (#PCDATA)&gt;
+&lt;!ELEMENT metac    (#PCDATA)&gt;
+&lt;!ELEMENT metd     (#PCDATA)&gt;
+&lt;!ELEMENT metfrd   (#PCDATA)&gt;
+&lt;!ELEMENT metrd    (#PCDATA)&gt;
+&lt;!ELEMENT metsc    (#PCDATA)&gt;
+&lt;!ELEMENT metscs   (#PCDATA)&gt;
+&lt;!ELEMENT metshd   (#PCDATA)&gt;
+&lt;!ELEMENT metstdn  (#PCDATA)&gt;
+&lt;!ELEMENT metstdv  (#PCDATA)&gt;
+&lt;!ELEMENT mettc    (#PCDATA)&gt;
+&lt;!ELEMENT metuc    (#PCDATA)&gt;
+&lt;!ELEMENT native   (#PCDATA)&gt;
+&lt;!ELEMENT networkr (#PCDATA)&gt;
+&lt;!ELEMENT nondig   (#PCDATA)&gt;
+&lt;!ELEMENT northbc  (#PCDATA)&gt;
+&lt;!ELEMENT numdata  (#PCDATA)&gt;
+&lt;!ELEMENT numstop  (#PCDATA)&gt;
+&lt;!ELEMENT obqllat  (#PCDATA)&gt;
+&lt;!ELEMENT obqllong (#PCDATA)&gt;
+&lt;!ELEMENT offmedia (#PCDATA)&gt;
+&lt;!ELEMENT oncomp   (#PCDATA)&gt;
+&lt;!ELEMENT onlink   (#PCDATA)&gt;
+&lt;!ELEMENT ordering (#PCDATA)&gt;
+&lt;!ELEMENT ordres   (#PCDATA)&gt;
+&lt;!ELEMENT origin   (#PCDATA)&gt;
+&lt;!ELEMENT othercit (#PCDATA)&gt;
+&lt;!ELEMENT othergrd (#PCDATA)&gt;
+&lt;!ELEMENT otherprj (#PCDATA)&gt;
+&lt;!ELEMENT parity   (#PCDATA)&gt;
+&lt;!ELEMENT pathnum  (#PCDATA)&gt;
+&lt;!ELEMENT placekey (#PCDATA)&gt;
+&lt;!ELEMENT placekt  (#PCDATA)&gt;
+&lt;!ELEMENT plance   (#PCDATA)&gt;
+&lt;!ELEMENT plandu   (#PCDATA)&gt;
+&lt;!ELEMENT ptvctcnt (#PCDATA)&gt;
+&lt;!ELEMENT postal   (#PCDATA)&gt;
+&lt;!ELEMENT procdate (#PCDATA)&gt;
+&lt;!ELEMENT procdesc (#PCDATA)&gt;
+&lt;!ELEMENT proctime (#PCDATA)&gt;
+&lt;!ELEMENT progress (#PCDATA)&gt;
+&lt;!ELEMENT pubdate  (#PCDATA)&gt;
+&lt;!ELEMENT pubplace (#PCDATA)&gt;
+&lt;!ELEMENT pubtime  (#PCDATA)&gt;
+&lt;!ELEMENT publish  (#PCDATA)&gt;
+&lt;!ELEMENT purpose  (#PCDATA)&gt;
+&lt;!ELEMENT rdommax  (#PCDATA)&gt;
+&lt;!ELEMENT rdommin  (#PCDATA)&gt;
+&lt;!ELEMENT rasttype (#PCDATA)&gt;
+&lt;!ELEMENT recden   (#PCDATA)&gt;
+&lt;!ELEMENT recdenu  (#PCDATA)&gt;
+&lt;!ELEMENT recfmt   (#PCDATA)&gt;
+&lt;!ELEMENT resdesc  (#PCDATA)&gt;
+&lt;!ELEMENT rowcount (#PCDATA)&gt;
+&lt;!ELEMENT sdtstype (#PCDATA)&gt;
+&lt;!ELEMENT spcszone (#PCDATA)&gt;
+&lt;!ELEMENT sfctrlin (#PCDATA)&gt;
+&lt;!ELEMENT sfctrmer (#PCDATA)&gt;
+&lt;!ELEMENT sfequat  (#PCDATA)&gt;
+&lt;!ELEMENT sfprjorg (#PCDATA)&gt;
+&lt;!ELEMENT secclass (#PCDATA)&gt;
+&lt;!ELEMENT secsys   (#PCDATA)&gt;
+&lt;!ELEMENT sechandl (#PCDATA)&gt;
+&lt;!ELEMENT semiaxis (#PCDATA)&gt;
+&lt;!ELEMENT sername  (#PCDATA)&gt;
+&lt;!ELEMENT srccitea (#PCDATA)&gt;
+&lt;!ELEMENT srccontr (#PCDATA)&gt;
+&lt;!ELEMENT srccurr  (#PCDATA)&gt;
+&lt;!ELEMENT srcprod  (#PCDATA)&gt;
+&lt;!ELEMENT srcscale (#PCDATA)&gt;
+&lt;!ELEMENT srcused  (#PCDATA)&gt;
+&lt;!ELEMENT southbc  (#PCDATA)&gt;
+&lt;!ELEMENT stdparll (#PCDATA)&gt;
+&lt;!ELEMENT state    (#PCDATA)&gt;
+&lt;!ELEMENT svlong   (#PCDATA)&gt;
+&lt;!ELEMENT stratkey (#PCDATA)&gt;
+&lt;!ELEMENT stratkt  (#PCDATA)&gt;
+&lt;!ELEMENT supplinf (#PCDATA)&gt;
+&lt;!ELEMENT techpreq (#PCDATA)&gt;
+&lt;!ELEMENT tempkey  (#PCDATA)&gt;
+&lt;!ELEMENT tempkt   (#PCDATA)&gt;
+&lt;!ELEMENT themekey (#PCDATA)&gt;
+&lt;!ELEMENT themekt  (#PCDATA)&gt;
+&lt;!ELEMENT time     (#PCDATA)&gt;
+&lt;!ELEMENT title    (#PCDATA)&gt;
+&lt;!ELEMENT transize (#PCDATA)&gt;
+&lt;!ELEMENT turnarnd (#PCDATA)&gt;
+&lt;!ELEMENT typesrc  (#PCDATA)&gt;
+&lt;!ELEMENT upszone  (#PCDATA)&gt;
+&lt;!ELEMENT utmzone  (#PCDATA)&gt;
+&lt;!ELEMENT udom     (#PCDATA)&gt;
+&lt;!ELEMENT useconst (#PCDATA)&gt;
+&lt;!ELEMENT vpftype  (#PCDATA)&gt;
+&lt;!ELEMENT vpflevel (#PCDATA)&gt;
+&lt;!ELEMENT vrtcount (#PCDATA)&gt;
+&lt;!ELEMENT vertacce (#PCDATA)&gt;
+&lt;!ELEMENT vertaccr (#PCDATA)&gt;
+&lt;!ELEMENT vertaccv (#PCDATA)&gt;
+&lt;!ELEMENT westbc   (#PCDATA)&gt;
+
+&lt;!-- End of FGDC Metadata DTD v 1.0 --&gt;</pre>
+
+<h3><a name="SGML DTD">SGML DTD</a></h3>
+
+<pre>&lt;!-- FGDC Metadata DTD 1.0 19960501                                       --&gt;
+
+&lt;!-- This is the Document Type Declaration for formal metadata, metadata  --&gt;
+&lt;!-- conforming to the Content Standards for Digital Geospatial Metadata  --&gt;
+&lt;!-- of the Federal Geographic Data Committee.  This DTD corresponds to   --&gt;
+&lt;!-- the 19940608 (June 8, 1994) version of the standard.                 --&gt;
+
+&lt;!-- Tags:                                                                --&gt;
+&lt;!--     Tags are a maximum of 8-characters long, to coincide with the    --&gt;
+&lt;!--     Reference Concrete Syntax.  In some systems, this will obviate   --&gt;
+&lt;!--     the need for an explicit SGML declaration.                       --&gt;
+
+&lt;!-- Entity sets:                                                         --&gt;
+&lt;!--     Scalar values (meaning the values of elements that are not       --&gt;
+&lt;!--     compound) are here declared RCDATA to allow SGML parsers to      --&gt;
+&lt;!--     recognize and support entities representing special characters   --&gt;
+&lt;!--     such as the degree symbol, less, and greater.                    --&gt;
+
+&lt;!-- Element ordering:                                                    --&gt;
+&lt;!--     Generally the order of elements is not significant.  However,    --&gt;
+&lt;!--     repeated groups of elements must be in order (e.g. (A, B)+)      --&gt;
+&lt;!--     and repeated elements must appear together (e.g. (A &amp; B+ &amp; C))   --&gt;
+
+&lt;!-- Authors:                                                             --&gt;
+&lt;!--     Peter N. Schweitzer (U.S. Geological Survey, Reston, VA 20192)   --&gt;
+&lt;!--     with assistance from Doug Nebert (USGS), Eric Miller (OCLC),     --&gt;
+&lt;!--     Quinn Hart (CERES), Jim Frew (UCSB), and Archie Warnock (AWWW).  --&gt;
+&lt;!--                                                                      --&gt;
+
+&lt;!--======================================================================--&gt;
+
+&lt;!ENTITY % ISOnum PUBLIC &quot;ISO 8879:1986//ENTITIES Numeric and Special
+Graphic//EN&quot;&gt;
+&lt;!ENTITY % ISOlat1 PUBLIC &quot;ISO 8879:1986//ENTITIES Added Latin 1//EN&quot;&gt;
+
+%ISOnum;
+%ISOlat1;
+
+&lt;!--======================================================================--&gt;
+
+&lt;!ELEMENT metadata - - (idinfo &amp; dataqual? &amp; spdoinfo? &amp; spref? &amp; eainfo? &amp;
+                        distinfo? &amp; extinfo* &amp; metainfo)&gt;
+&lt;!ELEMENT idinfo   - - (citation &amp; descript &amp; timeperd &amp; status &amp; spdom &amp;
+                        keywords &amp; accconst &amp; useconst &amp; ptcontac? &amp; 
+                        browse* &amp; datacred? &amp; secinfo? &amp; native? &amp; crossref*)&gt;
+&lt;!ELEMENT citation - - (citeinfo)&gt;
+&lt;!ELEMENT descript - - (abstract &amp; purpose &amp; supplinf?)&gt;
+&lt;!ELEMENT timeperd - - (timeinfo &amp; current)&gt;
+&lt;!ELEMENT status   - - (progress &amp; update)&gt;
+&lt;!ELEMENT spdom    - - (bounding &amp; dsgpoly* &amp; extent)&gt;
+&lt;!ELEMENT bounding - - (westbc &amp; eastbc &amp; northbc &amp; southbc)&gt;
+&lt;!ELEMENT dsgpoly  - - (dsgpolyo &amp; dsgpolyx*)&gt;
+&lt;!ELEMENT dsgpolyo - - ((gringlat &amp; gringlon),(gringlat &amp; gringlon),
+                        (gringlat &amp; gringlon),(gringlat &amp; gringlon)+)&gt;
+&lt;!ELEMENT dsgpolyx - - ((gringlat &amp; gringlon),(gringlat &amp; gringlon),
+                        (gringlat &amp; gringlon),(gringlat &amp; gringlon)+)&gt;
+&lt;!ELEMENT keywords - - (theme &amp; place? &amp; stratum? &amp; temporal?)&gt;
+&lt;!ELEMENT theme    - - ((themekt, themekey+)+)&gt;
+&lt;!ELEMENT place    - - ((placekt, placekey+)+)&gt;
+&lt;!ELEMENT stratum  - - ((stratkt, stratkey+)+)&gt;
+&lt;!ELEMENT temporal - - ((tempkt, tempkey+)+)&gt;
+&lt;!ELEMENT ptcontac - - (cntinfo)&gt;
+&lt;!ELEMENT browse   - - (browsen &amp; browsed &amp; browset)&gt;
+&lt;!ELEMENT secinfo  - - (secsys &amp; secclass &amp; sechandl)&gt;
+&lt;!ELEMENT crossref - - (citeinfo)&gt;
+&lt;!ELEMENT dataqual - - (attracc? &amp; logic &amp; complete &amp; posacc? &amp; lineage &amp;
+                        cloud?)&gt;
+&lt;!ELEMENT attracc  - - (attraccr &amp; qattracc*)&gt;
+&lt;!ELEMENT qattracc - - (attraccv &amp; attracce)&gt;
+&lt;!ELEMENT posacc   - - (horizpa? &amp; vertacc?)&gt;
+&lt;!ELEMENT horizpa  - - (horizpar &amp; qhorizpa*)&gt;
+&lt;!ELEMENT qhorizpa - - (horizpav &amp; horizpae)&gt;
+&lt;!ELEMENT vertacc  - - (vertaccr &amp; qvertpa*)&gt;
+&lt;!ELEMENT qvertpa  - - (vertaccv &amp; vertacce)&gt;
+&lt;!ELEMENT lineage  - - (srcinfo* &amp; procstep+)&gt;
+&lt;!ELEMENT srcinfo  - - (srccite &amp; srcscale? &amp; typesrc &amp; srctime &amp; srccitea &amp;
+                        srccontr)&gt;
+&lt;!ELEMENT srccite  - - (citeinfo)&gt;
+&lt;!ELEMENT srctime  - - (timeinfo &amp; srccurr)&gt;
+&lt;!ELEMENT procstep - - (procdesc &amp; srcused* &amp; procdate &amp; proctime? &amp; 
+                        srcprod* &amp; proccont?)&gt;
+&lt;!ELEMENT proccont - - (cntinfo)&gt;
+&lt;!ELEMENT spdoinfo - - (indspref? &amp; (direct &amp; ((ptvctinf | rastinfo))?)?)&gt;
+&lt;!ELEMENT ptvctinf - - ((sdtsterm | vpfterm))&gt;
+&lt;!ELEMENT sdtsterm - - ((sdtstype, ptvctcnt?)+)&gt;
+&lt;!ELEMENT vpfterm  - - (vpflevel &amp; (vpftype, ptvctcnt?)+)&gt;
+&lt;!ELEMENT rastinfo - - (rasttype &amp; (rowcount &amp; colcount &amp; vrtcount?)?)&gt;
+&lt;!ELEMENT spref    - - (horizsys? &amp; vertdef?)&gt;
+&lt;!ELEMENT horizsys - - ((geograph | planar+ | local) &amp; geodetic?)&gt;
+&lt;!ELEMENT geograph - - (latres &amp; longres &amp; geogunit)&gt;
+&lt;!ELEMENT planar   - - ((mapproj | gridsys | localp) &amp; planci)&gt;
+&lt;!ELEMENT mapproj  - - (mapprojn &amp; (albers | azimequi | equicon | equirect |
+                        gvnsp | gnomonic | lamberta | lambertc | mercator |
+                        modsak | miller | obqmerc | orthogr | polarst |
+                        polycon | robinson | sinusoid | spaceobq | stereo |
+                        transmer | vdgrin | otherprj))&gt;
+&lt;!ELEMENT albers   - - (stdparll+ &amp; longcm &amp; latprjo &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT azimequi - - (longcm &amp; latprjo &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT equicon  - - (stdparll+ &amp; longcm &amp; latprjo &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT equirect - - (stdparll &amp; longcm &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT gvnsp    - - (heightpt &amp; longpc &amp; latprjc &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT gnomonic - - (longpc &amp; latprjc &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT lamberta - - (longpc &amp; latprjc &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT lambertc - - (stdparll+ &amp; longcm &amp; latprjo &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT mercator - - ((stdparll | sfequat) &amp; longcm &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT modsak   - - (feast &amp; fnorth)&gt;
+&lt;!ELEMENT miller   - - (longcm &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT obqmerc  - - (sfctrlin &amp; (obqlazim | obqlpt) &amp; latprjo &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT obqlazim - - (azimangl &amp; azimptl)&gt;
+&lt;!ELEMENT obqlpt   - - ((obqllat &amp; obqllong),(obqllat &amp; obqllong))&gt;
+&lt;!ELEMENT orthogr  - - (longpc &amp; latprjc &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT polarst  - - (svlong &amp; (stdparll | sfprjorg) &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT polycon  - - (longcm &amp; latprjo &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT robinson - - (longpc &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT sinusoid - - (longcm &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT spaceobq - - (landsat &amp; pathnum &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT stereo   - - (longpc &amp; latprjc &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT transmer - - (sfctrmer &amp; longcm &amp; latprjo &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT vdgrin   - - (longcm &amp; feast &amp; fnorth)&gt;
+&lt;!ELEMENT gridsys  - - (gridsysn &amp; (utm | ups | spcs | arcsys | othergrd))&gt;
+&lt;!ELEMENT utm      - - (utmzone &amp; transmer)&gt;
+&lt;!ELEMENT ups      - - (upszone &amp; polarst)&gt;
+&lt;!ELEMENT spcs     - - (spcszone &amp; (lambertc | transmer | obqmerc | polycon))&gt;
+&lt;!ELEMENT arcsys   - - (arczone &amp; (equirect | azimequi))&gt;
+&lt;!ELEMENT localp   - - (localpd &amp; localpgi)&gt;
+&lt;!ELEMENT planci   - - (plance &amp; (coordrep | distbrep) &amp; plandu)&gt;
+&lt;!ELEMENT coordrep - - (absres &amp; ordres)&gt;
+&lt;!ELEMENT distbrep - - (distres &amp; bearres &amp; bearunit &amp; bearrefd &amp; bearrefm)&gt;
+&lt;!ELEMENT local    - - (localdes &amp; localgeo)&gt;
+&lt;!ELEMENT geodetic - - (horizdn? &amp; ellips &amp; semiaxis &amp; denflat)&gt;
+&lt;!ELEMENT vertdef  - - (altsys? &amp; depthsys?)&gt;
+&lt;!ELEMENT altsys   - - (altdatum &amp; altres+ &amp; altunits &amp; altenc)&gt;
+&lt;!ELEMENT depthsys - - (depthdn &amp; depthres+ &amp; depthdu &amp; depthem)&gt;
+&lt;!ELEMENT eainfo   - - (detailed* &amp; overview*)&gt;
+&lt;!ELEMENT detailed - - ((enttyp, attr*)+)&gt;
+&lt;!ELEMENT enttyp   - - (enttypl &amp; enttypd &amp; enttypds)&gt;
+&lt;!ELEMENT attr     - - (attrlabl &amp; attrdef &amp; attrdefs &amp; attrdomv+ &amp; 
+                        attrunit? &amp; attrmres? &amp; (begdatea, enddatea?)* &amp;
+                        attrvai? &amp; attrmfrq?)&gt;
+&lt;!ELEMENT attrdomv - - ((edom | rdom | codesetd | udom))&gt;
+&lt;!ELEMENT edom     - - ((edomv, edomvd, edomvds, attr*)+)&gt;
+&lt;!ELEMENT rdom     - - (rdommin &amp; rdommax &amp; attr*)&gt;
+&lt;!ELEMENT codesetd - - (codesetn &amp; codesets)&gt;
+&lt;!ELEMENT attrvai  - - (attrva &amp; attrvae)&gt;
+&lt;!ELEMENT overview - - ((eaover, eadetcit+)+)&gt;
+&lt;!ELEMENT distinfo - - ((distrib, resdesc?, distliab, stdorder*, custom?, 
+                        techpreq?, availabl?)+)&gt;
+&lt;!ELEMENT distrib  - - (cntinfo)&gt;
+&lt;!ELEMENT stdorder - - ((nondig | digform+) &amp; fees &amp; ordering? &amp; turnarnd?)&gt;
+&lt;!ELEMENT digform  - - (digtinfo &amp; digtopt)&gt;
+&lt;!ELEMENT digtinfo - - (formname &amp; ((formvern | formverd) &amp; formspec?)? &amp;
+                        formcont? &amp; filedec? &amp; transize?)&gt;
+&lt;!ELEMENT digtopt  - - (((onlinopt | offoptn))+)&gt;
+&lt;!ELEMENT onlinopt - - (computer+ &amp; accinstr? &amp; oncomp?)&gt;
+&lt;!ELEMENT computer - - ((networka | dialinst))&gt;
+&lt;!ELEMENT networka - - (networkr+)&gt;
+&lt;!ELEMENT dialinst - - (lowbps &amp; highbps? &amp; numdata &amp; numstop &amp; parity &amp;
+                        compress? &amp; dialtel+ &amp; dialfile+)&gt;
+&lt;!ELEMENT offoptn  - - (offmedia &amp; reccap? &amp; recfmt+ &amp; compat?)&gt;
+&lt;!ELEMENT reccap   - - (recden+ &amp; recdenu)&gt;
+&lt;!ELEMENT availabl - - (timeinfo)&gt;
+&lt;!ELEMENT metainfo - - (metd &amp; (metrd &amp; metfrd?)? &amp; metc &amp; metstdn &amp;
+                        metstdv &amp; mettc? &amp; metac? &amp; metuc? &amp; metsi?)&gt;
+&lt;!ELEMENT metc     - - (cntinfo)&gt;
+&lt;!ELEMENT metsi    - - (metscs &amp; metsc &amp; metshd)&gt;
+&lt;!ELEMENT citeinfo - - (origin+ &amp; pubdate &amp; pubtime? &amp; title &amp; edition? &amp;
+                        geoform? &amp; serinfo? &amp; pubinfo? &amp; othercit? &amp;
+                        onlink* &amp; lworkcit?)&gt;
+&lt;!ELEMENT serinfo  - - (sername &amp; issue)&gt;
+&lt;!ELEMENT pubinfo  - - (pubplace &amp; publish)&gt;
+&lt;!ELEMENT lworkcit - - (citeinfo)&gt;
+&lt;!ELEMENT timeinfo - - ((sngdate | mdattim | rngdates))&gt;
+&lt;!ELEMENT sngdate  - - (caldate, time?)&gt;
+&lt;!ELEMENT mdattim  - - ((caldate, time?)+)&gt;
+&lt;!ELEMENT rngdates - - (begdate &amp; begtime? &amp; enddate &amp; endtime?)&gt;
+&lt;!ELEMENT cntinfo  - - ((cntperp | cntorgp) &amp; cntpos? &amp; cntaddr+ &amp;
+                        cntvoice+ &amp; cnttdd* &amp; cntfax* &amp; cntemail* &amp;
+                        hours? &amp; cntinst?)&gt;
+&lt;!ELEMENT cntperp  - - (cntper &amp; cntorg?)&gt;
+&lt;!ELEMENT cntorgp  - - (cntorg &amp; cntper?)&gt;
+&lt;!ELEMENT cntaddr  - - (addrtype &amp; address* &amp; city &amp; state &amp; postal &amp;
+                        country?)&gt;
+&lt;!ELEMENT arczone  - - RCDATA&gt;
+&lt;!ELEMENT absres   - - RCDATA&gt;
+&lt;!ELEMENT abstract - - RCDATA&gt;
+&lt;!ELEMENT accconst - - RCDATA&gt;
+&lt;!ELEMENT accinstr - - RCDATA&gt;
+&lt;!ELEMENT address  - - RCDATA&gt;
+&lt;!ELEMENT addrtype - - RCDATA&gt;
+&lt;!ELEMENT altdatum - - RCDATA&gt;
+&lt;!ELEMENT altunits - - RCDATA&gt;
+&lt;!ELEMENT altenc   - - RCDATA&gt;
+&lt;!ELEMENT altres   - - RCDATA&gt;
+&lt;!ELEMENT attracce - - RCDATA&gt;
+&lt;!ELEMENT attraccr - - RCDATA&gt;
+&lt;!ELEMENT attraccv - - RCDATA&gt;
+&lt;!ELEMENT attrdef  - - RCDATA&gt;
+&lt;!ELEMENT attrdefs - - RCDATA&gt;
+&lt;!ELEMENT attrlabl - - RCDATA&gt;
+&lt;!ELEMENT attrmfrq - - RCDATA&gt;
+&lt;!ELEMENT attrmres - - RCDATA&gt;
+&lt;!ELEMENT attrunit - - RCDATA&gt;
+&lt;!ELEMENT attrva   - - RCDATA&gt;
+&lt;!ELEMENT attrvae  - - RCDATA&gt;
+&lt;!ELEMENT azimptl  - - RCDATA&gt;
+&lt;!ELEMENT azimangl - - RCDATA&gt;
+&lt;!ELEMENT bearrefd - - RCDATA&gt;
+&lt;!ELEMENT bearrefm - - RCDATA&gt;
+&lt;!ELEMENT bearres  - - RCDATA&gt;
+&lt;!ELEMENT bearunit - - RCDATA&gt;
+&lt;!ELEMENT begdate  - - RCDATA&gt;
+&lt;!ELEMENT begdatea - - RCDATA&gt;
+&lt;!ELEMENT begtime  - - RCDATA&gt;
+&lt;!ELEMENT browsed  - - RCDATA&gt;
+&lt;!ELEMENT browsen  - - RCDATA&gt;
+&lt;!ELEMENT browset  - - RCDATA&gt;
+&lt;!ELEMENT caldate  - - RCDATA&gt;
+&lt;!ELEMENT city     - - RCDATA&gt;
+&lt;!ELEMENT cloud    - - RCDATA&gt;
+&lt;!ELEMENT codesetn - - RCDATA&gt;
+&lt;!ELEMENT codesets - - RCDATA&gt;
+&lt;!ELEMENT colcount - - RCDATA&gt;
+&lt;!ELEMENT compat   - - RCDATA&gt;
+&lt;!ELEMENT complete - - RCDATA&gt;
+&lt;!ELEMENT compress - - RCDATA&gt;
+&lt;!ELEMENT cntemail - - RCDATA&gt;
+&lt;!ELEMENT cntfax   - - RCDATA&gt;
+&lt;!ELEMENT cntinst  - - RCDATA&gt;
+&lt;!ELEMENT cntorg   - - RCDATA&gt;
+&lt;!ELEMENT cntper   - - RCDATA&gt;
+&lt;!ELEMENT cntpos   - - RCDATA&gt;
+&lt;!ELEMENT cnttdd   - - RCDATA&gt;
+&lt;!ELEMENT cntvoice - - RCDATA&gt;
+&lt;!ELEMENT country  - - RCDATA&gt;
+&lt;!ELEMENT current  - - RCDATA&gt;
+&lt;!ELEMENT custom   - - RCDATA&gt;
+&lt;!ELEMENT datacred - - RCDATA&gt;
+&lt;!ELEMENT denflat  - - RCDATA&gt;
+&lt;!ELEMENT depthdn  - - RCDATA&gt;
+&lt;!ELEMENT depthdu  - - RCDATA&gt;
+&lt;!ELEMENT depthem  - - RCDATA&gt;
+&lt;!ELEMENT depthres - - RCDATA&gt;
+&lt;!ELEMENT dialfile - - RCDATA&gt;
+&lt;!ELEMENT dialtel  - - RCDATA&gt;
+&lt;!ELEMENT direct   - - RCDATA&gt;
+&lt;!ELEMENT distres  - - RCDATA&gt;
+&lt;!ELEMENT distliab - - RCDATA&gt;
+&lt;!ELEMENT eastbc   - - RCDATA&gt;
+&lt;!ELEMENT edition  - - RCDATA&gt;
+&lt;!ELEMENT ellips   - - RCDATA&gt;
+&lt;!ELEMENT enddate  - - RCDATA&gt;
+&lt;!ELEMENT enddatea - - RCDATA&gt;
+&lt;!ELEMENT endtime  - - RCDATA&gt;
+&lt;!ELEMENT enttypd  - - RCDATA&gt;
+&lt;!ELEMENT enttypds - - RCDATA&gt;
+&lt;!ELEMENT enttypl  - - RCDATA&gt;
+&lt;!ELEMENT eadetcit - - RCDATA&gt;
+&lt;!ELEMENT eaover   - - RCDATA&gt;
+&lt;!ELEMENT edomv    - - RCDATA&gt;
+&lt;!ELEMENT edomvd   - - RCDATA&gt;
+&lt;!ELEMENT edomvds  - - RCDATA&gt;
+&lt;!ELEMENT extent   - - RCDATA&gt;
+&lt;!ELEMENT feast    - - RCDATA&gt;
+&lt;!ELEMENT fnorth   - - RCDATA&gt;
+&lt;!ELEMENT fees     - - RCDATA&gt;
+&lt;!ELEMENT filedec  - - RCDATA&gt;
+&lt;!ELEMENT formcont - - RCDATA&gt;
+&lt;!ELEMENT formname - - RCDATA&gt;
+&lt;!ELEMENT formspec - - RCDATA&gt;
+&lt;!ELEMENT formverd - - RCDATA&gt;
+&lt;!ELEMENT formvern - - RCDATA&gt;
+&lt;!ELEMENT gringlat - - RCDATA&gt;
+&lt;!ELEMENT gringlon - - RCDATA&gt;
+&lt;!ELEMENT geogunit - - RCDATA&gt;
+&lt;!ELEMENT geoform  - - RCDATA&gt;
+&lt;!ELEMENT gridsysn - - RCDATA&gt;
+&lt;!ELEMENT heightpt - - RCDATA&gt;
+&lt;!ELEMENT highbps  - - RCDATA&gt;
+&lt;!ELEMENT horizdn  - - RCDATA&gt;
+&lt;!ELEMENT horizpae - - RCDATA&gt;
+&lt;!ELEMENT horizpar - - RCDATA&gt;
+&lt;!ELEMENT horizpav - - RCDATA&gt;
+&lt;!ELEMENT hours    - - RCDATA&gt;
+&lt;!ELEMENT indspref - - RCDATA&gt;
+&lt;!ELEMENT issue    - - RCDATA&gt;
+&lt;!ELEMENT landsat  - - RCDATA&gt;
+&lt;!ELEMENT latres   - - RCDATA&gt;
+&lt;!ELEMENT latprjc  - - RCDATA&gt;
+&lt;!ELEMENT latprjo  - - RCDATA&gt;
+&lt;!ELEMENT localdes - - RCDATA&gt;
+&lt;!ELEMENT localgeo - - RCDATA&gt;
+&lt;!ELEMENT localpd  - - RCDATA&gt;
+&lt;!ELEMENT localpgi - - RCDATA&gt;
+&lt;!ELEMENT logic    - - RCDATA&gt;
+&lt;!ELEMENT longres  - - RCDATA&gt;
+&lt;!ELEMENT longcm   - - RCDATA&gt;
+&lt;!ELEMENT longpc   - - RCDATA&gt;
+&lt;!ELEMENT lowbps   - - RCDATA&gt;
+&lt;!ELEMENT update   - - RCDATA&gt;
+&lt;!ELEMENT mapprojn - - RCDATA&gt;
+&lt;!ELEMENT metac    - - RCDATA&gt;
+&lt;!ELEMENT metd     - - RCDATA&gt;
+&lt;!ELEMENT metfrd   - - RCDATA&gt;
+&lt;!ELEMENT metrd    - - RCDATA&gt;
+&lt;!ELEMENT metsc    - - RCDATA&gt;
+&lt;!ELEMENT metscs   - - RCDATA&gt;
+&lt;!ELEMENT metshd   - - RCDATA&gt;
+&lt;!ELEMENT metstdn  - - RCDATA&gt;
+&lt;!ELEMENT metstdv  - - RCDATA&gt;
+&lt;!ELEMENT mettc    - - RCDATA&gt;
+&lt;!ELEMENT metuc    - - RCDATA&gt;
+&lt;!ELEMENT native   - - RCDATA&gt;
+&lt;!ELEMENT networkr - - RCDATA&gt;
+&lt;!ELEMENT nondig   - - RCDATA&gt;
+&lt;!ELEMENT northbc  - - RCDATA&gt;
+&lt;!ELEMENT numdata  - - RCDATA&gt;
+&lt;!ELEMENT numstop  - - RCDATA&gt;
+&lt;!ELEMENT obqllat  - - RCDATA&gt;
+&lt;!ELEMENT obqllong - - RCDATA&gt;
+&lt;!ELEMENT offmedia - - RCDATA&gt;
+&lt;!ELEMENT oncomp   - - RCDATA&gt;
+&lt;!ELEMENT onlink   - - RCDATA&gt;
+&lt;!ELEMENT ordering - - RCDATA&gt;
+&lt;!ELEMENT ordres   - - RCDATA&gt;
+&lt;!ELEMENT origin   - - RCDATA&gt;
+&lt;!ELEMENT othercit - - RCDATA&gt;
+&lt;!ELEMENT othergrd - - RCDATA&gt;
+&lt;!ELEMENT otherprj - - RCDATA&gt;
+&lt;!ELEMENT parity   - - RCDATA&gt;
+&lt;!ELEMENT pathnum  - - RCDATA&gt;
+&lt;!ELEMENT placekey - - RCDATA&gt;
+&lt;!ELEMENT placekt  - - RCDATA&gt;
+&lt;!ELEMENT plance   - - RCDATA&gt;
+&lt;!ELEMENT plandu   - - RCDATA&gt;
+&lt;!ELEMENT ptvctcnt - - RCDATA&gt;
+&lt;!ELEMENT postal   - - RCDATA&gt;
+&lt;!ELEMENT procdate - - RCDATA&gt;
+&lt;!ELEMENT procdesc - - RCDATA&gt;
+&lt;!ELEMENT proctime - - RCDATA&gt;
+&lt;!ELEMENT progress - - RCDATA&gt;
+&lt;!ELEMENT pubdate  - - RCDATA&gt;
+&lt;!ELEMENT pubplace - - RCDATA&gt;
+&lt;!ELEMENT pubtime  - - RCDATA&gt;
+&lt;!ELEMENT publish  - - RCDATA&gt;
+&lt;!ELEMENT purpose  - - RCDATA&gt;
+&lt;!ELEMENT rdommax  - - RCDATA&gt;
+&lt;!ELEMENT rdommin  - - RCDATA&gt;
+&lt;!ELEMENT rasttype - - RCDATA&gt;
+&lt;!ELEMENT recden   - - RCDATA&gt;
+&lt;!ELEMENT recdenu  - - RCDATA&gt;
+&lt;!ELEMENT recfmt   - - RCDATA&gt;
+&lt;!ELEMENT resdesc  - - RCDATA&gt;
+&lt;!ELEMENT rowcount - - RCDATA&gt;
+&lt;!ELEMENT sdtstype - - RCDATA&gt;
+&lt;!ELEMENT spcszone - - RCDATA&gt;
+&lt;!ELEMENT sfctrlin - - RCDATA&gt;
+&lt;!ELEMENT sfctrmer - - RCDATA&gt;
+&lt;!ELEMENT sfequat  - - RCDATA&gt;
+&lt;!ELEMENT sfprjorg - - RCDATA&gt;
+&lt;!ELEMENT secclass - - RCDATA&gt;
+&lt;!ELEMENT secsys   - - RCDATA&gt;
+&lt;!ELEMENT sechandl - - RCDATA&gt;
+&lt;!ELEMENT semiaxis - - RCDATA&gt;
+&lt;!ELEMENT sername  - - RCDATA&gt;
+&lt;!ELEMENT srccitea - - RCDATA&gt;
+&lt;!ELEMENT srccontr - - RCDATA&gt;
+&lt;!ELEMENT srccurr  - - RCDATA&gt;
+&lt;!ELEMENT srcprod  - - RCDATA&gt;
+&lt;!ELEMENT srcscale - - RCDATA&gt;
+&lt;!ELEMENT srcused  - - RCDATA&gt;
+&lt;!ELEMENT southbc  - - RCDATA&gt;
+&lt;!ELEMENT stdparll - - RCDATA&gt;
+&lt;!ELEMENT state    - - RCDATA&gt;
+&lt;!ELEMENT svlong   - - RCDATA&gt;
+&lt;!ELEMENT stratkey - - RCDATA&gt;
+&lt;!ELEMENT stratkt  - - RCDATA&gt;
+&lt;!ELEMENT supplinf - - RCDATA&gt;
+&lt;!ELEMENT techpreq - - RCDATA&gt;
+&lt;!ELEMENT tempkey  - - RCDATA&gt;
+&lt;!ELEMENT tempkt   - - RCDATA&gt;
+&lt;!ELEMENT themekey - - RCDATA&gt;
+&lt;!ELEMENT themekt  - - RCDATA&gt;
+&lt;!ELEMENT time     - - RCDATA&gt;
+&lt;!ELEMENT title    - - RCDATA&gt;
+&lt;!ELEMENT transize - - RCDATA&gt;
+&lt;!ELEMENT turnarnd - - RCDATA&gt;
+&lt;!ELEMENT typesrc  - - RCDATA&gt;
+&lt;!ELEMENT upszone  - - RCDATA&gt;
+&lt;!ELEMENT utmzone  - - RCDATA&gt;
+&lt;!ELEMENT udom     - - RCDATA&gt;
+&lt;!ELEMENT useconst - - RCDATA&gt;
+&lt;!ELEMENT vpftype  - - RCDATA&gt;
+&lt;!ELEMENT vpflevel - - RCDATA&gt;
+&lt;!ELEMENT vrtcount - - RCDATA&gt;
+&lt;!ELEMENT vertacce - - RCDATA&gt;
+&lt;!ELEMENT vertaccr - - RCDATA&gt;
+&lt;!ELEMENT vertaccv - - RCDATA&gt;
+&lt;!ELEMENT westbc   - - RCDATA&gt;
+
+&lt;!-- End of FGDC Metadata DTD v 1.0 --&gt;</pre>
+
+<hr>
+
+<table border="1" bordercolor="#FFFFFF">
+  <tr>
+    <td width="468" height="17"><a href="annex_c.htm">Top of Annex C</a></td>
+    <td width="468" height="17"><p align="center"><a href="geo22.htm#Contents">Back to Main
+    Contents</a></td>
+    <td width="503" height="17"><p align="right"><a href="annex_d.htm">To Annex D</a></td>
+  </tr>
+</table>
+
+<pre>
+</pre>
+</body>
+</html>

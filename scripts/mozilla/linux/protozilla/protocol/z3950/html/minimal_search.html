@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Minimal Z39.50 Search</title>
+  </head>
+
+  <body bgcolor = white>
+  <center><b>Minimal Z39.50 Search</b></center>
+<p>
+This search form contains the most commonly available and most useful search fields. Not all fields will be available on all servers.
+<p>
+<form action = "%CGI%" method ="GET">
+<table>
+<tr><td colspan = 2><hr></td></tr>
+<tr><td><b>Title:</b></td><td><input type = text size = 40 name = "4" value = ""></td></tr>
+<tr><td><b>Author:</b></td><td><input type = text size = 40 name = "1003" value = ""></td></tr>
+<tr><td><b>Date:</b></td><td><input type = text size = 40 name = "31" value = ""></td></tr>
+<tr><td><b>Subject:</b></td><td><input type = text size = 40 name = "21" value = ""></td></tr>
+<tr><td><b>Anywhere:</b></td><td><input type = text size = 40 name = "1016" value = ""></td></tr>
+<tr><td><b>ISBN:</b></td><td><input type = text size = 40 name = "7" value = ""></td></tr>
+<tr><td><b>ISSN:</b></td><td><input type = text size = 40 name = "8" value = ""></td></tr>
+<tr><td><b>LC Card No:</b></td><td><input type = text size = 40 name = "9" value = ""></td></tr>
+<tr><td colspan = 2><hr></td></tr>
+<tr><td>First Record:</td><td><input type = text size = 5 name = "firstrec" value = "1"></td></tr>
+<tr><td>Number of  Records:</td><td><input type = text size = 5 name = "firstrec" value = "10"></td></tr>
+<tr><td>Combine Fields With:</td><td><select name = "bool"><option value = "AND">And</option><option value = "OR">Or</option></select></td></tr>
+<tr><td colspan = 2><input type = submit value = "Search"></td></tr>
+<tr><td colspan = 2><hr></td></tr>
+</table>
+
+</form>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Cheshire3 Object Types</title>
+  </head>
+
+  <body bgcolor="white">
+    <center><h2>Cheshire3 Object Types</h2></center>
+
+<p>
+<b>Introduction</b>
+<p>
+This file overviews the various object types within the Cheshire3 system, including a summary of their interfaces and how they fit together.
+
+<p>
+<b>ProtocolHandler</b>
+<p>
+This object handles requests from a protocol and transforms them into their internal representation before handing them off to a server to process.  It takes back the results of the processing, transforms them into the protocol's response and sends it back.  The default ProtocolHandlers are mod_python Apache Connection handlers for binary data or a Request handler for HTTP based protocols such as SRW.
+
+<p>
+<b>Server</b>
+<p>
+An object representing a 'server'.  A server is a protocol neutral collection of databases, users and their dependant objects.  It acts as an inital entry point for all requests and handles such things as user authentication, multi-database searching, and global object configuration.  It is the top level object as far as configuration files go, and must be instantiated via an XML file, rather than a DOM node.
+
+<p>
+<b>Database</b>
+<p>
+A database is a collection of records which may be interacted with.  These records may exist in other databases and as such it is just a virtual collection.  A database includes indexes, which contain data extracted according to rules from the records.  The database is responsable for handling queries which come to it by splitting them up and sending the components to the indexes before the results are combined again.   
+
+<p>
+<b>Record</b>
+<p>
+An instance of a record, including XML data and any associated metadata.  Records are initially created from Documents by a Parser, and then are stored in a RecordStore for future retrieval.  From a record, you may retrieve the XML in string form, a DOM tree or a list of SAX events.
+
+<p>
+<b>Document</b>
+<p>
+Before parsing, the data which will be turned into a record is a document.  It may be in any form, including (for example) USMARC, gzipped XML, or SGML.  It must be turned into a string XML document by various PreParsers before giving it to a Parser to turn into a Record.  It may be supplied to the server as part of a larger set of documents, a DocumentGroup.
+
+<p>
+<b>DocumentGroup</b>
+<p>
+DocumentGroups are just a set of documents out of which may be extracted the individual Document objects.  Example DocumentGroups might be a tar file, a zip file or just a single file with multiple documents contained in it.
+
+<p>
+<b>PreParser</b>
+<p>
+Before the system can create a Record, the input must be turned into well-formed XML.  This is done through PreParsers.  A PreParser takes a Document object, processes it and returns the resulting Document.
+
+<p>
+<b>Parser</b>
+<p>
+Typically an XML parser, but it may be viewed as a Record Factory.  It takes a Document, processes it and returns the equivalent Record.
+
+<p>
+<b>Index</b>
+<p>
+An index object is an interface to allow the extraction and storing of terms from the records, and then later to search those terms.  Data selection is done via XPath, and then the result is passed through a chain of objects with each somehow processing the information until it is then given to an indexStore object to record it.
+
+<p>
+<b>Extracter</b>
+<p>
+An extracter takes the result of the Index's XPath evaluation, and extracts the individual pieces of data from it to index.  It also is used in the same way to process the search query terms, for example to provide a single interface to split a string into its component words.
+
+<p>
+<b>Normaliser</b>
+<p>
+A Normaliser takes the result of an Extracter and puts the data into a standard form.  Multiple Normalisers may be chained together, as each only does a single function.  Normalisers might turn a string into lower case, use a stemming algorithm or turn a string of numerals into a number.
+
+<p>
+<b>Transformer</b>
+<p>
+A Transformer is the opposite of a Parser.  It takes a record and transforms it into a Document.  This is used, for example, when a query requests an alternate form of the record -- a different XML schema, a different record syntax and so forth.  It can also be used as part of the initial processing chain to turn one sort of record into a different form in order to index it correctly.
+
+<p>
+<b>ResultSet</b>
+<p>
+A ResultSet is a list, sometimes ordered, of pointers to records.  It can be combined with other ResultSets in order to process boolean operators.
+
+<p>
+<b>ResultSetItem</b>
+<p>
+A pointer to a record, a ResultSetItem records the recordStore and the document identifier of a record to uniquely distinguish it.
+
+<p>
+<b>RecordStore</b>
+<p>
+A persistant database of record objects.
+
+<p>
+<b>IndexStore</b>
+A persistant database of indexed terms.
+
+    <p>
+    <hr>
+  </body>
+</html>

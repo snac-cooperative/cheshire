@@ -1,0 +1,89 @@
+Those parts of this package developed by the authors are 
+copyrighted by The Regents of the University of
+California.  Please see the attached file, "COPYRIGHT," for an 
+explanation of the terms of use for this package.
+
+See the file INSTALL if you're in a big hurry to compile.
+
+This package includes a variety of utilities for handling of
+USMARC bibliographic records, including a utility, marc2sgml,
+which will convert USMARC records into an SGML format, and
+sgml2marc, which reverses the conversion and takes MARC records
+in the SGML format and puts them back into standard USMARC.  The
+specific SGML format is defined in the included SGML Document Type
+Definition, USMARC.DTD, located in the ./dtd directory.
+
+NOTE:  THIS IS A BETA VERSION OF BOTH DTD AND SOFTWARE FOR CONVERSION.
+       USE AT YOUR OWN RISK.
+
+The USMARC handling utilities other than the marc2sgml/sgml2marc conversion
+were written by Prof. Ray Larson of U.C. Berkeley.  The marc2sgml and
+sgml2marc conversion programs were written by Jerome McDonough and
+Ray Larson.
+
+Note that compiling this package successfully depends on having 
+several other packages previously installed on your system, including
+Tcl/Tk.  See the INSTALL file for details.
+
+So far, this package has only been tested on a Sun Sparc10 running Solaris
+2.3, and a DEC Alpha 3000/400 running OSF/1 v.3.2.  Suitability for 
+use on other platforms is up in the air at this time.
+
+A few words about the USMARC.DTD --
+
+I did my best to make the DTD comply with the format integration of
+USMARC.  Unfortunately, a DTD which is *totally* compliant with
+format integration quickly runs afoul of all the USMARC records in
+the world which were created before the format integration proposals
+took hold.  Additionally, development of this DTD has occurred while
+some of the format integration work was still underway, so it's not
+completely up to the current format integration standard.
+There are therefore a variety of field elements declared
+within the DTD that are not valid under format integration.
+
+The handling of foreign language character sets within a DTD for the
+USMARC standard is an interesting question.  Every USMARC record I've
+ever seen employs the standard LC-Romanization techniques for handling
+foreign character sets.  This is not how the SGML world would tend
+to resolve the problem.  For the most part, SGML expects to handle
+foreign characters within a document either by: 1. declaring use
+of a foreign character set with the SGML Document Declaration, or
+2. employing character entities to handle foreign characters
+(typically using one of the pre-existing files of entity declarations
+for specific character sets).  There are other
+ways of dealing with the issue of foreign language characters, but
+those are the most commonly employed mechanisms.  Unfortunately,
+the first is somewhat problematic if you expect to be handling a vast
+number of foreign languages (which most libraries do), and the
+second presents the developer (that would be me) with a rather
+nastly problem: converting Romanizations of foreign characters into
+SGML character entities for all languages in the LC-Romanization
+tables.
+
+My decision on this issue was to punt.  The marc2sgml conversion
+leaves Romanized, foreign language records untouched.  Note that such 
+records will pass through sgmls (and I assume any other parser) without any
+problem that I've encountered.  Romanization of foreign characters
+is accomplished using the characters declared in the SGML Document
+Declaration.  I've included foreign character set entity files
+in the directory charsets for anyone who wants to try altering
+their MARC records to use character entities instead of Romanization.
+Ultimately, I believe that this issue should be resolved by adoption
+of either Unicode or ISO10636 as the character set for
+the MARC standard.  However, I may try to provide support for
+LC-Romanization to SGML character entity conversion for some languages
+in a future version of this software.
+
+Any ideas about possible improvements to the USMARC.DTD or the
+conversion utilities marc2sgml and sgml2marc are
+encouraged.  You can contact me at: jmcd@lucien.SIMS.Berkeley.EDU, or
+snail-mail at Jerome McDonough, School of Information Management & Systems,
+102 South Hall, University of California at Berkeley, Berkeley, CA
+94720.  Enjoy!
+
+
+    (......)
+    \ *  * /
+    \  <>  /
+     \ -- /  SGNORMPF!!!
+      ||||

@@ -1,0 +1,18 @@
+# test script for user-defined formats
+
+
+zmakeformat test USMARC {{{Record #} {#} {} {} { } {
+} TRUE FALSE FALSE FALSE FALSE FALSE 0} {{Author:   } {Fld100 Fld110} {A B} {} { } {
+} TRUE FALSE FALSE FALSE FALSE FALSE 15} {{Title:   } {Fld245} {A B} {} { } {
+} TRUE FALSE FALSE FALSE FALSE FALSE 15}}
+
+zselect sherlock
+zset recsyntax SGML
+zfind su mathematics
+set res [zdisplay]
+set num 0
+foreach rec [lrange $res 1 end] {
+    incr num	
+    puts [zformat test $rec sgml $num 70 "/home/ray/Work/cheshire/doc/USMARC12.DTD"]
+	
+}

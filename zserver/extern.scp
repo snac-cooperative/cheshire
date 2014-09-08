@@ -1,0 +1,5 @@
+zselect sherlocktest sherlock.berkeley.edu durham 2222
+zset elementsetnames html
+zset recsyntax html
+puts [zfind topic sudan]
+puts [zdisplay 1 1]

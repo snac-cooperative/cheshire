@@ -1,0 +1,164 @@
+<DBCONFIG>
+<FILEDEF TYPE=MARC>
+<FILETAG>  bibfile
+</FILETAG>
+<FILENAME>  	/export/home/ray/Work/cheshire2/sgmlparse/testsgmlerrs
+</FILENAME>
+<FILEDTD>	/usr3/cheshire2/new/sgml/USMARC06.DTD
+</FILEDTD>
+<ASSOCFIL>	/export/home/ray/Work/cheshire2/sgmlparse/aa.asso
+</ASSOCFIL>
+<HISTORY>	/export/home/ray/Work/cheshire2/sgmlparse/aa.history
+</HISTORY>
+<INDEXES>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/sgmlparse/aa.dict
+		
+</INDXNAME>
+<INDXTAG>	author
+		
+</INDXTAG>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/sgmlparse/aa.author.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/sgmlparse/aa.author.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/sgmlparse/aa.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld100 
+ 			
+</FTAG><FTAG>Fld110 
+			
+</FTAG><FTAG>Fld111 
+			
+</FTAG><FTAG>Fld700
+			
+</FTAG><FTAG>Fld710
+			
+</FTAG><FTAG>Fld711
+		
+</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=WORDNET>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/sgmlparse/aa.dict
+		
+</INDXNAME>
+<INDXTAG>	title
+		
+</INDXTAG>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/sgmlparse/aa.title.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/sgmlparse/aa.title.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/sgmlparse/aa.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld245 
+</FTAG><S>a</S><S>b 
+			
+</S><FTAG>Fld240 
+</FTAG><S>a 
+</S><S>t 
+</S><S>p <S> subsub-p </S>
+			
+</S><FTAG>Fld130 
+			
+</FTAG><FTAG>Fld730 
+			
+</FTAG><FTAG>Fld740 
+			
+</FTAG><FTAG>Fld1..
+</FTAG><S>t 
+			
+</S><FTAG>Fld7..
+</FTAG><S>t
+		
+</S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=WORDNET>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/sgmlparse/aa.dict
+		
+</INDXNAME>
+<INDXTAG>	subject
+		
+</INDXTAG>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/sgmlparse/aa.subj.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/sgmlparse/aa.subj.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/sgmlparse/aa.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld6..  
+		
+</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/sgmlparse/aa.dict
+		
+</INDXNAME>
+<INDXTAG>	topic
+		
+</INDXTAG>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/sgmlparse/aa.topic.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/sgmlparse/aa.topic.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/sgmlparse/aa.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld6..
+			
+</FTAG><FTAG>Fld245 
+</FTAG><S>a<S>b</S>
+			
+</S><FTAG>Fld240 
+</FTAG><S>a<S>t<S>p</S></S> 
+			
+</S><FTAG>Fld4.. 
+			
+</FTAG><FTAG>Fld8.. 
+			
+</FTAG><FTAG>Fld130 
+			
+</FTAG><FTAG>Fld730 
+			
+</FTAG><FTAG>Fld740 
+			
+</FTAG><FTAG>Fld1.. 
+</FTAG><S>t 
+			
+</S><FTAG>Fld790 
+</FTAG><S>nest1  <S>nest2  <S> nest3 </S></S></S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+</INDEXES>
+</FILEDEF>
+</DBCONFIG>

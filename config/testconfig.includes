@@ -1,0 +1,15 @@
+<!-- This is a test config file for Cheshire II -->
+<DBCONFIG>
+<DBENV> /home/ray/Work/DBENV </DBENV>
+
+<CONFIGINCLUDE>
+/home/ray/Work/cheshire/config/testconfig.new 
+
+
+
+</CONFIGINCLUDE>
+
+<CONFIGINCLUDE> /home/ray/Work/cheshire/config/testconfig.dbms </CONFIGINCLUDE>
+</DBCONFIG>
+
+

@@ -1,0 +1,7 @@
+
+<config type="authStore" id="defaultAuthStore">
+  <objectType>objectStore.BdbObjectStore</objectType>
+  <paths>
+     <path type="databasePath">/home/cheshire/c3/authStore.bdb</path>
+  </paths>
+</config>

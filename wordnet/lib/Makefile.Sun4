@@ -1,0 +1,35 @@
+RELEASEDIR= ../release
+SRC=	wnglobals.c wnhelp.c search.c morph.c util.c binsearch.c
+OBJ=	wnglobals.o wnhelp.o search.o morph.o util.o binsearch.o
+LIB=	libwn.a
+
+CFLAGS=	-g
+LDFLAGS=	-L. -Bstatic
+release:=	CFLAGS=-O
+all:=		CFLAGS += -DLABONLY
+install:=	CFLAGS=-O -DLABONLY
+
+all: lib
+
+cv: convertutil.o $(LIB)
+	cc -o convertutil $(LDFLAGS) convertutil.o $(LIB)
+
+release: veryclean lib cv
+	install -d $(RELEASEDIR)
+	install convertutil wngrep $(RELEASEDIR)
+ 
+install: veryclean lib cv
+
+lib: $(OBJ)
+	ar rcv $(LIB) $(OBJ); ranlib $(LIB)
+
+clean:
+	rm -f $(OBJ) convertutil.o core *~ #*
+
+lint:
+	lint $(SRC)
+
+veryclean:
+	$(MAKE) clean
+	rm -f $(LIB) convertutil
+

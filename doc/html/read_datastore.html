@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">read_datastore - read (or count) 
+parsed SGML/XML documents in a
+CheshireII <a href="datastore.html">DataStore</a> file</FONT></H2>
+
+<P><BR>
+</P>
+
+<H2>SYNOPSIS </H2>
+
+<H3><B>read_datastore</B> <I>[-q] configfile filename [n] ["EXACT"|"NUMBER"]</I> <BR>
+
+<H2>DESCRIPTION </H2>
+
+<P>Read_datastore reads the stored SGML/XML data from a datastore file
+used in the Cheshire II system. Datastore files store pre-parsed versions
+of the SGML/XML documents and the original documents need not be
+retain for access. </P>
+
+<P> There are two forms of this command: when the keyword "NUMBER" is
+specified" it just delivers a single line with the Maximum record
+number in the datastore file, otherwise the command returns one or
+all of the SGML/XML records in the file to stdout. 
+
+<P>If the "EXACT" keyword is used, the SGML/XML output will be exactly
+as stored. If not used the SGML/XML will be output in a partial form that
+has been broken up with each tag that contains only text on a single
+line. Note that this default form may not have the full text for some
+very long tags. 
+
+<P> The <I>configfile</I> argument should be the name of the configuration
+file to be processed. Note that ONLY the first file definition in the
+configuration file will be created, the configfile can be simple and
+omit index definitions, etc. if desired. The file named in the 
+FILENAME tag of the configfile will be created if it doesn't exist, or
+used if it does. The parsed SGML/XML data will all be loaded into
+that file.</P>
+
+<P> The <I>sgmlfile</I> argument should be the name of the (single) SGML
+file to be processed. </P>
+
+<P> The <I>directory</I> argument, used with the <I>-r</I> option,
+should be the pathname of the root directory subtree to be
+processed. </P>
+
+<P> The <I>n</I> argument should be a single number representing the
+id number of the record in the datastore file. </P>
+
+<P> If the <I>-q</I> flag is used, information about each record processed
+is suppressed, otherwise the program indicates each record found and it's
+length. This will also suppress reports of attempts to load duplicate
+records (they are not loaded in any case).</P>
+
+<H2> ERROR INFORMATION</H2>
+
+<P>Errors are reported to stderr; </P>
+
+<H2> BUGS </H2>
+
+<P>None known </P>
+
+<H2> SEE ALSO </H2>
+
+<P><A HREF="configfiles.html">Configuration file documentation,</A> <A HREF="index_cheshire.html">index_cheshire
+</A></P>
+
+<H2> AUTHOR </H2>
+
+<P>Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>) </P>
+
+</BODY>
+</HTML>

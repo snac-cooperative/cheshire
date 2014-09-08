@@ -1,0 +1,65 @@
+<!-- Extended Latin Alphabet Coded Character Set for Bibliographic Use
+    (ANSEL)  (ANSI Z39.47).  USMARC Specifications for Record Structure, 
+    Character Sets, Tapes.  Library of Congress, 1990.
+-->
+<!-- Character entity set. Typical invocation:
+     <!ENTITY % ANSEL PUBLIC
+       "ISO 8879:1986//ENTITIES Extended Latin//EN">
+     %ANSEL;
+-->
+<!ENTITY polL   SDATA "[polL  ]"--=capital Polish L-->
+<!ENTITY scanO  SDATA "[scanO ]"--=capital Scandinavian O-->
+<!ENTITY crossD SDATA "[crossD]"--=capital D w/crossbar-->
+<!ENTITY THORN  SDATA "[THORN ]"--=capital Icelandic thorn-->
+<!ENTITY AE     SDATA "[AE    ]"--=capital digraph AE-->
+<!ENTITY OE     SDATA "[OE    ]"--=capital digraph OE-->
+<!ENTITY soft   SDATA "[soft  ]"--=soft sign, prime-->
+<!ENTITY dotmid SDATA "[dotmid]"--=dot in middle of line-->
+<!ENTITY flat   SDATA "[flat  ]"--=musical flat-->
+<!ENTITY patent SDATA "[patent]"--=subscript patent mark-->
+<!ENTITY plumin SDATA "[plumin]"--=plus or minus-->
+<!ENTITY Ohook  SDATA "[Ohook ]"--=capital O-hook-->
+<!ENTITY Uhook  SDATA "[Uhook ]"--=capital U-hook-->
+<!ENTITY alif   SDATA "[alif  ]"--=alif-->
+<!ENTITY ayn    SDATA "[ayn   ]"--=ayn-->
+<!ENTITY poll   SDATA "[poll  ]"--=small Polish l-->
+<!ENTITY scano  SDATA "[scano ]"--=small Scandinavian o-->
+<!ENTITY crossd SDATA "[crossd]"--=small d w/crossbar-->
+<!ENTITY thorn  SDATA "[thorn ]"--=small Icelandic thorn-->
+<!ENTITY ae     SDATA "[ae    ]"--=small digraph ae-->
+<!ENTITY oe     SDATA "[oe    ]"--=small digraph oe-->
+<!ENTITY hard   SDATA "[hard  ]"--=hard sign-->
+<!ENTITY turki  SDATA "[turki ]"--=small Turkish i-->
+<!ENTITY Bpound SDATA "[Bpound]"--=British pound-->
+<!ENTITY eth    SDATA "[eth   ]"--=eth-->
+<!ENTITY ohook  SDATA "[ohook ]"--=small o-hook-->
+<!ENTITY uhook  SDATA "[uhook ]"--=small u-hook-->
+<!ENTITY pquest SDATA "[pquest]"--=pseudo question-->
+<!ENTITY grave  SDATA "[grave ]"--=grave-->
+<!ENTITY acute  SDATA "[acute ]"--=acute-->
+<!ENTITY circum SDATA "[circum]"--=circumflex-->
+<!ENTITY tilde  SDATA "[tilde ]"--=tilde-->
+<!ENTITY macron SDATA "[macron]"--=macron-->
+<!ENTITY breve  SDATA "[breve ]"--=breve-->
+<!ENTITY supdot SDATA "[supdot]"--=superior dot-->
+<!ENTITY umlaut SDATA "[umlaut]"--=umlaut (diaeresis)-->
+<!ENTITY hacek  SDATA "[hacek ]"--=hacek-->
+<!ENTITY cirabo SDATA "[cirabo]"--=circle above (Angstrom)-->
+<!ENTITY ligfir SDATA "[ligfir]"--=ligature, first half-->
+<!ENTITY ligsec SDATA "[ligsec]"--=ligature, second half-->
+<!ENTITY comoff SDATA "[comoff]"--=high comma, off center-->
+<!ENTITY dacute SDATA "[dacute]"--=double acute-->
+<!ENTITY candra SDATA "[candra]"--=candrabindu-->
+<!ENTITY cedill SDATA "[cedill]"--=cedilla-->
+<!ENTITY rhook  SDATA "[rhook ]"--=right hook-->
+<!ENTITY dotbel SDATA "[dotbel]"--=dot below character-->
+<!ENTITY ddotbe SDATA "[ddotbe]"--=double dot below character-->
+<!ENTITY cirbel SDATA "[cirbel]"--=circle below character-->
+<!ENTITY dunder SDATA "[dunder]"--=double underscore-->
+<!ENTITY under  SDATA "[under ]"--=underscore-->
+<!ENTITY lhookt SDATA "[lhookt]"--=left hook/tail-->
+<!ENTITY rcedil SDATA "[rcedil]"--=right cedilla-->
+<!ENTITY upadh  SDATA "[upadh ]"--=upadhmaniya-->
+<!ENTITY dtilf  SDATA "[dtilf ]"--=double tilde, first half-->
+<!ENTITY dtils  SDATA "[dtils ]"--=double tilde, second half-->
+<!ENTITY comcen SDATA "[comcen]"--=high comma, centered-->

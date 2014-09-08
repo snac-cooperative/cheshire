@@ -1,0 +1,22 @@
+puts "***** Selecting PENN *****"
+puts [zselect penn]
+puts ""
+for {set i 0} {$i < 500} {incr i} {}
+puts "***** searching larson *****"
+set res1 [zfind author larson, ray r]
+puts $res1
+for {set i 0} {$i < 500} {incr i} {}
+puts "***** displaying *****"
+set res2  [zdisplay]
+set x [lindex $res2 [zshow hits]]
+puts ""
+puts $x
+puts ""
+set printable [zformat list $x 999]
+puts $printable
+foreach l $printable {
+	puts $l
+}
+zclose
+exit
+

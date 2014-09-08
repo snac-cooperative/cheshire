@@ -1,0 +1,3 @@
+<config type="authStore" id="defaultAuthStore">
+  <objectType>recordStore.SimpleRecordStore</objectType>
+</config>

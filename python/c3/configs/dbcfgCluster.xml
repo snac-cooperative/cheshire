@@ -1,0 +1,81 @@
+
+<config type="database" id="db_l5r_cluster">
+  <objectType>database.SimpleDatabase</objectType>
+
+  <paths>
+    <path type="defaultPath">/home/cheshire/c3/new/l5r</path>
+    <path type="metadataPath">clusterMetadata.bdb</path>
+    <object type="recordStore" ref="l5rClusterRecordStore"/>
+ </paths>
+
+  <subConfigs>
+
+    <subConfig type="recordStore" id="l5rClusterRecordStore">
+      <objectType>recordStore.BdbRecordStore</objectType>
+      <paths>
+        <path type="databasePath">clusterRecordStore.bdb</path>
+        <object type="inTransformer" ref="defaultRecordStoreTransformer"/>
+        <object type="outParser" ref="defaultRecordStoreParser"/>
+        <object type="idNormaliser" ref="StringIntNormaliser"/>
+      </paths>
+      <options>
+        <setting type="digest">sha</setting>
+      </options>
+    </subConfig>
+
+    <subConfig type="indexStore" id="l5rClusterIndexStore">
+      <objectType>indexStore.BDBIndexStore</objectType>
+      <paths>
+        <path type="defaultPath">indexes</path>
+        <path type="tempPath">temp</path>
+        <path type="sortPath">/usr/local/bin/sort</path>
+        <path type="recordStoreHash">l5rClusterRecordStore</path>  
+      </paths> 
+    </subConfig>
+
+    <subConfig type="protocolMap" id="CQLProtocolMap">
+      <objectType>protocolMap.CQLProtocolMap</objectType>
+      <paths>
+        <path type="zeerexPath">clusterZeerex_srw.xml</path>
+      </paths>
+    </subConfig>
+
+    <subConfig id = "l5rCluster-idx-1">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rClusterIndexStore"/>
+      </paths> 
+      <source>
+        <xpath>/cluster/key</xpath>
+        <process>
+          <object type="extracter" ref="ExactExtracter"/>
+        </process>
+      </source>
+    </subConfig>
+
+    <subConfig id = "l5rCluster-idx-2">
+      <objectType>index.SimpleIndex</objectType>
+      <paths>
+        <object type="indexStore" ref="l5rClusterIndexStore"/>
+      </paths> 
+      <source>
+        <xpath>description</xpath>
+        <process>
+          <object type="extracter" ref="KeywordExtracter"/>
+          <object type="normaliser" ref="CaseNormaliser"/>
+        </process>
+      </source>
+    </subConfig>
+
+  </subConfigs>
+  
+  <objects>
+    <path ref="l5rClusterIndexStore"/>
+    <path ref="l5rCluster-idx-1"/>
+    <path ref="l5rCluster-idx-2"/>
+    <path ref="l5rClusterRecordStore"/>
+    <path ref="CQLProtocolMap"/>
+  </objects>    
+
+</config>
+

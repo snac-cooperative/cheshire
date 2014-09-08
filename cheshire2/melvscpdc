@@ -1,0 +1,15 @@
+puts "selecting MELVYL"
+zselect melvyl
+puts "setting format/syntax MARC"
+zset recformat marc
+zset pElementSetNames F
+puts "find"
+zfind pa buckland, michael k
+puts "present"
+set x [zdisplay]
+set y [lindex $x 1]
+puts "formatting marc record"
+puts [zformat dc $y marc 1 80 ]
+#puts $x
+zclose
+

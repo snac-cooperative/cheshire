@@ -1,0 +1,200 @@
+#!/usr/sww/bin/tclsh
+# tcl script to add records to the ELIB cheshire database
+
+# set up some variables for particular files, paths, etc.
+set DBHOME "/elib/sys/cheshire/DATA"
+set CONFIGFILE "$DBHOME/CONFIG.DL"
+set DBDATA  "$DBHOME/dlbibs.sgml"
+set DBASSOC "$DBHOME/dlbibs.sgml.assoc"
+set DATABASE "bibfile"
+set NUMBERINDEX "localnum"
+set DOCDIR "/elib/data/docs"
+set BINDIR "/elib/sys/cheshire/bin"
+
+if {$argc != 0} {
+	puts "NEW VERSION usage: cheshire_add "
+        puts "automatically detects and indexes new ELIB items"
+	exit
+}
+
+catch {exec $BINDIR/dumpdb $CONFIGFILE $DATABASE $NUMBERINDEX} recnumstuff
+
+set recnumslist [split $recnumstuff \n]
+
+foreach line $recnumslist {
+    if {[regexp {(key: )([0123456789]*)(.*$)} $line all key number stuff] == 1} {
+	set RECNUM($number) 1
+    }
+}
+
+
+set dirlist [glob $DOCDIR/\[0123456789\]*/*]
+
+
+foreach path $dirlist {
+    set l [split $path /]
+    set num [lindex $l 5]
+    if {[regexp {[0123456789]*} $num num2] == 1} {
+	if {[catch {incr RECNUM($num2)} ] == 1} {
+	    if {$num2 != ""} {
+		set RECNUM($num2) 1
+		lappend newnumbers $num2
+	    }
+	}
+    }
+}
+
+if {[catch {llength $newnumbers} numcount] == 1} {
+    puts "No new records found"
+    exit
+}
+
+foreach num [lsort $newnumbers] {
+	puts "ELIB ID $num is new or changed"
+}
+
+#
+#
+#if {$argc == 1} { # no argv -- just do them all
+#
+#	foreach dir [glob /elib/data/disk/disk5/documents/*] {
+#
+#	    if [catch {exec cat $dir/BIB/bib.elib >> $file} result] {
+#                puts stderr "$result : error on directory $dir"
+#            } 
+#        }
+# }
+
+set file "tempbibfile"
+
+foreach rec $newnumbers {
+    set dirnum [format "%04d" [expr ($rec/100)*100]]
+    if [catch {exec cat $DOCDIR/$dirnum/$rec/BIB/bib.elib >> $file} result] {
+           puts stderr "$result : error on directory $DOCDIR/$dirnum/$rec/BIB/bib.elib"
+    } 
+}
+
+
+
+# convert.tcl -- converts bibliographic records from elib docs to
+# SGML markup along with insertion of the path for the full OCRed document
+# 
+#
+
+set infile [open "tempbibfile" r]
+set outfile [open "tempsgmlfile" w]
+
+set idnum 1
+set failflag 0
+set last_tag ""
+set current_id ""
+
+while {[set linesize [gets $infile line]] >= 0} {
+    if {$linesize > 0} {
+	if {[regexp {([^:]*)::[	 ]*(.*)$} $line match tag datline]} {
+	    if {$failflag} {
+		set failflag 0
+	    }
+	    if {$tag == "END"} {
+		puts $outfile "</$last_tag>" 
+	        if {$current_id != [string trim $datline]} {
+		    puts stderr "RECORD ID MATCH PROBLEM current $current_id end $datline"
+		    if {[string length $current_id] < 6} {
+			puts stderr "Using $current_id"
+			set dirnum [format "%04d" [expr ($current_id/100)*100]]
+			puts $outfile "<TEXT-REF>$DOCDIR/$dirnum/$current_id/HYPEROCR/hyperocr.html</TEXT-REF>"
+			puts $outfile "<PAGED-REF>$DOCDIR/$dirnum/$current_id/OCR-ASCII-NOZONE</PAGED-REF>"
+			set tmpline [string trimleft $datline $current_id]
+			if {[regexp {([^:]*)::[	 ]*(.*)$} $tmpline match tag datline]} {
+
+			    if {$tag == "BIB-VERSION"} { 
+				# What happened was no newline at the end
+                                # of the record -- so start a new record
+				puts $outfile "</ELIB-BIB>"
+				puts $outfile "<ELIB-BIB>"
+				set last_tag $tag
+				set last_line $datline
+				puts $outfile "<$tag>$datline" nonewline 
+				puts stderr "Fixed missing newline"
+			    }
+			} else {
+			    # weird problems -- throw in the end tag and
+                            # hope for the best
+			    puts $outfile "</ELIB-BIB>"
+                            
+			}
+		    } else {
+			put stderr "Unable to use $current_id"
+			exit
+		    }
+		} else {
+		    set dirnum [format "%04d" [expr ($current_id/100)*100]]
+		    puts $outfile "<TEXT-REF>$DOCDIR/$dirnum/$current_id/HYPEROCR/hyperocr.html</TEXT-REF>"
+		    puts $outfile "<PAGED-REF>$DOCDIR/$dirnum/$current_id/OCR-ASCII-NOZONE</PAGED-REF>"
+		    puts $outfile "</ELIB-BIB>"
+		}
+	    } else {
+		if {$tag == "BIB-VERSION"} {
+		    puts $outfile "<ELIB-BIB>"
+		} else {
+		    puts $outfile "</$last_tag>" 
+		}
+		# tidy up some flaky tagging
+		if {$tag == "AUTHOR-INSTITUTIONALA" ||
+		    $tag == "AUTHOR-INSTITUTIONALB" ||
+		    $tag == "AUTHOR-INSTITITIONAL" ||
+		    $tag == "AUTHOR-INSTITUTIONALC"} {
+		     set tag "AUTHOR-INSTITUTIONAL"
+		}
+		if {$tag == "KEYWORD"} {
+		     set tag "KEYWORDS"
+		}
+		if {$tag == "CERES BIOREGION"} {
+		     set tag "CERES-BIOREGION"
+		}
+		if {$tag == "ID"} {
+		    set current_id [string trim $datline]
+		}
+
+		set last_tag $tag
+		set last_line $datline
+		puts $outfile "<$tag>$datline" nonewline 
+	    }
+
+	} else {
+	    set failflag 1
+	    puts $outfile $line nonewline
+	}
+    } else { puts "blank line"}
+}
+
+close $infile
+close $outfile
+
+
+exec cat tempsgmlfile >> $DBDATA
+exec rm tempbibfile
+exec rm tempsgmlfile
+
+set results [exec $BINDIR/buildassoc $DBDATA ELIB-BIB]
+
+if {[regexp {(Appending.*start record #)([0123456789]*)(.*)} $results all start nextnum rest] == 1} {
+    # have a new number
+
+    puts "Starting indexing at (internal) record #$nextnum"
+
+} else { 
+
+    puts "No existing associator file found -- Exiting...."
+    set nextnum 1
+    puts "If you want to RE-INDEX EVERYTHING or do first-time indexing use the command:" 
+    puts "$BINDIR/index_cheshire -b $CONFIGFILE $nextnum &"
+    exit
+}
+
+# run index_cheshire in batch mode for performance
+exec $BINDIR/index_cheshire -b $CONFIGFILE $nextnum &
+
+puts "Indexing generation is being run in the background --"
+puts "check INDEX_LOGFILE for messages and results"
+exit

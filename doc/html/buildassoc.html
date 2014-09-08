@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">buildassoc - Create or extend a
+CheshireII associator file</FONT></H2>
+
+<P><BR>
+</P>
+
+<H2>SYNOPSIS </H2>
+
+<H3><B>buildassoc</B> <I>[-q][-s] sgmlfile [assocfile] sgmltag</I> <BR>
+or: <BR>
+<B>buildassoc</B><I> [-q][-s] -r directory assocfile sgmltag</I> </H3>
+
+<H2>DESCRIPTION </H2>
+
+<P>Buildassoc creates or extends the associator file for an SGML data file
+used in the Cheshire II system. The associator file contains information
+about the starting position and length of the SGML records in the SGML
+data file, and associates a logical record ID number with the record. This
+logical ID number is used to identify and retrieve records from the SGML
+data file(s). </P>
+
+<P> There are two forms of this command, one for single SGML data files
+(where the file contains all of the SGML data), and the other for situations
+where there are multiple SGML files each containing multiple records within
+a directory subtree. In the second form (indicated by the -r) only the
+top-level directory is provided as an argument, and the subtree is recursively
+scanned for files which contain the identifying SGML tag <I>sgmltag</I>.
+This recursive form of the command generates a special file of &quot;FILECONT&quot;
+tags for inclusion in the configuration file for the database. </P>
+
+<P> The <I>sgmlfile</I> argument should be the name of the (single) SGML
+file to be processed. </P>
+
+<P> The <I>directory</I> argument with the <I>-r</I> should be the pathname
+of the root directory subtree to be processed. </P>
+
+<P> The <I>assocfile</I> argument should be the name of the associator
+output file to be generated. In the <I>-r</I> form of the command, this
+argument is required, in the single file form it is optional and if omitted,
+the associator file name will be the same as the <I>sgmlfile</I> name with
+the extension &quot;.assoc&quot; attached. </P>
+
+<P> The <I>sgmltag</I> argument should be the top-level tag defining a
+record in the SGML data file. </P>
+
+<P> If the <I>-q</I> flag is used, information about each record processed
+is suppressed, otherwise the program indicates each record found and it's
+length. </P>
+
+<P> If the <I>-s</I> flag is used, extra header information is skipped
+and not counted as part of the record. This is useful when, for example,
+XML records that you want to index as documents are "wrapped" with an
+XML declaration, DOCTYPE and extra begin and end tags at the beginning
+and end of the file to make the whole file a single valid XML document.
+In extraction, these leading and end tags are ignored and only the
+tags asked for are used as begin and end tags of "documents". 
+</P>
+
+<P> </P>
+
+<H2> OUTPUT FILES </H2>
+
+<P>When the first (single SGML file) form of the command is used, only
+the associator file is created. </P>
+
+<P> When the recursive (-r) form of the command is used, in addition to
+the associator file a file with the same name as the <I>directory</I> argument,
+with the extension &quot;.cont&quot; is generated. This file contains a
+sequence of &quot;&lt;FILECONT&gt;&quot; statements for inclusion in the
+configuration file. If a directory named /TESTDATA was used, these might
+look like: </P>
+
+<P> </P>
+
+<PRE>&lt;FILECONT ID=1 MIN=1 MAX=4&gt; /TESTDATA/test1/ft1 &lt;/FILECONT&gt;
+&lt;FILECONT ID=2 MIN=5 MAX=13&gt; /TESTDATA/test1/ft2 &lt;/FILECONT&gt;
+&lt;FILECONT ID=3 MIN=14 MAX=27&gt; /TESTDATA/test1/ft3 &lt;/FILECONT&gt;
+&lt;FILECONT ID=4 MIN=28 MAX=61&gt; /TESTDATA/test1/ft4 &lt;/FILECONT&gt;
+&lt;FILECONT ID=5 MIN=62 MAX=77&gt; /TESTDATA/test2/ft5 &lt;/FILECONT&gt;
+&lt;FILECONT ID=6 MIN=78 MAX=93&gt; /TESTDATA/test2/ft6 &lt;/FILECONT&gt;
+</PRE>
+
+<P>Each line generated fills in the minimum and maximum logical record
+numbers in the file. These lines are added to the configuration file for
+the database following the &lt;FILENAME&gt; tag (which should contain only the
+root directory name - /TESTDATA). </P>
+
+<H2> ERROR INFORMATION</H2>
+
+<P>Errors are reported to stderr; </P>
+
+<H2> BUGS </H2>
+
+<P>None known </P>
+
+<H2> SEE ALSO </H2>
+
+<P><A HREF="configfiles.html">Configuration file documentation,</A> <A HREF="index_cheshire.html">index_cheshire
+</A></P>
+
+<H2> AUTHOR </H2>
+
+<P>Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>) </P>
+
+</BODY>
+</HTML>

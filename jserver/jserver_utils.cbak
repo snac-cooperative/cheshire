@@ -1,0 +1,702 @@
+/*
+ *  Copyright (c) 1990-1999 [see Other Notes, below]. The Regents of the
+ *  University of California (Regents). All Rights Reserved.
+ *  
+ *  Permission to use, copy, modify, and distribute this software and its
+ *  documentation for educational, research, and not-for-profit purposes,
+ *  without fee and without a signed licensing agreement, is hereby
+ *  granted, provided that the above copyright notice, this paragraph and
+ *  the following two paragraphs appear in all copies, modifications, and
+ *  distributions. Contact The Office of Technology Licensing, UC
+ *  Berkeley, 2150 Shattuck Avenue, Suite 510, Berkeley, CA 94720-1620,
+ *  (510) 643-7201, for commercial licensing opportunities. 
+ *  
+ *  Created by Ray R. Larson, Aitao Chen, and Jerome McDonough, 
+ *             School of Information Management and Systems, 
+ *             University of California, Berkeley.
+ *  
+ *    
+ *       IN NO EVENT SHALL REGENTS BE LIABLE TO ANY PARTY FOR DIRECT,
+ *       INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES,
+ *       INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE
+ *       AND ITS DOCUMENTATION, EVEN IF REGENTS HAS BEEN ADVISED OF THE
+ *       POSSIBILITY OF SUCH DAMAGE. 
+ *    
+ *       REGENTS SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT
+ *       NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ *       FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE AND
+ *       ACCOMPANYING DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS
+ *       PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
+ *       MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS. 
+ */
+/**************************************************************************
+* 
+* Cheshire II Online Catalog System
+* 
+* Copyright (c) 1994-8 Regents of the University of California
+* 
+* All rights reserved.
+*
+* Authors:      Ray Larson, ray@sherlock.berkeley.edu
+*               Jerome McDonough, jmcd@lucien.sims.berkeley.edu
+*               Aitao Chen,  aitao@info.sims.berkeley.edu
+*               Lucy Kuntz,  lkuntz@info.sims.berkeley.edu
+*               Ralph Moon,  rmoon@library.berkeley.edu
+*
+*		School of Information Management and Systems, UC Berkeley
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions
+* are met:
+* 1. Redistributions of source code must retain the above copyright
+*    notice, this list of conditions and the following disclaimer.
+* 2. Redistributions in binary form must reproduce the above copyright
+*    notice, this list of conditions and the following disclaimer in the
+*    documentation and/or other materials provided with the distribution.
+* 3. All advertising materials mentioning features or use of this software
+*    must display the following acknowledgement:
+*	This product includes software developed by the University of
+*	California, Berkeley.
+* 4. Neither the name of the University nor the names of its contributors
+*    may be used to endorse or promote products derived from this software
+*    without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE REGENTS AND THE AUTHOR ``AS IS'' AND
+* ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+* ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+* OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+* OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+* SUCH DAMAGE.
+***************************************************************************/
+
+#include <stdlib.h>
+#ifdef WIN32
+#define strcasecmp _stricmp
+#endif
+#include <assert.h>
+#include "z3950_3.h"
+#include "list.h"
+#include "z_parameters.h"
+#include "session.h"
+
+#include "z3950_intern.h"
+#include "cheshire.h"
+
+#define	MIN(a, b)	(((a) < (b)) ? (a) : (b))
+char	diagMessage[2*MAX_EM_LENGTH];
+
+int RemoveListOfResultSets(ZSESSION *session, LIST *resultSets, 
+			   ListStatuses **liststatus,
+			   int *not_deleted);
+LIST * ExtractResultSetList(struct resultSetList_List11	*resultSetList);
+int JHandleSearchRequest(ZSESSION *, char *, char **);
+int JHandleInitializeRequest(ZSESSION *, char *, char **);
+
+extern config_file_info *find_file_config(char *filename);
+    
+ListEntries *CheshireScan(ZSESSION *session, char *attributeSetName, 
+			AttributesPlusTerm *termListAndStartPoint,
+			int stepSize,
+			int numberOfTermsRequested,
+			int preferredPositionInResponse,
+			int *status, int *stepUsed);
+
+char *diagnostic_string(int);
+char *strtok_r(char *, char *, char **);
+char *GetCommandFromSocket(int fd, int *size, int timeoutsecs);
+
+extern char *LastResultSetID;
+
+/*
+ * These are much stripped down from the Z39.50 version
+ */
+
+int
+JHandleInitializeRequest(session, initRequest, results)
+     ZSESSION	*session;
+     char	*initRequest;
+     char       **results;
+{
+
+  ZBOOL status = Z_TRUE;
+  FILE *dummy_file;
+  char *filename;
+  char *temp;
+
+  if ((!session) || (!initRequest))
+    return 1009;
+  
+  /* set these large to handle any conceivable records */
+  session->preferredMessageSize = session->c_preferredMessageSize = 50000;
+  session->exceptionalRecordSize = session->c_exceptionalRecordSize = 1000000;
+  session->c_referenceId = NULL;
+  
+  /* to fully initialize things we need to open a particular database */
+  filename = cf_info_base->file_name; /* use first (default) file */
+
+  dummy_file = cf_open(filename, MAINFILE);
+
+  *results = CALLOC(char, 200);
+  temp = CALLOC(char, 200);
+
+  sprintf(temp,"OK FILE %s\n", filename);
+  sprintf(*results, "%08d%s", strlen(temp), temp);
+  FREE(temp);
+
+  return 0;
+}
+
+/*
+ * This function returns 1 to indicate that the result set name 
+ * exists, otherwise it returns 0.
+ */
+int
+ResultSetExist(session, resultSetName)
+     ZSESSION *session;
+     char	*resultSetName;
+{
+  if (list_search(session->c_resultSetNames, resultSetName) == 1)
+    return 1;
+  return 0;
+}
+
+
+char *
+GetErrorMsg(int errorid) {
+
+  char errormsg[500];
+  
+  if (errorid > 1000) {
+    /* not z39.50 code */
+    switch (errorid) {
+    case 1001:
+      sprintf(errormsg,"Error: Search attempted before initialization\n");
+      break;
+    case 1002:
+      sprintf(errormsg,"Null command in display\n");
+      break;
+    case 1003:
+      sprintf(errormsg,"Null resultsetid in display\n");
+      break;
+    case 1004:
+      sprintf(errormsg,"Zero records requested in display\n");
+      break;
+    case 1005:
+      sprintf(errormsg,"Failure to get records for display\n");
+      break;
+    case 1006:
+      sprintf(errormsg,"Sort Not Currently Supported\n");
+      break;
+    case 1009:
+      sprintf(errormsg,"Initialization Error\n");
+      break;
+    case 1010:
+      sprintf(errormsg,"Unknown command\n");
+      break;
+    case 1011:
+      sprintf(errormsg,"Find command with no arguments\n");
+      break;
+    case 1012:
+      sprintf(errormsg,"Syntax Error in Find Command (try quoting search keys)\n");
+      break;
+
+    }
+    return (strdup(errormsg));
+
+  }
+  else {
+    /* errorcode is a z39.50 diagnostic */
+    sprintf(errormsg,"%s %s", diagnostic_string(errorid), 
+	    diagnostic_addinfo());
+    return(strdup(errormsg));
+  }
+}
+
+int
+JHandleSearchRequest(session, querystring, results)
+     ZSESSION	*session;
+     char	*querystring;
+     char       **results;
+{
+  RPNQuery *RPN_Query_ptr, *queryparse();
+  int i;		  /* loop counter */
+
+  char *filename;
+  char *attributeSetId;
+  char *element_set_name;
+  int element_set_spec;
+  char *querymain;
+  Query query;
+  int resultcode;
+  char *temp;
+
+  if (cf_info_base == NULL) {
+    return 1001; /* not initialized */
+  } 
+
+  /* use first (default) file */
+  strcpy(session->databaseName, cf_info_base->file_name);
+
+  element_set_name = "F"; /* default to full */
+  element_set_spec = 0;;
+
+  attributeSetId = OID_BIB1;
+
+  temp = strtok_r(querystring, " ", &querymain);
+
+  if (querymain == NULL)
+    return 1011;
+
+  RPN_Query_ptr = queryparse(querymain, attributeSetId);
+
+  clean_up_query_parse();  
+
+  if (RPN_Query_ptr == NULL)
+    return 1012;
+
+
+  if (LastResultSetID != NULL)
+    strcpy(session->resultSetName, LastResultSetID);
+  else
+    strcpy(session->resultSetName, "Default");
+
+  session->resultCount = 0;
+  session->replaceIndicator = 1;
+
+  /* make a full query, so we can use the searchapi stuff */
+  query.which = e2_type_1;
+  query.u.type_1 = RPN_Query_ptr;
+
+  /* actually process the query and retrieve the results */
+  resultcode = CheshireSearch (session, &query);
+
+  FreeRPNQuery(RPN_Query_ptr);
+
+  if (resultcode == 0) {
+    /* successful search */
+    /* Add the current result set name to the list of result set names
+     * belonging to the current client. 
+     */
+    if ((session->resultCount > 0) && 
+	(list_search(session->c_resultSetNames, 
+		     session->resultSetName) != 1))
+      list_add(session->c_resultSetNames, session->resultSetName);
+    /* prepare the result message of resultsetname and number of hits */
+    *results = CALLOC(char, (strlen(session->resultSetName) + 20));
+    temp = CALLOC(char, (strlen(session->resultSetName) + 20));
+    sprintf(temp,"%s %d\n", session->resultSetName, session->resultCount);
+    sprintf(*results, "%08d%s", strlen(temp), temp);
+    FREE(temp);
+  }
+
+  return (resultcode);
+}
+
+int
+JHandlePresentRequest(session, presentRequest, results)
+     ZSESSION	*session;
+     char	*presentRequest;
+     char       **results;
+{
+
+  int startPoint;
+  int numberRecordsRequested;
+  char resultSetId[100];
+  char databaseName[100];
+  char elementSetName[100];	/* 'F' means full record.	*/
+  char *command;
+  char *setid;
+  char *startpoint_s;
+  char *numrecs_s;
+  LIST *mlist;			
+  int  *totalsize;
+  char *rec;
+  char *temp;
+  char *elementsetname;
+  int request_elementset = 0;
+  int numberRecordsReturned;
+  int nextResultSetPosition;
+  int resultCount;
+  RECORD_LISTS    *recList, *rlist;
+
+  if ((!session) || (!presentRequest))
+    return 1002;
+
+  command = strtok(presentRequest, " ");
+  setid = strtok(NULL, " ");
+  startpoint_s = strtok(NULL, " ");
+  numrecs_s = strtok (NULL, " ");
+  elementsetname = strtok(NULL, " ");
+
+  if (setid == NULL)
+    return 1003;
+
+  if (startpoint_s == NULL) 
+    startPoint = 1;
+  else
+    startPoint = atoi(startpoint_s);
+
+  if (startPoint == 0)
+    startPoint = 1; /* this is really an error, but why other? */
+
+  if (numrecs_s == NULL)
+    numberRecordsRequested = 10; /* default to 10 */
+  else
+    numberRecordsRequested = atoi(numrecs_s);
+
+  if (numberRecordsRequested == 0)
+    return 1004;
+
+  if (elementsetname != NULL) {
+     request_elementset = 1;
+     strcpy(session->presentElementSet, elementsetname);
+  }
+
+  nextResultSetPosition = 0;
+  numberRecordsReturned = 0;
+  
+  session->preferredRecordSyntax = SGML_RECSYNTAX;
+  /*
+   * Check for the range of present request.
+   * Get the number of records for the requested result set.
+   */
+  resultCount = session->resultCount;
+  if ((startPoint < 1) || 
+      (startPoint > resultCount) || 
+      (numberRecordsRequested < 1)) {
+    sprintf(diagMessage, "%s has %d records", resultSetId, resultCount);
+    SetError2 (session, 13, diagMessage);
+    return (13);
+  }
+  if ((startPoint + numberRecordsRequested) > resultCount + 1) {
+    numberRecordsRequested = resultCount + 1 - startPoint;
+    sprintf(diagMessage, "%s has only %d records. The start point is %d, then the maximum number of records you may request is %d", 
+	    resultSetId, resultCount,
+	    startPoint, numberRecordsRequested);
+    SetError2 (session, 13, diagMessage);
+    return(13);
+  }
+  
+  /*
+   * The number of records that are returned in the 
+   * present response should be decided based on the values of the 
+   * preferredMessageSize, the exceptionalRecordSize, et al.
+   * TO BE IMPLEMENTED.
+   */
+  numberRecordsReturned = numberRecordsRequested;
+  nextResultSetPosition = startPoint+numberRecordsReturned;
+  
+  if (nextResultSetPosition > resultCount)
+    nextResultSetPosition = 0;
+  
+  rlist = RetrieveRecords2(session, setid, startPoint, 
+			   numberRecordsReturned,  request_elementset);
+  if (!rlist) 
+    return 1005;
+  
+  totalsize = 0;
+
+  for (recList = rlist; recList != NULL; recList = recList->next) {
+    if (recList->records->which == rec_type_list) {
+      /* List structured records (MARC or SUTRS/SGML) */
+      mlist = recList->records->u.list;
+      for (rec = list_first(mlist); rec != NULL; rec = list_next(mlist)) 
+	totalsize += strlen(rec)+1;
+      
+      *results = CALLOC(char, totalsize + 32);
+      temp = CALLOC(char, totalsize + 32);
+      sprintf(temp, "%08d", numberRecordsReturned);
+      
+      for (rec = list_first(mlist); rec != NULL; rec = list_next(mlist)) {
+	strcat(temp, rec);
+	strcat(temp, "\036");
+      }
+      temp[strlen(temp)] = '\0';
+      sprintf(*results, "%08d %s", strlen(temp) + 1, temp);
+      FREE(temp);
+    }
+  }
+  list_free(rlist->records->u.list);
+  FREE(rlist->records);
+  FREE(rlist);
+
+  return 0;
+}
+
+
+int
+JHandleDeleteResultSetRequest(session, deleteResultSetRequest, results)
+     ZSESSION	*session;
+     char	*deleteResultSetRequest;
+     char       **results;
+{
+  LIST *resultSetList;
+  int	deleteOperation;
+  struct ListStatuses *liststat;
+  int  overallresult;
+  int  number_not_deleted = 0;
+  char *command;
+  char *SetId;
+  
+
+  command = strtok(deleteResultSetRequest, " ");
+  
+  while (SetId = strtok(NULL, " ")) {
+    
+    if (strcasecmp(SetId, "ALL") == 0) {/* Delete all result sets	*/
+      resultSetList = list_dup(session->c_resultSetNames);
+      overallresult = RemoveListOfResultSets(session, resultSetList, 
+					     &liststat, &number_not_deleted);
+    }
+    else {
+      
+      if (list_search(session->c_resultSetNames, SetId) == 1) {
+	se_delete_result_set(SetId);
+      }
+      /* reset diagnostics */
+      diagnostic_clear();
+      /*
+       * remove the result set name from the list of result set
+       * names in session->c_resultSetNames.
+       */
+      list_delete(session->c_resultSetNames, SetId);
+    }
+  }
+  return 0;
+}
+
+int
+RemoveListOfResultSets(session, resultSets, liststatus, not_deleted)
+     ZSESSION	*session;
+     LIST	*resultSets;	/* A list of result sets to be deleted.	*/
+     struct ListStatuses **liststatus;
+     int *not_deleted;
+{
+  char *resultSetId;
+  int delete_result_code = 0;
+  int failure_result_code = 0;
+  int checked=0,  deleted=0;
+  struct ListStatuses *first, *current, *last;
+  InternationalString NewInternationalString();
+  *not_deleted = 0;
+  first = current = last = NULL;
+
+  if (resultSets == NULL)
+    return(1);
+
+  for (resultSetId = list_first(resultSets); resultSetId != NULL;
+       resultSetId = list_next(resultSets)) {
+    /*
+     * Should return a status value for each result set to be
+     * deleted.
+     */
+    current = CALLOC(struct ListStatuses, 1);
+    if (first == NULL)
+      first = last = current;
+    else {
+      last->next = current;
+      last = current;
+    }
+
+    current->item.id = (ResultSetId)NewInternationalString(resultSetId);
+    
+    checked++;
+    if (list_search(session->c_resultSetNames, resultSetId) == 1) {
+      se_delete_result_set(resultSetId);
+      delete_result_code = diagnostic_get();
+      switch (delete_result_code) {
+      case 0: current->item.status = failure_result_code = 0;
+	deleted++;
+	break;
+      case 30: current->item.status = failure_result_code = 1;
+	break;
+      case 27: current->item.status = failure_result_code = 2;
+	break;
+      case 2: current->item.status = failure_result_code = 3;
+	break;
+      case 101: current->item.status = failure_result_code = 4;
+	break;
+      case 105: current->item.status = failure_result_code = 5;
+	break;
+      case 31: current->item.status = failure_result_code = 6;
+	break;
+      case 28: current->item.status = failure_result_code = 10;
+	break;
+      }
+      /* reset diagnostic */
+      diagnostic_clear();
+
+      /*
+       * remove the result set name from the list of result set
+       * names in session->c_resultSetNames.
+       */
+      list_delete(session->c_resultSetNames, resultSetId);
+    }
+  }
+  if (checked > deleted) {
+    failure_result_code = 8;
+    *not_deleted = checked - deleted;
+  }
+  *liststatus = first;
+
+  return (failure_result_code);
+}
+
+
+int 
+JHandleCloseRequest(ZSESSION *session, char *close, char **results)
+{
+  return 999;
+}
+
+
+int
+JHandleClientConnection(session, cfd)
+     ZSESSION	*session;
+     int cfd;
+{
+  extern FILE *LOGFILE;
+  char *commandbuf = NULL;
+  char *resultbuffer = NULL;
+  int commandlen = 0;
+
+  int resultcode;
+
+  session->c_fd = cfd;
+
+  while (1) {
+    commandbuf = GetCommandFromSocket(cfd, &commandlen, session->s_timeOut);
+    if (commandbuf == NULL) {
+      fprintf(LOGFILE, "Error in GetCommandFromSocket call.\n");
+      fflush(LOGFILE);
+      break;
+    }
+    fprintf(LOGFILE, "Incoming Command: %s\n",commandbuf);
+
+    ClearError (session);
+    resultcode = 0;
+
+    switch (*commandbuf) {
+      
+    case 'I':
+    case 'i':
+      session->state = S_INIT_RECEIVED;
+      resultcode = JHandleInitializeRequest(session, 
+					    commandbuf, &resultbuffer);
+      break;
+
+    case 'F':
+    case 'f':
+      session->state = S_SEARCH_RECEIVED; 
+      resultcode = JHandleSearchRequest(session, commandbuf, &resultbuffer);
+      break;
+      
+    case 'D':
+    case 'd':
+      session->state = S_PRESENT_RECEIVED; 
+      resultcode = JHandlePresentRequest(session, commandbuf,&resultbuffer);
+      break;
+      
+    case 'R':
+    case 'r':
+      session->state = S_DELETE_RECEIVED; 
+      resultcode = JHandleDeleteResultSetRequest(session, commandbuf,&resultbuffer);
+      break;
+      
+    case 'C':
+    case 'c':
+      session->state = S_CLOSE_RECEIVED; 
+      resultcode = JHandleCloseRequest(session, commandbuf, &resultbuffer);
+      break;
+
+    default:
+      fprintf(LOGFILE,"Illegal client request received.\n");
+      resultcode = 1010;
+      break;
+    }
+
+    if (resultcode == 999) {
+      fprintf(LOGFILE,"Close Request: shutting down\n");
+      break;
+    }
+   
+    /*
+     *	Transmit the response to the client.
+     */
+
+    PutResultsToSocket(cfd, resultbuffer, resultcode);
+
+    fprintf(LOGFILE, "Finished transmitting outgoing data.\n");
+    fflush(LOGFILE);
+
+    if (commandbuf) {
+      FREE(commandbuf);
+      commandbuf = NULL;
+    }
+    if (resultbuffer) {
+      FREE(resultbuffer);
+      resultbuffer = NULL;
+    }          
+  }
+
+  return 0;
+}
+
+int
+SetClientOptions(session)
+     ZSESSION	*session;
+{
+
+  char *options;
+
+  if (!session)
+    return Z_ERROR;
+
+  options = session->c_options;
+
+  if (!options)
+    return Z_ERROR;
+
+  session->c_supportVersion2 = 
+    (session->c_protocolVersion[1]=='1') ? Z_TRUE : Z_FALSE;
+  session->c_supportVersion3 = 
+    (session->c_protocolVersion[1]=='1') ? Z_TRUE : Z_FALSE;
+
+
+  if (session->c_supportVersion2) {
+    session->c_requestSearch = (options[0] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestPresent = (options[1] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestDeleteResultSet = (options[2] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestResourceReport = (options[3] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestTriggerResourceControl = 
+      (options[4] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestResourceControl = (options[5] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestAccessControl = (options[6] == '1') ? Z_TRUE : Z_FALSE;
+    
+  }
+  if (session->c_supportVersion3) {
+    session->c_requestScan = (options[7] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestSort = (options[8] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestExtendedServices = 
+      (options[10] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestLevel_1_Segmentation = 
+      (options[11] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestLevel_2_Segmentation = 
+      (options[12] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestConcurrentOperations = 
+      (options[13] == '1') ? Z_TRUE : Z_FALSE;
+    session->c_requestNamedResultSets = 
+      (options[14] == '1') ? Z_TRUE : Z_FALSE;
+  }
+  return Z_OK;
+
+}
+
+
+
+

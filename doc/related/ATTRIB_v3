@@ -1,0 +1,105 @@
+
+ 
+                            Appendix ATR 
+ 
+                           Attribute Sets
+
+                            (Normative)
+
+
+ATR.1 Attribute Set bib-1
+       This section defines and registers the attribute-set bib-1.  The
+object identifier for bib-1 is: 
+{Z39-50-attributeSet bib-1 (1)}
+       In the Z39.50 ASN.1 definitions, when the value of AttributeSetId,
+accompanying AttributeList, equals the object identifier for this attribute-
+set, then: AttributeType (within AttributeElement within AttributeList)
+takes values from table 1 below, and AttributeValue takes values from the
+corresponding attribute table (2 through 7).
+
+                              Table 1:  Attribute Types
+Attribute Type Value       Table        Attribute Type       Value  Table 
+Use            1    See table 7         Structure            4     See table 4
+Relation       2    See table 2         Truncation           5     See table 5
+Position       3    See table 3         Completeness         6     See table 6
+
+Table 2: Relation Attributes                          Table 3: Position Attributes
+Relation            Value                      Position                   Value
+less than           1                          first in field             1
+less or equal       2                          first in subfield          2
+equal               3                          any position in field      3
+greater or equal    4                          
+greater than        5                          Table 4: Structure Attribute
+not equal           6                          Structure                  Value
+phonetic            100                        Phrase                     1
+stem                101                        word                       2
+relevance           102                        key                        3
+Note: "term" is the right operand .......      year                       4
+ For example, ..........................       date (normalized)          5
+                                               word list                  6
+                                               date (un-normalized)       100
+                                               name (normalized)          101
+Table 5: Truncation Attributes                 name (un-normalized)       102
+Truncation                 Value               structure                  103
+Right Truncation           1                   urx                        104
+Left truncation            2                   free-form-text             105
+Left and right             3                   document-text              106
+Do not truncate            100                local number                107
+Process # ...              101                 
+Glob                       102                 Table 6: Completeness Attributes
+Regexp                     103                 Completeness               Value
+                                               incomplete subfield               1
+                                               complete subfield                 2
+                                               complete field                    3
+
+Table 7: Use Attributes
+Use                        Value        Use                        Value
+Personal name              1            Number legal deposit              49
+Corporate name             2            Number govt publication           50
+Conference name            3            Number publisher for music        51
+Title                      4            Number db                         52
+Title series               5            Number local call                 53
+Title uniform              6            Code -- language                  54
+ISBN                       7            Code -- geographic area           55
+ISSN                       8            Code -- institution               56
+LC card number             9            Name and title                    57
+BNB card no.               10           Name geographic                   58
+BGF number                 11           Place publication                 59
+Local number               12           CODEN                             60
+Dewey classification       13           Microform generation              61
+UDC classification         14           Abstract                          62
+Bliss classification       15           Note                              63
+LC call number             16           Author-title                      1000
+NLM call number            17           Record type                       1001
+NAL call number            18           Name                              1002
+MOS call number            19           Author                            1003
+Local classification       20           Author-name personal              1004
+Subject heading            21           Author-name corporation           1005
+Subject Rameau             22           Author-name conference            1006
+BDI index subject          23           Identifier -- standard            1007
+INSPEC subject             24           Subject -- LC children's          1008
+MESH subject               25           Subject name -- personal          1009
+PA subject                 26           Body of text                      1010
+LC subject heading         27           Date/time added to database       1011
+RVM subject heading        28           Date/time last modified           1012
+Local subject index        29           Authority/format identifier       1013
+Date                       30           Concept-text                      1014
+Date of publication        31           Concept-reference                 1015
+Date of acquisition        32           Any                               1016
+Title key                  33           Default                           1017
+Title collective           34           Publisher                         1018
+Title parallel             35           Record-source                     1019
+Title cover                36           Editor                            1020
+Title added title page     37           Bib-level                         1021
+Title caption              38           Geographic-class                  1022
+Title running              39           Indexed-by                        1023
+Title spine                40           Map-scale                         1024
+Title other variant        41           Music-key                         1025
+Title former               42           Related-periodical                1026
+Title abbreviated          43           Report-number                     1027
+Title expanded             44           Stock-number                      1028
+Subject precis             45           Thematic-number                   1030
+Subject rswk               46           Material-type                     1031
+Subject subdivision        47           Doc-id                            1032
+Number natl biblio         48           Host-item                         1033
+                                        Content-type                      1034

@@ -1,0 +1,34 @@
+# Test explain access and display
+puts "Contacting ATT..."
+zselect help z3950.bell-labs.com IR-Explain-1 210
+puts "Setting Attributes"
+zset attributes explain
+zset recsyntax explain
+puts "trying to get RecordSyntaxOID"
+set results [zfind RecordSyntaxOID 1.2.840.10003.5.105]
+puts "Results are $results"
+set hits [lindex [lindex [lindex $results 0] 2] 1]
+puts "Hits = $hits"
+set results2 [zdisplay $hits 1]
+
+
+foreach a [lrange $results2 1 end] {
+	puts "RecordSyntaxInfo::"
+	foreach line $a {
+	   if {[llength $line] > 3} {
+		puts ""
+		foreach part $line {
+		   if {[llength $part] > 3} {
+			puts ""
+			foreach subpart $part {
+			  puts "\t\t\t $subpart"
+			}
+		   } else {
+			puts "\t\t $part"
+		   }
+		}
+           } else {
+		puts "\t $line"
+	   }
+	}
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">index_cheshire - Index a CheshireII
+database </FONT></H2>
+
+<H2>SYNOPSIS </H2>
+
+<P><B>index_cheshire</B> <I>[-b -T tempdirname -S "sort flags" -L logfilename] configfilename [startrec] [maxrec]</I>
+</P>
+
+<H2>DESCRIPTION </H2>
+
+<P> Index_cheshire uses the description included in the configuration file
+<I>configfilename</I> to index an SGML database. </P>
+
+<P> The configuration file should describe the main SGML data file, the
+associator file (See <B>buildassoc</B>), the DTD for the SGML data, and
+the desired index and cluster definitions. The program will create the
+index files specified in the configuration file and then process all of
+the SGML records and extract the appropriate information to populate the
+specified indexes. It will also extract the base information used for cluster
+files (which must be further processed by <B>index_clusters</B> to create
+the full cluster indexes. </P>
+
+<P> If the <I>-b</I> flag is used, the indexing uses some batch loading
+techniques that greatly increase the indexing speed. Use of this flag is
+recommended in most cases, and especially when doing the initial indexing
+of a large database. If the -T flag is used then
+the "tempdirname" should be the path of the directory where the temporary
+files created by the batch processing and sorting are to be put. The
+-S flag can be used to pass a quoted list of flags to the system sort
+used in batch loading (see the documentation for the sort command on
+your system for the flags available).</P>
+
+<P> The optional <I>startrec</I> and <I>maxrec</I> arguments are the logical
+record numbers of the first record to start indexing and the last record
+to index. If these are not supplied, index_cheshire assumes that all records
+should be indexed. If a single number is supplied it is assumed to be the
+<I>startrec</I> parameter, and indexing will be done from that record to
+the end of file. Note that the logical record numbers used are derived
+from the associator file for the database and usually correspond to the
+sequence of records in the SGML file. .</P>
+
+<H2>ADDING RECORDS TO A DATABASE </H2>
+
+<P> New SGML records can simply be concatenated to the end of an SGML file,
+but they then must be added to the indexes. To do this, after concatenating
+the new records, run the <I>buildassoc</I> command on the database -- this
+will report the logical record number for the start of the new records
+in the database. This number should then be supplied as the <I>startrec</I>
+parameter to the <B>index_cheshire</B> program. </P>
+
+<H2>LOG and ERROR INFORMATION </H2>
+
+<P> If the "-L" option is not used, then running the
+<B>index_cheshire</B> program creates a file in the current directory
+called INDEX_LOGFILE. If the "-L" option is used then the logfile is
+given the name provided on the command line. If this file already
+exists when the program is run, new information is appended to the
+existing file. INDEX_LOGFILE will contain any errors or problems
+encountered in indexing. </P>
+
+<H2>BUGS </H2>
+
+<P>None known </P>
+
+<H2>SEE ALSO </H2>
+
+<P><A HREF="configfiles.html">Configuration file documentation</A>, index_clusters,
+<A HREF="buildassoc.html">buildassoc </A></P>
+
+<H2>AUTHOR </H2>
+
+<P>Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>) </P>
+
+</BODY>
+</HTML>

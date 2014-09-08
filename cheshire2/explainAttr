@@ -1,0 +1,23 @@
+# Test explain access and display
+if {$argc != 1} {
+   puts "Must provide port..."
+   exit
+}
+puts "Contacting sherlock..."
+zselect help sherlock IR-Explain-1 $argv
+puts "Setting Attributes"
+zset attributes explain
+zset recsyntax explain
+puts "trying to get AttributeSetInfo"
+set results [zfind cat AttributeSetInfo]
+puts "Results are $results"
+set hits [lindex [lindex [lindex $results 0] 2] 1]
+puts "Hits = $hits"
+set results2 [zdisplay $hits 1]
+
+foreach a [lrange $results2 1 end] {
+	puts "AttributeSetInfo::"
+	foreach line [lrange $a 1 end] {
+		puts "\t $line"
+	}
+}

@@ -1,0 +1,17 @@
+preferredMessageSize
+maximumRecordSize
+implementationID
+implementationName
+implementationVersion
+supportVersion1			YES
+supportVersion2			YES
+supportVersion3			NO
+supportSearch			YES
+supportPresent			YES
+supportDeleteResultSet		NO
+supportTriggerResourceControl	NO
+supportResourceControl		NO
+supportAccessControl		NO
+smallSetUpperBound		
+largeSetLowerBound		
+mediumSetPresentNumber

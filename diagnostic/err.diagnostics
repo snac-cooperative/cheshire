@@ -1,0 +1,165 @@
+
+
+                            Appendix ERR 
+ 
+                          Error Diagnostics 
+
+                             (Normative)
+
+
+
+       This section defines and registers the diagnostic set bib-1 and the
+diagnostic format diag-1.  
+       When version 2 is in effect, a diagnostic record must conform to the
+format defined within the ASN.1 in 4.1.  That format is described as
+follows:
+       OldDiagRec ::= SEQUENCE{ 
+             diagnosticSetId            OBJECT IDENTIFIER,
+             condition                  INTEGER,
+             addinfo                    VisibleString}
+       The condition described by the diagnostic record is given by an
+integer, qualified by an OBJECT IDENTIFIER, the "diagnostic set id".  
+       In version 3 a diagnostic record may assume the version 2 form above,
+or alternately, may take an EXTERNALly defined form, identified by an OBJECT
+IDENTIFIER (which identifies the diagnostic format, as opposed to the
+diagnostic set). 
+       Bib-1 is a diagnostic set. It was defined and registered in Z39.50-
+1992. The conditions listed in Z39.50-1994 for bib-1 include all those which
+were listed in bib-1 in Z39.50-1992, as well as several additional
+diagnostics which have been added. (In particular, several of the conditions
+described by diag-1 that can be expressed by the above format have been
+added to bib-1.)
+       Diag-1 is a diagnostic format. It includes several structures for
+diagnostic information, each tailored to the error information being
+described.  It also includes a single structure through which a diagnostic
+>from a diagnostic set (e.g. bib-1) can be referenced. 
+       Diag-1 allows several diagnostic conditions within a single diagnostic
+record, to describe multiple errors pertaining to the same record or
+operation. In particular, diagnostics from different diagnostic sets may be
+included within the same diag-1 diagnostic record.
+
+
+ERR.1  Diagnostic Set Bib-1
+       This section defines and registers the diagnostic set bib-1.  The
+object identifier for bib-1 is {Z39-50-diagnosticFormat bib-1 (1)}. 
+       The table below is for use when DiagnosticSetId (within OldDiagRec)
+equals the object identifier for this diagnostic set, in which case,
+Condition (within OldDiagRec) takes values from the "Code" column below. 
+  This table may also be used by diagnostic format diag-1 when v2DiagRec is
+selected for "diagnostic", and DiagnosticSetId equals the object identifier
+for this diagnostic set. In that case, the values of "code" and "addinfo"
+would be taken from this table.
+
+code    Meaning                                         Addinfo Type
+1       permanent system error                          (unspecified)  1
+2       temporary system error                          (unspecified)  1
+3       unsupported search                              (unspecified)  2
+4       Terms only exclusion (stop) words               (unspecified)  2
+5       Too many argument words                         (unspecified)  2
+6       Too many boolean operators                      (unspecified)  2
+7       Too many truncated words                        (unspecified)  2
+8       Too many incomplete subfields                   (unspecified)  2
+9       Truncated words too short                       (unspecified)  2
+10      Invalid format for rec. number (search...       (unspecified)  2
+11      Too many characters in search statement         (unspecified)  2
+12      Too many records retrieved                      (unspecified)  2
+13      Present request out-of-range                    (unspecified)  3
+14      System error in presenting records              (unspecified)  4
+15      Record not authorized ....                      (unspecified)  4
+16      Record exceeds Preferred-message-size           (unspecified)  4
+17      Record exceeds Maximum-record-size              (unspecified)  4
+18      Result set not supported as a search term       (unspecified)  2
+19      Only single result ....                         (unspecified)  2
+20      Only ANDing of a single result set ...          (unspecified)  2
+21      Result set exists and replace indicator off     (unspecified)  2
+22      Result set naming not supported                 (unspecified)  2
+23      Specified combination of databasess ...         (unspecified)  2
+24      Element set names not supported                 (unspecified)  1
+25      Specified element set name ...                  (unspecified)  1
+26      Only generic form ...                           (unspecified)  1
+27      Result set no longer exists - ...               (unspecified)  1
+28      Result set is in use                            (unspecified)  1
+29      One of the specified databases is locked        (unspecified)  1
+30      Specified result set does not exist             (unspecified)  1
+31      Resources exhausted - no results available      (unspecified)  2
+32      Resources exhausted - unpred. ...               (unspecified)  2
+33      Resources exhausted - valid subset ...          (unspecified)  2
+100     (unspecified) error                             (unspecified)  1
+101     Access-control failure                          (unspecified)  1
+102     Challenge required, .....                       (unspecified)  1
+103     Challenge required, ....                        (unspecified)  4
+104     Challenge failed - record not included          (unspecified)  4
+105     Terminated at origin request                    (unspecified)  1
+106     No abstract syntaxes ....                       (unspecified)  4
+107     Query type not supported                        (unspecified)  2
+108     Malformed query                                 (unspecified)  2
+109     Database unavailable                            database name  2
+110     Operator unsupported                            operator       2
+111     Too many databases specified                    maximum        2
+112     Too many result sets created                    maximum        2
+113     Unsupported attribute type                      type           2
+114     Unsupported Use attribute                       value          2
+115     Unsupported value for Use attribute             term           2
+116     Use attribute required but not supplied         (unspecified) 2
+117     Unsupported Relation attribute                  value          2
+118     Unsupported Structure attribute                 value          2
+119     Unsupported Position attribute                  value          2
+120     Unsupported Truncation attribute                value          2
+121     Unsupported Attribute Set                       oid            2
+122     Unsupported Completeness attribute              value          2
+123     Unsupported attribute combination               (unspecified) 2
+124     Unsupported coded value for term                value          2
+125     Malformed search term                           (unspecified)   2
+126     Illegal term value for attribute                term           2
+127     Unparsable format for un-normalized value       value          2
+128     Illegal result set name                         name           1
+129     Proximity search of sets not supported          (unspecified) 2
+130     Illegal result set in proximity search          rs name        2
+131     Unsupported proximity relation                  value          2
+132     Unsupported proximity unit code                 value          2
+201     Proximity not supported 
+        with this attribute combination                 attr. list    2
+202     Unsupported distance for proximity              distance       2
+203     Ordered flag not supported for proximity        (unspecified)   2
+204     Exclusion flag not supported for proximity      (unspecified)   2
+205     Only zero step size supported for Scan          (unspecified)   5
+206     Specified step size not supported for Scan      step size      5
+207     Cannot sort according to sequence               sequence       5
+208     No result set name supplied on Sort             (unspecified) 5
+209     Generic sort not supported (db specific only)     (unspec)     5
+210     Db specific sort not supported                  (unspecified)   5
+211     Too many sort keys                              number         5
+212     Duplicate sort keys                             key            5
+213     Unuspported missing data action                 value          5
+214     Illegal sort relation                           relation       5
+215     Illegal case value                              value          5
+216     Illegal missing data action                     value          5
+217     Cannot guarantee records will fit 
+        in specified segments                           (unspecified)   3
+218     ES: Package name already in use                 name           5
+219     ES: no such package, on modify/delete           name           5
+220     ES: quota exceeded                              (unspecified)   5
+221     ES: extended service type not supported         type           5
+222     ES: permission denied on ES - 
+        id not authorized                               (unspecified)   5
+223     ES: permission denied on ES - 
+        cannot modify or delete                         (unspecified)   5
+224     ES: immediate execution failed                  (unspecified)   5
+225     ES: immediate execution not 
+        supported for this service                      (unspecified)   5
+226     ES: immediate execution not 
+        supported for these parameters                  (unspecified)   5
+227     No data available in requested record syntax     (unspecified)  4
+228	Scan: Malformed scan				(unspecified)	5
+229	Term type not supported				type		1
+230	Sort: too many input records			max		5
+231	Sort: incompatible record formats		(unspecified)	5
+
+
+"Type" is as follows:
+ (1) May occur when search-status or present-status = "failure". 
+ (2) May occur only when search-status = "failure". 
+ (3) May occur only when present-status = "failure". 
+ (4) May occur only as a surrogate for a database record.
+ (5) Applies to a service other than Search or Present.
+

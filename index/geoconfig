@@ -1,0 +1,94 @@
+<!-- This is a test config file for Cheshire II -->
+<DBCONFIG>
+<FILEDEF TYPE=SGML>
+<FILETAG>  bibfile
+</FILETAG>
+<FILENAME>  /usr3/cheshire2/new/testdata/LSL_ALL.SGML
+</FILENAME>
+<FILEDTD>   /usr3/cheshire2/new/sgml/USMARC07.DTD
+</FILEDTD>
+<ASSOCFIL>  /usr3/cheshire2/new/testdata/LSL_ALL.SGML.asso
+</ASSOCFIL>
+<HISTORY>   /export/home/ray/Work/cheshire2/indexing/GeoTest/geotest.history
+</HISTORY>
+<INDEXES>
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME>  /export/home/ray/Work/cheshire2/indexing/GeoTest/dict.geoloc
+</INDXNAME>
+<INDXTAG>   geoloc
+</INDXTAG>
+<INDASSOC>  /export/home/ray/Work/cheshire2/indexing/GeoTest/geoloc.idxasso
+</INDASSOC>
+<INDXPOST>  /export/home/ray/Work/cheshire2/indexing/GeoTest/geoloc.idxpost
+</INDXPOST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD043     
+</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME>  /export/home/ray/Work/cheshire2/indexing/GeoTest/dict.timecode
+</INDXNAME>
+<INDXTAG>   timecode
+  
+</INDXTAG>
+<INDASSOC>  /export/home/ray/Work/cheshire2/indexing/GeoTest/timecode.idxasso
+</INDASSOC>
+<INDXPOST>  /export/home/ray/Work/cheshire2/indexing/GeoTest/timecode.idxpost
+</INDXPOST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD045 </FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME>  /export/home/ray/Work/cheshire2/indexing/GeoTest/dict.geosubj
+</INDXNAME>
+<INDXTAG>   geosubj
+</INDXTAG>
+<INDASSOC>  /export/home/ray/Work/cheshire2/indexing/GeoTest/geosubj.idxasso
+</INDASSOC>
+<INDXPOST>  /export/home/ray/Work/cheshire2/indexing/GeoTest/geosubj.idxpost
+</INDXPOST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD651 </FTAG><S>[ab]</S>
+<FTAG>FLD652 </FTAG><S>a</S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME>  /export/home/ray/Work/cheshire2/indexing/GeoTest/dict.geonames
+</INDXNAME>
+<INDXTAG>   geonames
+</INDXTAG>
+<INDASSOC>  /export/home/ray/Work/cheshire2/indexing/GeoTest/geoname.idxasso
+</INDASSOC>
+<INDXPOST>  /export/home/ray/Work/cheshire2/indexing/GeoTest/geoname.idxpost
+</INDXPOST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD650</FTAG><S>z</S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+</INDEXES>
+</FILEDEF>
+</DBCONFIG>
+
+
+
+
+
+
+
+
+
+
+

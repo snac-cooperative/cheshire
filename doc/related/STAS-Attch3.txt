@@ -1,0 +1,144 @@
+Additional STAS Attribute Types and Values
+
+STAS COMPLETENESS Attributes
+
+The current bib-1 COMPLETENESS Attribute Values range from 1-3. Additional
+STAS COMPLETENESS Attributes will be assigned Values in a new range starting
+at 2000.
+
+Additional STAS COMPLETENESS Attributes and their values are as follows:
+
+        COMPLETENESS Attribute                       Value
+        ~~~~~~~~~~~~~~~~~~~~~~                       ~~~~~
+        Plurals                                      2000
+
+The Plurals Attribute indicates that the search term is expressed in an
+incomplete form (singular). The term should be searched in both its singular
+and plural forms.
+
+STAS Search Type Attributes
+
+The current bib-1 Attributes Types are assigned integer identifiers ranging
+from 1-6.
+
+The STAS "Search Type" Attribute Type is assigned identifier = 2000.
+
+The STAS "Search Type" Attributes and their values are as follows:
+
+        Search Type                                  Value
+        ~~~~~~~~~~~                                  ~~~~~
+        Substructure Search (SSS)                    1
+        Closed Substructure Search (CSS)             2
+        Family Search (FAM)                          3
+        Exact Search (EXA)                           4
+
+STAS Search Scope Attributes
+
+The STAS "Search Scope" Attribute Type is assigned identifier = 2001.
+
+The STAS "Search Scope" Attributes and their values are as follows:
+
+        Search Scope                                 Value
+        ~~~~~~~~~~~~                                 ~~~~~
+        Full File Search                             1
+        Sample File Search                           2
+        Range Search                                 3
+        Subset Search                                4
+
+STAS Search Crossover Attributes
+
+The STAS "Search Crossover" Attribute Type is assigned identifier = 2002.
+
+The STAS "Search Crossover" Attributes and their values are as follows:
+
+        Crossover Attribute                                   Value
+        ~~~~~~~~~~~~~~~~~~~                                   ~~~~~
+
+        Code    Description
+        ~~~~    ~~~~~~~~~~~~
+
+        /P      preparations only                              1
+        /D      nonspecific derivatives                        2
+        /DP     preparations of nonspecific derivatives        3
+        /Q      multiple registry numbers with ambiguous name  4
+        /DQ     nonspecific deriatives that have               5
+                multiple registry numbers with ambiguous name
+
+STAS Relationship Attributes
+
+The STAS "Relationship" Attribute Type is assigned identifier = 2003.
+
+The STAS "Relationship" Attribute Type is a distinct Attribute Type from the
+bib-1 Relation Attribute.
+
+The STAS "Relationship" Attribute may be used when performing a SCAN within
+a thesaurus. The client may specify a "relationship code" as a Relationship
+Attribute associated with the SCAN term to specify which subset of terms in
+the thesaurus are to be presented.
+
+STAS Relationship Attributes may also be applied to terms in a Search
+Request.
+
+Relationship codes can be used to find hierarchical/relational terms in the
+thesaurus for a particular term. Relationship codes allow the client to
+define very precisely what kinds of terms to look at or search for. For
+instance, relationship codes can limit thesaurus terms to narrower terms or
+related terms, to broader terms, to old or new terms, to preferred terms, or
+to any combination of these.
+
+A representative list of the STAS "Relationship" Attributes and their values
+is specified in the following table. The authority list of the STAS
+"Relationship" Attributes and their values is maintained separately.
+
+STAS Relationship Attributes
+Version 1.2 December 19, 1995
+
+===============================================================
+            |                                       | Z39.50  |
+RELATIONSHIP|    DESCRIPTION                        |  STAS   |
+CODE        |                                       |Attribute|
+            |                                       |         |
+============+=======================================+=========+
+            |                                       |         |
+ALL         |All Associated Terms                   |     1   |
+AUTO        |Automatic Relationship                 |     2   |
+BT          |Broader Term                           |     3   |
+DEF         |Definition                             |    20   |
+BRO         |Complete Patent Class                  |    39   |
+DESC        |Description                            |    21   |
+DP          |Dependent Territory                    |    22   |
+FILE        |STN File Name(s)                       |    23   |
+FQ          |Field Qualifier(s)                     |    24   |
+FQD         |Display Field Qualifier(s)             |    25   |
+FQS         |Search Field Qualifier(s)              |    26   |
+GCDP        |Governing Country of a Dependent       |    27   |
+            |Territory                              |         |
+HIE         |All Broader and Narrower Terms         |     4   |
+INDX        |Indexer Note                           |    28   |
+KT          |Keyword Term                           |     5   |
+MAPC        |Map Coordinates                        |    29   |
+MN          |MeSH Tree Number and Descriptor Class  |    30   |
+NEW         |New Term                               |     6   |
+NEXT        |Terms Sequentially Following Input Term|    18   |
+NOTE        |Scope Note                             |     7   |
+NT          |Narrower Term                          |     8   |
+OLD         |Old Term                               |     9   |
+PFT         |Preferred and Forbidden Terms          |    31   |
+PREV        |Terms Sequentially Before Input Term   |    19   |
+PT          |Prior Terms                            |    32   |
+QLF         |Qualifier                              |    33   |
+QPFT        |Qualifier Preferred and Forbidden Terms|    34   |
+RN          |CAS Registry Number                    |    35   |
+RR          |All Associated CAS Registry Numbers    |    36   |
+RT          |Related Term  (see also)               |    10   |
+SC          |Subject Category Code                  |    37   |
+STD         |Standard (all broader, narrower, and   |    11   |
+            | related terms)                        |         |
+SYN         |Synonyns                               |    14   |
+TA          |TAF Company Alternate Names            |    16   |
+TAF         |All Company Names                      |    17   |
+TI          |Complete Classification Title          |    40   |
+TP          |TAF Company Preferred Name             |    15   |
+UF          |Used For Terms (forbidden terms)       |    12   |
+UNIT        |Unit Systems and Symbols               |    38   |
+USE         |Use Terms (preferred terms)            |    13   |

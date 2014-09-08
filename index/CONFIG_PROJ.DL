@@ -1,0 +1,68 @@
+<!-- This is a config file for Cheshire II indexing/retrieval of DL data -->
+<DBCONFIG>
+
+<!-- The first filedef -->
+<FILEDEF TYPE=SGML>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> bibfile </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml.small
+</FILENAME>
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /usr/users/ray/Work/z3950_3/index/TESTDL/ELIBTEXT.DTD </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml.small.assoc
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.history 
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr/users/ray/Work/z3950_3/index/TESTDL/DL.project.indx
+</INDXNAME>
+<INDXTAG> project </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 63 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 63 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 63 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 34 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 34 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 34 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+
+<!-- The associator file for the index linking the termid with postings -->
+<INDASSOC> 
+/usr/users/ray/Work/z3950_3/index/TESTDL/DL.project.assoc 
+</INDASSOC>
+
+<!-- The postings file for the index containing all term/document/freq info -->
+<INDXPOST> 
+/usr/users/ray/Work/z3950_3/index/TESTDL/DL.project.post
+</INDXPOST>
+
+<!-- The stoplist for this file -->
+
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG> PROJECT </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+</INDEXES>
+</FILEDEF> 
+</DBCONFIG>
+

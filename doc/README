@@ -1,0 +1,9 @@
+
+For Cheshire documentation, see the files in the html directory
+
+html/      contains the Cheshire documentation (doc_index.html is the entry)
+icons/     contains various icons for Cheshire evangelism
+install/   contains various files useful for running Cheshire
+papers/    contains papers written about Cheshire
+related/   contains related specifications, such as Z39.50
+

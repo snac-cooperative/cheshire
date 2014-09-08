@@ -1,0 +1,162 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.73 [en] (WinNT; U) [Netscape]">
+</head>
+<body>
+
+<center>
+<h1>
+<img SRC="cat_in_tree_med.gif" height=580 width=413>&nbsp;
+<hr WIDTH="100%"><font color="#FF0000">Cheshire II - Windows NT/2000 Binary
+Distribution</font></h1></center>
+This is the Windows NT binary distribution of the Cheshire II information
+retrieval system. This version is very much based on the Unix versions
+of the system with Windows specific behavior and workarounds added for
+NT and 2000 functionality -- It should work OK with XP as well, though this
+hasn't been tested (and thing will be in different places). This distribution doesn't include a few of the various
+programs in the full Unix distribution, because many of them are not important
+or useful in the windows environment, however most of unix programs now have NT/2000 versions as well.
+<p>Note that Tcl and Tk 8.3.2 (the current distribution should work also)
+should be installed on the system intending to run these programs in the
+default locations (C:\Program Files\Tcl\...). The Tcl/Tk distribution is
+included as a self extracting archive (TCL832.exe).
+<p>The programs here are all intended to be run from the command line
+(with a couple of exceptions -- the cheshire2 and staffcheshire clients).
+They can also be run from the "Run" box in the Start menu. In order to run
+the programs from the command line, the system
+PATH environment variable <b>MUST</b> be updated to include the location
+of these programs (especially the zserver_fork program). To do this open
+the system control panel item and select the environment tab (or in Win2000
+select the Advanced tab and then the Environment Variables button). In the System
+Variables box select "Path" and append a semicolon and the full path name
+of the folder where the programs are located, then press the "set", "Apply",
+and "OK" buttons in that order (or just the OK buttons in Win2000).
+<p>Note that starting with version 2.20 the system now needs to have a
+DATABASE ENVIRONMENT area set aside for use by BerkeleyDB for handling
+locking and disk-backed buffering of data. The advantage gained by these
+changes is that it should is now safe to run index-building updates while
+the server is actively searching the same database. The database environment
+should be set up as an empty directory accessible to the server. The same
+database environment may be shared among all of the databases accessed
+by a server. You tell the system where the database environment area is
+located in one of two ways:
+<p>1) Set the environment variable <b>CHESHIRE_DB_HOME</b> to the full
+pathname of the database environment directory.
+<br><b>OR</b>
+<br>2) Add a &lt;DBENV> tag immediately after the &lt;DBCONFIG> and before
+the first &lt;FILEDEF> in the configuration file.
+<p>The environment variable has priority and will override the DBENV tag
+in a config file.
+<p>IF neither of these is done, the server or program (such as index_cheshire,
+zserver, webcheshire, etc.) will quit with the message "CHESHIRE_DB_HOME
+must be set OR config file &lt;DBENV> set." sent to the console or to the
+server log file.
+<p>When indexing is run (actually when any program that accesses or updates
+the indexes is run) Three files are created in the database environment
+directory, (__db.001, __db.002, and __db.004). Any program or user who
+accesses the database must be able to read and write these files. The simplest
+way to handle this is to make the files world read and writable. Alternatively
+group write could be used, with all users allowed to update and access
+the database -- including the user ids associated with the inetd-started
+servers -- as members.
+<p>All of the programs usually require some command line arguments. The
+basic form of the command can be seen by typing the command name alone
+and pressing return. Further documentation on the system and programs can
+be found in the "Doc" directory and their descriptions are linked below.
+The programs and files included in this distribution are:
+<p><b><a href="buildassoc.html">buildassoc</a></b> -- used to build
+direct access mapping files for SGML data.
+<p><b><a href="cheshire2.html">Cheshire2</a></b><a href="cheshire2.html">
+</a>-- The Tcl/Tk scriptable client program (example scripts may be found
+in the GUI and Scripts folders -- To run them, cd to that folder and type "cheshire2
+opac", which runs the "opac" script in that folder giving a graphical search
+interface. Typing "cheshire2" alone opens a console for interactive use
+of the client. 
+Scripts may also be dragged and dropped on the Cheshire2 icon. Staffcheshire is
+another version of the same program (including local database access commands
+like webcheshire).
+<p><b>webcheshire</b> -- Client program, like above, but without a graphical
+window. This is intended to be used for CGI scripting for web services. The 
+commands for this client are also documented in the 
+<a href="cheshire2.html">Cheshire2</a> client documentation.
+<p><b>CountDB</b> -- Produces counts of items in indexes.
+<br><b>DTD_Parser</b> -- Test parses and dumps an SGML/XML dtd -- reporting
+problems.
+<br><b>DumpDB</b> -- Display the items in an index.
+<BR><B>DumpPost</b> -- Display
+the items and internal document numbers for each occurrence of an item
+in an index.
+<br><b>DumpProx</b> -- Display the items, document numbers, and term locations
+for terms in proximity indexes.
+<br><b>HighPost</b> -- Show only the items in an index that occur more
+than a certain number of times
+<p>All of these program are primarily for examining the database for maintenance
+and evaluation. To see the arguments required for each of these programs,
+just enter its name on the command line with no arguments.
+<p><b><a href="jserver.html">Jserver</a> </b>-- Direct port server
+program for providing access to databases based on <a href="configfiles.html">configuration
+files</a> and a server initialization file. This is an alternative form
+of Server for use on NT. When it is run from the command line it waits
+for a connection on the port supplied as a command line argument and, when
+a connection arrives it spawns a copy of itself to continue listening on
+the port, and proceeds to process the connection. Note that once this is
+started running there will continue to be a jserver listening on the named
+port until it is either killed using the NT Process manager, or the system
+is rebooted. See the document linked above for the format of queries and
+responses to jserver.
+<p><b><a href="index_cheshire.html">Index_cheshire</a> </b>-- Indexing
+program for creating databases based on <a href="configfiles.html">configuration
+files</a>.
+<p><b><a href="index_clusters.html">Index_clusters</a></b> -- Cluster
+building and indexing for appropriately set up <a href="configfiles.html">configuration
+files</a>.
+<p><b>Parser</b> This program parses SGML/XML records based on a <a href="configfiles.html">configuration
+file</a> and dumps a form of the record to stdout.
+<p><b>Tstsearch </b>-- a test program for local searching (without the
+server or client connections).
+<p><b>Test_Config</b> -- a test program for checking the validity of configuration
+files. Reports on the contents of the file if successfully parsed.
+<p><b>TestParse</b> -- a test program to check search command syntax (see&nbsp;
+<a href="cheshire2.html#zfind">Cheshire 2 documentation</a> on zfind
+for search command syntax). Note that the initial "zfind" is not used in
+this test program.
+<p><b><a href="zserver_fork.html">Zserver_fork</a></b> -- This is the
+primary Z39.50 Server for regular use on NT. When it is run from the command
+line it waits for a
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+connection on the port supplied as a command line argument and, when a
+connection arrives it spawns a copy of itself
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+to continue listening on the port, and proceeds to process the connection.
+Note that once this is started running there
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+will continue to be a zserver listening on the named port until it is either
+killed using the NT Process manager, or the
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+system is rebooted.
+<p><b><a href="zserver_nt.html">Zserver_NT </a></b>-- This is a test
+version of the Zserver that only runs for a single connection, and then
+exits without spawning other
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+processes.
+<br>&nbsp;
+<p>The Test_files folder contains some sample files and indexes created
+with Index_cheshire using the <a href="Test_files/testconfig.new">testconfig.new
+configuration file.</a>
+<br>The contents of configuration files are described here. To test the
+indexing program you should delete all of the "dictionary..." files
+<br>(these are the indexes) and edit the testconfig.new file so that all
+of the path names (currently&nbsp; "D:\Cheshire_bin\Test_files\...")
+<br>point to where the Test_files directory actually is on your system.
+Then run the index_cheshire program in that directory, e.g.:
+<br>"index_cheshire -b testconfig.new" -- Messages will be sent to a file
+called "INDEX_LOGFILE" in the same directory.
+<P>
+Additional command information can be found in the Unix documentation
+included in the doc directory -- html documents are available from the
+<a href="doc_index.html">Main documents page</a>.
+<br>&nbsp;
+</body>
+</html>

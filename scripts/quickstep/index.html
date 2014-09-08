@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Quickstep Archive</title>
+  </head>
+
+  <body bgcolor = white>
+<table width = 100%>
+<tr>
+<td width = 100><a href = "../quickstep/"><img src = "../graphics/quickstep-logo.jpg" width = 100 border = 0></a></td> 
+<td><center>Quickstep Default Search Page</center></td>
+</tr>
+</table>
+<p>
+This is Cheshire Quickstep, an email archive and search facility.
+<hr>
+<p>
+<b>Browse the Archive</b>
+<p>
+<form name = "mailarchivescan" action = "/cgi-bin/quickstep.cgi" method = "POST">
+<input type = "hidden" name = "format" value = "scan">
+<table>
+<tr><td bgcolor = lightblue width = 35%>Browse Field</td><td>
+<select name = "fieldidx1">
+<option value = "xsubject" DEFAULT>Subject Line
+<option value = "xauthor">Author
+</select>
+</td></tr>
+<tr><td bgcolor = lightblue>Browsing Point</td><td>
+<input type = text size = 40 name = "fieldcont1" value = "">
+</td></tr>
+</table>
+<input type = submit value = "Browse">
+<p>
+<hr>
+<p>
+<form name = "mailarchive" action = "/cgi-bin/quickstep.cgi" method = "POST">
+<input type="hidden" name= "fieldidx1" value = "anywhere"> 
+<input type="hidden" name= "fieldidx2" value = "author"> 
+<input type="hidden" name= "fieldidx3" value = "date"> 
+<input type="hidden" name= "fieldidx4" value = "subject"> 
+<input type="hidden" name= "fieldidx5" value = "text"> 
+
+<table>
+<tr><td bgcolor = "lightblue" width = 35%>Anywhere</td><td><input type="text" size=40 value = "" name = "fieldcont1"></td></tr>
+<tr><td bgcolor = "lightblue">Author</td><td><input type="text" size=40 value = "" name = "fieldcont2"></td></tr>
+<tr><td bgcolor = "lightblue">Date</td><td>
+<select name = "fieldcont3">
+<option value = "" SELECTED>Ever
+<option value = month>In the last month
+<option value = week>In the last week
+<option value = day>In the last day
+<option value = hour>In the last hour
+</select>
+</td></tr>
+<tr><td bgcolor = lightblue>Start Month</td><td>
+<select name = datestart>
+<option value = "">Any Date
+<option value = "Jan 01 00:00:00 2001">January 2001
+<option value = "Feb 01 00:00:00 2001">February 2001
+<option value = "Mar 01 00:00:00 2001">March 2001
+<option value = "Apr 01 00:00:00 2001">April 2001
+<option value = "May 01 00:00:00 2001">May 2001
+<option value = "Jun 01 00:00:00 2001">June 2001
+<option value = "Jul 01 00:00:00 2001">July 2001
+<option value = "Aug 01 00:00:00 2001">August 2001
+<option value = "Sep 01 00:00:00 2001">September 2001
+<option value = "Oct 01 00:00:00 2001">October 2001
+<option value = "Nov 01 00:00:00 2001">November 2001
+<option value = "Dec 01 00:00:00 2001">December 2001
+</select>
+</td></tr>
+<tr><td bgcolor = lightblue>End Month</td><td>
+<select name = dateend>
+<option value = "">Any Date
+<option value = "Feb 01 00:00:00 2001">January 2001
+<option value = "Mar 01 00:00:00 2001">February 2001
+<option value = "Apr 01 00:00:00 2001">March 2001
+<option value = "May 01 00:00:00 2001">April 2001
+<option value = "Jun 01 00:00:00 2001">May 2001
+<option value = "Jul 01 00:00:00 2001">June 2001
+<option value = "Aug 01 00:00:00 2001">July 2001
+<option value = "Sep 01 00:00:00 2001">August 2001
+<option value = "Oct 01 00:00:00 2001">September 2001
+<option value = "Nov 01 00:00:00 2001">October 2001
+<option value = "Dec 01 00:00:00 2001">November 2001
+<option value = "Jan 01 00:00:00 2002">December 2001
+</select>
+</td></tr>
+<tr><td bgcolor = "lightblue">Subject</td><td><input type="text" size=40 value = "" name = "fieldcont4"></td></tr>
+<tr><td bgcolor = "lightblue">Message Body</td><td><input type="text" size=40 value = "" name = "fieldcont5"></td></tr>
+<tr><td bgcolor = "lightblue">Combine Fields With</td><td>
+<select name="boolean">
+<option SELECTED value = "AND">and
+<option value = "OR">or
+</select>
+</td></tr>
+<tr><td bgcolor = "lightblue">Format</td><td>
+<select name ="format">
+<option value = "short">Summary
+<option value = "long">Full Message
+<option value = "threads">Threads
+</td></tr>
+<tr><td bgcolor = "lightblue">Records to Display</td><td><input type = "text" size = 10 value = 20 name = "numreq"></td></tr>
+<tr><td bgcolor = "lightblue">Start Record</td><td><input type = "text" size = 10 value = 1 name = "firstrec"></td></tr>
+
+</table>
+</select>
+<input type = "submit" name = "submit" value="Search">
+</form>
+<p>
+<hr>
+<p>
+<b>Search Field Information</b>
+<p>
+<ul>
+<li><i>Anywhere</i>:  This will search across the entire message, both headers and body.
+<li><i>Author</i>: This will search for author, either by name or email address.
+<li><i>Date</i>: This is for searching for recent messages.
+<li><i>Start Month</i>: The month to start searching at.
+<li><i>End Month</i>: The month to end searching after.
+<li><i>Subject</i>: Terms here will be searched for in the subject line.
+<li><i>Message Body</i>: This is for searching the actual text of the message.
+<li><i>Combine Fields With</i>: If multiple fields are given, then they will be combined with this.
+<li><i>Format</i>: 
+<ul>
+<li>Summary will display just the subject, author and date, with a link to the full message
+<li>Full Message will display all of the message for each matched.
+<li>Threads will display in the same manner as Summary, but only the first message in each thread
+</ul>
+<li><i>Records to Display</i>: This is the number of records that will be displayed per page
+<li><i>Start Record</i>: This is the number of the first record to be displayed.
+</ul>
+<p>
+<hr>
+  </body>
+</html>

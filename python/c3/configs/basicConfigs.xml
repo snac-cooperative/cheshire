@@ -1,0 +1,86 @@
+<config>
+<subConfigs>
+
+<subConfig type="parser" id="defaultParser">
+  <objectType>parser.MinidomParser</objectType>
+</subConfig>
+
+<subConfig type="parser" id="SaxParser">
+  <objectType>parser.SaxParser</objectType>
+</subConfig>
+
+<subConfig type="preParser" id="SgmlPreParser">
+  <objectType>preParser.SgmlPreParser</objectType>
+</subConfig>
+<subConfig type="preParser" id="WordPreParser">
+  <objectType>preParser.WordPreParser</objectType>
+  <paths>
+    <path type="RemoteURL">http://localhost:8000/convert</path>
+  </paths>
+</subConfig>
+
+<subConfig type="extracter" id="ExactExtracter">
+  <objectType>extracter.SimpleExtracter</objectType>
+</subConfig>
+<subConfig type="extracter" id="KeywordExtracter">
+  <objectType>extracter.KeywordExtracter</objectType>
+</subConfig>
+<subConfig type="extracter" id="ProximityExtracter">
+  <objectType>extracter.ProximityExtracter</objectType>
+</subConfig>
+
+<subConfig type="normaliser" id="CaseNormaliser">
+  <objectType>normaliser.CaseNormaliser</objectType>
+</subConfig>
+<subConfig type="normaliser" id="PossessiveNormaliser">
+  <objectType>normaliser.PossessiveNormaliser</objectType>
+</subConfig>
+<subConfig type="normaliser" id="IntNormaliser">
+  <objectType>normaliser.IntNormaliser</objectType>
+</subConfig>
+<subConfig type="normaliser" id="StringIntNormaliser">
+  <objectType>normaliser.StringIntNormaliser</objectType>
+</subConfig>
+
+<subConfig type="normaliser" id="EnglishStemNormaliser">
+  <objectType>normaliser.StemNormaliser</objectType>
+  <options>
+    <setting type="language">english</setting>
+    <setting type="cacheSize">5000</setting>
+    <setting type="storeRecordData">Foo</setting>
+  </options>
+</subConfig>
+
+<subConfig type="transformer" id="GRS1Transformer">
+  <objectType>transformer.GRS1Transformer</objectType>
+</subConfig>
+
+    <subConfig type="transformer" id="defaultRecordStoreTransformer">
+      <objectType>transformer.XmlRecordStoreTransformer</objectType>
+    </subConfig>
+    <subConfig type="parser" id="defaultRecordStoreParser">
+      <objectType>parser.XmlRecordStoreParser</objectType> 
+    </subConfig>
+
+</subConfigs>
+
+<objects>
+  <path ref="defaultParser"/>
+  <path ref="ExactExtracter"/>
+  <path ref="KeywordExtracter"/>
+  <path ref="ProximityExtracter"/>
+  <path ref="CaseNormaliser"/>
+  <path ref="PossessiveNormaliser"/>
+  <path ref="IntNormaliser"/>
+  <path ref="StringIntNormaliser"/>
+  <path ref="EnglishStemNormaliser"/>
+  <path ref="SaxParser"/>
+  <path ref="SgmlPreParser"/>
+  <path ref="WordPreParser"/>
+  <path ref="GRS1Transformer"/>
+  <path ref="defaultRecordStoreTransformer"/>
+  <path ref="defaultRecordStoreParser"/>
+</objects>
+
+</config>
+  

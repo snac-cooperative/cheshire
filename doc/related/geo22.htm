@@ -1,0 +1,585 @@
+<html>
+
+<head>
+<meta http-equiv="expires" content="Wed, 19 Feb 1997 23:59:59 GMT">
+<title>GEO Profile for Z39.50, Version 2.2</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<h1 align="center">Z39.50 Application Profile for Geospatial Metadata or &quot;GEO&quot;</h1>
+
+<h3 align="center">Version 2.2<br>
+Last Modified: 27 May 2000</h3>
+
+<hr>
+
+<p align="center"><a href="mailto:ddnebert@usgs.gov">Douglas D. Nebert</a><br>
+<a href="http://www.fgdc.gov">U.S. Federal Geographic Data Committee</a><br>
+590 National Center<br>
+<a href="http://www.usgs.gov">U.S. Geological Survey</a><br>
+Reston, Virginia 20192</p>
+
+<hr>
+
+<h2><a name="Contents">Contents</a></h2>
+
+<ol>
+  <li><a href="#1. Introduction">Introduction</a></li>
+  <li><a href="#2. Background">Background</a></li>
+  <li><a href="#3. Scope">Scope</a></li>
+  <li><a href="#4. Field of Application">Field of Application</a></li>
+  <li><a href="#5. References">References</a></li>
+  <li><a href="#6. Definitions">Definitions</a></li>
+  <li><a href="#7. Z39.50 Specifications for GEO">Z39.50 Specifications for GEO</a><ol>
+      <li><a href="#7.1. Version">Version</a></li>
+      <li><a href="#7.2. GEO Objects">GEO Objects</a></li>
+      <li><a href="#7.3. Communication Services">Communication Services</a></li>
+      <li><a href="#7.4. Z39.50 Services">Z39.50 Services</a><ol>
+          <li><a href="#7.4.1. Search">Search</a><ol>
+              <li><a href="#7.4.1.1. Attribute Set">Attribute Set</a></li>
+            </ol>
+          </li>
+          <li><a href="#7.4.2. Retrieval">Retrieval </a><ol>
+              <li><a href="#7.4.2.1. Schema">Schema</a></li>
+              <li><a href="#7.4.2.2. Element Sets">Element Sets</a></li>
+              <li><a href="#7.4.2.3. Record Syntaxes">Record Syntaxes</a></li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+      <li><a href="#7.5. Preferred Display Format">Preferred Display Format</a></li>
+      <li><a href="#7.6. Diagnostic Messages">Diagnostic Messages</a></li>
+    </ol>
+  </li>
+</ol>
+
+<h2>Annexes</h2>
+
+<ol type="A">
+  <li><a href="annex_a.htm">GEO Attribute Set</a></li>
+  <ol type="1">
+    <li><a href="annex_a.htm#Attribute Types">Attribute Types</a></li>
+    <li><a href="annex_a.htm#Use Attributes">Use Attributes</a><ol>
+        <li><a href="annex_a.htm#By Attribute Value">By Attribute Value</a> </li>
+        <li><a href="annex_a.htm#By Element Name">By Element Name</a></li>
+        <li><a href="annex_a.htm#By SGML Tag">By SGML Tag</a></li>
+      </ol>
+    </li>
+    <li><a href="annex_a.htm#Relation Attributes">Relation Attributes</a></li>
+    <li><a href="annex_a.htm#Structure Attributes">Structure Attributes</a></li>
+    <li><a href="annex_a.htm#Truncation Attributes">Truncation Attributes</a></li>
+  </ol>
+  <li><a href="annex_b.htm">GEO Attribute Combinations</a></li>
+  <ol type="1">
+    <li><a href="annex_b.htm#Attribute Combination Guidelines">Attribute Combination Guidelines</a></li>
+    <li><a href="annex_b.htm#Mandatory Attribute Combinations">Mandatory Attribute Combinations</a></li>
+    <li><a href="annex_b.htm#Use and Structure Attributes">Use and Structure Attributes</a></li>
+    <li><a href="annex_b.htm#Structure and Relation Attributes">Structure and Relation
+      Attributes</a></li>
+  </ol>
+  <li><a href="annex_c.htm">GEO Schema</a></li>
+  <ol type="1">
+    <li><a href="annex_c.htm#XML DTD">XML DTD</a></li>
+    <li><a href="annex_c.htm#SGML DTD">SGML DTD</a></li>
+  </ol>
+  <li><a href="annex_d.htm">Long Element Names</a></li>
+  <li><a href="annex_e.htm">Modification History</a></li>
+  <ol type="1">
+    <li><a href="annex_e.htm#Changes from 2.0 to 2.1">Changes from 2.0 to 2.1</a></li>
+    <li><a href="annex_e.htm#Changes from 2.1 to 2.2">Changes from 2.1 to 2.2</a></li>
+    <li><a href="annex_e.htm#Changes from 2.2 to 3.x">Changes from 2.2 to 3.x</a></li>
+    <li><a href="annex_e.htm#Changes from 3.x to 4.x">Changes from 3.x to 4.x</a></li>
+  </ol>
+</ol>
+
+<hr>
+
+<h2><a name="1. Introduction">1. Introduction</a></h2>
+
+<p>This document describes an application profile for the U.S. Federal Geographic Data
+Committee's Content Standard for Digital Geospatial Metadata <a href="#[1]">[1]</a> issued
+in June 1994. This Geospatial Metadata Profile (GEO) is based on <em>ANSI/NISO Z39.50-1995
+Information Retrieval(Z39.50): Application Service Definition and Protocol Specification</em>
+<a href="#[2]">[2]</a>. The GEO Profile includes not only the specifications for Z39.50 in
+the application but also other aspects of a GEO-conformant server that are outside the
+scope of Z39.50. This Profile was written based on the specific examples and wording
+provided by the Application Profile for the Government Information Locator Service <a
+href="#[3]">[3]</a>.</p>
+
+<h2><a name="2. Background">2. Background</a></h2>
+
+<p>The Content Standard for Digital Geospatial Metadata was developed by the Federal
+Geographic Data Committee (FGDC) and the ASTM Section D18.01.05 on Mapping and GIS to
+provide a standard set of data element references for digital, geo-referenced spatial (or
+&quot;geospatial&quot;) information. Metadata is data about the content, quality,
+condition, and other characteristics of data. These standard tags for information elements
+are intended to bridge implementation-specific labels used in existing geoprocessing
+software and to facilitate discovery, query, retrieval, and presentation of geospatial
+metadata -- and the spatial data they reference.</p>
+
+<p>ASTM Section D18.01.05 started development of a standard for spatial metadata in August
+1990 with input from participants at a workshop of the Urban and Regional Information
+Systems Association in San Francisco, California. The Federal Geographic Data Committee
+initiated work on the standard in June, 1992, through a forum on geospatial metadata. At
+the forum, the participants agreed on the need for a standard on the information content
+of metadata about geospatial data. The committee accepted the offer of ASTM Section
+D18.01.05 to develop a draft information content standard. This draft was slightly
+revised, and offered for public review from October 1992 to April 1993. Extensive comments
+were received from the public. The FGDC's Standards Working Group revised the draft. The
+revised draft was provided for further review and testing in July 1993. Refined drafts
+were offered for review and testing in January and March 1994. The draft standard was
+approved by the Federal Geographic Data Committee on June 8, 1994, and was referenced by
+Executive Order 12906, &quot;Coordinating Geographic Data Acquisition and Access: The
+National Spatial Data Infrastructure,&quot; signed on April 11, 1994, by President William
+Clinton. Section 3, Development of a National Geospatial Data Clearinghouse, paragraph (b)
+states: 
+
+<ul>
+  <p><em>&quot;Standardized Documentation of Data. Beginning 9 months from the date of this
+  order, each agency shall document all new geospatial data it collects or produces, either
+  directly or indirectly, using the standard under development by the FGDC, and make that
+  standardized documentation electronically accessible to the Clearinghouse network. Within
+  1 year of the date of this order, agencies shall adopt a schedule, developed in
+  consultation with the FGDC, for documenting, to the extent practicable, geospatial data
+  previously collected or produced, either directly or indirectly, and making that data
+  documentation electronically accessible to the Clearinghouse network.&quot; </em></p>
+</ul>
+
+<p>This standard is the data documentation standard referenced in the executive order. The
+ASTM version of this standard incorporates specific tag references for &quot;short
+names&quot; and numeric tags for each data element or data element grouping <a href="#[4]">[4]</a>.
+The short names are to be used as a guide to software implementors for internal tags for
+tables, columns, or objects, and are suggested for use as tags in extensions to the
+Standard Graphics Markup Language (SGML) and Hypertext Markup Language (HTML) to aid in
+retrieval and presentation.</p>
+
+<h2><a name="3. Scope">3. Scope</a></h2>
+
+<p>The GEO Profile fully specifies the use of ANSI/NISO Z39.50. In addition, the GEO
+Profile provides the specifications for the overall GEO application relating to the FGDC
+Content Standard for Digital Geospatial Metadata including other aspects of GEO-conformant
+servers that are outside the scope of Z39.50. </p>
+
+<p>The GEO Profile focuses on requirements for a GEO server operating in the Internet
+environment. GEO clients will be able to interconnect with any GEO server, and these
+clients will behave in a manner which allows interoperability with the GEO server. Clients
+that support Z39.50 but do not implement the GEO Profile will be able to access FGDC
+records with less than full GEO functionality.</p>
+
+<p>The GEO Profile addresses intersystem interactions and information interchange but does
+not specify user interface requirements. </p>
+
+<h2><a name="4. Field of Application">4. Field of Application</a></h2>
+
+<p>The GEO Profile supports search and retrieval of geospatial metadata entries and
+related geospatial data sets accessible to GEO-compliant servers in the Internet
+environment. This includes local applications of isolated TCP/IP networks, local area
+networks based on Ethernet protocol, and wide-area networks using a consistent host
+addressing scheme. The GEO Profile will be used by implementations of GEO server processes
+as one method of providing standardized access to geospatial metadata and as a reference
+to access the data they reference. It will also be used by client developers to understand
+expected behaviors of GEO servers. A GEO server accessed using Z39.50 in the Internet
+environment acts primarily as a direct access point to information stores it controls.
+These information stores can be accessed through an API, such as is provided with the
+ZDIST software from the Clearinghouse for Networked Information Discovery and Retrieval <a
+href="#[5]">[5]</a>. The target information may be managed by operating system commands
+against text files, by RDBMS or OODBMS against indexed data structures, or by
+geoprocessing software systems which control spatial data and attribute information.</p>
+
+<p>Data elements are also classified as Mandatory or Optional, although optionality is
+dependent in several cases on the type of geospatial data being described. For example,
+the number of rows and columns in a raster data set is not an applicable property for a
+vector data set. Rows and columns would be mandatory for a raster data set and not
+applicable (suppressed) for vector data set descriptions.</p>
+
+<p>Some of the information resources pointed to by GEO Entries may be available
+electronically through other communications protocols including the common Internet
+protocols that facilitate electronic information transfer such as remote login (Telnet),
+File Transfer Protocol (FTP), and electronic mail (SMTP/MIME). The use of these protocols
+or other communications paths is outside the scope of the GEO Profile.</p>
+
+<p>Once connected to a GEO server, users supported by appropriate clients that understand
+the GEO Profile may navigate through single or multiple servers. GEO servers will support
+searching (i.e., accept a search query and return a result set or diagnostic messages) and
+support browsing (i.e., accept a well-known search query and return a list of Entries in
+brief display format). Although the GEO Profile addresses GEO servers only, it is
+understood that clients have roles in the execution of these activities (e.g., browsing is
+also a client function in the sense of how it interprets and presents GEO data).</p>
+
+<h2><a name="5. References">5. References</a></h2>
+
+<p>The following list contains documents referenced by this Profile that contain
+provisions which, through reference in this text, constitute provisions of the GEO
+Profile. At the time of this publication, the editions indicated were valid. All documents
+are subject to revision. </p>
+
+<p><a name="[1]">[1]</a> <i>ANSI/NISO Z3950-1995. Information Retrieval (Z39.50):
+Application Service Definition and Protocol Specification</i>. National Information
+Standards Organization. (1995). Bethesda, MD: NISO Press. Electronic version of Z39.50
+available at the Z39.50 Maintenance Agency. <a href="http://lcweb.loc.gov/z3950/agency">http://lcweb.loc.gov/z3950/agency</a>.</p>
+
+<p><a name="[2]">[2]</a> <em>Content Standards for Digital Geospatial Metadata</em>. U. S.
+Federal Geographic Data Committee (1994). Reston, Virginia. FGDC Secretariat. <a
+href="ftp://fgdc.er.usgs.gov/pub/metadata/meta6894.ps">ftp://fgdc.er.usgs.gov/pub/metadata/meta6894.ps</a>,
+<a href="http://geochange.er.usgs.gov/pub/tools/metadata/standard/940608.txt">http://geochange.er.usgs.gov/pub/tools/metadata/standard/940608.txt</a>,
+<a href="http://geochange.er.usgs.gov/pub/tools/metadata/standard/metadata.html">http://geochange.er.usgs.gov/pub/tools/metadata/standard/metadata.html</a>.</p>
+
+<p><a name="[3]">[3]</a> <em>FIPS PUB 192-1, Application Profile for the Government
+Information Locator Service (GILS) Version 2</em>. U.S. Department of Commerce, Technology
+Administration, National Institute of Standards and Technology (1997). <a
+href="http://www.usgs.gov/gils/prof_v2.html">http://www.usgs.gov/gils/prof_v2.html</a>.</p>
+
+<p><a name="[4]">[4]</a> <em>Standard Specification for Content of Digital Geospatial
+Metadata, D5714-95</em>. American Society for Testing and Materials (1995). West
+Conshohocken, PA.</p>
+
+<p><a name="[5]">[5]</a> Clearinghouse for Networked Information Discovery and Retrieval
+(1994). ZDIST Version 1.0 Server software. Research Triangle Park, NC:CNIDR.</p>
+
+<p><a name="[6]">[6]</a> <i>USMARC Format for Bibliographic Data</i>. Washington, DC:
+Library of Congress, Cataloging Distribution Service. See also <a
+href="http://lcweb.loc.gov/marc/">http://lcweb.loc.gov/marc</a>.</p>
+
+<p><a name="[7]">[7]</a> <em>RFC 1729, Using the Z39.50 Information Retrieval Protocol in
+the Internet Environment</em>. Clifford Lynch (1994). <a
+href="ftp://ds.internic.net/rfc/rfc1729.txt">ftp://ds.internic.net/rfc/rfc1729.txt</a>.</p>
+
+<p><a name="[8]">[8]</a> World Wide Web Consortium, <a href="http://www.w3.org">http://www.w3.org</a>.
+</p>
+
+<p><a name="[9]">[9]</a> <em>Crosswalk: FGDC Content Standards for Digital Geospatial
+Metadata to USMARC</em>. Geography and Map Division, Library of Congress (1997). <a
+href="http://alexandria.sdc.ucsb.edu/public-documents/metadata/fgdc2marc.html">http://alexandria.sdc.ucsb.edu/public-documents/metadata/fgdc2marc.html</a>.</p>
+
+<h2><a name="6. Definitions">6. Definitions</a></h2>
+
+<p>For purposes of this Profile, the following definitions apply.</p>
+
+<p><strong><em>Client</em></strong>: An initiating application. This application includes
+the Z39.50 origin. </p>
+
+<p><em><strong>Electronic Information Resource</strong></em>: Information resources that
+are maintained in electronic, digital format and may be accessed, searched, or retrieved
+via electronic networks or other electronic data processing technologies (e.g., CD-ROM).</p>
+
+<p><a name="Extent"><em><strong>Extent</strong></em></a>: A derived GEO Profile element
+whose value is the number of square degrees of coverage for a given data set. It is
+calculated as (North Bounding Coordinate - South Bounding Coordinate) * (East Bounding
+Coordinate - West Bounding Coordinate). Extent provides the ability to locate data sets of
+small, regional, continental, and global extent.</p>
+
+<p><em><strong>(GEO) Entry</strong></em>: A collection of related metadata elements
+associated with a single geospatial data object or product. Conceptually, this may equate
+to a thematic data layer or map product, but may represent a collection of related themes
+on one extreme, or a small set or instance of a spatial data object, such as a reservoir,
+on the other. An Entry may include multiple values for a given element. </p>
+
+<p><em><strong>Interoperability</strong></em>: A condition that exists when the
+distinctions between information systems are not a barrier to accomplishing a task that
+spans multiple systems.</p>
+
+<p><em><strong>Mandatory</strong></em>: An element in a GEO Entry that must have a value
+provided by the record source. The GEO Profile specifies which elements must be present
+from the perspective of GEO servers.</p>
+
+<p><em><strong>Origin</strong></em>: The part of a client application that initiates a
+Z39.50 association and is the source of requests during the association.</p>
+
+<p><em><strong>Profile</strong></em>: The statement of a function(s) and the environment
+within which it is used, in terms of a set of one or more standards, and where applicable,
+identification of chosen classes, subsets, options, and parameters of those standards. A
+set of implementor agreements providing guidance in applying a standard interoperably in a
+specific limited context.</p>
+
+<p><em><strong>Registered Object</strong></em>: An object that is identified by a
+name-to-thing relationship in which the name is recorded by a registration authority to
+ensure that the names can be used unambiguously.</p>
+
+<p><em><strong>Server</strong></em>: An application that responds to an initiating
+application (i.e., a client). The application that includes the Z39.50 target. </p>
+
+<p><em><strong>Target</strong></em>: The part of an server application that accepts a
+Z39.50 association.</p>
+
+<p><em><strong>Uniform Resource Identifier (URI)</strong></em>: A set of related standards
+for encoding resource location and identification information for electronic and other
+objects. Examples include Uniform Resource Locators (URLs) and Uniform Resource Names
+(URNs).</p>
+
+<p><em><strong>USMARC</strong></em>: An implementation of ANSI/NISO Z39.2, the American
+National Standard for Bibliographic Information Interchange <a href="#[6]">[6]</a>. The
+USMARC format documents contain the definitions and content designators for the fields
+that are to be carried in records structured according to Z39.2.</p>
+
+<h2><a name="7. Z39.50 Specifications for GEO">7. Z39.50 Specifications for GEO</a></h2>
+
+<p>This section details the required services available from Z39.50. It also describes an
+Attribute Set for searching and Element Set Names for server presentation of results, and
+prescribes the formal Record Syntaxes to be supported by GEO servers for the transfer of
+Entries. </p>
+
+<h3><a name="7.1. Version">7.1. Version</a></h3>
+
+<p>At a minimum, GEO clients and servers must support Z39.50 Version 2 as specified in
+Z39.50-1995. GEO requires support for the objects listed in section 7.2, some of which are
+not defined in Z39.50-1995. No Version 3 services are required for implementation of the
+GEO Profile.</p>
+
+<h3><a name="7.2. GEO Objects">7.2. GEO Objects</a></h3>
+
+<p>The following object identifier (OID) is assigned to the Z39.50 standard: 
+
+<ul>
+  <p>{iso (1) member-body (2) US (840) ANSI-standard-Z39.50 (10003)} </p>
+</ul>
+
+<p>This OID is abbreviated as: ANSI-standard-Z39.50.</p>
+
+<p>Several object classes are assigned at the level immediately subordinate to
+ANSI-standard-Z39.50, including: 
+
+<ul>
+  <li>3 = attribute set definitions </li>
+  <li>4 = diagnostic definitions </li>
+  <li>5 = record syntax definitions </li>
+  <li>13 = database schema definitions. </li>
+</ul>
+
+<p>GEO requires support of the following objects: 
+
+<ul>
+  <li>Bib-1 Diagnostic Set {ANSI-standard-Z39.50 4 1}</li>
+  <li>Bib-1 Attribute Set {ANSI-standard-Z39.50 3 1}</li>
+  <li>GILS Attribute Set {ANSI-standard-Z39.50 3 5}</li>
+  <li>GEO Attribute Set {ANSI-standard-Z39.50 3 9}</li>
+  <li>GEO Schema {ANSI-standard-Z39.50 13 4}</li>
+  <li>GRS-1 Record Syntax {ANSI-standard-Z39.50 5 105}</li>
+  <li>HTML Record Syntax {ANSI-standard-Z39.50 5 109 3}</li>
+  <li>SUTRS Record Syntax {ANSI-standard-Z39.50 5 101}</li>
+  <li>XML Record Syntax {ANSI-standard-Z39.50 5 109 10}</li>
+</ul>
+
+<p>and optional support of the following objects: 
+
+<ul>
+  <li>SGML Record Syntax {ANSI-standard-Z39.50 5 109 9}</li>
+  <li>USMARC Record Syntax {ANSI-standard-Z39.50 5 10}</li>
+</ul>
+
+<h3><a name="7.3. Communication Services">7.3. Communication Services</a></h3>
+
+<p>When Transmission Control Protocol (TCP) is used as the transport service, the
+specification for use of TCP is found in <a href="#[7]">[7]</a>. The use of other
+communication services is not yet defined.</p>
+
+<h3><a name="7.4. Z39.50 Services">7.4. Z39.50 Services</a></h3>
+
+<p>There are three Z39.50 (Version 2) services that are required for conformance: Init,
+Search, and Present. No additional services are required for conformance to the GEO
+Profile. Other Z39.50 services, however, may be provided optionally by servers and used by
+clients. </p>
+
+<p>Standard Z39.50 Init Service negotiation procedures control the use of all services. In
+addition, GEO-conformant clients and servers must specify the implementation id, name, and
+version within the Z39.50 Init Service.</p>
+
+<h4><a name="7.4.1. Search">7.4.1. Search </a></h4>
+
+<p>GEO clients and servers are required to support the Z39.50 Type-1 query. Support for
+the Boolean operators AND, OR, and AND-NOT is also required. GEO servers should expect to
+process queries consisting of Boolean combinations of textual, temporal, and spatial
+search terms.</p>
+
+<h5><a name="7.4.1.1. Attribute Set">7.4.1.1. Attribute Set</a></h5>
+
+<p>The GEO Profile requires clients and servers to support the GEO Attribute Set. The GEO
+Attribute Set is a registered object with an Attribute Set OID of {ANSI-standard-Z39.50 3
+9}. GEO servers must also support the Bib-1 and GILS Attribute Sets to a limited extent.
+That is, GEO servers must recognize the Bib-1 and GILS Attribute Sets to the extent that a
+Bib-1 or GILS client may pass the Attribute Set OID in a query and a GEO server may
+receive and process a query with the OID.</p>
+
+<p>The GEO Attribute Set imports the Use, Structure, Relation, and Truncation Attribute
+Types from the Bib-1 Attribute Set. In addition, the GEO Attribute Set imports selected
+Attributes from the Bib-1 and GILS Attribute Sets, where the semantic meaning is
+equivalent. Thus, search of GEO servers on common Bib-1 Attributes by clients familiar
+with Bib-1 should be successful.</p>
+
+<p>The GEO Profile defines additional Use, Structure, and Relation Attributes to
+facilitate the searching of geographic and spatial information. Each Use Attribute defined
+in the GEO Attribute Set corresponds in name and semantics to a record element of the GEO
+Schema. See <a href="annex_a.htm">Annex A</a> for definitions of all GEO Attributes, and <a
+href="annex_c.htm">Annex C</a> for the definition of the GEO Schema.</p>
+
+<p>GEO servers are required to support a mandatory set of attribute combinations from the
+GEO Attribute Set as specified in <a href="annex_b.htm">Annex B</a>. GEO servers are
+required to recognize the attribute combination, and a search must always result in a
+valid result set (which could contain zero records). GEO servers should never return any
+of following Bib-1 diagnostics when a query includes the mandatory attribute combinations:
+
+<ul>
+  <li>Unsupported Attribute Type (113)</li>
+  <li>Unsupported Use Attribute (114)</li>
+  <li>Unsupported Relation Attribute (117)</li>
+  <li>Unsupported Structure Attribute (118)</li>
+  <li>Unsupported Attribute Combination (123)</li>
+</ul>
+
+<p>When a GEO server receives a query term containing attribute types, values, or
+combinations that are not supported by the server, the server should fail the search
+(search status = failure) and return an appropriate Bib-1 diagnostic. If other terms in
+the query can be processed by the server, the server may also indicate that a subset of
+search results is available (result set status = subset). A GEO server may, if appropriate
+to its database, support additional attribute types, values, and combinations from the GEO
+Attribute Set. See <a href="annex_a.htm">Annex A</a> for a list of the valid attribute
+types and values, and <a href="annex_b.htm">Annex B</a> for a list of all valid attribute
+combinations.</p>
+
+<h4><a name="7.4.2. Retrieval">7.4.2. Retrieval</a></h4>
+
+<p>This section describes the components and procedures used by Z39.50 to return records
+in response to a query.</p>
+
+<h5><a name="7.4.2.1. Schema">7.4.2.1. Schema</a></h5>
+
+<p>The GEO Profile specifies a GEO Schema (see <a href="annex_c.htm">Annex C</a>). The GEO
+Schema is a registered object with an OID of {ANSI-standard-Z39.50 13 4}. A schema in
+Z39.50 can be modified and may evolve over time, and it is reasonable to expect the GEO
+Schema will evolve.</p>
+
+<h5><a name="7.4.2.2. Element Sets">7.4.2.2. Element Sets</a></h5>
+
+<p>GEO servers are required to support three element set names: B (Brief), S (Summary),
+and F (Full). GEO servers will interpret the use of the element set names to identify the
+following elements from the GEO Schema (marked with their SGML tags in parentheses): 
+
+<ul>
+  <li><strong>B</strong>: includes the <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/08.html#Title">Title</a>
+    (title) element.</li>
+  <li><strong>S</strong>: includes the following elements: <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/08.html#Title">Title</a>
+    (title), <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/08.html#Online Linkage">Online
+    Linkage</a> (onlink), <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/01.html#Bounding Coordinates">Bounding
+    Coordinates</a> (bounding), <a HREF="geo22.htm#Extent">Extent</a> (extent), <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/08.html#Publication Date">Publication
+    Date</a> (pubdate), <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/09.html#Beginning Date">Beginning
+    Date</a> (begtime), <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/09.html#Ending Date">Ending
+    Date</a> (enddate), <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/01.html#Browse Graphic">Browse
+    Graphic</a> (browse), <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/05.html#Entity Type Label">Entity
+    Type Label</a> (enttypl), <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/05.html#Attribute Label">Attribute
+    Label</a> (attrlabl), and <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/01.html#Data Set G-Polygon">Data
+    Set G-Polygon</a> (dsgpoly). The <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/01.html#Browse Graphic">Browse
+    Graphic</a> (browse) should appear as groups of <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/01.html#Browse Graphic File Name">Browse
+    Graphic File Name</a> (browsen), <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/01.html#Browse Graphic File Description">Browse
+    Graphic File Description</a> (browsed), and <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/01.html#Browse Graphic File Type">Browse
+    Graphic File Type</a> (browset).</li>
+  <li><strong>F</strong>: contains all elements available in the record. The server should
+    include in the retrieved record all of the elements for which there is data available in
+    the database record and which can be encoded in the requested record syntax (e.g., some
+    types of locally-defined binary data may not be encodable in a USMARC or SUTRS record).</li>
+</ul>
+
+<p>Optionally, servers may support additional element set names, including:
+
+<ul>
+  <li><strong>A</strong>: includes the <a
+    HREF="http://geochange.er.usgs.gov/pub/tools/metadata/standard/08.html#Title">Title</a>
+    (title) and <a
+    href="http://geochange.er.usgs.gov/pub/tools/metadata/standard/01.html#Abstract">Abstract</a>
+    (abstract) elements.</li>
+</ul>
+
+<p>A GEO server is required to return the following diagnostic from the Bib-1 Diagnostic
+Set when it receives a request for an element set name that is not supported by the
+server: 
+
+<ul>
+  <li>Element Set Name Not Valid (25)</li>
+</ul>
+
+<h5><a name="7.4.2.3. Record Syntaxes">7.4.2.3. Record Syntaxes</a></h5>
+
+<p>The GEO Profile requires support for the following Record Syntaxes: 
+
+<ul>
+  <li>GRS-1 {ANSI-standard-Z39.50 5 105}: GRS-1 can be used to encapsulate more complex
+    bundles of information including images, related documents, video, or other ancillary
+    information for further processing by the client. GRS-1 could also be used to encapsulate an
+    Entry in SGML along with the reference to -- or even inclusion of -- a DTD. GRS-1 is
+    defined in Z39.50-1995 <a href="#[1]">[1]</a>.</li>
+  <li>HTML {ANSI-standard-Z39.50 5 109 3}: HTML is used to obtain a GEO Entry that is
+    formatted by the server for eventual display by a Web Browser. The specification for HTML
+    is maintained by <a href="#[8]">[8]</a>.</li>
+  <li>SUTRS {ANSI-standard-Z39.50 5 101}: SUTRS is used to display a GEO Entry in simple text.
+    SUTRS is defined in Z39.50-1995 <a href="#[1]">[1]</a>.</li>
+  <li>XML {ANSI-standard-Z39.50 5 109 10}: XML can be used to exchange GEO Entries between
+    servers or for loading into a metadata editor or presentation system for further
+    processing. The XML Document Type Definition (DTD) is included in <a href="annex_c.htm">Annex
+    C</a>. The specification for XML is maintained by <a href="#[8]">[8]</a>.</li>
+</ul>
+
+<p>For GEO Entries in HTML and SUTRS Record Syntaxes, it is recommended that GEO servers
+follow the guidelines outlined for the <a href="#7.5. Preferred Display Format">preferred
+display format</a>. HTML is the default Record Syntax to return when the client has not
+specified a preferred record syntax.</p>
+
+<p>For purposes of interoperability, servers may support other record syntaxes including: 
+
+<ul>
+  <li>SGML {ANSI-standard-Z39.50 5 109 9}: SGML can be used to exchange GEO Entries between
+    servers or for loading into a metadata editor or presentation system for further
+    processing. The SGML DTD is included in <a href="annex_c.htm">Annex C</a>.</li>
+  <li>USMARC {ANSI-standard-Z39.50 5 10}: The element of a GEO Entry can be mapped into USMARC
+    <a href="#[6]">[6]</a> using a formal mapping of the FGDC Content Standards for Digital
+    Geospatial Metadata to USMARC <a href="#[9]">[9]</a>.</li>
+</ul>
+
+<p>When a GEO-conformant server is unable to return a record in the requested record
+syntax, the server should return an appropriate diagnostic from the Bib-1 Diagnostic Set,
+such as: 
+
+<ul>
+  <li>Record Not Available in Requested Syntax (238)</li>
+  <li>Record Syntax Not Supported (239)</li>
+</ul>
+
+<h3><a name="7.5. Preferred Display Format">7.5. Preferred Display Format</a></h3>
+
+<p>The GEO Profile recommends a preferred display format for the mandatory record
+syntaxes, HTML and SUTRS. A GEO Entry should be displayed in an indented outline form with
+subordinate elements indented to the appropriate level of subordination. The default
+presentation format shall use the long element names as specified in <a href="annex_d.htm">Annex
+D</a>, followed by a colon and a space with the value of the element on one or more lines.
+At least one character indentation shall exist for dependent or subordinate elements.</p>
+
+<p>A GEO Entry in HTML may be encapsulated between &lt;PRE&gt; &lt;/PRE&gt; tags or may
+include local hypertext links to aid navigation of the metadata document. </p>
+
+<h3><a name="7.6. Diagnostic Messages">7.6. Diagnostic Messages</a></h3>
+
+<p>The GEO application will use the Bib-1 Diagnostic Set.</p>
+
+<hr>
+
+<table border="1" bordercolor="#FFFFFF">
+  <tr>
+    <td width="468"><a href="#Contents">Back to Main Contents</a>.</td>
+    <td width="503"><p align="right"><a href="annex_a.htm">To Annex A</a></td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,14 @@
+set E_FIRSTREC "The start record, '%s', is not an appropriate value. It should be a number greater than 0"
+set E_NUMREQ "The number of records requested, '%s', is not an appropriate value. It should be a number greater than 0"
+set E_NOFORMAT "'%s' is not a known result format. Valid formats are: titles, scan"
+set E_NOTERM "No search term was given."
+set E_SEARCHERR "A search error occured: %s"
+set E_NOMATCH "No records matched that search."
+set E_NOINDEX "No index was given to browse."
+set E_SCANERR "A browse error occured: %s"
+
+set E_NOUSER "'%s' is not a known user."
+set E_NODATABASE "'%s' is not a searchable database. Please use 'user' or 'data'."
+set E_REBUILD "Could not rebuild the database! The system needs manual rebuild immediately, contact an administrator.<p>Errors given:<p>%s</p>"
+set E_MKDIR "Could not create a directory to verify your record in. Please try again."
+

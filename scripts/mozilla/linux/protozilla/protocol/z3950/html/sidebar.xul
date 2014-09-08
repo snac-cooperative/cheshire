@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<window
+	id = "ZSB_Window"
+	title = "Z3950"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<script src="chrome://z3950/content/sidebar.js"/>
+
+<vbox flex ="1">
+
+<!-- Header -->
+  <hbox>
+    <html:a href="http://cheshire.berkeley.edu/" border="0" target="_content">
+       <image src="chrome://z3950/content/clogo.gif"/>
+    </html:a>
+      <spring flex="10"/>
+
+<vbox>
+<spring flex="1"/>
+	<html:b><html:font size="+1"><text value="Cheshire"/></html:font></html:b>
+<spring flex="1"/>
+</vbox>
+
+      <spring flex="10"/>
+    <html><html:a href="z3950://sidebar/"><text value="refresh"/></html:a></html>
+      <spring flex="1"/>
+  </hbox>
+
+<!-- Tabs -->
+  <tabbox orient="vertical" flex = "20">
+
+    <tabs orient="horizontal">
+      <tab label="Search"/>
+      <tab label="Results"/>
+    </tabs>
+
+    <tabpanels flex = "20">
+ 
+<!-- Search Tab -->
+      <tabpanel id="ZSB_tab_search">
+        <vbox flex="100">
+          <groupbox orient = "vertical">
+            <caption label="Search:"/>
+            <hbox>
+              <vbox align="center">
+                <spring flex="1"/>
+                <text value="Field:"/>
+                <spring flex="1"/>
+              </vbox>
+	<spring flex="1"/>
+              <menulist id="ZSB_search_field" label="Title">
+                <menupopup>
+                  <menuitem label="Author" value="1003"/>
+                  <menuitem label="Title" value="4" selected="true"/>
+                  <menuitem label="Date" value="30"/>
+                  <menuitem label="Anywhere" value="1016"/>
+                </menupopup>
+              </menulist>
+            </hbox>
+            <hbox>
+              <vbox align="center">
+                <spring flex="1"/>
+                <text value="Term:"/>
+                <spring flex="1"/>
+              </vbox>
+              <spring flex="1"/>
+              <textbox id="ZSB_search_term" size="20" flex="1" type="autocomplete" tabScrolling="true" value ="">
+	<menupopup class="autocomplete-history-popup" popupalign="topleft" popupanchor="bottomleft" oncommand="do_setsearch(event.target.value)">
+	  %SEARCHISTORY%
+                 </menupopup>
+             </textbox> 	
+            </hbox>
+            <hbox>
+              <vbox align="center">
+                <spring flex="1"/>
+                <text value="Results:"/>
+                <spring flex="1"/>
+              </vbox>
+              <spring flex="1"/>
+              <textbox id="ZSB_search_resultset" size="15"/>
+            </hbox>
+
+            <hbox>
+              <spring flex="1"/>
+	<html:a href = "javascript:void(0);" id="ZSB_link_search" onclick="do_search(this);" target="_content" style="text-decoration:none">
+                    <button id="ZSB_button_search" label="Search"/> 
+	</html:a>
+              <spring flex="1"/>
+	<html:a href = "javascript:void(0);" id="ZSB_link_browse" onclick="do_browse(this)" target="_content" style="text-decoration:none">
+                    <button id="ZSB_button_browse" label="Browse"/> 
+	</html:a>
+              <spring flex="1"/>
+            </hbox>
+          </groupbox>
+          <separator/>
+          <groupbox orient="vertical" id="ZSB_box_sessions">
+            <caption label="Hosts:"/>
+            %SESSIONS%
+          </groupbox>
+          <separator/>	
+            <groupbox orient="vertical" id="ZSB_box_go">
+              <caption label="Go:"/>
+              <hbox>
+                <vbox align="center">
+                  <spring flex="1"/>
+                  <text value="Host:"/>
+                  <spring flex="1"/>
+                </vbox>    
+                 <spring flex="1"/>
+                <textbox id="ZSB_go_host" size="15"/>
+              </hbox>
+              <hbox>
+                <vbox align="center">
+                  <spring flex="1"/>
+                  <text value="Port:"/>
+                  <spring flex="1"/>
+                </vbox>    
+                 <spring flex="1"/>
+                <textbox id="ZSB_go_port" value="210" size = "15"/>
+              </hbox>
+              <hbox>
+                <vbox align="center">
+                  <spring flex="1"/>
+                  <text value="Database:"/>
+                  <spring flex="1"/>
+                </vbox>    
+                 <spring flex="1"/>
+                <textbox size="15" id="ZSB_go_db"/>
+              </hbox>
+              <hbox>
+                <spring flex ="2"/>
+	<html:a href = "javascript:void(0);" id="ZSB_link_go" onclick="do_host(this)" target="_content" style="text-decoration:none">
+                    <button id="ZSB_button_go" label="Go"/> 
+	</html:a>
+                <spring flex = "2"/>
+              </hbox>
+            </groupbox>
+        </vbox>
+      </tabpanel>
+
+<!-- Results Tab -->
+      <tabpanel id="ZSB_tab_results">
+        <vbox flex = "100">
+          <groupbox orient="vertical" id="ZSB_box_sort">
+            <caption label="Sort:"/>
+            <hbox>
+              <vbox align="center">
+                <spring flex="1"/>
+                <text value="Field:"/>
+                <spring flex="1"/>
+              </vbox>
+              <spring flex="1"/>
+              <menulist id="ZSB_sort_field" label="Title">
+                <menupopup>
+                  <menuitem label="Author" value="1003"/>
+                  <menuitem label="Title" value="4" selected="true"/>
+                  <menuitem label="Date" value="30"/>
+                  <menuitem label="Anywhere" value="1016"/>
+                </menupopup>
+              </menulist>
+            </hbox>
+            <hbox>
+              <vbox>
+                <spring flex="1"/>
+                <text value="Keyword:"/>
+                <spring flex="1"/>
+              </vbox>
+              <spring flex="1"/>
+              <textbox id="ZSB_sort_term" size="15"/>
+           </hbox>
+            <checkbox id="ZSB_sort_descend" checked="false" label="Descending"/>
+            <checkbox id="ZSB_sort_case" checked="false" label="Case Matters"/>
+<hbox>
+<spring flex="1"/>
+	<html:a href = "javascript:void(0);" id="ZSB_link_sort" onclick="do_sort(this)" target="_content" style="text-decoration:none">
+                    <button id="ZSB_button_sort" label="Sort"/> 
+	</html:a>
+<spring flex="1"/>
+</hbox>
+
+</groupbox>
+
+<groupbox flex="2">
+<caption label="Result Sets:"/>
+
+<tree id="ZSB_tree_results" flex="100" seltype="multiple" hidecolumnpicker="true">
+<treecols>
+<treecol id="hostcol" label="Host / Database"   flex="1" primary="true"/>
+</treecols>
+<treechildren>
+%RESULTSETS%
+</treechildren>
+</tree>
+
+<hbox flex="1">
+<spring flex="1"/>
+	<html:a href = "javascript:void(0);" id="ZSB_link_delete" onclick="do_delete(this)" style="text-decoration:none">
+                    <button id="ZSB_button_delete" label="Delete"/> 
+	</html:a>
+
+<spring flex="1"/>
+</hbox>
+</groupbox>
+
+        </vbox>
+      </tabpanel>
+
+    </tabpanels>
+  </tabbox>
+</vbox>
+</window>

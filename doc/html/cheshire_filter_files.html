@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">Cheshire_file_filter - prevent indexing of selected records based on file name </FONT></H2>
+
+<H2>SYNOPSIS </H2>
+
+<P><B>cheshire_file_filter</B> <I> assocfilename contfilename pattern</I>
+</P>
+
+<H2>DESCRIPTION </H2>
+
+<P> Cheshire_file_filter prevents the indexing work done with index_cheshire based on comparing the file name with the regular expression pattern included as the third argument. Any
+SGML/XML record included in the filenames matching the pattern are "deleted" by marking it in the associator file, no
+actual physical deletion of the record is performed. Note that
+"deleted" records may be re-instated by running the program again with the same
+pattern. Also note that this program requires both an associator file and
+a continuation file (i.e., the buildassoc program has been run with the -r option to build an external .cont file of the individual files making up the database.</P>
+
+<H2>BUGS </H2>
+
+<P>None known </P>
+
+<H2>SEE ALSO </H2>
+
+<P><A HREF="configfiles.html">Configuration file documentation</A>, index_clusters,
+<A HREF="buildassoc.html">buildassoc </A></P>
+
+<H2>AUTHOR </H2>
+
+<P>Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>) </P>
+
+</BODY>
+</HTML>

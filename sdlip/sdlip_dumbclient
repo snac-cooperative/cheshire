@@ -1,0 +1,92 @@
+#!/usr/users/ray/Work/cheshire/bin/webcheshire
+# 
+# Prototype implementation of SDLIP client using a DAV/DASL for 
+# communications.
+# This entire implementation was done in the Tcl scripting 
+# language for webcheshire.
+# 
+
+set line 0
+
+if {$argc < 2} {
+    puts "required args: IP_address PORT"
+    exit
+}
+
+puts "args are $argv"
+
+while {[gets stdin instuff] > 0} {
+    incr line
+    set indata($line) $instuff
+    if {$line == 1} {
+	if {[string match "SEARCH * HTTP/1.1" $instuff] == 1} {
+	#    puts stdout "Matched Search header: $instuff"
+	} else {
+	    puts stdout "Invalid query -- Denied"
+	    exit
+	}
+    } else {
+	set type [string trim [lindex [split $instuff :] 0] " "]
+	set value [string trim [lindex [split $instuff :] 1] " "]
+	set header($type) $value
+    }
+}
+
+set maxheaders $line
+# we get the length of the message from the header...
+set content_length $header(Content-Length)
+
+catch {puts stdout "content length is $content_length"}
+
+# Use content-length to read the data
+set message [read stdin $content_length]
+
+
+# open up a socket to the real server.
+set sock [socket [lindex $argv 0] [lindex $argv 1]]
+
+puts " opened socket [lindex $argv 0] [lindex $argv 1]"
+
+# put the query out
+set i 1
+while {$i <= $line} {
+    puts $sock $indata($i)
+    incr i
+}
+puts $sock ""
+puts $sock $message
+flush $sock
+
+puts "Message sent and flushed"
+
+set line 0
+while {[gets $sock instuff] > 0} {
+    incr line
+    set returndata($line) $instuff
+puts "instuff is $instuff"
+    set type [string trim [lindex [split $instuff :] 0] " "]
+    set value [string trim [lindex [split $instuff :] 1] " "]
+    set returnheader($type) $value
+
+}
+
+set maxheaders $line
+# we get the length of the message from the header...
+set content_length $returnheader(Content-Length)
+
+catch {puts stdout "content length is $content_length"}
+
+# Use content-length to read the data
+set message [read $sock $content_length]
+
+# put the results out
+set i 1
+while {$i <= $line} {
+    puts stdout $returndata($i)
+    incr i
+}
+puts stdout ""
+puts stdout $message
+
+puts stdout "\n That's all folks..."
+

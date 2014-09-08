@@ -1,0 +1,50 @@
+
+Run Date: Wed Dec  6 09:38:38 2000
+ 
+file: /home/ray/Work/cheshire/index/TESTDL/dlbibs.sgml.small (diglib) startrec: 1 maxrec: 19
+Unable to open file '/elib/data/docs/0600/642/HYPEROCR/hyperocr.html' in idxextern
+...URL support not available yet
+Unable to open directory '/elib/data/docs/0600/642/OCR-ASCII-NOZONE' in idxpages
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.localnum.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.localnum.indx_BATCHSORT
+Duplicate primary key: 10
+Record number 5 will REPLACE 19
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.author.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.author.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.title.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.title.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.xtitle.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.xtitle.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.doctype.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.doctype.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.series.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.series.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.date.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.date.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.topic.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.topic.indx_BATCHSORT
+10000 temp index lines processed in in_batch_load 
+20000 temp index lines processed in in_batch_load 
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.paged.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.paged.indx_BATCHSORT
+10000 temp index lines processed in in_batch_load 
+20000 temp index lines processed in in_batch_load 
+30000 temp index lines processed in in_batch_load 
+Last record processed 19
+Last record processed 19 at time: Wed Dec  6 09:38:52 2000
+ -- Memory 0: I/O In 18 Out 83
+
+Run Date: Wed Dec  6 09:54:55 2000
+ 
+file: /home/ray/Work/cheshire/index/TESTDL/dlbibs.sgml.small (diglib) startrec: 1 maxrec: 19
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.localnum.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.localnum.indx_BATCHSORT
+Duplicate primary key: 10
+Record number 5 will REPLACE 19
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.author.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.author.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.title.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.title.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.xtitle.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.xtitle.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.doctype.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.doctype.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.series.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.series.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.date.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.date.indx_BATCHSORT
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.topic.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.topic.indx_BATCHSORT
+10000 temp index lines processed in in_batch_load 
+20000 temp index lines processed in in_batch_load 
+SORT COMMAND: sort /home/ray/Work/cheshire/index/TESTDL/DL.paged.indx_BATCHTEMP > /home/ray/Work/cheshire/index/TESTDL/DL.paged.indx_BATCHSORT
+10000 temp index lines processed in in_batch_load 
+20000 temp index lines processed in in_batch_load 
+30000 temp index lines processed in in_batch_load 
+40000 temp index lines processed in in_batch_load 
+Last record processed 19
+Last record processed 19 at time: Wed Dec  6 09:55:10 2000
+ -- Memory 0: I/O In 1 Out 82

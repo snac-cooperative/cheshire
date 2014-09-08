@@ -1,0 +1,101 @@
+<cheshireRecord>
+  <cheshireTitle>Test HTML Record</cheshireTitle>
+  <cheshireId>html1</cheshireId>
+  <cheshireLocation>testrec.html</cheshireLocation>
+  <cheshireAccess>
+    <cheshireEditors>
+      <cheshireUser>azaroth</cheshireUser>
+      <cheshireUser>ray</cheshireUser>
+    </cheshireEditors>
+    <cheshireEditorFlags>
+      <cheshireFlag>admin</cheshireFlag>
+      <cheshireFlag>edit</cheshireFlag>
+    </cheshireEditorFlags> 
+  </cheshireAccess>
+  <cheshireHistory>
+    <cheshireCreated> 
+      <cheshireUser>azaroth</cheshireUser> 
+      <cheshireDate>Thu Mar 22 13:38:34 2001 GMT</cheshireDate>
+    </cheshireCreated>
+    <cheshireModified type="edit"> 
+      <cheshireUser>azaroth</cheshireUser> 
+      <cheshireDate>Thu Mar 29 13:38:34 2001 GMT</cheshireDate>
+    </cheshireModified>
+  </cheshireHistory>
+
+  <cheshireDocument>
+<html>
+<head>
+<title>Azaroth's Cheshire Site</title>
+</head>
+
+<body bgcolor = white>
+<p>
+<table width = "100%">
+<tr>
+<td width = "100"><img alt= "cheshire logo" src = "/~cheshire/graphics/ccat.jpg" width = "100"></td>
+<td><center><img height = "70" src = "/~cheshire/resources.jpg" alt="Cheshire Resources"></center></td>
+</tr>
+</table>
+</p>
+<p>
+This site concerns the SGML search engine created primarily by Prof. Ray Larson of UC Berkeley. Cheshire's official home page is at <a href = "http://cheshire.berkeley.edu/">http://cheshire.berkeley.edu</a>.
+</p>
+<p>
+It is being funded by a combined JISC and NSF grant to UC Berkeley and Liverpool University. The principal investigators at each institution are Prof. Ray Larson and Dr. Paul Watry respectively. 
+</p>
+<p>
+This site is maintained by Rob Sanderson, (also known as '<a href = "http://www.o-r-g.org/~azaroth/">Azaroth</a>'), one of the post graduate researchers involved in the project, primarily in the creation of a z39.50 client based on the open source Mozilla web browser. 
+</p>
+<p>
+<b>Site Contents:</b>
+</p>
+<p>
+<ul>
+<li><a href= "news.html">Site News</a><br><br></li>
+<li><a href = "quickstep/">Cheshire Quickstep Email Searching</a><br><br></li>
+<li><a href = "cheshire-l/">Cheshire mailing list archive and information</a><br><br></li>
+<li><a href = "overview.html">Cheshire Documentation</a>
+<ul>
+<li><a href  = "setup.html">Initial installation documentation</a></li>
+<li><a href = "config.html">Configuration file documentation</a>
+<ul>
+      <li><a href = "config-file.html">Main File Definition</a></li>
+      <li><a href = "config-explain.html">Explain Information Definition</a></li>
+      <li><a href = "config-index.html">Index Definition</a></li>
+      <li><a href = "config-component.html">Component Definition</a></li>
+      <li><a href = "config-cluster.html">Cluster Definition</a></li>
+      <li><a href = "config-display.html">Display Defintion</a></li>
+      <li><a href = "config-process.html">Processing Instructions</a></li>
+</ul></li>
+<li><a href = "programs.html">Running the programs</a></li>
+<li><a href = "scripting.html">Client scripting</a></li>
+<li><a href = "issues.html">Issues and Work arounds</a></li>
+<li><a href = "docs/">Mirror of the Cheshire documentation</a></li>
+</ul><br></li>
+<li>Azaroth's Test Databases:
+<ul>
+<li><a href  = "eadhub/">ArchivesHub Development Site</a></li>
+<li><a href = "lcsh/">Library of Congress Subject Headings</a></li>
+<li><a href ="unesco/">Unesco Subject Headings</a></li>
+<li><a href = "zetoc/">ZETOC prototype</a></li>
+<li><a href = "nra-corp/">NRA Corporate Names</a></li>
+<li><a href = "nra-fe/">NRA Family Names</a></li>
+<li><a href = "nra-person/">NRA Personal Names</a></li>
+<li><a href = "paleo/">RSLP Paleography Database</a></li>
+</ul><br></li>
+<li> <a href = "zservers.html">Known Z39.50 Servers</a></li>
+</ul>
+</p>
+<p>
+Any questions about Cheshire, please feel free to email me at <i>azaroth@liv.ac.uk</i> or join the Cheshire email list. See the <a href="cheshire-l/">Cheshire-L</a> page for further information.
+</p>
+<p>
+<hr>
+</p>
+</body>
+</html>
+
+  </cheshireDocument>
+
+</cheshireRecord>

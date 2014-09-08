@@ -1,0 +1,63 @@
+<config>
+  <logLevel>3</logLevel>
+  <recordSyntax>XML</recordSyntax>
+  <elementSetName>F</elementSetName>
+  <xslUrl>/xsl/sru.xsl</xslUrl>
+
+  <database id="l5r">
+    <zeerex>
+      <file protocol="srw">xml/l5r_srw.xml</file>
+      <file protocol="z39.50">xml/l5r_z.xml</file>
+    </zeerex>
+    <schema>ccg</schema>
+    <convertFromSGML>1</convertFromSGML>
+    <xslUrl>/xsl/l5r.xsl</xslUrl> 
+    <schemaHandlers>
+      <handler schema="dc">
+        <elementSetName>dc</elementSetName>
+        <preferredRecordSyntax>GRS-1</preferredRecordSyntax>
+        <function>DCGRS1Handler</function>
+      </handler>
+      <handler schema="ccg">
+        <elementSetName>F</elementSetName>
+        <preferredRecordSyntax>XML</preferredRecordSyntax>
+      </handler>
+    </schemaHandlers>
+  </database>
+
+  <database id="uol">
+    <zeerex>
+      <file protocol="srw">xml/uol_srw.xml</file>
+      <file protocol="z39.50">xml/uol_z.xml</file>
+    </zeerex>
+    <schema>marcsgml</schema>
+    <convertFromSGML>1</convertFromSGML>
+    <xslUrl>/xsl/l5r.xsl</xslUrl> 
+    <schemaHandlers>
+         <handler schema="http://www.loc.gov/zing/srw/dcschema/v1.0/">
+ <preferredRecordSyntax>USMARC</preferredRecordSyntax>
+     <function>MARCHandler</function>
+       </handler>
+            <handler schema="http://www.loc.gov/mods/">
+            <preferredRecordSyntax>USMARC</preferredRecordSyntax>
+            <function>MARCHandler</function>
+          </handler>
+      <handler schema="http://srw.o-r-g.org/schemas/marcsgml/12.0/">
+        <preferredRecordSyntax>USMARC</preferredRecordSyntax>
+       <function>MARCHandler</function>
+      </handler>
+           <handler schema="http://www.loc.gov/marcxml/">
+            <preferredRecordSyntax>USMARC</preferredRecordSyntax>
+            <function>MARCHandler</function>
+          </handler>
+        <handler schema="http://www.loc.gov/MARC21/slim">
+        <preferredRecordSyntax>USMARC</preferredRecordSyntax>
+        <function>MARCHandler</function>
+     </handler>
+       <handler schema="http://www.openarchives.org/OAI/1.1/oai_marc">
+          <preferredRecordSyntax>USMARC</preferredRecordSyntax>
+          <function>MARCHandler</function>
+       </handler>
+    </schemaHandlers>
+  </database>
+</config>

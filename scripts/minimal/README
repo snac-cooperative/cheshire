@@ -1,0 +1,7 @@
+
+This is a simple script to delete all of the database config files,
+test records and other assorted files in the CVS tree used for testing
+or building with dmalloc.
+Run it in the top cheshire directory (Where the Makefiles are) and
+then replace the Makefile with the one in this directory.  It assumes
+you have Berkeley db 3.3 installed in an accessable linking path.

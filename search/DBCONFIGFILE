@@ -1,0 +1,892 @@
+<!-- ******************************************************************* -->
+<!-- ************************* BIBFILE ********************************* -->
+<!-- *********************** DEFINITIONS ******************************* -->
+<!-- ******************************************************************* -->
+<!-- This is the config file for the Cheshire II Math Library Database -->
+<DBCONFIG>
+
+<!-- The Main bibliographic file -->
+<FILEDEF TYPE=SGML>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG> bibfile </FILETAG>
+
+<!-- filename is the full path name of the file -->
+<FILENAME> /usr3/cheshire2/data2/MATHSTAT.SGML
+</FILENAME>
+
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD> /usr3/cheshire2/new/sgml/USMARC08.DTD </FILEDTD>
+
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL> /usr3/cheshire2/data2/MATHSTAT.SGML.asso
+</ASSOCFIL>
+
+<!-- history is the full path name of the file's history file -->
+<HISTORY> /usr3/cheshire2/data2/MATHSTAT.SGML.history 
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+
+<!-- ******************************************************************* -->
+<!-- ************************* NAMES *********************************** -->
+<!-- ******************************************************************* -->
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr3/cheshire2/data2/names.index
+</INDXNAME>
+<INDXTAG> names </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<!-- The associator file for the index linking the termid with postings -->
+<INDASSOC> 
+/usr3/cheshire2/data2/names.assoc 
+</INDASSOC>
+
+<!-- The postings file for the index containing all term/document/freq info -->
+<INDXPOST> 
+/usr3/cheshire2/data2/names.post
+</INDXPOST>
+
+<!-- The stoplist for this file -->
+<STOPLIST> /usr3/cheshire2/data2/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD[1678]00  </FTAG><s>^[aqbc]</s>
+<FTAG>FLD[1678]10 </FTAG><s>^[ab]</s>
+<FTAG>FLD[1678]11 </FTAG><s>^[andce]</s>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ********************** PERSONAL AUTHOR **************************** -->
+<!-- ******************************************************************* -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr3/cheshire2/data2/pauthor.index
+</INDXNAME>
+<INDXTAG> pauthor </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> <USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<!-- The associator file for the index linking the termid with postings -->
+<INDASSOC> 
+/usr3/cheshire2/data2/pauthor.assoc 
+</INDASSOC>
+
+<!-- The postings file for the index containing all term/document/freq info -->
+<INDXPOST> 
+/usr3/cheshire2/data2/pauthor.post
+</INDXPOST>
+
+<!-- The stoplist for this file -->
+<STOPLIST> /usr3/cheshire2/data2/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD[178]00  </FTAG><s>^[aqbc]</s>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<!-- ******************************************************************* -->
+<!-- ************************* EXACT NAMES ***************************** -->
+<!-- ******************************************************************* -->
+<!-- The following is for searching exact names of all types             -->
+<!-- all the "name" indexes are mapped to here for exact name            -->
+<!-- searches.                                                           -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /usr3/cheshire2/data2/xnames.index
+</INDXNAME>
+<INDXTAG> xnames </INDXTAG>
+
+<INDXMAP> 
+	<USE> 1 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP> 
+	<USE> 2 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP> 
+	<USE> 3 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP> 
+	<USE> 1002 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> 
+	</INDXMAP>
+<INDXMAP> 
+	<USE> 1003 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP> 
+	<USE> 1004 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP> 
+	<USE> 1005 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc>
+	</INDXMAP>
+<INDXMAP> 
+	<USE> 1006 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc>
+	</INDXMAP>
+
+
+<INDASSOC> /usr3/cheshire2/data2/xnames.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/xnames.post </INDXPOST>
+<STOPLIST> /usr3/cheshire2/data2/authorstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<!-- Notice the use of pattern matching in the following -->
+<FTAG>FLD[1678]00  </FTAG><s>^[aqbc]</s>
+<FTAG>FLD[1678]10 </FTAG><s>^[ab]</s>
+<FTAG>FLD[1678]11 </FTAG><s>^[andce]</s>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* TITLE *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following provides keyword title access                         -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr3/cheshire2/data2/title.index </INDXNAME>
+<INDXTAG> title </INDXTAG>
+
+<INDXMAP>
+	<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+	<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP> 
+	<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+<INDASSOC> /usr3/cheshire2/data2/title.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/title.post </INDXPOST>
+<STOPLIST> /usr3/cheshire2/data2/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD130 </FTAG><S> ^[apnfl] </S>
+<FTAG>FLD245 </FTAG><S> ^[ab] </S>
+<FTAG>FLD240 </FTAG><S> ^[atpfn] </S>
+<FTAG>FLD730 </FTAG><S> ^[apnfl] </S>
+<FTAG>FLD740 </FTAG><S> ^[apn] </S>
+<FTAG>FLD440 </FTAG> 
+<FTAG>FLD490 </FTAG> 
+<FTAG>FLD830 </FTAG> <S> ^[apnfl] </S>
+
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* EXACT TITLE ***************************** -->
+<!-- ******************************************************************* -->
+<!-- The following provides exact and truncated titles access -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /usr3/cheshire2/data2/xtitle.index </INDXNAME>
+<INDXTAG> xtitle </INDXTAG>
+
+<INDXMAP>
+	<USE> 4 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+	<USE> 5 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> </INDXMAP>
+<INDXMAP> 
+	<USE> 6 </USE><POSIT> 1 </posit> <struct> 1 </struct> 
+	<trunc> 1 </trunc> </INDXMAP>
+
+<INDASSOC> /usr3/cheshire2/data2/xtitle.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/xtitle.post </INDXPOST>
+<STOPLIST> /usr3/cheshire2/data2/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD130 </FTAG><S> ^[apnfl] </S>
+<FTAG>FLD245 </FTAG><S> ^[ab] </S>
+<FTAG>FLD240 </FTAG><S> ^[atpfn] </S>
+<FTAG>FLD730 </FTAG><S> ^[apnfl] </S>
+<FTAG>FLD740 </FTAG><S> ^[apn] </S>
+<FTAG>FLD440 </FTAG> 
+<FTAG>FLD490 </FTAG> 
+<FTAG>FLD830 </FTAG> <S> ^[apnfl] </S>
+
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* SUBJECT ********************************* -->
+<!-- ******************************************************************* -->
+<!-- The following provides access by LC subject headings -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr3/cheshire2/data2/subject.index </INDXNAME>
+<INDXTAG> subject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct> </INDXMAP>
+
+
+<INDASSOC> /usr3/cheshire2/data2/subject.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/subject.post </INDXPOST>
+<STOPLIST> /usr3/cheshire2/data2/subjstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* EXACT SUBJECT *************************** -->
+<!-- ******************************************************************* -->
+<!-- The following provides access by exact LC subject headings          -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /usr3/cheshire2/data2/xsubject.index </INDXNAME>
+<INDXTAG> xsubject </INDXTAG>
+
+<INDXMAP>
+<USE> 21 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+
+
+<INDASSOC> /usr3/cheshire2/data2/xsubject.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/xsubject.post </INDXPOST>
+<STOPLIST> /usr3/cheshire2/data2/subjstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG><s>.*</s> </TAGSPEC> </INDXKEY> </INDEXDEF>
+
+
+<!-- ******************************************************************* -->
+<!-- ************************* TOPIC *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following is the primary index for probabilistic searches       -->
+<!-- It includes subjects, titles, notes and class numbers               -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME> /usr3/cheshire2/data2/topic.index </INDXNAME>
+<INDXTAG> topic </INDXTAG>
+
+<INDXMAP>
+<USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1014 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1014 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1015 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1015 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1016 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1016 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1017 </USE><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+<INDXMAP>
+<USE> 1017 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct> 
+</INDXMAP>
+
+<INDASSOC> /usr3/cheshire2/data2/topic.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/topic.post </INDXPOST>
+<STOPLIST> /usr3/cheshire2/data2/topicstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG><S>[abz]</S>
+<FTAG>FLD245 </FTAG><S>[ab] </S>                                           
+<FTAG>FLD240 </FTAG><S>[atp] </S>                                          
+<FTAG>FLD4.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD8.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD130 </FTAG><s>[atp]</s>
+<FTAG>FLD730 </FTAG><s>[atp]</s>
+<FTAG>FLD740 </FTAG><S>[ap]</s>
+
+<!-- Just for fun, we include various notes -->
+<FTAG>FLD501 </FTAG>
+<FTAG>FLD503 </FTAG>
+<FTAG>FLD505 </FTAG>
+<FTAG>FLD520 </FTAG>
+
+<!-- Note this is the call number but it will not be normalized --> 
+<FTAG>FLD950 </FTAG><S>a </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF> 
+
+<!-- ******************************************************************* -->
+<!-- *********************** LC CLASS NUMBER *************************** -->
+<!-- ******************************************************************* -->
+<!-- The following is a normalized version of the LC Class number        -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=CLASSCLUS>
+<INDXNAME> /usr3/cheshire2/data2/lcclass.index </INDXNAME>
+<INDXTAG> lcclass </INDXTAG>
+
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 3 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 3 </struct> </INDXMAP>
+
+<INDASSOC> /usr3/cheshire2/data2/lcclass.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/lcclass.post </INDXPOST>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD050 </FTAG> <s> ^a </s>
+<FTAG>FLD950 </FTAG> <s> ^a </s>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* DOC TYPE ******************************** -->
+<!-- ******************************************************************* -->
+<!-- the following extracts and indexes the document type code -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> /usr3/cheshire2/data2/doctype.index		
+</INDXNAME>
+<INDXTAG>	doctype
+		
+</INDXTAG>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 4 </struct></INDXMAP>
+<INDXMAP><USE> 1001 </USE><POSIT> 3 </posit> <struct> 1 </struct></INDXMAP>
+<INDXMAP><USE> 1031 </USE><POSIT> 3 </posit> <struct> 6 </struct></INDXMAP>
+<INDXMAP><USE> 1031 </USE><POSIT> 3 </posit> <struct> 4 </struct></INDXMAP>
+<INDXMAP><USE> 1031 </USE><POSIT> 3 </posit> <struct> 1 </struct></INDXMAP>
+
+<INDASSOC> /usr3/cheshire2/data2/doctype.assoc </INDASSOC>
+<INDXPOST>  /usr3/cheshire2/data2/doctype.post </INDXPOST>
+
+<INDXKEY>
+<!-- Note that the following extracts the SGML attribute from the tag -->
+<TAGSPEC>
+<FTAG> USMARC </FTAG><ATTR> MATERIAL </ATTR>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- *********************** LOCAL NUMBER ****************************** -->
+<!-- ******************************************************************* -->
+<!-- The following gets the GLADIS number from the records for this DB -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr3/cheshire2/data2/localnum.index
+</INDXNAME>
+<INDXTAG> localnum </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 12 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 12 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- The associator file for the index linking the termid with postings -->
+<INDASSOC> /usr3/cheshire2/data2/localnum.assoc </INDASSOC>
+
+<!-- The postings file for the index containing all term/document/freq info -->
+<INDXPOST> /usr3/cheshire2/data2/localnum.post </INDXPOST>
+
+<!-- no stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD001  </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************** ISBN *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following gets the ISBN number from the records for this DB -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr3/cheshire2/data2/isbn.index
+</INDXNAME>
+<INDXTAG> isbn </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 7 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 7 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 7 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- The associator file for the index linking the termid with postings -->
+<INDASSOC> /usr3/cheshire2/data2/isbn.assoc </INDASSOC>
+
+<!-- The postings file for the index containing all term/document/freq info -->
+<INDXPOST> /usr3/cheshire2/data2/isbn.post </INDXPOST>
+
+<!-- no stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD020 </FTAG><S> ^a </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************** ISSN *********************************** -->
+<!-- ******************************************************************* -->
+<!-- The following gets the ISSN number from the records for this DB -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr3/cheshire2/data2/issn.index
+</INDXNAME>
+<INDXTAG> issn </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 8 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 8 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 8 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- The associator file for the index linking the termid with postings -->
+<INDASSOC> /usr3/cheshire2/data2/issn.assoc </INDASSOC>
+
+<!-- The postings file for the index containing all term/document/freq info -->
+<INDXPOST> /usr3/cheshire2/data2/issn.post </INDXPOST>
+
+<!-- no stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD022 </FTAG><S> ^a </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* PUBLISHER ******************************* -->
+<!-- ******************************************************************* -->
+<!-- The following gets the publisher from the records for this DB -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME> 
+/usr3/cheshire2/data2/publisher.index
+</INDXNAME>
+<INDXTAG> publisher </INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP> <USE> 1018 </USE><STRUCT> 2 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1018 </USE><STRUCT> 1 </STRUCT></INDXMAP>
+<INDXMAP> <USE> 1018 </USE><STRUCT> 6 </STRUCT></INDXMAP>
+
+<!-- The associator file for the index linking the termid with postings -->
+<INDASSOC> /usr3/cheshire2/data2/publisher.assoc </INDASSOC>
+
+<!-- The postings file for the index containing all term/document/freq info -->
+<INDXPOST> /usr3/cheshire2/data2/publisher.post </INDXPOST>
+
+<!-- no stoplist for this file -->
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> FLD260 </FTAG><S> ^b </S>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<!-- ******************************************************************* -->
+<!-- ************************** DATE *********************************** -->
+<!-- ******************************************************************* -->
+<!-- the following index extracts the DATE1 element from the MARC 008 field -->
+<INDEXDEF ACCESS=BTREE EXTRACT=FLD008_KEY NORMAL=NONE>
+<INDXNAME> /usr3/cheshire2/data2/date.index	
+</INDXNAME>
+<INDXTAG>	date
+</INDXTAG>
+
+<!-- The following INDXMAP items provide a mapping from the AUTHOR tag to -->
+<!-- the appropriate Z39.50 BIB1 attribute numbers      -->
+<INDXMAP>
+<USE> 30 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 31 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<INDASSOC> /usr3/cheshire2/data2/date.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/date.post </INDXPOST>
+
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>FLD008</FTAG><ATTR>008_date1</ATTR>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* LANGUAGE ******************************** -->
+<!-- ******************************************************************* -->
+<!-- The following index extracts the language element from the 008 field -->
+<INDEXDEF ACCESS=BTREE EXTRACT=FLD008_KEY NORMAL=NONE>
+<INDXNAME> /usr3/cheshire2/data2/language.index
+</INDXNAME>
+<INDXTAG>	language	
+</INDXTAG>
+
+
+<INDXMAP>
+<USE> 54 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<INDASSOC> /usr3/cheshire2/data2/language.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/language.post </INDXPOST>
+
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>FLD008</FTAG><ATTR>008_language_code</ATTR>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+</INDEXES> 
+
+<!-- ******************************************************************* -->
+<!-- ************************* CLUSTER ********************************* -->
+<!-- *********************** DEFINITIONS ******************************* -->
+<!-- ******************************************************************* -->
+<!--   End of the index definitions, the following define clusters to be -->
+<!--   extracted from the main file records                              -->
+<!-- ******************************************************************* -->
+
+<CLUSTER>
+<clusname> classcluster </clusname>
+<cluskey normal=CLASSCLUS> 
+	<tagspec>
+		<FTAG>FLD950 </FTAG> <s> ^a </s>
+	</tagspec>
+</cluskey>
+<stoplist> /usr3/cheshire2/data2/clasclusstoplist </stoplist>
+<clusmap>
+	<from>
+		<tagspec>
+		<ftag>FLD245</ftag><s>^[ab]</s>
+		<ftag>FLD440</ftag><s>^a</s>
+		<ftag>FLD490</ftag><s>^a</s>
+		<ftag>FLD830</ftag><s>^a</s>
+		<ftag>FLD740</ftag><s>^a</s>
+		</tagspec></from>
+	<to>
+		<tagspec>
+		<ftag>titles</ftag>
+		</tagspec></to>
+	<from>
+		<tagspec>
+		<ftag>FLD6..</ftag><s>^[abcdxyz]</s>
+		</tagspec></from>
+	<to>	<tagspec>
+		<ftag>subjects</ftag>
+		</tagspec></to>
+	<summarize> 
+		<maxnum> 5 </maxnum>
+		<tagspec>
+		<ftag>subjsum</ftag>
+		</tagspec></summarize>
+</clusmap>
+</CLUSTER>
+
+<CLUSTER>
+<clusname> subjcluster </clusname>
+<cluskey normal=XKEY> 
+	<tagspec>
+		<ftag>FLD650</ftag>
+	</tagspec>
+</cluskey>
+<stoplist> /usr3/cheshire2/data2/subjclusstoplist </stoplist>
+<clusmap>
+	<from>
+		<tagspec>
+		<ftag>FLD245</ftag><s>^[ab]</s>
+		<ftag>FLD440</ftag><s>^a</s>
+		<ftag>FLD490</ftag><s>^a</s>
+		<ftag>FLD830</ftag><s>^a</s>
+		<ftag>FLD740</ftag><s>^a</s>
+		</tagspec></from>
+	<to>
+		<tagspec>
+		<ftag>titles</ftag>
+		</tagspec></to>
+	<from>
+		<tagspec>
+		<ftag>FLD650</ftag><s>^[abcdxyz]</s>
+		</tagspec></from>
+	<to>	<tagspec>
+		<ftag>subjects</ftag>
+		</tagspec></to>
+	<summarize> 
+		<maxnum> 5 </maxnum>
+		<tagspec>
+		<ftag>subjsum</ftag>
+		</tagspec></summarize>
+</clusmap>
+</CLUSTER>
+</FILEDEF>
+
+<!-- ******************************************************************* -->
+<!-- ************************* CLUSTER FILE **************************** -->
+<!-- ************************** DEFINITIONS **************************** -->
+<!-- ******************************************************************* -->
+<!-- The next filedef is for a cluster file implementing class clusters  -->
+<FILEDEF TYPE=CLUSTER>
+<!-- filetag is the "shorthand" name of the file -->
+<Filetag>  classcluster
+</FILETAG>
+<!-- filename is the full path name of the file -->
+<FILENAME>  	/usr3/cheshire2/data2/classcluster.data
+</FILENAME>
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD>	/usr3/cheshire2/data2/classcluster.dtd
+</FILEDTD>
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL>	/usr3/cheshire2/data2/classcluster.assoc
+</ASSOCFIL>
+<!-- history is the full path name of the file's history file -->
+<HISTORY>	/usr3/cheshire2/data2/classcluster.history
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+<!-- The following defines the cluster key index for the cluster -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=CLASSCLUS>
+<INDXNAME>	
+		/usr3/cheshire2/data2/clasclus.lcckey.index
+		
+</INDXNAME>
+<INDXTAG>  lckey
+		
+</INDXTAG>
+
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 1 </posit> <struct> 3 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 16 </USE><POSIT> 3 </posit> <struct> 3 </struct> </INDXMAP>
+
+<INDASSOC> /usr3/cheshire2/data2/clasclus.lcckey.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/clasclus.lcckey.post </INDXPOST>
+
+<INDXKEY>
+<TAGSPEC>
+	<FTAG> CLUSKEY </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<!-- the following provides general term access to the cluster file -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME>
+		/usr3/cheshire2/data2/clasclus.terms.index
+		
+</INDXNAME>
+<INDXTAG>	terms
+</INDXTAG>
+
+<!-- this maps from z39.50 "local subject index" to this index -->
+<INDXMAP>
+<USE> 29 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<INDASSOC> /usr3/cheshire2/data2/clasclus.terms.assoc </INDASSOC>
+<INDXPOST>  /usr3/cheshire2/data2/clasclus.terms.post </INDXPOST>
+<STOPLIST> /usr3/cheshire2/data2/titlestoplist
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>titles</FTAG>
+	<FTAG>subjects</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+</INDEXES>
+<CLUSTER>
+	<CLUSBASE>bibfile</CLUSBASE>
+</CLUSTER>
+<DISPLAY>
+	<FORMAT NAME="B" DEFAULT>
+		<exclude> 
+			<TAGSPEC>
+				<FTAG>^subjects</FTAG>
+				<FTAG>^titles</FTAG>
+				<FTAG>^n$</FTAG>
+			</TAGSPEC>			
+		</exclude>
+	</FORMAT>
+</DISPLAY>
+</FILEDEF>
+
+
+<!-- ******************************************************************* -->
+<!-- ************************* CLUSTER FILE **************************** -->
+<!-- ************************** DEFINITIONS **************************** -->
+<!-- ******************************************************************* -->
+<!-- The next filedef is for the subjects cluster file                   -->
+<FILEDEF TYPE=CLUSTER>
+<!-- filetag is the "shorthand" name of the file -->
+<FILETAG>  subjcluster
+</FILETAG>
+<!-- filename is the full path name of the file -->
+<FILENAME>  	/usr3/cheshire2/data2/subjcluster.data
+</FILENAME>
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD>	/usr3/cheshire2/data2/subjcluster.dtd
+</FILEDTD>
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL>	/usr3/cheshire2/data2/subjcluster.assoc
+</ASSOCFIL>
+<!-- history is the full path name of the file's history file -->
+<HISTORY>	/usr3/cheshire2/data2/subjcluster.history
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME> /usr3/cheshire2/data2/subjcluster.key.index
+</INDXNAME>
+<INDXTAG>  subjectkey
+</INDXTAG>
+
+<INDXMAP>
+<USE> 27 </USE><POSIT> 1 </posit> <struct> 1 </struct> </INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 1 </posit> <struct> 6 </struct> </INDXMAP>
+
+<INDASSOC> /usr3/cheshire2/data2/subjcluster.key.assoc </INDASSOC>
+<INDXPOST> /usr3/cheshire2/data2/subjcluster.key.post </INDXPOST>
+
+<INDXKEY>
+<TAGSPEC>
+<FTAG>CLUSKEY </FTAG>
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=STEM>
+<INDXNAME>
+		/usr3/cheshire2/data2/subjcluster.terms.index
+		
+</INDXNAME>
+<INDXTAG> 	terms
+		
+</INDXTAG>
+<INDXMAP>
+<USE> 21 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 29 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 1014 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 1016 </USE><RELAT> 102 </RELAT><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+
+<INDASSOC> 
+	/usr3/cheshire2/data2/subjcluster.terms.assoc
+		
+</INDASSOC>
+<INDXPOST>  /usr3/cheshire2/data2/subjcluster.terms.post
+		
+</INDXPOST>
+<STOPLIST> /usr3/cheshire2/data2/titlestoplist
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+	<FTAG>titles</FTAG>
+	<FTAG>subjects</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+</INDEXES>
+
+<CLUSTER>
+	<CLUSBASE>bibfile</CLUSBASE>
+</CLUSTER>
+<DISPLAY>
+	<FORMAT NAME="B" DEFAULT>
+		<exclude> 
+			<TAGSPEC>
+				<FTAG>^subjects</FTAG>
+				<FTAG>^titles</FTAG>
+				<FTAG>^n$</FTAG>
+			</TAGSPEC>			
+		</exclude>
+	</FORMAT>
+</DISPLAY>
+</FILEDEF> 
+</DBCONFIG>
+
+

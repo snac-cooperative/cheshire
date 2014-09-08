@@ -1,0 +1,303 @@
+<!DOCTYPE ead    [
+
+
+<!--  PUBLIC IDENTIFIER of this DTD, the EAD DTD1
+"-//Society of American Archivists//DTD ead.dtd (Encoded Archival Description (EAD))//EN"
+-->
+
+<!-- ********************************************************** -->
+<!--  NAME:      Encoded Archival Description (EAD) DTD         -->
+<!--                                    (File    = ead.dtd)     -->
+<!--                                    (Version = 2.0)         -->
+<!--                                    (Vers Date 96/09/16)    -->
+<!--                                                            -->
+<!--  PURPOSE:   To encode archival finding aids as they are    -->
+<!--             currently produced by archives, libraries,     -->
+<!--             universities, associations, agencies, and      -->
+<!--             other organizations.                           -->
+<!--                                                            -->
+<!--  CONTACT:   EAD listserv of the Library of Congress Network-->
+<!--             Development and MARC Standards Office.         -->
+<!--             To subscribe to this listserv, send a one-line -->
+<!--             message to LISTSERV@LOC.GOV containing the     -->
+<!--             text:  SUBSCRIBE EAD YourName. Once subscribed,-->
+<!--             submit messages to EAD@LOC.GOV.                -->
+<!--                                                            -->
+<!--  SPONSOR:  The EAD is a cooperative effort sponsored by    -->
+<!--      several institutions and professional associations.   -->
+<!--      Its development has been supported through a series of-->
+<!--      fellowships and grants.                               -->
+<!--                                                            -->
+<!--      The Society of American Archivists (SAA) through the  -->
+<!--      EAD Working Group of the Committee on Archival        -->
+<!--      Information Exchange (CAIE) is responsible for        -->
+<!--      the intellectual content of EAD and for monitoring    -->
+<!--      and assisting in its ongoing development. The working -->
+<!--      group includes individuals representing various       -->
+<!--      interests within the SAA as well as representatives   -->
+<!--      from OCLC, Research Libraries Group (RLG), and the    -->
+<!--      Library of Congress.                                  -->
+<!--                                                            -->
+<!--      The Library of Congress Network Development and MARC  -->
+<!--      Standards Office is the international maintenance     -->
+<!--      agency for the standard.                              -->
+<!--                                                            -->
+<!--      Funding agencies who have contributed generously to   -->
+<!--      the development of the standard include:  Department  -->
+<!--      of Education (Title IIA grant) to the University of   -->
+<!--      California, Berkeley, for developing a prototype      -->
+<!--      encoding standard and database for finding aids; The  -->
+<!--      Library, University of California, Berkeley, for      -->
+<!--      supporting ongoing development of a community-based   -->
+<!--      standard; Commission on Preservation and Access for a -->
+<!--      three-day conference (4-6 April 1995) on the Berkeley -->
+<!--      Finding Aid Project (BFAP); Bentley Historical        -->
+<!--      Library, Andrew W. Mellon Foundation, and the National-->
+<!--      Endowment for the Humanities (Division of Preservation-->
+<!--      and Access) for assembling representatives from the   -->
+<!--      archival community for a week-long (22-29 July 1995)  -->
+<!--      Bentley fellowship program to develop design          -->
+<!--      principles and revise the BFAP data model and DTD;    -->
+<!--      Library of Congress National Digital Library Program  -->
+<!--      for sponsoring a three-day meeting (1-3 November 1995)-->
+<!--      of the Bentley team and other experts to review the   -->
+<!--      Bentley model and for providing the technical support -->
+<!--      of an SGML consulting firm to make modifications and  -->
+<!--      supply accompanying documentation for an alpha version-->
+<!--      of the DTD; and the Council on Library Resources for  -->
+<!--      sponsoring the development and publication of         -->
+<!--      application guidelines.                               -->
+<!--                                                            -->
+<!--  NOTE:      This is a modular DTD.  It references other    -->
+<!--             DTD modules through the use of Formal Public   -->
+<!--             Identifiers and/or SYSTEM entity references.   -->
+<!--             TO USE THIS DTD YOU MUST make the proper       -->
+<!--             FORMAL or SYSTEM pathname connection!!!!!!!    -->
+<!--                                                            -->
+<!--  WRITTEN:   Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             DATE: 1995-10                                  -->
+<!--                                                            -->
+<!--  ALPHA MODIFICATIONS:                                      -->
+<!--             Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             and the                                        -->
+<!--             ATLIS Consulting Group (DAL)                   -->
+<!--             Rockville, Maryland  20852                     -->
+<!--             (under contract with the National Digital      -->
+<!--             Library Program, Library of Congress)          -->
+<!--             DATE: 1996-01                                  -->
+<!--                                                            -->
+<!--  BETA MODIFICATIONS:                                       -->
+<!--             Daniel V. Pitti                                -->
+<!--             University of California, Berkeley, The Library-->
+<!--             DATE: 1996-06                                  -->
+<!-- ********************************************************** -->
+
+<!--  This is a BETA version DTD. It is intended for broad public 
+      distribution and extended testing. Users can assume that
+      the EAD DTD will undergo systematic and documented revision
+      from BETA to proposed standard. Before implementing, the 
+      SAA CAIE EAD Working Group will evaluate and consider the
+      impact such change will have on BETA users and the 
+      conversion of finding aids encoded with EAD BETA.
+-->
+                         
+<!-- ********************************************************** -->
+<!--              CHANGE HISTORY (POST BETA CHANGES)            -->
+<!-- ********************************************************** -->
+<!-- 
+NUM  DESCRIPTION OF CHANGE                                MM/DD/YY
+
+
+-->
+
+<!-- ********************************************************** -->
+
+
+<!-- ********************************************************** -->
+<!--              VERSION INFORMATION AND DTD ORIGINATION       -->
+<!-- ********************************************************** -->
+<!-- 
+     Initial Draft-Vers 0.1 (Daniel V. Pitti)  October 1995
+
+          In October 1993, The Library, University of California,
+          Berkeley, began a two-year research and demonstration
+          project to investigate the desirability and feasibility
+          of developing an encoding standard for machine-readable
+          finding aids.  Daniel V. Pitti, director of the
+          Berkeley Finding Aid Project (BFAP), wrote a FindAid
+          DTD and oversaw the creation of a prototype database. 
+          Campbell Crabtree, Tim Hoyer, Gabriela Montoya, Alvin
+          Pollock, and other Library and Bancroft Library staff
+          assisted Pitti in this work and in subsequent efforts
+          to develop a community-based encoding standard.  
+
+          In July 1995, Pitti assembled a team of archivists and
+          an SGML expert to meet at the Bentley Historical
+          Library in Ann Arbor, Michigan, to analyze the FindAid
+          DTD and data model developed by the BFAP.  The Bentley
+          Team for Encoded Archival Description Development
+          produced a new data model and the "Ann Arbor Accords:
+          Principles and Criteria for an SGML Document Type
+          Definition (DTD) for Finding Aids."  These two
+          documents provided the framework for the initial draft
+          (vers. 0.1) of the Encoded Archival Description or EAD
+          DTD. 
+
+          Members of the Bentley team assembled by Pitti were
+          Steven J. DeRose, Electronic Book Technologies; Jackie
+          Dooley, University of California, Irvine; Michael J.
+          Fox, Minnesota Historical Society; Steven Hensen,
+          Special Collections Library, Duke University; Kris
+          Kiesling, Harry Ransom Humanities Research Center,
+          University of Texas at Austin; Janice E. Ruth,
+          Manuscript Division, Library of Congress; Sharon
+          Thibodeau, National Archives and Records
+          Administration; and Helena Zinkham, Prints and
+          Photographs Division, Library of Congress.
+
+     Draft 1.0 (Daniel V. Pitti/ATLIS Consulting)  December 1995
+
+          The Bentley team together with Debbie Lapeyre of ATLIS
+          Consulting Group, Anne Gilliland-Swetland of the
+          Department of Library and Information Science,
+          University of California, Los Angeles, and Marla Banks,
+          Randy Barry, Beth Davis-Brown, LeeEllen Friedland, and
+          Belinda Urquiza of the Library of Congress met in
+          November 1995 at the Library of Congress to review the
+          0.1 DTD and describe the results of initial testing. 
+          The results of that experience are reflected in
+          version 1.0 of the EAD DTD.
+
+     Draft 1.1 (Daniel V. Pitti/ATLIS Consulting)  January 1996
+
+          A subset of the Bentley team (Fox, Hensen, Kiesling,
+          Pitti, and Ruth) met with Gilliland-Swetland and Tom La
+          Porte in January 1996 at UCLA to outline the
+          application guidelines and review the 1.0 DTD and draft
+          tag library.  The simplifications and corrections
+          developed in that meeting are reflected in version 1.1
+          of the EAD DTD (also known as the ALPHA version of EAD).
+
+     Draft 2.0 (Daniel V. Pitti) June 1996
+
+          On April 27-29, 1996, in Berkeley, California, 
+          supported by a grant to the Society of American 
+          Archivists from the Council on Library Resources, the 
+          original Bentley Development Team for Encoded Archival 
+          Description and Randall Barry (LC/Network Development 
+          and MARC Standards Office), Anne Gilliland-Swetland 
+          (UCLA Library School), Thomas La Porte (Dreamworks SKG), 
+          Tim Hoyer (Bancroft Library), and Jack Von Euw (Bancroft 
+          Library) met to review the draft EAD guidelines and to 
+          discuss changes to the Alpha EAD which had been 
+          suggested by team members and early implementors. The
+          corrections and additions developed in that meeting and
+          in subsequent communication are reflected in version
+          2.0 of the EAD DTD.
+
+-->
+<!-- ********************************************************** -->
+
+<!-- ********************************************************** -->
+<!--              DESIGN CONSIDERATIONS                         -->
+<!-- ********************************************************** -->
+<!--
+
+1.  Enforcing DTD - "Enforcing DTD" is used here in an SGML 
+    technical sense. The EAD DTD is intended to accommodate 
+    existing finding aids and to serve as the means for the 
+    archival community to begin the process of normalizing finding 
+    aids. An example of the enforcing nature of the DTD is evident 
+    in the use of named divisions such as <admininfo>, which 
+    are subdivided using recursion, to restrict their contents 
+    (such as <userestrict> and <custodhist>) to within the single 
+    named division, in this case <admininfo>.
+
+2.  DTD supports tabular DISPLAY - This DTD will support tabular
+    layout of detailed descriptive information, which is common
+    in existing finding aids. Use of the display-oriented elements,
+    however, is elective, and they are distinct from the elements 
+    comprising the logical archival description.     
+
+3.  Monastic DTDs - A way of writing SGML DTDs to facilitate 
+    reuse of document fragments and to help remove the 
+    sequential-processing bias from the SGML datastream.  
+    The idea is to ensure that a document fragment can be 
+    verified without knowing the ancestors of the fragment.  
+    Each fragment is made a proper subtree of the document.  
+    To enable this, the DTD follows these rules:
+    a) There are no inclusions and exclusions except to 
+       exclude an element from itself.  Even self
+       exclusion is done as rarely as possible.
+    b) #CURRENT is not used.
+    c) Marked Sections in the DTD are not used.
+    d) Short Reference Maps are not permitted     
+
+4.  Mixed Content Models - An element in a DTD may contain 
+    data content (#PCDATA) or element content (other elements) 
+    or mixed content (both data and elements).  Mixed content, 
+    unless allowed to repeat, is very dangerous and can 
+    produce parsing errors, particularly in hand-tagged 
+    documents.  Therefore mixed content models have been
+    avoided.  Two solutions have been taken to the 
+    "how do we get an element that is both #PCDATA and tags" 
+    question.  
+
+    a.  For the DID elements, which usually hold character 
+        content, an "optional heading" was added through 
+        the use of a "label" attribute.  The "label" is
+        used to describe any desired prefatory text, e.g.,
+
+          <repository label="Repository">This is the text of 
+           the repository statement.
+          </repository>
+
+    b.  In the <admininfo> elements, which may be quite
+        small but are usually at least one paragraph and
+        can be many paragraphs or heads and text, the
+        DTD provides no option for data characters.
+        Each <admininfo> element must contain at least 
+        one paragraph, even if that paragraph contains
+        only a few words, e.g.,
+
+          <userestrict>
+           <p>Do not copy without permission!</p>
+          </userestrict>   
+
+5.  All element and attribute names will be lowercase.
+
+6.  Minimal (Normalized SGML files), with no omitted end tags,
+    will be exchanged.
+
+-->
+
+<!-- ********************************************************** -->
+<!--              MODULES CALLED IN BY PARAMETER ENTITY         -->
+<!-- ********************************************************** -->
+
+<!--                             NOTATION DECLARATIONS          -->                    
+<!ENTITY % eadnotat              PUBLIC
+"-//Society of American Archivists//DTD eadnotat.ent (EAD Notation Declarations)//EN"
+>
+<!-- %eadnotat; -->
+ 
+<!--                             EAD BASIC ENTITIES & ELEMENTS  -->
+
+<!ENTITY % eadbase               PUBLIC
+"-//Society of American Archivists//DTD eadbase.ent (EAD Basic Declarations)//EN"
+>
+%eadbase;
+
+
+<!--                             SPECIAL CHARACTER SETS         -->                    
+<!ENTITY % eadchars              PUBLIC
+"-//Society of American Archivists//DTD eadchars.ent (EAD Special Characters)//EN"
+>
+%eadchars;
+
+<!-- ****************** END of EAD DTD  *********************** -->
+
+]>
+

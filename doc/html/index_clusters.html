@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">index_clusters - Index CheshireII Cluster files </FONT></H2>
+
+<H2>SYNOPSIS </H2>
+<B>index_clusters</B> <I>[-b -T tempfiledir -S "sort flags" -L logfilename] configfilename [INDEXONLY]</I>
+
+
+<P><H2> DESCRIPTION</H2> 
+<P>
+Index_clusters uses the descriptions included in the configuration
+file <I>configfilename</I> to index the cluster files of a
+Cheshire II database. 
+<P>
+The configuration file should describe the main SGML data file,
+the cluster data files,
+the associator file (See <B>buildassoc</B>), the DTDs for the 
+main SGML data file and the cluster files, 
+and the desired index and cluster definitions. This program will
+create the index files specified in the configuration file for
+the cluster files (that is only those with the FILEDEF tag
+<FILEDEF TYPE=CLUSTER>)
+It will use the base temporary information used for the cluster files (which
+must be created by <B>index_cheshire</B> based on the <CLUSTER> definition
+in the main file definition).
+<P>
+If the <I>-b</I> flag is used, the indexing uses some batch loading
+techniques that greatly increase the indexing speed. Use of this
+flag is recommended in most cases, and especially when doing the
+initial indexing of a large database. If the -T flag is used then
+the "tempdirname" should be the path of the directory where the temporary
+files created by the batch processing and sorting are to be put.
+The -S flag can be used to pass a quoted list of flags to the system sort
+used in batch loading (see the documentation for the sort command on
+your system for the flags available).<P>
+
+The optional <I>INDEXONLY</I> keyword is used to do only
+the indexing of the cluster files, and not to generate
+the cluster files themselves from the temporary base cluster
+data created by <B>index_cheshire</B>. This option is provided for
+cases where indexing must be re-run and the cluster files have
+already been created.
+
+<P><H2> LOG and ERROR INFORMATION</H2>
+
+<P> If the "-L" option is not used, then running the
+<B>index_cheshire</B> program creates a file in the current directory
+called INDEX_LOGFILE. If the "-L" option is used then the logfile is
+given the name provided on the command line. If this file already
+exists when the program is run, new information is appended to the
+existing file. INDEX_LOGFILE will contain any errors or problems
+encountered in indexing. </P>
+
+
+<P><H2> BUGS</H2>
+None known
+
+<P><H2> SEE ALSO</H2>
+Configuration file documentation, index_cheshire
+
+<P><H2> AUTHOR</H2>
+Ray R. Larson  (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>)
+

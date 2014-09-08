@@ -1,0 +1,809 @@
+
+Run Date: Wed Oct 30 08:11:44 1996
+ 
+file: /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml (bibfile) startrec: 1 maxrec: 809
+processing record 100 MEM -1
+processing record 200 MEM -1
+processing record 300 MEM -1
+processing record 400 MEM -1
+processing record 500 MEM -1
+processing record 600 MEM -1
+processing record 700 MEM -1
+processing record 800 MEM -1
+Last record processed 809
+Last record processed 809 at time: Wed Oct 30 08:16:16 1996
+ MEM: -1
+
+Run Date: Thu Oct 31 07:30:53 1996
+ 
+file: /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml (bibfile) startrec: 1 maxrec: 809
+Interupted by SIGNAL: Last record processed 0 : Mem -1
+
+Run Date: Thu Oct 31 07:35:00 1996
+ 
+file: /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml (bibfile) startrec: 1 maxrec: 809
+
+Run Date: Thu Oct 31 07:39:14 1996
+ 
+file: /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml (bibfile) startrec: 1 maxrec: 809
+
+Run Date: Thu Oct 31 07:48:35 1996
+ 
+file: /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml (bibfile) startrec: 1 maxrec: 809
+
+Run Date: Thu Oct 31 08:04:04 1996
+ 
+file: /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml.small (bibfile) startrec: 1 maxrec: 17
+Interupted by SIGNAL: Last record processed 1 : Mem -1
+
+Run Date: Thu Oct 31 08:07:29 1996
+ 
+file: /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml.small (bibfile) startrec: 1 maxrec: 17
+Interupted by SIGNAL: Last record processed 1 : Mem -1
+
+Run Date: Thu Oct 31 08:10:47 1996
+ 
+file: /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml.small (bibfile) startrec: 1 maxrec: 17
+Interupted by SIGNAL: Last record processed 0 : Mem -1
+
+Run Date: Mon Nov  4 08:39:30 1996
+ 
+file: /usr/users/ray/Work/z3950_3/index/TESTDL/dlbibs.sgml.small (bibfile) startrec: 1 maxrec: 17
+TAG VALUE: <TITLE>HyperOCR for docid 6</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:6/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:6/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:6/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:6/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:6/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:6/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:6/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:6/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:6/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:6/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:6/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:6/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:6/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:6/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:6/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:6/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:6/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:6/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:6/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:6/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 7</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:7/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:7/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:7/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:7/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:7/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:7/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:7/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:7/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:7/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:7/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:7/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:7/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:7/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:7/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:7/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:7/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:7/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:7/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:7/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:7/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 8</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:8/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:8/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:8/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:8/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:8/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:8/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:8/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:8/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:8/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:8/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:8/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:8/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:8/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:8/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:8/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:8/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:8/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:8/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:8/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:8/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 9</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:9/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:9/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:9/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:9/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:9/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:9/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:9/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:9/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:9/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:9/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:9/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:9/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:9/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:9/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:9/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:9/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:9/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:9/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:9/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:9/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 10</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:10/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:10/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:10/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:10/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:10/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:10/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:10/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:10/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:10/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:10/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:10/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:10/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:10/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:10/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:10/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:10/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:10/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:10/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:10/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:10/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 11</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:11/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:11/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:11/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:11/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:11/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:11/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:11/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:11/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:11/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:11/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:11/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:11/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:11/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:11/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:11/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:11/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:11/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:11/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:11/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 13</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:13/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:13/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:13/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:13/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:13/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:13/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:13/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:13/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:13/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:13/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:13/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:13/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:13/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:13/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:13/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:13/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:13/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:13/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:13/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 14</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:14/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:14/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:14/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:14/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:14/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:14/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:14/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:14/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:14/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:14/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:14/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:14/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:14/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:14/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:14/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:14/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:14/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:14/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:14/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 15</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:15/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:15/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:15/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:15/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:15/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:15/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:15/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:15/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:15/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:15/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:15/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:15/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:15/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:15/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:15/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:15/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:15/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:15/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:15/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:15/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 16</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:16/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:16/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:16/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:16/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:16/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:16/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:16/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:16/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:16/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:16/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:16/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:16/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:16/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:16/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:16/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:16/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:16/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:16/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:16/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 17</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:17/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:17/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:17/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:17/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:17/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:17/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:17/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:17/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:17/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:17/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:17/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:17/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:17/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:17/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:17/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:17/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:17/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:17/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:17/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:17/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 18</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:18/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:18/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:18/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:18/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:18/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:18/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:18/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:18/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:18/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:18/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:18/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:18/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:18/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:18/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:18/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:18/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:18/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:18/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:18/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:18/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 19</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:19/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:19/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:19/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:19/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:19/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:19/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:19/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:19/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:19/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:19/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:19/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:19/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:19/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:19/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:19/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:19/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:19/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:19/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:19/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:19/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 20</TITLE>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:20/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:20/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:20/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:20/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:20/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:20/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:20/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:20/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:20/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:20/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:20/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:20/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:20/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:20/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:20/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:20/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:20/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:20/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:20/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 21    <a name="page21" href="http:/TR/ELIB:20/ShowPage?format=inline&page=21">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 22    <a name="page22" href="http:/TR/ELIB:20/ShowPage?format=inline&page=22">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 23    <a name="page23" href="http:/TR/ELIB:20/ShowPage?format=inline&page=23">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 24    <a name="page24" href="http:/TR/ELIB:20/ShowPage?format=inline&page=24">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 25    <a name="page25" href="http:/TR/ELIB:20/ShowPage?format=inline&page=25">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 26    <a name="page26" href="http:/TR/ELIB:20/ShowPage?format=inline&page=26">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 27    <a name="page27" href="http:/TR/ELIB:20/ShowPage?format=inline&page=27">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 28    <a name="page28" href="http:/TR/ELIB:20/ShowPage?format=inline&page=28">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 29    <a name="page29" href="http:/TR/ELIB:20/ShowPage?format=inline&page=29">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 30    <a name="page30" href="http:/TR/ELIB:20/ShowPage?format=inline&page=30">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 31    <a name="page31" href="http:/TR/ELIB:20/ShowPage?format=inline&page=31">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 32    <a name="page32" href="http:/TR/ELIB:20/ShowPage?format=inline&page=32">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 33    <a name="page33" href="http:/TR/ELIB:20/ShowPage?format=inline&page=33">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 34    <a name="page34" href="http:/TR/ELIB:20/ShowPage?format=inline&page=34">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 35    <a name="page35" href="http:/TR/ELIB:20/ShowPage?format=inline&page=35">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 36    <a name="page36" href="http:/TR/ELIB:20/ShowPage?format=inline&page=36">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 37    <a name="page37" href="http:/TR/ELIB:20/ShowPage?format=inline&page=37">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 38    <a name="page38" href="http:/TR/ELIB:20/ShowPage?format=inline&page=38">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 39    <a name="page39" href="http:/TR/ELIB:20/ShowPage?format=inline&page=39">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 40    <a name="page40" href="http:/TR/ELIB:20/ShowPage?format=inline&page=40">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 41    <a name="page41" href="http:/TR/ELIB:20/ShowPage?format=inline&page=41">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 42    <a name="page42" href="http:/TR/ELIB:20/ShowPage?format=inline&page=42">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 43    <a name="page43" href="http:/TR/ELIB:20/ShowPage?format=inline&page=43">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 44    <a name="page44" href="http:/TR/ELIB:20/ShowPage?format=inline&page=44">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 45    <a name="page45" href="http:/TR/ELIB:20/ShowPage?format=inline&page=45">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 46    <a name="page46" href="http:/TR/ELIB:20/ShowPage?format=inline&page=46">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 47    <a name="page47" href="http:/TR/ELIB:20/ShowPage?format=inline&page=47">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 48    <a name="page48" href="http:/TR/ELIB:20/ShowPage?format=inline&page=48">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 49    <a name="page49" href="http:/TR/ELIB:20/ShowPage?format=inline&page=49">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 50    <a name="page50" href="http:/TR/ELIB:20/ShowPage?format=inline&page=50">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 51    <a name="page51" href="http:/TR/ELIB:20/ShowPage?format=inline&page=51">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 52    <a name="page52" href="http:/TR/ELIB:20/ShowPage?format=inline&page=52">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 53    <a name="page53" href="http:/TR/ELIB:20/ShowPage?format=inline&page=53">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 21</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:21/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:21/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:21/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:21/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:21/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:21/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:21/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:21/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:21/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:21/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:21/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:21/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:21/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:21/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:21/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:21/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:21/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:21/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:21/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:21/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 21    <a name="page21" href="http:/TR/ELIB:21/ShowPage?format=inline&page=21">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 22    <a name="page22" href="http:/TR/ELIB:21/ShowPage?format=inline&page=22">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 27</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:27/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:27/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:27/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:27/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:27/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:27/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:27/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:27/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:27/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:27/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:27/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:27/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:27/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:27/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:27/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:27/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:27/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:27/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <TITLE>HyperOCR for docid 29</TITLE>
+TAG VALUE: <hr>PAGE 1    <a name="page1" href="http:/TR/ELIB:29/ShowPage?format=inline&page=1">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 2    <a name="page2" href="http:/TR/ELIB:29/ShowPage?format=inline&page=2">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 3    <a name="page3" href="http:/TR/ELIB:29/ShowPage?format=inline&page=3">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 4    <a name="page4" href="http:/TR/ELIB:29/ShowPage?format=inline&page=4">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 5    <a name="page5" href="http:/TR/ELIB:29/ShowPage?format=inline&page=5">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 6    <a name="page6" href="http:/TR/ELIB:29/ShowPage?format=inline&page=6">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 7    <a name="page7" href="http:/TR/ELIB:29/ShowPage?format=inline&page=7">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 8    <a name="page8" href="http:/TR/ELIB:29/ShowPage?format=inline&page=8">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 9    <a name="page9" href="http:/TR/ELIB:29/ShowPage?format=inline&page=9">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 10    <a name="page10" href="http:/TR/ELIB:29/ShowPage?format=inline&page=10">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 11    <a name="page11" href="http:/TR/ELIB:29/ShowPage?format=inline&page=11">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 12    <a name="page12" href="http:/TR/ELIB:29/ShowPage?format=inline&page=12">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 13    <a name="page13" href="http:/TR/ELIB:29/ShowPage?format=inline&page=13">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 14    <a name="page14" href="http:/TR/ELIB:29/ShowPage?format=inline&page=14">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 15    <a name="page15" href="http:/TR/ELIB:29/ShowPage?format=inline&page=15">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 16    <a name="page16" href="http:/TR/ELIB:29/ShowPage?format=inline&page=16">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 17    <a name="page17" href="http:/TR/ELIB:29/ShowPage?format=inline&page=17">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 18    <a name="page18" href="http:/TR/ELIB:29/ShowPage?format=inline&page=18">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 19    <a name="page19" href="http:/TR/ELIB:29/ShowPage?format=inline&page=19">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 20    <a name="page20" href="http:/TR/ELIB:29/ShowPage?format=inline&page=20">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+TAG VALUE: <hr>PAGE 21    <a name="page21" href="http:/TR/ELIB:29/ShowPage?format=inline&page=21">Show Image</a><hr><pre>
+TAG VALUE: </pre>
+Last record processed 17
+Last record processed 17 at time: Mon Nov  4 08:43:28 1996
+ MEM: -1

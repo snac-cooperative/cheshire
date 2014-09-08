@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#setup Environment
+cd /home/cheshire/cheshire/metadata
+export PATH=/home/cheshire/cheshire/bin:$PATH
+
+rm DBCONFIGFILE-users users.cont users.assoc
+
+if [ "$1" == "" ]; then
+  rm logs/userINDEX_LOGFILE indexes/users/*.index 
+fi
+
+
+# Rebuild and index
+buildassoc -r /home/cheshire/cheshire/metadata/users users.assoc cheshireEditor
+
+cp DBCONFIGFILE-users.top DBCONFIGFILE-users
+cat users.cont >> DBCONFIGFILE-users
+cat DBCONFIGFILE-users.bottom >> DBCONFIGFILE-users
+
+if [ "$1" == "" ]; then
+    index_cheshire -L logs/userINDEX_LOGFILE DBCONFIGFILE-users
+else
+  index_cheshire -L logs/userINDEX_LOGFILE DBCONFIGFILE-users #1
+fi
+

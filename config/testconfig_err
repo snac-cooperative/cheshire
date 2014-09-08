@@ -1,0 +1,202 @@
+<!-- This is a test config file -->
+<DBCONFIG>
+
+<!-- The first filedef -->
+<FILEDEF TYPE=MARC>
+<!-- filetag is the "shorthand" name of the file -->
+<Filetag>  bibfile
+</FILETAG> %%%%error on line 8 %%%
+<!-- filename is the full path name of the file -->
+<FILENAME>  	/export/home/ray/Work/cheshire2/sgmlparse/testsgmlmarc
+</FILENAME>
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD>	/export/home/ray/Work/cheshire2/sgmlparse/USMARC05.DTD
+</FILEDTD>
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL>	/export/home/ray/Work/cheshire2/configparse/xx.asso
+</ASSOCFIL>
+<!-- history is the full path name of the file's history file -->
+<HISTORY>	/export/home/ray/Work/cheshire2/configparse/xx.history
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/configparse/xx.dict
+		
+</INDXNAME>
+<INDXTAG>	author
+		
+</INDXTAG>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/configparse/xx.author.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/configparse/xx.author.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/configparse/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld100 
+ 			
+</FTAG><FTAG>Fld110 
+			
+</FTAG><FTAG>Fld111 
+			
+</FTAG><FTAG>Fld700
+			
+</FTAG><FTAG>Fld710
+			
+</FTAG><FTAG>Fld711
+		
+</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/configparse/xx.xdict
+		
+</INDXNAME>
+<INDXTAG>	xauthor
+		
+</INDXTAG>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/configparse/xx.xauthor.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/configparse/xx.xauthor.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/configparse/xx.xstoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>Fld.00 </FTAG><s> [ab] </s>
+<FTAG>Fld.10 </FTAG><s> [abcd] </s>
+<FTAG>Fld.11 </FTAG><s> [abcd] </s>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=WORDNET>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/configparse/xx.dict
+		
+</INDXNAME>
+<INDXTAG>	title
+		
+</INDXTAG>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/configparse/xx.title.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/configparse/xx.title.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/configparse/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld245 
+</FTAG><S>a</S><S>b 
+			
+</S><FTAG>Fld240 
+</FTAG><S>a 
+</S><S>t 
+</S><S>p <S> subsub-p </S>
+			
+</S><FTAG>Fld130 
+			
+</FTAG><FTAG>Fld730 
+			
+</FTAG><FTAG>Fld740 
+			
+</FTAG><FTAG>Fld1xx 
+</FTAG><S>t 
+			
+</S><FTAG>Fld7xx 
+</FTAG><S>t
+		
+</S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=WORDNET>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/configparse/xx.dict
+		
+</INDXNAME>
+<INDXTAG>	subject
+		
+</INDXTAG>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/configparse/xx.subj.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/configparse/xx.subj.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/configparse/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld6xx  
+		
+</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/configparse/xx.dict
+		
+</INDXNAME>
+<INDXTAG>	topic
+		
+</INDXTAG>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/configparse/xx.topic.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/configparse/xx.topic.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/configparse/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld6xx
+			
+</FTAG><FTAG>Fld245 
+</FTAG><S>a<S>b</S>
+			
+</S><FTAG>Fld240 
+</FTAG><S>a<S>t<S>p</S></S> 
+			
+</S><FTAG>Fld4xx 
+			
+</FTAG><FTAG>Fld8xx 
+			
+</FTAG><FTAG>Fld130 
+			
+</FTAG><FTAG>Fld730 
+			
+</FTAG><FTAG>Fld740 
+			
+</FTAG><FTAG>Fld1xx 
+</FTAG><S>t 
+			
+</S><FTAG>Fld790 
+</FTAG><S>nest1  <S>nest2  <S> nest3 </S></S></S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+</INDEXES>
+</FILEDEF>
+</DBCONFIG>

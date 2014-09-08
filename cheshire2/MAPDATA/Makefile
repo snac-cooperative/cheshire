@@ -1,0 +1,2 @@
+clean:
+	rm CITIES_COMP *.index INDEX_LOGFILE *_BATCHTEMP *~

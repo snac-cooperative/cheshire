@@ -1,0 +1,174 @@
+
+<html>
+  <head>
+    <title>Cheshire Configuration Files</title>
+  </head>
+  <body bgcolor = white>
+    <center><h3>Cheshire Configuration - Displays</h3></center>
+    <p>
+     [ <a href = "config-cluster.html">Back to Cluster</a> ] [ <a href = "config.html">Up to the contents</a> ]
+    <p>
+      <img src = "closed.gif"><b>dispoptions</b><br>
+      This section contains flags as to how to treat the common character
+entities, &amp;LT; &amp;GT; and &amp;AMP; (being &lt;, &gt; and &amp;
+respectively of course).  To keep them as is, the flag KEEP_(name) is used -
+for example KEEP_LT.  To keep all three, there is a KEEP_ALL flag.<br>
+As of version 2.27c there is also a KEEP_ENTITIES option which will have the
+parser ignore all entities, not just those for &amp; &lt; and &gt; and return them as is.
+<p>For example:<br>
+      <code>&lt;dispoptions&gt; KEEP_LT KEEP_GT &lt;/dispoptions&gt; </code>
+    <p>
+      <img src = "closed.gif"><b>displays</b><br>
+      The displays tag contains a list of display definitions or formats - element sets in the Z39.50 lingo. Each definition explains how the data should be presented when a request of that format is received. In older versions of the configuration file, this was known as 'display'
+    <p>
+      <img src = "closed.gif"><b>displaydef</b><br>
+      This contains a display definition, ala indexdef, componentdef etc.  It has three possible attributes:
+      <table>
+      <tr><td>NAME</td><td>This is the Z39.50 element set name of the format, by which it will be requested in a Z39.50 (or local name if not using Z39.50).</td></tr>
+      <tr><td>OID</td><td>The identifier of the record syntax. This is how Z39.50 queries will ask for the format, rather than by name. The Z39.50 record syntax OID is also used to identify the requested record syntax in local display processing.</td></tr>
+      <tr><td>DEFAULT</td><td>A keyword, if given this is the default format to present results in.</td></tr>
+    </table>
+    <p>
+    In older versions of the configuration file setup, this was called the format tag. An example:<br>
+<code> &lt;displaydef name="TPGRS" OID="1.2.840.10003.5.105" DEFAULT&gt;</code>
+    <p>
+      <img src = "closed.gif"><b>convert</b><br>
+       Probably the more common of the two possible format types, convert allows many different types of formatting. It has one required attribute called function, and may take a keyword 'ALL' which implies that the entire record should be converted to the given format rather than a subset of tags.
+    <p>
+      To retreive only a limited number of tags, a clusmap tag may be used in the same way as for creating a cluster above. The clusmap will contain a list of 'from' and 'to' tags, containing the tag specifications to be mapped from and to. There are three different functions, recorded in the function attribute of the tag, which govern how this is specified and what is returned:
+<table>
+<tr><td>TAGSET-G</td><td>The number of the tag in the Tagset-G attribute set should be given in the TO field.</td></tr>
+<tr><td>TAGSET-M</td><td>The number of the tag  in the Tagset-M attribute set should be given in the TO field.</td></tr>
+<tr><td>MIXED</td><td>Sub elements of the tag in FROM should be converted to the syntax given in the OID of the format</td></tr>
+</table>
+<p>
+      The tagsets are fully documented in the Z39.50 specifications (Appendix 12 of Z39.50-1995), and are summarised <a href = "tagsets.html">here</a>.
+
+<p>
+A simple format that returns the title tag of an HTML page might be:
+<pre>
+&lt;convert function="TAGSET-G"&gt;
+  &lt;clusmap&gt;
+    &lt;from&gt;
+      &lt;tagspec&gt;
+        &lt;ftag&gt; head &lt;/ftag&gt; &lt;s&gt; title &lt;/s&gt;
+      &lt;/tagspec&gt;
+    &lt;/from&gt;
+    &lt;to&gt;
+      &lt;tagspec&gt;
+        &lt;ftag&gt; 1 &lt;/ftag&gt; 
+      &lt;/tagspec&gt;
+    &lt;/to&gt;
+  &lt;/clusmap&gt;
+&lt;convert&gt;
+</pre>
+
+    <p>
+      There are some special keywords that are usable in conversions. 
+
+<p>
+<b>Document ID</b><br>
+	If the tagspec of the element to be mapped from is given as '#DOCID#', then Cheshire will return its internal document id. This can then be used to retreive the document directly with a search on the 'docid' database.  If the retrieved record is a component then this will be the component ID, and can be used to retrieve the component by searching the 'componentid' database. $COMPONENTID# and #COMPID# are synonyms.
+<p>
+<b>Component Parent Tags</b><br>
+If the from ftag field is #PARENT#, then the tag given in the s field will be taken from the parent document of a component.
+<p>
+<b>Record Relevance</b><br>
+The keywords '#RELEVANCE#' and '#SCORE#' can be used in the From field to retreive the relevance of a relevance ranked search. (eg one with the @ operator).  This is scaled such that the first record is relevance 1000. If the search is wholly boolean then all records will have relevance 1000. '#RAWRELEVANCE#'
+or '#RAWSCORE#' will return the unscaled probability of relevance.
+<p>
+<b>Record Rank</b><br>
+The '#RANK#' keyword will return the rank of the record in the result set - the most relevant will be ranked 1, and incrementing from there.
+<p>
+<b>Filename</b><br>
+The '#FILENAME#' keyword will return the server filepath of the physical 
+file containing the record.
+<p>
+<b>Database Name</b><br>
+The '#DBNAME#' keyword will return the database name (filetag) of the 
+file containing the record.
+<p>
+<b>First Element Display</b><br>
+	If the attr tag is used in the from field with the value 'DISPLAY_FIRST_ONLY', then only the first occurance of the given tag will be used in the format rather than all of them.
+<p>
+<b>Summary</b><br>
+	If, after a from and to pair, the summarize tag is given, the tag mapped from will not be given just a flag noting its presence. The maxnum tag should be 1, and the tagspec the name of the flag to report with.
+
+<p><b>Dynamic Single Element Extraction</b><br>
+Single XML or SGML elements may be extracted dynamically from the records
+in a database using the following format (assuming XML output is wanted):
+
+<pre>
+&lt;displaydef name="XML_ELEMENT_" OID="1.2.840.10003.5.109.10"&gt;
+&lt;convert function="XML_ELEMENT"&gt;
+  &lt;clusmap&gt;
+    &lt;from&gt;
+      &lt;tagspec&gt;
+        &lt;ftag&gt; SUBST_ELEMENT &lt;/ftag&gt;
+      &lt;/tagspec&gt;
+    &lt;/from&gt;
+    &lt;to&gt;
+      &lt;tagspec&gt;
+        &lt;ftag&gt; SUBST_ELEMENT &lt;/ftag&gt; 
+      &lt;/tagspec&gt;
+    &lt;/to&gt;
+  &lt;/clusmap&gt;
+&lt;convert&gt;
+</pre>
+<p>
+
+This format is used in querying by setting the elementsetname to
+"XML_ELEMENT_xxx" where the "xxx" is the full name of an element in
+the records. Only that single element is extracted (or if it occurs 
+multiple times in the same record, all of the occurrences are extracted).
+For example, assuming the above displaydef is defined for the example
+bibfile database (see index/testconfig.new), then sending the following
+commands to the client:
+<pre>
+% zset recsyntax xml
+% zset elementset "XML_ELEMENT_Fld245"
+% zfind su mathematics
+{OK {Status 1} {Hits 17} {Received 0} {Set Default} {RecordSyntax UNKNOWN}}
+% zdisplay
+</pre><br>
+Will result in...
+<br><pre>
+{OK {Status 0} {Received 10} {Position 1} {Set Default} {NextPosition 11} {RecordSyntax XML 1.2.840.10003.5.109.10}} {&lt;RESULT_DATA DOCID="1"&gt;
+&lt;Fld245 AddEnty="No" NFChars="0"&gt;&lt;a&gt;Singularitâes áa Cargáese&lt;/a&gt;&lt;/Fld245&gt;
+&lt;/RESULT_DATA&gt;
+} {&lt;RESULT_DATA DOCID="2"&gt;
+&lt;Fld245 AddEnty="Yes" NFChars="0"&gt;&lt;a&gt;Modáeles locaux de champs et de formes /&lt;/a&gt;&lt;c&gt;Robert Roussarie&lt;/c&gt;&lt;/Fld245&gt;
+&lt;/RESULT_DATA&gt;
+} {&lt;RESULT_DATA DOCID="5"&gt;
+&lt;Fld245 AddEnty="No" NFChars="0"&gt;&lt;a&gt;Metody modelirovaniëiìa i obrabotka informaëtìsii /&lt;/a&gt;&lt;c&gt;otv. redaktory K.A. Bagrinovskiæi, E.L. Berlëiìand&lt;/c&gt;&lt;/Fld245&gt;
+&lt;/RESULT_DATA&gt;
+</pre>
+
+Notice that the extra tag &lt;RESULT_DATA&gt; has been added to each
+record (the DOCID attribute is the internal document ID for the source
+record).
+Thus, any XML/SGML element can be requested from the database records of
+a database with this display format defined.
+
+<p><b>External Conversion Scripts</b>
+    <p>
+      A second use of convert is to give a filepath as the value for the function attribute. In this case the file pointed to is to be run as a conversion program, reading the data from STDIN and writing to STDOUT. The format that the data will be received in is governed by the OID attribute of the displaydef. In this use, the convert tag has no contents, but does have an end tag.  For example:<br>
+<code> &lt;convert function = "/home/cheshire/cheshire/teidocs/tohtml.pl"&gt; &lt;/convert&gt; </code>
+
+    <p>
+      <img src = "closed.gif"><b>exclude</b><br>
+      The other style of format is an exclusion. In this the given tags will be excluded from being returned, however the document will still be valid SGML.  The exclude tag has a 'compress' attribute, which takes the boolean values of TRUE and FALSE If it is true, then required elements by the DTD will have their data compressed to just '...' For example to exclude all black text, the format might be:
+<pre>
+&lt;exclude compress=TRUE&gt;
+      &lt;tagspec&gt;
+              &lt;ftag&gt; archdesc &lt;/ftag&gt;
+      &lt;/tagspec&gt;
+&lt;/exclude&gt;
+</pre>
+    <p>
+    <hr>
+</body>
+</html>
+
+
+

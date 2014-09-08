@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>MultiHost Z39.50 Search</title>
+  </head>
+
+  <body bgcolor =white>
+<table width = 100%>
+<tr><td width = 99%><center><b>MultiHost Z39.50 Search</b></center></td><td align = right valign = top><a href="z3950://search/"><font size =-1>refresh</font></a></td></tr>
+</table>
+<table width = 100%>
+<tr><td colspan =2><hr></td></tr>
+<form target="_content" action = "z3950://search">
+<tr><td>Field:</td><td><font size = -1><select name = searchfield>%OPTIONS%</select></font></td></tr>
+<tr><td>Term:</td><td><font size = -1><input type = text name = searchterm size = 25 value = ""></font></td></tr>
+<tr><td colspan=2><input type = submit value = "Search"></td></tr>
+<tr><td colspan =2><hr></td></tr>
+<tr><td>Hosts:</td><td>&nbsp;</td></tr>
+%HOSTS%
+<tr><td colspan =2><hr></td></tr>
+</form>
+</table>
+</body>
+</html>

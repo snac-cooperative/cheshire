@@ -1,0 +1,17 @@
+zselect testsherlock sherlock.berkeley.edu bibfile 2222
+zset smallelementset B
+zset mediumelementset B
+zset smallsetupperbound 3
+zset largesetlowerbound 20
+zset mediumsetpresentnumber 4
+puts "small search with MARC set"
+puts [zfind su geometry]
+
+puts "smallsearch with SGML set"
+zset recsyntax sgml
+puts [zfind su geometry]
+
+puts "large search"
+puts [zfind topic mathematics]
+zset elementsetnames B
+puts [zdisplay 1 1]

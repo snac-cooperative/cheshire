@@ -1,0 +1,233 @@
+<!-- This is a test config file -->
+<!-- it should not be used      -->
+<!-- for anything but configfile testing -->
+<DBCONFIG>
+
+<!-- The first filedef -->
+<FILEDEF TYPE=MARC>
+<!-- filetag is the "shorthand" name of the file -->
+<Filetag>  bibfile
+</FILETAG>
+<!-- filename is the full path name of the file -->
+<FILENAME>  	/export/home/ray/Work/cheshire2/sgmlparse/testsgmlmarc
+</FILENAME>
+<!-- fileDTD is the full path name of the file's DTD -->
+<FILEDTD>	/usr3/cheshire2/new/sgml/USMARC07.DTD
+</FILEDTD>
+<!-- assocfil is the full path name of the file's Associator -->
+<ASSOCFIL>	/export/home/ray/Work/cheshire2/configparse/xx.asso
+</ASSOCFIL>
+<!-- history is the full path name of the file's history file -->
+<HISTORY>	/export/home/ray/Work/cheshire2/configparse/xx.history
+</HISTORY>
+
+<!-- The following are the index definitions for the file -->
+
+<INDEXES>
+<!-- First index def -->
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=NONE>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/configparse/xx.au_dict
+		
+</INDXNAME>
+<INDXTAG>	author
+		
+</INDXTAG>
+<INDXMAP> 
+<USE> 1 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP> 
+<USE> 2 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP> 
+<USE> 3 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP> 
+<USE> 1002 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP> 
+<USE> 1003 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP> 
+<USE> 1004 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP> 
+<USE> 1005 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP> 
+<USE> 1006 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/configparse/xx.author.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/configparse/xx.author.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/configparse/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld100 
+ 			
+</FTAG><FTAG>Fld110 
+			
+</FTAG><FTAG>Fld111 
+			
+</FTAG><FTAG>Fld700
+			
+</FTAG><FTAG>Fld710
+			
+</FTAG><FTAG>Fld711
+		
+</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=EXACTKEY NORMAL=NONE>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/configparse/xx.xau_dict
+		
+</INDXNAME>
+<INDXTAG>	xauthor
+		
+</INDXTAG>
+<INDXMAP>  
+<USE> 1 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc>
+</INDXMAP>
+<INDXMAP>  
+<USE> 2 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc>
+</INDXMAP>
+<INDXMAP>  
+<USE> 3 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc>
+</INDXMAP>
+<INDXMAP>  
+<USE> 1002 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc>
+</INDXMAP>
+<INDXMAP>  
+<USE> 1003 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc>
+</INDXMAP>
+<INDXMAP>  
+<USE> 1004 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc>
+</INDXMAP>
+<INDXMAP>  
+<USE> 1005 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc>
+</INDXMAP>
+<INDXMAP>  
+<USE> 1006 </USE><POSIT> 1 </posit> <struct> 1 </struct> <trunc> 1 </trunc>
+</INDXMAP>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/configparse/xx.xauthor.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/configparse/xx.xauthor.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/configparse/xx.xstoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>Fld.00 </FTAG><s> [ab] </s>
+<FTAG>Fld.10 </FTAG><s> [abcd] </s>
+<FTAG>Fld.11 </FTAG><s> [abcd] </s>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=WORDNET>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/configparse/xx.title_dict
+		
+</INDXNAME>
+<INDXTAG>	title
+		
+</INDXTAG>
+<INDXMAP>
+<USE> 4 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>  
+<USE> 5 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>  
+<USE> 6 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/configparse/xx.title.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/configparse/xx.title.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/configparse/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld245 
+</FTAG><S>a</S><S>b 
+			
+</S><FTAG>Fld240 
+</FTAG><S>a 
+</S><S>t 
+</S><S>p <S> subsub-p </S>
+			
+</S><FTAG>Fld130 
+			
+</FTAG><FTAG>Fld730 
+			
+</FTAG><FTAG>Fld740 
+			
+</FTAG><FTAG>Fld1.. 
+</FTAG><S>t 
+			
+</S><FTAG>Fld7.. 
+</FTAG><S>t
+		
+</S>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+<INDEXDEF ACCESS=BTREE EXTRACT=KEYWORD NORMAL=WORDNET>
+<INDXNAME>	
+		/export/home/ray/Work/cheshire2/configparse/xx.subject_dict
+		
+</INDXNAME>
+<INDXTAG>	subject
+		
+</INDXTAG>
+<INDXMAP>
+<USE> 21 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 26 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 25 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 27 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDXMAP>
+<USE> 28 </USE><POSIT> 3 </posit> <struct> 6 </struct>
+</INDXMAP>
+<INDASSOC> 
+		/export/home/ray/Work/cheshire2/configparse/xx.subj.idxasso
+		
+</INDASSOC>
+<INDXPOST>		 /export/home/ray/Work/cheshire2/configparse/xx.subj.idxpost
+		
+</INDXPOST>
+<STOPLIST>		 /export/home/ray/Work/cheshire2/configparse/xx.stoplist
+		
+</STOPLIST>
+<INDXKEY>
+<TAGSPEC><FTAG>Fld6..  
+		
+</FTAG>
+</TAGSPEC>
+</INDXKEY>
+</INDEXDEF>
+
+</INDEXES>
+
+</FILEDEF>
+</DBCONFIG>

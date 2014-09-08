@@ -40,5 +40,9 @@ then compile using the standard
 	sudo make install
 	```
 Note, this requires sudo privileges for the current user.
-4. Clone this repository using `git clone user@repo`.
-5. Run `make newbin` to build Cheshire. 
+
+Install Cheshire
+--------------------
+
+1. Clone this repository using `git clone user@repo`.
+2. Run `make newbin` to build Cheshire. 

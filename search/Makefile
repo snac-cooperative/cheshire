@@ -4,16 +4,16 @@
 #
 # all these things will need to point to the
 # proper places
-SYSTYPE= ALPHA
+SYSTYPE= LINUX
 TREE= ..
 ID=	$(TREE)/header
 RANLIB= :
 
-TKDIR = /usr/local/src/tk8.0
-TCLDIR = /usr/local/src/tcl8.0
-TKLIBS = /usr/local/lib
-#TKLIBINC= -ltk8.0
-#TCLLIBINC= -ltcl8.0
+TKDIR = /usr/include
+TCLDIR = /usr/include
+TKLIBS = /usr/lib64
+TKLIBINC= -ltk8.5
+TCLLIBINC= -ltcl8.5
 LIBDIR = $(TREE)/lib
 LIBZ=	$(TREE)/lib
 XINC=  -I/usr/include 

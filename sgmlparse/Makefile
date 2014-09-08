@@ -111,7 +111,7 @@ in_cheshire_exit.o: ../index/in_cheshire_exit.c
 	@ $(CC) $(DEMOCCOPTS) -c ../index/in_cheshire_exit.c
 
 clean: 
-	rm -f *.o libsgml.a libsgmldm.a parser dtd_parser core schema_parser
+	rm -f *.o libsgml.a libsgmldm.a parser dtd_parser core schema_parser element_count 
 
 cleandata: 
 	rm -f xx.* yy.* zz.*

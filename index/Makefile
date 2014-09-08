@@ -257,7 +257,7 @@ stem_test: stem_test.o
 	  stem_test.o stem.o -lc -lfl
 
 clean: 
-	rm -f *.o *.a core dumppost dumpdb dumpcomp countdb regmatch in_testdel in_test index_cheshire index_clusters highpost testparse batch_load date_test dumpprox delete_recs dumpds index_cheshire_grid
+	rm -f *.o *.a core dumppost dumpdb dumpcomp countdb regmatch in_testdel in_test index_cheshire index_clusters highpost testparse batch_load date_test dumpprox delete_recs dumpds index_cheshire_grid convert2bitmap dumpvector index_vectors loadsorted_vectors
 
 reallyclean: clean cleandata cleandata2 cleandl cleantest
 	rm -f *~

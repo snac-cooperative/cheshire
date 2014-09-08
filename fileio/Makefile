@@ -7,9 +7,9 @@ SD=	.
 ID=	$(TREE)/header
 XMLDIR= /usr/include/libxml2
 LOCDIR= /usr/local/include
-TKDIR=	/usr/local/src/tk4.0
-TCLDIR=	/usr/local/src/tcl7.4
-TKLIBS=	/usr/local/lib
+TKDIR=	/usr/include
+TCLDIR=	/usr/include
+TKLIBS=	/usr/lib64
 
 CC=		gcc
 GCFLAGS=	-g

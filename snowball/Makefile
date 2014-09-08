@@ -5,20 +5,20 @@
 # all these things will need to point to the
 # proper places
 SYSTYPE=LINUX
-TREE=	..
-SD=	/usr/local/include
-ID=	../header
-LD=	$(TREE)
-LIBDIR = $(TREE)/lib
-TKDIR=	/usr/local/include/
-TCLDIR= /usr/local/include/
-TKLIBS= /usr/local/lib
-TKLIBINC = -ltk8.0
-TCLLIBINC = -ltcl8.0
+TREE=..
+SD=/usr/include
+ID=../header
+LD=$(TREE)
+LIBDIR=$(TREE)/lib
+TKDIR=/usr/include/
+TCLDIR=/usr/include/
+TKLIBS=/usr/lib64
+TKLIBINC=-ltk8.5
+TCLLIBINC=-ltcl8.5
 RANLIB = :
 # Solaris socket libraries and functions -- comment out if not SOLARIS
-SYSLIBS= -lnsl -lsocket -lgen -ldl
-SYSOBJ= strtok_r.o
+SYSLIBS=-lnsl -lsocket -lgen -ldl
+SYSOBJ=strtok_r.o
 
 #REENT = -lc_r
 

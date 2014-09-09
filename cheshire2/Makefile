@@ -37,7 +37,7 @@ STCLLIBS= -L$(LIBDIR)  -L$(TKLIBS) $(TKLIBINC) $(TCLLIBINC) -lsearch -lsgml -ltc
 
 
 CC=	gcc
-GCFLAGS=-g
+GCFLAGS=-g -D USE_INTERP_RESULT
 LDFLAGS=	$(GCFLAGS)
 CFLAGS=		$(GCFLAGS) $(DBMSFLAG) \
 		-I$(ID)  -I../index \

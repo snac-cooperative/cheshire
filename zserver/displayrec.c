@@ -295,7 +295,6 @@ build_highlight_hash(char *word_string, weighted_result *resultset)
   char *urlletters = " \t\n\r\a\b\v\f<>";
   char *filenameletters = " \t\n\r\a\b\v\f<>";
   char *noletters = " \t\n\r\a\b\v\f";
-  char *strtok_r();
   int morphed;
   Tcl_HashEntry *entry;
   idx_list_entry *idx;

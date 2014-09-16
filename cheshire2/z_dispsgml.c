@@ -110,7 +110,6 @@ extern SGML_Tag_Data *comp_tag_list(idx_key *start_key,
 extern void outputline(void (*outfunc)(), char *in_line, int maxlen, 
 		       int indent, int datatype);
 
-extern char *strtok_r(char *s1, const char *s2, char **lasts);
 extern char *detag_data_block(SGML_Data *data, int index_type, 
 			      idx_list_entry *idx);
 

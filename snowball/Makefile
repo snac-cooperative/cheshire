@@ -27,7 +27,7 @@ SYSOBJ=strtok_r.o
 #DBMSLIB= -L/usr/local/illustra/lib -lmi
 
 
-GCFLAGS=-g -DINDEXONLY
+GCFLAGS=-g -DINDEXONLY -fPIC
 LDFLAGS=	$(GCFLAGS)
 
 # Swap the following defines for DMALLOC memory checking version

@@ -12,7 +12,7 @@ TCLDIR=	/usr/include
 TKLIBS=	/usr/lib64
 
 CC=		gcc
-GCFLAGS=	-g
+GCFLAGS=	-g -fPIC
 LDFLAGS=	$(GCFLAGS)
 RANLIB = :
 CFLAGS=		$(GCFLAGS) \

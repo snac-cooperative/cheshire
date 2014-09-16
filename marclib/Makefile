@@ -5,7 +5,7 @@ DMARC = dispmarc.o dispmarctest.o
 CC=		gcc
 RANLIB = :
 
-CFLAGS = 	-g -I../header -I/usr/local/include  -DDMALLOC_INCLUDE -DDMALLOC_DISABLE -DEXTERNAL_TAG_MATCH -D$(SYSTYPE) $(ZVERSION)
+CFLAGS = 	-g -I../header -I/usr/local/include  -DDMALLOC_INCLUDE -DDMALLOC_DISABLE -DEXTERNAL_TAG_MATCH -D$(SYSTYPE) $(ZVERSION) -fPIC
 LDFLAGS = 	-g
 XEC = libmarc.a dispmarc
 

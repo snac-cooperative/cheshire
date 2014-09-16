@@ -5,7 +5,7 @@ ID=	.
 LIBDIR= ../lib
 HDRDIR= ../header
 
-GCFLAGS= -g
+GCFLAGS= -g -fPIC
 LDFLAGS=	$(GCFLAGS)
 RANLIB  = :
 

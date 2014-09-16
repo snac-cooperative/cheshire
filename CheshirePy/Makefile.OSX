@@ -1,0 +1,131 @@
+#
+# Generic Makefile for making the object files and linking
+# the application
+#
+# all these things will need to point to the
+# proper places
+SYSTYPE=  MACOSX
+TREE= ..
+ID=	$(TREE)/header
+RANLIB= :
+
+TKDIR=	/usr/local/include
+TCLDIR= /usr/local/include
+TKLIBS= /usr/local/lib
+TKLIBINC =  -ltk8.6 -ltkstub8.6
+TCLLIBINC = -ltcl8.6 -ltclstub8.6
+XMLDIR= /usr/include/libxml2
+PYTHONINC= -I/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7
+LIBDIR = $(TREE)/lib
+mLIBZ=	$(TREE)/lib
+XINC=  -I/usr/X11/include 
+REENT= 
+PYTHONLIB=  -L/Library/Frameworks/Python.framework/Versions/2.7/lib -lpython2.7
+#SYSLIBS= ${PYTHONLIB} -L/usr/lib -lxml2.2 -L/usr/lib -ldl
+SYSLIBS= -L/usr/lib -ldl -lpython2.7 -lxml2
+GCFLAGS=-g -fPIC -I/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7 -I/Library/Frameworks/Python.framework/Versions/2.7/include/python2.7 -fno-strict-aliasing -fno-common -dynamic -isysroot /Developer/SDKs/MacOSX10.6.sdk  -arch x86_64 -DNDEBUG -g -fwrapv -O3 
+LDFLAGS=	$(GCFLAGS) -u _PyMac_Error
+
+# Swap the following defines for DMALLOC memory checking version
+#DMFLAGS=	-DDMALLOC_INCLUDE -DDMALLOC_FUNC_CHECK -D$(SYSTYPE)
+DMFLAGS=	-DDMALLOC_INCLUDE -DDMALLOC_DISABLE -D$(SYSTYPE) -DCMD_PARSE_SERVER 
+
+CFLAGS=		$(GCFLAGS) \
+                -I$(ID) -I$(TCLDIR) -I$(TKDIR) $(XINC) -I$(XMLDIR)\
+		$(DBMSINC) $(DBMSFLAG) $(DMFLAGS) $(ZVERSION) $(PYTHONINC)
+
+
+DMALLOCLIB=         -lsgml -ltclhash -lindex -lsearch -lfileio -lconfig -lcmdparse -lmarc -lsgml2marc -ldiag -lsnowball -lz3_asn
+
+
+LIBS= -L$(LIBDIR) $(DMALLOCLIB) ${SYSLIBS} ${TCLLIBINC} ${PYTHONLIB} -lwn -ldb -lm -lc ${REENT} ${DBMSLIB}
+
+DEMOCCOPTS=	$(CFLAGS)
+
+CC=	gcc
+
+.SUFFIXES: .o .c .temp .pq
+#
+# The following target should list the names of your programs
+#
+all: testCheshirePy _CheshirePy.so
+
+#
+DEFINES=
+
+# the following define should contain a list of all modules
+
+
+# ----------------
+#  The detailed instructions for building the application
+#  including tcl/tk and Z39.59 and the DBopen library
+# ----------------
+#
+
+testCheshirePy: cp_driver.o CheshirePy.o sgml_to_marc.o z_dispmarc.o z_dispsgml.o \
+	displayrec.o pSFnorm.o cheshire_exit.o  \
+	check_result_set.o get_component.o  $(SYSOBJ)
+	@ echo "making testCheshirePy"
+	$(CC) $(CFLAGS) $(DEFINES) -DSGML_INITIALIZE -o testCheshirePy \
+	   cp_driver.o CheshirePy.o sgml_to_marc.o z_dispmarc.o z_dispsgml.o \
+	   displayrec.o \
+	   cheshire_exit.o  check_result_set.o get_component.o pSFnorm.o \
+	    $(SYSOBJ) $(LIBS)
+
+
+_CheshirePy.so: CheshirePy.o CheshirePy_wrap.o sgml_to_marc.o z_dispmarc.o z_dispsgml.o \
+	displayrec.o pSFnorm.o cheshire_exit.o  \
+	check_result_set.o get_component.o  $(SYSOBJ)
+	@ echo "making _CheshirePy.dylib"
+	$(CC) $(CFLAGS) $(DEFINES) $(LDFLAGS) -DSGML_INITIALIZE -shared -o _CheshirePy.so \
+	   CheshirePy_wrap.o CheshirePy.o \
+	   sgml_to_marc.o z_dispmarc.o z_dispsgml.o displayrec.o \
+	   cheshire_exit.o  check_result_set.o get_component.o pSFnorm.o \
+	   $(SYSOBJ) $(LIBS)
+
+
+CheshirePy_wrap.o: CheshirePy.o CheshirePy.i
+	@ echo "Making wrapper code via SWIG"
+	@ swig -python CheshirePy.i
+	$(CC) $(DEMOCCOPTS) $(PYTHONINC) $(DEFINES) -c -o CheshirePy_wrap.o CheshirePy_wrap.c
+
+reallyclean: clean cleanex
+	rm -f *~ 
+
+clean: 
+	rm -f *.o *.so *.a  _CheshirePy.so CheshirePy_wrap.c CheshirePy.py* core
+
+cleanex: 
+	rm -f  _CheshirePy.so CheshirePy_wrap.c CheshirePy.py* testCheshirePy
+
+sgml_to_marc.o: ../zserver/sgml_to_marc.c
+	$(CC) $(DEMOCCOPTS) $(DEFINES) -c -o sgml_to_marc.o ../zserver/sgml_to_marc.c
+
+cheshire_exit.o: ../cheshire2/cheshire_exit.c
+	@ $(CC) $(DEMOCCOPTS) -c ../cheshire2/cheshire_exit.c
+
+displayrec.o: ../zserver/displayrec.c
+	$(CC) $(DEMOCCOPTS) $(DEFINES) -c -o displayrec.o ../zserver/displayrec.c
+z_dispmarc.o: ../cheshire2/z_dispmarc.c
+	$(CC) $(DEMOCCOPTS) $(DEFINES) -c -o z_dispmarc.o ../cheshire2/z_dispmarc.c
+
+get_component.o: ../zserver/get_component.c
+	$(CC) $(DEMOCCOPTS) $(DEFINES) -c -o get_component.o ../zserver/get_component.c
+
+z_dispsgml.o: ../cheshire2/z_dispsgml.c
+	$(CC) $(DEMOCCOPTS) $(DEFINES) -c -o z_dispsgml.o ../cheshire2/z_dispsgml.c
+
+check_result_set.o: ../cmdparse/check_result_set.c
+	$(CC) $(DEMOCCOPTS) $(DEFINES) -c -o check_result_set.o ../cmdparse/check_result_set.c
+
+.c.o:
+	$(CC)  $(DEMOCCOPTS) $(PYTHONINC) $(DEFINES) -c $(<F)
+
+.c.so:
+	$(CC)  $(DEMOCCOPTS) $(PYTHONINC) -shared $(DEFINES) -c $(<F)
+
+
+
+#
+# DEPENDENCIES (generated, do not modify by hand)
+# 

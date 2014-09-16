@@ -4,11 +4,11 @@ OBJ=	wnglobals.o wnhelp.o search.o morph.o util.o binsearch.o
 LIB=	libwn.a 
 
 CC= gcc
-CFLAGS=	-g
+CFLAGS=	-g -fPIC
 LDFLAGS=	-L. -lc
-release:=	CFLAGS=-O
-all:=		CFLAGS += -DLABONLY
-install:=	CFLAGS=-O -DLABONLY
+release:=	CFLAGS=-O -fPIC
+all:=		CFLAGS += -DLABONLY -fPIC
+install:=	CFLAGS=-O -DLABONLY -fPIC
 RANLIB = :
 all: lib
 

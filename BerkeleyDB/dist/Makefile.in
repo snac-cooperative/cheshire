@@ -7,8 +7,8 @@ builddir=.
 # C, C++
 ##################################################
 CPPFLAGS=	-I$(builddir) -I$(srcdir)/include @CPPFLAGS@
-CFLAGS=	 	-c @CFLAGS@ $(CPPFLAGS)
-CXXFLAGS=	-c @CXXFLAGS@ $(CPPFLAGS)
+CFLAGS=	 	-c @CFLAGS@ $(CPPFLAGS) -fPIC
+CXXFLAGS=	-c @CXXFLAGS@ $(CPPFLAGS) -fPIC
 
 CC=		@MAKEFILE_CC@
 CCLINK=		@MAKEFILE_CCLINK@

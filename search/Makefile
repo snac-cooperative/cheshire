@@ -19,7 +19,7 @@ LIBZ=	$(TREE)/lib
 XINC=  -I/usr/include 
 REENT= -lc_r
 
-GCFLAGS=-g
+GCFLAGS=-g -fPIC
 LDFLAGS=	$(GCFLAGS)
 
 # Swap the following defines for DMALLOC memory checking version

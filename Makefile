@@ -114,7 +114,7 @@ bin: all
 
 
 lib/libdb.a:
-	cd BerkeleyDB/build_unix; CC=gcc; export CC; ../dist/configure ; $(MAKE) ; cp libdb.a ../../lib; cp *.h ../../header; cp db_archive db_checkpoint db_deadlock db_dump db_load  db_recover db_stat ../../bin 
+	cd BerkeleyDB/build_unix; CC=gcc -fPIC; export CC; ../dist/configure ; $(MAKE) ; cp libdb.a ../../lib; cp *.h ../../header; cp db_archive db_checkpoint db_deadlock db_dump db_load  db_recover db_stat ../../bin 
 
 
 clean:

@@ -4,7 +4,7 @@ TRANS = trans.o marc2sgml.o m2sldr.o m2sflds.o m2sdflds.o sfnorm.o m2sindi.o ent
 CC=		gcc
 
 #CFLAGS = 	-g -O3 -I../header -I/usr/local/include -L../lib -DDMALLOC_INCLUDE -DDMALLOC_DISABLE -D$(SYSTYPE)
-CFLAGS = 	-g -I../header -I/usr/local/include -L../lib -DDMALLOC_INCLUDE -DDMALLOC_DISABLE -D$(SYSTYPE) $(ZVERSION)
+CFLAGS = 	-g -I../header -I/usr/local/include -L../lib -DDMALLOC_INCLUDE -DDMALLOC_DISABLE -D$(SYSTYPE) $(ZVERSION) -fPIC
 LDFLAGS = 	-g
 
 all: marc2sgml

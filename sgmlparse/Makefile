@@ -39,7 +39,7 @@ DIRS=		./dirs.mk
 LIBS=	        $(DMALLOCLIB)  $(SYSLIBS) -ll -lm -lc 
 DMLIBS2=	-L$(LIBDIR) -lfileio -lconfig -ltclhash -ldiag $(DBMSLIB) $(SYSLIBS) -ll -lm -lc 
 
-DEMOCCOPTS=	$(CFLAGS)
+DEMOCCOPTS=	$(CFLAGS) -fPIC
 
 CC=	gcc
 #

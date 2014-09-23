@@ -22,7 +22,7 @@ REENT = -lc_r
 ARFLAGS = crv
 RANLIB	= :
 
-GCFLAGS=-g
+GCFLAGS=-g -O2 -fPIC
 LDFLAGS=	$(GCFLAGS)
 
 # Swap the following defines for DMALLOC memory checking version

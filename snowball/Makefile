@@ -27,7 +27,7 @@ SYSOBJ=strtok_r.o
 #DBMSLIB= -L/usr/local/illustra/lib -lmi
 
 
-GCFLAGS=-g -DINDEXONLY -fPIC
+GCFLAGS=-g -O2 -fPIC -DINDEXONLY
 LDFLAGS=	$(GCFLAGS)
 
 # Swap the following defines for DMALLOC memory checking version
@@ -117,7 +117,7 @@ libsnowball.a: snowball_stem.o conversions.o
 
 snowball_stem_test: snowball_stem_test.o snowball_stem.o libstemmer.o
 	@ echo "linking snowball_stem_test"
-	@ $(CC) -o $@ $^
+	@ $(CC) -g -fPIC -o $@ $^
 
 libstemmer.o:
 	@ cd libstemmer_c; make ; cp libstemmer.o ..

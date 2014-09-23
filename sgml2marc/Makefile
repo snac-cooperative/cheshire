@@ -12,7 +12,7 @@ LIBDIR = $(TREE)/lib
 RANLIB = :
 
 #GCFLAGS=-g -O3 -ansi -pedantic
-GCFLAGS=-g -ansi -pedantic -fPIC
+GCFLAGS=-g -ansi -O2 -fPIC
 LDFLAGS=	$(GCFLAGS)
 CFLAGS=		$(GCFLAGS) \
 		-I$(ID) -I$(SD) -I$(TKDIR) -I$(TCLDIR) $(XINC) $(ZVERSION)

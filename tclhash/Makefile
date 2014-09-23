@@ -9,7 +9,7 @@ TKLIBS=	/usr/local/lib
 XLIB=	/usr/lib/libX11.a
 LIBDIR= ../lib
 RANLIB= :
-GCFLAGS= -g
+GCFLAGS= -g -O2 -fPIC
 LDFLAGS=	$(GCFLAGS)
 
 # Swap the following defines for DMALLOC memory checking version
@@ -26,7 +26,7 @@ DMCFLAGS=		$(GCFLAGS) \
 
 
 #DEMOCCOPTS=	$(DMCFLAGS)
-DEMOCCOPTS=	$(CFLAGS) -fPIC
+DEMOCCOPTS=	$(CFLAGS)
 
 CC=	gcc
 #

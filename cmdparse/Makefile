@@ -10,7 +10,7 @@ CHES= 	/u
 ID=	../header
 LIBDIR = ../lib
 LIBZ=	../lib
-
+FLEX= /usr/local/bin/flex
 CC=	gcc
 GCFLAGS=-g -fPIC 
 LDFLAGS=	$(GCFLAGS)
@@ -74,7 +74,7 @@ z__pars.c: $(GRAMMARFILES)
 	@ LLgen q_grammar.g
 
 lex.z__.c: $(GRAMMARFILES)
-	@ flex -L -i -Pz__ q_scan.flex
+	@ $(FLEX) -L -i -Pz__ q_scan.flex
 	@ $(CC) $(DEMOCCOPTS) -c lex.z__.c
 
 q_grammar.o: q_grammar.c

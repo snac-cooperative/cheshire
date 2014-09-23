@@ -11,7 +11,7 @@ RANLIB	= :
 CC	= gcc 
 
 # Compiler switches. Default -g.
-CFLAGS = -g -Wall -fPIC -DMAJOR_VERSION=1 -DMINOR_VERSION=0 -I/usr/include/python2.6 -I${HEADER_DIR}
+CFLAGS = -g -Wall -fPIC -DMAJOR_VERSION=1 -DMINOR_VERSION=0 -I/usr/include/python2.7 -I${HEADER_DIR}
 
 LIBRARIES = -llist
 

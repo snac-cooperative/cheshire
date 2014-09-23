@@ -11,8 +11,9 @@ TKLIBS=	/usr/local/lib
 XLIBS=	/usr/lib/libX11.a
 LIBDIR= ../lib
 RANLIB= :
+FLEX= /usr/local/bin/flex
 
-GCFLAGS= -g
+GCFLAGS= -g -O2 -fPIC
 LDFLAGS=	$(GCFLAGS)
 
 #DBMSFLAG= -DPOSTGRES
@@ -39,7 +40,7 @@ DIRS=		./dirs.mk
 LIBS=	        $(DMALLOCLIB)  $(SYSLIBS) -ll -lm -lc 
 DMLIBS2=	-L$(LIBDIR) -lfileio -lconfig -ltclhash -ldiag $(DBMSLIB) $(SYSLIBS) -ll -lm -lc 
 
-DEMOCCOPTS=	$(CFLAGS) -fPIC
+DEMOCCOPTS=	$(CFLAGS)
 
 CC=	gcc
 #
@@ -93,7 +94,7 @@ lex.sgml_.o: lex.sgml_.c
 	@ $(CC) $(DEMOCCOPTS) -DDO_LL -c lex.sgml_.c 
 
 lex.sgml_.c: sgml_scan.flex
-	@ flex -L -Psgml_ sgml_scan.flex
+	@ $(FLEX) -L -Psgml_ sgml_scan.flex
 
 sgml_pars.o: sgml_gram.c
 	@ $(CC) $(DEMOCCOPTS) -c sgml_pars.c 

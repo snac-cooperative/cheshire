@@ -61,7 +61,7 @@ CC=	gcc
 #
 # The following target should list the names of your programs
 #
-all: in_test dumpdb dumpds dumpcomp countdb dumppost highpost index_cheshire index_clusters index_vectors batch_load dumpprox dumpvector delete_recs convert2bitmap loadsorted_vectors index_cheshire_grid dumprecs2 fixcompmax
+all: in_test dumpdb dumpds dumpcomp countdb dumppost highpost index_cheshire index_clusters index_vectors batch_load dumpprox dumpvector delete_recs convert2bitmap index_compress loadsorted_vectors index_cheshire_grid dumprecs2 fixcompmax
 
 #
 DEFINES=
@@ -222,6 +222,11 @@ convert2bitmap: convert2bitmap.o cf_xtra.o in_cheshire_exit.o get_component.o  $
 	$(CC) $(CFLAGS) $(DEFINES) -o convert2bitmap \
 		convert2bitmap.o cf_xtra.o in_cheshire_exit.o  get_component.o $(SYSOBJ) $(LIBS) 
 
+index_compress: in_compress.o cf_xtra.o in_cheshire_exit.o get_component.o  $(SYSOBJ)
+	@ echo "linking compress main"
+	$(CC) $(CFLAGS) $(DEFINES) -o index_compress \
+		in_compress.o cf_xtra.o in_cheshire_exit.o  get_component.o $(SYSOBJ) $(LIBS) 
+
 dumpprox: dumpprox.o cf_xtra.o in_cheshire_exit.o get_component.o  $(SYSOBJ)
 	@ echo "linking dumpprox main"
 	$(CC) $(CFLAGS) $(DEFINES) -o dumpprox \
@@ -266,7 +271,7 @@ cleandl:
 	rm -f TESTDL/DL.* TESTDL/*.DOCSIZES
 
 cleandata: 
-	rm -f TESTDATA/__db.* TESTDATA/log.* TESTDATA/*.index TESTDATA/*.index.PROX TESTDATA/*.index.VECTOR TESTDATA/COMPONENT* TESTDATA/comp* TESTDATA/*.history INDEX_LOGFILE TESTDATADS/TEST_DATASTORE TESTDATADS/*.index TESTDATADS/COMPONENT*  TESTDATADS/comp* TESTDATADS/*.history TESTDATA/testcluster*
+	rm -f TESTDATA/__db.* TESTDATA/log.* TESTDATA/*.index TESTDATA/*.index_* TESTDATA/*.index.PROX TESTDATA/*.index.VECTOR TESTDATA/COMPONENT* TESTDATA/comp* TESTDATA/*.history INDEX_LOGFILE TESTDATADS/TEST_DATASTORE TESTDATADS/*.index TESTDATADS/COMPONENT*  TESTDATADS/comp* TESTDATADS/*.history TESTDATA/testcluster*
 
 cleandata2: 
 	rm -f TESTDATA2/dictionary* TESTDATA2/mainfile* TESTDATA2/xx*

@@ -9,7 +9,7 @@ XLIB=	/usr/lib/libX11.a
 ZLIB=  ../lib
 LIBDIR= ../lib
 DMALLOC_LIB_PATH= /opt/lib
-
+FLEX= /usr/local/bin/flex
 GCFLAGS= -g -fPIC
 LDFLAGS=	$(GCFLAGS)
 RANLIB=:
@@ -80,7 +80,7 @@ parse_util.o: ../sgmlparse/parse_util.c
 	@ $(CC) $(DEMOCCOPTS) -c ../sgmlparse/parse_util.c
 
 lex.cf_.c: cf_parse.flex
-	@ flex -L -i -Pcf_ cf_parse.flex
+	@ $(FLEX) -L -i -Pcf_ cf_parse.flex
 
 lex.cf_.o: lex.cf_.c cf_grammar.c
 	@ $(CC) $(DEMOCCOPTS) -DDO_LL -c lex.cf_.c

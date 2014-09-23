@@ -1,4 +1,4 @@
-# $Id: Makefile.in,v 1.1.1.1 2000/08/12 08:29:02 silkworm Exp $
+# $Id: Makefile.in,v 1.2 2014/05/06 18:39:14 ray Exp $
 
 srcdir=	@srcdir@/..
 builddir=.
@@ -7,8 +7,8 @@ builddir=.
 # C, C++
 ##################################################
 CPPFLAGS=	-I$(builddir) -I$(srcdir)/include @CPPFLAGS@
-CFLAGS=	 	-c @CFLAGS@ $(CPPFLAGS) -fPIC
-CXXFLAGS=	-c @CXXFLAGS@ $(CPPFLAGS) -fPIC
+CFLAGS=	 	-c -fPIC @CFLAGS@ $(CPPFLAGS)
+CXXFLAGS=	-c -fPIC @CXXFLAGS@ $(CPPFLAGS)
 
 CC=		@MAKEFILE_CC@
 CCLINK=		@MAKEFILE_CCLINK@

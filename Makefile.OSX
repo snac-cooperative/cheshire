@@ -15,14 +15,14 @@ SYSTEMTYPE= MACOSX
 
 #################################################################
 ## The following should point to the include directory for 
-## tk (4.0) and tcl (7.4) and the location of the libraries for
+## tk (8.5) and tcl (8.5) and the location of the libraries for
 ## them.
 #################################################################
-TK_DIR=	/usr/include
-TCL_DIR= /usr/include
-TK_LIBS= /usr/lib
-TK_LIBINC =  "-ltk8.4 -ltkstub8.4"
-TCL_LIBINC = "-ltcl8.4 -ltclstub8.4"
+TK_DIR=	/usr/local/include
+TCL_DIR= /usr/local/include
+TK_LIBS= /usr/local/lib
+TK_LIBINC =  "-ltk8.6 -ltkstub8.6"
+TCL_LIBINC = "-ltcl8.6 -ltclstub8.6"
 
 #if ZVERSION is set to Z3950_2001 the compiled version will include some
 # new variables and options -- which may cause problems with older
@@ -46,8 +46,8 @@ SYS_LIBS= "-L/usr/lib -ldl -L/usr/local/lib -lxml2"
 #defining the following removes it from the code
 #RUSAGE_DEF = "-DNO_RUSAGE"
 
-X11_INCLUDES = -I/usr/X11R6/include
-X11_LIBS = "-L/usr/X11R6/lib -lX11"
+X11_INCLUDES = -I/usr/X11/include
+X11_LIBS = "-L/usr/X11/lib -lX11"
 
 #################################################################
 ## Relational dbms interface code -- These should be blank if
@@ -63,12 +63,12 @@ DBMS_FLAG=
 # for the DBMS.
 #DBMS_INC= "-I/usr/local/illustra/h"
 #DBMS_LIB= "-L/usr/local/illustra/lib -lmi"
-#DBMS_INC="-I/usr/include/pgsql"
-#DBMS_LIB="-L/usr/lib/pgsql -lpq"
+#DBMS_INC="-I/Library/PostgreSQL/9.3/include"
+#DBMS_LIB="-L/Library/PostgreSQL/9.3/lib -lpq"
 #DBMS_INC="-I/usr/include/mysql"
 #DBMS_LIB="-L/usr/lib/mysql -lmysqlclient"
-DBMS_INC="-I/usr/local/mysql/include"
-DBMS_LIB="-L/usr/local/mysql/lib -lmysqlclient -lz"
+#DBMS_INC="-I/usr/local/mysql/include"
+#DBMS_LIB="-L/usr/local/mysql/lib -lmysqlclient -lz"
 
 
 #################################################################
@@ -103,7 +103,7 @@ bin: all
 	cd config; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) RANLIB=$(RANLIBPROG) test_config ; cp test_config ../bin
 	cd sgmlparse; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION)  RANLIB=$(RANLIBPROG)  all ; cp dtd_parser schema_parser parser element_count ../bin
 	cd search; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) REENT=$(RE_ENTRANT)  DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION)  RANLIB=$(RANLIBPROG) testsrch2 ; cp testsrch2 ../bin
-	cd index; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) RUSAGE=$(RUSAGE_DEF) SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES)   DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) REENT=$(RE_ENTRANT) ZVERSION=$(Z_VERSION) RANLIB=$(RANLIBPROG)  all ; cp index_cheshire index_clusters in_test dumpdb dumpds countdb dumppost highpost dumpcomp dumpprox delete_recs batch_load convert2bitmap index_vectors dumpvector index_cheshire_grid ../bin
+	cd index; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) RUSAGE=$(RUSAGE_DEF) SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES)   DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) REENT=$(RE_ENTRANT) ZVERSION=$(Z_VERSION) RANLIB=$(RANLIBPROG)  all ; cp index_cheshire index_clusters in_test dumpdb dumpds countdb dumppost dumprecs2 highpost dumpcomp dumpprox delete_recs batch_load convert2bitmap index_vectors dumpvector index_cheshire_grid  index_compress ../bin
 	cd marc2sgml; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC)  SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) XLIBS=$(X11_LIBS) XINC=$(X11_INCLUDES) REENT=$(RE_ENTRANT) ZVERSION=$(Z_VERSION)  RANLIB=$(RANLIBPROG) all; cp marc2sgml ../bin
 	cd jmcd_logtool; $(MAKE) SYSTYPE=$(SYSTEMTYPE)  TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) XINC=$(X11_INCLUDES) XLIBS=$(X11_LIBS) SYSLIBS=$(SYS_LIBS) SYSOBJ=$(SYS_OBJ) REENT=$(RE_ENTRANT) DBMSFLAG=$(DBMS_FLAG) DBMSINC=$(DBMS_INC) DBMSLIB=$(DBMS_LIB) ZVERSION=$(Z_VERSION) RANLIB=$(RANLIBPROG) 
 	cd marclib; $(MAKE) SYSTYPE=$(SYSTEMTYPE) TKDIR=$(TK_DIR) TCLDIR=$(TCL_DIR) TKLIBS=$(TK_LIBS) TKLIBINC=$(TK_LIBINC) TCLLIBINC=$(TCL_LIBINC) ZVERSION=$(Z_VERSION)  RANLIB=$(RANLIBPROG) cpmarc ; cp cpmarc ../bin

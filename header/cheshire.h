@@ -66,7 +66,7 @@
 #include <sgml.h>
 #include <time.h>
 #include "z3950_3.h" /* we are using DatabaseInfo for explain stuff */
-
+#include <tcl.h>
 #include <tk.h>
 
 #ifdef DMALLOC_INCLUDE
@@ -623,6 +623,8 @@ typedef struct config_file_info {
   /* This hash table is allocated and initialized when an index is opened */
   Tcl_HashTable *IndexNamesHash;
 
+  Tcl_HashTable *IndexNamesDBHash;
+
   /* Explain information for this database/file (filled in by config parser */
   /* and from the other information here in config_file_info                */
   DatabaseInfo *databaseinfo;
@@ -711,7 +713,7 @@ FILE *cf_open(char *filename, int which);
 FILE *cf_open_cont(char *filename, int which, int recordid);
 void *cf_index_open(char *filename, char *indexname, int which);
 FILE *cf_cluster_open(char *filename, char *clustername, int which);
-DB *init_index_db (char *idxname, int idxtype, int *num_open);
+extern DB *init_index_db (char *idxname, int idxtype, int *num_open, config_file_info *cf);
 config_file_info *cf_initialize(char *cf_name, char *createflags, 
 				char *openflags);
 
@@ -721,7 +723,6 @@ config_file_info *cf_initialize(char *cf_name, char *createflags,
 
 /* global config file structure */
 config_file_info *cf_info_base = NULL;
-Tcl_HashTable *IndexNamesHash = NULL;
 Tcl_HashTable *cf_file_names = NULL, cf_file_names_data;
 
 FILE *LOGFILE;

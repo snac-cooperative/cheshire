@@ -1294,14 +1294,16 @@ in_doc_document_type_declaration:
 #ifdef DEBUGDOC
 				  if (current_sgml_data 
 				     && current_sgml_data->start_tag)
-				     printf( "AT END %10s  nest %d\n",
+				     printf( "AT END %10s  nest %d ElementID %d \n",
 					current_sgml_data->start_tag,
-					document_tag_nesting);
+					document_tag_nesting, current_sgml_data->data_element_id);
 #endif
 				  if (document_tag_nesting == 0) {
 				    force_document_end = 1;
 #ifdef DEBUGDOC
 				     printf( "Forcing doc end\n");
+				     printf( "total data elements = %d\n",
+					     current_sgml_document->element_count);
 				     fflush(stdout);
 #endif
 				    /* make sure things are cleaned up */
@@ -1341,11 +1343,11 @@ in_doc_document_type_declaration:
      if (sgml_yylval.string == NULL)
        printf("Start Tag: <(NULL)> :"); 
      else
-       printf("Start Tag: <%s> :", sgml_yylval.string); 
+       printf("Start Tag: <%s> : ID=%d\n", sgml_yylval.string, current_sgml_data->data_element_id ); 
      if (last_sgml_data == NULL) 
        printf("last_sgml_data is NULL!!!\n");
      else 
-       printf("last_sgml_data is %s\n", last_sgml_data->element->tag);
+       printf("last_sgml_data is %s : ID=%d\n", last_sgml_data->element->tag, last_sgml_data->data_element_id);
      fflush(stdout);
 #endif
      if (sgml_yylval.string == NULL){
@@ -1451,7 +1453,7 @@ in_doc_document_type_declaration:
 #ifdef DEBUGDOC
 	     if (last_sgml_data->element->tag != NULL) {
 	       printf("Probable sibs %s\n", last_sgml_data->element->tag);
-	       printf("last_sgml_data->end_tag is %d\n", last_sgml_data->end_tag);
+	       printf("last_sgml_data->end_tag is %s\n", last_sgml_data->end_tag);
 	     }
 	     else if (last_sgml_data->element->tag_list)
 	       printf("Probable sibs (tag_list first element): %s \n", last_sgml_data->element->tag_list->tag); 
@@ -1543,7 +1545,7 @@ in_doc_document_type_declaration:
 	 } /* else */
        }		
        else if (last_sgml_data != NULL
-		&& last_sgml_data->end_tag != NULL) {
+		&& last_sgml_data->end_tag_offset != 0) {
 	 /* last tag is closed, must be siblings... (KLUDGE) */
 #ifdef DEBUGDOC
 	 if (last_sgml_data->element->tag != NULL) 
@@ -1557,26 +1559,60 @@ in_doc_document_type_declaration:
 	   
 	 fflush(stdout);
 #endif
-	 if (last_sgml_data)
-	   last_sgml_data->next_data_element 
-	     = current_sgml_data;
+	 
 	 current_sgml_data->parent = 
 	   last_sgml_data->parent;
-       }	
-    
+
+	 if (last_sgml_data->next_data_element == NULL
+	     || last_sgml_data->next_data_element == current_sgml_data) {
+	   last_sgml_data->next_data_element 
+	     = current_sgml_data;
+	 }
+	 else {
+	   /* find end of sibling chain */
+	   SGML_Data *tmp;
+	   for (tmp = current_sgml_data->parent->sub_data_element; 
+		tmp != NULL;
+		tmp = tmp->next_data_element) {
+	     
+	     if (tmp->next_data_element == NULL && tmp != current_sgml_data) {
+	       tmp->next_data_element = current_sgml_data;
+	       break;
+	     }
+	   }
+	 }	 
+       }	    
        else if (last_sgml_data != NULL 
 		&& current_sgml_dtd->type == 2 
 		&& current_sgml_data->element->data_type == XML_ANY) {
        
-	 if (last_sgml_data->end_tag == NULL
+	 if (last_sgml_data->end_tag_offset == 0
 	     && last_sgml_data->sub_data_element == NULL) {
 	   last_sgml_data->sub_data_element = current_sgml_data;
 	   current_sgml_data->parent = last_sgml_data;
 	 } 
 	 else if (last_sgml_data->end_tag != NULL) {
 	   /* more siblings */
-	   last_sgml_data->next_data_element = current_sgml_data;
-	   current_sgml_data->parent = last_sgml_data->parent;
+
+	   if (last_sgml_data->next_data_element == NULL) {
+	     last_sgml_data->next_data_element 
+	       = current_sgml_data;
+	   }
+	   else {
+	     /* find end of sibling chain */
+	     SGML_Data *tmp;
+	     current_sgml_data->parent = last_sgml_data->parent;
+
+	     for (tmp = current_sgml_data->parent->sub_data_element; 
+		  tmp != NULL;
+		  tmp = tmp->next_data_element) {
+	       
+	       if (tmp->next_data_element == NULL && tmp != current_sgml_data) {
+		 tmp->next_data_element = current_sgml_data;
+		 break;
+	       }
+	     }
+	   }
 	  
 	 }
        }
@@ -1601,12 +1637,32 @@ in_doc_document_type_declaration:
 	   /* if parent wasn't set SET IT NOW */
 	   if (last_sgml_data->end_tag != NULL) {
 	     /* if it is closed this is a sibling */
-	     last_sgml_data->next_data_element = current_sgml_data;
 	     current_sgml_data->parent = last_sgml_data->parent;
+ 
+	     if (last_sgml_data->next_data_element == NULL) {
+	       last_sgml_data->next_data_element 
+		 = current_sgml_data;
+	     }
+	     else {
+	       /* find end of sibling chain */
+	       SGML_Data *tmp;
+	       for (tmp = current_sgml_data->parent->sub_data_element; 
+		    tmp != NULL;
+		    tmp = tmp->next_data_element) {
+	       
+		 if (tmp->next_data_element == NULL && tmp != current_sgml_data) {
+		   tmp->next_data_element = current_sgml_data;
+		   break;
+		 }
+	       }
+	     }
 	   }
 	   else {
 	     /* otherwise we assume that the last data is a parent */
 	     current_sgml_data->parent = last_sgml_data;
+	     if (last_sgml_data->sub_data_element == NULL) {
+	       last_sgml_data->sub_data_element = current_sgml_data;
+	     }
 	   }
 	 }
        }
@@ -1656,11 +1712,40 @@ in_doc_document_type_declaration:
        /* set the content end same as the content start */
        current_sgml_data->content_end_offset =
 	 current_sgml_data->content_start_offset;
+ 
+       if (last_sgml_data != NULL && last_sgml_data->end_tag_offset == 0)  
+         current_sgml_data->parent = last_sgml_data;
+       else if (last_sgml_data != NULL 
+		&& last_sgml_data->content_start_offset == last_sgml_data->content_end_offset 
+		&& last_sgml_data->content_start_offset == last_sgml_data->end_tag_offset) {
+	 /* looks like the last item was ALSO an empty tag so make its parent */
+	 /* the current one's parent - since they have to be siblings */
+	 current_sgml_data->parent = last_sgml_data->parent;
+	 
+	 if (last_sgml_data->next_data_element == NULL) {
+	   last_sgml_data->next_data_element 
+	     = current_sgml_data;
+	 }
+	 else {
+	   /* find end of sibling chain */
+	   SGML_Data *tmp;
+	   for (tmp = current_sgml_data->parent->sub_data_element; 
+		tmp != NULL;
+		tmp = tmp->next_data_element) {
+	     
+	     if (tmp->next_data_element == NULL && tmp != current_sgml_data) {
+	       tmp->next_data_element = current_sgml_data;
+	       break;
+	     }
+	   }
+	 }
+       }
+       
        /* force the "empty_end_tag" to be returned on the */
        /* next call to the lexical scanner                */
        force_empty_end_tag();
-       
-     } ]
+       }
+      ]
      ] 
      | empty_start_tag ;
 
@@ -1695,9 +1780,11 @@ in_doc_document_type_declaration:
 				current_sgml_data->end_tag = sgml_yylval.string;					
 			}
 			else {
+
 #ifdef DEBUGDOC
-  printf("\nchecking parents current_sgml_data = %d",current_sgml_data);
-  fflush(stdout);
+			  printf("\nchecking parents current_sgml_data ID = %d",
+				 current_sgml_data->data_element_id );
+			  fflush(stdout);
 #endif
 
 
@@ -1707,8 +1794,10 @@ in_doc_document_type_declaration:
 
 
 #ifdef DEBUGDOC
-printf("\ncurrent_sgml_data = %d tag %s\n",current_sgml_data, current_sgml_data->start_tag);
-  fflush(stdout);
+			   printf("\ncurrent_sgml_data ID = %d tag %s\n",
+				  current_sgml_data->data_element_id, 
+				  current_sgml_data->start_tag);
+			   fflush(stdout);
 #endif
 				 if (sgml_yylval.string != NULL && strcasecmp(sgml_yylval.string, 
 				     current_sgml_data->start_tag) == 0 ) {
@@ -1778,10 +1867,10 @@ printf("> matched\n");
 		  if (current_sgml_data != NULL 
 		      && current_sgml_data->parent == NULL) {
 		     if (last_sgml_data->end_tag == NULL) {
-		        current_sgml_data->parent == last_sgml_data;
+		        current_sgml_data->parent = last_sgml_data;
 		     }
 		     else /* siblings... */
-		        current_sgml_data->parent == last_sgml_data->parent;
+		        current_sgml_data->parent = last_sgml_data->parent;
 		  }
 	  }
 	  ] ;
@@ -4723,7 +4812,7 @@ char *SubEntities(char *instring)
   Tcl_HashEntry *entry;	
   SGML_Entity *ent;  
   int templen, newlen;
-  char errormsg[500];
+  char errormsg[5000];
 
   if (instring == NULL)
     return NULL;

@@ -1021,7 +1021,7 @@ AccessControlResponse *acr;
 	return;
     if (acr->referenceId)
 	PrintOctetString(file,"reference id", acr->referenceId);
-    PrintOctetString(file,"security challenge response", acr->securityChallengeResponse);
+    PrintOctetString(file,"security challenge response", (OctetString)acr->securityChallengeResponse);
 }
 
 void 
@@ -1140,10 +1140,7 @@ PDU  *pdu;
 	}
 }
 void
-PrintBoolean(file,id, value)
-FILE *file;
-char *id;
-Boolean value;
+PrintBoolean(FILE *file, char *id, Boolean value)
 {
     fprintf(file,"%s:\t%s\n", id, value?"TRUE":"FALSE");
 }

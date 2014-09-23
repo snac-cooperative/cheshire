@@ -25,7 +25,7 @@
 # 
 # ***********************************************************************/
 
-set defaultPath "/home/ray/Work/cheshire/cheshire2/GUI7";  # Path for Cheshire II stuff
+set defaultPath "/Users/ray/Work/cheshire/cheshire2/GUI7";  # Path for Cheshire II stuff
 set tmpdir "/tmp/";                     # temp directory for log files, etc.
 
 # Includes

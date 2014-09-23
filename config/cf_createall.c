@@ -61,15 +61,16 @@
 
 extern config_file_info *cf_info_base;
 
-DB *create_index_db (char *idxname, int idxtype, int *opened);
-DB *create_prox_db  (char *idxname, int idxtype, int *opened);
-DB *create_vector_db  (char *idxname, int idxtype, int *opened);
+DB *create_index_db (char *idxname, int idxtype, int *opened, config_file_info *cf);
+DB *create_prox_db  (char *idxname, int idxtype, int *opened, config_file_info *cf);
+DB *create_vector_db  (char *idxname, int idxtype, int *opened, config_file_info *cf);
 extern DB *cf_component_open (char *filename, char *componentname); 
+extern DB *init_index_db (char *idxname, int idxtype, int *number_open, config_file_info *cf);
 
 #define KEYBUFFERSIZE 200
 int db_init(char *home, DB_ENV **dbenvp);
 
-int create_indexes(idx_list_entry *idx, int *num_open, idx_list_entry *head); 
+int create_indexes(idx_list_entry *idx, int *num_open, idx_list_entry *head, config_file_info *cf); 
 
 cf_createall()
 {
@@ -176,25 +177,25 @@ cf_createall()
       }
     }
     for (idx = cf->indexes; idx ; idx = idx->next_entry) {
-	index_return = create_indexes(idx, &num_open, cf->indexes);
-	if (index_return != 0)
-	  return(index_return);
-	if (cf->file_type < 99 
+      index_return = create_indexes(idx, &num_open, cf->indexes, cf);
+      if (index_return != 0)
+	return(index_return);
+      if (cf->file_type < 99 
 	    && ((idx->type & EXTERNKEY) 
 		|| (idx->type & NORM_WITH_FREQ))) {
-	  /* we no longer even try to open the DOCSIZES file if there */
-	  /* are no external keys or collection info                  */
-	  sprintf(namebuff, "%s.DOCSIZES", cf->file_name);
-	  if ((cf->docsize_ptr = fopen(namebuff, cf_open_file_flags)) 
+	/* we no longer even try to open the DOCSIZES file if there */
+	/* are no external keys or collection info                  */
+	sprintf(namebuff, "%s.DOCSIZES", cf->file_name);
+	if ((cf->docsize_ptr = fopen(namebuff, cf_open_file_flags)) 
+	    == NULL) {
+	  if ((cf->docsize_ptr = fopen(namebuff, cf_create_file_flags)) 
 	      == NULL) {
-	    if ((cf->docsize_ptr = fopen(namebuff, cf_create_file_flags)) 
-		== NULL) {
-	      fprintf(LOGFILE,"WARNING: failed to open %s -- may not be needed\n?", 
-		      namebuff);
-	      cheshire_exit(1);
-	    }
+	    fprintf(LOGFILE,"WARNING: failed to open %s -- may not be needed\n?", 
+		    namebuff);
+	    cheshire_exit(1);
 	  }
 	}
+      }
     }
 
     for (comp = cf->components; comp ; comp = comp->next_entry) {
@@ -207,7 +208,7 @@ cf_createall()
       }
 
       for (idx = comp->indexes; idx ; idx = idx->next_entry) {
-	index_return = create_indexes(idx, &num_open, comp->indexes);
+	index_return = create_indexes(idx, &num_open, comp->indexes,cf);
 	if (index_return != 0)
 	  return(index_return);
       }
@@ -218,24 +219,25 @@ cf_createall()
 
 
 int
-create_indexes(idx_list_entry *idx, int *num_open, idx_list_entry *head) 
+create_indexes(idx_list_entry *idx, int *num_open, 
+	       idx_list_entry *head, config_file_info *cf) 
 {
   
   char keybuffer[KEYBUFFERSIZE];
   char namebuff[500];
   int exists;
 
-  idx->db = create_index_db(idx->name, idx->type, num_open);
+  idx->db = create_index_db(idx->name, idx->type, num_open, cf);
   if (*num_open == 0) {
     /* this is the first opening of this index so... */
     /* get the global info from the "special record" */
     idx->GlobalData = CALLOC(dict_info,1);
     idx->GlobalData->recptr = 1;
     if (idx->type & PROXIMITY) {
-      idx->prox_db = create_prox_db(idx->name, idx->type, num_open);
+      idx->prox_db = create_prox_db(idx->name, idx->type, num_open, cf);
     }
     if (idx->type & VECTOR_TYPE) {
-      idx->vector_db = create_vector_db(idx->name, idx->type, num_open);
+      idx->vector_db = create_vector_db(idx->name, idx->type, num_open, cf);
     }    
     
   }
@@ -290,10 +292,10 @@ create_indexes(idx_list_entry *idx, int *num_open, idx_list_entry *head)
       }
       
       if (idx->type & PROXIMITY) {
-	idx->prox_db = create_prox_db(idx->name, idx->type, &num_open);
+	idx->prox_db = create_prox_db(idx->name, idx->type, &num_open, cf);
       }
       if (idx->type & VECTOR_TYPE) {
-	idx->vector_db = create_vector_db(idx->name, idx->type, &num_open);
+	idx->vector_db = create_vector_db(idx->name, idx->type, &num_open, cf);
       }
 
       
@@ -396,7 +398,7 @@ create_indexes(idx_list_entry *idx, int *num_open, idx_list_entry *head)
 
 
 /* open an opendb index (btree only for now) */
-DB *create_index_db (char *idxname, int idxtype, int *opened)
+DB *create_index_db (char *idxname, int idxtype, int *opened, config_file_info *cf)
 {
   dict_info newinfo ;
   DBT keyval;
@@ -411,7 +413,7 @@ DB *create_index_db (char *idxname, int idxtype, int *opened)
 
   num_open = -1;
 
-  db_handle = init_index_db(idxname,idxtype, &num_open);
+  db_handle = init_index_db(idxname,idxtype, &num_open, cf);
   *opened = num_open;
 
   if (db_handle == NULL) {
@@ -451,7 +453,7 @@ DB *create_index_db (char *idxname, int idxtype, int *opened)
 				DB_NOOVERWRITE); 
     
     db_handle->close(db_handle,0);
-    db_handle = init_index_db(idxname,idxtype,&num_open);
+    db_handle = init_index_db(idxname,idxtype,&num_open,cf);
 
     *opened = 0;
   }
@@ -460,7 +462,7 @@ DB *create_index_db (char *idxname, int idxtype, int *opened)
 }
 
 /* open an opendb index (btree only for now) */
-DB *create_prox_db  (char *idxname, int idxtype, int *opened)
+DB *create_prox_db  (char *idxname, int idxtype, int *opened, config_file_info *cf)
 {
   int returncode;
   DB *db_handle;
@@ -476,7 +478,7 @@ DB *create_prox_db  (char *idxname, int idxtype, int *opened)
 
   sprintf(proxname,"%s.PROX", idxname);
 
-  db_handle = init_index_db(proxname,idxtype, &num_open);
+  db_handle = init_index_db(proxname,idxtype, &num_open,cf);
   *opened = num_open;
 
   if (db_handle == NULL) {
@@ -502,7 +504,7 @@ DB *create_prox_db  (char *idxname, int idxtype, int *opened)
 
 
 /* open an opendb index (btree only) */
-DB *create_vector_db  (char *idxname, int idxtype, int *opened)
+DB *create_vector_db  (char *idxname, int idxtype, int *opened, config_file_info *cf)
 {
   int returncode;
   DB *db_handle;
@@ -518,7 +520,7 @@ DB *create_vector_db  (char *idxname, int idxtype, int *opened)
 
   sprintf(vectorname,"%s.VECTOR", idxname);
 
-  db_handle = init_index_db(vectorname, idxtype, &num_open);
+  db_handle = init_index_db(vectorname, idxtype, &num_open,cf);
   *opened = num_open;
 
   if (db_handle == NULL) {

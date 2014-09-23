@@ -91,7 +91,7 @@ weighted_result *se_phrase_match (idx_list_entry *idx,  char *searchstring,
   float docwt;
   weighted_result *wt_res;
 
-  char *lastptr, *strtok_r();
+  char *lastptr;
 
   if (searchstring == NULL) return (NULL);
 

@@ -2953,8 +2953,6 @@ ASN_NODE *EncodeSimpleElement(int class_var, int type, int tagno, SimpleElement 
 ASN_NODE *EncodeTagPath(int class_var, int type, int tagno, TagPath *the_TagPath);
 ASN_NODE *EncodeOccurrences(int class_var, int type, int tagno, Occurrences *the_Occurrences);
 
-int     z_errno;
- 
 #include "berintern.h"
 #include "asn_decode.h"
 #include "session.h"

@@ -53,21 +53,20 @@ ElementInfo *DupElementInfo(ElementInfo *);
 
 
 GSTR * 
-NewGSTR(s) 
-char	*s;	/* MUST be NULL-terminated string.	*/
-{
-    	GSTR *gstr;
-    	if (s == NULL)
-		return (GSTR *)NULL;
-    	if ((gstr = CALLOC(GSTR,1)) == NULL)
-		return (GSTR *)NULL;
-    	gstr->length = strlen(s);
-    	gstr->data = (UCHAR *)calloc(1, strlen(s)+1);
-	if (gstr->data == NULL)
-		return (GSTR *)NULL;
-    	strcpy(gstr->data, s);
-    	gstr->data[gstr->length] = '\0';
-    	return gstr;
+NewGSTR(char *s) {
+  /* s MUST be NULL-terminated string.	*/
+  GSTR *gstr;
+  if (s == NULL)
+    return (GSTR *)NULL;
+  if ((gstr = CALLOC(GSTR,1)) == NULL)
+    return (GSTR *)NULL;
+  gstr->length = strlen(s);
+  gstr->data = (UCHAR *)calloc(1, strlen(s)+1);
+  if (gstr->data == NULL)
+    return (GSTR *)NULL;
+  strcpy(gstr->data, s);
+  gstr->data[gstr->length] = '\0';
+  return gstr;
 }
 
 OctetString 

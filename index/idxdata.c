@@ -77,7 +77,7 @@ int idxdata(SGML_Data *data, Tcl_HashTable *hash_tab, idx_list_entry *idx)
   
   char *word_ptr, *next_tok, *end_buffer, *result_word, *hyphen, *c, *c2;
   char *databuf=NULL, *expansion=NULL, *new_exp=NULL;
-  char *strtok_r();
+
   int morphed = 0;
   int exists;
   int buffer_offset, word_offset;

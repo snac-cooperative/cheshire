@@ -63,6 +63,7 @@ void FreeRPNStructure (RPNStructure    *rpns);
 void FreeOperator (Operator        *op);
 void FreeOperand (Operand *operand);
 void FreeAttributeList (AttributeList   *al);
+void FreeAttributeElement (AttributeElement   *ae);
 void FreeRecords (Records *records);
 void FreeDiagRec (DiagRec *dr);
 void FreeNamePlusRecord (NamePlusRecord *npr);
@@ -553,6 +554,19 @@ FreeOperand (operand)
   FREE ((char *)operand);
 }
 
+void
+FreeAttributeElement (AttributeElement	*ae) {
+  if (ae == NULL)
+    return;
+  if (ae->attributeSet != NULL) {
+    FreeOid(ae->attributeSet);
+  }
+
+  FREE(ae);
+  
+}
+
+
 void 
 FreeAttributesPlusTerm (AttributesPlusTerm *apt)
 {
@@ -566,15 +580,13 @@ FreeAttributesPlusTerm (AttributesPlusTerm *apt)
 }
 
 void
-FreeAttributeList (al)
-     AttributeList	*al;
-{
+FreeAttributeList (AttributeList	*al) {
   AttributeList   *curr, *next;
   if (al == NULL)
     return;
   for (curr=al; curr!=NULL; curr=next) {
     next = curr->next;
-    FREE ((char *)curr->item); 
+    FreeAttributeElement(curr->item); 
     FREE ((char *)curr);
   }
 }

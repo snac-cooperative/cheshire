@@ -60,6 +60,11 @@ void free_sgml_data(SGML_Data *dat );
 void free_tag_data(SGML_Tag_Data *dat);
 void free_sgml_error_data(SGML_Data *dat );
 
+/* #define DEBUGMEM 1 */
+
+
+static int total_freed = 0;
+
 void
 free_doc(SGML_Document *doc )
 {
@@ -67,7 +72,15 @@ free_doc(SGML_Document *doc )
   Tcl_HashEntry *entry;
   Tcl_HashSearch hash_search;
 
+
   if (doc == NULL) return;
+
+#ifdef DEBUGMEM
+  total_freed = 0;
+  printf( "Freeing Data Elements = %d\n",doc->element_count);
+#endif
+
+
 	
   /* scan the doclist and NULL out the corresponding doc. */
   for (dl = PRS_first_doc; dl; dl = dl->next_doc) {
@@ -78,6 +91,10 @@ free_doc(SGML_Document *doc )
   }
 
   free_sgml_data(doc->data);
+
+#ifdef DEBUGMEM
+  printf( "Freed Data Elements = %d\n", total_freed);
+#endif
 
   doc->data = NULL;
 
@@ -158,11 +175,16 @@ free_sgml_data(SGML_Data *dat )
 {
   if (dat == NULL) return;
 
-  free_sgml_data(dat->next_data_element);
-
   free_sgml_data(dat->sub_data_element);
 
+  free_sgml_data(dat->next_data_element);
+
   free_attrib_data(dat->attributes);
+
+#ifdef DEBUGMEM
+  total_freed++;
+  printf( "freeing ID = %d\n", dat->data_element_id);
+#endif
 
   FREE(dat);
 	

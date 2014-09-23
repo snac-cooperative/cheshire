@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 1990-2001 [see Other Notes, below]. The Regents of the
+ *  Copyright (c) 1990-2012 [see Other Notes, below]. The Regents of the
  *  University of California (Regents). All Rights Reserved.
  *  
  *  Permission to use, copy, modify, and distribute this software and its
@@ -48,6 +48,7 @@
 #include "dmalloc.h"
 #include "ht_info.h"
 #include "ctype.h"
+#include "string.h"
 
 
 char *detag_data_block(SGML_Data *data, int index_type, idx_list_entry *idx);
@@ -62,13 +63,24 @@ idxcoded(SGML_Data *data,
   char buffer[2] = "1";
   HT_DATA *ht_data;
 
-  databuf = detag_data_block(data, idx->type, idx);
 
-  if (databuf == NULL) return(0);
+  /* if this is an empty tag with no data, just create the index element */
+  if (data != NULL && data->content_start_offset == data->content_end_offset
+      && data->data_end_offset == 0) {
+    databuf = strdup("dummy");
+  } 
+  else {
+    /* if there is value matching to be done, get the data           */
+    /* although we should not be here at all if there is not a match */
 
-  if (strlen(databuf) == 0) {
-    FREE(databuf);
-    return (0);
+    databuf = detag_data_block(data, idx->type, idx);
+
+    if (databuf == NULL) return(0);
+
+    if (strlen(databuf) == 0) {
+      FREE(databuf);
+      return (0);
+    }
   }
 
   /* create the hash table structure */

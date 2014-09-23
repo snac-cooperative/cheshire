@@ -1,11 +1,11 @@
 <!-- This is a test config file for Cheshire II -->
 <DBCONFIG>
-<DBENV> /home/ray/Work/DBENV </DBENV>
+<DBENV> /Users/ray/Work/DBENV </DBENV>
 
 <!-- The first filedef -->
 <FILEDEF TYPE=MARCSGML>
 
-<DEFAULTPATH> /home/ray/Work/cheshire/index </DEFAULTPATH>
+<DEFAULTPATH> /Users/ray/Work/cheshire/index </DEFAULTPATH>
 
 <!-- filetag is the "shorthand" name of the file -->
 <FILETAG> bibfile </FILETAG>
@@ -49,7 +49,7 @@ the UCBerkeley Mathematics library catalog
 </SUPPLIERCONTACTINFO>
 </EXPLAIN>
 <!-- fileDTD is the full path name of the file's DTD -->
-<FILEDTD> /home/ray/Work/cheshire/doc/install/USMARC12.DTD </FILEDTD>
+<FILEDTD> /Users/ray/Work/cheshire/doc/install/USMARC12.DTD </FILEDTD>
 
 <!-- assocfil is the full path name of the file's Associator -->
 <ASSOCFIL> testrecs.assoc
@@ -396,6 +396,70 @@ TESTDATA/008_daterange.index
 </INDXKEY>
 </INDEXDEF>
 
+<INDEXDEF ACCESS=BTREE EXTRACT=NGRAMS NORMAL=BASIC>
+<INDXNAME> TESTDATA/ng_author.index </INDXNAME>
+<INDXTAG> ngauthor </INDXTAG>
+
+<!-- The stoplist for this file -->
+<STOPLIST> TESTDATA/authorstoplist 
+</STOPLIST>
+
+<!-- The INDXKEY area contains the specifications of tags in the doc -->
+<!-- that are to be extracted and indexed for this index    -->
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD100 </FTAG>
+<FTAG>FLD110 </FTAG>
+<FTAG>FLD111 </FTAG>
+<FTAG>FLD700 </FTAG>
+<FTAG>FLD710 </FTAG>
+<FTAG>FLD711 </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=NGRAMS NORMAL=STEM>
+<INDXNAME> TESTDATA/ng_title.index </INDXNAME>
+<INDXTAG> ngtitle </INDXTAG>
+
+<STOPLIST> TESTDATA/titlestoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD245 </FTAG><S>^[ab]$ </S>
+<FTAG>FLD240 </FTAG> <S> ^[atp]$ </S>
+<FTAG>FLD130 </FTAG>
+<FTAG>FLD730 </FTAG> 
+</TAGSPEC> 
+</INDXKEY> 
+</INDEXDEF>
+
+
+<INDEXDEF ACCESS=BTREE EXTRACT=NGRAMS NORMAL=STEM>
+<INDXNAME> TESTDATA/ng_topic.index </INDXNAME>
+<INDXTAG> ngtopic </INDXTAG>
+
+<STOPLIST> TESTDATA/topicstoplist </STOPLIST>
+<INDXKEY>
+<TAGSPEC>
+<FTAG>FLD6.. </FTAG><S>[abz]</S>
+<FTAG>FLD245 </FTAG><S>[ab] </S>                                           
+<FTAG>FLD240 </FTAG><S>[atp] </S>                                          
+<FTAG>FLD4.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD8.. </FTAG><s>[ab]</s>                                            
+<FTAG>FLD130 </FTAG><s>[atp]</s>
+<FTAG>FLD730 </FTAG><s>[atp]</s>
+<FTAG>FLD740 </FTAG><S>[ap]</s>
+<FTAG>FLD1.. </FTAG><S>t </S>
+<FTAG>FLD7.. </FTAG><S>t </S>
+<!-- Note this is the call number but it will not be normalized --> 
+<FTAG>FLD950 </FTAG><S>a </S>
+</TAGSPEC> 
+</INDXKEY> 
+
+</INDEXDEF>
+
+
 </INDEXES>
 
 <COMPONENTS>
@@ -641,11 +705,11 @@ KEEP_ALL
  </FORMAT>
 
 <FORMAT NAME="HTML" OID="1.2.840.10003.5.109.3" >
-  <convert function="/home/ray/Work/cheshire/index/tohtml.tcl"> 
+  <convert function="/Users/ray/Work/cheshire/index/tohtml.tcl"> 
  </convert>
 </FORMAT>
 <FORMAT NAME="CONVF" OID="1.2.840.10003.5.101" >
-  <convert function="/home/ray/Work/cheshire/index/tohtml.tcl"> 
+  <convert function="/Users/ray/Work/cheshire/index/tohtml.tcl"> 
  </convert>
 </FORMAT>
 </DISPLAY>

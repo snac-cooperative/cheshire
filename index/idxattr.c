@@ -75,7 +75,6 @@ int idxattr(SGML_Data *data, char *attr_name,
   
   char *word_ptr, *next_tok, *result_word;
   char *databuf;
-  char *strtok_r();
   int morphed = 0;
   int exists;
   char *wn_morph();

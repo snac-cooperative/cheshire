@@ -233,10 +233,14 @@ se_bitmaps_and (weighted_result *inset1, weighted_result *inset2, int oper)
   else
     max_result = max_docid1;
 
+ 
   if (inset2->num_hits > 0 && inset2->num_hits < max_result)
     max_result = inset2->num_hits;
     
-  
+  if (oper == BOOLEAN_NOT && inset2->num_hits > 0 
+      && max_result < inset2->num_hits)
+    max_result = inset1->num_hits;
+    
 
 
   wt_res = (weighted_result *) 

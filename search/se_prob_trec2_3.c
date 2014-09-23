@@ -223,7 +223,7 @@ weighted_result *se_prob_trec2 (char *filename, char *indexname,
   
   weighted_result *wt_res, *ranked_res;
 
-  char *lastptr, *strtok_r();
+  char *lastptr;
 
   if (blindfeedback_flag)
     blindfeedback = 1;

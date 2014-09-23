@@ -76,7 +76,6 @@ int idxngram(SGML_Data *data, Tcl_HashTable *hash_tab, idx_list_entry *idx)
   
   char *word_ptr, *next_tok, *end_buffer, *result_word, *hyphen, *c, *c2;
   char *databuf=NULL;
-  char *strtok_r();
   int morphed = 0;
   int exists;
   int buffer_offset, word_offset;
@@ -175,14 +174,14 @@ int idxngram(SGML_Data *data, Tcl_HashTable *hash_tab, idx_list_entry *idx)
 	/* now we make the ngrams */
 	if (i == -1) {
 	  /* create a special start of word ngram */
-	  ngram[0] = ' '; 
+	  ngram[0] = '_'; 
 	  j = 1;
 	}
 	else j = 0;
 
 	for (; j < ngram_size; j++) {
 	  if (result_word[j+i] == '\0') {
-	    ngram[j] = ' ';
+	    ngram[j] = '_';
 	  }
 	  else 
 	    ngram[j] = result_word[j+i];

@@ -147,7 +147,7 @@ weighted_result *se_tfidf_lucene (char *filename, char *indexname, char *insearc
 
   weighted_result *wt_res, *ranked_res, *se_rank_docs();
 
-  char *lastptr, *strtok_r();
+  char *lastptr;
   double p1, p2, p3, p4, p5;
   ranking_parameters *rank_parm;
 

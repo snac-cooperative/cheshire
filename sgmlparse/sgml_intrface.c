@@ -598,6 +598,14 @@ sgml_parse_document(SGML_DTD *dtd, char *filename, char *buffer,
   Dump_tag_hash(current_sgml_document->Tag_hash_tab);
 #endif
 
+  if (current_sgml_document->data->parent != NULL) {
+    /* with some really complex documents with empty tags it is */
+    /* possible that a reference loop was created where the top */
+    /* tag is given a "parent" that is actually a subtag        */
+    current_sgml_document->data->parent = NULL;
+  }
+
+
   return (current_sgml_document);
     
 }

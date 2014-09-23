@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 1990-1999 [see Other Notes, below]. The Regents of the
+ *  Copyright (c) 1990-2013 [see Other Notes, below]. The Regents of the
  *  University of California (Regents). All Rights Reserved.
  *  
  *  Permission to use, copy, modify, and distribute this software and its
@@ -86,7 +86,7 @@ extern int fil_del (int recno, char *filename);
 
 #define PROX_BUFFER_SIZE 1500000
 #define TEMP_BUFFER_SIZE 50000
-
+#define KEEP_FILES 0
 
 int in_batch_load_main (config_file_info *cf, batch_files_info *bf, 
 			Tcl_HashTable *hash_tab, char *temp_file_dir,
@@ -127,6 +127,8 @@ int in_batch_load_main (config_file_info *cf, batch_files_info *bf,
   int numprox;
   char *proxptr;
   char *local_sort_args;
+  char *templocale;
+  char *clocale;
 
   /* Initialize the key/data pair so the flags aren't set. */
   memset(&keyval, 0, sizeof(keyval));
@@ -184,7 +186,7 @@ int in_batch_load_main (config_file_info *cf, batch_files_info *bf,
     if (temp_file_dir) {
 
 #ifndef WIN32
-      sprintf(tmp_buffer,"sort -T %s %s %s > %s",
+      sprintf(tmp_buffer,"export LC_ALL=C ; sort -T %s %s %s > %s",
 	      temp_file_dir, local_sort_args, temp_file_name, sort_file_name);
 #else
       sprintf(tmp_buffer,"sort %s < \"%s\" > \"%s\"",
@@ -193,7 +195,7 @@ int in_batch_load_main (config_file_info *cf, batch_files_info *bf,
     }
     else
 #ifndef WIN32 
-      sprintf(tmp_buffer,"sort %s %s > %s",
+      sprintf(tmp_buffer,"export LC_ALL=C ; sort %s %s > %s",
 	      local_sort_args, temp_file_name, sort_file_name);
 #else
       sprintf(tmp_buffer,"sort %s < \"%s\" > \"%s\"",
@@ -203,7 +205,9 @@ int in_batch_load_main (config_file_info *cf, batch_files_info *bf,
     fprintf(LOGFILE,"SORT COMMAND: %s\n", tmp_buffer);
     fflush(LOGFILE);
 
+    /* submit the sort */
     system(tmp_buffer);
+
   }
   /* otherwise use the existing .sort file */
 
@@ -213,7 +217,8 @@ int in_batch_load_main (config_file_info *cf, batch_files_info *bf,
   if (statresult == 0 && statresult2 == 0 
       && filestatus.st_size == filestatus2.st_size) {
     /* files are the same size -- OK to delete the temp file and proceed */
-    unlink(temp_file_name);
+    if (KEEP_FILES == 0)
+      unlink(temp_file_name);
   }
   else {
 #ifdef WIN32
@@ -222,7 +227,8 @@ int in_batch_load_main (config_file_info *cf, batch_files_info *bf,
       /* files are ALMOST the same size - NT sort sometimes adds characters */
       /* like carraige returns at the end of file */
       /* OK to delete the temp file and proceed */
-      unlink(temp_file_name);
+      if (KEEP_FILES == 0)
+	unlink(temp_file_name);
     } else if (bf->load_flag != 2) {
       fprintf(LOGFILE,"ERROR:Sorted file size and temp size do not match\n");
       fflush(LOGFILE);
@@ -637,7 +643,8 @@ int in_batch_load_main (config_file_info *cf, batch_files_info *bf,
 
   /* remove the sort file (since the real data in now in the index) */
   fclose(sort_temp_file);
-  unlink(sort_file_name);
+  if (KEEP_FILES == 0)
+    unlink(sort_file_name);
   FREE(in_buffer);
   FREE(tmp_buffer);
   return (SUCCEED);

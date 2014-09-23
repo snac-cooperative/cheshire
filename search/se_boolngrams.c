@@ -125,7 +125,7 @@ se_boolngrams (idx_list_entry *idx,  char *filename, char *insearchstring,
   char *breakletters;
   char *keywordletters = " \t\n\r\a\b\v\f`~!@#$%^&*()_=|\\{[]};:'\",<>?/";
   char ngram[10] = "";
-  char *lastptr, *strtok_r();
+  char *lastptr;
 
   /* we reuse snowball_stem_type to store ngram size from config */
   if (idx->snowball_stem_type > 1)  {
@@ -180,14 +180,14 @@ se_boolngrams (idx_list_entry *idx,  char *filename, char *insearchstring,
 	/* now we make the ngrams */
 	if (k == -1) {
 	  /* create a special start of word ngram */
-	  ngram[0] = ' '; 
+	  ngram[0] = '_'; 
 	  j = 1;
 	}
 	else j = 0;
 	
 	for (; j < ngram_size; j++) {
 	  if (result_word[j+k] == '\0') {
-	    ngram[j] = ' ';
+	    ngram[j] = '_';
 	  }
 	  else 
 	    ngram[j] = result_word[j+k];
@@ -195,17 +195,17 @@ se_boolngrams (idx_list_entry *idx,  char *filename, char *insearchstring,
 	ngram[j] = '\0';
 	
 
-	if (strcmp(ngram," 19") == 0)
+	if (strcmp(ngram,"_19") == 0)
 	  continue;
-	if (strcmp(ngram," 18") == 0)
+	if (strcmp(ngram,"_18") == 0)
 	  continue;
-	if (strcmp(ngram," gt") == 0)
+	if (strcmp(ngram,"_gt") == 0)
 	  continue;
-	if (strcmp(ngram,"gt ") == 0)
+	if (strcmp(ngram,"gt_") == 0)
 	  continue;
-	if (strcmp(ngram," lt") == 0)
+	if (strcmp(ngram,"_lt") == 0)
 	  continue;
-	if (strcmp(ngram,"lt ") == 0)
+	if (strcmp(ngram,"lt_") == 0)
 	  continue;
 
 	if (base_pool == base_pool_num && result_len == 1) {

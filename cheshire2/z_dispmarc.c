@@ -77,6 +77,7 @@
 #include "dispsgml.h"
 #define INIT_FORMATS
 #include "dispmarc.h"
+#include "tcl.h"
 
 #define MENUHT 3
 
@@ -104,7 +105,7 @@ void outputline(void (*outfunc)(), char *in_line, int maxlen,
 		int indent, int datatype);
 char *xml_sub_chars(char *fieldbuffer);
 
-
+extern int Tcl_StringMatch(const char *str, const char *pattern);
 
 /* this is called for tag comparisons in marclib.c */
 int tagcmp(char *pattern, char *string)

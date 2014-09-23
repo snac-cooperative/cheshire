@@ -980,7 +980,7 @@ char *normalize_classnum(char *in)
 
 char *trim_xkey(char *key) {
 
-  char *next_tok, *word_ptr, *strtok_r();
+  char *next_tok, *word_ptr;
   char *current_buffer;
   int test;
 

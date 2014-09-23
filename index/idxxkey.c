@@ -73,7 +73,6 @@ int idxxkey( SGML_Data *data, Tcl_HashTable *hash_tab, idx_list_entry *idx,
 {
   char *word_ptr, *end_buffer, *next_tok, *result_word, *hyphen;
   char *databuf;
-  char *strtok_r();
   int exists;
   Tcl_HashEntry *entry;
   int morphed;

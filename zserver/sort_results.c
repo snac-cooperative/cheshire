@@ -863,7 +863,6 @@ get_sort_key_from_tags(SGML_Document *sgmlrec, SGML_Data *comp_data,
   idx_key *idx_keys, *prev_idx_keys, *head_idx_keys;
   char *result_sortkey;
   idx_list_entry idx;
-  char *strtok_r();
   char *attr;
   char *equal;
   char *quote;

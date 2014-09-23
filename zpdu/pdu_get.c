@@ -53,6 +53,7 @@ extern int debug;
 extern FILE *LOGFILE;
 
 int debug_asn=0;
+int z_errno=0;
 
 void
 clear_zerrno()

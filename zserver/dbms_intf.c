@@ -1225,7 +1225,7 @@ DBMS_index_search(config_file_info *cf, char *SQL_Query,
   if (cf->file_ptr != NULL) 
     conn = (PGconn *)cf->file_ptr;
   else
-    conn = (PGconn *)cf_open_DBMS(cf, cf->file_name,
+    conn = (PGconn *)cf_open_DBMS(cf, cf->filename
 				  passwd);
   
   if (conn == NULL) {
@@ -1287,7 +1287,7 @@ DBMS_index_search(config_file_info *cf, char *SQL_Query,
   }
 
 
-  count = get_index_results(conn, res, lines, dtdfile);
+  count = get_index_results(conn, res, lines);
 
   if (count >= 0) {
     fprintf(LOGFILE,

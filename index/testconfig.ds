@@ -1,11 +1,11 @@
 <!-- This is a test config file for Cheshire II -->
 <DBCONFIG>
-<DBENV> /Users/ray/Work/DBENV </DBENV>
+<DBENV> /home/ray/Work/DBENV </DBENV>
 
 <!-- The first filedef -->
 <FILEDEF TYPE=MARCSGML_DATASTORE>
 
-<DEFAULTPATH> /Users/ray/Work/cheshire/index </DEFAULTPATH>
+<DEFAULTPATH> /home/ray/Work/cheshire/index </DEFAULTPATH>
 
 <!-- filetag is the "shorthand" name of the file -->
 <FILETAG> bibfileds </FILETAG>
@@ -13,39 +13,9 @@
 <!-- filename is the full path name of the file -->
 <FILENAME> TESTDATADS/TEST_DATASTORE </FILENAME>
 <!-- Explain data for populating databaseinfo records for explain -->
-<EXPLAIN>
-<TITLESTRING> Mathematics Library BIBFile books database
-</TITLESTRING>
-<DESCRIPTION> Contains a small sample from 
-the UCBerkeley Mathematics library catalog
-</DESCRIPTION>
-<DISCLAIMERS LANGUAGE="chi"> This is bogus, just testing the language attribute
-</DISCLAIMERS>
-<NEWS> No news </NEWS>
-<HOURS> Whenever the system is up </HOURS>
-<BESTTIME> Almost any time is good </BESTTIME>
-<!-- this should do real update time <LASTUPDATE> Jan. 1993 </LASTUPDATE> -->
-<UPDATEINTERVAL><VALUE> 10 </VALUE><UNIT> Years </UNIT></UPDATEINTERVAL>
-<COVERAGE> Doesn't cover much </COVERAGE>
-<PROPRIETARY> NO </PROPRIETARY>
-<COPYRIGHTTEXT> This is not copyrighted </COPYRIGHTTEXT>
-<COPYRIGHTNOTICE> This would be a copyright notice </COPYRIGHTNOTICE>
-<PRODUCERCONTACTINFO>
-<contact_name> Ray R. Larson </contact_name>
-<contact_address>102 South Hall UC Berkeley, CA 94720-4600
-</contact_address>
-<contact_email> ray@sherlock.berkeley.edu </contact_email>
-</PRODUCERCONTACTINFO>
-<SUPPLIERCONTACTINFO>
-<contact_name> Ray R. Larson </contact_name>
-<contact_address>102 South Hall UC Berkeley, CA 94720-4600
-</contact_address>
-<contact_email> ray@sherlock.berkeley.edu </contact_email>
-<contact_phone> 642-6046 </contact_phone>
-</SUPPLIERCONTACTINFO>
-</EXPLAIN>
+
 <!-- fileDTD is the full path name of the file's DTD -->
-<FILEDTD> /Users/ray/Work/cheshire/doc/install/USMARC12.DTD </FILEDTD>
+<FILEDTD> /home/ray/Work/cheshire/doc/install/USMARC15.DTD </FILEDTD>
 
 <!-- assocfil is the full path name of the file's Associator -->
 <ASSOCFIL> NONE </ASSOCFIL>

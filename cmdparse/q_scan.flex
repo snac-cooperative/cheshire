@@ -66,6 +66,7 @@
 
 int prev_z__state[500];
 int z__state = 0;
+int z__lineno = 1;
 int paren_nesting = 0;
 int attrnum, attrval;
 char strattrval[500];
@@ -123,6 +124,7 @@ phonetic "??"
 stem  "%"
 relevant "@"
 trunc "#"
+notrunc "!"
 within "<=>"
 dashes "-""-"*
 
@@ -824,6 +826,8 @@ attrsetoid "1.2.840.10003.3."[0-9.]*
 
 <val>{trunc} {return TRUNC;}
 
+<val>{notrunc} {return NOTRUNC;}
+
 <val>"("   { paren_nesting--; return ')'; }
 
 <resultsetspec>{value_token}  { 
@@ -913,7 +917,7 @@ int z__num_is_Index(int index, int attr_set_id) {
 
 int clean_up_query_parse() {
   yy_delete_buffer(YY_CURRENT_BUFFER);
-  YY_CURRENT_BUFFER_LVALUE = NULL;
+  YY_CURRENT_BUFFER = NULL;
   parser_cleanup ();
   return(0);
 }

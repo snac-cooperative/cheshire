@@ -182,7 +182,6 @@ se_get_result_set(char *setid)
   Tcl_HashEntry *entry;
   result_set_data *res_ptr;
   weighted_result *wt_res;
-  char *strtok_r();
   char *recnos = NULL;
 
   if (setid[0] == '\0') 

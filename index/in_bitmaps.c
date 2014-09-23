@@ -31,14 +31,13 @@
  */
 /************************************************************************
 *
-*	Header Name:	in_sync.c
+*	Header Name:	in_bitmaps.c
 *
 *	Programmer:	Ray R. Larson
 *
-*	Purpose:        flush index buffers to disk and (hopefully) free
-*                       memory for reuse.
+*	Purpose:       Handle bitmap indexes
 *
-*	Usage:		in_sync_index(configfile_info)
+*	Usage:	       
 *
 *	Variables:	
 *

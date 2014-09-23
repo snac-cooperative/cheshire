@@ -205,6 +205,7 @@ char *LastResultSetID = NULL;
 %token TIME_AFTER;
 
 %token TRUNC;
+%token NOTRUNC;
 %token START_ATTRIBUTES;
 %token ATTRSETOID;
 %token USE_ATTR;
@@ -543,6 +544,30 @@ simplequery
 		}
 
 	   ]?
+
+	   [NOTRUNC { AttributeList *new;  AttributeElement *elem;
+	        
+		if (l == NULL) {
+		    /* l was passed as NULL - I.E. previous attribute defs */
+		    newrpn = postr[post_outpos - 1];
+		    if (newrpn->which == e3_op) {
+		    l = newrpn->u.op->u.attrTerm->attributes ;
+		}}
+
+		if (l->next != NULL) 
+		   for(new = l->next; new != NULL; l = new, new = l->next);
+		  
+		new = l->next = CALLOC(AttributeList, 1);
+		new->next = NULL;
+		elem = new->item = CALLOC(AttributeElement, 1);
+		elem->attributeType = 5; /* truncation attribute */
+		elem->attributeValue.which = e7_numeric;
+		elem->attributeValue.u.numeric = 100; /* DO NOT TRUNCATE */
+		
+		}
+
+	   ]?
+
 	  ]+
 	]  {/* add the term to the attributesplusterm structure */
 	     if (r->length > 0) {

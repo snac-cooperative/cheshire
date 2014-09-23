@@ -1,6 +1,3 @@
-
-
-
 /*
  *  Copyright (c) 1990-1999 [see Other Notes, below]. The Regents of the
  *  University of California (Regents). All Rights Reserved.
@@ -167,7 +164,7 @@ se_bool_element (idx_list_entry *idx,  char *filename, char *insearchstring,
   char *urlletters = " \t\n<>";
   char *filenameletters = " \t\n<>";
 
-  char *lastptr, *strtok_r();
+  char *lastptr;
 
 
   /* for bitmap indexes, use se_bitmap */

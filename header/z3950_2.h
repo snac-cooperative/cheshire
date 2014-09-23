@@ -390,8 +390,10 @@ t_initRequest, t_initResponse, t_searchRequest, t_searchResponse, t_presentReque
 	} u;
 } PDU;
 
-
+#ifndef ZERRNO
 int	z_errno;
+#define ZERRNO
+#endif
 
 #include "oointern.h"
 #include "berintern.h"

@@ -116,7 +116,7 @@ se_bitmap(idx_list_entry *idx,  char *filename, char *insearchstring,
   char *filenameletters = " \t\n<>";
   int search_stopword_count;
 
-  char *lastptr, *strtok_r();
+  char *lastptr;
 
   /* we make a copy because the processing is destructive and if a virtual */
   /* query is being used, it will mess up secondary searches to clobber the */

@@ -649,11 +649,10 @@ cf_init_gaz_configfile(idx_list_entry *idx)
 
 
 /* open an opendb index (btree only for now) */
-DB *init_index_db (char *idxname, int idxtype, int *number_open)
+DB *init_index_db (char *idxname, int idxtype, int *number_open, config_file_info *cf)
 {
   Tcl_HashTable *hash_tab;
   Tcl_HashEntry *entry;
-  static int hashtableinit = 1;
   int exists;
   DB *db_handle;
   DBTYPE dbtype;
@@ -673,15 +672,13 @@ DB *init_index_db (char *idxname, int idxtype, int *number_open)
 
   *number_open = 0;
   
-  if (hashtableinit) {
+  if (cf->IndexNamesDBHash == NULL) {
     /* initialize the global hash table */
-    IndexNamesHash = CALLOC(Tcl_HashTable,1);
-    Tcl_InitHashTable(IndexNamesHash,TCL_STRING_KEYS);
-    hashtableinit = 0;
-
+    cf->IndexNamesDBHash = CALLOC(Tcl_HashTable,1);
+    Tcl_InitHashTable(cf->IndexNamesDBHash,TCL_STRING_KEYS);
   }
 
-  hash_tab = IndexNamesHash;
+  hash_tab = cf->IndexNamesDBHash;
 
   /* check the hash table of names */
   entry = Tcl_FindHashEntry(hash_tab,idxname);
@@ -778,7 +775,7 @@ cf_index_open(char *filename, char *indexname, int which)
 	}
 
  	
-	idx->db = init_index_db(idx->name, idx->type, &num_open);
+	idx->db = init_index_db(idx->name, idx->type, &num_open, cf);
 	
 	if (idx->db == NULL) {
 	  /* no index file? must not have run indexing on the DB */
@@ -917,7 +914,7 @@ cf_index_open(char *filename, char *indexname, int which)
 	  char namebuff[500];
 	  
 	  sprintf(namebuff,"%s.PROX", idx->name);
-	  idx->prox_db = init_index_db(namebuff, idx->type, &num_open);
+	  idx->prox_db = init_index_db(namebuff, idx->type, &num_open, cf);
 	  
 	  if (idx->prox_db == NULL) {
 	    /* no index file? must not have run indexing on the DB */
@@ -932,7 +929,7 @@ cf_index_open(char *filename, char *indexname, int which)
 	  char namebuff[500];
 	  
 	  sprintf(namebuff,"%s.VECTOR", idx->name);
-	  idx->vector_db = init_index_db(namebuff, idx->type, &num_open);
+	  idx->vector_db = init_index_db(namebuff, idx->type, &num_open, cf);
 	  
 	  if (idx->vector_db == NULL) {
 	    /* no index file? must not have run indexing on the DB */
@@ -1130,7 +1127,6 @@ cf_component_open(char *filename, char *componentname)
   
   config_file_info *cf;
   component_list_entry *comp;
-  DB *init_index_db();
   DBT keyval;
   DBT dataval;
   int count_data;
@@ -1149,7 +1145,7 @@ cf_component_open(char *filename, char *componentname)
       if (comp->comp_db == NULL) {
 	int num_open;
 	
-	comp->comp_db = init_index_db(comp->name, 0, &num_open);
+	comp->comp_db = init_index_db(comp->name, 0, &num_open, cf);
 	
 	if (comp->comp_db == NULL) {
 	  /* no index file? must not have run indexing on the DB */

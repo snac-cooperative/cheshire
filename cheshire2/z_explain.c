@@ -85,7 +85,7 @@ int
 GetResultGSTR (GSTR *gstr, Tcl_Interp *interp)
 {
   char *p, *c, *dup;
-  char *lastptr, *strtok_r();
+  char *lastptr;
   int bracecnt;
 
   if (gstr == NULL)

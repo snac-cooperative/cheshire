@@ -96,8 +96,8 @@
 #define INDENTMARC 5
 
  
-config_file_info *cf_info_base;
-FILE *LOGFILE;
+extern config_file_info *cf_info_base;
+extern FILE *LOGFILE;
 extern SGML_DTD *main_dtd;
 
 extern FORMAT_TAB FormatTable[];
@@ -109,6 +109,7 @@ extern SGML_Tag_Data *comp_tag_list(idx_key *start_key,
 
 extern void outputline(void (*outfunc)(), char *in_line, int maxlen, 
 		       int indent, int datatype);
+
 
 extern char *detag_data_block(SGML_Data *data, int index_type, 
 			      idx_list_entry *idx);
@@ -351,7 +352,7 @@ int FormatSGMLel(SGML_FORMAT *format, int format_id, SGML_Document *doc,
        /* If the elements is a pound sign then this prints only the label */
        /* and the "displaynum" at the point encountered                   */
        sprintf(linebuffer, "%s%s%d%s", format->label, format->beginpunct,
-	       displaynum, format->endpunct);
+	       (int)displaynum, format->endpunct);
        outputline(output, linebuffer, maxlen, INDENTSGML,1);
      }
 

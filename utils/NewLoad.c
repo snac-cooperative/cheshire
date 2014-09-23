@@ -96,7 +96,7 @@ process_directory(DB *db_handle, SGML_DTD *main_dtd,
   struct dirent *direntry;
   int dirsize, dirname_size;
   char *filenamebuff;
-  char *workrecord;
+  char *workrecord=NULL;
   char *fmread, *fmwrite;
   int seekreturn;
   struct MD5Context mdcontext;
@@ -336,7 +336,7 @@ main (int argc, char **argv)
   continuation *cont;
   char *fmread, *fmwrite;
   Tcl_HashTable *ContNamesHash;
-  char *workrecord;
+  char *workrecord=NULL;
   SGML_Document *doc, *sgml_parse_document();
   SGML_DTD *main_dtd, *cf_getDTD();
   int seekreturn, reclen;
@@ -645,7 +645,8 @@ main (int argc, char **argv)
 	  exit (0);
       }
 
-      FREE(workrecord);
+      if (workrecord != NULL)
+	FREE(workrecord);
     }
 	  
     printf("End of File encountered after record %d\n", recno);

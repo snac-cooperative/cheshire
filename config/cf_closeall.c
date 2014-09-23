@@ -62,8 +62,8 @@
 #include "configfiles.h"
 
 /* forward declaration */
-DB *close_index_db (char *idxname, idx_list_entry *indexes_head, 
-		    idx_list_entry *idx_in, DB *dbptr);
+extern DB *close_index_db (char *idxname, idx_list_entry *indexes_head, 
+		    idx_list_entry *idx_in, DB *dbptr, config_file_info *cf);
 
 extern config_file_info *cf_info_base;
 extern char cf_open_file_flags[];
@@ -113,7 +113,7 @@ cf_closeall()
 
     for (idx = cf->indexes; idx ; idx = idx->next_entry) {
       if (idx->db) { /* close the DB file and remove hash entries */
-	idx->db = close_index_db(idx->name, cf->indexes, idx, idx->db);
+	idx->db = close_index_db(idx->name, cf->indexes, idx, idx->db, cf);
       }
 
       /* close any index continuation files */
@@ -137,7 +137,7 @@ cf_closeall()
       }
       for (idx = comp->indexes; idx ; idx = idx->next_entry) {
 	if (idx->db) { /* close the DB file and remove hash entries */
-	  idx->db = close_index_db(idx->name, comp->indexes, idx, idx->db);
+	  idx->db = close_index_db(idx->name, comp->indexes, idx, idx->db, cf);
 	}
 	if (idx->stopwords_file) {
 	  fclose(idx->stopwords_file);
@@ -159,8 +159,10 @@ cf_closeall()
   if (cf_info_base) {
     /* since everything is shut down, free all the structures and zero */
     /* out cf_info_base                                                */
-    if (IndexNamesHash)
-      FREE(IndexNamesHash);
+    if (cf_info_base->IndexNamesHash != NULL)
+      FREE(cf_info_base->IndexNamesHash);
+    if (cf_info_base->IndexNamesDBHash != NULL)
+      FREE(cf_info_base->IndexNamesDBHash);
     cf_free_info(cf_info_base);
     /* close the DB environment  */
     if (gb_dbenv != NULL) {

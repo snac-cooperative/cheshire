@@ -62,7 +62,7 @@
 
 /* forward declaration */
 DB *close_index_db (char *idxname, idx_list_entry *indexes_head, 
-		    idx_list_entry *idx_in, DB *dbptr);
+		    idx_list_entry *idx_in, DB *dbptr, config_file_info *cf);
 
 config_file_info *find_file_config(char *filename);
 idx_list_entry *find_index_name(config_file_info *cf, char *indexname);
@@ -129,7 +129,6 @@ DB *cf_index_close(char *filename, char *indexname, int which)
   continuation *cont;
   config_file_info *cf;
   idx_list_entry *idx;
-  DB *init_index_db();
 
   cf = find_file_config(filename);
 
@@ -137,7 +136,7 @@ DB *cf_index_close(char *filename, char *indexname, int which)
     idx = find_index_name(cf, indexname);
     if (idx) {
       if (idx->db) {
-	idx->db = close_index_db(idx->name, cf->indexes, idx, idx->db);
+	idx->db = close_index_db(idx->name, cf->indexes, idx, idx->db, cf);
       }
       if (idx->type & PROXIMITY) { 
 	idx->prox_db->close(idx->prox_db,0);
@@ -167,19 +166,23 @@ DB *cf_index_close(char *filename, char *indexname, int which)
 /* close the database index file if it is open only one place */
 /* otherwise sync the index and send back a null for the current close */
 DB *close_index_db (char *idxname, idx_list_entry *indexes_head, 
-		    idx_list_entry *idx_in, DB *dbptr)
+		    idx_list_entry *idx_in, DB *dbptr, config_file_info *cf)
 {
   Tcl_HashTable *hash_tab;
   Tcl_HashEntry *entry;
   int exists;
   idx_list_entry *idx;
 
+
   exists = 0;
 
 
   /* check the global hash table of names */
-  hash_tab = IndexNamesHash;
-  entry = Tcl_FindHashEntry(hash_tab,idxname);
+  hash_tab = cf->IndexNamesHash; 
+  if (hash_tab != NULL)
+    entry = Tcl_FindHashEntry(hash_tab,idxname);
+  else
+    entry = NULL;
 
   if (entry == NULL){
     return (NULL); /* never opened? or already closed */
@@ -224,7 +227,6 @@ int
 cf_sync_global_data(idx_list_entry *idx) 
 {
   char srchbuffer[30];
-  DB *init_index_db();
   DBT keyval;
   DBT dataval;
   int returncode;
@@ -323,7 +325,6 @@ cf_sync_index(idx_list_entry *idx)
 close_comp_db(component_list_entry *comp) 
 {
   char srchbuffer[30];
-  DB *init_index_db();
   DBT keyval;
   DBT dataval;
   int returncode;
@@ -396,7 +397,7 @@ cf_close_files(char *fname)
 
   for (indexes = idx = cf_getidx(fname); idx ; idx = idx->next_entry) {
     if (idx->db) { /* close the DB file and remove hash entries */
-      idx->db = close_index_db(idx->name, indexes, idx, idx->db);
+      idx->db = close_index_db(idx->name, indexes, idx, idx->db, cf);
     }
 
     if (idx->stopwords_file) {
@@ -416,7 +417,7 @@ cf_close_files(char *fname)
     }
     for (idx = comp->indexes; idx ; idx = idx->next_entry) {
       if (idx->db) { /* close the DB file and remove hash entries */
-	idx->db = close_index_db(idx->name, comp->indexes, idx, idx->db);
+	idx->db = close_index_db(idx->name, comp->indexes, idx, idx->db, cf);
       }
       if (idx->stopwords_file) {
 	fclose(idx->stopwords_file);

@@ -199,7 +199,7 @@ weighted_result *se_prob (char *filename, char *indexname, char *insearchstring)
   
   weighted_result *wt_res, *ranked_res, *se_rank_docs();
 
-  char *lastptr, *strtok_r();
+  char *lastptr;
 
 
   

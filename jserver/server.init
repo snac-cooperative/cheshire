@@ -12,7 +12,7 @@ IMPLEMENTATION_NAME			"Mycroft (Cheshire II V3 ZServer)"
 IMPLEMENTATION_VERSION			"2.4"
 PROTOCOL_VERSION			"111"
 OPTIONS					"JSERVER"
-PORT					"2222"  # testing port number
+PORT					"22222"  # testing port number
 DATABASE_NAMES				"bibfile"
 DATABASE_DIRECTORIES			"/home/ray/Work/cheshire/index"
 DATABASE_CONFIGFILES			"testconfig.new" # list of configfiles

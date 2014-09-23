@@ -100,7 +100,7 @@ weighted_result *se_blobs (idx_list_entry *idx,  char *searchstring)
   char *urlletters = " \t\n<>";
   char *filenameletters = " \t\n<>";
 
-  char *lastptr, *strtok_r();
+  char *lastptr;
 
   if (searchstring == NULL) return (NULL);
   

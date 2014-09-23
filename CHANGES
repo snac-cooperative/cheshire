@@ -2699,6 +2699,31 @@ desired items at or near the top of the result list.
 VERSION 45b
 
 Some performance improvements for NGRAM searching, still working on
-true optimization.
+true optimization. One definite improvement was discovered when we found
+that the default shell locale - used in sorting the temporary index entry file
+was not giving a character by character ordering of the temporary entries, so
+loading into the indexes ended up doing a lot of unneeded work storing and
+retrieving entries in the index. In effect, instead of reading all of the entries
+for a given token, and then outputting all of them at once, the tokens were not
+in order and therefore were searched, read, modified and rewritten many times.
 
+Therefore, when using NGRAM indexes be sure to set the environment variable
+LC_ALL to "C" before starting index_cheshire  (or batch_load if restarting a job). E.g.:
+
+setenv LC_ALL C  (for csh or tcsh)
+set LC_ALL=C  (for bash or sh)
+
+Note that this is not a bad idea for ANY indexing run, since it is not clear if
+the same issue may have been responsible for some very long-running indexing tasks
+in the past (but it seems likely).
+
+The real solution will be to set the locale in the sub-process that is doing the
+sorting automatically, but this turns out to be non-trivial (at least from what I 
+can find so far).  
+
+Also, finally we have a "DO NOT TRUNCATE" character for the command line. When searching
+exact indexes the default is to use implied truncation. For true exact matches that
+do not allow following data in the field, you can use " ! " at the end of search
+string. E.g., "find xname smith, john !" would ensure that "Smith, John Wesley"
+would not be returned.
 

@@ -227,7 +227,7 @@ multiple config files for different databases) </TD>
 </TR>
 
 <TR>
-<TD>&lt;filecont ID=? MIN=? MAX=?&gt;</TD>
+<TD>&lt;filecont ID=? MIN=? MAX=? DB=?&gt;</TD>
 
 <TD>filepath</TD>
 
@@ -263,6 +263,28 @@ file. </TD>
 
 <TD>This provides the highest document ID number contained in the continuation
 file. </TD>
+</TR>
+<TR>
+<TD>ATTR</TD>
+
+<TD>DB=<I>number</I></TD>
+
+<TD>If DB=1 (and ID=0, MIN=0 and MAX=0) it means that the filecont contents is the path of
+BerkeleyDB file that contains an indexed version of the FILECONT data.
+This was created because some databases have very large numbers of
+records, each of which is a single file in a file tree, and thus there is
+a single filecont entry for each of them. DB= should be omitted from
+conventional filecont entries. The utility programs BuildContDB and DumpContDB
+are included to create and display filecont databases. A filedef using this
+would include something like:
+<BR>
+  &lt;FILENAME&gt; DATA/en &lt;/FILENAME&gt;
+  <BR>
+  &lt;FILECONT ID=0 MIN=0 MAX=0 DB=1&gt;DATA/en.cont_DB&lt;/FILECONT&gt;
+  <BR>
+  the filecont data is usually built using buildassoc before being indexed by
+  BuildContDB.
+</TD>
 </TR>
 
 <TR>
@@ -2132,6 +2154,43 @@ in matching. Bounding_box NORMAL specifications should be used to indicate
 how queries should be parsed when matching to the generated index.</TD>
 </TR>
 
+<TR>
+<TD>NGRAMS</TD>
+
+<TD>key type</TD>
+
+<TD>
+NGRAM indexes segment texts into ngrams of 3, 4, or 5 letters, for
+each non-keyword stopword. The ngrams are "shingled" or overlapping,
+so that, for example, the text:
+<BR>
+"John Smith" 
+<BR>
+as 3grams would generate:
+<BR>
+' jo':'joh':'ohn':'hn ':' sm':'smi':'mit':'ith':'th '. 
+<P>
+Notice that a space is used to represent the beginning and end of
+words in the generated trigrams.  Ngrams will remove any stopwords,
+and follow any other normalization specifications during index
+(although all ascii punctuation, except for hyphens, is removed
+regardless of normalization (non-ascii unicode punctuation will
+remain). Unicode behavior has not been fully tested, but the
+segmenting is byte rather than character based, and so may have
+strange results.
+<P>
+The following aliases can be used for the EXTRACT parameter:
+<p>
+"NGRAM" "NGRAMS" "SHINGLE" "SHINGLES" for 3grams
+<p>
+"NGRAM4" "NGRAMS4" for 4grams
+<P>
+"NGRAM5" "NGRAMS5" for 5grams
+<P>
+ACCESS should be BTREE, and NORMAL can be any of the text normalization 
+options (i.e., GEO or Date normalizations will not work).
+</TD>
+</TR>
 
 </TABLE> 
 

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>Cheshire II Commands</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V2.0 alpha) [Netscape]">
+</HEAD>
+<BODY BACKGROUND="chat5.jpg">
+
+<P><!-- Cheshire II Commands documentation --></P>
+
+<center>
+<FONT COLOR=#B22222><H1><IMG SRC="smallcat.gif" \
+ALIGN=middle>Cheshire II Commands</H1> </FONT>
+</center>
+
+<H2 ALIGN=CENTER><FONT COLOR="#0000FF">BuildContDB - Build fast FILECONT database for CheshireII </FONT></H2>
+
+<H2>SYNOPSIS </H2>
+
+<P><B>BuildContDB</B> <I> </I>
+</P>
+
+<H2>DESCRIPTION </H2>
+
+<P>
+BuildContDB is a utility program for creating BerkeleyDB file that contains an indexed version of the FILECONT data (see configfiles documentation).
+This was created because some databases have very large numbers of
+records, each of which is a single file in a file tree, and thus there is
+a single filecont entry for each of them. DB= should be omitted from
+conventional filecont entries. The utility programs BuildContDB and DumpContDB
+are included to create and display filecont databases. A filedef using this
+would include something like:
+<BR>
+  &lt;FILENAME&gt; DATA/en &lt;/FILENAME&gt;
+  <BR>
+  &lt;FILECONT ID=0 MIN=0 MAX=0 DB=1&gt;DATA/en.cont_DB&lt;/FILECONT&gt;
+  <BR>
+  the filecont data is usually built using buildassoc before being indexed by
+  BuildContDB.
+
+<P>
+Syntax: <BR>
+BuildContDB {-q} CONTFILENAME DBENV_DIR
+<P>
+Where the CONTFILENAME is the name of a contfile created by -r option of
+buildassoc (or by hand if desired) and the DBENV_DIR is the DBENV
+directory BerkeleyDB should use while building the index.
+
+<H2>Related Programs </H2>
+<P>
+There is also a utility to dump the contents of the index: <BR>
+DumpContDB CONTFILEDBNAME DBENV_DIR <BR>
+This takes the pathname of the index created by BuildContDB and a DBENV
+directory to use, and dumps the contents of the index.
+
+
+<H2>BUGS </H2>
+
+<P> The program tends to create the DB in DBENV directory. But it can
+be moved to whereever it is wanted.</P>
+
+<H2>SEE ALSO </H2>
+
+<P><A HREF="configfiles.html">Configuration file documentation</A>,
+<A HREF="buildassoc.html">buildassoc </A></P>
+
+<H2>AUTHOR </H2>
+
+<P>Ray R. Larson (<SCRIPT src=botkillscript.js LANGUAGE=JavaScript type=text/javascript></SCRIPT>) </P>
+
+</BODY>
+</HTML>

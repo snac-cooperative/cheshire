@@ -603,10 +603,12 @@ for example: </p>
 <p><b>zfind title gone and (title wind or title fishing) </b></p>
 <p><i>search_string</i> </p>
 <p>The term(s) to locate in the index. May include a truncation symbol
-(#). NOTE: that indexes defined a exactkeys will default to implicit
+(#) or a DO NOT TRUNCATE  symbol ( ! ). NOTE: that indexes defined a exactkeys will default to implicit
 right-hand truncation for matching - to overide this you will
 need to specify "[5=100]" following the index name, this is the
-Z39.50 DO NOT TRUNCATE attribute setting. 
+Z39.50 DO NOT TRUNCATE attribute setting. Or, more simply, use the " ! " at the end
+of the search string (be sure to leave a space between the last word and the !
+ 
 If the index being searched supports proximity (defined in
 the database configuration file, then phrases to be searched within
 same index can be indicated by surround the phrase with

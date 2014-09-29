@@ -8,14 +8,12 @@ Install Dependencies
 
 1. Grab dependency packages from the package manager:
 
-	```
-	centos> sudo yum install tcl tk tk-devel tcl-devel flex postgresql gcc kernel-headers libxml2 libxml2-devel postgresql-devel
-	```
+
+        centos> sudo yum install tcl tk tk-devel tcl-devel flex postgresql gcc kernel-headers libxml2 libxml2-devel postgresql-devel
+	
 or
 
-	```
         ubuntu> sudo apt-get install tcl tk tk-dev tcl-dev flex postgresql gcc linux-headers-$(uname -r) libxml2 libxml2-dev libpq-dev libc6-dev libxml2-utils
-        ```
 
 2. Download LLgen from [http://cheshire.berkeley.edu/Downloads/LLgen_cheshire_v.tgz](http://cheshire.berkeley.edu/Downloads/LLgen_cheshire_v.tgz).  Unzip using `tar xzf LLgen_cheshire_v.tgz`.  Then edit the Makefile (if using CentOS 6.5), changing
 

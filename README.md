@@ -45,7 +45,7 @@ Note, this requires sudo privileges for the current user.
 Install Cheshire
 --------------------
 
-1. Clone this repository using `git clone user@repo`.
+1. Clone this repository or download and unzip the source tree.
 2. Copy `Makefile.centos65` or `Makefile.ubuntu1404` to `Makefile`
 3. Run `make newbin` to build Cheshire.
 

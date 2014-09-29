@@ -63,14 +63,14 @@ Use Cheshire to index VIAF
 	3. The associator will save a `filename.assoc` file for the XML, in the same directory as the XML file.
 4. Create a database environment directory, `mkdir DBENV`.
 5. Edit the `config.viaf` configuration file to match your setup.  The following changes should need to be made:  
-	```
-	<DBENV> /full/path/to/DBENV </DBENV>
-	<FILETAG> relative_path_for_filename.xml </FILETAG>
-	<FILENAME> /full/path/for/filename.xml </FILENAME>
-	<CONTINCLUDE> data4.cont </CONTINCLUDE>
-	<FILEDTD> viaf.dtd </FILEDTD>
-	<ASSOCFIL> filename.assoc </ASSOCFIL>
-	```
+```
+<DBENV> /full/path/to/DBENV </DBENV>
+<FILETAG> relative_path_for_filename.xml </FILETAG>
+<FILENAME> /full/path/for/filename.xml </FILENAME>
+<CONTINCLUDE> data4.cont </CONTINCLUDE>
+<FILEDTD> viaf.dtd </FILEDTD>
+<ASSOCFIL> filename.assoc </ASSOCFIL>
+```
 6. Index cheshire using `index_cheshire -b config.viaf`.
 	* Check the logs (`INDEX_LOGFILE`) early using `head` or `grep` for the error `NULL Document Tag Hash Table in comp_tag_list (in_components.c)`, which will cause no documents to be indexed.
 	* **Note: this crashed a virtual machine that had 2 cores and 6GB of RAM.** This process consumes memory at a linear rate (empirically observed to be O(n/2)), until consuming all memory of the system.  This likely caused the crashing behavior.

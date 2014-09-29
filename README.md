@@ -61,17 +61,17 @@ Use Cheshire to index VIAF
 		* The `-s` skips other XML and non-XML code
 		* `VIAFCluster` is the name of the XML element for which we are building an associator
 	3. The associator will save a `filename.assoc` file for the XML, in the same directory as the XML file.
-6. Create a database environment directory, `mkdir DBENV`.
+4. Create a database environment directory, `mkdir DBENV`.
 5. Edit the `config.viaf` configuration file to match your setup.  The following changes should need to be made:  
-```
-<DBENV> /full/path/to/DBENV </DBENV>
-<FILETAG> relative_path_for_filename.xml </FILETAG>
-<FILENAME> /full/path/for/filename.xml </FILENAME>
-<CONTINCLUDE> data4.cont </CONTINCLUDE>
-<FILEDTD> viaf.dtd </FILEDTD>
-<ASSOCFIL> filename.assoc </ASSOCFIL>
-```
-5. Index cheshire using `index_cheshire -b config.viaf`.
+	```
+	<DBENV> /full/path/to/DBENV </DBENV>
+	<FILETAG> relative_path_for_filename.xml </FILETAG>
+	<FILENAME> /full/path/for/filename.xml </FILENAME>
+	<CONTINCLUDE> data4.cont </CONTINCLUDE>
+	<FILEDTD> viaf.dtd </FILEDTD>
+	<ASSOCFIL> filename.assoc </ASSOCFIL>
+	```
+6. Index cheshire using `index_cheshire -b config.viaf`.
 	* Check the logs (`INDEX_LOGFILE`) early using `head` or `grep` for the error `NULL Document Tag Hash Table in comp_tag_list (in_components.c)`, which will cause no documents to be indexed.
 	* **Note: this crashed a virtual machine that had 2 cores and 6GB of RAM.** This process consumes memory at a linear rate (empirically observed to be O(n/2)), until consuming all memory of the system.  This likely caused the crashing behavior.
 
@@ -85,19 +85,19 @@ Install CheshirePy
 --------------------------------
 
 1. Grab dependency packages from the package manager:  
-```
-centos> sudo yum install postgresql postgresql-contrib python-setuptools python-devel swig
-```
+	```
+	centos> sudo yum install postgresql postgresql-contrib python-setuptools python-devel swig
+	```
 or  
-```
-ubuntu> sudo apt-get install postgresql postgresql-contrib python-setuptools python-dev swig 
-```
+	```
+	ubuntu> sudo apt-get install postgresql postgresql-contrib python-setuptools python-dev swig 
+	```
 2. In the former repository, change directory to `CheshirePy` using `cd CheshirePy`.  Then run the make commands: `make clean && make`.
 3. Copy the compiled CheshirePy to its correct location, with the following commands:  
-```
-sudo cp _CheshirePy.so /usr/lib/python2.7/lib-dynload/.
-sudo cp CheshirePy.py /usr/lib/python2.7/.
-```
+	```
+	sudo cp _CheshirePy.so /usr/lib/python2.7/lib-dynload/.
+	sudo cp CheshirePy.py /usr/lib/python2.7/.
+	```
 
 
 Installing Match/Merge Code

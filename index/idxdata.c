@@ -283,8 +283,7 @@ int idxdata(SGML_Data *data, Tcl_HashTable *hash_tab, idx_list_entry *idx)
     word_ptr = strtok_r (NULL, breakletters, &next_tok);
   } while (word_ptr != NULL);  
   
-  if (databuf)
-    FREE(databuf);
+  FREE(databuf);
   return(0);
 }
 

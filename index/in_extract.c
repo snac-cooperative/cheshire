@@ -139,7 +139,7 @@ int in_extract(SGML_Document *sgml_rec, char **xkey_buffer, idx_key *in_key,
   idx_key *attr_subkey;
   int free_tag_data_flag = 0;
 
-  SGML_Tag_Data *tag_data, *exclude_data;
+  SGML_Tag_Data *tag_data=NULL, *exclude_data=NULL;
   SGML_Tag_Data *td;
   int attribute_flag = 0;
   int casesensitive;
@@ -301,28 +301,17 @@ int in_extract(SGML_Document *sgml_rec, char **xkey_buffer, idx_key *in_key,
       }
     }
 
-    if (free_tag_data_flag)
+    if (tag_data != comptagdata && tag_data != NULL) {
       free_tag_data_list(tag_data);
-
+      tag_data = NULL;
+    }
+    
   }
+
+  if (tag_data != comptagdata && tag_data != NULL)
+    free_tag_data_list(tag_data);
 
   free_tag_data_list(exclude_data);
   return (0);
 
 }
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-

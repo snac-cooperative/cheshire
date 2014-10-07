@@ -165,17 +165,15 @@ cf_createall()
 	}
       }
     }
-    if ((cf->history_ptr = fopen(cf->history_name, cf_open_file_flags)) 
-	== NULL) {
-      if (cf->history_name != NULL) { /* has an assoc file */
-	if ((cf->history_ptr = fopen(cf->history_name, cf_create_file_flags))
-	    == NULL) {
-	  fprintf(LOGFILE,"failed to create %s\n", 
-		  cf->history_name);
-	  return (-1);
-	}
+    if (cf->history_name != NULL) { /* has an history file */
+      if ((cf->history_ptr = fopen(cf->history_name, cf_create_file_flags))
+	  == NULL) {
+	fprintf(LOGFILE,"failed to create %s\n", 
+		cf->history_name);
+	return (-1);
       }
     }
+
     for (idx = cf->indexes; idx ; idx = idx->next_entry) {
       index_return = create_indexes(idx, &num_open, cf->indexes, cf);
       if (index_return != 0)

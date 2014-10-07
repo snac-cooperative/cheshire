@@ -110,7 +110,10 @@ int idxxkey( SGML_Data *data, Tcl_HashTable *hash_tab, idx_list_entry *idx,
     buffer_offset =  data->content_start_offset;
     
     /* ignor all blank keys */
-    if ((int)(strspn(databuf, " \n\t\r\v\f")) == databuf_length) return(0);
+    if ((int)(strspn(databuf, " \n\t\r\v\f")) == databuf_length) {
+      FREE(databuf);
+      return(0);
+    }
     
     /* There are occasional indexable subfields with no words */
     /* check for a buffer with ONLY punctuation (it does happen) */

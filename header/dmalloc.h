@@ -69,6 +69,6 @@
 
 #undef FREE
 #define FREE(ptr) \
-  free((char *)(ptr))
+  free(((char *)(ptr)))
 
 #endif /* WIN32 */

@@ -2727,3 +2727,9 @@ do not allow following data in the field, you can use " ! " at the end of search
 string. E.g., "find xname smith, john !" would ensure that "Smith, John Wesley"
 would not be returned.
 
+
+VERSION 45c
+
+Primarily bug fixes - but also found and patch memory leaks in indexing.
+
+

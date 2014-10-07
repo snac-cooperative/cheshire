@@ -327,7 +327,7 @@ normalize_key(char *raw_word, idx_list_entry *idx, int *morphflag, int dia_flag)
 
 char *detag_data_block (SGML_Data *data, int index_type, idx_list_entry *idx)
 {
-  char *c, t, *databuf, *orig_databuf;
+  char *c, t, *databuf=NULL, *orig_databuf=NULL;
   int buffsize, i;
   unsigned char u;
   int contains_non_roman;
@@ -351,6 +351,7 @@ char *detag_data_block (SGML_Data *data, int index_type, idx_list_entry *idx)
   /* printf ("buffsize=%d\n",buffsize+40); */
 
   if ((index_type & NORM_DO_NOTHING) == NORM_DO_NOTHING) {
+    FREE(databuf);
     return(orig_databuf);
   }
 

@@ -180,11 +180,12 @@ int idxngram(SGML_Data *data, Tcl_HashTable *hash_tab, idx_list_entry *idx)
 	else j = 0;
 
 	for (; j < ngram_size; j++) {
-	  if (result_word[j+i] == '\0') {
+	  if (j+i <= result_len && result_word[j+i] == '\0') {
 	    ngram[j] = '_';
 	  }
 	  else 
-	    ngram[j] = result_word[j+i];
+	    if (j+i <= result_len)
+	      ngram[j] = result_word[j+i];
 	}
 	ngram[j] = '\0';
 	  

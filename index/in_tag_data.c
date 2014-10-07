@@ -317,7 +317,8 @@ comp_tag_list(idx_key *start_key, Tcl_HashTable *tag_hash,
 {
   Tcl_HashEntry *comp_entry, *tag_entry;
   Tcl_HashSearch tag_hash_search;
-  SGML_Tag_Data *tag_data, *new_tag_data, *pat_tag_data;
+  SGML_Tag_Data *tag_data=NULL, *tag_data2=NULL,*new_tag_data=NULL, 
+    *pat_tag_data=NULL;
   SGML_Tag_Data *newtd, *td, *td2, *lasttd, *firsttd, *prevtd;
   SGML_Data *parent, *child;
   char *attribute_key, *attribute_value;
@@ -325,6 +326,7 @@ comp_tag_list(idx_key *start_key, Tcl_HashTable *tag_hash,
   int datasize;
   char *tempdata;
   int free_flag = 0;
+  int free_tag_data2 = 0;
   int i;
   int count;
   char *tmp;
@@ -431,10 +433,12 @@ comp_tag_list(idx_key *start_key, Tcl_HashTable *tag_hash,
 	  || start_key->subkey->attribute_flag == 5)) {
     /* pass in only the tags included in the parent data as "parent" */
     if (parent_tags) {
-      new_tag_data = included_tag_data(parent_tags,tag_data);
-      if (new_tag_data != NULL)
+      tag_data2= included_tag_data(parent_tags,tag_data);
+
+      if (tag_data2 != NULL)
 	new_tag_data = comp_tag_list(start_key->subkey, tag_hash, 
-				     new_tag_data, casesensitive);
+				     tag_data2, casesensitive);
+      free_tag_data_list(tag_data2);
     }
     else {
       new_tag_data = comp_tag_list(start_key->subkey, tag_hash, tag_data,
@@ -474,6 +478,7 @@ comp_tag_list(idx_key *start_key, Tcl_HashTable *tag_hash,
 	      /* so now check if there is a match with the value  */
 	      
 	      /* copy the data into a temp space */
+	      tempdata = NULL;
 	      datasize = child->content_end_offset 
 		- child->content_start_offset;
 	      tempdata = CALLOC(char, datasize + 1);
@@ -497,6 +502,8 @@ comp_tag_list(idx_key *start_key, Tcl_HashTable *tag_hash,
 		  lasttd = newtd;
 		}
 	      }
+	      if (tempdata != NULL)
+		FREE(tempdata);
 	    }
 	  }
 	}
@@ -664,8 +671,8 @@ comp_tag_list(idx_key *start_key, Tcl_HashTable *tag_hash,
 
   /* if the tag_data is the result of building a new list -- free it */
   if (tag_data != new_tag_data && free_flag == 1)
-    free_tag_data_list(tag_data); 
-  
+    free_tag_data_list(tag_data);
+
   return (new_tag_data);
 }
 

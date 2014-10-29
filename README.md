@@ -73,13 +73,16 @@ Use Cheshire to index VIAF
 ```
 6. Index cheshire using `index_cheshire -b config.viaf`.
 	* Check the logs (`INDEX_LOGFILE`) early using `head` or `grep` for the error `NULL Document Tag Hash Table in comp_tag_list (in_components.c)`, which will cause no documents to be indexed.
-	* **Note: this crashed a virtual machine that had 2 cores and 6GB of RAM.** This process consumes memory at a linear rate (empirically observed to be O(n/2)), until consuming all memory of the system.  This likely caused the crashing behavior.
 
 Note: For the Aug 28, 2014 VIAF data dump, there were 26,793,357 records.  However, the VIAF format changed from May 2014 to August 2014, therefore the viaf.dtd file must be updated to accommodate the newer format.  I was unsuccessful at getting it correctly updated, so I used the older records, found on shannon at `~rlarson/DATA/VIAF/data4`.
 
 ### Space Requirements
 
-Cheshire indexing does not require much space, as it turns out.  The VIAF records use 72GB (for the Aug 2014 set) or 86GB (for the May 2014 set).  The associator file is approximately 200MB, with the indexes and BerkeleyDB database environment totalling under 1MB.  The logfile generated from `index_cheshire` was 36GB in size, and should be removed or relocated.
+Cheshire indexing does not require much space, as it turns out.  The VIAF records use 72GB (for the Aug 2014 set) or 86GB (for the May 2014 set).  The associator file is approximately 200MB, with the indexes and BerkeleyDB database environment totalling approximately 30GB.  The logfile generated from `index_cheshire` was 16MB in size.  All of VIAF could be indexed, therefore, with around 120GB of disk space.
+
+### Memory Requirements
+
+Cheshire indexing itself does not require much memory, however if using the `-b` option to `index_cheshire`, the `sort` command will require enough memory to sort the indexes.  For example, indexing the VIAF records above requires up to 8GB of RAM.
 
 Install CheshirePy
 --------------------------------
